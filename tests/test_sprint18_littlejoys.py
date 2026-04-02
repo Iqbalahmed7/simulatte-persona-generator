@@ -158,8 +158,8 @@ def test_converted_personas_are_valid_persona_records():
     personas = json.loads(p.read_text())
     for raw in personas[:5]:
         record = PersonaRecord.model_validate(raw)
-        assert record.persona_id.startswith("lj-"), (
-            f"persona_id should start with 'lj-', got: {record.persona_id}"
+        assert record.persona_id.startswith("pg-lj-"), (
+            f"persona_id should start with 'pg-lj-', got: {record.persona_id}"
         )
         assert record.demographic_anchor.location.country == "India", (
             f"Expected country='India', got: {record.demographic_anchor.location.country}"
