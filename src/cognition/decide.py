@@ -1,0 +1,319 @@
+"""src/cognition/decide.py — 5-step decision reasoning engine.
+
+Sprint 4 — Codex (Cognitive Loop)
+
+Spec: §9 (Cognitive Loop), §14A S1, Constitution P1/P2/P4
+"""
+
+from __future__ import annotations
+
+import json
+import logging
+import re
+from dataclasses import dataclass, field
+from typing import Any
+
+import anthropic
+
+from src.cognition.errors import DecideError
+from src.schema.persona import Observation, PersonaRecord, Reflection
+from src.utils.retry import api_call_with_retry
+
+logger = logging.getLogger(__name__)
+
+_SONNET_MODEL = "claude-sonnet-4-6"
+_MAX_MEMORIES = 10
+
+
+# ---------------------------------------------------------------------------
+# Output dataclass
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class DecisionOutput:
+    decision: str                        # The actual decision made
+    confidence: int                      # 0-100
+    reasoning_trace: str                 # Full 5-step reasoning as text
+    gut_reaction: str                    # Step 1 extracted
+    key_drivers: list[str] = field(default_factory=list)    # Top 2-3 factors
+    objections: list[str] = field(default_factory=list)     # Hesitations / objections
+    what_would_change_mind: str = ""     # Override condition
+
+
+# ---------------------------------------------------------------------------
+# Core memory block — richer for decide (includes immutable_constraints)
+# ---------------------------------------------------------------------------
+
+
+def _decide_core_memory_block(persona: PersonaRecord) -> str:
+    """Assemble a richer core memory block for the decide prompt.
+
+    Includes budget_ceiling, non_negotiables, and absolute_avoidances
+    in addition to the standard identity/values block.
+
+    tendency_summary is NOT included here — it is injected separately
+    as a standalone paragraph in the system prompt (P4 compliant).
+    """
+    core = persona.memory.core
+    constraints = core.immutable_constraints
+    lines = [
+        f"You know yourself: {core.identity_statement}",
+        f"What matters most to you: {', '.join(core.key_values)}.",
+    ]
+    if constraints.budget_ceiling:
+        lines.append(f"Budget reality: {constraints.budget_ceiling}.")
+    if constraints.non_negotiables:
+        lines.append(f"Non-negotiables: {'; '.join(constraints.non_negotiables)}.")
+    if constraints.absolute_avoidances:
+        lines.append(f"You never: {'; '.join(constraints.absolute_avoidances)}.")
+    return " ".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Memories block
+# ---------------------------------------------------------------------------
+
+
+def _memories_block(memories: list[Observation | Reflection]) -> str:
+    """Format memories for injection into the decide prompt.
+
+    Ordered by retrieval score (caller's responsibility); capped at _MAX_MEMORIES.
+    """
+    lines = []
+    for m in memories[:_MAX_MEMORIES]:
+        tag = "Memory" if m.type == "observation" else "Insight"
+        lines.append(f"- [{tag}] {m.content}")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Prompt builders
+# ---------------------------------------------------------------------------
+
+_DECIDE_SYSTEM_TEMPLATE = (
+    "You are {name}. {core_memory}\n\n"
+    "{tendency_summary}"
+)
+
+_DECIDE_USER_TEMPLATE = (
+    "You are now facing this decision:\n"
+    "{scenario}\n\n"
+    "Here are your relevant memories and experiences:\n"
+    "{memories_block}\n\n"
+    "Think through this decision step by step:\n\n"
+    "1. GUT REACTION: What is your immediate, instinctive response?\n"
+    "2. INFORMATION PROCESSING: What information matters most to you here? "
+    "What are you paying attention to?\n"
+    "3. CONSTRAINT CHECK: Are there hard limits (budget, non-negotiables, "
+    "absolute avoidances) that apply?\n"
+    "4. SOCIAL SIGNAL CHECK: What would the people you trust think? "
+    "What would {primary_decision_partner} say?\n"
+    "5. FINAL DECISION: What do you actually decide to do, and why?\n\n"
+    "Also state:\n"
+    "- Your confidence in this decision (0-100)\n"
+    "- The top 2-3 factors that drove your decision\n"
+    "- Any objections or hesitations you have\n"
+    "- What would change your mind\n\n"
+    "Respond in first person, in character.\n\n"
+    "Reply in JSON:\n"
+    "{{\n"
+    '  "gut_reaction": "...",\n'
+    '  "information_processing": "...",\n'
+    '  "constraint_check": "...",\n'
+    '  "social_signal_check": "...",\n'
+    '  "final_decision": "...",\n'
+    '  "confidence": N,\n'
+    '  "key_drivers": ["...", "..."],\n'
+    '  "objections": ["..."],\n'
+    '  "what_would_change_mind": "..."\n'
+    "}}"
+)
+
+
+def _build_decide_messages(
+    scenario: str,
+    memories: list[Observation | Reflection],
+    persona: PersonaRecord,
+) -> tuple[str, list[dict]]:
+    """Return (system_prompt, messages_list) for the decide call."""
+    core_memory = _decide_core_memory_block(persona)
+    # tendency_summary injected as natural language paragraph (P4)
+    tendency_summary = persona.memory.core.tendency_summary
+
+    system_prompt = _DECIDE_SYSTEM_TEMPLATE.format(
+        name=persona.demographic_anchor.name,
+        core_memory=core_memory,
+        tendency_summary=tendency_summary,
+    )
+
+    primary_decision_partner = (
+        persona.memory.core.relationship_map.primary_decision_partner
+    )
+
+    mem_block = _memories_block(memories)
+    user_content = _DECIDE_USER_TEMPLATE.format(
+        scenario=scenario,
+        memories_block=mem_block,
+        primary_decision_partner=primary_decision_partner,
+    )
+
+    messages = [{"role": "user", "content": user_content}]
+    return system_prompt, messages
+
+
+# ---------------------------------------------------------------------------
+# Response parsing
+# ---------------------------------------------------------------------------
+
+
+def _parse_decide_response(raw: str) -> dict | None:
+    """Extract the JSON object from the LLM response.
+
+    Returns a dict or None on failure.
+    """
+    cleaned = re.sub(r"```(?:json)?", "", raw).strip().rstrip("`").strip()
+
+    try:
+        data = json.loads(cleaned)
+        if isinstance(data, dict):
+            return data
+    except json.JSONDecodeError:
+        pass
+
+    start = cleaned.find("{")
+    end = cleaned.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        try:
+            data = json.loads(cleaned[start : end + 1])
+            if isinstance(data, dict):
+                return data
+        except json.JSONDecodeError:
+            pass
+
+    return None
+
+
+def _clamp_int(value: int | float, lo: int, hi: int) -> int:
+    return max(lo, min(hi, int(round(value))))
+
+
+def _assemble_reasoning_trace(parsed: dict) -> str:
+    """Join all 5 reasoning steps into a single readable trace."""
+    steps = [
+        ("1. GUT REACTION", parsed.get("gut_reaction", "")),
+        ("2. INFORMATION PROCESSING", parsed.get("information_processing", "")),
+        ("3. CONSTRAINT CHECK", parsed.get("constraint_check", "")),
+        ("4. SOCIAL SIGNAL CHECK", parsed.get("social_signal_check", "")),
+        ("5. FINAL DECISION", parsed.get("final_decision", "")),
+    ]
+    parts = []
+    for label, content in steps:
+        if content:
+            parts.append(f"{label}: {content}")
+    return "\n\n".join(parts)
+
+
+def _build_decision_output(parsed: dict) -> DecisionOutput:
+    """Assemble a DecisionOutput from a validated parse result."""
+    decision = str(parsed.get("final_decision", "")).strip()
+    gut_reaction = str(parsed.get("gut_reaction", "")).strip()
+    what_would_change_mind = str(parsed.get("what_would_change_mind", "")).strip()
+    reasoning_trace = _assemble_reasoning_trace(parsed)
+
+    confidence_raw = parsed.get("confidence", 50)
+    try:
+        confidence = _clamp_int(confidence_raw, 0, 100)
+    except (TypeError, ValueError):
+        confidence = 50
+
+    key_drivers_raw = parsed.get("key_drivers", [])
+    key_drivers = [str(d) for d in key_drivers_raw] if isinstance(key_drivers_raw, list) else []
+
+    objections_raw = parsed.get("objections", [])
+    objections = [str(o) for o in objections_raw] if isinstance(objections_raw, list) else []
+
+    return DecisionOutput(
+        decision=decision,
+        confidence=confidence,
+        reasoning_trace=reasoning_trace,
+        gut_reaction=gut_reaction,
+        key_drivers=key_drivers,
+        objections=objections,
+        what_would_change_mind=what_would_change_mind,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Public interface
+# ---------------------------------------------------------------------------
+
+
+async def decide(
+    scenario: str,
+    memories: list[Observation | Reflection],
+    persona: PersonaRecord,
+    llm_client: Any = None,
+) -> DecisionOutput:
+    """Run the 5-step reasoning chain for a decision.
+
+    Makes one Sonnet call with max_tokens=2048.
+    tendency_summary is ALWAYS in context, injected as natural language (P4).
+    Core memory is ALWAYS in context.
+    The 5-step structure is always in the prompt — never shortened or combined.
+    primary_decision_partner is injected into step 4 from core.relationship_map.
+
+    No pre-LLM probability computation (P4 compliant).
+    Retries once on JSON parse failure; raises DecideError on second failure.
+    """
+    client = anthropic.AsyncAnthropic()
+
+    system_prompt, messages = _build_decide_messages(scenario, memories, persona)
+
+    # Attempt 1
+    if llm_client is not None and hasattr(llm_client, 'complete'):
+        raw_text = await llm_client.complete(
+            system=system_prompt,
+            messages=messages,
+            max_tokens=2048,
+            model=_SONNET_MODEL,
+        )
+    else:
+        response = await api_call_with_retry(
+            client.messages.create,
+            model=_SONNET_MODEL,
+            max_tokens=2048,
+            system=system_prompt,
+            messages=messages,
+        )
+        raw_text = response.content[0].text
+    parsed = _parse_decide_response(raw_text)
+
+    if parsed is None:
+        logger.warning("decide(): JSON parse failed on attempt 1 — retrying")
+        # Attempt 2 — same prompt, hope for better formatting on retry
+        if llm_client is not None and hasattr(llm_client, 'complete'):
+            raw_text = await llm_client.complete(
+                system=system_prompt,
+                messages=messages,
+                max_tokens=2048,
+                model=_SONNET_MODEL,
+            )
+        else:
+            response = await api_call_with_retry(
+                client.messages.create,
+                model=_SONNET_MODEL,
+                max_tokens=2048,
+                system=system_prompt,
+                messages=messages,
+            )
+            raw_text = response.content[0].text
+        parsed = _parse_decide_response(raw_text)
+
+        if parsed is None:
+            raise DecideError(
+                f"decide() failed to parse a valid JSON response after 2 attempts. "
+                f"Last raw response: {raw_text!r}"
+            )
+
+    return _build_decision_output(parsed)

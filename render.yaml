@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: simulatte-persona-generator
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    plan: starter
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false          # you'll paste this in the Render dashboard
+      - key: SARVAM_API_KEY
+        sync: false          # optional — for Indian persona Sarvam routing
+      - key: COHORT_STORE_DIR
+        value: /tmp/simulatte_cohorts
+      - key: PYTHON_VERSION
+        value: "3.11.0"

@@ -1,0 +1,25 @@
+{
+  "client": "Littlejoys",
+  "use_case": "Understand purchase behaviour of Indian parents for baby and child care products",
+  "domain": "cpg",
+  "target_segments": [
+    {
+      "name": "Urban Indian Mothers",
+      "description": "New and expecting mothers in metro and tier2 Indian cities, household income middle to upper-middle, primary decision-maker for child products",
+      "age_range": [24, 38],
+      "locations": ["Mumbai", "Bengaluru", "Delhi", "Pune", "Hyderabad"],
+      "urban_tiers": ["metro", "tier2"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_attributes": {
+        "safety_consciousness": "high",
+        "brand_trust": "high",
+        "digital_research_behaviour": "high",
+        "price_sensitivity": "medium"
+      }
+    }
+  ],
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "notes": "Sarvam enabled for authentic Indian cultural context. Simulation-ready for multi-round product interaction studies."
+}

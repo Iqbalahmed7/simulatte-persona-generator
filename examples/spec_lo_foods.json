@@ -1,0 +1,39 @@
+{
+  "client": "Lo! Foods",
+  "use_case": "Understand adoption barriers and purchase triggers for high-protein, low-carb snack products among health-conscious urban Indians",
+  "domain": "cpg",
+  "target_segments": [
+    {
+      "name": "Health-Conscious Urban Professionals",
+      "description": "Urban Indian professionals aged 25-40 following or curious about high-protein, keto, or low-carb diets. Gym-going or fitness-aware. Price-sensitive but willing to pay premium for perceived health benefit.",
+      "age_range": [25, 40],
+      "locations": ["Bengaluru", "Mumbai", "Delhi", "Hyderabad", "Chennai"],
+      "urban_tiers": ["metro", "tier2"],
+      "income_brackets": ["middle", "upper-middle", "upper"],
+      "key_attributes": {
+        "health_consciousness": "high",
+        "nutritional_label_reading": "high",
+        "fitness_activity_level": "medium-high",
+        "brand_switching_openness": "medium",
+        "price_vs_health_tradeoff": "willing-to-pay-premium"
+      }
+    },
+    {
+      "name": "Diabetic and Pre-Diabetic Adults",
+      "description": "Adults aged 35-55 managing blood sugar, recommended low-carb by doctor or self-researching. Motivated by health necessity, not fitness aspiration.",
+      "age_range": [35, 55],
+      "locations": ["Mumbai", "Delhi", "Chennai", "Ahmedabad"],
+      "urban_tiers": ["metro", "tier2"],
+      "income_brackets": ["middle", "upper-middle"],
+      "key_attributes": {
+        "health_information_seeking": "high",
+        "doctor_recommendation_reliance": "high",
+        "price_sensitivity": "medium",
+        "brand_trust": "high"
+      }
+    }
+  ],
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "notes": "Both segments need Sarvam for authentic Indian dietary and cultural context. Simulation-ready to test purchase decision scenarios."
+}

@@ -1,0 +1,7 @@
+{
+  "persona_id_prefix": "india-cpg",
+  "anchor_overrides": {},
+  "domain_data": null,
+  "sarvam_enabled": true,
+  "notes": "Use with: python -m src.cli generate --spec examples/spec_india_cpg.json --count 5 --domain cpg --sarvam --output cohort_india.json"
+}
