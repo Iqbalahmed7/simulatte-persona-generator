@@ -7,12 +7,14 @@ from src.taxonomy.base_taxonomy import (
 )
 from src.taxonomy.domain_templates.cpg import CPG_DOMAIN_ATTRIBUTES
 from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_DOMAIN_ATTRIBUTES
+from src.taxonomy.domain_templates.littlejoys_cpg import LITTLEJOYS_CPG_TEMPLATE
 from src.taxonomy.domain_templates.saas import SAAS_DOMAIN_ATTRIBUTES
 
 
 DOMAIN_REGISTRY: dict[str, list[AttributeDefinition]] = {
     "cpg": CPG_DOMAIN_ATTRIBUTES,
     "health_wellness": HEALTH_WELLNESS_DOMAIN_ATTRIBUTES,
+    "littlejoys_cpg": LITTLEJOYS_CPG_TEMPLATE,
     "saas": SAAS_DOMAIN_ATTRIBUTES,
 }
 

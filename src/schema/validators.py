@@ -414,6 +414,28 @@ class PersonaValidator:
                     )
 
         # Rule 5: risk_appetite == "low" → no risk-embracing phrases
+        _NEGATION_PREFIXES = (
+            "rarely", "never", "not ", "doesn't", "don't", "avoids",
+            "seldom", "hardly", "won't", "cannot", "can't", "less",
+            "nothing", "almost nothing",
+        )
+
+        def _phrase_is_negated(text: str, phrase: str) -> bool:
+            """Return True if every occurrence of phrase is preceded by a negation word."""
+            idx = 0
+            found_unnegated = False
+            while True:
+                pos = text.find(phrase, idx)
+                if pos == -1:
+                    break
+                # Look back up to 40 characters for a negation prefix
+                window = text[max(0, pos - 40): pos]
+                if not any(neg in window for neg in _NEGATION_PREFIXES):
+                    found_unnegated = True
+                    break
+                idx = pos + 1
+            return not found_unnegated
+
         risk_appetite_val = persona.derived_insights.risk_appetite
         if risk_appetite_val == "low":
             contradicting_phrases = [
@@ -424,7 +446,7 @@ class PersonaValidator:
                 "impulsive",
             ]
             for phrase in contradicting_phrases:
-                if phrase in combined_narrative:
+                if phrase in combined_narrative and not _phrase_is_negated(combined_narrative, phrase):
                     failures.append(
                         f"G5: risk_appetite='low' but narrative contains "
                         f"risk-embracing phrase: \"{phrase}\""

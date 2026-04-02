@@ -1,25 +1,54 @@
 {
   "client": "Littlejoys",
-  "use_case": "Understand purchase behaviour of Indian parents for baby and child care products",
-  "domain": "cpg",
+  "product": "Nutrimix",
+  "use_case": "Regenerate deep Indian parent personas for Nutrimix purchase decision research. ICPs are parents of children aged 0-14 in Indian metro and tier-2 cities.",
+  "domain": "littlejoys_cpg",
   "target_segments": [
     {
-      "name": "Urban Indian Mothers",
-      "description": "New and expecting mothers in metro and tier2 Indian cities, household income middle to upper-middle, primary decision-maker for child products",
-      "age_range": [24, 38],
-      "locations": ["Mumbai", "Bengaluru", "Delhi", "Pune", "Hyderabad"],
+      "name": "New Mothers — Child 0-2 years",
+      "count": 80,
+      "age_range": [24, 36],
+      "locations": ["Mumbai", "Bengaluru", "Delhi", "Pune", "Hyderabad", "Chennai"],
       "urban_tiers": ["metro", "tier2"],
       "income_brackets": ["middle", "upper-middle"],
       "household_types": ["nuclear", "joint"],
-      "key_attributes": {
-        "safety_consciousness": "high",
-        "brand_trust": "high",
-        "digital_research_behaviour": "high",
-        "price_sensitivity": "medium"
+      "key_signals": {
+        "immunity_concern": "high",
+        "pediatrician_influence": "high",
+        "information_need": "high",
+        "guilt_driven_spending": "medium-high"
+      }
+    },
+    {
+      "name": "Toddler Mothers — Child 2-5 years",
+      "count": 70,
+      "age_range": [26, 40],
+      "locations": ["Mumbai", "Bengaluru", "Delhi", "Nagpur", "Jaipur", "Ahmedabad"],
+      "urban_tiers": ["metro", "tier2"],
+      "income_brackets": ["lower-middle", "middle", "upper-middle"],
+      "key_signals": {
+        "child_taste_veto": "high",
+        "brand_switch_tolerance": "high",
+        "trial_pack_openness": "high",
+        "food_first_belief": "medium"
+      }
+    },
+    {
+      "name": "Elder Influencers",
+      "count": 50,
+      "age_range": [45, 65],
+      "locations": ["Delhi", "Mumbai", "Chennai", "Kolkata", "Nagpur"],
+      "urban_tiers": ["metro", "tier2"],
+      "key_signals": {
+        "elder_advice_weight": "high",
+        "ayurveda_affinity": "high",
+        "western_brand_trust": "medium",
+        "food_first_belief": "high"
       }
     }
   ],
   "sarvam_enabled": true,
   "mode": "simulation-ready",
-  "notes": "Sarvam enabled for authentic Indian cultural context. Simulation-ready for multi-round product interaction studies."
+  "grounding_signals_path": "data/signals/littlejoys_signals.json",
+  "notes": "Based on validated population of 200 Littlejoys personas. Grounding signals extracted from first_person_summary, purchase_decision_bullets, and journey simulation insights."
 }
