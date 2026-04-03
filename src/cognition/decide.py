@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import random
 import re
 from dataclasses import dataclass, field
 from typing import Any
@@ -16,6 +17,7 @@ from typing import Any
 import anthropic
 
 from src.cognition.errors import DecideError
+from src.memory.cache import _GLOBAL_CACHE
 from src.schema.persona import Observation, PersonaRecord, Reflection
 from src.utils.retry import api_call_with_retry
 
@@ -33,12 +35,13 @@ _MAX_MEMORIES = 10
 @dataclass
 class DecisionOutput:
     decision: str                        # The actual decision made
-    confidence: int                      # 0-100
+    confidence: int                      # 0-100, post-noise
     reasoning_trace: str                 # Full 5-step reasoning as text
     gut_reaction: str                    # Step 1 extracted
     key_drivers: list[str] = field(default_factory=list)    # Top 2-3 factors
     objections: list[str] = field(default_factory=list)     # Hesitations / objections
     what_would_change_mind: str = ""     # Override condition
+    noise_applied: int = 0               # Raw noise value injected (for traceability)
 
 
 # ---------------------------------------------------------------------------
@@ -47,14 +50,22 @@ class DecisionOutput:
 
 
 def _decide_core_memory_block(persona: PersonaRecord) -> str:
-    """Assemble a richer core memory block for the decide prompt.
+    """Return a richer core memory block for the decide prompt.
 
     Includes budget_ceiling, non_negotiables, and absolute_avoidances
     in addition to the standard identity/values block.
 
+    Checks _GLOBAL_CACHE (keyed on "<persona_id>:decide") first.
     tendency_summary is NOT included here — it is injected separately
     as a standalone paragraph in the system prompt (P4 compliant).
     """
+    cache_key = f"{persona.persona_id}:decide"
+    cached = _GLOBAL_CACHE.get(cache_key)
+    cache_hit = cached is not None
+    logger.debug("decide(): core memory cache %s for %s", "HIT" if cache_hit else "MISS", persona.persona_id)
+    if cache_hit:
+        return cached  # type: ignore[return-value]
+
     core = persona.memory.core
     constraints = core.immutable_constraints
     lines = [
@@ -67,7 +78,9 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
         lines.append(f"Non-negotiables: {'; '.join(constraints.non_negotiables)}.")
     if constraints.absolute_avoidances:
         lines.append(f"You never: {'; '.join(constraints.absolute_avoidances)}.")
-    return " ".join(lines)
+    block = " ".join(lines)
+    _GLOBAL_CACHE.set(cache_key, block)
+    return block
 
 
 # ---------------------------------------------------------------------------
@@ -198,6 +211,36 @@ def _clamp_int(value: int | float, lo: int, hi: int) -> int:
     return max(lo, min(hi, int(round(value))))
 
 
+def _noise_range(consistency_score: int) -> int:
+    """Return the noise half-range based on consistency_score band.
+
+    consistency_score >= 75 → ±5  (high consistency — small perturbation)
+    consistency_score 50-74 → ±12 (medium consistency — moderate perturbation)
+    consistency_score <  50 → ±20 (low consistency  — large perturbation)
+    """
+    if consistency_score >= 75:
+        return 5
+    if consistency_score >= 50:
+        return 12
+    return 20
+
+
+def _inject_confidence_noise(
+    confidence: int,
+    consistency_score: int,
+) -> tuple[int, int]:
+    """Sample a noise value and apply it to confidence.
+
+    Returns (perturbed_confidence, noise_applied).
+    noise_applied is the raw int drawn from [-noise_range, +noise_range].
+    confidence is clamped to [0, 100] after perturbation.
+    """
+    half = _noise_range(consistency_score)
+    noise = random.randint(-half, half)
+    perturbed = _clamp_int(confidence + noise, 0, 100)
+    return perturbed, noise
+
+
 def _assemble_reasoning_trace(parsed: dict) -> str:
     """Join all 5 reasoning steps into a single readable trace."""
     steps = [
@@ -254,6 +297,8 @@ async def decide(
     memories: list[Observation | Reflection],
     persona: PersonaRecord,
     llm_client: Any = None,
+    apply_noise: bool = True,
+    model: str | None = None,
 ) -> DecisionOutput:
     """Run the 5-step reasoning chain for a decision.
 
@@ -263,9 +308,15 @@ async def decide(
     The 5-step structure is always in the prompt — never shortened or combined.
     primary_decision_partner is injected into step 4 from core.relationship_map.
 
+    apply_noise: if True (default), injects calibrated confidence perturbation
+      based on persona.derived_insights.consistency_score. Set False for tests.
+    model: override the LLM model (used by SimulationTier routing). Defaults
+      to _SONNET_MODEL when None.
+
     No pre-LLM probability computation (P4 compliant).
     Retries once on JSON parse failure; raises DecideError on second failure.
     """
+    _model = model or _SONNET_MODEL
     client = anthropic.AsyncAnthropic()
 
     system_prompt, messages = _build_decide_messages(scenario, memories, persona)
@@ -276,12 +327,12 @@ async def decide(
             system=system_prompt,
             messages=messages,
             max_tokens=2048,
-            model=_SONNET_MODEL,
+            model=_model,
         )
     else:
         response = await api_call_with_retry(
             client.messages.create,
-            model=_SONNET_MODEL,
+            model=_model,
             max_tokens=2048,
             system=system_prompt,
             messages=messages,
@@ -297,12 +348,12 @@ async def decide(
                 system=system_prompt,
                 messages=messages,
                 max_tokens=2048,
-                model=_SONNET_MODEL,
+                model=_model,
             )
         else:
             response = await api_call_with_retry(
                 client.messages.create,
-                model=_SONNET_MODEL,
+                model=_model,
                 max_tokens=2048,
                 system=system_prompt,
                 messages=messages,
@@ -316,4 +367,21 @@ async def decide(
                 f"Last raw response: {raw_text!r}"
             )
 
-    return _build_decision_output(parsed)
+    output = _build_decision_output(parsed)
+
+    # --- Noise injection (Open Question O10) -----------------------------------
+    # Injects a calibrated perturbation to confidence based on consistency_score.
+    # Only confidence is modified — reasoning trace, decision text, key_drivers,
+    # and objections are never touched (P4 compliant).
+    if apply_noise:
+        consistency_score = persona.derived_insights.consistency_score
+        perturbed, noise = _inject_confidence_noise(output.confidence, consistency_score)
+        logger.debug(
+            "decide(): noise_applied=%d, consistency_score=%d, "
+            "confidence %d → %d",
+            noise, consistency_score, output.confidence, perturbed,
+        )
+        output.confidence = perturbed
+        output.noise_applied = noise
+
+    return output

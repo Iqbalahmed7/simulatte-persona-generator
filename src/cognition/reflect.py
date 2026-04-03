@@ -17,34 +17,44 @@ from typing import Any
 import anthropic
 
 from src.cognition.errors import ReflectError
+from src.memory.cache import _GLOBAL_CACHE
 from src.schema.persona import Observation, PersonaRecord, Reflection
 from src.utils.retry import api_call_with_retry
 
 logger = logging.getLogger(__name__)
 
 _SONNET_MODEL = "claude-sonnet-4-6"
+_HAIKU_MODEL = "claude-haiku-4-5-20251001"
 
 _MIN_OBSERVATIONS = 5
 _MAX_OBSERVATIONS = 20
 
 
 # ---------------------------------------------------------------------------
-# Core memory block (shared pattern)
+# Core memory block (with cache)
 # ---------------------------------------------------------------------------
 
 
 def _core_memory_block(persona: PersonaRecord) -> str:
-    """Assemble the core memory block injected into the system prompt.
+    """Return the pre-assembled core memory block for a persona.
 
-    tendency_summary is injected as natural language only — never as
-    numerical weights (Constitution P4).
+    Checks _GLOBAL_CACHE first. On a miss, assembles the block and stores it.
+    tendency_summary is injected as natural language only (P4).
     """
+    cached = _GLOBAL_CACHE.get(persona.persona_id)
+    cache_hit = cached is not None
+    logger.debug("reflect(): core memory cache %s for %s", "HIT" if cache_hit else "MISS", persona.persona_id)
+    if cache_hit:
+        return cached  # type: ignore[return-value]
+
     core = persona.memory.core
-    return (
+    block = (
         f"You know yourself: {core.identity_statement} "
         f"What matters most to you: {', '.join(core.key_values[:3])}. "
         f"{core.tendency_summary}"
     )
+    _GLOBAL_CACHE.set(persona.persona_id, block)
+    return block
 
 
 # ---------------------------------------------------------------------------
@@ -203,10 +213,14 @@ async def reflect(
     observations: list[Observation],
     persona: PersonaRecord,
     llm_client: Any = None,
+    model: str | None = None,
 ) -> list[Reflection]:
     """Synthesise 2-3 insights from recent observations.
 
-    Makes one Sonnet call. Returns a list of Reflection objects.
+    model: override the LLM model (used by SimulationTier routing). Defaults
+      to _SONNET_MODEL when None. Pass _HAIKU_MODEL for SIGNAL/VOLUME tiers.
+
+    Makes one Sonnet (or overridden model) call. Returns a list of Reflection objects.
     Each reflection MUST cite >= 2 source_observation_ids.
     Raises ReflectError if fewer than 5 observations provided (insufficient context).
     Raises ReflectError if all reflections fail validation after the call.
@@ -224,6 +238,7 @@ async def reflect(
     # Sort chronologically (oldest first) and cap at 20
     sorted_obs = sorted(observations, key=lambda o: o.timestamp)[:_MAX_OBSERVATIONS]
 
+    _model = model or _SONNET_MODEL
     client = anthropic.AsyncAnthropic()
     system_prompt, messages = _build_reflect_messages(sorted_obs, persona)
 
@@ -232,12 +247,12 @@ async def reflect(
             system=system_prompt,
             messages=messages,
             max_tokens=1024,
-            model=_SONNET_MODEL,
+            model=_model,
         )
     else:
         response = await api_call_with_retry(
             client.messages.create,
-            model=_SONNET_MODEL,
+            model=_model,
             max_tokens=1024,
             system=system_prompt,
             messages=messages,

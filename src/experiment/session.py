@@ -9,11 +9,48 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
+from enum import Enum
 from uuid import uuid4
 
 from src.schema.cohort import CohortEnvelope
 from src.schema.persona import PersonaRecord
 from src.experiment.modality import ExperimentModality, reset_working_memory
+
+_HAIKU_MODEL = "claude-haiku-4-5-20251001"
+_SONNET_MODEL = "claude-sonnet-4-6"
+
+
+class SimulationTier(str, Enum):
+    """Model routing tier for cognitive simulation.
+
+    Controls which LLM model is used at each stage of the cognitive loop.
+    Allows cost/quality tradeoffs for different use cases (Open Question O8).
+
+    DEEP   — Current default. Haiku for perceive, Sonnet for reflect+decide.
+             Best insight quality. Use for per-persona deep analysis.
+    SIGNAL — Haiku throughout with Sonnet for final decide only.
+             Good signal quality at lower cost. Use for mid-scale runs.
+    VOLUME — Haiku throughout including decide.
+             Fastest and cheapest. Use for 1,000+ persona distribution runs
+             where directional signal matters more than individual depth.
+    """
+    DEEP = "deep"
+    SIGNAL = "signal"
+    VOLUME = "volume"
+
+
+def tier_models(tier: SimulationTier) -> dict[str, str]:
+    """Return the model names for each cognitive stage given a tier.
+
+    Returns a dict with keys: 'perceive', 'reflect', 'decide'.
+    perceive is always Haiku (per spec §9) — the tier only varies reflect/decide.
+    """
+    if tier == SimulationTier.VOLUME:
+        return {"perceive": _HAIKU_MODEL, "reflect": _HAIKU_MODEL, "decide": _HAIKU_MODEL}
+    if tier == SimulationTier.SIGNAL:
+        return {"perceive": _HAIKU_MODEL, "reflect": _HAIKU_MODEL, "decide": _SONNET_MODEL}
+    # DEEP (default)
+    return {"perceive": _HAIKU_MODEL, "reflect": _SONNET_MODEL, "decide": _SONNET_MODEL}
 
 
 @dataclass
@@ -24,6 +61,7 @@ class ExperimentSession:
     cohort: CohortEnvelope | None = None           # cohort mode
     stimuli: list[str] = field(default_factory=list)
     decision_scenarios: list[str] = field(default_factory=list)
+    tier: SimulationTier = SimulationTier.DEEP
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     def __post_init__(self) -> None:
@@ -40,6 +78,7 @@ def create_session(
     cohort: CohortEnvelope | None = None,
     decision_scenarios: list[str] | None = None,
     session_id: str | None = None,
+    tier: SimulationTier = SimulationTier.DEEP,
 ) -> ExperimentSession:
     """
     Factory function. Resets working memory before returning the session.
@@ -74,4 +113,5 @@ def create_session(
         cohort=reset_cohort,
         stimuli=stimuli,
         decision_scenarios=decision_scenarios,
+        tier=tier,
     )

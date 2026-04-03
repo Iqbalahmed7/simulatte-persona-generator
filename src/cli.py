@@ -274,7 +274,18 @@ def report(cohort_path, output, no_narratives):
 @click.option("--scenario", required=True, type=click.Path(exists=True), help="Path to scenario JSON file.")
 @click.option("--rounds", default=1, type=int, help="Number of stimulus rounds per persona (default: 1).")
 @click.option("--output", default=None, help="Output JSON file for results (default: stdout).")
-def simulate(cohort, scenario, rounds, output):
+@click.option(
+    "--tier",
+    default="deep",
+    type=click.Choice(["deep", "signal", "volume"], case_sensitive=False),
+    help=(
+        "Simulation tier — controls model routing: "
+        "deep (Haiku perceive, Sonnet reflect+decide, default), "
+        "signal (Haiku perceive+reflect, Sonnet decide), "
+        "volume (Haiku throughout, cheapest)."
+    ),
+)
+def simulate(cohort, scenario, rounds, output, tier):
     """Run cognitive simulation on a saved cohort."""
     import asyncio
     import json
@@ -282,7 +293,7 @@ def simulate(cohort, scenario, rounds, output):
     with open(scenario) as f:
         scenario_data = json.load(f)
 
-    result = asyncio.run(_run_simulation(cohort, scenario_data, rounds))
+    result = asyncio.run(_run_simulation(cohort, scenario_data, rounds, tier=tier))
 
     json_str = json.dumps(result, indent=2, default=str)
     if output:
@@ -293,10 +304,13 @@ def simulate(cohort, scenario, rounds, output):
         click.echo(json_str)
 
 
-async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int) -> dict:
+async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep") -> dict:
     import asyncio
     from src.persistence.envelope_store import load_envelope
     from src.cognition.loop import run_loop
+    from src.experiment.session import SimulationTier
+
+    _tier = SimulationTier(tier.lower())
 
     envelope = load_envelope(cohort_path)
     stimuli = scenario_data.get("stimuli", [])
@@ -307,7 +321,7 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int) ->
     if not stimuli:
         all_stimuli = ["Observe the current market environment."] * rounds
 
-    click.echo(f"  Simulating {len(envelope.personas)} persona(s) × {rounds} round(s)...", err=True)
+    click.echo(f"  Simulating {len(envelope.personas)} persona(s) × {rounds} round(s) [tier={tier}]...", err=True)
 
     async def _simulate_persona(persona):
         import anthropic as _anthropic
@@ -329,6 +343,7 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int) ->
                 persona=current_persona,
                 decision_scenario=decision_scenario if round_num == rounds else None,
                 llm_client=_llm_client,
+                tier=_tier,
             )
             round_data = {
                 "round": round_num,
@@ -367,6 +382,89 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int) ->
 
 
 cli.add_command(simulate)
+
+
+# ---------------------------------------------------------------------------
+# age-persona — Longitudinal Persona Aging
+# ---------------------------------------------------------------------------
+
+@click.command("age-persona")
+@click.option(
+    "--persona-id",
+    required=True,
+    help="persona_id to run the annual review for (e.g. pg-001).",
+)
+@click.option(
+    "--history-path",
+    required=True,
+    type=click.Path(exists=True),
+    help="Path to a JSON file containing a list of CohortEnvelope records "
+         "that form the simulation history for this persona.",
+)
+def age_persona(persona_id: str, history_path: str) -> None:
+    """Run an annual aging review for a persona across its simulation history.
+
+    Scans high-importance reflections (importance >= 8), clusters them by
+    semantic theme, and attempts to promote qualifying clusters to core memory
+    using the standard promotion gate (importance >= 9, no contradiction).
+
+    Demographics and life-defining events are never promoted (S17).
+
+    Output: JSON AgingReport written to stdout.
+    """
+    import json
+    from pathlib import Path
+    from src.memory.aging import run_annual_review
+    from src.schema.persona import PersonaRecord
+
+    history_file = Path(history_path)
+    with open(history_file, encoding="utf-8") as f:
+        raw_history = json.load(f)
+
+    # raw_history may be a single envelope or a list of envelopes
+    if isinstance(raw_history, dict):
+        raw_history = [raw_history]
+
+    # Find the target persona across all envelopes in the history
+    target_persona: PersonaRecord | None = None
+    for envelope_raw in raw_history:
+        personas_raw = (
+            envelope_raw.get("personas", [])
+            if isinstance(envelope_raw, dict)
+            else []
+        )
+        for p_raw in personas_raw:
+            try:
+                p = PersonaRecord.model_validate(p_raw)
+                if p.persona_id == persona_id:
+                    target_persona = p
+                    break
+            except Exception:
+                pass
+        if target_persona is not None:
+            break
+
+    if target_persona is None:
+        click.echo(
+            json.dumps({"error": f"persona_id '{persona_id}' not found in history file"}),
+            err=True,
+        )
+        raise SystemExit(1)
+
+    report = run_annual_review(target_persona, raw_history)
+
+    output = {
+        "persona_id": report.persona_id,
+        "reflections_reviewed": report.reflections_reviewed,
+        "promotions_attempted": report.promotions_attempted,
+        "promotions_succeeded": report.promotions_succeeded,
+        "promotions_blocked": report.promotions_blocked,
+        "summary": report.summary(),
+    }
+    click.echo(json.dumps(output, indent=2))
+
+
+cli.add_command(age_persona)
 
 
 if __name__ == "__main__":

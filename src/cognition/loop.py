@@ -22,6 +22,7 @@ from src.schema.persona import (
 from src.cognition.perceive import perceive
 from src.cognition.reflect import reflect
 from src.cognition.decide import decide, DecisionOutput
+from src.experiment.session import SimulationTier, tier_models
 from src.memory.working_memory import WorkingMemoryManager
 from src.memory.retrieval import retrieve_top_k
 
@@ -45,6 +46,7 @@ async def run_loop(
     stimulus_id: str | None = None,
     decision_scenario: str | None = None,
     llm_client: Any = None,
+    tier: SimulationTier = SimulationTier.DEEP,
 ) -> tuple[PersonaRecord, LoopResult]:
     """
     Run one full cognitive cycle for a persona encountering a stimulus.
@@ -66,6 +68,9 @@ async def run_loop(
     updated working memory state.  The input PersonaRecord is never mutated.
     """
     manager = WorkingMemoryManager()
+
+    # Resolve tier → per-stage model names
+    _models = tier_models(tier)
 
     # ------------------------------------------------------------------
     # Step 1: Perceive
@@ -99,7 +104,11 @@ async def run_loop(
             entry for entry in top_20 if entry.type == "observation"
         ]
 
-        raw_reflections: list[Reflection] = await reflect(obs_for_reflect, persona, llm_client=llm_client)
+        raw_reflections: list[Reflection] = await reflect(
+            obs_for_reflect, persona,
+            llm_client=llm_client,
+            model=_models["reflect"],
+        )
 
         for ref in raw_reflections:
             working = manager.write_reflection(working, ref)
@@ -140,7 +149,11 @@ async def run_loop(
         ]
         top_10 = retrieve_top_k(all_memories, query=decision_scenario, k=10)
 
-        decision_output = await decide(decision_scenario, top_10, persona, llm_client=llm_client)
+        decision_output = await decide(
+            decision_scenario, top_10, persona,
+            llm_client=llm_client,
+            model=_models["decide"],
+        )
         decided = True
 
     # ------------------------------------------------------------------

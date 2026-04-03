@@ -17,6 +17,7 @@ from typing import Any
 import anthropic
 
 from src.cognition.errors import PerceiveError
+from src.memory.cache import _GLOBAL_CACHE
 from src.schema.persona import Observation, PersonaRecord
 from src.utils.retry import api_call_with_retry
 
@@ -26,22 +27,30 @@ _HAIKU_MODEL = "claude-haiku-4-5-20251001"
 
 
 # ---------------------------------------------------------------------------
-# Core memory block
+# Core memory block (with cache)
 # ---------------------------------------------------------------------------
 
 
 def _core_memory_block(persona: PersonaRecord) -> str:
-    """Assemble the core memory block injected into the system prompt.
+    """Return the pre-assembled core memory block for a persona.
 
-    tendency_summary is injected as natural language only — never as
-    numerical weights (Constitution P4).
+    Checks _GLOBAL_CACHE first. On a miss, assembles the block and stores it.
+    tendency_summary is injected as natural language only (P4).
     """
+    cached = _GLOBAL_CACHE.get(persona.persona_id)
+    cache_hit = cached is not None
+    logger.debug("perceive(): core memory cache %s for %s", "HIT" if cache_hit else "MISS", persona.persona_id)
+    if cache_hit:
+        return cached  # type: ignore[return-value]
+
     core = persona.memory.core
-    return (
+    block = (
         f"You know yourself: {core.identity_statement} "
         f"What matters most to you: {', '.join(core.key_values[:3])}. "
         f"{core.tendency_summary}"
     )
+    _GLOBAL_CACHE.set(persona.persona_id, block)
+    return block
 
 
 # ---------------------------------------------------------------------------
