@@ -619,3 +619,294 @@ tests/
 - Calibration badge shows in sidebar
 - All 10+ adapter tests pass
 - No changes to the LJ app's existing Results tab structure or export format
+
+---
+
+# V2 SPRINT PLAN — Sprints 24–29
+**Added:** 2026-04-03
+**Scope:** Hierarchical Memory Archival, Domain Onboarding Automation, Multilingual Validation Framework
+
+---
+
+## Sprint 24 — Hierarchical Memory Archival: Structure + Summarisation Engine
+
+**Status:** QUEUED (starts after Sprint 23 complete)
+**Spec sections governing this sprint:**
+- Master Spec §8 (Memory Architecture — Memory Cap and Eviction, design principles 1–4)
+- Master Spec §14A O3 (memory cap; MemGPT-style archival flagged as extension point for 100+ turn simulations)
+- Master Spec §14C (MemGPT-style hierarchical archival — LATER-PHASE)
+- Validity Protocol BV2 (memory-faithful recall — must not regress)
+- Master Spec §13A P3 (memory is the product — archival must strengthen, not defer, memory)
+
+**Context:**
+The current system caps working memory at 1,000 observations with importance×recency eviction at 900. Adequate for ≤50 turn simulations. For 100+ turn longitudinal simulations, the flat cap loses early experiences entirely. This sprint builds the three-tier archive structure and the Haiku summarisation engine. Sprint 25 builds cross-tier retrieval and extended validation gates.
+
+**Deliverables:**
+```
+src/
+  memory/
+    archive.py               ← (Cursor) ArchiveTier enum + ArchiveEntry + ArchivalIndex
+    archival_engine.py       ← (Codex) Promotion: Active → Working-Archive → Deep-Archive
+    summarisation_engine.py  ← (Goose) Batch Haiku: compress 10–20 observations → SummaryReflection
+    archive_store.py         ← (OpenCode) JSON-serialisable store; attach/detach; legacy compat
+  schema/
+    memory_extended.py       ← (Cursor) WorkingMemoryExtended: WorkingMemory + ArchivalIndex | None
+tests/
+  test_archive.py            ← (Antigravity) 25+ tests: promotion, summarisation, backward compat, round-trip
+```
+
+**Engineer assignments:**
+- **Cursor** → `archive.py` + `memory_extended.py` — `ArchiveTier` (ACTIVE/WORKING_ARCHIVE/DEEP_ARCHIVE), `ArchiveEntry` dataclass, `ArchivalIndex` Pydantic model, `WorkingMemoryExtended(WorkingMemory)` with `archival_index: ArchivalIndex | None = None`
+- **Codex** → `archival_engine.py` — `promote_to_working_archive()` and `promote_to_deep_archive()`; backward compat guard: no-op when `len(observations) <= 1000` and `archival_index is None`; eviction path unchanged
+- **Goose** → `summarisation_engine.py` — `SummarisationEngine.summarise_working_archive()`; batch Haiku calls; group by temporal proximity (4-hour window); preserve `original_observation_ids`; inject core memory tendency summary into prompt
+- **OpenCode** → `archive_store.py` — `attach_index()`, `detach_index()`, `to_json()`, `from_json()`; update `envelope_store.py` to use type-guarded archival serialisation; legacy JSON with no `archival_index` key deserialises with `archival_index=None`
+- **Antigravity** → `test_archive.py` — promotion boundary tests, deep archive promotion, backward compat, eviction regression, summarisation with mocked Haiku, serialisation round-trip, citation preservation
+
+**Acceptance criteria:**
+- Given 150 observations where 80 are older than 24h with importance < 4.0: `promote_to_working_archive()` moves exactly those 80; 70 remain active
+- Given 30 working_archive entries where 12 are older than 7 days: `promote_to_deep_archive()` moves exactly those 12
+- Summarisation: 15 observations → 1 ArchiveEntry with non-empty `summary_content` and `len(original_observation_ids) == 15`
+- Backward compat: `WorkingMemory` with 800 observations and `archival_index=None` passes through all archival methods unchanged
+- Eviction regression: `evict()` on 1,050 observations still trims to 900
+- Serialisation round-trip exact equality for both standard and extended memory
+- No LLM calls in `archival_engine.py`, `archive.py`, `archive_store.py`
+- All 25+ tests pass
+
+---
+
+## Sprint 25 — Hierarchical Memory: Cross-Tier Retrieval + Extended Validation Gates
+
+**Status:** QUEUED (starts after Sprint 24 complete)
+**Spec sections governing this sprint:**
+- Master Spec §8 (Memory Architecture — Retrieve formula: α·recency + β·importance + γ·relevance)
+- Master Spec §14A S7 (retrieval formula — settled; tier decay applied as multiplier, not replacement)
+- Master Spec §14A O3 (memory cap extension)
+- Validity Protocol BV2/BV3 (extended for 100+ turn simulations)
+
+**Context:**
+Sprint 24 built archive write paths. Sprint 25 makes archived entries retrievable during `decide()` and `reflect()`. Tier-specific decay weights are applied as multipliers on the composite retrieval score. A context window budget (max 40% archived entries) prevents archive crowding. BV2 and BV3 extended gates verify that 100+ turn simulations maintain memory faithfulness and temporal consistency.
+
+**Deliverables:**
+```
+src/
+  memory/
+    hierarchical_retrieval.py  ← (Cursor) Cross-tier retrieval; decay weights; budget enforcement
+    rematerialisation.py       ← (Codex) ArchiveEntry → context-window dict (read-only)
+  validation/
+    bv2_extended.py            ← (Goose) BV2 for 100+ turns: citation validity across tiers
+    bv3_extended.py            ← (OpenCode) BV3: 100-turn arc; no confidence discontinuity at archival events
+tests/
+  test_hierarchical_retrieval.py  ← (Antigravity) 25+ tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `hierarchical_retrieval.py` — `HierarchicalRetriever.retrieve_top_k()`; tier decay: active=1.0, working_archive=0.7, deep_archive=0.3; budget: max 40% archived entries in returned K; graceful fallback to existing `WorkingMemoryManager.retrieve_top_k()` when `archival_index is None`
+- **Codex** → `rematerialisation.py` — `rematerialise(entry, persona_id) -> dict` with keys: `type`, `tier`, `period`, `summary`, `original_count`, `mean_importance`; read-only, never appends to `observations`; update `decide.py` and `reflect.py` to use `HierarchicalRetriever` when archival index present
+- **Goose** → `bv2_extended.py` — `run_bv2_extended()`: 100% citation validity across active + archived sources; ≥ 80% high-importance recall rate spanning all tiers
+- **OpenCode** → `bv3_extended.py` — `run_bv3_extended()`: 100-turn arc (50 positive + 50 mixed); archival promotion events must not produce >20-point confidence discontinuity; ≥ 1 reflection cites archived summary
+- **Antigravity** → ranking with decay weights, budget enforcement at boundary (K=10, 40% = 4 max archive), rematerialisation keys, graceful degradation, BV2/BV3 extended gate correctness
+
+**Acceptance criteria:**
+- Decay: working_archive entry with mean_importance=9 (score 0.63) ranks below active observation with importance=7 (score 0.70)
+- Budget: top-K with context_budget_archive_fraction=0.40 returns max 4 archive entries out of K=10
+- Re-materialisation: all 6 required keys present; ArchiveEntry not mutated
+- Graceful degradation: identical output to `WorkingMemoryManager` on standard `WorkingMemory`
+- BV2 extended: 100% citation validity; ≥ 80% high-importance recall across tiers
+- BV3 extended: 100-turn arc; no >20-point drop at archival promotion turns
+- `decide.py` and `reflect.py` unchanged for standard WorkingMemory path
+- All 25+ tests pass
+
+---
+
+## Sprint 26 — Domain Onboarding: Template Library + Auto-Selection
+
+**Status:** QUEUED (starts after Sprint 25 complete)
+**Spec sections governing this sprint:**
+- Master Spec §6 (Taxonomy Strategy — Layer 2 Domain Extension, template libraries)
+- Master Spec §14C (Domain template library — RECOMMENDED SOON AFTER v1)
+- Constitution P8 (domain-agnostic core — new templates stay in Layer 2 only)
+- Sprint 20 deliverables: `domain_merger.py`, `attribute_ranker.py` — upstream dependencies
+
+**Context:**
+Sprint 20 built MiroFish extraction for when domain data exists. When a new client has no data, the system falls back to templates. The spec defines 6 template domains. Currently only CPG and SaaS exist. This sprint completes the library, adds keyword-based auto-selection (deterministic, no LLM), and adds collision detection to warn when ICP anchor traits duplicate base taxonomy attributes.
+
+**Deliverables:**
+```
+src/
+  taxonomy/
+    domain_templates/
+      financial_services.py  ← (Cursor) 35–55 domain attributes
+      healthcare_wellness.py ← (Cursor) 35–55 domain attributes
+      ecommerce.py           ← (Codex) 35–55 domain attributes
+      education.py           ← (Codex) 35–55 domain attributes
+    template_selector.py     ← (Goose) Keyword-based auto-selection; deterministic; no LLM
+    collision_detector.py    ← (OpenCode) ICP anchor traits vs base taxonomy; CollisionReport
+tests/
+  test_template_library.py   ← (Antigravity) 30+ tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `financial_services.py` (credit_risk_tolerance, regulatory_trust, financial_advisor_dependence, etc.) and `healthcare_wellness.py` (preventive_care_orientation, doctor_trust, alternative_medicine_openness, etc.); format: `DOMAIN_ATTRIBUTES: dict` under `"domain_specific"` key matching `domain_merger.py` input format
+- **Codex** → `ecommerce.py` (return_friction_tolerance, discovery_mode, marketplace_trust_variance, etc.) and `education.py` (credential_credibility_bias, self_directed_study_capacity, parent_vs_self_buyer_role, etc.)
+- **Goose** → `template_selector.py` — `select_template(icp_spec) -> list[TemplateMatch]`; `_KEYWORD_TABLE` constant mapping 6 template names → 20–30 keywords; score = matching_keywords / total_keywords; confidence < 0.30 → prompt user; confidence ≥ 0.30 → auto-select; deterministic
+- **OpenCode** → `collision_detector.py` — `CollisionReport` + `detect_collisions(icp_spec, base_taxonomy_names, template_attributes)`; exact collision, near-duplicate (Jaccard > 0.6 via existing `_is_duplicate()`), template collision; wire into `icp_spec_parser.py` to attach `CollisionReport` after parsing
+- **Antigravity** → all 6 templates valid (35–55 attrs, all required fields); `merge_taxonomy()` integration for all 6; selector top-match for 5 synthetic ICP specs; collision detection for health_anxiety exact match; P8 scan (no domain attrs in base_taxonomy)
+
+**Acceptance criteria:**
+- All 6 templates: 35–55 attributes, complete fields, no intra-template duplicates
+- `merge_taxonomy()` succeeds for all 6 templates; base taxonomy unmutated
+- Selector: correct top-match for fintech, edtech, healthcare, ecommerce, and consumer goods ICP specs
+- Collision detector: `health_anxiety` flagged as exact collision when in anchor_traits
+- No LLM calls in `template_selector.py` or `collision_detector.py`
+- All 30+ tests pass
+
+---
+
+## Sprint 27 — Domain Onboarding: Self-Service Data Ingestion + Signal Extraction Automation
+
+**Status:** QUEUED (starts after Sprint 26 complete)
+**Spec sections governing this sprint:**
+- Master Spec §7 (Grounding Strategy — Stage 1 Signal Extraction; 200-signal minimum)
+- Master Spec §14A O6 (minimum grounding data volume — 200 reviews)
+- Signal tagger uses Haiku (§4 component table: high-volume, low-cost)
+
+**Context:**
+Currently domain data requires manual developer preparation. This sprint adds the client-facing ingestion layer: CSV/JSON/plain-text upload, format inference, PII redaction, 200-signal minimum validation, and batch Haiku signal tagging (purchase_trigger / rejection / switching / trust_citation / price_mention / neutral). After this sprint, `simulatte onboard --data-file reviews.csv --icp-spec icp.json` works end-to-end.
+
+**Deliverables:**
+```
+src/
+  onboarding/
+    __init__.py
+    ingestion.py           ← (Cursor) Upload orchestrator; IngestionResult
+    format_inferrer.py     ← (Cursor) Deterministic format detection; no LLM
+    pii_redactor.py        ← (Codex) Regex PII redaction: email, Indian mobile, Aadhaar, names
+    signal_tagger.py       ← (Goose) Batch Haiku tagging; TaggedCorpus; confidence < 0.40 → neutral
+    ingestion_validator.py ← (OpenCode) Min-200 check; duplicate detection; ValidationReport
+tests/
+  test_ingestion.py        ← (Antigravity) 30+ tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `ingestion.py` (`IngestionResult`: raw_signals, tagged_corpus, validation_report, redaction_log, format_detected, ready_for_grounding) and `format_inferrer.py` (JSON array / JSON lines / CSV / plain text; BOM-safe; no LLM)
+- **Codex** → `pii_redactor.py` — `redact_pii(signals) -> (list[str], RedactionLog)`; patterns: email, Indian mobile (10-digit 6–9 prefix + +91), Aadhaar-pattern (12-digit), Dr./Mr. name honorifics; replace with `[EMAIL]`, `[PHONE]`, `[NAME]`, `[ID]`; no generic first-name detection
+- **Goose** → `signal_tagger.py` — `tag_signals(signals, llm_client, batch_size=50) -> TaggedCorpus`; Haiku model; 6 tags from §7 trigger verbs; confidence < 0.40 → neutral; `TaggedCorpus`: signals, tag_distribution, n_decision_signals
+- **OpenCode** → `ingestion_validator.py` — `validate_corpus(signals) -> ValidationReport`; exact dedup via `set()`; near-dedup via Jaccard > 0.85 on character trigrams; `proxy_mode_suggested=True` when < 200; `recommendation` string at 3 thresholds (<50, 50–200, ≥200)
+- **Antigravity** → format inference (all 4 formats + BOM), PII redaction correctness and zero false positives, tagger with mocked Haiku, validation boundary at 199/200, end-to-end 250-row CSV
+
+**Acceptance criteria:**
+- Format inference: 4 formats correctly identified including BOM-prefixed UTF-16
+- PII: email, Indian mobile, Aadhaar-pattern, Dr./Mr. redacted; generic text untouched
+- Tagger: ≥ 85% tag accuracy on synthetic corpus with known tags; batch boundary handled
+- Validation: 200-signal threshold enforced; `proxy_mode_suggested=True` below threshold
+- CLI `onboard` command works end-to-end on synthetic 250-row CSV
+- No LLM calls in `format_inferrer.py`, `ingestion_validator.py`, `ingestion.py` orchestration
+- All 30+ tests pass
+
+---
+
+## Sprint 28 — Domain Onboarding: Feature Construction + Cluster Derivation + Client Workflow
+
+**Status:** QUEUED (starts after Sprint 27 complete)
+**Spec sections governing this sprint:**
+- Master Spec §7 (Grounding Strategy — Stage 2–4: Feature Construction, Cluster Derivation, Tendency Assignment)
+- Master Spec §14A O7 (cluster count K: BIC/AIC, min=3, max=8)
+- Two new validation gates: G-O1 (min 200 signals), G-O2 (cluster stability silhouette > 0.3)
+
+**Context:**
+Closes the onboarding loop: TaggedCorpus → feature vectors → GMM clusters → grounded tendency distributions → cohort generation. Wrapped in a 7-step CLI workflow with two new validation gates. After this sprint a client goes from ICP Spec + reviews CSV to a grounded cohort with no developer intervention.
+
+**Deliverables:**
+```
+src/
+  onboarding/
+    feature_builder.py         ← (Cursor) BehaviouralFeatures from TaggedCorpus; no LLM
+    cluster_pipeline.py        ← (Codex) GMM + silhouette stability (5 runs, > 0.3); ClusterResult
+    onboarding_workflow.py     ← (Goose) 7-step orchestrator; OnboardingResult; --onboard CLI flag
+  validation/
+    onboarding_gates.py        ← (OpenCode) G-O1 (min 200) + G-O2 (silhouette > 0.3); GateResult format
+tests/
+  test_onboarding_workflow.py  ← (Antigravity) 30+ tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `feature_builder.py` — `build_features_from_tagged_corpus(corpus, icp_spec) -> BehaviouralFeatures`; 5 feature categories: price_salience_index, trust_source_distribution, switching_trigger_distribution, objection_cluster_frequencies, purchase_trigger_distribution; all from tag_distribution + keyword matching; no LLM
+- **Codex** → `cluster_pipeline.py` — `run_cluster_pipeline(feature_vectors, k_range=(3,8), n_runs=5, threshold=0.30) -> ClusterResult`; BIC-optimal K via `derive_clusters()`; 5-run silhouette stability; K-1 retry on failure; `stability_passed` flag
+- **Goose** → `onboarding_workflow.py` — 7-step: parse ICP → select template → ingest data → G-O1 → build clusters → G-O2 → generate cohort; `status="partial"` on gate failure; `step_log`; wire `--onboard` CLI flag
+- **OpenCode** → `onboarding_gates.py` — `check_go1(ingestion_result) -> GateResult` and `check_go2(cluster_result) -> GateResult`; reuse `GateResult` format from Sprint 21; register G-O1/G-O2 in `gate_report.py`
+- **Antigravity** → feature builder with known tag counts, cluster stability pass/fail/retry, gate boundary tests, full workflow end-to-end (250-signal → complete, 150-signal → partial), CLI `--onboard` flag
+
+**Acceptance criteria:**
+- Feature builder: all 5 categories computed, no LLM call
+- Cluster pipeline: `stability_passed=True` when all 5 runs > 0.3; `stability_passed=False` when any < 0.3; K-1 retry executes on failure
+- G-O1: pass at 200, fail at 199 with correct `action_required`
+- G-O2: pass at 0.30 silhouette, fail below threshold
+- Workflow: `status="complete"` on 250-signal corpus; `status="partial"` on 150-signal corpus
+- CLI `--onboard` works from command line
+- All 30+ tests pass
+
+---
+
+## Sprint 29 — Multilingual Validation Framework
+
+**Status:** QUEUED (starts after Sprint 28 complete)
+
+**⚠ O15 BLOCKER ACTIVE — Language generation NOT implemented in this sprint**
+
+O15 (HIGH confidence): "Multilingual output requires per-language, per-region validation before it can be approved." This sprint builds the validation framework. Language generation (Hindi, Tamil, etc.) remains blocked until the framework produces passing results AND Tech Lead signs off on a LanguageReadinessReport.
+
+**Spec sections governing this sprint:**
+- Master Spec §15 (Indian Cultural Realism Layer — Sarvam, all subsections)
+- Master Spec §14B O15 (Multilingual output — not permitted, blocked pending regional validation)
+- Master Spec §13E CA7 (Anti-pattern: conflating language with culture)
+- `SIMULATTE_SARVAM_TEST_PROTOCOL.md` (CR1–CR4 — extended here for language)
+
+**What IS built:** CR1-V through CR4-V gate framework, LanguageReadinessReport, regional test harness, language-region compatibility matrix, unlock protocol document.
+
+**What remains blocked:** Hindi/Tamil/any Indian language generation, Sarvam language-mode output, non-English persona outputs.
+
+**Deliverables:**
+```
+src/
+  validation/
+    language_gates.py          ← (Cursor) CR1-V through CR4-V gate classes; LanguageGateResult
+    readiness_report.py        ← (Codex) LanguageReadinessReport; BLOCKED/EVIDENCE_NEEDED/READY_FOR_REVIEW
+    regional_harness.py        ← (Goose) Test fixture generator; language-region validity check; no LLM
+    language_region_matrix.py  ← (OpenCode) Static matrix; prohibited pairings; LanguageRegionCompatibility
+docs/
+  MULTILINGUAL_UNLOCK_PROTOCOL.md  ← (Cursor) Governance document: evidence required, Tech Lead sign-off gate
+tests/
+  test_language_gates.py       ← (Antigravity) 25+ tests; zero language generation code enforced
+```
+
+**Engineer assignments:**
+- **Cursor** → `language_gates.py` (CR1-V: isolation; CR2-V: stereotype; CR3-V: human evaluator realism ≥ 4.0/5.0; CR4-V: bilingual fidelity ≥ 4/5 pairs; all return `NOT_RUN` with O15 blocker reason this sprint) + `MULTILINGUAL_UNLOCK_PROTOCOL.md` (binding governance: per-language evidence requirements, Tech Lead sign-off mandatory)
+- **Codex** → `readiness_report.py` — `LanguageReadinessReport`: BLOCKED when any gate NOT_RUN/BLOCKED; EVIDENCE_NEEDED when data uncollected; READY_FOR_REVIEW only when all four gates READY; `tech_lead_sign_off_required=True` always (no setter path to False); CLI `language-readiness` command
+- **Goose** → `regional_harness.py` — `generate_test_fixtures(language, region, n=10) -> list[RegionalTestPersona]`; hardcoded region→valid_language mapping for 5 regions; `expected_language_region_compatible=False` for invalid pairings; no LLM
+- **OpenCode** → `language_region_matrix.py` — `LANGUAGE_REGION_MATRIX` static constant (hi/ta/te/mr/bn/kn/gu); `check_language_region(language, region) -> LanguageRegionCompatibility`; `prohibited_combination=True` for harmful pairings (Hindi→Tamil Nadu etc.); `get_valid_languages_for_region()` and `get_valid_regions_for_language()`
+- **Antigravity** → CR-V gates return NOT_RUN correctly; CR3-V/CR4-V pass/fail conditions; readiness report state machine; language-region matrix (5 valid + 5 prohibited pairings); regional harness fixture count and compatibility flags; zero language generation code lint check
+
+**O15 Unlock Gate (must ALL be met before language generation code may merge):**
+```
+For each language independently:
+□ CR1-V: 10-persona isolation test — all pass
+□ CR2-V: 5-persona spot-check — ≥ 90% cultural details attribute-traceable; 0 prohibited scripts
+□ CR3-V: ≥ 2 human evaluators (native/near-native fluency + domain knowledge); mean ≥ 4.0/5.0; no dimension < 3.0
+□ CR4-V: Bilingual fidelity; ≥ 4/5 pairs confirmed same person
+□ Language-region pairing verified by domain expert
+□ LanguageReadinessReport status = "READY_FOR_REVIEW"
+□ Tech Lead written sign-off citing specific report date and language
+```
+
+**Acceptance criteria:**
+- All four CR-V gate classes exist; CR1-V and CR2-V return `NOT_RUN` with O15 reason
+- CR3-V: READY when 2+ evaluators with mean ≥ 4.0 and no dimension < 3.0
+- CR4-V: READY when ≥ 4/5 pairs confirmed
+- Readiness report: BLOCKED when any gate NOT_RUN; READY_FOR_REVIEW only when all four READY
+- `tech_lead_sign_off_required=True` in all outputs — no code path sets this to False
+- Matrix: 5 valid pairings correct; 5 prohibited pairings with `prohibited_combination=True`
+- `MULTILINGUAL_UNLOCK_PROTOCOL.md` exists in `docs/`
+- Zero language generation code in any deliverable (lint-enforced)
+- `src/sarvam/pipeline.py` untouched
+- All 25+ tests pass
+
