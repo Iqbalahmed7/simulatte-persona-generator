@@ -516,5 +516,49 @@ def age_persona(persona_id: str, history_path: str) -> None:
 cli.add_command(age_persona)
 
 
+# ---------------------------------------------------------------------------
+# onboard command — Sprint 27
+# ---------------------------------------------------------------------------
+
+@click.command("onboard")
+@click.option("--data-file", required=True, type=click.Path(exists=True),
+              help="Path to client data file (CSV, JSON array, JSON lines, or plain text).")
+@click.option("--icp-spec", default=None, type=click.Path(exists=True),
+              help="Path to ICP spec JSON file (optional — used for collision detection).")
+@click.option("--output", default=None, help="Output JSON file for IngestionResult (default: stdout).")
+@click.option("--tag", is_flag=True, default=False,
+              help="Run Haiku signal tagging (requires Anthropic API key).")
+def onboard(data_file, icp_spec, output, tag):
+    """Ingest a client data file: detect format, redact PII, validate, optionally tag signals."""
+    import json
+    from pathlib import Path
+    from src.onboarding.ingestion import ingest
+
+    raw_bytes = Path(data_file).read_bytes()
+    result = ingest(raw_bytes, run_tagger=tag)
+
+    out = {
+        "format_detected": result.format_detected,
+        "n_raw_signals": len(result.raw_signals),
+        "n_redacted_signals": len(result.redacted_signals),
+        "redaction_log": result.redaction_log.summary() if result.redaction_log else None,
+        "validation": result.validation_report.summary() if result.validation_report else None,
+        "ready_for_grounding": result.ready_for_grounding,
+    }
+    if result.tagged_corpus is not None:
+        out["tag_distribution"] = result.tagged_corpus.tag_distribution
+        out["n_decision_signals"] = result.tagged_corpus.n_decision_signals
+
+    text = json.dumps(out, indent=2)
+    if output:
+        Path(output).write_text(text, encoding="utf-8")
+        click.echo(f"Ingestion result written to {output}")
+    else:
+        click.echo(text)
+
+
+cli.add_command(onboard)
+
+
 if __name__ == "__main__":
     cli()
