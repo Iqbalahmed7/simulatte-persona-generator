@@ -74,11 +74,64 @@ Quick reference of what was built sprint by sprint.
 
 ---
 
-## Pending (Sprint 30+)
+## Sprint 18 — Full Population Regeneration + Sarvam Integration
 
-- Regenerate 35 hard-violation personas
+**Goal:** Rebuild all 200 LittleJoys personas in the Simulatte v1 schema, enriched via Sarvam, and validated at parity.
+
+### What was built
+
+| Component | Status |
+|---|---|
+| `pilots/littlejoys/convert_to_simulatte.py` — raw → PersonaRecord converter | ✅ |
+| `pilots/littlejoys/extract_signals.py` — signal extractor for grounding pipeline | ✅ |
+| `pilots/littlejoys/regenerate_pipeline.py` — 5-stage orchestration script | ✅ |
+| Stage 3 Sarvam enrichment — 200/200 India personas enriched | ✅ |
+| G5 negation-context fix (`_phrase_is_negated()`) — false positive rate 7% → 3% | ✅ |
+| Quality parity: 194/200 (97.0%) at par | ✅ |
+
+### Issues encountered
+
+- **Stage 3 `record.skipped` AttributeError** — `SarvamEnrichmentRecord` has no `skipped` field; correct check is `not record.enrichment_applied`. Fixed in regenerate_pipeline.py.
+- **G5 false positives** — "rarely makes impulsive decisions" triggered G5 (risk-embracing phrase). Fixed by adding 40-char lookback negation detection in `src/schema/validators.py`.
+- **Stale test assertion** — `persona_id.startswith("lj-")` changed to `startswith("pg-lj-")` after converter format update.
+
+### Sprint 18 outcome
+
+- 200/200 personas in Simulatte schema
+- 200/200 Sarvam enriched
+- 194/200 (97.0%) at quality parity
+- 6 known below-par edge cases accepted (4 past-context "impulsive" uses, 2 HC4 source-data artifacts)
+
+---
+
+## Sprint 19 — Four Engine Improvements
+
+**Goal:** Add noise injection, core memory caching, persona aging, and tiered simulation to the Simulatte engine. Deploy to the LittleJoys pipeline.
+
+### What was built
+
+| Component | File | Tests |
+|---|---|---|
+| Decision noise injection — calibrated ±5/±12/±20 by `consistency_score`; `noise_applied` field | `src/cognition/decide.py` | 15 |
+| Core memory embedding cache — process-scoped `CoreMemoryCache`; perceive/reflect/decide cache-aware | `src/memory/cache.py` | 13 |
+| Longitudinal persona aging — `run_annual_review()`, token-overlap clustering, promotion gate | `src/memory/aging.py` | 15 |
+| Tiered simulation — `SimulationTier` enum (DEEP/SIGNAL/VOLUME), `tier_models()`, `--tier` CLI flag | `src/experiment/session.py`, `src/cognition/loop.py`, `src/cli.py` | 18 |
+| Pipeline deployment — `--tier` and `--simulate` flags in `regenerate_pipeline.py`; Stage 6 simulation pass | `pilots/littlejoys/regenerate_pipeline.py` | — |
+
+### Sprint 19 outcome
+
+- 400 tests passing, 0 failures
+- LittleJoys cohort re-run at tier=signal: 200/200 enriched, 194/200 (97.0%) parity
+- Cohort calibration notes now record tier + Sprint 19 feature set
+- Stage 6 simulation pass available via `--simulate` flag
+
+---
+
+## Pending
+
+- Run `--simulate` pass on full cohort (3 LJ stimuli + purchase decision, report decision distribution)
 - Multi-tick simulation (30 days of stimuli, brand trust evolution)
+- Calibration — move cohort from `uncalibrated` to `calibrated` against LJ purchase data
 - Competitive scenario (LittleJoys vs Horlicks vs Complan)
 - Segment report (auto-cluster by decision outcome, surface differentiators)
 - WOM propagation (persona-to-persona influence)
-- Formalise as Claude skill (see `skill/SKILL_SPEC.md`)

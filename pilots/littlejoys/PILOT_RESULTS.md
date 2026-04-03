@@ -2,8 +2,10 @@
 
 **Category:** Child nutrition (health drinks for kids aged 2-12)
 **Market:** Urban India, Tier 1-2 cities
-**Population:** 200 generated, 165 clean (35 hard-violation, pending regeneration)
-**Sprints:** 28 (infrastructure) + 29 (simulation + thesis proof)
+**Population:** 200/200 clean personas (Sprint 18 — full regeneration complete)
+**Parity:** 194/200 (97.0%) at quality parity; 6 known edge cases accepted
+**Sprints:** 28 (infrastructure) + 29 (simulation + thesis proof) + 18 (full regen + Sarvam) + 19 (engine improvements)
+**Engine:** Sprint 19 features active — noise injection, core memory cache, tiered simulation, persona aging
 
 ---
 
@@ -120,9 +122,22 @@ Median WTP = Rs 649 = ask price. No repricing needed. The Rs 150 discount from R
 
 ---
 
+## Sprint 18/19 Engine Improvements
+
+The cohort was re-run through the full pipeline with Sprint 19 features active:
+
+| Feature | Effect |
+|---|---|
+| Decision noise injection | Confidence scores perturbed ±5–20 pts based on `consistency_score`; `noise_applied` recorded per decision for traceability |
+| Core memory cache | `perceive`/`reflect`/`decide` skip redundant block assembly on repeat calls to same persona |
+| Tiered simulation | Pipeline runs at `tier=signal` (Haiku perceive+reflect, Sonnet decide) by default; `--tier volume` available for cheap directional runs |
+| Persona aging | `age-persona` CLI and `run_annual_review()` available for longitudinal cohort maintenance |
+| Stage 6 simulation | `--simulate` flag runs 3 LJ-specific stimuli (pediatrician rec, close-friend WOM, Subscribe & Save) + purchase decision through `run_loop` |
+
 ## Open Items
 
-- [ ] Regenerate 35 hard-violation personas (R014, R017, R027, R020, R030 violations)
+- [ ] Run `--simulate` pass on full cohort — get Sprint 19 decision distribution
 - [ ] Run multi-tick simulation: 30-day brand journey
+- [ ] Calibration: move cohort from `uncalibrated` → `calibrated` against LJ purchase data (82.6% reorder, WTP ₹649 median)
 - [ ] Run competitive scenario: LittleJoys vs Horlicks vs Complan
 - [ ] Build segment report: auto-cluster buyers vs deferral vs research-more and surface differentiators

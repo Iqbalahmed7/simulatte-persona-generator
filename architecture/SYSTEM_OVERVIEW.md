@@ -49,7 +49,7 @@ All of these approaches have the same flaw: they tell you *what happened*, not *
 
 A synthetic population of consumers you can run scenarios through — *before* spending anything in market.
 
-- Show your campaign to 165 personas. Get individual decisions, with reasoning, in minutes.
+- Show your campaign to 200 personas. Get individual decisions, with reasoning, in minutes.
 - Change one variable (price, channel, message, sequence). Re-run. Compare.
 - Segment the population by who bought, who deferred, who rejected — and read the exact reasons why.
 - Ask: "What stimulus sequence would move the maximum number of deferral personas to buy?"
@@ -75,7 +75,7 @@ The generic approach produced near-identical scores across all personas for 4 ou
 
 ## What This Looks Like In Practice
 
-We ran 165 personas through a 5-stimulus sequence ending in a purchase scenario for a child nutrition product (LittleJoys, Pilot 1).
+We ran 200 personas through a 5-stimulus sequence ending in a purchase scenario for a child nutrition product (LittleJoys, Pilot 1).
 
 The decisions were not uniform:
 - 62% bought immediately

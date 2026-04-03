@@ -42,19 +42,27 @@ Persona Generator/
 
 ---
 
-## Current Status (as of Sprint 29)
+## Current Status (as of Sprint 19)
 
 - Engine: **Complete** — perceive, memory, reflect, decide all working
-- Population: **165/200** clean personas (35 need regeneration)
+- Population: **200/200** clean personas (Sprint 18 — full regeneration complete)
 - Thesis: **PROVED** — 607% more distinct than naive baseline
 - Pilot: LittleJoys child nutrition India
+- Cohort: regenerated with Sprint 19 features, tier=signal, 97.0% parity
+
+## Sprint 19 Engine Improvements (active)
+
+- **Decision noise injection** — calibrated ±5/±12/±20 confidence perturbation based on `consistency_score`; `noise_applied` field on every decision for traceability
+- **Core memory embedding cache** — process-scoped cache in `src/memory/cache.py`; perceive/reflect/decide skip redundant block assembly on repeat calls
+- **Longitudinal persona aging** — `run_annual_review()` in `src/memory/aging.py`; clusters reflections by semantic theme, promotes to core at importance ≥ 9; CLI: `age-persona`
+- **Tiered simulation mode** — `SimulationTier` enum (DEEP / SIGNAL / VOLUME); controls model routing in loop.py; CLI: `--tier` flag
 
 ## What's Next
 
-- Regenerate 35 hard-violation personas → clean population of 200
+- Run `--simulate` pass on full cohort (Stage 6 — 3 LJ stimuli + purchase decision)
 - Multi-tick simulation (30-day brand journey)
-- Competitive stimulus sets (brand vs brand)
-- Formalise as a callable Claude skill
+- Calibration — move cohort from `uncalibrated` to `calibrated` against LJ purchase data
+- Competitive stimulus sets (LittleJoys vs Horlicks vs Complan)
 
 ---
 
@@ -62,15 +70,16 @@ Persona Generator/
 
 | Metric | Value |
 |---|---|
-| Population size | 165 clean / 200 total |
+| Population size | 200/200 clean personas |
+| Parity | 97.0% (194/200 at par) |
 | Thesis result | PASS — 607% more distinct |
 | Buy + trial rate | 73.9% after 5-stimulus sequence |
 | #1 purchase driver | Pediatrician recommendation (42% of personas) |
 | Median WTP | Rs 649 (matches ask price exactly) |
-| Test coverage | 109 tests, 0.64s |
-| Model for perceive() | claude-haiku-4-5 |
-| Model for decide() | claude-sonnet-4-5 |
-| Model for reflect() | claude-sonnet-4-5 |
+| Test coverage | 400 tests, ~1.9s |
+| Model for perceive() | claude-haiku-4-5-20251001 |
+| Model for reflect() | claude-sonnet-4-6 (DEEP/SIGNAL) or haiku (VOLUME) |
+| Model for decide() | claude-sonnet-4-6 (DEEP) or haiku (VOLUME) |
 
 ---
 

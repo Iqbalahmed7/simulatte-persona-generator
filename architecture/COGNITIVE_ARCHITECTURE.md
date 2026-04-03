@@ -18,7 +18,7 @@ The persona does not simply "receive" it. It processes it through its own psycho
 
 **Output:** An importance score (how much they'll remember this), an emotional valence (how it made them feel), and an interpretation (what they think it means).
 
-**Model:** claude-haiku-4-5 (fast, cheap — runs for every stimulus × every persona)
+**Model:** claude-haiku-4-5-20251001 (fast, cheap — runs for every stimulus × every persona)
 
 ---
 
@@ -48,7 +48,7 @@ These reflections are stored back as high-salience memory entries and influence 
 
 **Trigger:** Cumulative salience of recent stimuli crosses 5.0
 **Output:** 2–3 ReflectionInsight objects appended to episodic memory
-**Model:** claude-sonnet-4-5 (reflection needs depth — don't use haiku here)
+**Model:** claude-sonnet-4-6 at DEEP/SIGNAL tier; claude-haiku-4-5-20251001 at VOLUME tier
 
 ---
 
@@ -61,9 +61,11 @@ When placed in a purchase scenario, the persona reasons through the decision in 
 4. **Social signal check** — what would their trust network say?
 5. **Final decision** — what do they actually do?
 
-**Output:** Decision (buy/trial/defer/research_more/reject), confidence score, reasoning trace, key drivers, objections, willingness-to-pay.
+**Output:** Decision (buy/trial/defer/research_more/reject), confidence score (post-noise), reasoning trace, key drivers, objections, willingness-to-pay, `noise_applied` (raw perturbation value for traceability).
 
-**Model:** claude-sonnet-4-5, max_tokens=2048 (the 5-step reasoning chain is long — do not use 512)
+**Model:** claude-sonnet-4-6 at DEEP/SIGNAL tier; claude-haiku-4-5-20251001 at VOLUME tier. max_tokens=2048 (the 5-step reasoning chain is long — do not use 512).
+
+**Noise injection:** Confidence is perturbed after generation by ±5 (consistency ≥ 75), ±12 (50–74), or ±20 (< 50). Only confidence is perturbed — reasoning trace, decision text, key_drivers, and objections are never touched.
 
 ---
 
@@ -73,14 +75,36 @@ When placed in a purchase scenario, the persona reasons through the decision in 
 Stimulus arrives
       ↓
 perceive() — scores importance and emotional valence through persona's psychology
+  [core memory cache checked first — miss populates cache for subsequent calls]
       ↓
 update_memory() — writes to episodic memory with salience weighting
       ↓
 (if cumulative salience > 5.0)
 reflect() — synthesises patterns into higher-order insights
+  [core memory cache checked first]
       ↓
 decide() — retrieves relevant memories, reasons through 5 steps, outputs decision
+  [richer cache key includes constraints; noise injected on confidence post-generation]
 ```
+
+## Simulation Tiers
+
+The engine supports three cost/quality tiers configured via `SimulationTier`:
+
+| Tier | perceive | reflect | decide | Use case |
+|---|---|---|---|---|
+| `DEEP` (default) | Haiku | Sonnet | Sonnet | Production runs, final results |
+| `SIGNAL` | Haiku | Haiku | Sonnet | Fast iterations, pipeline re-runs |
+| `VOLUME` | Haiku | Haiku | Haiku | Directional signal, cheap bulk runs |
+
+CLI: `python3 pilots/littlejoys/regenerate_pipeline.py --tier signal`
+Simulation pass: add `--simulate` to run Stage 6 (3 LJ stimuli + decision)
+
+## Longitudinal Aging
+
+`src/memory/aging.run_annual_review(persona, simulation_history)` clusters reflections by semantic theme (token-overlap, threshold = 2 shared non-stopword tokens), scans for importance ≥ 8, and attempts promotion to core memory for those meeting the full gate (importance ≥ 9, no demographic/life-event content). Produces an `AgingReport` with promotion counts and blocked-reason list.
+
+CLI: `simulatte age-persona --persona-id <id> --history-path <path>`
 
 ---
 
