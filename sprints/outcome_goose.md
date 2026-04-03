@@ -1,3 +1,58 @@
+# Sprint 20 Outcome — Goose
+
+**Deliverable:** `src/taxonomy/domain_merger.py`
+**Date:** 2026-04-03
+
+---
+
+## What was built
+
+Three functions in `src/taxonomy/domain_merger.py`:
+
+### `detect_conflicts(base, domain_attrs) -> list[str]`
+- Collects all attribute names from the 6 base category dicts (`psychology`, `values`, `social`, `lifestyle`, `identity`, `decision_making`).
+- Checks each incoming domain attribute name against that set.
+- Logs each conflict individually as `logging.warning(...)` — does not raise.
+- Returns the list of conflicting names (empty if none).
+
+### `merge_taxonomy(base, domain_attrs) -> dict`
+- Starts with `copy.deepcopy(base)` — input never mutated.
+- Calls `detect_conflicts()` internally for warning coverage.
+- Handles both `DomainAttribute` (direct) and `RankedAttribute` (via `hasattr(item, 'attr')` check).
+- Replaces any pre-existing `"domain_specific"` key entirely.
+- Each entry in `"domain_specific"` carries: `description`, `valid_range`, `example_values`, `signal_count`, `extraction_source`, and mandatory `"layer": 2` (spec P10 traceability).
+- Empty `domain_attrs` produces `"domain_specific": {}`.
+
+### `get_domain_attribute_names(merged_taxonomy) -> set[str]`
+- One-liner: `set(merged_taxonomy.get("domain_specific", {}).keys())`.
+
+---
+
+## Verification
+
+```
+Import check:
+python3 -c "from src.taxonomy.domain_merger import merge_taxonomy, detect_conflicts, get_domain_attribute_names; print('Import OK')"
+→ Import OK
+
+Full test suite:
+python3 -m pytest tests/ -q --tb=short
+→ 400 passed, 15 skipped in 4.93s
+```
+
+No regressions.
+
+---
+
+## Assumptions / deviations
+
+- **`RankedAttribute` shape:** No `RankedAttribute` dataclass exists in the codebase yet (Codex has not shipped it). The brief specifies handling it via `hasattr(item, 'attr')`. Implemented exactly as specified — when `attr` attribute is present, unwrap it; otherwise treat item as a direct `DomainAttribute`.
+- **`base` dict format:** The `base` parameter is a dict-of-dicts (category key → dict of attribute definitions), consistent with the brief's output contract. `TAXONOMY_BY_CATEGORY` in `base_taxonomy.py` uses lists; converting to dict-of-dicts before calling `merge_taxonomy` is the caller's responsibility.
+- **Conflict check scope:** Only keys from the 6 `_BASE_CATEGORIES` are inspected. Any pre-existing `"domain_specific"` key is excluded from conflict checking (it gets replaced, not conflicted with).
+- No LLM calls anywhere in the module — fully deterministic as required.
+
+---
+
 # Sprint 15 Outcome — Goose
 
 ## Status: COMPLETE

@@ -1,4 +1,45 @@
-# SPRINT 15 OUTCOME — ANTIGRAVITY
+# Sprint 20 Outcome — Antigravity
+
+## Test files written
+
+- `tests/test_domain_extractor.py`
+- `tests/test_attribute_ranker.py`
+- `tests/test_domain_merger.py`
+- `tests/test_icp_spec_parser.py`
+
+## Test count per file
+
+| File | Tests |
+|---|---|
+| `test_domain_extractor.py` | 7 |
+| `test_attribute_ranker.py` | 9 |
+| `test_domain_merger.py` | 10 |
+| `test_icp_spec_parser.py` | 10 |
+| **Total** | **36** |
+
+## Results (pass/fail)
+
+**36/36 passed. 0 failures.**
+
+Full suite result: `436 passed, 15 skipped, 0 failed` (3.30s).
+
+## Failures fixed (if any)
+
+One issue was caught and fixed during integration:
+
+**Problem:** The `_run()` helper in `test_domain_extractor.py` originally used
+`asyncio.get_event_loop().run_until_complete(coro)`. When the full test suite was run
+after other test modules that close the default event loop, this raised
+`RuntimeError: There is no current event loop in thread 'MainThread'`.
+
+**Fix:** Replaced `asyncio.get_event_loop().run_until_complete(coro)` with
+`asyncio.run(coro)`, which creates a fresh event loop per call and is safe regardless
+of surrounding test order. All 36 tests pass in isolation and in the full suite.
+
+---
+
+<!-- Previous sprint outcome preserved below -->
+## Prior sprint (15) record
 
 **Role:** Sprint 15 Gate Tests
 **Sprint:** 15 — 5:3:2 Stratification + API Retry Coverage + Simulation-Ready Mode + Sarvam CR2/CR4

@@ -1,3 +1,85 @@
+# Sprint 20 Outcome — Codex
+
+**Sprint:** 20 — MiroFish Domain Taxonomy Extraction: Deterministic Attribute Ranker
+**Date:** 2026-04-03
+
+---
+
+## 1. File Created
+
+| File | Lines | Notes |
+|------|-------|-------|
+| `src/taxonomy/attribute_ranker.py` | 151 | Full deterministic ranker implementation |
+
+---
+
+## 2. What Was Built
+
+Five public/private callables:
+
+| Name | Purpose |
+|------|---------|
+| `_bigram_set(text)` | Returns all character bigrams from lowercased, stripped text |
+| `_jaccard(a, b)` | `len(a & b) / len(a | b)`; returns 0.0 on empty union |
+| `_strip_suffixes(name)` | Strips `_score`, `_level`, `_index`, `_bias`, `_orientation` (longest-first, single pass) |
+| `_is_duplicate(attr_name, base_names)` | Near-match check: substring test OR Jaccard > 0.6 on stripped bigrams |
+| `rank_attributes(attributes, base_taxonomy_names, total_signals, top_n=50)` | Main function; returns `list[RankedAttribute]` sorted descending by composite score |
+
+`RankedAttribute` is a `@dataclass` wrapping the original `DomainAttribute` plus `composite_score: float`; the original object is never mutated.
+
+### Scoring formula
+
+```
+composite = decision_relevance * 0.40
+          + discriminative     * 0.35
+          + coverage           * 0.25
+          - dedup_penalty
+```
+
+- `coverage_score = min(signal_count / total_signals, 1.0)`; 0.0 if `total_signals == 0`
+- `discriminative_score`: 1.0 if `valid_range` contains `"0.0"` (continuous), 0.6 if `"low|medium|high"`, 0.4 otherwise
+- `decision_relevance_score`: whole-word count of 10 decision keywords in description; `min(count / 3, 1.0)`
+- `dedup_penalty`: 0.5 if `_is_duplicate(attr.name, base_taxonomy_names)` else 0.0
+
+### Exclusion rules (before scoring)
+
+1. `signal_count < 3` — too rare
+2. Exact name in `base_taxonomy_names` — already in base layer
+3. `_is_duplicate()` returns True — near-synonym of a base attribute
+
+---
+
+## 3. Edge Cases Noted
+
+**Jaccard with short strings:** Single-character names produce empty bigram sets, so `_jaccard` returns 0.0 — correctly treated as non-duplicates. The substring check handles short names that are contained in longer ones (e.g. `"trust"` inside `"pediatrician_trust_score"` after suffix stripping).
+
+**Suffix stripping is longest-first:** Sorting `_STRIP_SUFFIXES` by descending length before iteration ensures `_bias` does not accidentally strip from a name like `"switching_propensity_bias_score"` before `_score` is tried — only one suffix is stripped per call.
+
+**`_is_duplicate` is asymmetric in substring check:** Both `stripped_attr in stripped_base` and `stripped_base in stripped_attr` are tested, so containment in either direction triggers exclusion. This prevents a very short base name (e.g. `"trust"`) from absorbing all attributes whose stripped forms contain it as a substring — those short base names would need to be very short to trigger this; in practice base taxonomy names are multi-word snake_case strings.
+
+**`total_signals = 0`:** Guards against ZeroDivisionError; coverage defaults to 0.0 so ranking is entirely driven by decision relevance and discriminative power.
+
+**`top_n > valid_count`:** The final `ranked[:top_n]` slice safely returns fewer than `top_n` items without error.
+
+**Tie-breaking:** A secondary sort key of `attr.name` (alphabetical) is applied after `composite_score` to make output fully deterministic regardless of input order.
+
+---
+
+## 4. Verification
+
+```
+$ python3 -c "from src.taxonomy.attribute_ranker import rank_attributes, RankedAttribute; print('Import OK')"
+Import OK
+
+$ python3 -m pytest tests/ -q --tb=short 2>&1 | tail -5
+....................................................sss....                  [100%]
+400 passed, 15 skipped in 9.59s
+```
+
+400 passed, 15 skipped, 0 failed. No regressions.
+
+---
+
 # Sprint 15 Outcome — Codex
 
 **Sprint:** 15 — Apply API Retry to All Remaining LLM Callers

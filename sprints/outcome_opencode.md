@@ -401,6 +401,48 @@ tests/test_sarvam_cr2_cr4.py::test_cr4_city_check                          PASSE
 
 ---
 
+---
+
+# Sprint 20 Outcome — OpenCode
+
+## Files written
+
+- `src/schema/icp_spec.py` — `ICPSpec` Pydantic v2 model with `model_config = ConfigDict(extra="ignore")`.
+- `src/taxonomy/__init__.py` — module init (was absent; required for import).
+- `src/taxonomy/icp_spec_parser.py` — `parse_icp_spec(source)` supporting dict, Path, JSON string, and Markdown string inputs.
+
+## Deviations from brief (if any)
+
+- The brief showed `class Config: extra = "ignore"` (Pydantic v1 style). Confirmed Pydantic 2.12.5 is installed; used `model_config = ConfigDict(extra="ignore")` as instructed for v2.
+- `src/taxonomy/__init__.py` did not exist. Created a minimal one to make `from src.taxonomy.icp_spec_parser import parse_icp_spec` importable. This was a necessary infrastructure addition not mentioned in the brief.
+- JSON synonym for `domain`: the brief states fall back to `category` only if neither `domain` nor `domain_name` is present. Implemented exactly as specified (not as a primary synonym).
+
+## Parsing edge cases noted
+
+- `persona_count` in markdown: silently ignored if not parseable as int; Pydantic default of 10 is used.
+- Bullet lines with leading whitespace in markdown are `.strip()`-ped before the regex match, making indented bullets work correctly.
+- JSON `data` key is a broad synonym; consistent with the brief's synonym list.
+- The pre-existing `ICPSpec` in `src.generation.identity_constructor` is a different model (persona generation mode control). The new `src.schema.icp_spec.ICPSpec` is a separate, non-conflicting class.
+
+## Verification result
+
+```
+$ python3 -c "from src.schema.icp_spec import ICPSpec; from src.taxonomy.icp_spec_parser import parse_icp_spec; spec = parse_icp_spec({'domain': 'cpg', 'business_problem': 'test', 'target_segment': 'parents'}); print(spec)"
+domain='cpg' business_problem='test' target_segment='parents' anchor_traits=[] data_sources=[] geography=None category=None persona_count=10
+```
+
+PASSED.
+
+## Test suite result
+
+```
+400 passed, 15 skipped in 1.89s
+```
+
+No regressions.
+
+---
+
 ## 5. What CR1–CR4 Cover
 
 | Check | Type | What it validates |
