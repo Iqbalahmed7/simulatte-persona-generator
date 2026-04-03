@@ -1,11 +1,14 @@
 """Simulatte Persona Generator — FastAPI microservice.
 
 Endpoints:
-    POST /generate       — Generate a new cohort
-    POST /simulate       — Run simulation on an existing cohort
-    POST /survey         — Run survey questions on an existing cohort
-    GET  /report/{cohort_id}  — Get human-readable cohort report
-    GET  /health         — Health check
+    POST /generate                  — Generate a new cohort
+    POST /simulate                  — Run simulation on an existing cohort
+    POST /survey                    — Run survey questions on an existing cohort
+    GET  /cohorts                   — List all available cohort IDs
+    GET  /cohort/{cohort_id}        — Get raw CohortEnvelope JSON
+    GET  /cohort/{cohort_id}/personas — Get LittleJoys-format persona list
+    GET  /report/{cohort_id}        — Get human-readable cohort report
+    GET  /health                    — Health check
 
 Usage:
     uvicorn src.api.main:app --host 0.0.0.0 --port 8000
@@ -19,18 +22,21 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.models import (
+    CohortDetailResponse,
+    CohortsListResponse,
     GenerateRequest,
     GenerateResponse,
+    PersonasResponse,
     ReportResponse,
     SimulateRequest,
     SimulateResponse,
     SurveyRequest,
     SurveyResponse,
 )
-from src.api.store import cohort_path, load_cohort, save_cohort
+from src.api.store import cohort_path, list_cohorts, load_cohort, save_cohort
 from src.cli import _run_generation, _run_simulation, _run_survey
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 logger = logging.getLogger(__name__)
 
@@ -57,11 +63,82 @@ app.add_middleware(
 )
 
 
+# ---------------------------------------------------------------------------
+# Health
+# ---------------------------------------------------------------------------
+
 @app.get("/health")
 async def health() -> dict:
     """Health check endpoint."""
     return {"status": "ok", "version": __version__}
 
+
+# ---------------------------------------------------------------------------
+# Cohort retrieval
+# ---------------------------------------------------------------------------
+
+@app.get("/cohorts", response_model=CohortsListResponse)
+async def get_cohorts() -> CohortsListResponse:
+    """List all available cohort IDs (seed cohorts + session-generated)."""
+    return CohortsListResponse(cohort_ids=list_cohorts())
+
+
+@app.get("/cohort/{cohort_id}", response_model=CohortDetailResponse)
+async def get_cohort(cohort_id: str) -> CohortDetailResponse:
+    """Return the raw CohortEnvelope JSON for a given cohort_id."""
+    cohort_data = load_cohort(cohort_id)
+    if cohort_data is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Cohort '{cohort_id}' not found.",
+        )
+    persona_count = len(cohort_data.get("personas", []))
+    return CohortDetailResponse(
+        cohort_id=cohort_id,
+        persona_count=persona_count,
+        cohort=cohort_data,
+    )
+
+
+@app.get("/cohort/{cohort_id}/personas", response_model=PersonasResponse)
+async def get_cohort_personas(cohort_id: str) -> PersonasResponse:
+    """Return personas in LittleJoys display format (via pilots/littlejoys app_adapter)."""
+    cohort_data = load_cohort(cohort_id)
+    if cohort_data is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Cohort '{cohort_id}' not found.",
+        )
+
+    try:
+        from pilots.littlejoys.app_adapter import persona_to_display_dict
+        from src.schema.persona import PersonaRecord
+
+        raw_personas = cohort_data.get("personas", [])
+        display_personas: list[dict] = []
+        for raw in raw_personas:
+            try:
+                record = PersonaRecord.model_validate(raw)
+                display_personas.append(persona_to_display_dict(record))
+            except Exception as e:
+                logger.warning("Skipping persona due to parse error: %s", e)
+                continue
+    except ImportError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Persona adapter unavailable: {exc}",
+        ) from exc
+
+    return PersonasResponse(
+        cohort_id=cohort_id,
+        persona_count=len(display_personas),
+        personas=display_personas,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Generation
+# ---------------------------------------------------------------------------
 
 @app.post("/generate", response_model=GenerateResponse)
 async def generate(req: GenerateRequest) -> GenerateResponse:
@@ -98,6 +175,10 @@ async def generate(req: GenerateRequest) -> GenerateResponse:
         cohort=cohort_data,
     )
 
+
+# ---------------------------------------------------------------------------
+# Simulation & survey
+# ---------------------------------------------------------------------------
 
 @app.post("/simulate", response_model=SimulateResponse)
 async def simulate(req: SimulateRequest) -> SimulateResponse:
@@ -138,6 +219,10 @@ async def survey(req: SurveyRequest) -> SurveyResponse:
 
     return SurveyResponse(cohort_id=req.cohort_id, responses=responses)
 
+
+# ---------------------------------------------------------------------------
+# Report
+# ---------------------------------------------------------------------------
 
 @app.get("/report/{cohort_id}", response_model=ReportResponse)
 async def report(cohort_id: str) -> ReportResponse:

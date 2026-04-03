@@ -45,3 +45,19 @@ class SurveyResponse(BaseModel):
 class ReportResponse(BaseModel):
     cohort_id: str
     report: str
+
+
+class CohortDetailResponse(BaseModel):
+    cohort_id: str
+    persona_count: int
+    cohort: dict  # raw CohortEnvelope dict
+
+
+class PersonasResponse(BaseModel):
+    cohort_id: str
+    persona_count: int
+    personas: list[dict]  # LittleJoys display-format dicts, keyed by persona_id
+
+
+class CohortsListResponse(BaseModel):
+    cohort_ids: list[str]
