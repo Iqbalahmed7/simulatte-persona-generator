@@ -37,7 +37,8 @@ def cli():
 @click.option("--output", default=None, help="Output file path (default: stdout).")
 @click.option("--sarvam", is_flag=True, default=False, help="Enable Sarvam enrichment (India market personas only).")
 @click.option("--skip-gates", is_flag=True, default=False, help="Skip cohort-level quality gates (G6/G7/G8). Useful for development/testing.")
-def generate(spec, count, domain, mode, output, sarvam, skip_gates):
+@click.option("--registry-path", default=None, help="Path to persona registry. If provided, reuses matching personas before generating new ones.")
+def generate(spec, count, domain, mode, output, sarvam, skip_gates, registry_path):
     """Generate N personas from a JSON spec file and assemble a cohort envelope."""
     import asyncio
     import json
@@ -61,6 +62,7 @@ def generate(spec, count, domain, mode, output, sarvam, skip_gates):
             domain_data=domain_data,
             sarvam_enabled=sarvam,
             skip_gates=skip_gates,
+            registry_path=registry_path,
         )
     )
 
@@ -88,6 +90,7 @@ async def _run_generation(
     domain_data: list | None,
     sarvam_enabled: bool,
     skip_gates: bool = False,
+    registry_path: str | None = None,
 ) -> dict:
     """Async inner function: builds N personas then assembles the cohort."""
     import anthropic
@@ -99,6 +102,33 @@ async def _run_generation(
 
     import asyncio
     from src.generation.demographic_sampler import sample_demographic_anchor
+
+    # ------------------------------------------------------------------
+    # Registry hook — reuse matching personas before generating new ones
+    # ------------------------------------------------------------------
+    registry_personas: list = []
+    generate_count = count
+
+    if registry_path is not None:
+        from src.registry.registry_assembler import assemble_from_registry
+        from src.registry.persona_registry import PersonaRegistry
+        registry_obj = PersonaRegistry(registry_path)
+        assembly = assemble_from_registry(
+            registry=registry_obj,
+            icp_age_min=20,
+            icp_age_max=60,
+            new_domain=domain,
+            target_count=count,
+            icp_gender=None,
+            icp_city_tier=None,
+        )
+        registry_personas = assembly.reused_personas
+        generate_count = assembly.gap_count
+        click.echo(
+            f"  Registry: reused={assembly.reused_personas.__len__()} gap={assembly.gap_count}"
+            f" (drift_filtered={assembly.drift_filtered_count})",
+            err=True,
+        )
 
     async def _build_one(i: int):
         icp = ICPSpec(
@@ -114,34 +144,41 @@ async def _run_generation(
             demographic_anchor=demographic_anchor,
             icp_spec=icp,
         )
-        click.echo(f"  Generated persona {i}/{count}: {persona.persona_id} ({demographic_anchor.name})", err=True)
+        click.echo(f"  Generated persona {i}/{generate_count}: {persona.persona_id} ({demographic_anchor.name})", err=True)
         return persona
 
-    # Generate candidate pool (2× for stratification when count >= 5)
-    pool_size = max(count * 2, count + 4) if count >= 5 else count
-    candidates = list(await asyncio.gather(*[_build_one(i) for i in range(1, pool_size + 1)]))
+    # Generate candidate pool for newly needed personas
+    # (skip generation entirely if registry already covers full demand)
+    newly_generated_personas: list = []
+    if generate_count > 0:
+        # Generate candidate pool (2× for stratification when generate_count >= 5)
+        pool_size = max(generate_count * 2, generate_count + 4) if generate_count >= 5 else generate_count
+        candidates = list(await asyncio.gather(*[_build_one(i) for i in range(1, pool_size + 1)]))
 
-    # Stratify if cohort is large enough
-    if count >= 5 and len(candidates) > count:
-        try:
-            from src.generation.stratification import CohortStratifier
-            stratifier = CohortStratifier()
-            strat_result = stratifier.stratify(candidates, target_size=count)
-            personas = strat_result.cohort
-            click.echo(
-                f"  Stratified to {count} personas (near={len(strat_result.near_center)},"
-                f" mid={len(strat_result.mid_range)}, far={len(strat_result.far_outliers)})",
-                err=True,
-            )
-        except ImportError:
-            click.echo(
-                "  Warning: numpy not available — skipping 5:3:2 stratification, using first"
-                f" {count} candidates.",
-                err=True,
-            )
-            personas = candidates[:count]
-    else:
-        personas = candidates[:count]
+        # Stratify if cohort is large enough
+        if generate_count >= 5 and len(candidates) > generate_count:
+            try:
+                from src.generation.stratification import CohortStratifier
+                stratifier = CohortStratifier()
+                strat_result = stratifier.stratify(candidates, target_size=generate_count)
+                newly_generated_personas = strat_result.cohort
+                click.echo(
+                    f"  Stratified to {generate_count} personas (near={len(strat_result.near_center)},"
+                    f" mid={len(strat_result.mid_range)}, far={len(strat_result.far_outliers)})",
+                    err=True,
+                )
+            except ImportError:
+                click.echo(
+                    "  Warning: numpy not available — skipping 5:3:2 stratification, using first"
+                    f" {generate_count} candidates.",
+                    err=True,
+                )
+                newly_generated_personas = candidates[:generate_count]
+        else:
+            newly_generated_personas = candidates[:generate_count]
+
+    # Assemble full cohort: registry personas + newly generated
+    personas = registry_personas + newly_generated_personas
 
     envelope_obj = assemble_cohort(
         personas=personas,
@@ -149,6 +186,13 @@ async def _run_generation(
         domain_data=domain_data,
         skip_gates=skip_gates,
     )
+
+    # Persist newly generated personas back to registry (if registry in use)
+    if registry_path is not None and newly_generated_personas:
+        from src.registry.persona_registry import PersonaRegistry
+        reg = PersonaRegistry(registry_path)
+        for p in newly_generated_personas:
+            reg.add(p)
 
     # Optional Sarvam enrichment
     if sarvam_enabled:
