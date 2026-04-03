@@ -61,6 +61,13 @@ From Master Spec Section 14C, v1 REQUIRED components are:
 | **S5** | Cohort Assembly + Experiment Modularity | 1 | Cursor, Codex, OpenCode, Antigravity | Cohort builder, distinctiveness check, working memory reset, type coverage |
 | **S6** | One-Time Survey Modality | 1 | Codex, Goose, Antigravity | End-to-end survey runner with structural quality gates |
 | **S7** | Temporal Simulation Modality | 1 | All 5 | End-to-end simulation runner with BV1–BV6 tests |
+| **S8–S17** | *(archived — grounding, Sarvam, validation, CLI, persistence, quality gates)* | 2 | All 5 | See sprints/archive/ |
+| **S18** | LittleJoys Full Regen + Sarvam | Pilot | Tech Lead | 200/200 personas regenerated, 97% parity |
+| **S19** | Four Engine Improvements | Engine | Tech Lead | Noise injection, cache, aging, tiered simulation; deployed to LJ pipeline |
+| **S20** | MiroFish Domain Taxonomy Extraction | 2 | Cursor, Codex, Goose, OpenCode, Antigravity | Auto domain taxonomy from ICP spec + domain data |
+| **S21** | Simulation Quality Gates (BV3/BV6) | 2 | Cursor, Codex, Goose, OpenCode, Antigravity | BV3 temporal consistency, BV6 override scenarios, wired into pipeline |
+| **S22** | Calibration Engine | 3 | Cursor, Codex, Goose, OpenCode, Antigravity | Benchmark anchoring, client feedback loop, C1–C5 gates |
+| **S23** | LittleJoys App Integration | Pilot | Cursor, Codex, Goose, OpenCode, Antigravity | LJ Streamlit app connected to Simulatte engine; UI updates |
 
 ---
 
@@ -387,3 +394,228 @@ sprints/
       outcome_antigravity.md
       SPRINT_REVIEW.md     ← Tech Lead's summary, ratings, spec alignment result
 ```
+
+---
+
+## Sprint 20 — MiroFish Domain Taxonomy Extraction
+
+**Status:** CURRENT SPRINT
+**Spec sections governing this sprint:**
+- Master Spec §6 (Taxonomy Strategy — Layer 2 Domain Extension, MiroFish adoption decision)
+- Master Spec §6B (Filling Order — domain-specific attributes filled last)
+- Master Spec §4 (System Architecture — Grounded Mode pipeline)
+- Constitution P8 (domain-agnostic core — domain attributes must stay in Layer 2)
+
+**Context:**
+Currently, domain taxonomy extension (Layer 2) is only available via hand-authored static templates (CPG, SaaS, etc.). The master spec explicitly adopts the MiroFish principle: when domain data is provided, the domain attribute set should be extracted automatically from that data. This is the last in-scope v1 gap.
+
+**Problem it solves:** Without this, every new client domain requires a human to write a new template. With it, the system reads the domain data (reviews, ICP spec, transcripts) and derives the relevant attributes automatically — enabling true Grounded Mode automation.
+
+**Deliverables:**
+```
+src/
+  taxonomy/
+    domain_extractor.py      ← (Cursor) ICP spec parser + LLM extraction of domain attributes
+    attribute_ranker.py      ← (Codex) Score/rank extracted attributes by relevance + discriminative power
+    domain_merger.py         ← (Goose) Merge extracted domain layer with base taxonomy; handle conflicts
+    icp_spec_parser.py       ← (OpenCode) Parse ICP spec documents (markdown/JSON) → structured ICPSpec object
+  schema/
+    icp_spec.py              ← (OpenCode) Pydantic model for ICP spec
+tests/
+  test_domain_extractor.py   ← (Antigravity) Extraction, ranking, merging tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `src/taxonomy/domain_extractor.py` — takes raw domain text corpus (reviews, forum posts, transcripts) + optional ICPSpec; calls Sonnet to extract candidate domain attributes (name, description, valid range, example values); returns list of `DomainAttribute` objects
+- **Codex** → `src/taxonomy/attribute_ranker.py` — scores each `DomainAttribute` by: (a) decision-relevance (does it affect buy/no-buy?), (b) discriminative power (does it differentiate personas?), (c) data coverage (what % of signal corpus mentions it?); returns ranked list, top 30–60 selected
+- **Goose** → `src/taxonomy/domain_merger.py` — merges ranked domain attributes with base taxonomy; detects conflicts (e.g. a domain attribute that duplicates a base attribute); outputs final combined taxonomy as the structure `attribute_filler.py` expects
+- **OpenCode** → `src/schema/icp_spec.py` + `src/taxonomy/icp_spec_parser.py` — define the `ICPSpec` Pydantic model (domain, business_problem, target_segment, anchor_traits, data_sources); parse both markdown-format and JSON-format ICP specs into the model
+- **Antigravity** → `tests/test_domain_extractor.py` — test extraction on a synthetic 20-review corpus; test ranker output ordering; test merger conflict resolution; test that base taxonomy is never mutated; test ICPSpec parser on both formats
+
+**Interface contracts:**
+
+```python
+# domain_extractor.py
+@dataclass
+class DomainAttribute:
+    name: str                   # snake_case, e.g. "pediatrician_trust"
+    description: str            # 1-2 sentences
+    valid_range: str            # "0.0–1.0" or "low|medium|high" or list of options
+    example_values: list[str]   # 3 examples from the corpus
+    signal_count: int           # how many signals mention this attribute
+    extraction_source: str      # "corpus" | "icp_anchor" | "template_fallback"
+
+def extract_domain_attributes(
+    corpus: list[str],          # raw signal texts
+    icp_spec: ICPSpec | None = None,
+    llm_client=None,
+    max_attributes: int = 80,
+) -> list[DomainAttribute]: ...
+
+# attribute_ranker.py
+def rank_attributes(
+    attributes: list[DomainAttribute],
+    base_taxonomy_names: set[str],   # to detect duplicates
+    top_n: int = 50,
+) -> list[DomainAttribute]: ...      # sorted by composite score, top_n returned
+
+# domain_merger.py
+def merge_taxonomy(
+    base: dict,                      # base taxonomy (existing structure)
+    domain_attrs: list[DomainAttribute],
+) -> dict: ...                       # combined taxonomy dict, domain_specific key added
+
+# icp_spec_parser.py
+def parse_icp_spec(source: str | Path | dict) -> ICPSpec: ...
+```
+
+**Acceptance criteria:**
+- Extractor: given 20+ synthetic reviews about a child nutrition product, extracts ≥ 8 domain attributes including at minimum: `pediatrician_trust`, `clean_label_preference`, `child_acceptance_concern`
+- Ranker: correctly deprioritises attributes with < 3 signal mentions; correctly detects and skips duplicates of base taxonomy attributes
+- Merger: combined taxonomy contains both `base` categories and `domain_specific` key; no base attribute mutated
+- ICPSpec parser: parses both markdown ICP spec (with headers like `## Target Segment`) and JSON ICP spec without error
+- All 15+ tests pass
+- No LLM calls in ranker, merger, or parser (deterministic only — LLM is in extractor only)
+
+**End-of-sprint spec checks:**
+- [ ] Domain attributes are in `domain_specific` key — NOT merged into base taxonomy categories (P8)
+- [ ] Extraction uses Sonnet (§4 component table: "Taxonomy Engine — Sonnet, one-time per domain")
+- [ ] `extraction_source` field populated for all attributes (P10 — traceability)
+- [ ] Extractor gracefully falls back to template when corpus < 200 signals (§7 Minimum Viable Data Set)
+
+---
+
+## Sprint 21 — Simulation Quality Gates (BV3 + BV6)
+
+**Status:** QUEUED (starts after Sprint 20 complete)
+**Spec sections governing this sprint:**
+- Validity Protocol Module 2 — BV3 (temporal consistency), BV6 (believable consistency vs rigidity)
+- Validity Protocol Module 3 — S1–S4 simulation gates
+- Master Spec §9 (Cognitive Loop — temporal property requirements)
+
+**Context:**
+BV3 and BV6 are the only two behavioural validity tests not yet automated and wired into the pipeline. BV3 verifies that memory actually accumulates and influences decisions across a multi-turn simulation. BV6 verifies that personas are not robotically consistent — they should override tendencies when given a sufficiently compelling override scenario.
+
+**Deliverables:**
+```
+src/
+  validation/
+    bv3_temporal.py       ← (Cursor) BV3 test runner: runs 10-stimulus arc, checks confidence trend
+    bv6_override.py       ← (Codex) BV6 test runner: generates override scenarios, checks departure rate
+    simulation_gates.py   ← (Goose) S1–S4 gate checks as callable functions (wraps existing logic)
+    gate_report.py        ← (OpenCode) Structured report object + CLI output formatter
+tests/
+  test_bv3.py             ← (Antigravity) BV3 test fixtures (mock LLM, arc verification)
+  test_bv6.py             ← (Antigravity) BV6 test fixtures (override scenario, departure detection)
+```
+
+**Engineer assignments:**
+- **Cursor** → `bv3_temporal.py` — builds a 10-stimulus arc (5 positive, 5 mixed); runs through `run_loop` with mock LLM; checks: (a) confidence monotonically increases across stimuli 1–5, (b) at least 1 reflection after stimulus 5 references accumulating trend, (c) final decision cites both positive and mixed experiences
+- **Codex** → `bv6_override.py` — generates 10 test scenarios for a given persona including 2 "override scenarios" (health emergency for price-sensitive persona; clear product failure for brand-loyal persona); runs each through `run_loop`; checks: 70–90% tendency-consistency across 8 normal scenarios, ≥ 1 departure in 2 override scenarios
+- **Goose** → `simulation_gates.py` — wraps S1 (5-persona trial first), S2 (no decision option > 90%), S3 (driver coherence check), S4 (WTP plausibility) as `check_s1()` through `check_s4()` functions that return `GateResult` objects; wire these into `regenerate_pipeline.py` Stage 5
+- **OpenCode** → `gate_report.py` — `GateReport` dataclass with gate name, pass/fail, threshold, actual value, action_required; `format_gate_report(report: GateReport) -> str` for CLI output; update `--simulate` Stage 6 output to include BV3/BV6 summary
+- **Antigravity** → `test_bv3.py`, `test_bv6.py` — use `unittest.mock` to mock `run_loop` returning controlled sequences; test that BV3 correctly flags a flat-confidence run as a failure; test BV6 correctly flags 100%-consistent runs as failures and < 60%-consistent as failures
+
+**Acceptance criteria:**
+- BV3: correctly PASSES a monotonically-increasing confidence arc; correctly FAILS a flat-confidence arc
+- BV6: correctly PASSES 80% consistent + 1 override departure; correctly FAILS 100% consistent
+- S1–S4 gates: all 4 callable independently and return `GateResult` objects
+- Pipeline: Stage 5 now runs S1–S4 gates and reports pass/fail; Stage 6 (`--simulate`) adds BV3/BV6 summary
+- All 20+ tests pass
+
+---
+
+## Sprint 22 — Calibration Engine
+
+**Status:** QUEUED (starts after Sprint 21 complete)
+**Spec sections governing this sprint:**
+- Master Spec §7 (Grounding Strategy — calibration relationship)
+- Validity Protocol Module 4 — C1–C5 calibration gates
+- Master Spec §4 (Mode Hierarchy — Grounded and Deep modes require calibration support)
+
+**Context:**
+The LittleJoys cohort is currently `status="uncalibrated"`. The spec defines two calibration methods: benchmark anchoring (compare population-level simulation outputs against known domain benchmarks) and client feedback loop (adjust when client provides real outcome data). This sprint builds both.
+
+**Deliverables:**
+```
+src/
+  calibration/
+    __init__.py
+    engine.py             ← (Cursor) Orchestrates both calibration methods; updates CohortEnvelope
+    benchmark_anchor.py   ← (Codex) Benchmark anchoring: compare sim outputs vs domain benchmarks
+    feedback_loop.py      ← (Goose) Client feedback: adjust population tendencies from outcome data
+    population_validator.py ← (OpenCode) C1–C5 gate checks; staleness detection (> 6 months)
+tests/
+  test_calibration.py     ← (Antigravity)
+```
+
+**Engineer assignments:**
+- **Cursor** → `engine.py` — `CalibrationEngine` class with `run_benchmark_calibration(cohort, benchmarks)` and `run_feedback_calibration(cohort, outcomes)` methods; both update `cohort.calibration_state` and return updated `CohortEnvelope`; add `--calibrate` flag to CLI `simulate` command
+- **Codex** → `benchmark_anchor.py` — compare simulation output distribution (buy rate, WTP distribution, decision style distribution) against provided benchmarks (e.g., LittleJoys: 82.6% reorder, WTP ₹649 median); compute divergence score; flag if simulated conversion is outside 0.5x–2x of benchmark (C3 gate); output calibration adjustment recommendations (which tendency bands to shift and by how much)
+- **Goose** → `feedback_loop.py` — accepts real outcome data (e.g., `{persona_id: "pg-lj-001", actual_outcome: "purchased", channel: "doctor_referral"}`); finds the corresponding persona; computes which tendency was the primary predictor; adjusts tendency description + band; updates `calibration_state.status` to `"client_calibrated"`
+- **OpenCode** → `population_validator.py` — C1 (status not null), C2 (benchmark applied at least once), C3 (conversion plausibility), C4 (client feedback trigger check), C5 (staleness > 6 months flag); return `CalibrationGateReport`; expose as `validate_calibration(cohort) -> CalibrationGateReport`
+- **Antigravity** → `test_calibration.py` — test benchmark anchoring sets status to `benchmark_calibrated`; test feedback loop updates correct persona tendency; test C3 gate fires when simulated conversion is 3x benchmark; test C5 staleness with mocked timestamp
+
+**LittleJoys application of Sprint 22:**
+After Sprint 22, run:
+```bash
+python3 pilots/littlejoys/regenerate_pipeline.py --tier signal --calibrate \
+  --benchmark-conversion 0.826 --benchmark-wtp-median 649
+```
+This moves the LittleJoys cohort from `uncalibrated` → `benchmark_calibrated`.
+
+**Acceptance criteria:**
+- Benchmark anchoring: given LJ benchmarks (82.6% reorder, ₹649 WTP), produces `benchmark_calibrated` status
+- C3 gate: correctly fires WARN when simulated buy rate is < 0.5x or > 2x benchmark
+- C5 gate: correctly flags cohort as stale when `last_calibrated` > 6 months ago
+- Feedback loop: updates `tendency.band` for the correct persona when outcome data provided
+- All 20+ tests pass
+
+---
+
+## Sprint 23 — LittleJoys App Integration
+
+**Status:** QUEUED (starts after Sprint 22 complete)
+**Spec sections governing this sprint:**
+- Master Spec §4 (Product Modalities: survey, temporal simulation, deep interview)
+- Architecture COGNITIVE_ARCHITECTURE.md — simulation tier model
+
+**Context:**
+The LittleJoys Streamlit app (`/Users/admin/Documents/Simulatte Projects/1. LittleJoys/app/`) currently runs on the old legacy engine (`src.simulation.batch_runner`). It loads `personas_generated.json` (old format) and uses old `Persona` schema objects. It has no access to the Simulatte cognitive loop, tiers, noise injection, memory state, or calibration data.
+
+This sprint replaces the old engine connection with the Simulatte engine and adds UI for Sprint 19–22 features.
+
+**Deliverables:**
+```
+pilots/littlejoys/
+  app_adapter.py              ← (Cursor) CohortEnvelope → LJ app data format adapter
+  simulatte_batch_runner.py   ← (Codex) Wrapper: LJ JourneyConfig → run_loop calls with tier support
+
+In LittleJoys app at /Users/admin/Documents/Simulatte Projects/1. LittleJoys/app/:
+  streamlit_app.py            ← (Goose) Replace batch_runner import; add tier selector; update persona loading
+  components/
+    confidence_display.py     ← (OpenCode) Confidence + noise_applied display component
+    memory_state_viewer.py    ← (OpenCode) Observations/reflections count + last reflection snippet
+    calibration_badge.py      ← (OpenCode) Calibration status badge (uncalibrated/calibrated/stale)
+
+tests/
+  test_app_adapter.py         ← (Antigravity) Adapter round-trip tests
+```
+
+**Engineer assignments:**
+- **Cursor** → `app_adapter.py` — `load_simulatte_cohort(path) -> list[PersonaRecord]`; `persona_to_display_dict(p: PersonaRecord) -> dict` that maps all fields the LJ app currently displays (name, age, city, decision_style, trust_anchor, WTP, etc.) from the new schema; handles missing fields gracefully
+- **Codex** → `simulatte_batch_runner.py` — `run_simulatte_batch(personas, journey_config, tier)` that maps `JourneyConfig.stimuli` → `run_loop` calls; collects `DecisionOutput` from each persona; returns the same result schema the LJ app's existing Results tab expects; passes `tier=SimulationTier(tier_str)` through
+- **Goose** → `streamlit_app.py` updates — (1) replace `load_all_personas()` to load from `simulatte_cohort_final.json` via `app_adapter.load_simulatte_cohort()`; (2) add tier radio button (DEEP / SIGNAL / VOLUME) to the "Run Scenario" page with cost tooltip; (3) pass tier to `run_simulatte_batch`; (4) add calibration status banner to sidebar
+- **OpenCode** → three UI components: (a) `confidence_display.py` — shows `{confidence}` with `±{|noise_applied|}` noise indicator and color coding (green ≥ 70, amber 50–69, red < 50); (b) `memory_state_viewer.py` — compact panel showing observation count, reflection count, last reflection snippet; (c) `calibration_badge.py` — colored badge: green=calibrated, amber=uncalibrated, red=stale
+- **Antigravity** → `test_app_adapter.py` — test that `persona_to_display_dict` produces all required keys; test that a missing optional field doesn't raise; test that `load_simulatte_cohort` raises `FileNotFoundError` with a useful message when the cohort file doesn't exist
+
+**UI/UX changes — see `pilots/littlejoys/LJ_UI_CHANGES.md` for full spec (written separately)**
+
+**Acceptance criteria:**
+- LJ app loads `simulatte_cohort_final.json` without error
+- Tier selector is visible and functional on the Run Scenario page
+- Decision results display `confidence ± noise` for each persona
+- Memory state panel shows observation/reflection counts after a simulation run
+- Calibration badge shows in sidebar
+- All 10+ adapter tests pass
+- No changes to the LJ app's existing Results tab structure or export format

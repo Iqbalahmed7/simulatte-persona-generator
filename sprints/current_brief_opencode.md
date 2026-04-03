@@ -1,346 +1,157 @@
-# SPRINT 12 BRIEF — OPENCODE
-**Role:** Health & Wellness Domain Template
-**Sprint:** 12 — Persistence + Reporting
-**Spec ref:** Master Spec §6 (Domain Template Strategy), §14C (v1 domain coverage)
+# SPRINT 20 BRIEF — OPENCODE
+**Role:** ICP Spec Schema + Parser
+**Sprint:** 20 — MiroFish Domain Taxonomy Extraction
+**Spec ref:** Master Spec §6 (ICP Spec → Layer 3 anchor traits), §4 (Grounded Mode trigger)
 **Previous rating:** 20/20
 
 ---
 
 ## Context
 
-The template library has CPG and SaaS. Sprint 12 adds a Health & Wellness (H&W) template — the third vertical and a natural fit given the `health_supplement_belief` attribute just added in Sprint 11. Domain templates add 30–60 domain-specific attributes on top of the base taxonomy.
+The ICP (Ideal Customer Profile) spec is the user-facing input document that triggers Grounded Mode. It defines: who the personas are for, what the business problem is, and optionally, "anchor traits" — specific attributes that must be present in the taxonomy.
+
+You build two things:
+1. The `ICPSpec` Pydantic model (the canonical representation of an ICP spec)
+2. The parser that reads a user-provided ICP spec document (markdown or JSON) and returns an `ICPSpec` object
+
+**Downstream dependency:** Cursor imports `ICPSpec` in `domain_extractor.py`. Your model must be available.
 
 ---
 
-## File: `src/taxonomy/domain_templates/health_wellness.py`
+## File: `src/schema/icp_spec.py`
 
 ```python
-"""Health & Wellness domain template.
+"""src/schema/icp_spec.py
 
-Sprint 12. Domain-specific attributes for health, fitness, nutrition,
-and wellness product categories.
+Pydantic model for the ICP (Ideal Customer Profile) specification.
 
-Adds 35–45 attributes across 4 supplement categories:
-- health_attitudes      — beliefs and orientations toward health
-- health_behaviours     — observable health-related activities
-- health_consumption    — product/channel consumption patterns
-- health_information    — how they seek and evaluate health information
+The ICP spec is the user-facing input that defines who personas are built for.
+It triggers Grounded Mode when domain data is also provided.
 
-Base taxonomy attributes (health_anxiety, health_consciousness,
-health_supplement_belief) are the bridge to this template —
-they are already in base_taxonomy.py and are referenced but not duplicated.
+Spec ref: Master Spec §6 — "Layer 3: User-Specified Anchors (0-10 attributes).
+From the ICP Spec 'Anchor Traits' section."
 """
-from __future__ import annotations
 
-from src.taxonomy.domain_templates.template_loader import DomainAttribute, DomainTemplate
+from pydantic import BaseModel, Field
 
+class ICPSpec(BaseModel):
+    domain: str                          # e.g. "child_nutrition", "saas_b2b"
+    business_problem: str                # e.g. "Understand why parents defer Nutrimix purchases"
+    target_segment: str                  # e.g. "Urban Indian parents, children 2-12, Tier 1-2 cities"
+    anchor_traits: list[str] = Field(default_factory=list)
+    # Attribute names that MUST be in the domain taxonomy.
+    # e.g. ["pediatrician_trust", "clean_label_preference"]
 
-HEALTH_WELLNESS_TEMPLATE = DomainTemplate(
-    domain="health_wellness",
-    description="Health, fitness, nutrition, and wellness products and services.",
-    attributes=[
-        # ── health_attitudes ──────────────────────────────────────────────
-        DomainAttribute(
-            name="preventive_health_orientation",
-            category="health_attitudes",
-            description="Degree to which persona prioritises prevention over treatment.",
-            attr_type="continuous",
-            default_value=0.55,
-        ),
-        DomainAttribute(
-            name="holistic_health_belief",
-            category="health_attitudes",
-            description="Belief that physical, mental, and spiritual health are interconnected.",
-            attr_type="continuous",
-            default_value=0.50,
-        ),
-        DomainAttribute(
-            name="scepticism_of_pharma",
-            category="health_attitudes",
-            description="Distrust of pharmaceutical companies and conventional medicine.",
-            attr_type="continuous",
-            default_value=0.30,
-        ),
-        DomainAttribute(
-            name="fitness_identity",
-            category="health_attitudes",
-            description="Extent to which being fit/active is central to self-image.",
-            attr_type="continuous",
-            default_value=0.45,
-        ),
-        DomainAttribute(
-            name="body_image_concern",
-            category="health_attitudes",
-            description="Level of concern about physical appearance and body composition.",
-            attr_type="continuous",
-            default_value=0.48,
-        ),
-        DomainAttribute(
-            name="natural_product_preference",
-            category="health_attitudes",
-            description="Preference for natural, organic, or clean-label products.",
-            attr_type="continuous",
-            default_value=0.60,
-        ),
-        DomainAttribute(
-            name="health_fatalism",
-            category="health_attitudes",
-            description="Belief that health outcomes are largely predetermined by genetics/fate.",
-            attr_type="continuous",
-            default_value=0.28,
-        ),
+    data_sources: list[str] = Field(default_factory=list)
+    # Description of domain data provided, e.g. ["2,010 signals from LJ research corpus"]
 
-        # ── health_behaviours ─────────────────────────────────────────────
-        DomainAttribute(
-            name="exercise_frequency",
-            category="health_behaviours",
-            description="Frequency of intentional physical exercise (0=never, 1=daily).",
-            attr_type="continuous",
-            default_value=0.45,
-        ),
-        DomainAttribute(
-            name="dietary_restriction_adherence",
-            category="health_behaviours",
-            description="Strictness of adherence to dietary rules (vegan, keto, etc.).",
-            attr_type="continuous",
-            default_value=0.30,
-        ),
-        DomainAttribute(
-            name="sleep_hygiene",
-            category="health_behaviours",
-            description="Consistency and quality of sleep practices.",
-            attr_type="continuous",
-            default_value=0.55,
-        ),
-        DomainAttribute(
-            name="stress_management_activity",
-            category="health_behaviours",
-            description="Active use of stress-reduction practices (meditation, yoga, etc.).",
-            attr_type="continuous",
-            default_value=0.40,
-        ),
-        DomainAttribute(
-            name="healthcare_provider_visit_frequency",
-            category="health_behaviours",
-            description="How often persona proactively visits doctors/practitioners.",
-            attr_type="continuous",
-            default_value=0.40,
-        ),
-        DomainAttribute(
-            name="self_monitoring_behaviour",
-            category="health_behaviours",
-            description="Use of wearables/apps to track health metrics.",
-            attr_type="continuous",
-            default_value=0.38,
-        ),
+    geography: str | None = None         # Primary market geography
+    category: str | None = None          # Product category, e.g. "CPG", "SaaS"
+    persona_count: int = 10              # Target cohort size (default 10)
 
-        # ── health_consumption ────────────────────────────────────────────
-        DomainAttribute(
-            name="supplement_spend_willingness",
-            category="health_consumption",
-            description="Willingness to spend on dietary supplements and vitamins.",
-            attr_type="continuous",
-            default_value=0.45,
-        ),
-        DomainAttribute(
-            name="functional_food_adoption",
-            category="health_consumption",
-            description="Adoption of functional foods (fortified, probiotic, protein-enriched).",
-            attr_type="continuous",
-            default_value=0.48,
-        ),
-        DomainAttribute(
-            name="pharmacy_vs_online_channel_preference",
-            category="health_consumption",
-            description="Preference for pharmacy (1.0) vs online health retailers (0.0).",
-            attr_type="continuous",
-            default_value=0.55,
-        ),
-        DomainAttribute(
-            name="brand_loyalty_health_products",
-            category="health_consumption",
-            description="Tendency to repurchase the same health product brands.",
-            attr_type="continuous",
-            default_value=0.52,
-        ),
-        DomainAttribute(
-            name="subscription_model_affinity",
-            category="health_consumption",
-            description="Comfort with subscribing to regular health product deliveries.",
-            attr_type="continuous",
-            default_value=0.38,
-        ),
-        DomainAttribute(
-            name="premium_health_product_tolerance",
-            category="health_consumption",
-            description="Willingness to pay premium prices for perceived health benefits.",
-            attr_type="continuous",
-            default_value=0.48,
-        ),
-
-        # ── health_information ────────────────────────────────────────────
-        DomainAttribute(
-            name="doctor_recommendation_weight",
-            category="health_information",
-            description="Importance placed on doctor/clinician recommendations.",
-            attr_type="continuous",
-            default_value=0.72,
-        ),
-        DomainAttribute(
-            name="peer_health_influence",
-            category="health_information",
-            description="Susceptibility to health advice from friends and family.",
-            attr_type="continuous",
-            default_value=0.55,
-        ),
-        DomainAttribute(
-            name="social_media_health_content_consumption",
-            category="health_information",
-            description="Time spent consuming health content on social media.",
-            attr_type="continuous",
-            default_value=0.42,
-        ),
-        DomainAttribute(
-            name="clinical_evidence_requirement",
-            category="health_information",
-            description="Demand for clinical trial / scientific evidence before adopting.",
-            attr_type="continuous",
-            default_value=0.55,
-        ),
-        DomainAttribute(
-            name="health_influencer_trust",
-            category="health_information",
-            description="Trust placed in health influencers and fitness content creators.",
-            attr_type="continuous",
-            default_value=0.35,
-        ),
-        DomainAttribute(
-            name="label_reading_diligence",
-            category="health_information",
-            description="Tendency to carefully read ingredient lists and nutrition labels.",
-            attr_type="continuous",
-            default_value=0.58,
-        ),
-        DomainAttribute(
-            name="alternative_medicine_openness",
-            category="health_information",
-            description="Openness to Ayurveda, homeopathy, traditional medicine, etc.",
-            attr_type="continuous",
-            default_value=0.40,
-        ),
-    ],
-)
+    class Config:
+        extra = "ignore"                 # Accept extra fields from diverse ICP formats
 ```
 
 ---
 
-## Add health_wellness to `src/taxonomy/domain_templates/template_loader.py`
+## File: `src/taxonomy/icp_spec_parser.py`
 
-Read `template_loader.py` first to understand the existing pattern, then register the new template. Look for where `CPG_TEMPLATE` and `SAAS_TEMPLATE` are registered (likely a `DOMAIN_TEMPLATES` dict or `get_template()` function).
-
-Add:
 ```python
-from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-# Then register it in whatever pattern the file uses (dict, list, etc.)
+"""src/taxonomy/icp_spec_parser.py
+
+Parse ICP spec documents into ICPSpec objects.
+
+Supports two formats:
+  1. JSON — flat dict with keys matching ICPSpec fields (or reasonable synonyms)
+  2. Markdown — structured document with ## headers
+
+Spec ref: Master Spec §6 — "ICP Spec + domain data trigger ontology extraction"
+"""
+```
+
+### `parse_icp_spec(source: str | Path | dict) -> ICPSpec`
+
+**Logic:**
+
+```
+If source is a dict → parse as JSON format (see below)
+If source is a Path → read the file
+  If file extension is .json → parse as JSON
+  Else → parse as Markdown
+If source is a str:
+  Try json.loads() → if succeeds, parse as JSON
+  Else → parse as Markdown
+```
+
+**JSON format parsing:**
+
+Accept key synonyms:
+- `domain` | `domain_name` | `category` (in absence of `domain`)
+- `business_problem` | `problem` | `objective`
+- `target_segment` | `segment` | `target_audience` | `icp`
+- `anchor_traits` | `anchors` | `forced_attributes` | `required_traits`
+- `data_sources` | `data` | `sources`
+
+**Markdown format parsing:**
+
+Recognize these header patterns (case-insensitive):
+```
+## Domain              → domain
+## Business Problem    → business_problem
+## Target Segment      → target_segment
+## Anchor Traits       → anchor_traits (parse as bullet list: "- trait_name")
+## Data Sources        → data_sources (parse as bullet list)
+## Geography           → geography
+## Category            → category
+## Persona Count       → persona_count (parse as integer)
+```
+
+Extract the text block under each header (until next `##` header).
+Strip leading/trailing whitespace. For anchor_traits and data_sources, parse bullet items (lines starting with `- ` or `* `).
+
+**Fallback:** If a required field (`domain`, `business_problem`, `target_segment`) cannot be parsed from either format, raise `ValueError` with a descriptive message.
+
+### Example markdown ICP spec the parser must handle:
+
+```markdown
+## Domain
+child_nutrition
+
+## Business Problem
+Understand why urban Indian parents defer purchasing Littlejoys Nutrimix despite awareness
+
+## Target Segment
+Urban Indian parents with children aged 2-12, Tier 1-2 cities, household income ₹8-30 LPA
+
+## Anchor Traits
+- pediatrician_trust
+- clean_label_preference
+- child_acceptance_concern
+
+## Data Sources
+- 2,010 consumer signals from LittleJoys research corpus
+
+## Geography
+India (Tier 1-2 cities)
+
+## Category
+CPG
 ```
 
 ---
 
-## File: `tests/test_domain_health.py`
+## Tests to support
 
-### Test 1: health_wellness template loads without error
-
-```python
-def test_hw_template_loads():
-    from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-    assert HEALTH_WELLNESS_TEMPLATE is not None
-    assert HEALTH_WELLNESS_TEMPLATE.domain == "health_wellness"
-```
-
-### Test 2: template has 25+ attributes
-
-```python
-def test_hw_template_attribute_count():
-    from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-    count = len(HEALTH_WELLNESS_TEMPLATE.attributes)
-    assert count >= 25, f"Expected ≥25 attributes, got {count}"
-```
-
-### Test 3: all attributes have valid continuous default values
-
-```python
-def test_hw_template_valid_defaults():
-    from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-    for attr in HEALTH_WELLNESS_TEMPLATE.attributes:
-        assert attr.attr_type == "continuous"
-        assert 0.0 <= attr.default_value <= 1.0, (
-            f"{attr.name}: default_value {attr.default_value} out of [0,1]"
-        )
-```
-
-### Test 4: expected categories are present
-
-```python
-def test_hw_template_categories():
-    from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-    categories = {attr.category for attr in HEALTH_WELLNESS_TEMPLATE.attributes}
-    assert "health_attitudes" in categories
-    assert "health_behaviours" in categories
-    assert "health_consumption" in categories
-    assert "health_information" in categories
-```
-
-### Test 5: template loader can retrieve health_wellness template
-
-```python
-def test_template_loader_finds_hw():
-    """health_wellness must be discoverable via template_loader."""
-    from src.taxonomy.domain_templates.template_loader import get_template
-    # get_template may accept "health_wellness" or a case variant — try both
-    try:
-        template = get_template("health_wellness")
-    except Exception:
-        # If get_template raises for unknown domain, check the registry dict directly
-        from src.taxonomy.domain_templates import template_loader
-        registry = getattr(template_loader, "DOMAIN_TEMPLATES", None)
-        if registry:
-            assert "health_wellness" in registry or "health" in str(registry)
-            return
-        raise
-    assert template is not None
-```
-
-### Test 6: No attribute names clash with base taxonomy
-
-```python
-def test_hw_no_name_clashes_with_base_taxonomy():
-    from src.taxonomy.domain_templates.health_wellness import HEALTH_WELLNESS_TEMPLATE
-    from src.taxonomy.base_taxonomy import BASE_TAXONOMY
-
-    base_names = {a.name for a in BASE_TAXONOMY}
-    hw_names = {a.name for a in HEALTH_WELLNESS_TEMPLATE.attributes}
-    clashes = base_names & hw_names
-    assert clashes == set(), f"Name clashes with base taxonomy: {clashes}"
-```
+Antigravity will test:
+- JSON parsing with all key synonyms
+- Markdown parsing with the example above
+- Missing required field raises `ValueError`
+- Extra unknown fields in JSON are silently ignored (Pydantic `extra = "ignore"`)
+- Empty anchor_traits list when section absent
 
 ---
 
-## Constraints
+## Outcome file
 
-- No LLM calls.
-- Read `template_loader.py` first to understand `DomainAttribute`, `DomainTemplate` signatures and how templates are registered.
-- All `DomainAttribute` fields must match exactly what `template_loader.py` defines — check field names (`name`, `category`, `description`, `attr_type`, `default_value` — but verify first).
-- 6 tests, all pass without `--integration`.
-- Full suite must remain 186+ passed.
-
----
-
-## Outcome File
-
-Write `sprints/outcome_opencode.md` with:
-1. Files created (line counts)
-2. Attribute categories overview
-3. Template loader registration approach
-4. Test results (6/6)
-5. Full suite result
-6. Known gaps
+Write `sprints/outcome_opencode.md`. Note any parsing edge cases you found, and confirm tests pass.
