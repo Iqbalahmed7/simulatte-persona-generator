@@ -15,6 +15,7 @@ from uuid import uuid4
 from src.schema.cohort import CohortEnvelope
 from src.schema.persona import PersonaRecord
 from src.experiment.modality import ExperimentModality, reset_working_memory
+from src.social.schema import SocialNetwork, SocialSimulationLevel
 
 _HAIKU_MODEL = "claude-haiku-4-5-20251001"
 _SONNET_MODEL = "claude-sonnet-4-6"
@@ -62,6 +63,8 @@ class ExperimentSession:
     stimuli: list[str] = field(default_factory=list)
     decision_scenarios: list[str] = field(default_factory=list)
     tier: SimulationTier = SimulationTier.DEEP
+    social_simulation_level: SocialSimulationLevel = field(default_factory=lambda: SocialSimulationLevel.ISOLATED)
+    social_network: SocialNetwork | None = None
     created_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     def __post_init__(self) -> None:
