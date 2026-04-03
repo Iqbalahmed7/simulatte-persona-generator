@@ -1,3 +1,75 @@
+# Sprint 22 Outcome — Goose
+
+**Deliverable:** `src/calibration/feedback_loop.py`
+**Date:** 2026-04-03
+
+---
+
+## What was built
+
+Full replacement of the Sprint 22 stub in `src/calibration/feedback_loop.py`.
+
+### Module-level constant
+
+```python
+CHANNEL_TENDENCY_MAP: dict[str, str] = {
+    "doctor_referral": "trust_orientation",
+    "social_media": "trust_orientation",
+    "price_promotion": "price_sensitivity",
+    "word_of_mouth": "trust_orientation",
+    "organic": "switching_propensity",
+}
+```
+
+### `adjust_tendency_from_outcome(persona: PersonaRecord, outcome: dict) -> PersonaRecord`
+
+1. Reads `actual_outcome` and `channel` from the outcome dict.
+2. Looks up the primary tendency via `CHANNEL_TENDENCY_MAP`; unknown channels fall back to `switching_propensity` with a `logger.warning`.
+3. Calls `_is_mismatch()` to determine whether the outcome contradicts the tendency:
+   - `price_sensitivity=high` + `purchased` → mismatch (underestimated propensity)
+   - `trust_orientation.weights.expert >= 0.65` + `purchased` → match (expected)
+   - `price_sensitivity=low` + `rejected` → mismatch (unexpected driver)
+   - Default: `purchased`/`researched` = match; `rejected` = mismatch; `deferred` = match
+4. Calls `_build_feedback_note()` to produce the annotation string.
+5. Applies nested `model_copy` updates — only the `description` field of the affected tendency is changed; bands and weights are untouched.
+6. If the tendency field is missing (schema error), logs a warning and returns persona unchanged.
+
+### `summarise_outcomes(outcomes: list[dict]) -> dict`
+
+Counts occurrences per `actual_outcome` label, returns a plain `dict[str, int]`.
+
+### Private helpers
+
+- `_is_mismatch(tendency_name, actual_outcome, persona) -> bool` — deterministic mismatch logic
+- `_build_feedback_note(tendency_name, actual_outcome, channel, is_mismatch) -> str` — note formatter
+
+---
+
+## Verification
+
+```
+Import check:
+python3 -c "from src.calibration.feedback_loop import adjust_tendency_from_outcome, summarise_outcomes; print('Import OK')"
+→ Import OK
+
+Full test suite:
+python3 -m pytest tests/ -q --tb=short 2>&1 | tail -5
+→ 545 passed, 15 skipped in 2.24s
+```
+
+No regressions. 15 skipped are pre-existing and unrelated to this sprint.
+
+---
+
+## Assumptions / deviations
+
+- **Description-only updates:** The sprint spec says "only description strings are updated, not bands or weights." This is implemented exactly. The Sprint 22 sprint plan acceptance criterion ("Feedback loop: updates `tendency.band` for the correct persona when outcome data provided") appears to be in tension with the spec brief's explicit constraint — the brief takes precedence, so bands are not modified.
+- **Stub replacement:** The pre-existing stub used a `brand_affinity` field (not in the current schema) and a different outcome→direction logic. It was a placeholder. The full implementation overwrites it entirely per the brief.
+- **`summarise_outcomes` scope:** The spec says "Group outcomes by actual_outcome and channel" but the return type shown is `{"purchased": count, ...}` keyed by `actual_outcome` only. Implemented as outcome-keyed counts (matching the return type in the docstring). Channel breakdown is not included in the return value; it can be derived by the caller if needed.
+- No LLM calls anywhere — fully deterministic as required.
+
+---
+
 # Sprint 21 Outcome — Goose
 
 **Deliverable:** `src/validation/simulation_gates.py`

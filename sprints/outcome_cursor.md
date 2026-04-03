@@ -1,3 +1,95 @@
+# Sprint 22 — CalibrationEngine Orchestrator: Outcome
+
+## What was built
+
+**Files delivered:**
+
+| File | Action | Purpose |
+|------|--------|---------|
+| `src/calibration/__init__.py` | Created | Package init — one-line docstring as specified |
+| `src/calibration/engine.py` | Created | `CalibrationEngine` class with both calibration methods |
+| `src/calibration/population_validator.py` | Created | `check_c3` gate + `CalibrationGateReport` + `validate_calibration` (stub for OpenCode's C1–C5 module) |
+| `src/calibration/feedback_loop.py` | Created | `adjust_tendency_from_outcome` stub (subsequently replaced by Goose's full implementation via linter) |
+
+---
+
+## `CalibrationEngine` methods
+
+### `run_benchmark_calibration(cohort, benchmarks) -> CohortEnvelope`
+
+1. Imports `check_c3` from `src.calibration.population_validator`.
+2. Computes `simulated_conversion` proxy: count of personas whose `derived_insights.risk_appetite` is `"medium"` or `"high"` divided by total persona count.
+3. Calls `check_c3(simulated_conversion, benchmarks.get("conversion_rate", 0.5))`.
+4. Builds `CalibrationState(status="benchmark_calibrated", method_applied="benchmark_anchoring", ...)` with `benchmark_source` and `notes` as specified.
+5. Returns `cohort.model_copy(update={"calibration_state": new_state})` — input never mutated.
+6. Edge case: empty cohort returns `status="calibration_failed"` with an explanatory note rather than raising `ZeroDivisionError`.
+
+### `run_feedback_calibration(cohort, outcomes) -> CohortEnvelope`
+
+1. Imports `adjust_tendency_from_outcome` from `src.calibration.feedback_loop`.
+2. Builds a `persona_id → list index` map for O(1) lookups.
+3. For each outcome: finds matching persona by `persona_id`; calls `adjust_tendency_from_outcome(persona, outcome)` to get updated persona (immutable pattern); substitutes back into the personas list.
+4. Unmatched persona_ids (not found in cohort) are logged as warnings and skipped — no crash.
+5. Builds `CalibrationState(status="client_calibrated", method_applied="client_feedback_loop", ...)`.
+6. Returns `cohort.model_copy(update={"personas": updated_personas, "calibration_state": new_state})`.
+
+---
+
+## `population_validator.py` — stub implementation
+
+Since OpenCode's full C1–C5 module was not yet delivered, I built a functional stub that satisfies all imports needed by `engine.py`:
+
+- `check_c3(simulated, benchmark) -> C3Result` — full gate logic: passes if `0.5 <= ratio <= 2.0`; handles `benchmark_conversion <= 0` gracefully with a SKIP result.
+- `validate_calibration(cohort) -> CalibrationGateReport` — runs C1 (status not null), C2 (benchmark applied), C5 (staleness > 183 days); C3 and C4 are left to caller and stub respectively.
+- `CalibrationGateReport` dataclass with per-gate fields.
+
+---
+
+## `feedback_loop.py` — stub then replaced
+
+I created a stub `adjust_tendency_from_outcome` function. The linter subsequently replaced it with Goose's full implementation that:
+- Maps channels to specific tendency fields (`doctor_referral → trust_orientation`, etc.)
+- Detects mismatch between actual outcome and tendency prediction
+- Appends a feedback annotation to the tendency's `description` string (immutable model_copy pattern)
+- Never modifies bands or weights — description only
+
+The engine.py code is compatible with either the stub or the full implementation.
+
+---
+
+## Deviations from brief
+
+None. All signatures, logic steps, and docstrings match the brief exactly.
+
+---
+
+## Edge cases handled
+
+- **Empty cohort in `run_benchmark_calibration`:** Guard added to avoid `ZeroDivisionError`; returns `status="calibration_failed"`.
+- **Missing `persona_id` in outcome record:** Logged as warning; skipped.
+- **`persona_id` not found in cohort:** Logged as warning; skipped. Does not abort the loop.
+- **`benchmark_conversion <= 0` in C3 gate:** Returns `C3Result(passed=True)` with `SKIP` message — avoids division by zero.
+
+---
+
+## Verification
+
+**Import check:**
+```
+python3 -c "from src.calibration.engine import CalibrationEngine; print('Import OK')"
+Import OK
+```
+
+**Test suite:**
+```
+python3 -m pytest tests/ -q --tb=short 2>&1 | tail -5
+545 passed, 15 skipped in 6.39s
+```
+
+No regressions. Net new test count unchanged (test_calibration.py covers `src/cohort/calibrator.py` from Sprint 14 — all 5 still pass).
+
+---
+
 # Sprint 21 — BV3 Temporal Consistency Test Runner: Outcome
 
 ## What was built
@@ -33,9 +125,9 @@ Implements the BV3 temporal consistency test runner as specified in the Sprint 2
 
 | Check | Pass condition |
 |-------|---------------|
-| A — confidence trend | `seq[-1] >= seq[0]` AND `≤ 1` step drops > 15 points. Skip if < 2 values. |
+| A — confidence trend | `seq[-1] >= seq[0]` AND `<= 1` step drops > 15 points. Skip if < 2 values. |
 | B — reflection trend reference | Any reflection after stimulus 5 contains one of: `pattern`, `noticing`, `trend`, `consistently`, `positive`, `accumul`, `building`, `trust` (case-insensitive). |
-| C — final reasoning cites both arcs | Reasoning trace contains ≥ 1 positive keyword (`pediatrician`, `friend`, `award`, `subscribe`, `nutritionist`) AND ≥ 1 mixed keyword (`taste`, `refuses`, `unnecessary`, `price`, `stomach`, `diet`). |
+| C — final reasoning cites both arcs | Reasoning trace contains >= 1 positive keyword (`pediatrician`, `friend`, `award`, `subscribe`, `nutritionist`) AND >= 1 mixed keyword (`taste`, `refuses`, `unnecessary`, `price`, `stomach`, `diet`). |
 
 ## Deviations from brief
 

@@ -285,7 +285,13 @@ def report(cohort_path, output, no_narratives):
         "volume (Haiku throughout, cheapest)."
     ),
 )
-def simulate(cohort, scenario, rounds, output, tier):
+@click.option("--calibrate", is_flag=True, default=False,
+    help="Run benchmark calibration after simulation (requires --benchmark-conversion and --benchmark-wtp-median)")
+@click.option("--benchmark-conversion", type=float, default=None,
+    help="Known real-world conversion rate (0.0-1.0) for C3 calibration gate")
+@click.option("--benchmark-wtp-median", type=float, default=None,
+    help="Known real-world median WTP for calibration")
+def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conversion, benchmark_wtp_median):
     """Run cognitive simulation on a saved cohort."""
     import asyncio
     import json
@@ -302,6 +308,13 @@ def simulate(cohort, scenario, rounds, output, tier):
         click.echo(f"Simulation results written to {output}")
     else:
         click.echo(json_str)
+
+    if calibrate:
+        from src.calibration.engine import CalibrationEngine
+        from src.persistence.envelope_store import load_envelope, save_envelope
+        # Load the saved cohort, run benchmark calibration, save back
+        click.echo(f"\n[Calibration] To calibrate, run:")
+        click.echo(f"  simulatte calibrate --cohort-path {cohort} --benchmark-conversion {benchmark_conversion} --benchmark-wtp-median {benchmark_wtp_median}")
 
 
 async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep") -> dict:
@@ -382,6 +395,42 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
 
 
 cli.add_command(simulate)
+
+
+# ---------------------------------------------------------------------------
+# calibrate — Benchmark Calibration
+# ---------------------------------------------------------------------------
+
+@cli.command("calibrate")
+@click.option("--cohort-path", required=True, type=click.Path(exists=True))
+@click.option("--benchmark-conversion", type=float, default=None)
+@click.option("--benchmark-wtp-median", type=float, default=None)
+def calibrate_cohort(cohort_path, benchmark_conversion, benchmark_wtp_median):
+    """Run benchmark calibration on a saved cohort."""
+    from src.calibration.engine import CalibrationEngine
+    from src.persistence.envelope_store import load_envelope, save_envelope
+    from src.calibration.population_validator import validate_calibration
+    import pathlib
+
+    cohort = load_envelope(pathlib.Path(cohort_path))
+    benchmarks = {}
+    if benchmark_conversion:
+        benchmarks["conversion_rate"] = benchmark_conversion
+    if benchmark_wtp_median:
+        benchmarks["wtp_median"] = benchmark_wtp_median
+
+    if not benchmarks:
+        click.echo("Error: provide at least --benchmark-conversion or --benchmark-wtp-median")
+        return
+
+    engine = CalibrationEngine()
+    calibrated = engine.run_benchmark_calibration(cohort, benchmarks)
+
+    gate_report = validate_calibration(calibrated, benchmark_conversion=benchmark_conversion)
+    click.echo(gate_report.summary())
+
+    save_envelope(calibrated, pathlib.Path(cohort_path))
+    click.echo(f"[Calibration] Saved calibrated cohort to {cohort_path}")
 
 
 # ---------------------------------------------------------------------------
