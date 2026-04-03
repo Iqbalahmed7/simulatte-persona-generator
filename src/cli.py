@@ -560,5 +560,41 @@ def onboard(data_file, icp_spec, output, tag):
 cli.add_command(onboard)
 
 
+# ---------------------------------------------------------------------------
+# language-readiness — O15 Language Readiness Report (Sprint 29)
+# ---------------------------------------------------------------------------
+
+@cli.command("language-readiness")
+@click.option("--language", required=True, help="Language to check (e.g. hindi, tamil).")
+def language_readiness(language):
+    """Show language readiness report for a given language (O15 framework)."""
+    import json
+    from src.validation.language_gates import check_cr1_v, check_cr2_v, check_cr3_v, check_cr4_v
+    from src.validation.readiness_report import build_readiness_report
+
+    cr1 = check_cr1_v(language)
+    cr2 = check_cr2_v(language)
+    cr3 = check_cr3_v(language)
+    cr4 = check_cr4_v(language)
+    report = build_readiness_report(language, cr1, cr2, cr3, cr4)
+
+    out = {
+        "language": report.language,
+        "status": report.status,
+        "gates": {
+            "CR1-V": report.cr1_v_status,
+            "CR2-V": report.cr2_v_status,
+            "CR3-V": report.cr3_v_status,
+            "CR4-V": report.cr4_v_status,
+        },
+        "tech_lead_sign_off_required": report.tech_lead_sign_off_required,
+        "blocking_reasons": report.blocking_reasons,
+    }
+    click.echo(json.dumps(out, indent=2))
+
+
+cli.add_command(language_readiness)
+
+
 if __name__ == "__main__":
     cli()
