@@ -459,3 +459,83 @@ CR3 requires a trained human evaluator to assess whether the enriched narrative 
 2. Rates on five dimensions: authenticity, specificity, consistency with attributes, absence of stereotyping, and narrative coherence.
 3. A persona passes CR3 only if the mean rating across dimensions is ≥ 4.0/5.0.
 4. CR3 results are recorded in `validation_status.cr3_cultural_realism` on the `SarvamEnrichmentRecord`.
+
+---
+
+# Sprint 21 Outcome — OpenCode
+
+**Engineer:** OpenCode
+**Sprint:** 21 — Simulation Quality Gates (BV3 + BV6)
+**Deliverable:** `src/validation/gate_report.py`
+**Date:** 2026-04-03
+
+---
+
+## Files Created / Modified
+
+| File | Action | Notes |
+|------|--------|-------|
+| `src/validation/gate_report.py` | Created | ~210 lines — dataclass + two formatters |
+| `pilots/littlejoys/regenerate_pipeline.py` | Modified | 18 lines added to `_run_validation_and_save()` |
+
+---
+
+## What Was Built
+
+### `SimulationGateReport` dataclass
+
+- Fields: `s_gates: list[GateResult]`, `bv3_results: list[BV3Result]`, `bv6_results: list[BV6Result]`
+- Properties: `all_passed`, `has_warnings`, `warning_count`, `fail_count`
+- `TYPE_CHECKING` guard on imports avoids circular import at runtime
+
+### `format_gate_report(report) -> str`
+
+Multi-line CLI formatter matching the regenerate_pipeline print style:
+
+```
+=== Simulation Quality Gates ===
+
+  S1 Zero error rate        PASS   5 personas loaded successfully
+  S2 Decision diversity     PASS   Max: 'buy' at 60.0%
+  S3 Driver coherence       PASS   100.0% of driver lists contain domain keywords
+  S4 WTP plausibility       PASS   Median WTP: ₹655 (0.9% from ask)
+
+  BV3 Temporal consistency  not run (--simulate required)
+  BV6 Override scenarios    not run (--simulate required)
+
+  Overall: PASS
+```
+
+- Gate name column: 26 chars, left-aligned
+- WARN lines include `[threshold: ±N%]` bracket notation
+- FAIL lines include `[action: ...]` suffix
+- BV3/BV6 show pass count + confidence delta (BV3) or avg departures (BV6) when populated
+- "not run" message when results list is empty
+
+### `format_gate_summary(report) -> str`
+
+One-line banner: `Gates: S1✓ S2✓ S3✓ S4⚠ | BV3: not run | BV6: not run`
+
+Symbols: ✓ pass, ✗ fail, ⚠ warning.
+
+### `regenerate_pipeline.py` Stage 5 update
+
+Gate block inserted after parity check and before dry-run guard, exactly per spec.
+
+---
+
+## Verification
+
+**Import check:** `Import OK`
+
+**Test suite:** `436 passed, 15 skipped in 12.00s` — zero regressions.
+
+---
+
+## Deviations from Spec
+
+1. **`GateResult.gate` vs `.name`** — The brief referred to a `.name` field but Goose's `simulation_gates.py` uses `.gate` (short code: "S1"–"S4"). The formatter maps gate codes to display names via a local `_name_map` dict. Semantically identical output.
+
+2. **"not run" line format** — Spec showed `"BV3/BV6: not run (--simulate required)"` as a combined line. Implemented as two separate lines with the gate name padded for visual alignment with S-gate rows. Consistent with the column-based style.
+
+3. **`SimulationGateReport` name** — Brief used `GateReport` in one sentence and `SimulationGateReport` in the code block. Used `SimulationGateReport` throughout (code block takes precedence).

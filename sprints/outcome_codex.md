@@ -884,3 +884,76 @@ One fix was required after initial implementation: `TypeAlias` was imported from
 - **No inertia normalisation** in the elbow method: when comparing across k values the absolute inertia drop is used. On highly variable datasets the elbow signal can be weak; a normalised or second-derivative approach would be more robust but is not required by the spec.
 - **`ad` and `influencer` trust weights are always 0.1** (fixed neutral) because the 9-dim vector has no direct signal for those channels. Downstream consumers should treat these as lower-confidence defaults.
 - **No serialisation helpers** (JSON/dict export) on `BehaviouralArchetype` — not in spec scope.
+
+---
+
+# Sprint 21 Outcome — Codex
+
+**Sprint:** 21 — Simulation Quality Gates (BV6 Override Scenario Test Runner)
+**Date:** 2026-04-03
+**Deliverable:** `src/validation/bv6_override.py`
+
+---
+
+## What Was Built
+
+`src/validation/bv6_override.py` — the BV6 override scenario test runner.
+
+### Public surface
+
+**`BV6Result` dataclass**
+Fields: `passed`, `persona_id`, `check_a_passed`, `check_b_passed`, `check_c_passed`, `consistency_rate` (float 0.0–1.0), `override_departures` (int 0/1/2), `failure_reasons` (list[str]).
+Method `summary() -> str` returns a formatted multi-line report string.
+
+**`run_bv6(persona, llm_client=None, tier=None) -> BV6Result`** — async
+Runs all 10 scenarios (8 normal + 2 override) through `run_loop`, evaluates the three BV6 checks, returns `BV6Result`.
+
+**`run_bv6_sync(persona, llm_client=None, tier=None) -> BV6Result`** — sync wrapper
+Creates or reuses an event loop. Raises a clear error if called from within a running loop (directing callers to use `await run_bv6(...)` directly).
+
+### Logic summary
+
+**Tendency determination** (`_determine_tendency`): reads `derived_insights.risk_appetite` and `decision_style` to produce one of three tendency labels. Priority: `risk_appetite == "low"` first, then `decision_style == "habitual"`, else analytical.
+
+**Consistency check** (`_is_tendency_consistent`): for low-risk personas, flags "reject" or "switch" as inconsistent; for habitual, flags "reject"; for analytical, all decisions are consistent.
+
+**Override departure check** (`_is_override_departure`): Override 1 (health emergency) requires `decision starts with "buy"/"yes"` AND price/cost language in the trace. Override 2 (product failure) requires the decision is NOT "buy". Both require `len(reasoning_trace) > 100` chars to count as explicit reasoning.
+
+**Check evaluation:**
+- Check A: `0.70 <= consistency_rate <= 0.90` (computed over 8 normal scenarios only)
+- Check B: `override_departures >= 1`
+- Check C: `all_consistent_count < 10` (not 100% across all 10)
+
+**FAIL fast-path:** failure_reasons list accumulates per-check messages distinguishing "too rigid" (>90%) from "no coherence" (<70%) from "no override departure" from "100% robot consistency".
+
+---
+
+## Import Check
+
+```
+python3 -c "from src.validation.bv6_override import BV6Result, run_bv6_sync; print('Import OK')"
+Import OK
+```
+
+---
+
+## Test Suite Result
+
+```
+436 passed, 15 skipped in 2.10s
+```
+
+All 436 non-integration tests pass. No regressions introduced.
+
+---
+
+## Spec Alignment Notes
+
+- Scenario corpus matches the brief exactly: 8 LittleJoys normal scenarios + 2 override scenarios with the mandated override conditions (health emergency, product failure).
+- `_DECISION_SUFFIX` appended as specified: `" Explain your reasoning in detail."`
+- Tendency detection priority order follows the brief exactly.
+- Consistency thresholds: 70–90% (Check A), ≥1 departure (Check B), <100% (Check C).
+- Override departure logic for Override 1 checks for price/cost mention in reasoning trace AND `decision == "buy"` — guards against false positives where the persona "buys" for unrelated reasons.
+- Override departure logic for Override 2 simply requires a non-buy decision with ≥100 char trace — any non-buy with reasoning qualifies as the persona rightly reconsidering.
+- No LLM calls in any helper function — all scoring logic is deterministic; LLM calls are delegated to `run_loop`.
+- `run_bv6_sync` uses `asyncio.get_event_loop()` with a fallback `asyncio.new_event_loop()` for environments where no loop exists.

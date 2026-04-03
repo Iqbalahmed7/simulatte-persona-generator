@@ -1,65 +1,64 @@
-# Sprint 20 — Domain Attribute Extractor: Outcome
+# Sprint 21 — BV3 Temporal Consistency Test Runner: Outcome
 
 ## What was built
 
-**File:** `src/taxonomy/domain_extractor.py`
+**File:** `src/validation/bv3_temporal.py`
 
-Implements the MiroFish-style domain taxonomy extractor as specified in the Sprint 20 brief.
+Implements the BV3 temporal consistency test runner as specified in the Sprint 21 brief.
 
 ### Components
 
-**`DomainAttribute` dataclass** — six fields as specified:
-- `name`, `description`, `valid_range`, `example_values: list[str]`, `signal_count: int`, `extraction_source: str`
-- Defaults: `example_values=[]`, `signal_count=0`, `extraction_source="corpus"`
+**`BV3Result` dataclass** — fields as specified:
+- `passed: bool`, `persona_id: str`
+- `check_a_passed: bool` — confidence trend across positive arc
+- `check_b_passed: bool` — reflection references accumulation
+- `check_c_passed: bool` — final decision cites both positive and mixed
+- `confidence_sequence: list[int]` — confidence from each of 5 positive stimuli (only entries where `decision` was not None)
+- `reflection_count: int`
+- `failure_reasons: list[str]` — per-check failure messages
+- `summary() -> str` — one-line human-readable result
 
-**`extract_domain_attributes()` async function** — full logic:
-1. Guards on `len(corpus) < 200`: logs a warning at WARNING level, returns `[]` without an LLM call.
-2. Builds prompt using `_EXTRACTION_PROMPT` template (embedded verbatim from brief).
-3. Signals block uses the first 100 corpus entries (or all if fewer than 100).
-4. Anchor block: if `icp_spec` is provided and has `anchor_traits`, inserts a MUST-INCLUDE instruction line listing the trait names.
-5. Calls `claude-sonnet-4-6` via `anthropic.AsyncAnthropic().messages.create()` using `api_call_with_retry` (same pattern as `decide.py`). Falls back to `llm_client.complete()` if a test double is provided.
-6. JSON parse via `_parse_json_array()` — strips markdown fences, falls back to bracket-boundary extraction.
-7. On parse failure: logs a warning and retries once. On second failure: logs an error and returns `[]`.
-8. `extraction_source` set to `"icp_anchor"` if attribute name (lowercased) matches an anchor trait name (lowercased), else `"corpus"`.
+**`run_bv3()` async function** — full arc logic:
+1. Runs positive stimuli 1-5 through `run_loop` one at a time; appends `loop_result.decision.confidence` only when `decision is not None`.
+2. After stimulus 5, snapshots `persona.memory.working.reflections` for Check B.
+3. Runs mixed stimuli 6-9 through `run_loop` with no decision scenario.
+4. Runs mixed stimulus 10 with `decision_scenario=_DECISION_SCENARIO`; captures `reasoning_trace` for Check C.
+5. Evaluates checks A/B/C, aggregates failure reasons, builds and returns `BV3Result`.
 
-**`extract_domain_attributes_sync()` wrapper** — uses `asyncio.run()` exactly as specified.
+**`run_bv3_sync()` wrapper** — uses `asyncio.run()` as specified.
 
-**Model constant:** `_SONNET_MODEL = "claude-sonnet-4-6"` (hardcoded).
+**Stimulus arc:** 5 Littlejoys Nutrimix positive stimuli (pediatrician, friend, clean-label award, Subscribe & Save, school nutritionist) + 5 mixed stimuli (taste rejection, supplements-unnecessary post, neighbour stomach upset, price increase, diet-only article). Final scenario: "Should you buy Littlejoys Nutrimix for your child this month?"
+
+### Check logic
+
+| Check | Pass condition |
+|-------|---------------|
+| A — confidence trend | `seq[-1] >= seq[0]` AND `≤ 1` step drops > 15 points. Skip if < 2 values. |
+| B — reflection trend reference | Any reflection after stimulus 5 contains one of: `pattern`, `noticing`, `trend`, `consistently`, `positive`, `accumul`, `building`, `trust` (case-insensitive). |
+| C — final reasoning cites both arcs | Reasoning trace contains ≥ 1 positive keyword (`pediatrician`, `friend`, `award`, `subscribe`, `nutritionist`) AND ≥ 1 mixed keyword (`taste`, `refuses`, `unnecessary`, `price`, `stomach`, `diet`). |
 
 ## Deviations from brief
 
-None. All requirements implemented as specified.
+None. All stimuli, keyword sets, check thresholds, and interface signatures match the brief exactly.
 
 ## Edge cases handled
 
-- **Empty corpus / undersized corpus:** Returns `[]` with a warning — no LLM call made.
-- **Malformed LLM JSON:** Retry once. If still malformed, returns `[]`.
-- **Partial parse:** `_parse_json_array()` attempts bracket-boundary extraction before giving up, so partially-wrapped responses (e.g., prose before/after the array) are recovered.
-- **Non-dict items in parsed array:** Skipped silently in `_assemble_attributes()`.
-- **Missing or non-integer `signal_count` in LLM response:** Defaults to 0.
-- **Missing `example_values` or non-list value:** Defaults to `[]`.
-- **Case mismatch on anchor trait matching:** Both sides lowercased before comparison.
-- **`icp_spec` without `anchor_traits`:** Handled — `anchor_block` becomes `""`.
-
-## Interface assumptions about ICPSpec
-
-- `icp_spec.domain: str` — used as the `{domain}` field in the prompt.
-- `icp_spec.business_problem: str` — used as the `{business_problem}` field.
-- `icp_spec.anchor_traits: list[str]` — used for MUST-INCLUDE block and `extraction_source` tagging. Defaults to `[]` if absent (matches the Pydantic model's `default_factory=list`).
-
-No other ICPSpec fields are accessed.
+- **No decisions from positive stimuli:** confidence_sequence shorter than 5; Check A skips if < 2 entries.
+- **Reflection accumulator never fires during positive arc:** Check B fails as expected — this is a genuine BV3 failure.
+- **`run_loop` exception on any turn:** caught and logged as a warning; arc continues with partial data rather than aborting.
+- **Missing `reasoning_trace` on final decision:** Check C returns False with an explicit failure reason.
 
 ## Verification
 
 **Import check:**
 ```
-python3 -c "from src.taxonomy.domain_extractor import DomainAttribute, extract_domain_attributes_sync; print('Import OK')"
+python3 -c "from src.validation.bv3_temporal import BV3Result, run_bv3_sync; print('Import OK')"
 Import OK
 ```
 
 **Test suite:**
 ```
-400 passed, 15 skipped in 2.16s
+436 passed, 15 skipped in 2.02s
 ```
 
-No regressions. All 400 tests pass.
+No regressions. All 436 existing tests pass. 15 skipped are integration/live tests unchanged from pre-sprint baseline.

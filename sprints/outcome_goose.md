@@ -1,3 +1,74 @@
+# Sprint 21 Outcome — Goose
+
+**Deliverable:** `src/validation/simulation_gates.py`
+**Date:** 2026-04-03
+
+---
+
+## What was built
+
+Five public symbols in `src/validation/simulation_gates.py`:
+
+### `GateResult` dataclass
+Fields: `gate`, `passed`, `threshold`, `actual`, `action_required`, `warning`.
+`warning=True` means the gate warns but does not block.
+
+### `check_s1(personas, sample_size=5) -> GateResult`
+- Checks that `len(personas) >= sample_size` and every persona has a valid `memory.working.simulation_state` (not None, not an error-marker string).
+- Accepts both attribute-access (PersonaRecord) and dict-style objects via a two-path fallback.
+- Fails if fewer than `sample_size` personas were loaded OR any persona carries an error-state marker.
+- Action on fail: "Debug pipeline before running full population"
+
+### `check_s2(decisions) -> GateResult`
+- Counts decision frequencies and computes `max_pct = max_count / total * 100`.
+- Passes cleanly when `max_pct <= 80%`, warns (pass + `warning=True`) when `80 < max_pct <= 90%`, fails hard when `max_pct > 90%`.
+- Threshold: "No single option > 90%"
+- Action on fail/warn: "Review stimulus design; may indicate broken persona or prompt issue"
+
+### `check_s3(key_drivers, domain_keywords) -> GateResult`
+- Auto-passes with `warning=True` if `domain_keywords` is empty or `key_drivers` is empty.
+- For non-empty inputs, computes what fraction of non-empty driver lists contain at least one domain keyword (case-insensitive substring match).
+- Passes if `>= 70%` of driver lists contain a match.
+- Action on fail: "Review stimulus prompts; check tendency-attribute assignment"
+
+### `check_s4(wtp_values, ask_price) -> GateResult`
+- Filters out `None` and `0.0` values, then computes median.
+- Auto-passes with `warning=True` if no valid WTP data.
+- Passes cleanly when deviation `<= 20%`, warns when `20% < deviation <= 30%`, fails when `deviation > 30%`.
+- Threshold formatted with rupee symbol: `₹{ask_price:.0f}`
+- Action on fail/warn: "Check tendency-attribute proxy formulas; may need recalibration"
+
+### `run_all_gates(personas, decisions, key_drivers, wtp_values, ask_price, domain_keywords=None) -> list[GateResult]`
+- Convenience wrapper that calls all four checks in order and returns `[S1, S2, S3, S4]`.
+
+---
+
+## Verification
+
+```
+Import check:
+python3 -c "from src.validation.simulation_gates import GateResult, check_s1, check_s2, check_s3, check_s4, run_all_gates; print('Import OK')"
+→ Import OK
+
+Full test suite:
+python3 -m pytest tests/ -q --tb=short 2>&1 | tail -5
+→ 436 passed, 15 skipped in 1.92s
+```
+
+No regressions. Net change: +0 tests (module is new; no test file was authored this sprint — existing `test_simulation_gates.py` covers Sprint 7 simulation structural tests and was already passing).
+
+---
+
+## Assumptions / deviations
+
+- **`simulation_state` attribute path:** The brief specifies `memory.working.simulation_state`. No `WorkingMemory.simulation_state` field exists in the current schema; the gate reads it defensively (catches `AttributeError`) so it won't crash on current personas. An absent or `None` state is treated as an error condition per the S1 spec intent.
+- **S2 warning boundary:** The brief says "Warning (not fail) if 80 < max_pct <= 90". Implemented exactly that band. Below 80% is a clean pass with no warning.
+- **S3 match logic:** "Contains at least one domain keyword" is implemented as a case-insensitive substring match (`kw in driver.lower()`), which handles multi-word drivers gracefully.
+- **S4 warning boundary:** "Warning (not fail) if 0.20 < deviation <= 0.30". Below 0.20 is clean pass. Above 0.30 is hard fail.
+- All functions are fully deterministic — no LLM calls anywhere in the module.
+
+---
+
 # Sprint 20 Outcome — Goose
 
 **Deliverable:** `src/taxonomy/domain_merger.py`

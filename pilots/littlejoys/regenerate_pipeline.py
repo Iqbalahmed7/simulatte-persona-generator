@@ -481,6 +481,23 @@ def _run_validation_and_save(personas: list, dry_run: bool, tier: str = "deep") 
         if below_par > 3:
             print(f"  ... and {below_par - 3} more below-par personas")
 
+    # Run S1–S4 simulation gates
+    from src.validation.simulation_gates import run_all_gates
+    from src.validation.gate_report import SimulationGateReport, format_gate_report
+
+    decisions_list = []   # populated if simulation data available — empty list is fine for now
+    gate_results = run_all_gates(
+        personas=personas,
+        decisions=decisions_list,
+        key_drivers=[],
+        wtp_values=[],
+        ask_price=649.0,
+        domain_keywords=["pediatrician", "nutrition", "supplement", "price", "taste", "doctor"],
+    )
+    gate_report = SimulationGateReport(s_gates=gate_results)
+    print()
+    print(format_gate_report(gate_report))
+
     if dry_run:
         print("[Done] Dry-run complete — skipping save.")
         return
