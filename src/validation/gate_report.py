@@ -20,6 +20,22 @@ if TYPE_CHECKING:
 
 
 # ---------------------------------------------------------------------------
+# Gate registry — human-readable descriptions keyed by gate ID
+# ---------------------------------------------------------------------------
+
+GATE_REGISTRY: dict[str, str] = {
+    # Simulation quality gates (Sprint 21)
+    "S1": "Zero error rate gate (all sample personas complete without error)",
+    "S2": "Decision diversity gate (no single option > 90% of cohort)",
+    "S3": "Driver coherence gate (>= 70% of driver lists contain domain keywords)",
+    "S4": "WTP plausibility gate (median WTP within ±30% of ask price)",
+    # Onboarding pipeline gates (Sprint 28)
+    "G-O1": "Onboarding corpus size gate (minimum 200 signals)",
+    "G-O2": "Onboarding cluster stability gate (silhouette > 0.30 across 5 runs)",
+}
+
+
+# ---------------------------------------------------------------------------
 # SimulationGateReport dataclass
 # ---------------------------------------------------------------------------
 
