@@ -3,9 +3,19 @@
 
 **Status:** Canonical quality document. Extracted for standalone use in sprint acceptance criteria and QA review.
 **Source:** `SIMULATTE_PERSONA_GENERATOR_MASTER_SPEC.md` Section 12
-**Version:** Tracks master spec v1.2
+**Version:** Tracks master spec v1.2 + Sprint SA/SB/SC social simulation extension (2026-04-03)
 
 This document is the complete test specification for population quality, behavioural validity, simulation quality, and calibration. Every sprint that produces persona or simulation output must run the applicable tests from this protocol before marking work complete.
+
+**Social Simulation Validity Gates (SV1–SV5):** For any `run_social_loop()` run with `SocialSimulationLevel != ISOLATED`, the SV1–SV5 gates run automatically and are stored in `SocialSimulationTrace.validity_gate_results`. Full specification in `docs/MULTI_AGENT_SOCIAL_SIMULATION.md §9`. Summary:
+
+| Gate | Check | Threshold |
+|---|---|---|
+| SV1 | 100% influence events linked to observation_id | All or vacuous pass |
+| SV2 | Decision diversity under peer influence | ≤80% (HIGH/SAT) / ≤90% (others) |
+| SV3 | Echo chamber score (max_tx/total) | >0.80 FAIL / >0.60 WARN / ≤0.60 PASS |
+| SV4 | Tendency shift direction consistency | Always pass (manual review) |
+| SV5 | derived_insights unchanged after simulation | Exact field comparison |
 
 ---
 

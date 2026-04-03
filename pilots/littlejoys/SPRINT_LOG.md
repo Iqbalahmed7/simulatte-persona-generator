@@ -134,4 +134,4 @@ Quick reference of what was built sprint by sprint.
 - Calibration — move cohort from `uncalibrated` to `calibrated` against LJ purchase data
 - Competitive scenario (LittleJoys vs Horlicks vs Complan)
 - Segment report (auto-cluster by decision outcome, surface differentiators)
-- WOM propagation (persona-to-persona influence)
+- **WOM propagation — UNBLOCKED (Sprints SA/SB/SC, 2026-04-03).** Multi-agent social simulation is now shipped. Use `run_social_loop()` with FULL_MESH or RANDOM_ENCOUNTER topology at MODERATE level. Recommended starting point: 10–20 representative personas from the 200-persona cohort (use registry lookup from Sprint 31 to assemble). WOM + competitive scenario can be combined: seed some personas with Horlicks/Complan loyalty, observe peer influence on LittleJoys consideration. CLI: `simulate --social-level moderate --social-topology full_mesh`.

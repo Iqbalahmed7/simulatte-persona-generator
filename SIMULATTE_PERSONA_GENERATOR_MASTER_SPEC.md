@@ -133,7 +133,7 @@ Five properties must hold simultaneously:
 | Seed-document-to-ontology via LLM | **Adopt the principle, modify the scope** | MiroFish infers the full ontology from a seed document. Simulatte uses this principle for domain taxonomy extension (Layer 2) only — the base taxonomy (Layer 1) is pre-defined. The ICP Spec + domain data trigger ontology extraction, not a single seed document. |
 | Zep Cloud as knowledge graph | **Reject the specific technology, adopt the principle** | Memory should be queryable by recency, importance, relevance, and relationship. But Simulatte's v1 uses JSON-based memory with a retrieval formula, not a graph database. The architecture supports future migration to a knowledge graph without redesign. |
 | Temporal edge metadata | **Adopt directly** | Every memory entry carries a timestamp. Reflections carry source_observation_ids (relationship edges). Temporal ordering is fundamental to the retrieval formula. |
-| OASIS social simulation engine | **Reject for v1** | Multi-agent social interaction (personas influencing each other) is deferred. Individual persona cognition must be validated first. Explicit v2 roadmap item. |
+| OASIS social simulation engine | **Adopted — implemented Sprints SA/SB/SC (2026-04-03)** | Multi-agent social simulation is now shipped. Architecture: SocialSimulationLevel (ISOLATED default → SATURATED), peer influence via `perceive()` injection, SocialSimulationTrace + SV1–SV5 validity gates. See `docs/MULTI_AGENT_SOCIAL_SIMULATION.md`. |
 | ReACT report agent with InterviewAgents tool | **Adopt the concept for Deep Interview modality** | The idea that a report agent can interrogate personas post-simulation maps directly to Simulatte's Deep Interview modality (Phase 4). |
 | Zero-configuration aspiration | **Reject** | MiroFish aims for zero manual config. Simulatte requires the ICP Spec — the user must define who they're building personas for and why. Automation applies to taxonomy extension and grounding, not problem definition. |
 
@@ -1466,6 +1466,10 @@ These are canonical. They are not defaults — they are the architecture. Changi
 | S25 | Sarvam must not change the decision | CR1 isolation test must pass — final decision identical with and without enrichment | If enrichment changes the decision, it has leaked into cognition. This is a hard architectural violation. |
 | S26 | Anti-stereotypicality constraints apply to Sarvam outputs equally | Section 10 prohibited defaults apply to all outputs including Sarvam-enriched | Cultural enrichment is not a license for stereotyping. |
 | S27 | CR1-CR4 validation tests must pass before Sarvam enrichment is approved for any domain | Per-domain evaluation required | Generic approval is not sufficient. Each new domain requires evaluation by human evaluators with domain knowledge. |
+| S28 | ISOLATED is the default social simulation level | `ExperimentSession.social_simulation_level = ISOLATED` | Zero overhead at default. Existing single-persona experiments are structurally unaffected by the social simulation layer. |
+| S29 | Social influence enters only through perceive() | `format_as_stimulus()` produces stimulus text injected via `run_loop()` | LLM retains full authority to accept, reject, or reframe peer signals. Influence is evidence, not mutation. Upholds P2 and P4. |
+| S30 | Tendency band fields never drift | Only description prose may change via `apply_tendency_drift()` | Band, weights, dominant, source are structural anchors. Drift corrupting these would violate identity permanence (S3). |
+| S31 | Social simulation calibration confirmed (Sprint SC) | Susceptibility formula: no tuning; signal strength: no tuning; SV3 thresholds (0.60/0.80): confirmed | SVB1 (N=243): mean=0.319, 0 ceiling clamps. SVB2 (N=25): range=[0.10, 0.93]. SVB3: FULL_MESH N=2 scores 0.50, safely below WARN. |
 
 ### 14B. Open Research Questions
 
@@ -1577,7 +1581,7 @@ Every major component is classified into exactly one phase. This prevents overbu
 | Deep interview | **RECOMMENDED SOON AFTER v1** | High-value modality. Leverages existing cognitive loop. |
 | Persona persistence (cross-session reuse) | **RECOMMENDED SOON AFTER v1** | JSON serialization is straightforward. |
 | Multi-user persona sharing | **LATER-PHASE** | Requires database, auth, permissions. Platform feature. |
-| Social interaction between personas | **OUT OF SCOPE** | Complex research problem. Deferred to v2+. |
+| Social interaction between personas | **v1 COMPLETE (Sprints SA/SB/SC, 2026-04-03)** | Multi-agent social simulation shipped: `run_social_loop()`, 5 SocialSimulationLevels, SV1–SV5 validity gates, `--social-level` / `--social-topology` CLI flags. ISOLATED default preserves zero-overhead backward compatibility. |
 | Real-time data feeds | **OUT OF SCOPE** | Massive infrastructure. Not needed for core value. |
 | Fine-tuned models | **OUT OF SCOPE** | Locks to model version. Prompt-based approach preferred. |
 | Predictive validity claims | **OUT OF SCOPE** | Requires calibration + validation cycles not yet built. |
