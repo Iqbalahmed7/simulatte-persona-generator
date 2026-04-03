@@ -11,7 +11,8 @@ from typing import Optional
 STORE_DIR = Path(os.environ.get("COHORT_STORE_DIR", "/tmp/simulatte_cohorts"))
 
 # Seed cohorts committed to the repo — always available on any deployment
-_REPO_ROOT = Path(__file__).resolve().parents[3]
+# store.py lives at src/api/store.py → parents[2] is the repo root
+_REPO_ROOT = Path(__file__).resolve().parents[2]
 SEED_DIR = _REPO_ROOT / "data" / "seed_cohorts"
 
 
