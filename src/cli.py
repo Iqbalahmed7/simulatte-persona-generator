@@ -335,7 +335,13 @@ def report(cohort_path, output, no_narratives):
     help="Known real-world conversion rate (0.0-1.0) for C3 calibration gate")
 @click.option("--benchmark-wtp-median", type=float, default=None,
     help="Known real-world median WTP for calibration")
-def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conversion, benchmark_wtp_median):
+@click.option("--social-level", default="isolated",
+              type=click.Choice(["isolated","low","moderate","high","saturated"], case_sensitive=False),
+              help="Social simulation level (default: isolated = no peer influence).")
+@click.option("--social-topology", default="random_encounter",
+              type=click.Choice(["full_mesh","random_encounter"], case_sensitive=False),
+              help="Network topology for peer influence (default: random_encounter).")
+def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conversion, benchmark_wtp_median, social_level, social_topology):
     """Run cognitive simulation on a saved cohort."""
     import asyncio
     import json
@@ -343,7 +349,8 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
     with open(scenario) as f:
         scenario_data = json.load(f)
 
-    result = asyncio.run(_run_simulation(cohort, scenario_data, rounds, tier=tier))
+    result = asyncio.run(_run_simulation(cohort, scenario_data, rounds, tier=tier,
+                                          social_level=social_level, social_topology=social_topology))
 
     json_str = json.dumps(result, indent=2, default=str)
     if output:
@@ -361,7 +368,8 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
         click.echo(f"  simulatte calibrate --cohort-path {cohort} --benchmark-conversion {benchmark_conversion} --benchmark-wtp-median {benchmark_wtp_median}")
 
 
-async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep") -> dict:
+async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep",
+                          social_level: str = "isolated", social_topology: str = "random_encounter") -> dict:
     import asyncio
     from src.persistence.envelope_store import load_envelope
     from src.cognition.loop import run_loop
@@ -423,6 +431,12 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
     from src.cohort.calibrator import compute_calibration_state
     calibration = compute_calibration_state(envelope, results)
 
+    # Social simulation metadata (Sprint SB)
+    social_info = {
+        "social_level": social_level,
+        "social_topology": social_topology if social_level != "isolated" else None,
+    }
+
     return {
         "simulation_id": f"sim-{__import__('uuid').uuid4().hex[:8]}",
         "cohort_id": envelope.cohort_id,
@@ -435,6 +449,7 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
             "consistency_score": float(calibration.notes.split("=")[1].split(";")[0]) if calibration.notes else None,
             "N": len(results),
         },
+        "social_simulation": social_info,
     }
 
 
