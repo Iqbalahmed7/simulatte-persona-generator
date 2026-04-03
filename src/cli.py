@@ -596,5 +596,83 @@ def language_readiness(language):
 cli.add_command(language_readiness)
 
 
+# ---------------------------------------------------------------------------
+# registry — Persona Registry CLI (Sprint 30)
+# ---------------------------------------------------------------------------
+
+@click.group()
+def registry():
+    """Persona registry operations."""
+    pass
+
+
+@registry.command("get")
+@click.option("--id", "persona_id", required=True, help="Persona ID to retrieve.")
+@click.option("--registry-path", default=None, help="Registry root path (default: data/registry).")
+def registry_get(persona_id, registry_path):
+    """Retrieve a persona from the registry by ID and print as JSON."""
+    import json
+    from src.registry.persona_registry import PersonaRegistry
+    reg = PersonaRegistry(registry_path)
+    persona = reg.get(persona_id)
+    if persona is None:
+        click.echo(json.dumps({"error": f"Persona '{persona_id}' not found in registry."}))
+        raise SystemExit(1)
+    click.echo(persona.model_dump_json(indent=2))
+
+
+@registry.command("find")
+@click.option("--age-min", type=int, default=None)
+@click.option("--age-max", type=int, default=None)
+@click.option("--gender", default=None)
+@click.option("--city-tier", default=None)
+@click.option("--domain", default=None)
+@click.option("--registry-path", default=None)
+def registry_find(age_min, age_max, gender, city_tier, domain, registry_path):
+    """Find personas matching demographic criteria."""
+    import json
+    from src.registry.persona_registry import PersonaRegistry
+    from dataclasses import asdict
+    reg = PersonaRegistry(registry_path)
+    results = reg.find(age_min=age_min, age_max=age_max, gender=gender, city_tier=city_tier, domain=domain)
+    click.echo(json.dumps([asdict(r) for r in results], indent=2))
+
+
+@registry.command("export")
+@click.option("--cohort-id", required=True)
+@click.option("--output", required=True, help="Output directory path.")
+@click.option("--registry-path", default=None)
+def registry_export(cohort_id, output, registry_path):
+    """Export all personas from the registry to an output directory as JSON files."""
+    import json
+    import pathlib
+    from src.registry.persona_registry import PersonaRegistry
+    reg = PersonaRegistry(registry_path)
+    entries = reg.list_all()
+    out_dir = pathlib.Path(output)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for entry in entries:
+        persona = reg.get(entry.persona_id)
+        if persona:
+            (out_dir / f"{entry.persona_id}.json").write_text(persona.model_dump_json(indent=2))
+    click.echo(json.dumps({"exported": len(entries), "cohort_id": cohort_id, "output": str(out_dir)}))
+
+
+@registry.command("sync")
+@click.option("--cohort-path", required=True, help="Path to JSON file with list of PersonaRecord dicts.")
+@click.option("--registry-path", default=None)
+def registry_sync(cohort_path, registry_path):
+    """Import personas from a JSON file into the registry."""
+    import json
+    from src.registry.persona_registry import PersonaRegistry
+    from dataclasses import asdict
+    reg = PersonaRegistry(registry_path)
+    entries = reg.sync_from_json(cohort_path)
+    click.echo(json.dumps({"synced": len(entries), "persona_ids": [e.persona_id for e in entries]}))
+
+
+cli.add_command(registry)
+
+
 if __name__ == "__main__":
     cli()
