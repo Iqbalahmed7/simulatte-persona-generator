@@ -1,5 +1,5 @@
 # Multi-Agent Social Simulation — Architecture Design
-**Status:** DESIGN REVIEW — Awaiting Tech Lead approval before Sprint SA starts
+**Status:** APPROVED — Sprint SA ready to start
 **Author:** Tech Lead (Claude)
 **Date:** 2026-04-03
 **Spec anchor:** Master Spec §14B (Open Research Questions — OASIS social simulation, deferred to v2)
@@ -9,7 +9,33 @@
 
 ## Prerequisites
 
-This architecture requires `calibration_state.status != "uncalibrated"` on the target cohort before any social simulation is run. Do not implement any part of this plan until Sprint 22 calibration is in place (already done for LittleJoys).
+`calibration_state.status != "uncalibrated"` on the target cohort before running social simulation. For LittleJoys this is already satisfied (`benchmark_calibrated` as of Sprint 22).
+
+---
+
+## Critical Distinction: Peer Influence vs. Social Media Influence
+
+**This toggle controls peer-to-peer influence only.**
+
+Social media stimuli (Instagram ads, influencer posts, sponsored content) are **not** peer influence — they are standard stimuli that already flow through `perceive()` regardless of this toggle. A persona encountering an Instagram ad is just a `stimulus_type: "brand_touchpoint"` event processed by the existing cognitive loop. That always happens.
+
+What this toggle controls is whether **Persona A's decision or expressed opinion influences Persona B's reasoning**. This is peer-level social contagion — word of mouth, community decisions, group dynamics. When the toggle is `ISOLATED`, each persona reasons entirely from their own observations and the stimuli they receive. No persona learns what another persona decided.
+
+```
+Toggle OFF (ISOLATED):
+  Persona A sees Instagram ad → perceives it → decides independently
+  Persona B sees Instagram ad → perceives it → decides independently
+  Neither knows what the other decided.
+
+Toggle ON (MODERATE):
+  Persona A sees Instagram ad → decides
+  Persona B sees Instagram ad + hears "Priya (someone you know) just switched brands" → decides
+  Priya's expressed decision is now an input to B's reasoning.
+```
+
+The `SocialSimulationLevel` enum maps directly to this toggle:
+- `ISOLATED` = peer influence OFF (default — existing system behaviour)
+- Any other level = peer influence ON, with graduated intensity
 
 ---
 

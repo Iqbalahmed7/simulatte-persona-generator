@@ -11,11 +11,15 @@ From the ICP Spec 'Anchor Traits' section."
 
 from __future__ import annotations
 
+from typing import Optional
+
 from pydantic import BaseModel, ConfigDict, Field
+
+from src.taxonomy.collision_detector import CollisionReport
 
 
 class ICPSpec(BaseModel):
-    model_config = ConfigDict(extra="ignore")
+    model_config = ConfigDict(extra="ignore", arbitrary_types_allowed=True)
 
     domain: str                          # e.g. "child_nutrition", "saas_b2b"
     business_problem: str                # e.g. "Understand why parents defer Nutrimix purchases"
@@ -30,3 +34,6 @@ class ICPSpec(BaseModel):
     geography: str | None = None         # Primary market geography
     category: str | None = None          # Product category, e.g. "CPG", "SaaS"
     persona_count: int = 10              # Target cohort size (default 10)
+
+    # Populated by icp_spec_parser after construction; None until then.
+    collision_report: Optional[CollisionReport] = Field(default=None, exclude=True)

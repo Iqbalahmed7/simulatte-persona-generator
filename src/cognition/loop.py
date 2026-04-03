@@ -25,6 +25,8 @@ from src.cognition.decide import decide, DecisionOutput
 from src.experiment.session import SimulationTier, tier_models
 from src.memory.working_memory import WorkingMemoryManager
 from src.memory.retrieval import retrieve_top_k
+from src.memory.hierarchical_retrieval import HierarchicalRetriever
+from src.schema.memory_extended import WorkingMemoryExtended
 
 
 @dataclass
@@ -96,8 +98,12 @@ async def run_loop(
     reflected = False
 
     if manager.should_reflect(working):
-        # Retrieve top-20 observations for reflect (recency + importance + relevance)
-        top_20 = manager.retrieve_top_k(working, query="", k=20)
+        # Retrieve top-20 observations for reflect (recency + importance + relevance).
+        # Use HierarchicalRetriever when archival_index is present (Sprint 25).
+        if isinstance(working, WorkingMemoryExtended) and working.archival_index is not None:
+            top_20 = HierarchicalRetriever().retrieve_active_only(working, query="", k=20)
+        else:
+            top_20 = manager.retrieve_top_k(working, query="", k=20)
 
         # Only pass Observation objects (retrieve_top_k may return mixed types)
         obs_for_reflect: list[Observation] = [
@@ -141,13 +147,18 @@ async def run_loop(
 
     if decision_scenario is not None:
         # Retrieve top-10 memories relevant to the decision scenario.
-        # Passes mixed observations + reflections to the module-level retrieve_top_k
-        # (not the manager method) as specified in the brief.
-        all_memories: list[Observation | Reflection] = [
-            *working.observations,
-            *working.reflections,
-        ]
-        top_10 = retrieve_top_k(all_memories, query=decision_scenario, k=10)
+        # Use HierarchicalRetriever when archival_index is present (Sprint 25).
+        if isinstance(working, WorkingMemoryExtended) and working.archival_index is not None:
+            top_10 = HierarchicalRetriever().retrieve_active_only(
+                working, query=decision_scenario, k=10
+            )
+        else:
+            # Standard path: mixed observations + reflections
+            all_memories: list[Observation | Reflection] = [
+                *working.observations,
+                *working.reflections,
+            ]
+            top_10 = retrieve_top_k(all_memories, query=decision_scenario, k=10)
 
         decision_output = await decide(
             decision_scenario, top_10, persona,

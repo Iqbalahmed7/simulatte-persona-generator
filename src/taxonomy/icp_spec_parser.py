@@ -16,6 +16,27 @@ import re
 from pathlib import Path
 
 from src.schema.icp_spec import ICPSpec
+from src.taxonomy.base_taxonomy import BASE_TAXONOMY
+from src.taxonomy.collision_detector import CollisionReport, detect_collisions
+
+# Base taxonomy names resolved once at import time (deterministic, no I/O).
+_BASE_TAXONOMY_NAMES: list[str] = [a.name for a in BASE_TAXONOMY]
+
+
+def _attach_collision_report(spec: ICPSpec) -> ICPSpec:
+    """Run collision detection and attach the report to *spec* in-place.
+
+    Template attributes are not yet known at parse time, so an empty list is
+    passed — template collision detection is deferred to the point where a
+    domain template is selected.
+    """
+    report: CollisionReport = detect_collisions(
+        icp_anchor_traits=spec.anchor_traits,
+        base_taxonomy_names=_BASE_TAXONOMY_NAMES,
+        template_attributes=[],
+    )
+    spec.collision_report = report
+    return spec
 
 
 # ---------------------------------------------------------------------------
@@ -187,17 +208,17 @@ def parse_icp_spec(source: str | Path | dict) -> ICPSpec:
         FileNotFoundError: if source is a Path that does not exist.
     """
     if isinstance(source, dict):
-        return _parse_json(source)
+        return _attach_collision_report(_parse_json(source))
 
     if isinstance(source, Path):
         text = source.read_text(encoding="utf-8")
         if source.suffix.lower() == ".json":
-            return _parse_json(json.loads(text))
-        return _parse_markdown(text)
+            return _attach_collision_report(_parse_json(json.loads(text)))
+        return _attach_collision_report(_parse_markdown(text))
 
     # source is a str
     try:
         data = json.loads(source)
-        return _parse_json(data)
+        return _attach_collision_report(_parse_json(data))
     except json.JSONDecodeError:
-        return _parse_markdown(source)
+        return _attach_collision_report(_parse_markdown(source))
