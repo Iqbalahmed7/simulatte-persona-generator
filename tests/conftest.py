@@ -12,3 +12,5 @@ def pytest_addoption(parser):
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "live: mark test as requiring live API access")
+    config.addinivalue_line("markers", "integration: mark test as requiring real data files on disk")
+    config.addinivalue_line("markers", "cohort: mark test as requiring the real LittleJoys cohort file on disk (no API key needed)")
