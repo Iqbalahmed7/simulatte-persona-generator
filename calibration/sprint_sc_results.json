@@ -1,0 +1,61 @@
+{
+  "svb1": {
+    "n": 243,
+    "min": 0.0,
+    "max": 0.829,
+    "mean": 0.3194,
+    "median": 0.308,
+    "stdev": 0.1648,
+    "pct10": 0.1128,
+    "pct90": 0.541,
+    "clamped_at_0": 4,
+    "clamped_at_1": 0
+  },
+  "svb2": {
+    "n": 25,
+    "min": 0.1,
+    "max": 0.925,
+    "mean": 0.515,
+    "stdev": 0.212
+  },
+  "svb3": {
+    "cohort_scenarios": [
+      {
+        "n": 2,
+        "full_mesh_edges": 2,
+        "full_mesh_echo_score": 0.5,
+        "full_mesh_sv3_zone": "PASS",
+        "random_encounter_edges": 2,
+        "random_encounter_echo_score": 0.5,
+        "random_encounter_sv3_zone": "PASS"
+      },
+      {
+        "n": 3,
+        "full_mesh_edges": 6,
+        "full_mesh_echo_score": 0.3333,
+        "full_mesh_sv3_zone": "PASS",
+        "random_encounter_edges": 6,
+        "random_encounter_echo_score": 0.3333,
+        "random_encounter_sv3_zone": "PASS"
+      },
+      {
+        "n": 4,
+        "full_mesh_edges": 12,
+        "full_mesh_echo_score": 0.25,
+        "full_mesh_sv3_zone": "PASS",
+        "random_encounter_edges": 8,
+        "random_encounter_echo_score": 0.25,
+        "random_encounter_sv3_zone": "PASS"
+      },
+      {
+        "n": 6,
+        "full_mesh_edges": 30,
+        "full_mesh_echo_score": 0.1667,
+        "full_mesh_sv3_zone": "PASS",
+        "random_encounter_edges": 12,
+        "random_encounter_echo_score": 0.1667,
+        "random_encounter_sv3_zone": "PASS"
+      }
+    ]
+  }
+}
