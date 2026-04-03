@@ -63,7 +63,7 @@ HEALTHCARE_WELLNESS_DOMAIN_ATTRIBUTES: list[AttributeDefinition] = _domain_attr_
             is_anchor=False,
         ),
         AttributeDefinition(
-            name="health_anxiety",
+            name="medical_consultation_anxiety",
             category="psychology",
             attr_type="continuous",
             range_min=0.0,
