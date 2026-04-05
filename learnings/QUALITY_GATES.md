@@ -113,6 +113,41 @@ Check that the narrative does not:
 Automated check: regex scan for numeric WTP mentions, compare against parameter range.
 Manual check: narrative review for trust description contradictions.
 
+---
+
+## G12 — Simulation Grounding Check (added April 2026)
+
+### Background
+
+During manual QA of 6 Lumio client simulation reports, three types of grounding contamination were found that had gone undetected. This led to the G12 gate.
+
+### Three contamination types found in Lumio
+
+**T1 — Injected Product Facts**
+A product brief submitted for simulation contained `₹4,000–₹18,000` as an indicative price range. Lumio's actual prices are ₹29,999 and ₹54,999. This invented range contaminated persona WTP distributions across all 6 reports. No source document supported these figures.
+
+**T2 — Impossible Persona Attributes**
+Multiple personas were generated with prior exposure at Croma ("I saw the Lumio TV at the Croma demo last week"). Lumio is Amazon-only — it has no Croma presence. The personas were structurally impossible, which invalidated purchase-intent scoring.
+
+**T3 — Quote Leakage**
+Persona verbatim quotes included specific timings ("Netflix loads in 4 seconds on Lumio vs 22 seconds on Xiaomi") that were never in the product frame. The frame only said "2x faster." The model hallucinated specific numbers and leaked them into persona speech, giving false precision to a relative claim.
+
+### Lessons learned
+
+1. **Relative claims in product frames produce specific numbers in persona outputs.** If the frame says "faster," the model will invent how much faster. Lock down the frame or accept that quotes will contain invented numbers.
+2. **Market facts must be versioned with the simulation date.** Lumio had no Croma presence *as of simulation date* — this needs to be explicit in the market facts JSON.
+3. **T2 issues are almost always client-fatal.** A simulation that claims a brand has physical retail when it doesn't will undermine client trust immediately. CRITICAL severity is appropriate.
+4. **Source documents are the T1 defence.** When source documents are passed to `run_grounding_check`, T1 issues reduce significantly because numeric claims can be verified against real brand material.
+
+### Implementation
+
+- Module: `src/validation/grounding_check.py`
+- Market facts: `src/validation/market_facts/{client}.json`
+- Tests: `tests/test_grounding_check.py`
+- Protocol: `SIMULATTE_VALIDITY_PROTOCOL.md` — G12 row in Module 1 table + full T1/T2/T3 subsections
+
+---
+
 ## Pre-Sprint Checklist
 
 Before writing briefs for a new sprint:

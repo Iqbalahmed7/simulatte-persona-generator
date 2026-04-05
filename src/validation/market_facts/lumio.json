@@ -1,0 +1,30 @@
+{
+  "client": "Lumio",
+  "simulation_date": "April 2026",
+  "distribution": {
+    "model": "Amazon-only",
+    "channels": ["Amazon.in"],
+    "offline_retail": false,
+    "forbidden_touchpoints": ["Croma", "Reliance Digital", "Vijay Sales", "offline store", "in-store demo", "retail store", "physical store", "showroom"],
+    "notes": "Lumio launched May 2025. No physical retail presence as of simulation date."
+  },
+  "brand_facts": {
+    "founded": "2025",
+    "age_at_simulation": "~6 months",
+    "category": "Smart TV",
+    "products": ["Vision 7", "Vision 9", "Arc 5", "Arc 7"],
+    "verified_claims": {
+      "vision_7_price": 29999,
+      "vision_9_price": 54999,
+      "speed_claim": "2x faster boot, 2x faster Netflix loading",
+      "rating": "4.4/5",
+      "review_count": "200+",
+      "gmv_45_days": "1M USD",
+      "service_centres": "300+",
+      "pincodes": "19000+",
+      "warranty_years": 3,
+      "quality_tests": "60+"
+    },
+    "unverified_claims_to_flag": ["4 seconds vs 22 seconds", "4 seconds", "22 seconds", "price range ₹4,000", "price range ₹8,000", "price range ₹18,000"]
+  }
+}

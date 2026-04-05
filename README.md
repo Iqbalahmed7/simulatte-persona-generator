@@ -83,6 +83,52 @@ Persona Generator/
 
 ---
 
+---
+
+## Grounding Check (G12)
+
+The G12 gate detects three types of grounding contamination in simulation outputs before they reach clients.
+
+### What it checks
+
+| Type | Name | Description |
+|------|------|-------------|
+| T1 | Injected Product Facts | Numbers or claims in the product frame that cannot be traced to source documents (e.g. invented price ranges, unsourced durations) |
+| T2 | Impossible Persona Attributes | Persona prior exposure or backstory that contradicts market facts (e.g. persona claims to have seen an Amazon-only product at Croma) |
+| T3 | Quote Leakage | Specific numbers in verbatim persona quotes that were never established in the product frame (e.g. "4 seconds vs 22 seconds" when the frame only said "2x faster") |
+
+### How to run
+
+```python
+from src.validation.grounding_check import run_grounding_check, load_market_facts
+
+market_facts = load_market_facts("lumio")  # loads src/validation/market_facts/lumio.json
+
+report = run_grounding_check(
+    product_frame=your_product_brief_text,
+    market_facts=market_facts,
+    persona_outputs=list_of_persona_dicts,
+    source_documents=list_of_source_strings,  # optional but recommended for T1
+)
+
+if not report.passed:
+    print(report.summary())
+```
+
+`report.passed` is `True` only when there are zero CRITICAL or HIGH issues.
+
+### Adding market facts for a new client
+
+1. Create `src/validation/market_facts/{client_name}.json` — use `lumio.json` as a template.
+2. Populate `distribution.forbidden_touchpoints` with retail channels that do not carry this brand.
+3. Set `distribution.offline_retail` to `false` for online-only brands.
+4. Populate `brand_facts.verified_claims` with numbers from source documents.
+5. Call `load_market_facts("client_name")` — the filename is resolved automatically.
+
+Current clients: `lumio`, `lo_foods`, `littlejoys`.
+
+---
+
 ## Quick Reference — The 5 AI Engineers
 
 | Engineer | Model | Role |

@@ -1,0 +1,16 @@
+{
+  "client": "Lo! Foods",
+  "distribution": {
+    "model": "Online + selective offline",
+    "channels": ["Amazon.in", "BigBasket", "Zepto", "Blinkit", "own website"],
+    "offline_retail": false,
+    "forbidden_touchpoints": [],
+    "notes": "Verify distribution model from Lo! Foods source documents"
+  },
+  "brand_facts": {
+    "category": "Low-carb health snacks",
+    "target_conditions": ["diabetic", "pre-diabetic", "low-carb", "keto"],
+    "verified_claims": {},
+    "notes": "Populate verified_claims from actual Lo! Foods source documents"
+  }
+}

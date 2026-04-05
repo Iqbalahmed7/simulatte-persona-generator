@@ -1,0 +1,20 @@
+{
+  "client": "LittleJoys",
+  "distribution": {
+    "model": "Online + pharmacy",
+    "channels": ["Amazon.in", "Flipkart", "1mg", "Netmeds", "own website"],
+    "offline_retail": false,
+    "forbidden_touchpoints": [],
+    "notes": "Verify distribution model from LittleJoys source documents"
+  },
+  "brand_facts": {
+    "category": "Child nutrition supplements",
+    "product": "Nutrimix",
+    "target_age_child": "0-5 years",
+    "target_buyer": "Indian mothers",
+    "verified_claims": {
+      "median_wtp": 649,
+      "pediatrician_influence": "42% of personas cite pediatrician as top driver"
+    }
+  }
+}

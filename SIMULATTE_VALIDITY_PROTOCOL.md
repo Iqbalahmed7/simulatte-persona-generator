@@ -36,6 +36,64 @@ Run on every persona before output is produced. These are automated checks.
 | **G9: Tension completeness** | Every persona has ≥ 1 explicit internal contradiction (value vs behaviour) | 100% | Regenerate personas with no documented tension |
 | **G10: Memory bootstrap** *(Simulation-Ready mode only)* | Seed memories per persona | ≥ 3 per persona | Bootstrap additional seed memories before simulation |
 | **G11: Tendency source coverage** | Every tendency has `source` field set (grounded / proxy / estimated) | 100% | Add source tracking; outputs without source labels are incomplete |
+| **G12: Simulation grounding check** | Simulation Grounding Check — three-type contamination validator | 0 CRITICAL/HIGH issues | T1: product frame claims traceable to source; T2: persona attributes consistent with market facts; T3: no numbers in verbatim quotes that were not in the product frame |
+
+---
+
+### G12 — Simulation Grounding Check
+
+**What it means:** Simulation outputs must not contain claims, numbers, or attributes that cannot be traced to the product frame or verified source documents. Three contamination types were identified during manual audit of 6 Lumio client reports.
+
+**Module:** `src/validation/grounding_check.py`
+**Run:** `run_grounding_check(product_frame, market_facts, persona_outputs, source_documents)`
+**Pass condition:** Zero CRITICAL or HIGH issues.
+
+---
+
+#### T1 — Injected Product Facts
+
+Numbers or claims in the product frame that cannot be traced to any source document.
+
+**Detection logic:**
+- Scans product frame for rupee amounts, percentages, duration claims, and superlatives
+- Each token is checked against the source documents provided
+- Superlatives (`fastest`, `best`, `only`, `first`) without a citation marker are flagged
+
+**Lumio example:** The product brief submitted for simulation contained `₹4,000–₹18,000` as an indicative price range. Lumio's actual prices are ₹29,999 (Vision 7) and ₹54,999 (Vision 9). The invented price range contaminated persona WTP distributions across all 6 reports.
+
+**Severity:** HIGH for unsourced rupee amounts and durations; MEDIUM for unsourced percentages and superlatives.
+
+---
+
+#### T2 — Impossible Persona Attributes
+
+Persona prior exposure, backstory, narrative, or verbatim quotes that contradict known market facts — most commonly, offline retail touchpoints for an online-only brand.
+
+**Detection logic:**
+- Each client has a `forbidden_touchpoints` list in `src/validation/market_facts/{client}.json`
+- All persona text fields are scanned for forbidden touchpoints
+- `channel_usage` attributes listing offline channels for online-only brands are also flagged
+
+**Lumio example:** Multiple personas were generated with prior exposure at Croma (e.g., "I saw the Lumio TV at the Croma demo unit last week"). Lumio is an Amazon-only brand with no physical retail presence as of simulation date. This contamination made persona discovery paths structurally impossible, invalidating purchase-intent scoring.
+
+**Severity:** CRITICAL for forbidden touchpoint match; HIGH for offline channel_usage on an online-only brand.
+
+---
+
+#### T3 — Quote Leakage
+
+Specific numbers in verbatim persona quotes that were never established in the product frame. These numbers are invented by the simulation model, not grounded in any provided stimulus.
+
+**Detection logic:**
+- Extracts all numeric tokens (prices, percentages, durations, ratings, spec versions) from verbatim quotes
+- Each token is checked against the product frame text
+- Technical spec mentions (e.g. model + version number) are also cross-checked
+
+**Lumio example:** Persona verbatim quotes included "Netflix loads in 4 seconds on Lumio vs 22 seconds on my old Xiaomi TV." The product frame only stated "2x faster Netflix loading" — no specific durations were ever established. The numbers 4 and 22 were hallucinated by the model and leaked into persona speech, giving false precision to a relative claim.
+
+**Severity:** HIGH for numbers or specs in verbatim quotes with no product frame backing.
+
+---
 
 ### Hard Constraint Reference
 
@@ -227,6 +285,7 @@ The following are **prohibited defaults**. Their presence without explicit deriv
 ```
 For every persona generation run:
   → G1 through G11 (all applicable)
+  → G12 (Simulation Grounding Check) before delivering any simulation output
 
 For every cohort:
   → G6 (distribution), G7 (distinctiveness), G8 (type coverage)
