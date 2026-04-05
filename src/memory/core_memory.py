@@ -81,6 +81,24 @@ def _derive_identity_statement(persona: PersonaRecord) -> str:
 # key_values
 # ---------------------------------------------------------------------------
 
+# Political lean → key_values statement (ARCH-001 / Sprint A-2).
+# These propagate into the decide.py system prompt via CoreMemory.key_values,
+# giving the LLM the ideological anchor needed to respond differently to
+# politically-charged survey questions.
+_POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
+    "conservative":      "Holds conservative political values — limited government, "
+                         "traditional social norms, free-market economics",
+    "lean_conservative": "Leans conservative — centre-right, sceptical of government expansion, "
+                         "fiscally cautious",
+    "moderate":          "Political moderate — pragmatic, case-by-case positions, "
+                         "rejects strong partisan identity",
+    "lean_progressive":  "Leans progressive — centre-left, supports safety net programs, "
+                         "socially liberal",
+    "progressive":       "Holds progressive political values — expansive government role, "
+                         "systemic equity focus, climate action priority",
+}
+
+
 # Human-readable labels for each primary_value_driver option (anchor attr).
 _VALUE_DRIVER_LABELS: dict[str, str] = {
     "price": "Quality over price",
@@ -106,10 +124,12 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
     """Build a 3–5 item key_values list.
 
     Assembly order:
-    1. Human-readable label of primary_value_driver anchor.
-    2. Value statement derived from tension_seed.
-    3–4. Up to 3 more from top-scoring values category attributes
-         (highest absolute deviation from 0.5 among continuous attrs).
+    1. Worldview statement (if political_lean or trust attrs present) — ARCH-001 addition.
+       This is the highest-variance predictor on opinion survey questions and must come
+       first so the LLM's reasoning prompt carries the ideological anchor prominently.
+    2. Human-readable label of primary_value_driver anchor.
+    3. Value statement derived from tension_seed.
+    4–5. Top continuous attributes from values category (|value - 0.5| deviation).
     Clamped to 5 maximum, guaranteed minimum 3.
     """
     seen: set[str] = set()
@@ -120,7 +140,47 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             seen.add(item)
             result.append(item)
 
-    # 1. Primary value driver label.
+    # 1. Worldview statement from worldview category attributes (ARCH-001).
+    #    Order of preference: political_lean > trust dims > social_change_pace.
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+
+    political_lean_attr = worldview_cat.get("political_lean")
+    if political_lean_attr is not None:
+        lean_value = str(political_lean_attr.value)
+        lean_stmt = _POLITICAL_LEAN_STATEMENTS.get(
+            lean_value,
+            lean_value.replace("_", " ").title() + " political values",
+        )
+        _add(lean_stmt)
+
+    # Institutional trust extremes are worth surfacing explicitly.
+    govt_trust_attr = worldview_cat.get("institutional_trust_government")
+    if govt_trust_attr is not None and isinstance(govt_trust_attr.value, (int, float)):
+        govt_v = float(govt_trust_attr.value)
+        if govt_v < 0.30:
+            _add("Deep skepticism of government institutions")
+        elif govt_v > 0.70:
+            _add("High trust in government and public institutions")
+
+    media_trust_attr = worldview_cat.get("institutional_trust_media")
+    if media_trust_attr is not None and isinstance(media_trust_attr.value, (int, float)):
+        if float(media_trust_attr.value) < 0.30:
+            _add("Distrusts mainstream news media")
+
+    science_trust_attr = worldview_cat.get("institutional_trust_science")
+    if science_trust_attr is not None and isinstance(science_trust_attr.value, (int, float)):
+        if float(science_trust_attr.value) > 0.70:
+            _add("High trust in scientific expertise and consensus")
+
+    change_pace_attr = worldview_cat.get("social_change_pace")
+    if change_pace_attr is not None and isinstance(change_pace_attr.value, (int, float)):
+        change_v = float(change_pace_attr.value)
+        if change_v < 0.25:
+            _add("Committed to preserving traditional values and institutions")
+        elif change_v > 0.75:
+            _add("Strongly advocates for social change and reform")
+
+    # 2. Primary value driver label.
     values_cat: dict[str, Any] = persona.attributes.get("values", {})
     pvd_attr = values_cat.get("primary_value_driver")
     if pvd_attr is not None:
@@ -135,7 +195,7 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
         )
     _add(pvd_label)
 
-    # 2. Tension seed → value statement.
+    # 3. Tension seed → value statement.
     identity_cat: dict[str, Any] = persona.attributes.get("identity", {})
     tension_seed_attr = identity_cat.get("tension_seed")
     if tension_seed_attr is not None:
@@ -146,7 +206,7 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
         )
         _add(tension_stmt)
 
-    # 3–4. Top continuous attributes from values category by |value - 0.5| deviation.
+    # 4–5. Top continuous attributes from values category by |value - 0.5| deviation.
     continuous_values: list[tuple[str, Any]] = [
         (name, attr)
         for name, attr in values_cat.items()

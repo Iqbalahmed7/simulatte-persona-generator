@@ -5,6 +5,7 @@ import random
 from typing import Dict, Any, List, Optional
 
 from src.schema.persona import DemographicAnchor, Attribute
+from src.schema.worldview import WorldviewAnchor
 from src.taxonomy.base_taxonomy import (
     AttributeDefinition,
     TAXONOMY_BY_NAME,
@@ -30,18 +31,35 @@ class AttributeFiller:
         profile_so_far = self._demographics_to_profile(demographic_anchor)
         attributes: Dict[str, Dict[str, Attribute]] = {}
 
+        # If a WorldviewAnchor is present, extract worldview taxonomy overrides.
+        # These are injected as anchored values so no LLM call is needed for them.
+        # Caller-supplied anchor_overrides take precedence over worldview-derived ones.
+        effective_overrides: Dict[str, Any] = {}
+        if demographic_anchor.worldview is not None:
+            effective_overrides.update(
+                _worldview_anchor_to_overrides(demographic_anchor.worldview)
+            )
+        if anchor_overrides:
+            effective_overrides.update(anchor_overrides)
+
         # Step 1: Fill anchor attributes sequentially
-        fill_order = self._get_fill_order(taxonomy, anchor_overrides or {})
+        fill_order = self._get_fill_order(taxonomy, effective_overrides)
         anchors = [attr_def for attr_def in fill_order if self._is_anchor(attr_def)]
         for attr_def in anchors:
-            attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor)
+            # Worldview anchors (order 9-14): use pre-computed value if available
+            if attr_def.name in effective_overrides and attr_def.anchor_order is not None and attr_def.anchor_order >= 9:
+                value = effective_overrides[attr_def.name]
+                label = self._get_label(attr_def, value)
+                attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="anchored")
+            else:
+                attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor)
             self._add_to_attributes(attributes, attr_def.category, attr_def.name, attr)
             profile_so_far[attr_def.name] = attr.value
             self._apply_correlation_check(attr_def.name, attr.value, profile_so_far)
 
         # Step 2: Apply anchor overrides (if any)
-        if anchor_overrides:
-            for name, value in anchor_overrides.items():
+        if effective_overrides:
+            for name, value in effective_overrides.items():
                 if name in TAXONOMY_BY_NAME:
                     attr_def = TAXONOMY_BY_NAME[name]
                     label = self._get_label(attr_def, value)
@@ -167,8 +185,9 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
     def _get_fill_order(
         self, taxonomy: List[AttributeDefinition], anchor_overrides: Dict[str, Any]
     ) -> List[AttributeDefinition]:
+        # Anchors 1-8 are core persona anchors; 9-14 are worldview anchors (ARCH-001).
         anchors = [
-            d for d in taxonomy if d.anchor_order is not None and 1 <= d.anchor_order <= 8
+            d for d in taxonomy if d.anchor_order is not None and 1 <= d.anchor_order <= 14
         ]
         anchors.sort(key=lambda d: d.anchor_order)
 
@@ -189,15 +208,27 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
         return anchors + override_defs + randomized
 
     def _demographics_to_profile(self, anchor: DemographicAnchor) -> Dict[str, Any]:
-        return {
+        profile: Dict[str, Any] = {
             "age": anchor.age,
             "gender": anchor.gender,
+            "country": anchor.location.country,
             "location_urban_tier": anchor.location.urban_tier,
             "income_bracket": anchor.household.income_bracket,
             "life_stage": anchor.life_stage,
             "education": anchor.education,
             "employment": anchor.employment,
         }
+        # Inject worldview context when present so the LLM has it for all fills.
+        if anchor.worldview is not None:
+            wv = anchor.worldview
+            profile["worldview_institutional_trust"] = wv.institutional_trust
+            profile["worldview_social_change_pace"] = wv.social_change_pace
+            profile["worldview_collectivism"] = wv.collectivism_score
+            profile["worldview_econ_security_priority"] = wv.economic_security_priority
+            if wv.political_profile is not None:
+                profile["political_archetype"] = wv.political_profile.archetype
+                profile["political_archetype_desc"] = wv.political_profile.description[:80]
+        return profile
 
     def _add_to_attributes(
         self,
@@ -221,7 +252,8 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
         return "low"
 
     def _is_anchor(self, attr_def: AttributeDefinition) -> bool:
-        return attr_def.anchor_order is not None and 1 <= attr_def.anchor_order <= 8
+        # Anchors 1-8: core persona anchors. Anchors 9-14: worldview anchors (ARCH-001).
+        return attr_def.anchor_order is not None and 1 <= attr_def.anchor_order <= 14
 
     def _apply_correlation_check(
         self, newly_assigned: str, newly_assigned_value: Any, profile_so_far: Dict[str, Any]
@@ -239,3 +271,66 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
                 elif direction == "negative":
                     if (new_v > 0.7 and other_v > 0.7) or (new_v < 0.3 and other_v < 0.3):
                         print(f"⚠️ Correlation tension (negative): {newly_assigned}({new_v:.2f}) vs {other_attr}({other_v:.2f})")
+
+
+# ---------------------------------------------------------------------------
+# Module-level helper — WorldviewAnchor → taxonomy attribute overrides
+# ---------------------------------------------------------------------------
+
+# Maps sub-archetypes to their core spectrum equivalent for the political_lean
+# taxonomy attribute (which uses the 5-value core spectrum only).
+_ARCHETYPE_TO_LEAN: Dict[str, str] = {
+    "conservative":           "conservative",
+    "lean_conservative":      "lean_conservative",
+    "moderate":               "moderate",
+    "lean_progressive":       "lean_progressive",
+    "progressive":            "progressive",
+    # Sub-archetypes → nearest core spectrum value
+    "religious_conservative": "conservative",
+    "fiscal_conservative":    "lean_conservative",
+    "working_class_populist": "lean_conservative",
+    "college_educated_liberal": "progressive",
+    "non_voter_disengaged":   "moderate",
+}
+
+
+def _worldview_anchor_to_overrides(worldview: WorldviewAnchor) -> Dict[str, Any]:
+    """Derive worldview taxonomy attribute values from a WorldviewAnchor.
+
+    Returns a dict of {attr_name: value} suitable for use as anchor_overrides
+    in AttributeFiller.fill(). All 6 worldview taxonomy attributes are populated:
+
+      political_lean              ← political_profile.archetype (mapped to core 5)
+      economic_philosophy         ← economic_security_priority (thresholded)
+      social_change_pace          ← social_change_pace (direct)
+      institutional_trust_govt    ← institutional_trust (base)
+      institutional_trust_media   ← institutional_trust − 0.07 (media typically lower)
+      institutional_trust_science ← institutional_trust + 0.10 (science typically higher)
+
+    The science/media offsets reflect consistent findings from Pew trust surveys:
+    science trust runs ~10pp above general institutional trust on average;
+    media trust runs ~7pp below.
+    """
+    overrides: Dict[str, Any] = {}
+
+    it = worldview.institutional_trust
+    overrides["social_change_pace"] = worldview.social_change_pace
+    overrides["institutional_trust_government"] = round(it, 2)
+    overrides["institutional_trust_media"] = round(max(0.0, min(1.0, it - 0.07)), 2)
+    overrides["institutional_trust_science"] = round(max(0.0, min(1.0, it + 0.10)), 2)
+
+    # economic_security_priority → economic_philosophy categorical
+    esp = worldview.economic_security_priority
+    if esp >= 0.65:
+        overrides["economic_philosophy"] = "interventionist"
+    elif esp >= 0.35:
+        overrides["economic_philosophy"] = "mixed"
+    else:
+        overrides["economic_philosophy"] = "free_market"
+
+    # political_profile.archetype → political_lean (core 5-value spectrum)
+    if worldview.political_profile is not None:
+        lean = _ARCHETYPE_TO_LEAN.get(worldview.political_profile.archetype, "moderate")
+        overrides["political_lean"] = lean
+
+    return overrides

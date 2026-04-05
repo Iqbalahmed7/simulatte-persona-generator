@@ -5,6 +5,8 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from src.schema.worldview import WorldviewAnchor  # noqa: F401 — re-exported for convenience
+
 
 Gender = Literal["female", "male", "non-binary"]
 UrbanTier = Literal["metro", "tier2", "tier3", "rural"]
@@ -89,6 +91,12 @@ class DemographicAnchor(BaseModel):
     life_stage: str
     education: Education
     employment: Employment
+
+    # Values & ideology anchor — optional, defaults to None.
+    # Set by demographic_sampler for supported domains (currently: us_general).
+    # All other domains (cpg, saas, lofoods_fmcg, etc.) leave this as None.
+    # See ARCH-001 and ARCH-001-addendum-geography for architecture details.
+    worldview: WorldviewAnchor | None = None
 
 
 class LifeStory(BaseModel):

@@ -17,6 +17,7 @@ Category = Literal[
     "lifestyle",
     "identity",
     "decision_making",
+    "worldview",
 ]
 
 
@@ -95,6 +96,17 @@ KNOWN_CORRELATIONS: list[tuple[str, str, Literal["positive", "negative"]]] = [
     ("perceived_time_scarcity", "convenience_preference", "positive"),
     ("authority_bias", "self_efficacy", "negative"),
     ("analysis_paralysis", "decision_delegation", "positive"),
+
+    # Worldview correlations — added in ARCH-001 / Sprint A-1
+    # Higher social change pace → lower tradition orientation, higher env. consciousness
+    ("social_change_pace", "tradition_orientation", "negative"),
+    ("social_change_pace", "environmental_consciousness", "positive"),
+    # Institutional trust feeds into the generic authority_trust attribute
+    ("institutional_trust_government", "authority_trust", "positive"),
+    ("institutional_trust_media", "authority_trust", "positive"),
+    # Science trust correlates with authority bias and environmental concern
+    ("institutional_trust_science", "authority_bias", "positive"),
+    ("institutional_trust_science", "environmental_consciousness", "positive"),
 ]
 
 
@@ -395,6 +407,66 @@ BASE_TAXONOMY: list[AttributeDefinition] = [
     _continuous("last_mile_doubt", "decision_making", "Second thoughts near final commitment.", 0.46),
     _continuous("post_decision_rationalization", "decision_making", "Tendency to justify choices after committing.", 0.5),
     _continuous("feedback_loop_learning", "decision_making", "Use of outcomes to improve future decisions.", 0.54),
+
+    # worldview (6) — anchor attributes for opinion research validity.
+    # These are the highest-variance predictors on political/social survey questions.
+    # Filled first (anchor_order 9-14) when a WorldviewAnchor is present on
+    # DemographicAnchor. For consumer domains they still fill, but without the
+    # WorldviewAnchor seed they default to population priors.
+    # NOTE: political_lean is only meaningful for US personas (country == "USA").
+    #       For non-US cohorts, leave as population prior or omit from analysis.
+    _categorical(
+        "political_lean",
+        "worldview",
+        "Political orientation. For US personas: maps to party identification spectrum. "
+        "For non-US personas this attribute is not meaningful — use country-specific "
+        "archetypes via PoliticalProfile instead.",
+        ["conservative", "lean_conservative", "moderate", "lean_progressive", "progressive"],
+        is_anchor=True,
+        anchor_order=9,
+    ),
+    _categorical(
+        "economic_philosophy",
+        "worldview",
+        "Orientation toward the government's role in the economy.",
+        ["free_market", "mixed", "interventionist"],
+        is_anchor=True,
+        anchor_order=10,
+    ),
+    _continuous(
+        "social_change_pace",
+        "worldview",
+        "Preferred pace of social change. "
+        "0 = traditional/preservationist; 1 = rapid change advocate.",
+        0.5,
+        is_anchor=True,
+        anchor_order=11,
+    ),
+    _continuous(
+        "institutional_trust_government",
+        "worldview",
+        "Trust in government and political institutions specifically. "
+        "Distinct from the generic authority_trust (which covers all authority sources).",
+        0.40,
+        is_anchor=True,
+        anchor_order=12,
+    ),
+    _continuous(
+        "institutional_trust_media",
+        "worldview",
+        "Trust in mainstream news media specifically.",
+        0.38,
+        is_anchor=True,
+        anchor_order=13,
+    ),
+    _continuous(
+        "institutional_trust_science",
+        "worldview",
+        "Trust in scientific consensus and expert institutions (CDC, IPCC, FDA, etc.).",
+        0.55,
+        is_anchor=True,
+        anchor_order=14,
+    ),
 ]
 
 
@@ -432,11 +504,13 @@ TAXONOMY_BY_CATEGORY: dict[str, list[AttributeDefinition]] = {
     "lifestyle": [a for a in BASE_TAXONOMY if a.category == "lifestyle"],
     "identity": [a for a in BASE_TAXONOMY if a.category == "identity"],
     "decision_making": [a for a in BASE_TAXONOMY if a.category == "decision_making"],
+    "worldview": [a for a in BASE_TAXONOMY if a.category == "worldview"],
 }
 
 
 def _validate_taxonomy() -> None:
     expected_anchor_order = [
+        # Core persona anchors (1-8) — original
         "personality_type",
         "risk_tolerance",
         "trust_orientation_primary",
@@ -445,6 +519,13 @@ def _validate_taxonomy() -> None:
         "primary_value_driver",
         "social_orientation",
         "tension_seed",
+        # Worldview anchors (9-14) — added ARCH-001 / Sprint A-1
+        "political_lean",
+        "economic_philosophy",
+        "social_change_pace",
+        "institutional_trust_government",
+        "institutional_trust_media",
+        "institutional_trust_science",
     ]
 
     observed_anchor_order = [a.name for a in ANCHOR_ATTRIBUTES]
@@ -454,9 +535,9 @@ def _validate_taxonomy() -> None:
             f"Expected {expected_anchor_order}, observed {observed_anchor_order}."
         )
 
-    if len(BASE_TAXONOMY) < 130 or len(BASE_TAXONOMY) > 180:
+    if len(BASE_TAXONOMY) < 130 or len(BASE_TAXONOMY) > 200:
         raise ValueError(
-            f"BASE_TAXONOMY size {len(BASE_TAXONOMY)} is outside accepted range 130-180."
+            f"BASE_TAXONOMY size {len(BASE_TAXONOMY)} is outside accepted range 130-200."
         )
 
     category_counts = {name: len(attrs) for name, attrs in TAXONOMY_BY_CATEGORY.items()}
@@ -467,6 +548,7 @@ def _validate_taxonomy() -> None:
         "lifestyle": 25,
         "identity": 20,
         "decision_making": 25,
+        "worldview": 6,   # added ARCH-001 / Sprint A-1
     }
 
     if category_counts != expected_counts:

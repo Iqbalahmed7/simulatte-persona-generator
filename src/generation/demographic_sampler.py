@@ -54,11 +54,135 @@ _SAAS_POOL = [
 
 _GENERAL_POOL = _CPG_POOL  # Default to CPG pool
 
+# ---------------------------------------------------------------------------
+# Lo! Foods FMCG pool — metro-first, spans all 19 archetypes (C1–C15, P1–P4)
+# Ages 25–60, income middle/upper-middle, metro + select tier2 for C9/P4
+# ---------------------------------------------------------------------------
+_LOFOODS_FMCG_POOL = [
+    # (name, age, gender, country, region, city, urban_tier,
+    #  structure, size, income_bracket, dual_income,
+    #  life_stage, education, employment)
+    ("Arjun Menon",       29, "male",   "India", "Karnataka",      "Bengaluru", "metro",  "other",   1, "middle",       False, "early-career",  "postgraduate",  "full-time"),
+    ("Priya Sharma",      34, "female", "India", "Maharashtra",    "Mumbai",    "metro",  "nuclear", 3, "upper-middle", True,  "early-family",  "postgraduate",  "full-time"),
+    ("Karthik Rajan",     27, "male",   "India", "Tamil Nadu",     "Chennai",   "metro",  "other",   1, "middle",       False, "early-career",  "postgraduate",  "full-time"),
+    ("Nisha Agarwal",     38, "female", "India", "Delhi",          "Delhi",     "metro",  "nuclear", 4, "upper-middle", True,  "mid-career",    "postgraduate",  "full-time"),
+    ("Siddharth Iyer",    32, "male",   "India", "Telangana",      "Hyderabad", "metro",  "nuclear", 3, "middle",       True,  "early-family",  "postgraduate",  "full-time"),
+    ("Riya Kapoor",       26, "female", "India", "Maharashtra",    "Pune",      "metro",  "other",   1, "upper-middle", False, "early-career",  "postgraduate",  "full-time"),
+    ("Venkat Subramaniam",44, "male",   "India", "Karnataka",      "Bengaluru", "metro",  "nuclear", 4, "upper-middle", True,  "mid-career",    "postgraduate",  "full-time"),
+    ("Anita Desai",       31, "female", "India", "Delhi",          "Delhi",     "metro",  "nuclear", 3, "middle",       True,  "early-family",  "undergraduate", "full-time"),
+    ("Rohan Mehta",       36, "male",   "India", "Maharashtra",    "Mumbai",    "metro",  "nuclear", 4, "upper-middle", True,  "mid-career",    "postgraduate",  "full-time"),
+    ("Divya Krishnaswamy",28, "female", "India", "Tamil Nadu",     "Chennai",   "metro",  "other",   1, "middle",       False, "early-career",  "postgraduate",  "full-time"),
+    ("Aakash Gupta",      42, "male",   "India", "Telangana",      "Hyderabad", "metro",  "nuclear", 4, "upper-middle", True,  "mid-career",    "undergraduate", "full-time"),
+    ("Sheetal Joshi",     33, "female", "India", "Maharashtra",    "Pune",      "metro",  "nuclear", 3, "middle",       True,  "early-family",  "postgraduate",  "full-time"),
+    ("Nikhil Bhat",       25, "male",   "India", "Karnataka",      "Bengaluru", "metro",  "other",   1, "middle",       False, "early-career",  "postgraduate",  "full-time"),
+    ("Pooja Raghavan",    39, "female", "India", "Tamil Nadu",     "Chennai",   "metro",  "nuclear", 4, "upper-middle", True,  "mid-career",    "postgraduate",  "full-time"),
+    ("Sameer Khan",       30, "male",   "India", "Delhi",          "Delhi",     "metro",  "nuclear", 3, "middle",       True,  "early-family",  "undergraduate", "full-time"),
+    ("Meghna Pillai",     45, "female", "India", "Kerala",         "Kochi",     "tier2",  "nuclear", 4, "upper-middle", True,  "mid-career",    "postgraduate",  "full-time"),
+    ("Raghav Pandey",     55, "male",   "India", "Delhi",          "Delhi",     "metro",  "joint",   5, "middle",       False, "late-career",   "undergraduate", "full-time"),
+    ("Usha Srinivasan",   52, "female", "India", "Tamil Nadu",     "Chennai",   "metro",  "nuclear", 3, "upper-middle", True,  "late-career",   "postgraduate",  "full-time"),
+    ("Deepak Jain",       47, "male",   "India", "Rajasthan",      "Jaipur",    "tier2",  "nuclear", 4, "middle",       True,  "mid-career",    "undergraduate", "self-employed"),
+    ("Kavitha Nair",      35, "female", "India", "Kerala",         "Thiruvananthapuram", "tier2", "nuclear", 3, "middle", True, "early-family", "postgraduate",  "full-time"),
+]
+
+# ---------------------------------------------------------------------------
+# US General Population pool — for research/credibility studies
+# Designed to approximate Pew Research Center American Trends Panel (ATP)
+# composition: probability-based, nationally representative US adult sample.
+#
+# Distribution targets (US Census 2020 + Pew ATP):
+#   Gender:    52% female, 48% male
+#   Age:       18-29 (16%), 30-49 (34%), 50-64 (27%), 65+ (23%)
+#   Race:      63% White non-Hispanic, 12% Black, 13% Hispanic, 5% Asian, 7% other
+#   Education: 30% college grad+, 28% some college, 27% HS grad, 15% <HS
+#   Region:    South (38%), Midwest (21%), West (24%), Northeast (18%)
+# ---------------------------------------------------------------------------
+_US_GENERAL_POOL = [
+    # (name, age, gender, country, region, city, urban_tier,
+    #  structure, size, income_bracket, dual_income,
+    #  life_stage, education, employment, political_lean)
+    #
+    # Political lean distribution (n=34) calibrated against Pew 2023 party ID:
+    #   conservative:       5 (15%)  target 15%
+    #   lean_conservative:  7 (21%)  target 20%
+    #   moderate:           9 (26%)  target 25%
+    #   lean_progressive:   8 (24%)  target 22%
+    #   progressive:        5 (15%)  target 18%
+    # Assignments based on region, education, age, and racial identity patterns
+    # from Pew Research Center 2023 Political Typology data.
+
+    # South — female, varied age + income
+    ("Patricia Williams",  43, "female", "USA", "Georgia",        "Atlanta",       "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "full-time",  "lean_conservative"),
+    ("Sandra Johnson",     58, "female", "USA", "Texas",          "Houston",       "metro",    "nuclear",        3, "middle",        False, "late-career",   "high-school",   "part-time",  "conservative"),
+    ("Maria Garcia",       35, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "lean_progressive"),
+    ("Linda Brown",        67, "female", "USA", "North Carolina", "Charlotte",     "metro",    "couple-no-kids", 2, "middle",        False, "retired",       "undergraduate", "retired",    "moderate"),
+    ("Betty Jackson",      63, "female", "USA", "Alabama",        "Birmingham",    "tier2",    "nuclear",        3, "lower-middle",  False, "late-career",   "high-school",   "part-time",  "conservative"),
+    ("Nancy Moore",        54, "female", "USA", "Iowa",           "Des Moines",    "tier2",    "nuclear",        4, "middle",        True,  "late-career",   "high-school",   "full-time",  "conservative"),
+
+    # Midwest — male, varied age + income
+    ("James Miller",       48, "male",   "USA", "Ohio",           "Columbus",      "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "undergraduate", "full-time",  "moderate"),
+    ("Robert Davis",       61, "male",   "USA", "Michigan",       "Detroit",       "metro",    "nuclear",        3, "lower-middle",  False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
+    ("William Wilson",     38, "male",   "USA", "Illinois",       "Chicago",       "metro",    "nuclear",        4, "upper-middle",  True,  "mid-career",    "undergraduate", "full-time",  "moderate"),
+    ("Thomas Anderson",    55, "male",   "USA", "Minnesota",      "Minneapolis",   "metro",    "nuclear",        3, "upper-middle",  True,  "late-career",   "postgraduate",  "full-time",  "moderate"),
+
+    # Northeast — female, higher education
+    ("Jennifer Taylor",    32, "female", "USA", "New York",       "New York",      "metro",    "other",          1, "upper-middle",  False, "early-career",  "postgraduate",  "full-time",  "progressive"),
+    ("Barbara Martinez",   44, "female", "USA", "Pennsylvania",   "Philadelphia",  "metro",    "nuclear",        3, "middle",        True,  "mid-career",    "undergraduate", "full-time",  "lean_progressive"),
+    ("Susan Thompson",     29, "female", "USA", "Massachusetts",  "Boston",        "metro",    "other",          2, "middle",        False, "early-career",  "postgraduate",  "full-time",  "progressive"),
+    ("Dorothy White",      71, "female", "USA", "Connecticut",    "Hartford",      "metro",    "couple-no-kids", 2, "middle",        False, "retired",       "undergraduate", "retired",    "moderate"),
+
+    # West — male, varied income
+    ("Charles Harris",     36, "male",   "USA", "California",     "Los Angeles",   "metro",    "nuclear",        4, "middle",        True,  "early-family",  "high-school",   "full-time",  "lean_conservative"),
+    ("Joseph Jackson",     52, "male",   "USA", "Washington",     "Seattle",       "metro",    "nuclear",        3, "upper-middle",  True,  "late-career",   "undergraduate", "full-time",  "lean_progressive"),
+    ("Christopher Martin", 28, "male",   "USA", "Arizona",        "Phoenix",       "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "lean_conservative"),
+    ("Daniel Thompson",    45, "male",   "USA", "Colorado",       "Denver",        "metro",    "nuclear",        4, "upper-middle",  True,  "mid-career",    "postgraduate",  "full-time",  "lean_progressive"),
+
+    # South — male, varied
+    ("Mark Taylor",        42, "male",   "USA", "Tennessee",      "Nashville",     "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "full-time",  "conservative"),
+    ("Paul Rodriguez",     31, "male",   "USA", "Nevada",         "Las Vegas",     "metro",    "other",          2, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "lean_conservative"),
+
+    # Older adults — retired
+    ("Helen Lewis",        74, "female", "USA", "Florida",        "Orlando",       "metro",    "couple-no-kids", 2, "middle",        False, "retired",       "high-school",   "retired",    "lean_conservative"),
+    ("Frank Lee",          69, "male",   "USA", "Arizona",        "Phoenix",       "metro",    "couple-no-kids", 2, "upper-middle",  False, "retired",       "undergraduate", "retired",    "conservative"),
+
+    # Young adults
+    ("Michelle Walker",    24, "female", "USA", "Texas",          "Austin",        "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "moderate"),
+    ("Kevin Hall",         22, "male",   "USA", "California",     "San Diego",     "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "part-time",  "lean_progressive"),
+    ("Amanda Allen",       27, "female", "USA", "New York",       "Brooklyn",      "metro",    "other",          2, "middle",        False, "early-career",  "undergraduate", "full-time",  "progressive"),
+    ("Ryan Young",         26, "male",   "USA", "Washington",     "Seattle",       "metro",    "other",          1, "middle",        False, "early-career",  "postgraduate",  "full-time",  "progressive"),
+
+    # Black Americans (~12% of pool) — Pew: ~80% Dem-leaning
+    ("Denise Robinson",    40, "female", "USA", "Georgia",        "Atlanta",       "metro",    "nuclear",        3, "middle",        True,  "mid-career",    "undergraduate", "full-time",  "lean_progressive"),
+    ("Marcus Johnson",     33, "male",   "USA", "Illinois",       "Chicago",       "metro",    "other",          1, "middle",        False, "early-career",  "undergraduate", "full-time",  "lean_progressive"),
+    ("Keisha Brown",       28, "female", "USA", "Texas",          "Dallas",        "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "lean_progressive"),
+    ("Darnell Williams",   55, "male",   "USA", "Maryland",       "Baltimore",     "metro",    "nuclear",        4, "upper-middle",  True,  "late-career",   "undergraduate", "full-time",  "progressive"),
+
+    # Hispanic Americans (~13% of pool) — Pew: majority Dem-leaning, significant moderate
+    ("Carmen Lopez",       38, "female", "USA", "California",     "Los Angeles",   "metro",    "nuclear",        5, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "lean_progressive"),
+    ("Miguel Hernandez",   29, "male",   "USA", "Texas",          "San Antonio",   "metro",    "nuclear",        4, "lower-middle",  True,  "early-career",  "high-school",   "full-time",  "moderate"),
+    ("Rosa Gonzalez",      52, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "middle",        False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
+    ("Carlos Reyes",       44, "male",   "USA", "Arizona",        "Tucson",        "tier2",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "self-employed", "moderate"),
+]
+
+# WorldviewAnchor base dimensions per political lean.
+# (institutional_trust, social_change_pace, collectivism_score, economic_security_priority)
+# Derived from Pew Research "Political Typology" 2023 attitudinal data.
+# institutional_trust here represents a general composite (govt + media + science),
+# which the AttributeFiller then splits into three distinct taxonomy attrs with offsets.
+_WORLDVIEW_BASE_DIMS: dict[str, tuple[float, float, float, float]] = {
+    "conservative":      (0.35, 0.18, 0.30, 0.28),
+    "lean_conservative": (0.44, 0.33, 0.40, 0.38),
+    "moderate":          (0.50, 0.50, 0.50, 0.50),
+    "lean_progressive":  (0.58, 0.65, 0.60, 0.62),
+    "progressive":       (0.65, 0.80, 0.68, 0.72),
+}
+
 _DOMAIN_POOLS = {
     "cpg": _CPG_POOL,
     "saas": _SAAS_POOL,
     "general": _CPG_POOL,
     "health_wellness": _CPG_POOL,
+    "lofoods_fmcg": _LOFOODS_FMCG_POOL,
+    "us_general": _US_GENERAL_POOL,
 }
 
 
@@ -82,20 +206,53 @@ def sample_demographic_anchor(
         A DemographicAnchor instance.
     """
     from src.schema.persona import DemographicAnchor, Location, Household
+    from src.schema.worldview import WorldviewAnchor, PoliticalProfile
 
     pool = _DOMAIN_POOLS.get(domain.lower(), _GENERAL_POOL)
 
     # Round-robin through pool — ensures diversity within a cohort
     entry = pool[index % len(pool)]
 
-    (name, age, gender, country, region, city, urban_tier,
-     structure, size, income_bracket, dual_income,
-     life_stage, education, employment) = entry
+    is_us_general = domain.lower() == "us_general"
+
+    if is_us_general:
+        (name, age, gender, country, region, city, urban_tier,
+         structure, size, income_bracket, dual_income,
+         life_stage, education, employment, political_lean) = entry
+    else:
+        (name, age, gender, country, region, city, urban_tier,
+         structure, size, income_bracket, dual_income,
+         life_stage, education, employment) = entry
+        political_lean = None
 
     # Optional: add small age variation (+/-3 years) for diversity when wrapping
     if seed is not None and index >= len(pool):
         rng = random.Random(seed + index)
         age = max(18, min(65, age + rng.randint(-3, 3)))
+
+    # Build WorldviewAnchor for us_general domain.
+    # Other domains leave worldview as None — zero impact on existing behaviour.
+    worldview = None
+    if is_us_general and political_lean is not None:
+        base = _WORLDVIEW_BASE_DIMS[political_lean]
+        inst_trust, change_pace, collectivism, econ_security = base
+
+        # Add small persona-level variation (±0.04) for realism.
+        # Seeded by persona name for reproducibility.
+        persona_seed = abs(hash(name)) % 10000
+        rng = random.Random(persona_seed)
+        jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
+
+        worldview = WorldviewAnchor(
+            institutional_trust=jitter(inst_trust),
+            social_change_pace=jitter(change_pace),
+            collectivism_score=jitter(collectivism),
+            economic_security_priority=jitter(econ_security),
+            political_profile=PoliticalProfile(
+                country="USA",
+                archetype=political_lean,
+            ),
+        )
 
     return DemographicAnchor(
         name=name,
@@ -116,4 +273,5 @@ def sample_demographic_anchor(
         life_stage=life_stage,
         education=education,
         employment=employment,
+        worldview=worldview,
     )
