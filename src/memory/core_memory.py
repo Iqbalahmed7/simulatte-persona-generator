@@ -149,35 +149,44 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
 # on every policy question regardless of lean.
 # Kept short (≤15 words) to fit cleanly within the key_values prompt slot.
 _POLICY_STANCE_STATEMENTS: dict[str, str] = {
-    # Sprint B-4 revision: removes violent/threat framing (was collapsing q06
-    # social_trust to 100% 'can't be too careful'), adds explicit social trust
-    # signal, sharpens abortion/AI stances for lean_progressive, adds media
-    # skepticism for right-leaning personas, explicit financial framing.
+    # Sprint B-5 revision:
+    # - q06 social_trust: B-4 over-corrected to 90% A (Pew=31% A). Fix: remove
+    #   trust phrases from moderate/lean_progressive; add explicit "can't be too
+    #   careful with strangers" to conservative/lean_conservative; keep only
+    #   progressive mild trust phrase. Expected outcome: ~20-25% A.
+    # - q04 immigration: 90% A (Pew=61% A). Fix: add immigration curtailment
+    #   stance to conservative/lean_conservative → ~35-40% B.
+    # - q05 climate: D=0% (Pew=10%). Fix: strengthen conservative to "sees
+    #   minimal to no local climate impact" → push toward D.
+    # - q13 media_trust: D=0% (Pew=17%). Fix: conservative "does not trust
+    #   mainstream media" (→ D); lean_conservative "distrusts most national
+    #   news outlets" (→ C/D).
     "conservative":
         "Supports gun rights; gun laws should be LESS strict not more; "
-        "does not personally see climate change significantly affecting daily life; "
+        "sees minimal to no meaningful climate change impact in their local community; "
         "believes abortion should be ILLEGAL in most or all cases; "
-        "AI will MOSTLY BENEFIT society; skeptical of mainstream media accuracy; "
-        "tends to cautiously trust people but is selective about who",
+        "AI will MOSTLY BENEFIT society; "
+        "does not trust mainstream media — believes national news is biased and inaccurate; "
+        "tends to be guarded with strangers; believes you can't be too careful with unfamiliar people; "
+        "believes immigration levels should be significantly curtailed to protect communities and jobs",
     "lean_conservative":
         "Values gun rights with minimal new restrictions; "
         "notices limited local climate effects; "
         "believes abortion should have strict legal limits; "
         "technology and AI will MOSTLY BENEFIT society; "
-        "skeptical of mainstream media bias; "
-        "extends trust to most people in their community",
+        "distrusts most mainstream national news outlets; skeptical of media bias; "
+        "cautious with unfamiliar people; primarily trusts their immediate network; "
+        "supports strictly managed, orderly immigration with strong enforcement",
     "moderate":
         "Open to some gun safety measures; "
         "notices SOME local climate effects; "
         "holds nuanced case-by-case views on abortion; "
-        "AI has ROUGHLY EQUAL benefits and risks; "
-        "generally trusts most people",
+        "AI has ROUGHLY EQUAL benefits and risks",
     "lean_progressive":
         "Supports stronger gun regulations; "
         "climate change is noticeably affecting their local community; "
         "believes abortion should be legal in ALL OR MOST CASES; "
-        "sees both real benefits and real concerns in AI's societal effects; "
-        "generally trusts that most people are well-intentioned",
+        "sees both real benefits and real concerns in AI's societal effects",
     "progressive":
         "Supports much stronger gun regulations; "
         "climate change is severely affecting their local community; "
