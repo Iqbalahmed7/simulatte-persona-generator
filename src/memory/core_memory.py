@@ -171,7 +171,7 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
     # - q06: keep B-5 approach (was 87.7% — working well).
     "conservative":
         "Supports gun rights; gun laws should be LESS strict not more; "
-        "personally observes no climate change effects in their local community; "
+        "does NOT believe climate change is affecting their local area at all — considers local climate unchanged; "
         "believes abortion should be ILLEGAL in most or all cases; "
         "AI will MOSTLY BENEFIT society; "
         "does NOT trust national news organizations AT ALL — considers TV networks and major papers inaccurate propaganda; "
@@ -198,7 +198,7 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
     "progressive":
         "Supports much stronger gun regulations; "
         "climate change is severely affecting their local community; "
-        "believes abortion should be LEGAL IN ALL CIRCUMSTANCES; "
+        "believes abortion should be LEGAL IN ALL CASES WITH NO EXCEPTIONS — it is a fundamental right; "
         "AI will MOSTLY HARM workers, privacy, and democracy; "
         "trusts that most people are fundamentally good-natured",
 }
@@ -337,9 +337,9 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
     # option B ("a little left over") — uses negative framing to anchor C or D.
     income_bracket = persona.demographic_anchor.household.income_bracket
     if income_bracket in ("lower", "working"):
-        _add("Frequently short of money; sometimes cannot cover all monthly bills")
+        _add("Often cannot cover all monthly bills; frequently short of money")
     elif income_bracket == "lower-middle":
-        _add("Monthly budget is very tight; rarely has anything left after essential expenses")
+        _add("Typically has nothing left after paying essential bills; no savings buffer whatsoever")
 
     # 4. Institutional trust and change pace extremes (only if slot available).
     govt_trust_attr = worldview_cat.get("institutional_trust_government")
