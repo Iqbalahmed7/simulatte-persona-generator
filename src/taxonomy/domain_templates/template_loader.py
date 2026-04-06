@@ -21,6 +21,9 @@ DOMAIN_REGISTRY: dict[str, list[AttributeDefinition]] = {
     # US general population — base taxonomy only, no domain extensions.
     # Used for credibility research studies (Pew replication etc.)
     "us_general": [],
+    # India general population — base taxonomy only, no domain extensions.
+    # Used for Study 1B Pew India replication.
+    "india_general": [],
 }
 
 
