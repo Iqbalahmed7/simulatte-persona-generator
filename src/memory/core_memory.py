@@ -149,35 +149,41 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
 # on every policy question regardless of lean.
 # Kept short (≤15 words) to fit cleanly within the key_values prompt slot.
 _POLICY_STANCE_STATEMENTS: dict[str, str] = {
-    # Sprint B-3 revision: use explicit, direct language to push to the right
-    # option on each policy question. Avoid "skeptical" framing — it bleeds
-    # into q12 (democracy satisfaction) and q01 (economy). Use affirmative
-    # language or explicit position labels instead.
+    # Sprint B-4 revision: removes violent/threat framing (was collapsing q06
+    # social_trust to 100% 'can't be too careful'), adds explicit social trust
+    # signal, sharpens abortion/AI stances for lean_progressive, adds media
+    # skepticism for right-leaning personas, explicit financial framing.
     "conservative":
-        "Believes existing gun laws are sufficient or should be LESS strict; "
-        "does not see climate change significantly affecting their local community; "
-        "believes abortion should have significant legal limits; "
-        "believes AI and technology will MOSTLY BENEFIT society",
+        "Supports gun rights; gun laws should be LESS strict not more; "
+        "does not personally see climate change significantly affecting daily life; "
+        "believes abortion should be ILLEGAL in most or all cases; "
+        "AI will MOSTLY BENEFIT society; skeptical of mainstream media accuracy; "
+        "tends to cautiously trust people but is selective about who",
     "lean_conservative":
-        "Supports gun rights with only minimal new restrictions; "
-        "notices limited climate effects locally; "
-        "holds centre-right views on abortion; "
-        "thinks technology and AI will moderately benefit society overall",
+        "Values gun rights with minimal new restrictions; "
+        "notices limited local climate effects; "
+        "believes abortion should have strict legal limits; "
+        "technology and AI will MOSTLY BENEFIT society; "
+        "skeptical of mainstream media bias; "
+        "extends trust to most people in their community",
     "moderate":
-        "Open to some targeted gun safety measures while respecting rights; "
-        "notices SOME climate effects locally but not major ones; "
-        "holds case-by-case views on abortion; "
-        "sees AI as having ROUGHLY EQUAL positive and negative effects",
+        "Open to some gun safety measures; "
+        "notices SOME local climate effects; "
+        "holds nuanced case-by-case views on abortion; "
+        "AI has ROUGHLY EQUAL benefits and risks; "
+        "generally trusts most people",
     "lean_progressive":
-        "Strongly supports making gun laws STRICTER to reduce violence; "
-        "believes climate change is noticeably affecting their local community; "
-        "supports reproductive rights and abortion access; "
-        "concerned AI will harm workers and widen inequality",
+        "Supports stronger gun regulations; "
+        "climate change is noticeably affecting their local community; "
+        "believes abortion should be legal in ALL OR MOST CASES; "
+        "sees both real benefits and real concerns in AI's societal effects; "
+        "generally trusts that most people are well-intentioned",
     "progressive":
-        "Believes gun laws must be made MUCH STRICTER; "
-        "believes climate change is severely affecting their local community; "
+        "Supports much stronger gun regulations; "
+        "climate change is severely affecting their local community; "
         "believes abortion should be LEGAL IN ALL CIRCUMSTANCES; "
-        "believes AI will MOSTLY HARM workers, privacy, and democracy",
+        "AI will MOSTLY HARM workers, privacy, and democracy; "
+        "trusts that most people are fundamentally good-natured",
 }
 
 # Religious salience thresholds → key_values statements.
