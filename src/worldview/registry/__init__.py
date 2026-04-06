@@ -7,9 +7,9 @@ Nothing else in the system changes.
 
 Currently supported countries:
   - "USA"   (launched with ARCH-001 / Sprint A-1)
+  - "India" (launched with Study 1B / Sprint B-9)
 
 Planned (future sprints):
-  - "India" — see india.py stub
   - "UK"
   - "Germany"
   - "Brazil"
@@ -18,12 +18,14 @@ Planned (future sprints):
 from __future__ import annotations
 
 from .us import US_POLITICAL_ARCHETYPES
+from .india import INDIA_POLITICAL_ARCHETYPES
 
 # Registry map: ISO country name → valid archetype strings
 # Add new countries here when their registry file is research-complete.
 _REGISTRY_DATA: dict[str, dict[str, str]] = {
     "USA": US_POLITICAL_ARCHETYPES,
-    # "India": INDIA_POLITICAL_ARCHETYPES,   ← uncomment when india.py is ready
+    "India": INDIA_POLITICAL_ARCHETYPES,
+    # "UK":    UK_POLITICAL_ARCHETYPES,
     # "UK":    UK_POLITICAL_ARCHETYPES,
     # "Germany": GERMANY_POLITICAL_ARCHETYPES,
 }
