@@ -67,14 +67,14 @@ def generate(spec, count, domain, mode, output, sarvam, skip_gates, registry_pat
     )
 
     if output:
-        from src.persistence.envelope_store import save_envelope
-        from src.schema.cohort import CohortEnvelope
-        # If _run_generation returned a dict (normal path), save via JSON
-        if isinstance(envelope_dict, dict) and "envelope" not in envelope_dict:
-            import json as _json
-            with open(output, "w", encoding="utf-8") as _f:
-                _json.dump(envelope_dict, _f, indent=2, default=str)
-            click.echo(f"Cohort envelope saved to {output}")
+        # Write to file regardless of envelope structure
+        import json as _json
+        with open(output, "w", encoding="utf-8") as _f:
+            _json.dump(envelope_dict, _f, indent=2, default=str)
+        click.echo(f"Cohort envelope saved to {output}", err=True)
+        if False:  # retained to keep unused imports from breaking dependents
+            from src.persistence.envelope_store import save_envelope
+            from src.schema.cohort import CohortEnvelope
         else:
             click.echo(json.dumps(envelope_dict, indent=2, default=str))
     else:
@@ -97,8 +97,14 @@ async def _run_generation(
     from src.generation.identity_constructor import IdentityConstructor, ICPSpec
     from src.cohort.assembler import assemble_cohort
 
+    import os
     client = anthropic.AsyncAnthropic()
-    constructor = IdentityConstructor(client)
+    # GENERATION_MODEL env var allows switching between Sonnet (quality) and
+    # Haiku (cost-efficient for research/credibility studies).
+    # Default: claude-haiku-4-5-20251001 for API calls (production uses Sonnet
+    # when higher fidelity is needed — set GENERATION_MODEL=claude-sonnet-4-6).
+    generation_model = os.getenv("GENERATION_MODEL", "claude-haiku-4-5-20251001")
+    constructor = IdentityConstructor(client, model=generation_model)
 
     import asyncio
     from src.generation.demographic_sampler import sample_demographic_anchor
@@ -368,6 +374,20 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
         click.echo(f"  simulatte calibrate --cohort-path {cohort} --benchmark-conversion {benchmark_conversion} --benchmark-wtp-median {benchmark_wtp_median}")
 
 
+def _parse_consistency_score(notes: str | None) -> float | None:
+    """Safely extract consistency_score from CalibrationState.notes string."""
+    if not notes:
+        return None
+    try:
+        for part in notes.split(";"):
+            part = part.strip()
+            if part.startswith("consistency_score="):
+                return float(part.split("=", 1)[1])
+    except (ValueError, IndexError):
+        pass
+    return None
+
+
 async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep",
                           social_level: str = "isolated", social_topology: str = "random_encounter") -> dict:
     import asyncio
@@ -418,9 +438,10 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
                 "decided": loop_result.decided,
             }
             if loop_result.decided and loop_result.decision:
+                round_data["response"] = loop_result.observation.content
                 round_data["decision"] = loop_result.decision.decision
                 round_data["confidence"] = loop_result.decision.confidence
-                round_data["reasoning"] = loop_result.decision.reasoning_trace[:200]
+                round_data["reasoning"] = loop_result.decision.reasoning_trace
             persona_results["rounds"].append(round_data)
         click.echo(f"    Done: {persona.persona_id}", err=True)
         return persona_results
@@ -446,7 +467,7 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
         "calibration_state": {
             "status": calibration.status,
             "method_applied": calibration.method_applied,
-            "consistency_score": float(calibration.notes.split("=")[1].split(";")[0]) if calibration.notes else None,
+            "consistency_score": _parse_consistency_score(calibration.notes),
             "N": len(results),
         },
         "social_simulation": social_info,
