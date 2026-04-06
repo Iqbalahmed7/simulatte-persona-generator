@@ -161,6 +161,18 @@ _US_GENERAL_POOL = [
     ("Miguel Hernandez",   29, "male",   "USA", "Texas",          "San Antonio",   "metro",    "nuclear",        4, "lower-middle",  True,  "early-career",  "high-school",   "full-time",  "moderate"),
     ("Rosa Gonzalez",      52, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "middle",        False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
     ("Carlos Reyes",       44, "male",   "USA", "Arizona",        "Tucson",        "tier2",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "self-employed", "moderate"),
+
+    # Sprint B-1 Fix 3: Upper-income additions (~6 personas).
+    # Pew shows 34% of US adults "living comfortably" financially.
+    # Prior pool had only ~21% upper-middle income → q15 financial_security collapsed.
+    # These profiles raise upper-income share to ~28% of 40-persona pool.
+    # Political lean kept proportional to maintain existing distribution calibration.
+    ("Andrew Mitchell",    49, "male",   "USA", "Virginia",       "McLean",        "metro",    "nuclear",        4, "upper",         True,  "mid-career",    "postgraduate",  "full-time",  "lean_conservative"),
+    ("Katherine Spencer",  41, "female", "USA", "Connecticut",    "Greenwich",     "metro",    "couple-no-kids", 2, "upper",         True,  "mid-career",    "postgraduate",  "full-time",  "moderate"),
+    ("David Nakamura",     38, "male",   "USA", "California",     "San Francisco", "metro",    "other",          1, "upper",         False, "early-career",  "postgraduate",  "full-time",  "lean_progressive"),
+    ("Elizabeth Warren",   55, "female", "USA", "Illinois",       "Chicago",       "metro",    "nuclear",        3, "upper",         True,  "late-career",   "postgraduate",  "full-time",  "lean_progressive"),
+    ("Richard Coleman",    62, "male",   "USA", "Texas",          "Dallas",        "metro",    "couple-no-kids", 2, "upper",         False, "retired",       "undergraduate", "retired",    "conservative"),
+    ("Laura Fitzgerald",   46, "female", "USA", "Massachusetts",  "Cambridge",     "metro",    "nuclear",        3, "upper",         True,  "mid-career",    "postgraduate",  "full-time",  "progressive"),
 ]
 
 # WorldviewAnchor base dimensions per political lean.
@@ -225,6 +237,13 @@ _US_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
     "Miguel Hernandez":    0.60,
     "Rosa Gonzalez":       0.70,
     "Carlos Reyes":        0.55,
+    # Sprint B-1 Fix 3: Upper-income additions
+    "Andrew Mitchell":     0.45,   # Virginia suburban, moderate church attendance
+    "Katherine Spencer":   0.30,   # Greenwich CT, secular professional
+    "David Nakamura":      0.15,   # SF tech, progressive, secular
+    "Elizabeth Warren":    0.25,   # Chicago professional, progressive
+    "Richard Coleman":     0.55,   # Dallas retiree, conservative Protestant
+    "Laura Fitzgerald":    0.20,   # Cambridge academic, progressive, secular
 }
 
 # Temporal political era for us_general studies.

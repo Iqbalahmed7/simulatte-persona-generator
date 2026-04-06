@@ -42,6 +42,10 @@ class DecisionOutput:
     objections: list[str] = field(default_factory=list)     # Hesitations / objections
     what_would_change_mind: str = ""     # Override condition
     noise_applied: int = 0               # Raw noise value injected (for traceability)
+    follow_up_action: str = ""           # What the persona does immediately after deciding
+    implied_purchase: bool = False       # True when decision is research_more/defer but
+                                         # follow_up_action describes an actual purchase
+                                         # commitment (e.g. "orders a trial pack tonight")
 
 
 # ---------------------------------------------------------------------------
@@ -78,6 +82,13 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
         lines.append(f"Non-negotiables: {'; '.join(constraints.non_negotiables)}.")
     if constraints.absolute_avoidances:
         lines.append(f"You never: {'; '.join(constraints.absolute_avoidances)}.")
+    # Sprint B-1 Fix 2: inject current-conditions stance as a distinct labelled
+    # sentence, separate from key_values, so the LLM applies it specifically to
+    # temporal questions (economy, right-track, democracy satisfaction) rather
+    # than letting it contaminate values-based questions (government role, etc).
+    stance = getattr(core, "current_conditions_stance", None)
+    if stance:
+        lines.append(f"Your current view on the country's direction: {stance}.")
     block = " ".join(lines)
     _GLOBAL_CACHE.set(cache_key, block)
     return block
@@ -127,7 +138,14 @@ _DECIDE_USER_TEMPLATE = (
     "- Your confidence in this decision (0-100)\n"
     "- The top 2-3 factors that drove your decision\n"
     "- Any objections or hesitations you have\n"
-    "- What would change your mind\n\n"
+    "- What would change your mind\n"
+    "- What you do immediately after (follow_up_action: one sentence)\n\n"
+    "IMPORTANT — implied_purchase:\n"
+    "Set \"implied_purchase\": true ONLY if final_decision is research_more or defer "
+    "AND follow_up_action describes you actually buying or ordering the product in the "
+    "near term (e.g. \"orders a trial pack tonight\", \"adds to cart\", \"buys one pack "
+    "to try\"). Set false for all other cases — including buy/trial decisions (those are "
+    "already tracked), genuine deferral without purchase intent, and rejection.\n\n"
     "Respond in first person, in character.\n\n"
     "Reply in JSON:\n"
     "{{\n"
@@ -139,7 +157,9 @@ _DECIDE_USER_TEMPLATE = (
     '  "confidence": N,\n'
     '  "key_drivers": ["...", "..."],\n'
     '  "objections": ["..."],\n'
-    '  "what_would_change_mind": "..."\n'
+    '  "what_would_change_mind": "...",\n'
+    '  "follow_up_action": "...",\n'
+    '  "implied_purchase": false\n'
     "}}"
 )
 
@@ -276,6 +296,9 @@ def _build_decision_output(parsed: dict) -> DecisionOutput:
     objections_raw = parsed.get("objections", [])
     objections = [str(o) for o in objections_raw] if isinstance(objections_raw, list) else []
 
+    follow_up_action = str(parsed.get("follow_up_action", "")).strip()
+    implied_purchase = bool(parsed.get("implied_purchase", False))
+
     return DecisionOutput(
         decision=decision,
         confidence=confidence,
@@ -284,6 +307,8 @@ def _build_decision_output(parsed: dict) -> DecisionOutput:
         key_drivers=key_drivers,
         objections=objections,
         what_would_change_mind=what_would_change_mind,
+        follow_up_action=follow_up_action,
+        implied_purchase=implied_purchase,
     )
 
 

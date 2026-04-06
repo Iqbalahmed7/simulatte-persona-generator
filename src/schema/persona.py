@@ -279,6 +279,10 @@ class CoreMemory(BaseModel):
     relationship_map: RelationshipMap
     immutable_constraints: ImmutableConstraints
     tendency_summary: str
+    # Sprint B-1 Fix 2: Dedicated field for political era / current-conditions stance.
+    # Separated from key_values to prevent contamination of non-temporal survey questions.
+    # Injected into the decide prompt as a distinct line, not merged into key_values.
+    current_conditions_stance: str | None = None
 
     @field_validator("key_values")
     @classmethod

@@ -45,6 +45,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
     relationship_map = _derive_relationship_map(persona)
     immutable_constraints = _derive_immutable_constraints(persona)
     tendency_summary: str = persona.behavioural_tendencies.reasoning_prompt
+    current_conditions_stance = _derive_current_conditions_stance(persona)
 
     return CoreMemory(
         identity_statement=identity_statement,
@@ -53,6 +54,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
         relationship_map=relationship_map,
         immutable_constraints=immutable_constraints,
         tendency_summary=tendency_summary,
+        current_conditions_stance=current_conditions_stance,
     )
 
 
@@ -182,17 +184,48 @@ _TENSION_SEED_VALUE_STATEMENTS: dict[str, str] = {
 }
 
 
+def _derive_current_conditions_stance(persona: PersonaRecord) -> str | None:
+    """Derive the political era / current-conditions stance for this persona.
+
+    Sprint B-1 Fix 2: Moved OUT of key_values into a dedicated CoreMemory field.
+    This prevents the era stance from contaminating non-temporal survey questions
+    (e.g. q07 government-role values question) while still providing the stance
+    for temporal questions (q01 economy, q02 right-track, q12 democracy).
+
+    The stance is injected into the decide prompt as a distinct labelled line,
+    not mixed into the 'What matters most to you' key_values block.
+
+    Returns None when worldview or political_era is not set.
+    """
+    wv = persona.demographic_anchor.worldview
+    if wv is None or not wv.political_era:
+        return None
+
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    if not lean_value:
+        return None
+
+    governing_party = _extract_governing_party(wv.political_era)
+    return _POLITICAL_ERA_STANCES.get(governing_party, {}).get(lean_value)
+
+
 def _derive_key_values(persona: PersonaRecord) -> list[str]:
     """Build a 3–5 item key_values list.
 
-    Assembly order (Sprint A-3 revised priority):
-    1. Political era stance — current-conditions optimism/pessimism based on
-       governing party + political lean. Fixes q01/q02/q12 collapse.
-    2. Political lean statement — ideological identity anchor.
-    3. Religious salience — personal faith dimension (fixes q08 regression).
+    Assembly order (Sprint B-1 revised priority):
+    1. Political lean statement — ideological identity anchor.
+    2. Religious salience — personal faith dimension (fixes q08 regression).
        Only surfaced for very high (≥0.65) or low (≤0.30) values.
-    4. Institutional trust / social change extremes (only if slot available).
-    5. Primary value driver.
+    3. Institutional trust / social change extremes (only if slot available).
+    4. Primary value driver.
+
+    NOTE: Political era stance is NO LONGER in key_values (Sprint B-1 Fix 2).
+    It lives in CoreMemory.current_conditions_stance and is injected into the
+    decide prompt as a separate labelled block so it only influences temporal
+    questions (economy, right-track, democracy), not values questions (q07 etc).
+
     Clamped to 5 maximum, guaranteed minimum 3.
     """
     seen: set[str] = set()
@@ -207,16 +240,7 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
     political_lean_attr = worldview_cat.get("political_lean")
     lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
 
-    # 1. Political era stance → fixes q01 (economy), q02 (right/wrong track),
-    #    q12 (democracy satisfaction). Must come FIRST so it dominates LLM context.
-    wv = persona.demographic_anchor.worldview
-    if wv is not None and wv.political_era and lean_value:
-        governing_party = _extract_governing_party(wv.political_era)
-        stance = _POLITICAL_ERA_STANCES.get(governing_party, {}).get(lean_value)
-        if stance:
-            _add(stance)
-
-    # 2. Political lean statement — ideological identity.
+    # 1. Political lean statement — ideological identity.
     if lean_value:
         lean_stmt = _POLITICAL_LEAN_STATEMENTS.get(
             lean_value,

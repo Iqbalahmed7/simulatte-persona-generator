@@ -103,10 +103,10 @@ async def _run_generation(
     import os
     client = anthropic.AsyncAnthropic()
     # GENERATION_MODEL env var allows switching between Sonnet (quality) and
-    # Haiku (cost-efficient for research/credibility studies).
-    # Default: claude-haiku-4-5-20251001 for API calls (production uses Sonnet
-    # when higher fidelity is needed — set GENERATION_MODEL=claude-sonnet-4-6).
-    generation_model = os.getenv("GENERATION_MODEL", "claude-haiku-4-5-20251001")
+    # Haiku (cost-efficient). Default: claude-sonnet-4-6 for generation fidelity.
+    # Set GENERATION_MODEL=claude-haiku-4-5-20251001 to reduce cost at the expense
+    # of attribute coherence (Sprint A-3 showed −3 to −25pp accuracy with Haiku).
+    generation_model = os.getenv("GENERATION_MODEL", "claude-sonnet-4-6")
     constructor = IdentityConstructor(client, model=generation_model)
 
     import asyncio
