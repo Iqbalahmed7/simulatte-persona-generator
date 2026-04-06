@@ -154,6 +154,7 @@ def assemble_cohort(
     cohort_id: str | None = None,
     domain_data: list[str] | None = None,
     business_problem: str = "",
+    client: str = "",
     skip_gates: bool = False,
 ) -> CohortEnvelope:
     """
@@ -292,6 +293,7 @@ def assemble_cohort(
         cohort_id=cohort_id,
         generated_at=datetime.now(timezone.utc),
         domain=domain,
+        client=client,
         business_problem=business_problem,
         mode=mode,
         icp_spec_hash=icp_spec_hash,

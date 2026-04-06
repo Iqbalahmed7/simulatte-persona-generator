@@ -50,6 +50,7 @@ def generate(spec, count, domain, mode, output, sarvam, skip_gates, registry_pat
     anchor_overrides = spec_data.get("anchor_overrides", {})
     persona_id_prefix = spec_data.get("persona_id_prefix", "pg")
     domain_data = spec_data.get("domain_data", None)
+    spec_client = spec_data.get("client", "")  # stored in envelope for automatic G12 resolution
 
     # Run async generation
     envelope_dict = asyncio.run(
@@ -63,6 +64,7 @@ def generate(spec, count, domain, mode, output, sarvam, skip_gates, registry_pat
             sarvam_enabled=sarvam,
             skip_gates=skip_gates,
             registry_path=registry_path,
+            client=spec_client,
         )
     )
 
@@ -91,6 +93,7 @@ async def _run_generation(
     sarvam_enabled: bool,
     skip_gates: bool = False,
     registry_path: str | None = None,
+    client: str = "",
 ) -> dict:
     """Async inner function: builds N personas then assembles the cohort."""
     import anthropic
@@ -190,6 +193,7 @@ async def _run_generation(
         personas=personas,
         domain=domain,
         domain_data=domain_data,
+        client=client,
         skip_gates=skip_gates,
     )
 
@@ -347,12 +351,17 @@ def report(cohort_path, output, no_narratives):
 @click.option("--social-topology", default="random_encounter",
               type=click.Choice(["full_mesh","random_encounter"], case_sensitive=False),
               help="Network topology for peer influence (default: random_encounter).")
-@click.option("--grounding-check", is_flag=True, default=False,
-              help="Run G12 Simulation Grounding Check after simulation completes.")
-@click.option("--client", default=None,
-              help="Client name for G12 market facts (e.g. lumio, lo_foods, littlejoys). Required if --grounding-check is set.")
-def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conversion, benchmark_wtp_median, social_level, social_topology, grounding_check, client):
-    """Run cognitive simulation on a saved cohort."""
+@click.option("--skip-grounding-check", is_flag=True, default=False,
+              help="Skip the automatic G12 Simulation Grounding Check (dev/test use only).")
+def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conversion, benchmark_wtp_median, social_level, social_topology, skip_grounding_check):
+    """Run cognitive simulation on a saved cohort.
+
+    G12 Grounding Check runs automatically after every simulation.
+    The client is resolved from the cohort envelope (set when the cohort was
+    generated from a spec file with a 'client' field).  If the client cannot be
+    resolved, G12 is skipped with a warning — add a 'client' key to your spec
+    file to enable automatic grounding validation.
+    """
     import asyncio
     import json
 
@@ -362,40 +371,46 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
     result = asyncio.run(_run_simulation(cohort, scenario_data, rounds, tier=tier,
                                           social_level=social_level, social_topology=social_topology))
 
-    # --- G12 Grounding Check (optional, runs post-simulation) ---
-    if grounding_check:
-        if not client:
-            click.echo(
-                "[G12] --client is required when --grounding-check is set "
-                "(e.g. --client lumio). Skipping grounding check.",
-                err=True,
-            )
-        else:
-            try:
-                from src.validation.grounding_check import run_grounding_check, load_market_facts
-                market_facts = load_market_facts(client)
-                # Build product_frame from all stimuli in the scenario
+    # -------------------------------------------------------------------------
+    # G12 — Simulation Grounding Check (automatic on every simulate run)
+    # Client is read from the cohort envelope — no flag required.
+    # Use --skip-grounding-check only for dev/test scenarios.
+    # -------------------------------------------------------------------------
+    if not skip_grounding_check:
+        try:
+            from src.validation.grounding_check import run_grounding_check, load_market_facts
+            from src.persistence.envelope_store import load_envelope
+
+            _env = load_envelope(cohort)
+            g12_client = getattr(_env, "client", "") or ""
+
+            if not g12_client:
+                click.echo(
+                    "[G12] No client found in cohort envelope — skipping grounding check. "
+                    "Add a 'client' field to your spec file (e.g. \"client\": \"lumio\") "
+                    "to enable automatic G12 validation.",
+                    err=True,
+                )
+            else:
+                market_facts = load_market_facts(g12_client)
+
+                # Build product_frame: all stimuli + decision scenario from the scenario file
                 product_frame = " ".join(str(s) for s in scenario_data.get("stimuli", []))
                 if scenario_data.get("decision_scenario"):
                     product_frame += " " + str(scenario_data["decision_scenario"])
-                # Build persona_outputs from simulation results
-                envelope_personas = {}
-                from src.persistence.envelope_store import load_envelope
-                _env = load_envelope(cohort)
-                for p in _env.personas:
-                    envelope_personas[p.persona_id] = p
+
+                # Build persona_outputs: narrative fields from envelope + verbatim quotes from results
+                envelope_personas = {p.persona_id: p for p in _env.personas}
                 persona_outputs = []
                 for r in result.get("results", []):
                     pid = r.get("persona_id")
                     persona_dict = {"persona_id": pid}
-                    # Attach narrative fields from the persona record
                     p_record = envelope_personas.get(pid)
                     if p_record:
-                        if hasattr(p_record, "narrative") and p_record.narrative:
+                        if getattr(p_record, "narrative", None):
                             persona_dict["narrative"] = p_record.narrative
-                        if hasattr(p_record, "first_person_summary") and p_record.first_person_summary:
+                        if getattr(p_record, "first_person_summary", None):
                             persona_dict["first_person_summary"] = p_record.first_person_summary
-                    # Attach verbatim quotes from simulation rounds
                     quotes = []
                     for rnd in r.get("rounds", []):
                         if rnd.get("response"):
@@ -405,12 +420,16 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
                     if quotes:
                         persona_dict["quotes"] = quotes
                     persona_outputs.append(persona_dict)
+
                 g12_report = run_grounding_check(
                     product_frame=product_frame,
                     market_facts=market_facts,
                     persona_outputs=persona_outputs,
                 )
+
+                # Embed G12 results in the simulation output JSON
                 result["grounding_check"] = {
+                    "client": g12_client,
                     "passed": g12_report.passed,
                     "issue_count": len(g12_report.issues),
                     "clean_count": g12_report.clean_count,
@@ -427,19 +446,23 @@ def simulate(cohort, scenario, rounds, output, tier, calibrate, benchmark_conver
                         for i in g12_report.issues
                     ],
                 }
+
+                # Always print summary to stderr so it's visible without polluting JSON output
+                click.echo("", err=True)
                 click.echo(g12_report.summary(), err=True)
+                click.echo("", err=True)
                 if not g12_report.passed:
                     click.echo(
-                        "[G12] FAIL — simulation output has grounding issues. "
-                        "Fix before using in reports.",
+                        "[G12] FAIL — fix contamination issues before building reports.",
                         err=True,
                     )
                 else:
-                    click.echo("[G12] PASS — simulation output is grounded.", err=True)
-            except FileNotFoundError as exc:
-                click.echo(f"[G12] Market facts not found: {exc}", err=True)
-            except Exception as exc:
-                click.echo(f"[G12] Grounding check error: {exc}", err=True)
+                    click.echo(f"[G12] PASS — {g12_client} simulation output is clean.", err=True)
+
+        except FileNotFoundError as exc:
+            click.echo(f"[G12] Market facts file not found: {exc}", err=True)
+        except Exception as exc:
+            click.echo(f"[G12] Grounding check error (non-blocking): {exc}", err=True)
 
     json_str = json.dumps(result, indent=2, default=str)
     if output:
@@ -844,8 +867,8 @@ cli.add_command(registry)
 @cli.command("grounding-check")
 @click.option("--simulation-output", required=True, type=click.Path(exists=True),
               help="Path to a saved simulation output JSON (from simulatte simulate --output).")
-@click.option("--client", required=True,
-              help="Client name for market facts (e.g. lumio, lo_foods, littlejoys).")
+@click.option("--client", default=None,
+              help="Client name for market facts (e.g. lumio, lo_foods, littlejoys). Auto-resolved from simulation output if omitted.")
 @click.option("--product-frame", default=None,
               help="Product frame text or path to a .txt file. If omitted, stimuli from the simulation output are used.")
 @click.option("--output", default=None,
@@ -894,9 +917,19 @@ def grounding_check_cmd(simulation_output, client, product_frame, output):
             stimuli.append(str(decision))
         frame_text = " ".join(dict.fromkeys(stimuli))  # deduplicated, order-preserved
 
+    # Resolve client — explicit flag wins; fall back to what's embedded in the sim output
+    resolved_client = client or sim_data.get("grounding_check", {}).get("client", "")
+    if not resolved_client:
+        click.echo(
+            "[G12] Error: --client is required (or run simulatte simulate first so the "
+            "client is embedded in the output automatically).",
+            err=True,
+        )
+        raise SystemExit(1)
+
     # Load market facts
     try:
-        market_facts = load_market_facts(client)
+        market_facts = load_market_facts(resolved_client)
     except FileNotFoundError as exc:
         click.echo(f"[G12] Error: {exc}", err=True)
         raise SystemExit(1)

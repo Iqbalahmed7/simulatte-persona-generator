@@ -82,6 +82,7 @@ class CohortEnvelope(BaseModel):
     cohort_id: str
     generated_at: datetime
     domain: str
+    client: str = ""          # Client name — used by G12 grounding check to load market facts
     business_problem: str
     mode: Mode
     icp_spec_hash: str
