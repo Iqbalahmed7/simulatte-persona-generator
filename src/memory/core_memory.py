@@ -149,34 +149,34 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
 # on every policy question regardless of lean.
 # Kept short (≤15 words) to fit cleanly within the key_values prompt slot.
 _POLICY_STANCE_STATEMENTS: dict[str, str] = {
-    # Sprint B-5 revision:
-    # - q06 social_trust: B-4 over-corrected to 90% A (Pew=31% A). Fix: remove
-    #   trust phrases from moderate/lean_progressive; add explicit "can't be too
-    #   careful with strangers" to conservative/lean_conservative; keep only
-    #   progressive mild trust phrase. Expected outcome: ~20-25% A.
-    # - q04 immigration: 90% A (Pew=61% A). Fix: add immigration curtailment
-    #   stance to conservative/lean_conservative → ~35-40% B.
-    # - q05 climate: D=0% (Pew=10%). Fix: strengthen conservative to "sees
-    #   minimal to no local climate impact" → push toward D.
-    # - q13 media_trust: D=0% (Pew=17%). Fix: conservative "does not trust
-    #   mainstream media" (→ D); lean_conservative "distrusts most national
-    #   news outlets" (→ C/D).
+    # Sprint B-6 revision:
+    # - q03 gun regression: B-5 "strictly managed" immigration language bled into
+    #   gun attitudes (A rose from 66%→78% as conservative/LC personas drifted to
+    #   'more strict' framing). Fix: remove all 'strict' vocabulary from immigration
+    #   clauses; use 'reduced/lowered' framing instead.
+    # - q04 immigration: B=13% vs Pew 39%. Fix: strengthen to explicit "burden"
+    #   framing ("is too high and burdening communities").
+    # - q05 climate D: D=0% vs Pew 10%. Fix: conservative "observes no local
+    #   climate effects" (stronger → D territory).
+    # - q13 media_trust D: D=0% vs Pew 17%. Fix: conservative "has no trust in
+    #   national news" (explicit D anchor); LC "very little trust" (C/D).
+    # - q06: keep B-5 approach (was 87.7% — working well).
     "conservative":
         "Supports gun rights; gun laws should be LESS strict not more; "
-        "sees minimal to no meaningful climate change impact in their local community; "
+        "personally observes no climate change effects in their local community; "
         "believes abortion should be ILLEGAL in most or all cases; "
         "AI will MOSTLY BENEFIT society; "
-        "does not trust mainstream media — believes national news is biased and inaccurate; "
+        "has NO trust in national news organizations — considers major outlets inaccurate and biased; "
         "tends to be guarded with strangers; believes you can't be too careful with unfamiliar people; "
-        "believes immigration levels should be significantly curtailed to protect communities and jobs",
+        "believes immigration is too high and burdening communities and jobs",
     "lean_conservative":
         "Values gun rights with minimal new restrictions; "
-        "notices limited local climate effects; "
+        "notices very limited local climate effects; "
         "believes abortion should have strict legal limits; "
         "technology and AI will MOSTLY BENEFIT society; "
-        "distrusts most mainstream national news outlets; skeptical of media bias; "
+        "has very little trust in national news organizations; skeptical of media bias; "
         "cautious with unfamiliar people; primarily trusts their immediate network; "
-        "supports strictly managed, orderly immigration with strong enforcement",
+        "believes immigration levels are too high and should be reduced",
     "moderate":
         "Open to some gun safety measures; "
         "notices SOME local climate effects; "
@@ -334,8 +334,10 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
 
     media_trust_attr = worldview_cat.get("institutional_trust_media")
     if media_trust_attr is not None and isinstance(media_trust_attr.value, (int, float)):
-        if float(media_trust_attr.value) < 0.25:
-            _add("Distrusts mainstream news media")
+        # Sprint B-6: lowered threshold 0.25→0.35 to capture lean_conservative
+        # personas (media trust ~0.28-0.35) who were missing the distrust signal.
+        if float(media_trust_attr.value) < 0.35:
+            _add("Does not trust national news organizations")
 
     science_trust_attr = worldview_cat.get("institutional_trust_science")
     if science_trust_attr is not None and isinstance(science_trust_attr.value, (int, float)):
@@ -349,6 +351,17 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             _add("Committed to preserving traditional values and institutions")
         elif change_v > 0.78:
             _add("Strongly advocates for social change and reform")
+
+    # 4b. Income-based financial stress signal — Sprint B-6 fix for q15.
+    # Without this, even lower-income personas answer B ("meets basic expenses
+    # with a little left over") since Haiku defaults to the safe middle option.
+    # Adding an explicit financial stress phrase causes Haiku to answer C or D,
+    # matching Pew's 22% C / 9% D distribution for financially struggling Americans.
+    income_bracket = persona.demographic_anchor.household.income_bracket
+    if income_bracket in ("lower", "working"):
+        _add("Struggles financially; sometimes can't cover all monthly expenses")
+    elif income_bracket == "lower-middle":
+        _add("Financial situation is tight; meets expenses but little cushion left over")
 
     # 5. Primary value driver.
     values_cat: dict[str, Any] = persona.attributes.get("values", {})
