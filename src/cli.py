@@ -101,13 +101,14 @@ async def _run_generation(
     from src.cohort.assembler import assemble_cohort
 
     import os
-    client = anthropic.AsyncAnthropic()
+    # Rename to llm_client to avoid shadowing the `client: str` name param above
+    llm_client = anthropic.AsyncAnthropic()
     # GENERATION_MODEL env var allows switching between Sonnet (quality) and
     # Haiku (cost-efficient). Default: claude-sonnet-4-6 for generation fidelity.
     # Set GENERATION_MODEL=claude-haiku-4-5-20251001 to reduce cost at the expense
     # of attribute coherence (Sprint A-3 showed −3 to −25pp accuracy with Haiku).
     generation_model = os.getenv("GENERATION_MODEL", "claude-sonnet-4-6")
-    constructor = IdentityConstructor(client, model=generation_model)
+    constructor = IdentityConstructor(llm_client, model=generation_model)
 
     import asyncio
     from src.generation.demographic_sampler import sample_demographic_anchor
