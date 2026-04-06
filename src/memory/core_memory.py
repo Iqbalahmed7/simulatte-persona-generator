@@ -149,21 +149,35 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
 # on every policy question regardless of lean.
 # Kept short (≤15 words) to fit cleanly within the key_values prompt slot.
 _POLICY_STANCE_STATEMENTS: dict[str, str] = {
+    # Sprint B-3 revision: use explicit, direct language to push to the right
+    # option on each policy question. Avoid "skeptical" framing — it bleeds
+    # into q12 (democracy satisfaction) and q01 (economy). Use affirmative
+    # language or explicit position labels instead.
     "conservative":
-        "Supports Second Amendment rights; skeptical of climate mandates and abortion rights; "
-        "sees AI and technology as economic opportunities",
+        "Believes existing gun laws are sufficient or should be LESS strict; "
+        "does not see climate change significantly affecting their local community; "
+        "believes abortion should have significant legal limits; "
+        "believes AI and technology will MOSTLY BENEFIT society",
     "lean_conservative":
-        "Values gun ownership rights; cautious on climate regulation; centre-right on "
-        "social issues; broadly optimistic about technology",
+        "Supports gun rights with only minimal new restrictions; "
+        "notices limited climate effects locally; "
+        "holds centre-right views on abortion; "
+        "thinks technology and AI will moderately benefit society overall",
     "moderate":
-        "Weighs gun policy case by case; acknowledges climate effects; holds mixed views "
-        "on social issues; open to technology with caveats",
+        "Open to some targeted gun safety measures while respecting rights; "
+        "notices SOME climate effects locally but not major ones; "
+        "holds case-by-case views on abortion; "
+        "sees AI as having ROUGHLY EQUAL positive and negative effects",
     "lean_progressive":
-        "Supports gun safety measures; believes climate change requires policy response; "
-        "pro-choice; concerned about AI's impact on workers and inequality",
+        "Strongly supports making gun laws STRICTER to reduce violence; "
+        "believes climate change is noticeably affecting their local community; "
+        "supports reproductive rights and abortion access; "
+        "concerned AI will harm workers and widen inequality",
     "progressive":
-        "Advocates strong gun control; views climate crisis as urgent; strongly pro-choice; "
-        "believes AI poses serious risks to jobs, privacy, and democracy",
+        "Believes gun laws must be made MUCH STRICTER; "
+        "believes climate change is severely affecting their local community; "
+        "believes abortion should be LEGAL IN ALL CIRCUMSTANCES; "
+        "believes AI will MOSTLY HARM workers, privacy, and democracy",
 }
 
 # Religious salience thresholds → key_values statements.
