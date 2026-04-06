@@ -142,6 +142,30 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
     },
 }
 
+# Policy stances per political lean — Sprint B-2 fix.
+# These differentiate how personas answer issue-specific survey questions that
+# political lean labels alone don't resolve (q03 gun, q05 climate, q09 abortion,
+# q14 AI/tech). Without this, Sonnet-generated personas collapse to "balanced"
+# on every policy question regardless of lean.
+# Kept short (≤15 words) to fit cleanly within the key_values prompt slot.
+_POLICY_STANCE_STATEMENTS: dict[str, str] = {
+    "conservative":
+        "Supports Second Amendment rights; skeptical of climate mandates and abortion rights; "
+        "sees AI and technology as economic opportunities",
+    "lean_conservative":
+        "Values gun ownership rights; cautious on climate regulation; centre-right on "
+        "social issues; broadly optimistic about technology",
+    "moderate":
+        "Weighs gun policy case by case; acknowledges climate effects; holds mixed views "
+        "on social issues; open to technology with caveats",
+    "lean_progressive":
+        "Supports gun safety measures; believes climate change requires policy response; "
+        "pro-choice; concerned about AI's impact on workers and inequality",
+    "progressive":
+        "Advocates strong gun control; views climate crisis as urgent; strongly pro-choice; "
+        "believes AI poses serious risks to jobs, privacy, and democracy",
+}
+
 # Religious salience thresholds → key_values statements.
 # Added Sprint A-3 Fix 2: decouples personal faith from institutional_trust.
 # Only "very high" and "low" are surfaced in key_values to avoid cluttering
@@ -247,6 +271,15 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             lean_value.replace("_", " ").title() + " political values",
         )
         _add(lean_stmt)
+
+    # 2. Policy stances — Sprint B-2 fix.
+    # Differentiates gun, climate, abortion, and AI/tech positions by lean.
+    # Without this, Sonnet-generated personas collapse to "balanced/mixed" on
+    # every policy question (q03 gun, q05 climate, q09 abortion, q14 AI).
+    if lean_value:
+        policy_stmt = _POLICY_STANCE_STATEMENTS.get(lean_value)
+        if policy_stmt:
+            _add(policy_stmt)
 
     # 3. Religious salience — personal faith, independent of institutional trust.
     #    Fixes q08 regression. Only surface strong signals (not mid-range).
