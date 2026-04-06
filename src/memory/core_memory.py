@@ -107,12 +107,18 @@ _POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
 # administration, and "Poor" under a Democratic one — and vice versa.
 _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
     "Republican": {
+        # Sprint B-7: Added explicit democracy satisfaction language to conservative /
+        # lean_conservative stances. Without it, Haiku separates "policy direction I
+        # support" from "how democracy is working" — causing conservatives to answer
+        # C (not too satisfied) on q12 even though they're happy with the government.
         "conservative":
             "Believes the country is heading in the right direction under current "
-            "Republican leadership; views the economy more positively",
+            "Republican leadership; views the economy more positively; "
+            "broadly satisfied with how democratic institutions are currently functioning",
         "lean_conservative":
             "Cautiously optimistic about the current national direction; "
-            "rates current economic conditions as fair-to-good",
+            "rates current economic conditions as fair-to-good; "
+            "generally content with how democratic processes are working",
         "moderate":
             "Has mixed views on current conditions — sees some positives and some "
             "negatives in the current Republican administration",
@@ -135,10 +141,12 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
             "negatives in the current Democratic administration",
         "lean_progressive":
             "Generally positive about the current national direction under "
-            "Democratic administration; rates economic conditions as fair-to-good",
+            "Democratic administration; rates economic conditions as fair-to-good; "
+            "broadly satisfied with how democratic institutions are functioning",
         "progressive":
             "Supportive of current government direction; believes the country is "
-            "generally heading in the right direction",
+            "generally heading in the right direction; "
+            "satisfied with how democracy is currently working",
     },
 }
 
@@ -166,7 +174,7 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "personally observes no climate change effects in their local community; "
         "believes abortion should be ILLEGAL in most or all cases; "
         "AI will MOSTLY BENEFIT society; "
-        "has NO trust in national news organizations — considers major outlets inaccurate and biased; "
+        "does NOT trust national news organizations AT ALL — considers TV networks and major papers inaccurate propaganda; "
         "tends to be guarded with strangers; believes you can't be too careful with unfamiliar people; "
         "believes immigration is too high and burdening communities and jobs",
     "lean_conservative":
@@ -323,6 +331,16 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             _add(_RELIGIOUS_SALIENCE_STATEMENTS["low"])
         # Mid-range (0.30–0.50): don't add — too neutral to use a key_values slot
 
+    # 3b. Income-based financial stress signal — Sprint B-6 fix for q15 (moved
+    # EARLIER in Sprint B-7 to ensure it claims a slot before institutional trust
+    # signals fill the remaining slots). Wording intentionally avoids mimicking
+    # option B ("a little left over") — uses negative framing to anchor C or D.
+    income_bracket = persona.demographic_anchor.household.income_bracket
+    if income_bracket in ("lower", "working"):
+        _add("Frequently short of money; sometimes cannot cover all monthly bills")
+    elif income_bracket == "lower-middle":
+        _add("Monthly budget is very tight; rarely has anything left after essential expenses")
+
     # 4. Institutional trust and change pace extremes (only if slot available).
     govt_trust_attr = worldview_cat.get("institutional_trust_government")
     if govt_trust_attr is not None and isinstance(govt_trust_attr.value, (int, float)):
@@ -351,17 +369,6 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             _add("Committed to preserving traditional values and institutions")
         elif change_v > 0.78:
             _add("Strongly advocates for social change and reform")
-
-    # 4b. Income-based financial stress signal — Sprint B-6 fix for q15.
-    # Without this, even lower-income personas answer B ("meets basic expenses
-    # with a little left over") since Haiku defaults to the safe middle option.
-    # Adding an explicit financial stress phrase causes Haiku to answer C or D,
-    # matching Pew's 22% C / 9% D distribution for financially struggling Americans.
-    income_bracket = persona.demographic_anchor.household.income_bracket
-    if income_bracket in ("lower", "working"):
-        _add("Struggles financially; sometimes can't cover all monthly expenses")
-    elif income_bracket == "lower-middle":
-        _add("Financial situation is tight; meets expenses but little cushion left over")
 
     # 5. Primary value driver.
     values_cat: dict[str, Any] = persona.attributes.get("values", {})
