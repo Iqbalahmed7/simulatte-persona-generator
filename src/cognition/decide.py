@@ -89,6 +89,12 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
     stance = getattr(core, "current_conditions_stance", None)
     if stance:
         lines.append(f"Your current view on the country's direction: {stance}.")
+    # Sprint B-9 Fix 1: inject media trust stance as a distinct labelled sentence.
+    # Previously buried as item 5 of 7 in the policy_stance key_values slot —
+    # too diluted for Haiku to apply when answering q13-type questions.
+    media_stance = getattr(core, "media_trust_stance", None)
+    if media_stance:
+        lines.append(f"Your relationship with national news media: {media_stance}.")
     block = " ".join(lines)
     _GLOBAL_CACHE.set(cache_key, block)
     return block

@@ -283,6 +283,11 @@ class CoreMemory(BaseModel):
     # Separated from key_values to prevent contamination of non-temporal survey questions.
     # Injected into the decide prompt as a distinct line, not merged into key_values.
     current_conditions_stance: str | None = None
+    # Sprint B-9 Fix 1: Dedicated field for media trust stance.
+    # Pulled OUT of _POLICY_STANCE_STATEMENTS where it was buried as item 5 of 7.
+    # Injected into the decide prompt as a distinct labelled line so Haiku reads it
+    # explicitly when answering q13-type questions (media trust / news source trust).
+    media_trust_stance: str | None = None
 
     @field_validator("key_values")
     @classmethod

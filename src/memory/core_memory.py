@@ -46,6 +46,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
     immutable_constraints = _derive_immutable_constraints(persona)
     tendency_summary: str = persona.behavioural_tendencies.reasoning_prompt
     current_conditions_stance = _derive_current_conditions_stance(persona)
+    media_trust_stance = _derive_media_trust_stance(persona)
 
     return CoreMemory(
         identity_statement=identity_statement,
@@ -55,6 +56,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
         immutable_constraints=immutable_constraints,
         tendency_summary=tendency_summary,
         current_conditions_stance=current_conditions_stance,
+        media_trust_stance=media_trust_stance,
     )
 
 
@@ -150,6 +152,55 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
     },
 }
 
+# Media trust stance per political lean — Sprint B-9 Fix 1.
+# Pulled OUT of _POLICY_STANCE_STATEMENTS where it was buried as item 5 of 7,
+# diluted by guns/climate/abortion/AI/immigration in a single key_values slot.
+# Root cause of q13 gap (63.7%): B=77% vs Pew 40% — Haiku defaulted to "Some"
+# trust because the distrust signal was never salient enough on its own.
+# Now injected as a dedicated labelled line in the decide system prompt:
+#   "Your relationship with national news media: [stance]."
+# Calibrated to drive: conservative→D, lean_conservative→C/D, moderate→B/C,
+# lean_progressive→B, progressive→A/B.
+_MEDIA_TRUST_STANCES: dict[str, str] = {
+    "conservative":
+        "You do NOT trust national news organizations at all — you believe TV networks "
+        "and major newspapers are systematically biased against conservatives and "
+        "regularly distort or fabricate coverage; you actively avoid mainstream news",
+    "lean_conservative":
+        "You have very little trust in national news organizations — you believe "
+        "mainstream media has a strong liberal bias and frequently misrepresents "
+        "conservative views; you prefer local news or alternative sources",
+    "moderate":
+        "You have some trust in certain news outlets but are skeptical of others; "
+        "you try to check multiple sources and are concerned about media bias "
+        "on both sides",
+    "lean_progressive":
+        "You generally trust mainstream national news organizations; you value "
+        "fact-based journalism and appreciate investigative reporting, though you "
+        "occasionally question specific editorial decisions",
+    "progressive":
+        "You trust established, reputable national news organizations and strongly "
+        "value quality journalism; you see a free press as essential to democracy",
+}
+
+
+def _derive_media_trust_stance(persona: PersonaRecord) -> str | None:
+    """Derive a dedicated media trust stance for this persona.
+
+    Sprint B-9 Fix 1: Addresses q13 structural gap (63.7% in B-8).
+    Root cause: media distrust signal was buried as item 5 of 7 in the
+    policy_stance key_values slot — diluted, not salient to Haiku.
+
+    Returns None when political lean is unavailable.
+    """
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    if not lean_value:
+        return None
+    return _MEDIA_TRUST_STANCES.get(lean_value)
+
+
 # Policy stances per political lean — Sprint B-2 fix.
 # These differentiate how personas answer issue-specific survey questions that
 # political lean labels alone don't resolve (q03 gun, q05 climate, q09 abortion,
@@ -174,7 +225,6 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "does NOT believe climate change is affecting their local area at all — considers local climate unchanged; "
         "believes abortion should be ILLEGAL in most or all cases; "
         "AI will MOSTLY BENEFIT society; "
-        "does NOT trust national news organizations AT ALL — considers TV networks and major papers inaccurate propaganda; "
         "tends to be guarded with strangers; believes you can't be too careful with unfamiliar people; "
         "believes immigration is too high and burdening communities and jobs",
     "lean_conservative":
@@ -182,7 +232,6 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "notices very limited local climate effects; "
         "believes abortion should have strict legal limits; "
         "technology and AI will MOSTLY BENEFIT society; "
-        "has very little trust in national news organizations; skeptical of media bias; "
         "cautious with unfamiliar people; primarily trusts their immediate network; "
         "believes immigration levels are too high and should be reduced",
     "moderate":
