@@ -201,25 +201,34 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
 # Calibrated to drive: conservative→D, lean_conservative→C/D, moderate→B/C,
 # lean_progressive→B, progressive→A/B.
 _MEDIA_TRUST_STANCES: dict[str, str] = {
+    # Sprint B-10 Fix: option-calibrated anchors.
+    # B-9 used semantic descriptions ("very little trust", "do NOT trust") —
+    # Haiku mapped all of them to B ("Some") rather than C/D/A.
+    # Fix: embed the survey option vocabulary directly in the stance so Haiku
+    # has a concrete anchor, not just an abstract trust level to interpret.
     "conservative":
-        "You do NOT trust national news organizations at all — you believe TV networks "
-        "and major newspapers are systematically biased against conservatives and "
-        "regularly distort or fabricate coverage; you actively avoid mainstream news",
+        "You have NO trust in national news organizations — CNN, MSNBC, and major "
+        "newspapers feel like political propaganda disguised as journalism. "
+        "If asked how much you trust national news, your honest answer is "
+        "'none at all' — not 'some', not 'not much', but none.",
     "lean_conservative":
-        "You have very little trust in national news organizations — you believe "
-        "mainstream media has a strong liberal bias and frequently misrepresents "
-        "conservative views; you prefer local news or alternative sources",
+        "You distrust mainstream national news — it consistently misrepresents "
+        "conservative views and pushes a liberal agenda. On a trust scale your "
+        "answer is 'not much': you occasionally skim headlines but immediately "
+        "discount the framing and seek alternative sources.",
     "moderate":
-        "You have some trust in certain news outlets but are skeptical of others; "
-        "you try to check multiple sources and are concerned about media bias "
-        "on both sides",
+        "You have mixed trust in national news — some outlets are credible, "
+        "others are not. Overall you would say 'some' trust: you use mainstream "
+        "news as a starting point but always cross-reference.",
     "lean_progressive":
-        "You generally trust mainstream national news organizations; you value "
-        "fact-based journalism and appreciate investigative reporting, though you "
-        "occasionally question specific editorial decisions",
+        "You trust mainstream national news organizations and value fact-based "
+        "journalism. You would say you trust them 'some' — reliably, with the "
+        "occasional editorial disagreement, but broadly credible.",
     "progressive":
-        "You trust established, reputable national news organizations and strongly "
-        "value quality journalism; you see a free press as essential to democracy",
+        "You trust established national news organizations (NPR, NYT, WaPo) "
+        "significantly — a free press is foundational to democracy. On a media "
+        "trust survey your answer is 'a lot', not just 'some': you actively "
+        "support quality journalism and defend it against attacks.",
 }
 
 
