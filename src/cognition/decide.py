@@ -132,6 +132,12 @@ def _memories_block(memories: list[Observation | Reflection]) -> str:
 # ---------------------------------------------------------------------------
 
 _DECIDE_SYSTEM_TEMPLATE = (
+    # Study 1B Sprint A-3: {cultural_preamble} is injected for India personas only.
+    # It appears BEFORE "You are {name}..." to prime the research simulation frame
+    # before the persona identity, overriding Haiku's Western liberal RLHF defaults
+    # on culturally divergent questions (in07/in12/in13).
+    # For US personas it is an empty string — zero impact on Study 1A.
+    "{cultural_preamble}"
     "You are {name}. {core_memory}\n\n"
     "{tendency_summary}"
 )
@@ -189,8 +195,13 @@ def _build_decide_messages(
     core_memory = _decide_core_memory_block(persona)
     # tendency_summary injected as natural language paragraph (P4)
     tendency_summary = persona.memory.core.tendency_summary
+    # Study 1B Sprint A-3: inject cultural preamble for India personas.
+    # For US personas, cultural_context is None → empty string → no effect.
+    cultural_context = getattr(persona.memory.core, "cultural_context", None)
+    cultural_preamble = cultural_context if cultural_context else ""
 
     system_prompt = _DECIDE_SYSTEM_TEMPLATE.format(
+        cultural_preamble=cultural_preamble,
         name=persona.demographic_anchor.name,
         core_memory=core_memory,
         tendency_summary=tendency_summary,

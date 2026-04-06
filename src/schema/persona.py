@@ -300,6 +300,13 @@ class CoreMemory(BaseModel):
     # Pew India: 80% think strong leader without parliament is 'very good' or 'somewhat good'.
     # Injected as a distinct labelled line so Haiku reads it for in07 strong_leader.
     governance_stance: str | None = None
+    # Study 1B Sprint A-3: Cultural survey context preamble for India personas.
+    # Addresses RLHF structural blocks on in07/in12/in13 where Haiku's Constitutional AI
+    # training overrides explicit persona stances. Injected as a PREAMBLE to the system
+    # prompt (before "You are {name}...") to establish a research simulation frame that
+    # gives the model explicit permission to answer as the Indian persona without
+    # defaulting to Western liberal values.
+    cultural_context: str | None = None
 
     @field_validator("key_values")
     @classmethod
