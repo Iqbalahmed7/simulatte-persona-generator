@@ -152,6 +152,39 @@ class WorldviewAnchor(BaseModel):
     # Set by demographic_sampler based on location.country.
     political_profile: PoliticalProfile | None = None
 
+    # Temporal political context — which party is currently governing.
+    # Free-text, e.g. "Republican administration in power (Trump, Jan 2025–)".
+    # Used by core_memory to derive the persona's stance on current conditions
+    # (economy rating, right/wrong track, democracy satisfaction). Without this,
+    # all personas default to moderate pessimism regardless of political lean.
+    # Set by demographic_sampler for time-bound studies; None = timeless mode.
+    political_era: str | None = Field(
+        default=None,
+        description=(
+            "Description of the current governing party/administration. "
+            "Drives optimism/pessimism about current conditions based on "
+            "whether the persona's party is in or out of power."
+        ),
+    )
+
+    # Personal religious salience — DISTINCT from institutional_trust.
+    # A person can have low trust in organised religious institutions while
+    # still having high personal faith (and vice versa). This attribute
+    # captures the devotional/identity dimension of religion.
+    # 0 = secular/non-religious; 1 = religion is central to daily life.
+    # Used to fix the q08 (religion importance) regression from Sprint A-2
+    # where institutional_trust was incorrectly suppressing religious scores.
+    religious_salience: float | None = Field(
+        default=None,
+        ge=0.0,
+        le=1.0,
+        description=(
+            "Personal religious importance/commitment. "
+            "0 = secular; 1 = religion central to daily life and identity. "
+            "Independent of institutional_trust."
+        ),
+    )
+
 
 __all__ = [
     "WorldviewAnchor",

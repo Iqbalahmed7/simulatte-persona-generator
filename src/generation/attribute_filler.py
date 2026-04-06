@@ -333,4 +333,8 @@ def _worldview_anchor_to_overrides(worldview: WorldviewAnchor) -> Dict[str, Any]
         lean = _ARCHETYPE_TO_LEAN.get(worldview.political_profile.archetype, "moderate")
         overrides["political_lean"] = lean
 
+    # religious_salience → direct mapping when present on WorldviewAnchor
+    if worldview.religious_salience is not None:
+        overrides["religious_salience"] = round(worldview.religious_salience, 2)
+
     return overrides

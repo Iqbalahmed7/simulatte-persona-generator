@@ -98,6 +98,68 @@ _POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
                          "systemic equity focus, climate action priority",
 }
 
+# Temporal political era → current-conditions stance per political lean.
+# Added Sprint A-3 Fix 1: addresses q01 (economy), q02 (right/wrong track),
+# q12 (democracy satisfaction) which depend on which party holds power.
+# Key insight: a conservative rates the economy "Good" under a Republican
+# administration, and "Poor" under a Democratic one — and vice versa.
+_POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
+    "Republican": {
+        "conservative":
+            "Believes the country is heading in the right direction under current "
+            "Republican leadership; views the economy more positively",
+        "lean_conservative":
+            "Cautiously optimistic about the current national direction; "
+            "rates current economic conditions as fair-to-good",
+        "moderate":
+            "Has mixed views on current conditions — sees some positives and some "
+            "negatives in the current Republican administration",
+        "lean_progressive":
+            "Concerned about the current direction under Republican administration; "
+            "views economic and democratic conditions skeptically",
+        "progressive":
+            "Strongly opposed to current government policies and direction; "
+            "rates current economic and democratic conditions negatively",
+    },
+    "Democrat": {
+        "conservative":
+            "Strongly opposed to current government policies and direction; "
+            "rates current economic and democratic conditions negatively",
+        "lean_conservative":
+            "Concerned about the current direction under Democratic administration; "
+            "views economic conditions skeptically",
+        "moderate":
+            "Has mixed views on current conditions — sees some positives and some "
+            "negatives in the current Democratic administration",
+        "lean_progressive":
+            "Generally positive about the current national direction under "
+            "Democratic administration; rates economic conditions as fair-to-good",
+        "progressive":
+            "Supportive of current government direction; believes the country is "
+            "generally heading in the right direction",
+    },
+}
+
+# Religious salience thresholds → key_values statements.
+# Added Sprint A-3 Fix 2: decouples personal faith from institutional_trust.
+# Only "very high" and "low" are surfaced in key_values to avoid cluttering
+# the 5-slot budget with mid-range values.
+_RELIGIOUS_SALIENCE_STATEMENTS: dict[str, str] = {
+    "very_high": "Religion and faith are central to daily life, values, and identity",
+    "high":      "Religious faith is an important part of life and moral compass",
+    "low":       "Secular orientation — religion plays a minimal role in daily life",
+}
+
+
+def _extract_governing_party(political_era: str) -> str:
+    """Extract 'Republican' or 'Democrat' from a political_era string."""
+    era_lower = political_era.lower()
+    if "republican" in era_lower:
+        return "Republican"
+    if "democrat" in era_lower:
+        return "Democrat"
+    return ""
+
 
 # Human-readable labels for each primary_value_driver option (anchor attr).
 _VALUE_DRIVER_LABELS: dict[str, str] = {
@@ -123,13 +185,14 @@ _TENSION_SEED_VALUE_STATEMENTS: dict[str, str] = {
 def _derive_key_values(persona: PersonaRecord) -> list[str]:
     """Build a 3–5 item key_values list.
 
-    Assembly order:
-    1. Worldview statement (if political_lean or trust attrs present) — ARCH-001 addition.
-       This is the highest-variance predictor on opinion survey questions and must come
-       first so the LLM's reasoning prompt carries the ideological anchor prominently.
-    2. Human-readable label of primary_value_driver anchor.
-    3. Value statement derived from tension_seed.
-    4–5. Top continuous attributes from values category (|value - 0.5| deviation).
+    Assembly order (Sprint A-3 revised priority):
+    1. Political era stance — current-conditions optimism/pessimism based on
+       governing party + political lean. Fixes q01/q02/q12 collapse.
+    2. Political lean statement — ideological identity anchor.
+    3. Religious salience — personal faith dimension (fixes q08 regression).
+       Only surfaced for very high (≥0.65) or low (≤0.30) values.
+    4. Institutional trust / social change extremes (only if slot available).
+    5. Primary value driver.
     Clamped to 5 maximum, guaranteed minimum 3.
     """
     seen: set[str] = set()
@@ -140,47 +203,68 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             seen.add(item)
             result.append(item)
 
-    # 1. Worldview statement from worldview category attributes (ARCH-001).
-    #    Order of preference: political_lean > trust dims > social_change_pace.
     worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-
     political_lean_attr = worldview_cat.get("political_lean")
-    if political_lean_attr is not None:
-        lean_value = str(political_lean_attr.value)
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+
+    # 1. Political era stance → fixes q01 (economy), q02 (right/wrong track),
+    #    q12 (democracy satisfaction). Must come FIRST so it dominates LLM context.
+    wv = persona.demographic_anchor.worldview
+    if wv is not None and wv.political_era and lean_value:
+        governing_party = _extract_governing_party(wv.political_era)
+        stance = _POLITICAL_ERA_STANCES.get(governing_party, {}).get(lean_value)
+        if stance:
+            _add(stance)
+
+    # 2. Political lean statement — ideological identity.
+    if lean_value:
         lean_stmt = _POLITICAL_LEAN_STATEMENTS.get(
             lean_value,
             lean_value.replace("_", " ").title() + " political values",
         )
         _add(lean_stmt)
 
-    # Institutional trust extremes are worth surfacing explicitly.
+    # 3. Religious salience — personal faith, independent of institutional trust.
+    #    Fixes q08 regression. Only surface strong signals (not mid-range).
+    religious_attr = worldview_cat.get("religious_salience")
+    if religious_attr is not None and isinstance(religious_attr.value, (int, float)):
+        rs = float(religious_attr.value)
+        if rs >= 0.65:
+            _add(_RELIGIOUS_SALIENCE_STATEMENTS["very_high"])
+        elif rs >= 0.50:
+            _add(_RELIGIOUS_SALIENCE_STATEMENTS["high"])
+        elif rs <= 0.30:
+            _add(_RELIGIOUS_SALIENCE_STATEMENTS["low"])
+        # Mid-range (0.30–0.50): don't add — too neutral to use a key_values slot
+
+    # 4. Institutional trust and change pace extremes (only if slot available).
     govt_trust_attr = worldview_cat.get("institutional_trust_government")
     if govt_trust_attr is not None and isinstance(govt_trust_attr.value, (int, float)):
         govt_v = float(govt_trust_attr.value)
-        if govt_v < 0.30:
+        if govt_v < 0.28:
             _add("Deep skepticism of government institutions")
-        elif govt_v > 0.70:
+        elif govt_v > 0.72:
             _add("High trust in government and public institutions")
 
     media_trust_attr = worldview_cat.get("institutional_trust_media")
     if media_trust_attr is not None and isinstance(media_trust_attr.value, (int, float)):
-        if float(media_trust_attr.value) < 0.30:
+        if float(media_trust_attr.value) < 0.25:
             _add("Distrusts mainstream news media")
 
     science_trust_attr = worldview_cat.get("institutional_trust_science")
     if science_trust_attr is not None and isinstance(science_trust_attr.value, (int, float)):
-        if float(science_trust_attr.value) > 0.70:
+        if float(science_trust_attr.value) > 0.72:
             _add("High trust in scientific expertise and consensus")
 
     change_pace_attr = worldview_cat.get("social_change_pace")
     if change_pace_attr is not None and isinstance(change_pace_attr.value, (int, float)):
         change_v = float(change_pace_attr.value)
-        if change_v < 0.25:
+        if change_v < 0.22:
             _add("Committed to preserving traditional values and institutions")
-        elif change_v > 0.75:
+        elif change_v > 0.78:
             _add("Strongly advocates for social change and reform")
 
-    # 2. Primary value driver label.
+    # 5. Primary value driver.
     values_cat: dict[str, Any] = persona.attributes.get("values", {})
     pvd_attr = values_cat.get("primary_value_driver")
     if pvd_attr is not None:
@@ -195,7 +279,7 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
         )
     _add(pvd_label)
 
-    # 3. Tension seed → value statement.
+    # Tension seed (if slot remains).
     identity_cat: dict[str, Any] = persona.attributes.get("identity", {})
     tension_seed_attr = identity_cat.get("tension_seed")
     if tension_seed_attr is not None:
@@ -205,24 +289,6 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             tension_key.replace("_", " ").title(),
         )
         _add(tension_stmt)
-
-    # 4–5. Top continuous attributes from values category by |value - 0.5| deviation.
-    continuous_values: list[tuple[str, Any]] = [
-        (name, attr)
-        for name, attr in values_cat.items()
-        if name != "primary_value_driver"
-        and hasattr(attr, "type")
-        and attr.type == "continuous"
-        and isinstance(attr.value, (int, float))
-    ]
-    # Sort descending by deviation from 0.5.
-    continuous_values.sort(key=lambda t: abs(float(t[1].value) - 0.5), reverse=True)
-
-    for name, attr in continuous_values:
-        if len(result) >= 5:
-            break
-        label = attr.label if attr.label else name.replace("_", " ").replace("-", " ").title()
-        _add(label)
 
     # Pad to 3 with fallbacks from derived_insights if needed.
     fallbacks = [

@@ -107,6 +107,14 @@ KNOWN_CORRELATIONS: list[tuple[str, str, Literal["positive", "negative"]]] = [
     # Science trust correlates with authority bias and environmental concern
     ("institutional_trust_science", "authority_bias", "positive"),
     ("institutional_trust_science", "environmental_consciousness", "positive"),
+    # Religious salience — added ARCH-001 / Sprint A-3 (Fix 2)
+    # Religious commitment correlates with tradition, inversely with change pace.
+    # Deliberately NOT correlated with institutional_trust_* — personal faith is
+    # independent of trust in organised religious or government institutions.
+    ("religious_salience", "tradition_orientation", "positive"),
+    ("religious_salience", "social_change_pace", "negative"),
+    ("religious_salience", "family_centricity", "positive"),
+    ("religious_salience", "communal_obligation", "positive"),
 ]
 
 
@@ -467,6 +475,17 @@ BASE_TAXONOMY: list[AttributeDefinition] = [
         is_anchor=True,
         anchor_order=14,
     ),
+    _continuous(
+        "religious_salience",
+        "worldview",
+        "Personal religious importance and devotional commitment. "
+        "0 = secular/non-religious; 1 = religion is central to daily life and identity. "
+        "INDEPENDENT of institutional_trust — do not conflate personal faith with "
+        "trust in religious institutions or government.",
+        0.45,
+        is_anchor=True,
+        anchor_order=15,
+    ),
 ]
 
 
@@ -519,13 +538,14 @@ def _validate_taxonomy() -> None:
         "primary_value_driver",
         "social_orientation",
         "tension_seed",
-        # Worldview anchors (9-14) — added ARCH-001 / Sprint A-1
+        # Worldview anchors (9-15) — added ARCH-001 / Sprint A-1 + A-3
         "political_lean",
         "economic_philosophy",
         "social_change_pace",
         "institutional_trust_government",
         "institutional_trust_media",
         "institutional_trust_science",
+        "religious_salience",
     ]
 
     observed_anchor_order = [a.name for a in ANCHOR_ATTRIBUTES]
@@ -548,7 +568,7 @@ def _validate_taxonomy() -> None:
         "lifestyle": 25,
         "identity": 20,
         "decision_making": 25,
-        "worldview": 6,   # added ARCH-001 / Sprint A-1
+        "worldview": 7,   # 6 from Sprint A-1 + religious_salience from Sprint A-3
     }
 
     if category_counts != expected_counts:

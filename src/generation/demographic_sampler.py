@@ -176,6 +176,63 @@ _WORLDVIEW_BASE_DIMS: dict[str, tuple[float, float, float, float]] = {
     "progressive":       (0.65, 0.80, 0.68, 0.72),
 }
 
+# Religious salience per persona — personal faith/devotion dimension.
+# Deliberately INDEPENDENT of institutional_trust or political lean.
+# Sources: Pew Religious Landscape Survey 2023.
+# Patterns: South > Midwest > West/Northeast; Black Americans high;
+# Hispanic Americans moderate-high; older > younger; rural > urban.
+_US_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
+    # South — female
+    "Patricia Williams":   0.70,
+    "Sandra Johnson":      0.75,
+    "Maria Garcia":        0.60,   # Hispanic Catholic, FL
+    "Linda Brown":         0.55,
+    "Betty Jackson":       0.80,   # Alabama, conservative
+    "Nancy Moore":         0.65,   # Iowa
+    # Midwest — male
+    "James Miller":        0.50,
+    "Robert Davis":        0.55,
+    "William Wilson":      0.35,   # urban Chicago
+    "Thomas Anderson":     0.40,
+    # Northeast — female
+    "Jennifer Taylor":     0.20,   # NYC, progressive
+    "Barbara Martinez":    0.45,
+    "Susan Thompson":      0.15,   # Boston, progressive
+    "Dorothy White":       0.50,   # older, CT
+    # West — male
+    "Charles Harris":      0.45,
+    "Joseph Jackson":      0.30,   # Seattle, lean_progressive
+    "Christopher Martin":  0.40,
+    "Daniel Thompson":     0.30,   # Denver, lean_progressive
+    # South — male
+    "Mark Taylor":         0.75,   # Tennessee, conservative
+    "Paul Rodriguez":      0.45,
+    # Older adults
+    "Helen Lewis":         0.60,
+    "Frank Lee":           0.55,
+    # Young adults — lower overall
+    "Michelle Walker":     0.45,
+    "Kevin Hall":          0.20,
+    "Amanda Allen":        0.18,
+    "Ryan Young":          0.15,
+    # Black Americans — high per Pew (78% say religion very/somewhat important)
+    "Denise Robinson":     0.75,
+    "Marcus Johnson":      0.65,
+    "Keisha Brown":        0.70,
+    "Darnell Williams":    0.65,
+    # Hispanic Americans — moderate-high (Catholic majority)
+    "Carmen Lopez":        0.65,
+    "Miguel Hernandez":    0.60,
+    "Rosa Gonzalez":       0.70,
+    "Carlos Reyes":        0.55,
+}
+
+# Temporal political era for us_general studies.
+# Reflects the governing party at the time of study generation.
+# April 2026 → Trump second term (Republican, Jan 2025–).
+# Update this string if running studies under a different administration.
+_US_POLITICAL_ERA = "Republican administration in power (Trump, Jan 2025–)"
+
 _DOMAIN_POOLS = {
     "cpg": _CPG_POOL,
     "saas": _SAAS_POOL,
@@ -243,6 +300,13 @@ def sample_demographic_anchor(
         rng = random.Random(persona_seed)
         jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
 
+        religious_salience = _US_GENERAL_RELIGIOUS_SALIENCE.get(name)
+        if religious_salience is not None:
+            # Add small persona-level jitter for realism (±0.03)
+            religious_salience = round(
+                max(0.0, min(1.0, religious_salience + rng.uniform(-0.03, 0.03))), 2
+            )
+
         worldview = WorldviewAnchor(
             institutional_trust=jitter(inst_trust),
             social_change_pace=jitter(change_pace),
@@ -252,6 +316,8 @@ def sample_demographic_anchor(
                 country="USA",
                 archetype=political_lean,
             ),
+            political_era=_US_POLITICAL_ERA,
+            religious_salience=religious_salience,
         )
 
     return DemographicAnchor(
