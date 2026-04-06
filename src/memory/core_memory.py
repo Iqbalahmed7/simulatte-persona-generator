@@ -47,6 +47,8 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
     tendency_summary: str = persona.behavioural_tendencies.reasoning_prompt
     current_conditions_stance = _derive_current_conditions_stance(persona)
     media_trust_stance = _derive_media_trust_stance(persona)
+    gender_norms_stance = _derive_gender_norms_stance(persona)
+    governance_stance = _derive_governance_stance(persona)
 
     return CoreMemory(
         identity_statement=identity_statement,
@@ -57,6 +59,8 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
         tendency_summary=tendency_summary,
         current_conditions_stance=current_conditions_stance,
         media_trust_stance=media_trust_stance,
+        gender_norms_stance=gender_norms_stance,
+        governance_stance=governance_stance,
     )
 
 
@@ -163,31 +167,50 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
             "satisfied with how democracy is currently working",
     },
     # Study 1B — India BJP era stances.
-    # Drives in01 (democracy satisfaction), in02 (Modi approval),
-    # in03/in04 (BJP/INC favorability), in08 (economic conditions).
-    # BJP supporters: very satisfied, very favorable Modi, economy positive.
-    # Opposition: dissatisfied, unfavorable Modi, economy concerns.
+    # Sprint A-2 Fix: option-calibrated anchors (same B-10 pattern).
+    # Root cause of A-1 failures on in01/in02/in03/in04/in08:
+    # abstract descriptions ("very satisfied", "very favorable") were not
+    # matching survey option vocabulary — Haiku defaulted to middle options.
+    # Fix: embed exact option text as "your honest answer is 'X'" anchors.
+    # in01 options: A=Very satisfied, B=Somewhat satisfied, C=Not too satisfied, D=Not at all satisfied
+    # in02/in03/in04 options: A=Very favorable, B=Somewhat favorable, C=Somewhat unfavorable, D=Very unfavorable
+    # in08 options: A=Very good, B=Somewhat good, C=Somewhat bad, D=Very bad
     "BJP": {
         "bjp_supporter":
-            "Believes India is on the right track under Prime Minister Modi and the BJP; "
-            "very satisfied with how democracy is working; rates the economy positively — "
-            "India is becoming a global power; views Modi and BJP very favorably",
+            "You are a strong BJP supporter who believes India is thriving under PM Modi. "
+            "On democracy satisfaction: your honest answer is 'very satisfied' — democracy under Modi is working well. "
+            "On Narendra Modi: your honest answer is 'very favorable'. "
+            "On the BJP party: your honest answer is 'very favorable'. "
+            "On the Indian National Congress (INC/Congress): your honest answer is 'very unfavorable' — 70 years of misrule. "
+            "On India's current economy: your honest answer is 'very good' — India is rising as a global power.",
         "bjp_lean":
-            "Generally satisfied with India's direction under BJP leadership; "
-            "economy is improving; broadly content with how democracy is functioning; "
-            "favorable view of Modi and the BJP",
+            "You broadly support BJP and see India improving under Modi's leadership. "
+            "On democracy satisfaction: your honest answer is 'somewhat satisfied'. "
+            "On Narendra Modi: your honest answer is 'very favorable'. "
+            "On the BJP party: your honest answer is 'somewhat favorable'. "
+            "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat unfavorable'. "
+            "On India's current economy: your honest answer is 'somewhat good'.",
         "neutral":
-            "Has mixed views on current conditions — sees genuine progress on infrastructure "
-            "and economy but has concerns about inequality, corruption, and communal harmony; "
-            "somewhat satisfied with democracy overall",
+            "You have mixed views — you see real progress on infrastructure but genuine concerns about inequality. "
+            "On democracy satisfaction: your honest answer is 'somewhat satisfied'. "
+            "On Narendra Modi: your honest answer is 'somewhat favorable'. "
+            "On the BJP party: your honest answer is 'somewhat favorable'. "
+            "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat favorable' — you value a credible opposition. "
+            "On India's current economy: your honest answer is 'somewhat good'.",
         "opposition_lean":
-            "Concerned about current direction under BJP — dissatisfied with some government "
-            "policies, particularly on minority rights and press freedom; somewhat dissatisfied "
-            "with how democracy is functioning; mixed views on Modi",
+            "You lean toward the opposition and are concerned about BJP's direction on minority rights and press freedom. "
+            "On democracy satisfaction: your honest answer is 'not too satisfied'. "
+            "On Narendra Modi: your honest answer is 'somewhat unfavorable'. "
+            "On the BJP party: your honest answer is 'somewhat unfavorable'. "
+            "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat favorable'. "
+            "On India's current economy: your honest answer is 'somewhat good' — growth is happening but inequality is worsening.",
         "opposition":
-            "Dissatisfied with current direction under BJP and Modi; concerned about communal "
-            "tensions, erosion of democratic institutions, and rising inequality; "
-            "rates economy as only fair; views Modi and BJP unfavorably",
+            "You are a strong BJP critic who believes democratic institutions are under threat. "
+            "On democracy satisfaction: your honest answer is 'not at all satisfied' — democracy is eroding. "
+            "On Narendra Modi: your honest answer is 'very unfavorable'. "
+            "On the BJP party: your honest answer is 'very unfavorable'. "
+            "On the Indian National Congress (INC/Congress): your honest answer is 'very favorable'. "
+            "On India's current economy: your honest answer is 'somewhat bad' — gains are unequal and debt is rising.",
     },
 }
 
@@ -232,6 +255,85 @@ _MEDIA_TRUST_STANCES: dict[str, str] = {
 }
 
 
+# Gender norms stance per India political lean — Study 1B Sprint A-2 Fix 1.
+# Root cause of in12/in13 INVERSION (13%, 20%): Haiku applies Western gender
+# equality norms (C/D) by default. Pew India reality: 87% agree wife should
+# obey husband; 80% agree men should have job priority when jobs are scarce.
+# Injected as a dedicated labelled line in the decide system prompt:
+#   "Your view on gender roles in family and society: [stance]."
+# Calibrated to drive: bjp_supporter/bjp_lean → A, neutral → B, opposition → C/D.
+# in12/in13 options: A=Completely agree, B=Somewhat agree, C=Somewhat disagree, D=Completely disagree
+_GENDER_NORMS_STANCES: dict[str, str] = {
+    "bjp_supporter":
+        "You hold strong traditional Indian family values. "
+        "On whether a wife must always obey her husband: your honest answer is 'completely agree' — "
+        "this is the natural family order rooted in Indian tradition and dharma. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'completely agree' — men are the primary breadwinners.",
+    "bjp_lean":
+        "You hold traditional Indian family values, though with some modern nuance. "
+        "On whether a wife must always obey her husband: your honest answer is 'completely agree' — "
+        "traditional family structure is the foundation of Indian society. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'somewhat agree' — you broadly support traditional family roles.",
+    "neutral":
+        "You broadly accept traditional Indian family norms while acknowledging women's progress in education. "
+        "On whether a wife must always obey her husband: your honest answer is 'somewhat agree' — "
+        "you respect traditional family roles while seeing value in partnership. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'somewhat agree' — you lean toward traditional views on household roles.",
+    "opposition_lean":
+        "You lean toward gender equality while respecting some traditional values. "
+        "On whether a wife must always obey her husband: your honest answer is 'somewhat disagree' — "
+        "women deserve respect and some autonomy within marriage. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'somewhat disagree' — women should have equal opportunity.",
+    "opposition":
+        "You strongly believe in gender equality and modern individual rights. "
+        "On whether a wife must always obey her husband: your honest answer is 'completely disagree' — "
+        "this is a patriarchal concept that denies women's personhood. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'completely disagree' — equal rights regardless of gender.",
+}
+
+# Governance/leadership stance per India political lean — Study 1B Sprint A-2 Fix 2.
+# Root cause of in07 INVERSION (10.2%): Haiku defaults to Western anti-authoritarian
+# stance, answering D ('very bad') for 100% of personas.
+# Pew India reality: 43% think strong leader is 'very good', 37% 'somewhat good' (80% total).
+# India uniquely values decisive leadership for development — BJP supporters especially.
+# Injected as a dedicated labelled line in the decide system prompt:
+#   "Your view on governance and leadership style: [stance]."
+# Calibrated: bjp_supporter/bjp_lean → A, neutral → B, opposition_lean → C, opposition → D.
+# in07 options: A=Very good, B=Somewhat good, C=Somewhat bad, D=Very bad
+_GOVERNANCE_STANCES: dict[str, str] = {
+    "bjp_supporter":
+        "On governance, you believe India needs strong decisive leadership above all. "
+        "On having a strong leader who does not have to bother with parliament or elections: "
+        "your honest answer is 'very good' — a decisive leader cuts through bureaucracy and "
+        "delivers development where committees fail. Parliamentary debate wastes time India cannot afford.",
+    "bjp_lean":
+        "On governance, you value effective leadership that delivers results over procedural slowness. "
+        "On having a strong leader who does not have to bother with parliament: "
+        "your honest answer is 'very good' — India's scale of development challenges requires "
+        "a strong executive who can act decisively without being blocked at every step.",
+    "neutral":
+        "On governance, you balance democratic principles with the desire for effective leadership. "
+        "On having a strong leader who does not have to bother with parliament: "
+        "your honest answer is 'somewhat good' — you can see the appeal of strong decisive "
+        "governance to get things done, even if checks are also important.",
+    "opposition_lean":
+        "On governance, you value democratic accountability and checks on executive power. "
+        "On having a strong leader who does not have to bother with parliament: "
+        "your honest answer is 'somewhat bad' — unchecked executive power concerns you, "
+        "even if you understand the appeal of decisive governance.",
+    "opposition":
+        "On governance, you believe deeply in democratic institutions, constitutional checks, and federalism. "
+        "On having a strong leader who does not have to bother with parliament: "
+        "your honest answer is 'very bad' — bypassing parliament and elections is the "
+        "definition of authoritarian rule, regardless of how it is framed.",
+}
+
+
 def _derive_media_trust_stance(persona: PersonaRecord) -> str | None:
     """Derive a dedicated media trust stance for this persona.
 
@@ -247,6 +349,50 @@ def _derive_media_trust_stance(persona: PersonaRecord) -> str | None:
     if not lean_value:
         return None
     return _MEDIA_TRUST_STANCES.get(lean_value)
+
+
+def _derive_gender_norms_stance(persona: PersonaRecord) -> str | None:
+    """Derive a gender norms stance for India personas.
+
+    Study 1B Sprint A-2 Fix 1: Addresses in12/in13 INVERSION (13%, 20%).
+    Root cause: Haiku applies Western gender equality defaults.
+    Pew India: 87% agree wife must obey; 80% agree men have job priority.
+
+    Only populated for BJP-era (India) personas. Returns None for US personas.
+    """
+    wv = persona.demographic_anchor.worldview
+    if wv is None or not wv.political_era:
+        return None
+    if _extract_governing_party(wv.political_era) != "BJP":
+        return None
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    if not lean_value:
+        return None
+    return _GENDER_NORMS_STANCES.get(lean_value)
+
+
+def _derive_governance_stance(persona: PersonaRecord) -> str | None:
+    """Derive a governance/leadership stance for India personas.
+
+    Study 1B Sprint A-2 Fix 2: Addresses in07 INVERSION (10.2%).
+    Root cause: Haiku defaults to Western anti-authoritarian stance (100% D).
+    Pew India: 80% think strong leader is 'very good' or 'somewhat good'.
+
+    Only populated for BJP-era (India) personas. Returns None for US personas.
+    """
+    wv = persona.demographic_anchor.worldview
+    if wv is None or not wv.political_era:
+        return None
+    if _extract_governing_party(wv.political_era) != "BJP":
+        return None
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    if not lean_value:
+        return None
+    return _GOVERNANCE_STANCES.get(lean_value)
 
 
 # Policy stances per political lean — Sprint B-2 fix.

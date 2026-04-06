@@ -95,6 +95,16 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
     media_stance = getattr(core, "media_trust_stance", None)
     if media_stance:
         lines.append(f"Your relationship with national news media: {media_stance}.")
+    # Study 1B Sprint A-2 Fix 1: inject gender norms stance for India in12/in13.
+    # Overrides Haiku's Western gender equality default (was causing 100% C/D inversion).
+    gender_stance = getattr(core, "gender_norms_stance", None)
+    if gender_stance:
+        lines.append(f"Your view on gender roles in family and society: {gender_stance}.")
+    # Study 1B Sprint A-2 Fix 2: inject governance stance for India in07.
+    # Overrides Haiku's Western anti-authoritarian default (was causing 100% D inversion).
+    gov_stance = getattr(core, "governance_stance", None)
+    if gov_stance:
+        lines.append(f"Your view on governance and leadership style: {gov_stance}.")
     block = " ".join(lines)
     _GLOBAL_CACHE.set(cache_key, block)
     return block

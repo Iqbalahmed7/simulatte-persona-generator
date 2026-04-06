@@ -288,6 +288,18 @@ class CoreMemory(BaseModel):
     # Injected into the decide prompt as a distinct labelled line so Haiku reads it
     # explicitly when answering q13-type questions (media trust / news source trust).
     media_trust_stance: str | None = None
+    # Study 1B Sprint A-2 Fix 1: Dedicated field for gender norms stance (India).
+    # Root cause of in12/in13 INVERSION: Haiku applies Western gender equality defaults.
+    # Pew India: 87% agree wife should obey; 80% agree men should have job priority.
+    # Injected as a distinct labelled line so Haiku reads it when answering
+    # gender-role questions (in12 wife_obedience, in13 gender_jobs).
+    gender_norms_stance: str | None = None
+    # Study 1B Sprint A-2 Fix 2: Dedicated field for governance/leadership stance (India).
+    # Root cause of in07 INVERSION (10.2%): Haiku defaults to Western anti-authoritarian
+    # stance, choosing 'very bad' for 100% of personas.
+    # Pew India: 80% think strong leader without parliament is 'very good' or 'somewhat good'.
+    # Injected as a distinct labelled line so Haiku reads it for in07 strong_leader.
+    governance_stance: str | None = None
 
     @field_validator("key_values")
     @classmethod
