@@ -90,6 +90,7 @@ def _derive_identity_statement(persona: PersonaRecord) -> str:
 # giving the LLM the ideological anchor needed to respond differently to
 # politically-charged survey questions.
 _POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
+    # US political leans
     "conservative":      "Holds conservative political values — limited government, "
                          "traditional social norms, free-market economics",
     "lean_conservative": "Leans conservative — centre-right, sceptical of government expansion, "
@@ -100,6 +101,17 @@ _POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
                          "socially liberal",
     "progressive":       "Holds progressive political values — expansive government role, "
                          "systemic equity focus, climate action priority",
+    # India political leans (Study 1B)
+    "bjp_supporter":     "Strong BJP supporter — proud of India's rise, supports Modi's leadership, "
+                         "Hindu cultural identity, India as a global power",
+    "bjp_lean":          "Generally supports BJP — values stability, development, and Hindu culture; "
+                         "broadly satisfied with Modi government",
+    "neutral":           "Politically neutral — pragmatic, cares about local issues, "
+                         "economy and jobs matter most; no strong party loyalty",
+    "opposition_lean":   "Leans toward opposition (INC or regional party) — concerned about "
+                         "governance, minority rights, and economic inequality",
+    "opposition":        "Strong opposition supporter — critical of BJP's communal politics; "
+                         "values secular, inclusive governance; concerned about democratic institutions",
 }
 
 # Temporal political era → current-conditions stance per political lean.
@@ -149,6 +161,33 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
             "Supportive of current government direction; believes the country is "
             "generally heading in the right direction; "
             "satisfied with how democracy is currently working",
+    },
+    # Study 1B — India BJP era stances.
+    # Drives in01 (democracy satisfaction), in02 (Modi approval),
+    # in03/in04 (BJP/INC favorability), in08 (economic conditions).
+    # BJP supporters: very satisfied, very favorable Modi, economy positive.
+    # Opposition: dissatisfied, unfavorable Modi, economy concerns.
+    "BJP": {
+        "bjp_supporter":
+            "Believes India is on the right track under Prime Minister Modi and the BJP; "
+            "very satisfied with how democracy is working; rates the economy positively — "
+            "India is becoming a global power; views Modi and BJP very favorably",
+        "bjp_lean":
+            "Generally satisfied with India's direction under BJP leadership; "
+            "economy is improving; broadly content with how democracy is functioning; "
+            "favorable view of Modi and the BJP",
+        "neutral":
+            "Has mixed views on current conditions — sees genuine progress on infrastructure "
+            "and economy but has concerns about inequality, corruption, and communal harmony; "
+            "somewhat satisfied with democracy overall",
+        "opposition_lean":
+            "Concerned about current direction under BJP — dissatisfied with some government "
+            "policies, particularly on minority rights and press freedom; somewhat dissatisfied "
+            "with how democracy is functioning; mixed views on Modi",
+        "opposition":
+            "Dissatisfied with current direction under BJP and Modi; concerned about communal "
+            "tensions, erosion of democratic institutions, and rising inequality; "
+            "rates economy as only fair; views Modi and BJP unfavorably",
     },
 }
 
@@ -250,6 +289,30 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "believes abortion should be LEGAL IN ALL CASES WITH NO EXCEPTIONS — it is a fundamental right; "
         "AI will MOSTLY HARM workers, privacy, and democracy; "
         "trusts that most people are fundamentally good-natured",
+    # India policy stances (Study 1B) — drives in06/in07 (democracy/strong leader),
+    # in12/in13/in14 (gender roles), in15 (climate), in11 (religion).
+    "bjp_supporter":
+        "Supports strong centralized leadership for India's development; "
+        "believes a decisive leader is needed to cut through bureaucracy; "
+        "traditional family values — husband as head of household; "
+        "climate change is a real concern but development comes first; "
+        "religion is central to personal and national identity",
+    "bjp_lean":
+        "Values stable governance and economic growth over political disruption; "
+        "respects traditional gender roles while accepting women's education and work; "
+        "open to strong executive leadership if it delivers results; "
+        "believes India's global influence is genuinely rising",
+    # neutral already defined above
+    "opposition_lean":
+        "Values democratic institutions and checks on executive power; "
+        "supports gender equality in the workplace and public life; "
+        "believes representative democracy is preferable to strong-man rule; "
+        "concerned about climate change impacts on agriculture and rural life",
+    "opposition":
+        "Strongly values democratic institutions, federalism, and minority rights; "
+        "believes women and men deserve equal rights in all spheres; "
+        "strongly prefers representative democracy over authoritarian governance; "
+        "views climate change as an urgent threat requiring immediate action",
 }
 
 # Religious salience thresholds → key_values statements.
@@ -264,12 +327,14 @@ _RELIGIOUS_SALIENCE_STATEMENTS: dict[str, str] = {
 
 
 def _extract_governing_party(political_era: str) -> str:
-    """Extract 'Republican' or 'Democrat' from a political_era string."""
+    """Extract governing party key from a political_era string."""
     era_lower = political_era.lower()
     if "republican" in era_lower:
         return "Republican"
     if "democrat" in era_lower:
         return "Democrat"
+    if "bjp" in era_lower:
+        return "BJP"
     return ""
 
 
