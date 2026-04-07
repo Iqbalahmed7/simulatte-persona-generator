@@ -235,8 +235,15 @@ class NarrativeGenerator:
             demographic_anchor, derived_insights, life_stories, behavioural_tendencies
         )
 
+        # Sprint A-6 Fix 1: extract political lean to pass BJP narrative constraint.
+        worldview_attrs = attributes.get("worldview", {})
+        political_lean_attr = worldview_attrs.get("political_lean")
+        political_lean: str | None = (
+            str(political_lean_attr.value) if political_lean_attr else None
+        )
+
         # Build constraint guidance for the system prompts based on attributes
-        constraint_note = _build_constraint_note(attributes)
+        constraint_note = _build_constraint_note(attributes, political_lean=political_lean)
         first_person_system = _FIRST_PERSON_SYSTEM
         third_person_system = _THIRD_PERSON_SYSTEM
         if constraint_note:
@@ -282,7 +289,10 @@ class NarrativeGenerator:
 
 # ── Constraint enforcement helpers ─────────────────────────────────────────────
 
-def _build_constraint_note(attributes: dict[str, dict[str, Attribute]]) -> str:
+def _build_constraint_note(
+    attributes: dict[str, dict[str, Attribute]],
+    political_lean: str | None = None,
+) -> str:
     """
     Builds a brief constraint note for the LLM system prompt derived from
     settled high-signal attributes (§14A S14). This prevents the narrative
@@ -291,6 +301,13 @@ def _build_constraint_note(attributes: dict[str, dict[str, Attribute]]) -> str:
     Only fires when attribute values are clearly extreme (> 0.8 or < 0.2)
     on brand_loyalty or switching_propensity, which are the two attributes
     explicitly called out in the brief.
+
+    Sprint A-6 Fix 1: also fires for bjp_supporter / bjp_lean political lean
+    to prevent Sonnet from embedding economic hardship narratives in BJP
+    personas — the root cause of in02/in03 0% A across A-3 through A-5.
+    Evidence: "I can't say very favorable when I'm struggling with bills."
+    The hardship is in the narrative identity, not the stance, so stance-level
+    decoupling alone has failed across 3 sprints.
     """
     flat: dict[str, Attribute] = {}
     for category_attrs in attributes.values():
@@ -325,6 +342,27 @@ def _build_constraint_note(attributes: dict[str, dict[str, Attribute]]) -> str:
                 "switching_propensity is very high — do NOT describe this persona "
                 "as resistant to change or loyal to existing choices."
             )
+
+    # Sprint A-6 Fix 1: BJP narrative economic hardship exclusion.
+    # Root cause of in02/in03 0% A (Modi/BJP approval): Sonnet generates BJP personas
+    # with lower-income brackets and writes hardship into their first-person narrative
+    # ("struggling with bills every month", "tight budget", "rising prices hurt us").
+    # When asked about Modi, the persona's own voice says "I can't say very favorable
+    # given my financial struggles" — overriding the stance-level DECOUPLE instruction.
+    # Fix: prevent the hardship narrative from being written in the first place.
+    if political_lean in ("bjp_supporter", "bjp_lean"):
+        notes.append(
+            "BJP PERSONA NARRATIVE CONSTRAINT: This persona is a BJP supporter / BJP-leaning "
+            "voter. Do NOT include personal economic hardship, financial struggle, tight monthly "
+            "budgets, rising prices causing personal stress, bill difficulties, or financial "
+            "anxiety in their narrative — not even as a secondary tension. "
+            "Their worldview is defined by national pride, Hindu cultural identity, pride in "
+            "India's rise under Modi, and optimism about development and governance. "
+            "If they have a lower income bracket, write their narrative around dignity in honest "
+            "work and community belonging — NOT economic resentment or financial stress. "
+            "Their narrative must not contain any language that could cause them to say "
+            "'I can't support Modi / BJP because of my personal financial situation.'"
+        )
 
     if not notes:
         return ""

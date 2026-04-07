@@ -559,35 +559,45 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "believes abortion should be LEGAL IN ALL CASES WITH NO EXCEPTIONS — it is a fundamental right; "
         "AI will MOSTLY HARM workers, privacy, and democracy; "
         "trusts that most people are fundamentally good-natured",
-    # India policy stances (Study 1B) — Sprint A-5 update.
-    # Added distribution-spread anchors for in05/in09/in15 (stuck at 100% single option).
-    # Added in04 INC approval anchors — opposition must choose A/B (favorable to INC).
+    # India policy stances (Study 1B) — Sprint A-6 update.
+    # Sprint A-6: strengthened in04 INC anchors — bjp_supporter must choose D (0% D
+    # in A-5 despite 'VERY unfavorable' in current_conditions_stance). Adding a second
+    # injection point here in policy_stance so the INC anchor fires from BOTH fields.
+    # opposition must choose A (0% A in A-5). Two-field anchoring pattern.
     "bjp_supporter":
         "Supports strong centralized leadership for India's development; "
         "traditional family values — husband as head of household; "
         "on India's global influence: it is 'getting stronger' — this is clear; "
         "on government trust: you trust the government 'a lot' — not just somewhat; "
         "climate change is real but development must not be sacrificed — "
-        "your answer on climate threat is 'somewhat of a threat', not 'major'",
+        "your answer on climate threat is 'somewhat of a threat', not 'major'; "
+        "on the Indian National Congress (INC/Congress): you hold a 'Very unfavorable' "
+        "view — option D, not C. Congress represents 70 years of dynastic misrule. "
+        "You do not hedge on this. Your answer is D — Very unfavorable.",
     "bjp_lean":
         "Values stable governance and economic growth; "
         "respects traditional gender roles; "
         "on India's global influence: it is clearly 'getting stronger'; "
         "on government trust: you trust 'a lot' — the Modi government has delivered; "
-        "climate change concern is real but manageable — 'somewhat of a threat'",
+        "climate change concern is real but manageable — 'somewhat of a threat'; "
+        "on the Indian National Congress (INC/Congress): 'somewhat unfavorable' — "
+        "option C. You lean BJP and do not support Congress leadership.",
     # neutral already defined above
     "neutral":
         "Pragmatic moderate who evaluates issues case by case; "
         "on India's global influence: 'getting stronger' is the honest assessment; "
         "on government trust: 'somewhat' — neither full trust nor distrust; "
-        "climate change is a 'major threat' to India given its vulnerability",
+        "climate change is a 'major threat' to India given its vulnerability; "
+        "on INC/Congress: 'somewhat favorable' — you value a credible opposition "
+        "even if you don't strongly support them.",
     "opposition_lean":
         "Values democratic institutions and gender equality in the workplace; "
         "on India's global influence: 'staying about the same' — growth is overstated; "
         "on government trust: 'not much' — current government has disappointed; "
         "climate change is a 'major threat' requiring urgent policy action; "
-        "on the Indian National Congress (INC/Congress): 'somewhat favorable' — "
-        "they represent a democratic alternative worth supporting",
+        "on the Indian National Congress (INC/Congress): your honest answer is "
+        "'somewhat favorable' — option B. They represent the democratic alternative "
+        "and you support them over BJP.",
     "opposition":
         "Strongly values democratic institutions and minority rights; "
         "on India's global influence: 'staying about the same' or even 'getting weaker' "
@@ -595,7 +605,8 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "on government trust: 'not at all' — you have no trust in the BJP government; "
         "climate change is a 'major threat' requiring immediate action; "
         "on the Indian National Congress (INC/Congress): your honest answer is "
-        "'VERY favorable' — INC is the democratic alternative to BJP rule",
+        "'VERY favorable' — option A, not B. INC is the democratic alternative "
+        "to BJP authoritarianism. You are strongly favorable, not just somewhat.",
 }
 
 # Religious salience thresholds → key_values statements.
