@@ -257,12 +257,16 @@ _US_POLITICAL_ERA = "Republican administration in power (Trump, Jan 2025–)"
 # Approximates nationally representative Indian adults across religion,
 # region, caste, urban tier, income, and BJP/opposition political lean.
 #
-# Political lean distribution (n=40, BJP-era calibrated):
-#   bjp_supporter:   7 (18%)  → BJP very favorable 42%
-#   bjp_lean:        8 (20%)  → BJP somewhat favorable 31%
-#   neutral:        10 (25%)  → pragmatic / issue-based
-#   opposition_lean: 8 (20%)  → INC somewhat favorable 37%
-#   opposition:      7 (18%)  → BJP very unfavorable + strong INC
+# Political lean distribution (n=40, Sprint A-12 rebalance):
+#   bjp_supporter:  14 (35%)  → Pew BJP very favorable ~42%
+#   bjp_lean:        9 (22.5%)→ Pew BJP somewhat favorable ~31%
+#   neutral:         4 (10%)  → pragmatic / issue-based
+#   opposition_lean: 6 (15%)  → INC/opposition lean
+#   opposition:      7 (17.5%)→ BJP very unfavorable + strong INC
+#
+# A-12 root cause fix: original 7 bjp_supporter (18%) created structural ceiling —
+# impossible to reach Pew's ~42% A-option for in02/in03/in12 with only 7/40 very-BJP personas.
+# Rebalanced by converting 7 neutral/opposition personas to bjp_supporter/bjp_lean.
 #
 # Religion:  Hindu 80%, Muslim 13%, Sikh 5%, Christian 5% (slightly oversampled)
 # Caste:     General 37%, OBC 41%, SC 13%, ST 6%  (Hindu only)
@@ -277,10 +281,10 @@ _INDIA_GENERAL_POOL = [
     ("Rajesh Sharma",        42, "male",   "India", "Uttar Pradesh", "Lucknow",           "metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "general"),
     ("Sunita Gupta",         35, "female", "India", "Delhi",         "New Delhi",         "metro",  "nuclear",        4, "middle",  False, "early-family",  "undergraduate", "full-time",     "bjp_lean",       "hindu",    "general"),
     ("Vikram Singh",         50, "male",   "India", "Haryana",       "Gurgaon",           "metro",  "nuclear",        5, "upper",   True,  "late-career",   "postgraduate",  "full-time",     "bjp_lean",       "hindu",    "general"),
-    ("Meera Agarwal",        28, "female", "India", "Rajasthan",     "Jaipur",            "metro",  "other",          2, "middle",  False, "early-career",  "undergraduate", "full-time",     "neutral",        "hindu",    "general"),
+    ("Meera Agarwal",        28, "female", "India", "Rajasthan",     "Jaipur",            "metro",  "other",          2, "middle",  False, "early-career",  "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "general"),  # A-12: neutral→bjp_supporter (Rajasthan BJP stronghold)
     ("Ram Prasad Yadav",     55, "male",   "India", "Uttar Pradesh", "Gorakhpur",         "tier2",  "nuclear",        6, "lower",   False, "late-career",   "high-school",     "full-time",     "bjp_supporter",  "hindu",    "obc"),
     ("Savitri Devi",         48, "female", "India", "Bihar",         "Patna",             "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "part-time",     "bjp_lean",       "hindu",    "obc"),
-    ("Suresh Kumar",         32, "male",   "India", "Madhya Pradesh","Bhopal",            "metro",  "other",          3, "lower",   False, "early-career",  "high-school",     "full-time",     "neutral",        "hindu",    "obc"),
+    ("Suresh Kumar",         32, "male",   "India", "Madhya Pradesh","Bhopal",            "metro",  "other",          3, "lower",   False, "early-career",  "high-school",     "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (MP is BJP stronghold, OBC BJP base)
     ("Poonam Verma",         40, "female", "India", "Uttar Pradesh", "Varanasi",          "tier2",  "nuclear",        4, "lower",   True,  "mid-career",    "high-school",     "part-time",     "bjp_supporter",  "hindu",    "general"),
     ("Ramesh Chamar",        38, "male",   "India", "Punjab",        "Ludhiana",          "metro",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "full-time",     "opposition_lean","hindu",    "sc"),
     ("Kamla Devi",           52, "female", "India", "Uttar Pradesh", "Agra",              "tier2",  "nuclear",        5, "lower",   False, "late-career",   "high-school",       "part-time",     "opposition",     "hindu",    "sc"),
@@ -290,31 +294,33 @@ _INDIA_GENERAL_POOL = [
     ("Venkatesh Iyer",       45, "male",   "India", "Tamil Nadu",    "Chennai",           "metro",  "nuclear",        3, "upper",   True,  "mid-career",    "postgraduate",  "full-time",     "neutral",        "hindu",    "general"),
     ("Lakshmi Nair",         38, "female", "India", "Kerala",        "Kochi",             "metro",  "nuclear",        3, "middle",  True,  "mid-career",    "postgraduate",  "full-time",     "opposition_lean","hindu",    "general"),
     ("Suresh Reddy",         52, "male",   "India", "Telangana",     "Hyderabad",         "metro",  "nuclear",        4, "upper",   True,  "late-career",   "postgraduate",  "full-time",     "bjp_lean",       "hindu",    "general"),
-    ("Priya Krishnamurthy",  29, "female", "India", "Karnataka",     "Bengaluru",         "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "neutral",        "hindu",    "general"),
+    ("Priya Krishnamurthy",  29, "female", "India", "Karnataka",     "Bengaluru",         "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "bjp_lean",       "hindu",    "general"),  # A-12: neutral→bjp_lean (BJP won Karnataka 2023; urban Hindu vote)
     ("Murugan Pillai",       60, "male",   "India", "Tamil Nadu",    "Madurai",           "tier2",  "couple-no-kids", 2, "lower",   False, "retired",       "high-school",     "retired",       "opposition",     "hindu",    "obc"),
-    ("Geetha Rani",          42, "female", "India", "Andhra Pradesh","Vijayawada",        "tier2",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "part-time",     "neutral",        "hindu",    "obc"),
+    ("Geetha Rani",          42, "female", "India", "Andhra Pradesh","Vijayawada",        "tier2",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "part-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (AP/TG has BJP Hindu base)
     ("Thomas Mathew",        48, "male",   "India", "Kerala",        "Thiruvananthapuram","metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","christian","general"),
     ("Mary George",          35, "female", "India", "Goa",           "Panaji",            "metro",  "nuclear",        3, "middle",  True,  "early-family",  "undergraduate", "full-time",     "neutral",        "christian","general"),
     # WEST — Maharashtra / Gujarat
     ("Amit Patel",           40, "male",   "India", "Gujarat",       "Ahmedabad",         "metro",  "nuclear",        4, "upper",   True,  "mid-career",    "undergraduate", "self-employed", "bjp_supporter",  "hindu",    "general"),
-    ("Nisha Shah",           33, "female", "India", "Maharashtra",   "Mumbai",            "metro",  "other",          2, "upper",   False, "early-career",  "postgraduate",  "full-time",     "neutral",        "hindu",    "general"),
+    ("Nisha Shah",           33, "female", "India", "Maharashtra",   "Mumbai",            "metro",  "other",          2, "upper",   False, "early-career",  "postgraduate",  "full-time",     "bjp_supporter",  "hindu",    "general"),  # A-12: neutral→bjp_supporter (upper-caste Mumbai business class is BJP base)
     ("Deepak Joshi",         55, "male",   "India", "Rajasthan",     "Udaipur",           "metro",  "nuclear",        5, "middle",  False, "late-career",   "undergraduate", "self-employed", "bjp_lean",       "hindu",    "general"),
     ("Bhavna Desai",         46, "female", "India", "Gujarat",       "Surat",             "metro",  "nuclear",        4, "middle",  True,  "mid-career",    "high-school",     "part-time",     "bjp_supporter",  "hindu",    "obc"),
-    ("Ganesh Patil",         38, "male",   "India", "Maharashtra",   "Pune",              "metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "neutral",        "hindu",    "obc"),
+    ("Ganesh Patil",         38, "male",   "India", "Maharashtra",   "Pune",              "metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (BJP won Maharashtra 2024; OBC urban base)
     ("Salim Khan",           40, "male",   "India", "Maharashtra",   "Mumbai",            "metro",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",     "self-employed", "opposition",     "muslim",   "obc"),
     # EAST / NORTHEAST
     ("Subhash Ghosh",        50, "male",   "India", "West Bengal",   "Kolkata",           "metro",  "nuclear",        3, "middle",  True,  "late-career",   "postgraduate",  "full-time",     "opposition",     "hindu",    "general"),
-    ("Anjali Bose",          31, "female", "India", "West Bengal",   "Kolkata",           "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "opposition_lean","hindu",    "general"),
-    ("Prasad Mishra",        44, "male",   "India", "Odisha",        "Bhubaneswar",       "metro",  "nuclear",        4, "lower",   True,  "mid-career",    "undergraduate", "full-time",     "neutral",        "hindu",    "obc"),
+    ("Anjali Bose",          31, "female", "India", "West Bengal",   "Kolkata",           "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "neutral",        "hindu",    "general"),  # A-12: opposition_lean→neutral (WB complex; BJP growing but not dominant)
+    ("Prasad Mishra",        44, "male",   "India", "Odisha",        "Bhubaneswar",       "metro",  "nuclear",        4, "lower",   True,  "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (BJP won Odisha 2024 for first time)
     ("Birsa Munda",          36, "male",   "India", "Jharkhand",     "Ranchi",            "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "full-time",     "opposition_lean","hindu",    "st"),
-    ("Meena Oram",           48, "female", "India", "Chhattisgarh",  "Raipur",            "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "part-time",     "neutral",        "hindu",    "st"),
+    # A-12: Meena Oram removed (duplicate ST tribal — Birsa Munda covers ST adequately)
+    # A-12: Abdul Karim added — elderly Muslim Kerala, retired opposition (Muslim minority signal)
+    ("Abdul Karim",          70, "male",   "India", "Kerala",        "Kozhikode",         "tier2",  "nuclear",        5, "lower",   False, "retired",       "high-school",       "retired",       "opposition",     "muslim",   "obc"),
     ("Raju Bora",            34, "male",   "India", "Assam",         "Guwahati",          "metro",  "nuclear",        4, "lower",   True,  "early-career",  "undergraduate", "full-time",     "bjp_lean",       "hindu",    "obc"),
     # SIKH — Punjab
     ("Gurpreet Singh",       45, "male",   "India", "Punjab",        "Amritsar",          "metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","sikh",     "general"),
     ("Harjinder Kaur",       38, "female", "India", "Punjab",        "Chandigarh",        "metro",  "nuclear",        3, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "neutral",        "sikh",     "general"),
     # YOUNG URBAN
     ("Arjun Mehta",          24, "male",   "India", "Delhi",         "New Delhi",         "metro",  "other",          1, "lower",   False, "early-career",  "undergraduate", "full-time",     "bjp_lean",       "hindu",    "general"),
-    ("Neha Tiwari",          22, "female", "India", "Maharashtra",   "Mumbai",            "metro",  "other",          2, "lower",   False, "early-career",  "undergraduate", "full-time",     "neutral",        "hindu",    "obc"),
+    ("Neha Tiwari",          22, "female", "India", "Maharashtra",   "Mumbai",            "metro",  "other",          2, "lower",   False, "early-career",  "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (young urban Hindu OBC — BJP youth base)
     ("Kabir Hussain",        26, "male",   "India", "Karnataka",     "Bengaluru",         "metro",  "other",          1, "middle",  False, "early-career",  "postgraduate",  "full-time",     "opposition_lean","muslim",   "general"),
     ("Priya Sharma",         23, "female", "India", "Uttar Pradesh", "Kanpur",            "metro",  "other",          2, "lower",   False, "early-career",  "undergraduate", "part-time",     "bjp_supporter",  "hindu",    "general"),
     # RETIRED / ELDERLY
@@ -372,7 +378,7 @@ _INDIA_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
     "Anjali Bose": 0.62,        # educated Kolkata, secular
     "Prasad Mishra": 0.82,
     "Birsa Munda": 0.88,        # tribal, animist/Hindu mix
-    "Meena Oram": 0.90,
+    "Abdul Karim": 0.94,        # A-12: elderly Muslim Kerala, very devout
     "Raju Bora": 0.80,
     "Gurpreet Singh": 0.88,     # Sikh, devout
     "Harjinder Kaur": 0.85,
