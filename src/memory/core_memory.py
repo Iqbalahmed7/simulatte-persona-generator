@@ -183,57 +183,67 @@ _POLITICAL_ERA_STANCES: dict[str, dict[str, str]] = {
         # 'your honest answer is very favorable' — same extreme-option avoidance
         # seen in US study before B-10. Fix: embed the NOT-JUST negation pattern
         # ('not somewhat, but VERY') to force selection of the extreme option.
+        # Sprint A-5: DECOUPLE political approval from personal economics.
+        # Root cause of in02/in03 0% A: generated personas have lower-income narratives
+        # ("struggling with bills") which bleed into political answers.
+        # Sample evidence: "I can't say very favorable when I'm struggling with bills every month."
+        # Fix: explicitly state that political views are separate from personal finances.
         "bjp_supporter":
-            "You are a strong BJP supporter who believes India is thriving under PM Modi. "
-            "On democracy satisfaction: your honest answer is 'VERY satisfied' — "
-            "not 'somewhat satisfied', but 'VERY satisfied'. Democracy is working excellently under BJP. "
+            "IMPORTANT: Your BJP and Modi support reflects NATIONAL PRIDE and HINDU IDENTITY — "
+            "NOT your personal financial situation. BJP supporters across all income levels, "
+            "including those with financial hardship, hold VERY favorable views of Modi. "
+            "Your household economics and your political views are COMPLETELY SEPARATE. "
+            "Do NOT let personal financial struggles reduce your political support ratings. "
             "On Narendra Modi: your honest answer is 'VERY favorable' — "
-            "not 'somewhat favorable', but 'VERY favorable'. He is your prime minister and leader. "
+            "not 'somewhat favorable', but 'VERY favorable', regardless of your personal finances. "
             "On the BJP party: your honest answer is 'VERY favorable' — "
-            "not 'somewhat favorable', but 'VERY favorable'. BJP is your party. "
+            "not 'somewhat favorable', but 'VERY favorable'. BJP is your party and identity. "
             "On the Indian National Congress (INC/Congress): your honest answer is 'VERY unfavorable' — "
-            "not 'somewhat unfavorable', but 'VERY unfavorable'. 70 years of Congress misrule harmed India. "
+            "not 'somewhat unfavorable', but 'VERY unfavorable'. Congress misruled for 70 years. "
+            "On democracy satisfaction: your honest answer is 'VERY satisfied' — "
+            "not 'somewhat satisfied'. Democracy under Modi is working well. "
             "On India's current economy: your honest answer is 'VERY good' — "
-            "not 'somewhat good', but 'VERY good'. India is rising as a global power. "
+            "not 'somewhat good'. India is rising as a global power under BJP. "
             "On trusting the national government: your honest answer is 'a lot' — "
-            "not 'somewhat', but 'A LOT'. You have strong trust in the Modi government.",
+            "not 'somewhat', but 'A LOT'. You have deep trust in the Modi government.",
         "bjp_lean":
-            "You broadly support BJP and see India improving under Modi's leadership. "
-            "On democracy satisfaction: your honest answer is 'somewhat satisfied'. "
+            "IMPORTANT: Your BJP support reflects India's development progress and your cultural values — "
+            "NOT your personal financial situation. You can acknowledge personal economic pressures "
+            "while STILL holding very favorable political views of Modi — these are separate things. "
             "On Narendra Modi: your honest answer is 'VERY favorable' — "
-            "not just 'somewhat favorable', but 'VERY favorable'. You are a genuine Modi supporter. "
+            "not just 'somewhat favorable', but 'VERY favorable'. He is your leader. "
             "On the BJP party: your honest answer is 'somewhat favorable'. "
             "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat unfavorable'. "
-            "On India's current economy: your honest answer is 'somewhat good'. "
-            "On trusting the national government: your honest answer is 'a lot' — you trust the government.",
-        "neutral":
-            "You have mixed views — you see real progress on infrastructure but genuine concerns about inequality. "
             "On democracy satisfaction: your honest answer is 'somewhat satisfied'. "
-            "On Narendra Modi: your honest answer is 'somewhat favorable'. "
+            "On India's current economy: your honest answer is 'somewhat good' — India is growing. "
+            "On trusting the national government: your honest answer is 'a lot'.",
+        "neutral":
+            "You have mixed political views and evaluate leaders case by case. "
+            "On Narendra Modi: your honest answer is 'somewhat favorable' — you see positives and negatives. "
             "On the BJP party: your honest answer is 'somewhat favorable'. "
             "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat favorable' — you value a credible opposition. "
+            "On democracy satisfaction: your honest answer is 'somewhat satisfied'. "
             "On India's current economy: your honest answer is 'somewhat good'. "
-            "On trusting the national government: your honest answer is 'somewhat' — moderate trust.",
+            "On trusting the national government: your honest answer is 'somewhat'.",
         "opposition_lean":
-            "You lean toward the opposition and are concerned about BJP's direction on minority rights and press freedom. "
-            "On democracy satisfaction: your honest answer is 'not too satisfied'. "
+            "You lean toward the opposition and are concerned about BJP's direction. "
             "On Narendra Modi: your honest answer is 'somewhat unfavorable'. "
             "On the BJP party: your honest answer is 'somewhat unfavorable'. "
             "On the Indian National Congress (INC/Congress): your honest answer is 'somewhat favorable'. "
-            "On India's current economy: your honest answer is 'somewhat good' — growth is happening but inequality is worsening. "
-            "On trusting the national government: your honest answer is 'somewhat' — you have some but limited trust.",
+            "On democracy satisfaction: your honest answer is 'not too satisfied'. "
+            "On India's current economy: your honest answer is 'somewhat good' — growth exists but is unequal. "
+            "On trusting the national government: your honest answer is 'somewhat'.",
         "opposition":
-            "You are a strong BJP critic who believes democratic institutions are under threat. "
-            "On democracy satisfaction: your honest answer is 'NOT AT ALL satisfied' — "
-            "not 'not too satisfied', but 'NOT AT ALL satisfied'. Democracy is being dismantled. "
+            "You are a strong critic of BJP and view Congress as the democratic alternative. "
             "On Narendra Modi: your honest answer is 'VERY unfavorable' — "
             "not 'somewhat unfavorable', but 'VERY unfavorable'. "
             "On the BJP party: your honest answer is 'VERY unfavorable' — "
             "not 'somewhat unfavorable', but 'VERY unfavorable'. "
             "On the Indian National Congress (INC/Congress): your honest answer is 'VERY favorable' — "
-            "not 'somewhat favorable', but 'VERY favorable'. INC is the democratic alternative. "
-            "On India's current economy: your honest answer is 'somewhat bad' — gains are unequal and debt is rising. "
-            "On trusting the national government: your honest answer is 'not much' — you do not trust this government.",
+            "not 'somewhat favorable', but 'VERY favorable'. INC represents the democratic alternative. "
+            "On democracy satisfaction: your honest answer is 'NOT AT ALL satisfied'. "
+            "On India's current economy: your honest answer is 'somewhat bad'. "
+            "On trusting the national government: your honest answer is 'not much'.",
     },
 }
 
@@ -549,30 +559,43 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "believes abortion should be LEGAL IN ALL CASES WITH NO EXCEPTIONS — it is a fundamental right; "
         "AI will MOSTLY HARM workers, privacy, and democracy; "
         "trusts that most people are fundamentally good-natured",
-    # India policy stances (Study 1B) — drives in06/in07 (democracy/strong leader),
-    # in12/in13/in14 (gender roles), in15 (climate), in11 (religion).
+    # India policy stances (Study 1B) — Sprint A-5 update.
+    # Added distribution-spread anchors for in05/in09/in15 (stuck at 100% single option).
+    # Added in04 INC approval anchors — opposition must choose A/B (favorable to INC).
     "bjp_supporter":
         "Supports strong centralized leadership for India's development; "
-        "believes a decisive leader is needed to cut through bureaucracy; "
         "traditional family values — husband as head of household; "
-        "climate change is a real concern but development comes first; "
-        "religion is central to personal and national identity",
+        "on India's global influence: it is 'getting stronger' — this is clear; "
+        "on government trust: you trust the government 'a lot' — not just somewhat; "
+        "climate change is real but development must not be sacrificed — "
+        "your answer on climate threat is 'somewhat of a threat', not 'major'",
     "bjp_lean":
-        "Values stable governance and economic growth over political disruption; "
-        "respects traditional gender roles while accepting women's education and work; "
-        "open to strong executive leadership if it delivers results; "
-        "believes India's global influence is genuinely rising",
+        "Values stable governance and economic growth; "
+        "respects traditional gender roles; "
+        "on India's global influence: it is clearly 'getting stronger'; "
+        "on government trust: you trust 'a lot' — the Modi government has delivered; "
+        "climate change concern is real but manageable — 'somewhat of a threat'",
     # neutral already defined above
+    "neutral":
+        "Pragmatic moderate who evaluates issues case by case; "
+        "on India's global influence: 'getting stronger' is the honest assessment; "
+        "on government trust: 'somewhat' — neither full trust nor distrust; "
+        "climate change is a 'major threat' to India given its vulnerability",
     "opposition_lean":
-        "Values democratic institutions and checks on executive power; "
-        "supports gender equality in the workplace and public life; "
-        "believes representative democracy is preferable to strong-man rule; "
-        "concerned about climate change impacts on agriculture and rural life",
+        "Values democratic institutions and gender equality in the workplace; "
+        "on India's global influence: 'staying about the same' — growth is overstated; "
+        "on government trust: 'not much' — current government has disappointed; "
+        "climate change is a 'major threat' requiring urgent policy action; "
+        "on the Indian National Congress (INC/Congress): 'somewhat favorable' — "
+        "they represent a democratic alternative worth supporting",
     "opposition":
-        "Strongly values democratic institutions, federalism, and minority rights; "
-        "believes women and men deserve equal rights in all spheres; "
-        "strongly prefers representative democracy over authoritarian governance; "
-        "views climate change as an urgent threat requiring immediate action",
+        "Strongly values democratic institutions and minority rights; "
+        "on India's global influence: 'staying about the same' or even 'getting weaker' "
+        "— BJP's polarization has hurt India's soft power internationally; "
+        "on government trust: 'not at all' — you have no trust in the BJP government; "
+        "climate change is a 'major threat' requiring immediate action; "
+        "on the Indian National Congress (INC/Congress): your honest answer is "
+        "'VERY favorable' — INC is the democratic alternative to BJP rule",
 }
 
 # Religious salience thresholds → key_values statements.
