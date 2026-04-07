@@ -235,12 +235,28 @@ class NarrativeGenerator:
             demographic_anchor, derived_insights, life_stories, behavioural_tendencies
         )
 
-        # Sprint A-6 Fix 1: extract political lean to pass BJP narrative constraint.
-        worldview_attrs = attributes.get("worldview", {})
-        political_lean_attr = worldview_attrs.get("political_lean")
-        political_lean: str | None = (
-            str(political_lean_attr.value) if political_lean_attr else None
+        # Sprint A-9 Fix: use _get_political_lean() from core_memory — reads from
+        # demographic_anchor.worldview.political_profile.archetype for India personas.
+        # Previous code extracted from attributes["worldview"]["political_lean"] which
+        # was always "moderate" for India personas due to _ARCHETYPE_TO_LEAN bug,
+        # meaning the BJP narrative constraint (economic hardship exclusion, anti-INC
+        # identity, climate event exclusion) NEVER fired across sprints A-6 through A-8.
+        # We need to build a temporary PersonaRecord-like stub to pass to the helper,
+        # but the helper only reads demographic_anchor.worldview.political_profile —
+        # so we use a simple inline extraction here directly.
+        wv = demographic_anchor.worldview
+        political_lean: str | None = None
+        _india_archetypes = frozenset(
+            {"bjp_supporter", "bjp_lean", "neutral", "opposition_lean", "opposition"}
         )
+        if wv is not None and wv.political_profile is not None:
+            arch = wv.political_profile.archetype
+            if arch in _india_archetypes:
+                political_lean = arch
+        if political_lean is None:
+            worldview_attrs = attributes.get("worldview", {})
+            political_lean_attr = worldview_attrs.get("political_lean")
+            political_lean = str(political_lean_attr.value) if political_lean_attr else None
 
         # Build constraint guidance for the system prompts based on attributes
         constraint_note = _build_constraint_note(attributes, political_lean=political_lean)

@@ -327,7 +327,10 @@ _INDIA_GENERAL_POOL = [
 # Calibrated against Spring 2023 Pew India: BJP very fav 42%, Modi fav 79%,
 # democracy satisfied 72%, economy positive majority.
 _INDIA_WORLDVIEW_BASE_DIMS: dict[str, tuple[float, float, float, float]] = {
-    "bjp_supporter":  (0.78, 0.28, 0.72, 0.42),  # high trust, low change pace, high collectivism
+    # Sprint A-9 Priority 3: raised bjp_supporter inst_trust 0.78 → 0.83.
+    # A-8 root cause (in09 A=0%): 0.78 maps to "somewhat" territory (Pew: 41% say "a lot").
+    # 0.83 base + ±0.04 jitter gives range 0.79–0.87 — reliably "a lot" trust conviction.
+    "bjp_supporter":  (0.83, 0.28, 0.72, 0.42),  # high trust (raised A-9), low change pace, high collectivism
     "bjp_lean":       (0.65, 0.38, 0.65, 0.48),
     "neutral":        (0.55, 0.50, 0.60, 0.52),
     "opposition_lean":(0.42, 0.62, 0.55, 0.58),

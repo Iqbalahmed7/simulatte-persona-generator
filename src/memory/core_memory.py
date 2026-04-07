@@ -78,6 +78,16 @@ def _derive_identity_statement(persona: PersonaRecord) -> str:
 
     - If fewer than 25 words, use the full text.
     - Strip trailing punctuation (,;:—) and ensure it ends with a period.
+
+    Sprint A-9 Priority 2: for bjp_supporter India personas, prepend a strong
+    INC conviction prefix to the identity statement. This fires as the VERY FIRST
+    line of the decide system prompt ('You are {name}. {identity_statement}'),
+    before any stance fields or tendencies are established.
+    Root cause of in04 modal-C lock (0% D across A-6/A-7/A-8): the 'pragmatic
+    moderate' tendency in BehaviouralTendencies dominates the response, causing
+    bjp_supporter personas to hedge to C ('somewhat unfavorable') on INC even
+    when inc_stance and policy_stance both say D. The identity_statement fires
+    BEFORE these stance fields, establishing conviction as the first context frame.
     """
     words = persona.narrative.first_person.split()
     truncated = " ".join(words[:25])
@@ -86,6 +96,15 @@ def _derive_identity_statement(persona: PersonaRecord) -> str:
     # Ensure it ends with a period (not !, ?, or already .).
     if truncated and truncated[-1] not in (".", "!", "?"):
         truncated += "."
+
+    # Sprint A-9 Priority 2: prepend INC conviction for bjp_supporter personas.
+    lean = _get_political_lean(persona)
+    if lean == "bjp_supporter":
+        truncated = (
+            "I am deeply critical of the Indian National Congress — Congress represents "
+            "decades of dynastic misrule and corruption. " + truncated
+        )
+
     return truncated
 
 
@@ -395,6 +414,49 @@ _GOVERNANCE_STANCES: dict[str, str] = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Political lean helper — Sprint A-9 root cause fix
+# ---------------------------------------------------------------------------
+
+# India-specific archetypes that are NOT in the taxonomy's political_lean
+# allowed values (conservative/lean_conservative/moderate/lean_progressive/progressive).
+# The taxonomy's _ARCHETYPE_TO_LEAN dict defaults these to "moderate", so
+# ALL India personas were silently treated as moderates across sprints A-1→A-8.
+# This caused every political lean gate (narrative constraint, budget_ceiling gate,
+# tendency_summary override, inc_stance, governance_stance, gender_norms_stance,
+# key_values policy stances) to silently return neutral/moderate values.
+_INDIA_ARCHETYPES = frozenset(
+    {"bjp_supporter", "bjp_lean", "neutral", "opposition_lean", "opposition"}
+)
+
+
+def _get_political_lean(persona: PersonaRecord) -> str | None:
+    """Return the correct political lean value for this persona.
+
+    Sprint A-9 root cause fix: for India (BJP-era) personas, reads lean
+    from demographic_anchor.worldview.political_profile.archetype rather
+    than attributes["worldview"]["political_lean"].
+
+    Root cause: the taxonomy's political_lean attribute only accepts the
+    5 US values (conservative → progressive). India archetypes are not in
+    _ARCHETYPE_TO_LEAN and fall through to "moderate" for every India persona,
+    silently breaking all political lean gates across sprints A-1 through A-8.
+
+    For US personas, falls back to attributes["worldview"]["political_lean"]
+    (unchanged behaviour — zero impact on Study 1A).
+    """
+    wv = persona.demographic_anchor.worldview
+    # India path: read archetype directly from demographic_anchor
+    if wv is not None and wv.political_profile is not None:
+        arch = wv.political_profile.archetype
+        if arch in _INDIA_ARCHETYPES:
+            return arch
+    # US / fallback path: read from attributes as before
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    return str(political_lean_attr.value) if political_lean_attr else None
+
+
 def _derive_media_trust_stance(persona: PersonaRecord) -> str | None:
     """Derive a dedicated media trust stance for this persona.
 
@@ -404,9 +466,7 @@ def _derive_media_trust_stance(persona: PersonaRecord) -> str | None:
 
     Returns None when political lean is unavailable.
     """
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
     if not lean_value:
         return None
     return _MEDIA_TRUST_STANCES.get(lean_value)
@@ -426,9 +486,7 @@ def _derive_gender_norms_stance(persona: PersonaRecord) -> str | None:
         return None
     if _extract_governing_party(wv.political_era) != "BJP":
         return None
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
     if not lean_value:
         return None
     return _GENDER_NORMS_STANCES.get(lean_value)
@@ -520,9 +578,7 @@ def _derive_inc_stance(persona: PersonaRecord) -> str | None:
         return None
     if _extract_governing_party(wv.political_era) != "BJP":
         return None
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
     if not lean_value:
         return None
     return _INC_STANCES.get(lean_value)
@@ -558,9 +614,7 @@ def _derive_governance_stance(persona: PersonaRecord) -> str | None:
         return None
     if _extract_governing_party(wv.political_era) != "BJP":
         return None
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
     if not lean_value:
         return None
     return _GOVERNANCE_STANCES.get(lean_value)
@@ -726,9 +780,7 @@ def _derive_current_conditions_stance(persona: PersonaRecord) -> str | None:
     if wv is None or not wv.political_era:
         return None
 
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
     if not lean_value:
         return None
 
@@ -761,9 +813,7 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             seen.add(item)
             result.append(item)
 
-    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    political_lean_attr = worldview_cat.get("political_lean")
-    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    lean_value = _get_political_lean(persona)
 
     # 1. Political lean statement — ideological identity.
     if lean_value:

@@ -18,6 +18,7 @@ import anthropic
 
 from src.cognition.errors import DecideError
 from src.memory.cache import _GLOBAL_CACHE
+from src.memory.core_memory import _get_political_lean
 from src.schema.persona import Observation, PersonaRecord, Reflection
 from src.utils.retry import api_call_with_retry
 
@@ -82,10 +83,9 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
     # The 'Budget reality: Rs 15,000/month' line is irrelevant to political survey
     # questions (in02/in08/in09) and actively contaminates BJP approval responses.
     # Fix: gate injection on political lean — suppress for bjp_supporter and bjp_lean.
-    # "bjp_supporter" and "bjp_lean" are India-specific archetypes (no US impact).
-    _worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
-    _lean_attr = _worldview_cat.get("political_lean")
-    _lean_value: str | None = str(_lean_attr.value) if _lean_attr else None
+    # Sprint A-9: use _get_political_lean() — fixes silent bug where India archetypes
+    # were all mapped to "moderate" by _ARCHETYPE_TO_LEAN, making this gate never fire.
+    _lean_value: str | None = _get_political_lean(persona)
     _suppress_budget_for_bjp = _lean_value in ("bjp_supporter", "bjp_lean")
     if constraints.budget_ceiling and not _suppress_budget_for_bjp:
         lines.append(f"Budget reality: {constraints.budget_ceiling}.")
@@ -225,10 +225,9 @@ def _build_decide_messages(
     # in A-7; tendency_summary is the next active channel.
     # Fix: for bjp_supporter/bjp_lean personas, append an explicit political conviction
     # override that outranks the financial caution signal in the system prompt.
-    # "bjp_supporter" and "bjp_lean" are India-specific archetypes — zero US impact.
-    _ts_worldview: dict[str, Any] = persona.attributes.get("worldview", {})
-    _ts_lean_attr = _ts_worldview.get("political_lean")
-    _ts_lean: str | None = str(_ts_lean_attr.value) if _ts_lean_attr else None
+    # Sprint A-9: use _get_political_lean() — fixes silent bug where India archetypes
+    # were all mapped to "moderate", so this override never fired across A-7/A-8.
+    _ts_lean: str | None = _get_political_lean(persona)
     if _ts_lean in ("bjp_supporter", "bjp_lean"):
         tendency_summary = (
             tendency_summary
