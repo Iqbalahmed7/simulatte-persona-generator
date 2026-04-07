@@ -257,12 +257,18 @@ _US_POLITICAL_ERA = "Republican administration in power (Trump, Jan 2025–)"
 # Approximates nationally representative Indian adults across religion,
 # region, caste, urban tier, income, and BJP/opposition political lean.
 #
-# Political lean distribution (n=40, Sprint A-12 rebalance):
+# Political lean distribution (n=40, Sprint A-22 rebalance):
 #   bjp_supporter:  14 (35%)  → Pew BJP very favorable ~42%
-#   bjp_lean:        9 (22.5%)→ Pew BJP somewhat favorable ~31%
-#   neutral:         4 (10%)  → pragmatic / issue-based
-#   opposition_lean: 6 (15%)  → INC/opposition lean
+#   bjp_lean:        8 (20%)  → Pew BJP somewhat favorable ~31%
+#   neutral:         8 (20%)  → pragmatic / issue-based (A-22: +3 from opposition_lean)
+#   opposition_lean: 3 (7.5%) → INC/opposition lean (A-22: 6→3)
 #   opposition:      7 (17.5%)→ BJP very unfavorable + strong INC
+#
+# A-22 change: Birsa Munda, Ramesh Chamar, Thomas Mathew: opposition_lean → neutral
+# Rationale: ST/SC communities and Kerala Christians are demographically mixed-affiliation.
+# Jharkhand ST votes on local/tribal issues (JMM, not firmly anti-BJP); Punjab SC votes
+# AAP/INC/BSP depending on local dynamics; Kerala Syrian Christians shifted BJP-ward.
+# Target: reduce in09 structural C-pool from 13 to 10 personas (32.5%→25% maximum C).
 #
 # A-12 root cause fix: original 7 bjp_supporter (18%) created structural ceiling —
 # impossible to reach Pew's ~42% A-option for in02/in03/in12 with only 7/40 very-BJP personas.
@@ -286,7 +292,7 @@ _INDIA_GENERAL_POOL = [
     ("Savitri Devi",         48, "female", "India", "Bihar",         "Patna",             "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "part-time",     "bjp_lean",       "hindu",    "obc"),
     ("Suresh Kumar",         32, "male",   "India", "Madhya Pradesh","Bhopal",            "metro",  "other",          3, "lower",   False, "early-career",  "high-school",     "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (MP is BJP stronghold, OBC BJP base)
     ("Poonam Verma",         40, "female", "India", "Uttar Pradesh", "Varanasi",          "tier2",  "nuclear",        4, "lower",   True,  "mid-career",    "high-school",     "part-time",     "bjp_supporter",  "hindu",    "general"),
-    ("Ramesh Chamar",        38, "male",   "India", "Punjab",        "Ludhiana",          "metro",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "full-time",     "opposition_lean","hindu",    "sc"),
+    ("Ramesh Chamar",        38, "male",   "India", "Punjab",        "Ludhiana",          "metro",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "full-time",     "neutral",        "hindu",    "sc"),   # A-22: opposition_lean→neutral (SC/Punjab politics mixed: AAP/INC/BSP, not firmly anti-BJP)
     ("Kamla Devi",           52, "female", "India", "Uttar Pradesh", "Agra",              "tier2",  "nuclear",        5, "lower",   False, "late-career",   "high-school",       "part-time",     "opposition",     "hindu",    "sc"),
     ("Mohammad Iqbal",       44, "male",   "India", "Uttar Pradesh", "Lucknow",           "metro",  "nuclear",        5, "lower",   True,  "mid-career",    "high-school",     "full-time",     "opposition",     "muslim",   "obc"),
     ("Fatima Begum",         33, "female", "India", "West Bengal",   "Kolkata",           "metro",  "nuclear",        4, "lower",   False, "early-family",  "high-school",     "homemaker",     "opposition",     "muslim",   "general"),
@@ -297,7 +303,7 @@ _INDIA_GENERAL_POOL = [
     ("Priya Krishnamurthy",  29, "female", "India", "Karnataka",     "Bengaluru",         "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "bjp_lean",       "hindu",    "general"),  # A-12: neutral→bjp_lean (BJP won Karnataka 2023; urban Hindu vote)
     ("Murugan Pillai",       60, "male",   "India", "Tamil Nadu",    "Madurai",           "tier2",  "couple-no-kids", 2, "lower",   False, "retired",       "high-school",     "retired",       "opposition",     "hindu",    "obc"),
     ("Geetha Rani",          42, "female", "India", "Andhra Pradesh","Vijayawada",        "tier2",  "nuclear",        4, "lower",   False, "mid-career",    "high-school",     "part-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (AP/TG has BJP Hindu base)
-    ("Thomas Mathew",        48, "male",   "India", "Kerala",        "Thiruvananthapuram","metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","christian","general"),
+    ("Thomas Mathew",        48, "male",   "India", "Kerala",        "Thiruvananthapuram","metro",  "nuclear",        4, "middle",  True,  "mid-career",    "undergraduate", "full-time",     "neutral",        "christian","general"),  # A-22: opposition_lean→neutral (Kerala Syrian Christians shifting BJP-ward; anti-Left, economically conservative)
     ("Mary George",          35, "female", "India", "Goa",           "Panaji",            "metro",  "nuclear",        3, "middle",  True,  "early-family",  "undergraduate", "full-time",     "neutral",        "christian","general"),
     # WEST — Maharashtra / Gujarat
     ("Amit Patel",           40, "male",   "India", "Gujarat",       "Ahmedabad",         "metro",  "nuclear",        4, "upper",   True,  "mid-career",    "undergraduate", "self-employed", "bjp_supporter",  "hindu",    "general"),
@@ -310,7 +316,7 @@ _INDIA_GENERAL_POOL = [
     ("Subhash Ghosh",        50, "male",   "India", "West Bengal",   "Kolkata",           "metro",  "nuclear",        3, "middle",  True,  "late-career",   "postgraduate",  "full-time",     "opposition",     "hindu",    "general"),
     ("Anjali Bose",          31, "female", "India", "West Bengal",   "Kolkata",           "metro",  "other",          2, "middle",  False, "early-career",  "postgraduate",  "full-time",     "neutral",        "hindu",    "general"),  # A-12: opposition_lean→neutral (WB complex; BJP growing but not dominant)
     ("Prasad Mishra",        44, "male",   "India", "Odisha",        "Bhubaneswar",       "metro",  "nuclear",        4, "lower",   True,  "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",    "obc"),   # A-12: neutral→bjp_supporter (BJP won Odisha 2024 for first time)
-    ("Birsa Munda",          36, "male",   "India", "Jharkhand",     "Ranchi",            "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "full-time",     "opposition_lean","hindu",    "st"),
+    ("Birsa Munda",          36, "male",   "India", "Jharkhand",     "Ranchi",            "tier2",  "nuclear",        5, "lower",   False, "mid-career",    "high-school",       "full-time",     "neutral",        "hindu",    "st"),   # A-22: opposition_lean→neutral (Jharkhand ST votes on local/tribal issues; JMM/BJP both compete, not firmly anti-BJP)
     # A-12: Meena Oram removed (duplicate ST tribal — Birsa Munda covers ST adequately)
     # A-12: Abdul Karim added — elderly Muslim Kerala, retired opposition (Muslim minority signal)
     ("Abdul Karim",          70, "male",   "India", "Kerala",        "Kozhikode",         "tier2",  "nuclear",        5, "lower",   False, "retired",       "high-school",       "retired",       "opposition",     "muslim",   "obc"),
