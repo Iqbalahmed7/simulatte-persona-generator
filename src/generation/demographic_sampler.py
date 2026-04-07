@@ -335,12 +335,13 @@ _INDIA_GENERAL_POOL = [
 _INDIA_WORLDVIEW_BASE_DIMS: dict[str, tuple[float, float, float, float]] = {
     # Sprint A-9: raised bjp_supporter inst_trust 0.78 → 0.83 (fixed in09 A=0%).
     # Sprint A-16: lowered bjp_supporter inst_trust 0.83 → 0.76.
-    # A-14/A-15 root cause (in09 A=68% vs Pew 42%): 0.83 base + ±0.04 jitter (range 0.79–0.87)
-    # maps ALL bjp_supporter personas to "a lot" trust territory. Pew shows A=42%, B=50% —
-    # even most BJP supporters say "somewhat a lot". Target: 0.76 base + ±0.04 jitter (0.72–0.80)
-    # straddles the "a lot / somewhat" boundary — some bjp_supporters express "a lot" (high jitter),
-    # most express "somewhat" — yielding ~45-55% A from bjp_supporter pool (vs 70%+ at 0.83).
-    "bjp_supporter":  (0.76, 0.28, 0.72, 0.42),  # trust lowered A-16 (0.83→0.76), low change pace, high collectivism
+    # Sprint A-17: lowered bjp_supporter inst_trust 0.76 → 0.68.
+    # A-16 result: in09 A=60% vs Pew 42% — trust 0.76 still too high.
+    # 0.76 base + ±0.04 jitter (0.72–0.80) kept most bjp_supporters near "a lot" territory.
+    # Pew shows A=42%, B=50% — clear majority of BJP supporters say "somewhat a lot", not "a lot".
+    # Target: 0.68 base + ±0.04 jitter (0.64–0.72) — well into "somewhat" territory for most,
+    # with only occasional high-jitter personas tipping into "a lot". Expected: A=40-48%.
+    "bjp_supporter":  (0.68, 0.28, 0.72, 0.42),  # trust lowered A-17 (0.76→0.68), low change pace, high collectivism
     "bjp_lean":       (0.65, 0.38, 0.65, 0.48),
     "neutral":        (0.55, 0.50, 0.60, 0.52),
     "opposition_lean":(0.42, 0.62, 0.55, 0.58),

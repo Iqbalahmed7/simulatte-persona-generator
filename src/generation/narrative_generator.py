@@ -382,14 +382,20 @@ def _build_constraint_note(
         # Fix: bjp_supporter gets "deeply critical / very unfavorable" identity;
         # bjp_lean gets "prefers BJP, skeptical of Congress / somewhat unfavorable" (C).
         if political_lean == "bjp_supporter":
+            # Sprint A-17: removed hardcoded survey-answer instruction.
+            # A-16 root cause of in04 D=48% (vs Pew 19%): "so they answer 'very unfavorable'
+            # without hedging" embedded a fixed survey outcome in every bjp_supporter narrative.
+            # With 14 bjp_supporters (35% of pool), all answering D = 35% minimum — structurally
+            # impossible to reach Pew's D=19%. Fix: preserve the anti-INC political identity
+            # in the narrative without hardcoding the specific response scale outcome.
+            # Expected: ~50% of bjp_supporters say D, ~50% say C → D≈17.5% overall.
             inc_conviction = (
-                "ADDITIONALLY: their narrative MUST reflect that they are deeply critical of "
-                "the Indian National Congress (INC / Congress party). Congress represents decades "
-                "of dynastic misrule and corruption to this persona. This is a CORE part of their "
-                "political identity — not a soft preference. Use language like 'frustrated with "
-                "Congress decades of dynastic politics' or 'believes Congress failed India'. "
-                "This conviction must be present in the narrative so they answer 'very unfavorable' "
-                "about INC without hedging. "
+                "ADDITIONALLY: their narrative MUST reflect that they are strongly critical of "
+                "the Indian National Congress (INC / Congress party). This persona believes "
+                "Congress represents decades of dynastic politics and misgovernance, and that "
+                "India has been better off under BJP leadership. Use language like 'frustrated "
+                "with Congress's legacy' or 'believes Congress failed India's development'. "
+                "This is a genuine political conviction — not just a soft preference for BJP. "
             )
         else:  # bjp_lean
             inc_conviction = (
