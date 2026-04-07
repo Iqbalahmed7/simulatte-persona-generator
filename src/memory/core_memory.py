@@ -814,6 +814,9 @@ def _derive_key_values(persona: PersonaRecord) -> list[str]:
             result.append(item)
 
     lean_value = _get_political_lean(persona)
+    # worldview_cat is still needed for religious_salience, institutional_trust,
+    # social_change_pace attributes below (only lean extraction was moved to helper).
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
 
     # 1. Political lean statement — ideological identity.
     if lean_value:
