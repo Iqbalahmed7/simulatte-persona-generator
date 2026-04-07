@@ -375,6 +375,31 @@ def _build_constraint_note(
     # the narrative must include Congress/INC as a core political opposition. This creates
     # the identity-level conviction that overrides the pragmatic-moderate tendency at survey time.
     if political_lean in ("bjp_supporter", "bjp_lean"):
+        # Sprint A-15: split INC conviction by lean level.
+        # A-14 root cause of in04 D-overshoot (D=42% vs Pew D=19%): old constraint fired
+        # identically for bjp_supporter AND bjp_lean — "MUST answer very unfavorable" meant
+        # ALL 22 pro-BJP personas said D. Pew shows D=19%, C=18% — bjp_lean should say C.
+        # Fix: bjp_supporter gets "deeply critical / very unfavorable" identity;
+        # bjp_lean gets "prefers BJP, skeptical of Congress / somewhat unfavorable" (C).
+        if political_lean == "bjp_supporter":
+            inc_conviction = (
+                "ADDITIONALLY: their narrative MUST reflect that they are deeply critical of "
+                "the Indian National Congress (INC / Congress party). Congress represents decades "
+                "of dynastic misrule and corruption to this persona. This is a CORE part of their "
+                "political identity — not a soft preference. Use language like 'frustrated with "
+                "Congress decades of dynastic politics' or 'believes Congress failed India'. "
+                "This conviction must be present in the narrative so they answer 'very unfavorable' "
+                "about INC without hedging. "
+            )
+        else:  # bjp_lean
+            inc_conviction = (
+                "ADDITIONALLY: this persona leans toward BJP and is generally skeptical of the "
+                "Congress party (INC), but this is a political PREFERENCE — not a visceral identity. "
+                "Their narrative may reflect that they prefer BJP's governance over Congress, "
+                "and that they believe Congress had corruption issues — but they are NOT deeply "
+                "hostile. They would honestly say 'somewhat unfavorable' about INC, not "
+                "'very unfavorable'. Do NOT write them as deeply anti-Congress. "
+            )
         notes.append(
             "BJP PERSONA NARRATIVE CONSTRAINT: This persona is a BJP supporter / BJP-leaning "
             "voter. Do NOT include personal economic hardship, financial struggle, tight monthly "
@@ -386,20 +411,13 @@ def _build_constraint_note(
             "work and community belonging — NOT economic resentment or financial stress. "
             "Their narrative must not contain any language that could cause them to say "
             "'I can't support Modi / BJP because of my personal financial situation.' "
-            "ADDITIONALLY: their narrative MUST reflect that they are deeply critical of "
-            "the Indian National Congress (INC / Congress party). Congress represents decades "
-            "of dynastic misrule and corruption to this persona. This is a core part of their "
-            "political identity — not a soft preference. Use language like 'frustrated with "
-            "Congress decades of dynastic politics' or 'believes Congress failed India'. "
-            "This conviction must be present in the narrative so they answer 'very unfavorable' "
-            "about INC without hedging. "
-            "ADDITIONALLY: do NOT include personal climate disaster events (floods, "
-            "droughts, cyclones, heatwaves causing personal loss) as life-defining "
-            "experiences in this persona's narrative or life story. BJP personas view "
-            "climate change as a manageable secondary concern — their worldview is shaped "
-            "by development, national pride, and governance. A flood or drought life event "
-            "would override their political stance on climate and make them answer 'major "
-            "threat' (option A) instead of 'somewhat of a threat' (option B)."
+            + inc_conviction
+            # Sprint A-15: REMOVED climate disaster exclusion.
+            # A-6 through A-14 excluded climate events from BJP narratives to prevent A (major threat)
+            # on in15. But A-14 showed in15 B=68% vs Pew A=62% — the exclusion overcorrected badly.
+            # The in15 spread note now correctly anchors A=62% as dominant across all personas.
+            # Removing the exclusion allows BJP personas to naturally hold climate views consistent
+            # with the Indian majority (62% major threat) rather than being artificially constrained.
         )
 
     if not notes:
