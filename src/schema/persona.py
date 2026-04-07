@@ -307,6 +307,14 @@ class CoreMemory(BaseModel):
     # gives the model explicit permission to answer as the Indian persona without
     # defaulting to Western liberal values.
     cultural_context: str | None = None
+    # Study 1B Sprint A-8 Fix 3: Dedicated field for INC (Congress party) stance (India).
+    # Root cause of in04 modal-C lock: "pragmatic moderate" behavioural tendency overrides
+    # policy_stance and current_conditions_stance D-anchors for bjp_supporter personas.
+    # INC narrative identity (A-7) strengthened C, not D. Dedicated stance field is the
+    # proven pattern (same as gender_norms_stance for in12/in13, governance_stance for in07
+    # in Sprint A-2). Injected as a labelled line in the decide prompt, firing specifically
+    # on INC approval questions.
+    inc_stance: str | None = None
 
     @field_validator("key_values")
     @classmethod

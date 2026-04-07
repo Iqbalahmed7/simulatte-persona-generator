@@ -376,7 +376,14 @@ def _build_constraint_note(
             "political identity — not a soft preference. Use language like 'frustrated with "
             "Congress decades of dynastic politics' or 'believes Congress failed India'. "
             "This conviction must be present in the narrative so they answer 'very unfavorable' "
-            "about INC without hedging."
+            "about INC without hedging. "
+            "ADDITIONALLY: do NOT include personal climate disaster events (floods, "
+            "droughts, cyclones, heatwaves causing personal loss) as life-defining "
+            "experiences in this persona's narrative or life story. BJP personas view "
+            "climate change as a manageable secondary concern — their worldview is shaped "
+            "by development, national pride, and governance. A flood or drought life event "
+            "would override their political stance on climate and make them answer 'major "
+            "threat' (option A) instead of 'somewhat of a threat' (option B)."
         )
 
     if not notes:

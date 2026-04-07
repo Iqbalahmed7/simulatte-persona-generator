@@ -50,6 +50,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
     gender_norms_stance = _derive_gender_norms_stance(persona)
     governance_stance = _derive_governance_stance(persona)
     cultural_context = _derive_cultural_context(persona)
+    inc_stance = _derive_inc_stance(persona)
 
     return CoreMemory(
         identity_statement=identity_statement,
@@ -63,6 +64,7 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
         gender_norms_stance=gender_norms_stance,
         governance_stance=governance_stance,
         cultural_context=cultural_context,
+        inc_stance=inc_stance,
     )
 
 
@@ -470,6 +472,60 @@ _INDIA_CULTURAL_SURVEY_CONTEXT = (
     "specific Indian person — is a scientific error that invalidates the simulation.\n\n"
     "Your only task: answer as this person would answer. Not as you would answer.\n\n"
 )
+
+
+# INC (Congress party) stances per political lean — Sprint A-8 Fix 3.
+# Root cause of in04 modal-C lock: bjp_supporter personas hedge to C ('somewhat
+# unfavorable') even with D-anchors in policy_stance and current_conditions_stance.
+# The pragmatic-moderate tendency overrides those fields. A dedicated stance field
+# (same pattern as gender_norms_stance/governance_stance from A-2) fires as a
+# labelled line in the decide prompt, providing a high-salience single-purpose anchor.
+# Only populated for India (BJP era) personas — zero impact on US Study 1A.
+_INC_STANCES: dict[str, str] = {
+    "bjp_supporter":
+        "VERY unfavorable — option D, not C. Congress represents decades of "
+        "dynastic rule and corruption. You hold this view strongly and without "
+        "hedging. You do not say 'somewhat unfavorable' — your answer is D.",
+    "bjp_lean":
+        "Somewhat unfavorable — option C. You lean BJP and do not support "
+        "Congress leadership, though you are not as strongly opposed as a "
+        "committed BJP supporter.",
+    "neutral":
+        "Somewhat favorable — option B. You value a credible opposition "
+        "and see Congress as a legitimate alternative, even if imperfect.",
+    "opposition_lean":
+        "Somewhat favorable — option B. Congress represents the democratic "
+        "alternative to BJP and you support them over the current government.",
+    "opposition":
+        "VERY favorable — option A, not B. Congress is the democratic "
+        "alternative to BJP authoritarianism. You are strongly favorable — "
+        "not just somewhat. Your answer is A.",
+}
+
+
+def _derive_inc_stance(persona: PersonaRecord) -> str | None:
+    """Derive a dedicated INC/Congress approval stance for India personas.
+
+    Study 1B Sprint A-8 Fix 3: Addresses in04 modal-C lock (0% D in A-7
+    for bjp_supporter despite two-field D-anchoring and narrative constraint).
+    Root cause: 'pragmatic moderate' tendency overrides all stance anchors.
+    A dedicated labelled field — same pattern that worked for governance_stance
+    (in07) and gender_norms_stance (in12/in13) in Sprint A-2 — fires as a
+    distinct line in the decide prompt specifically for INC questions.
+
+    Only populated for India (BJP-era) personas. Returns None for US personas.
+    """
+    wv = persona.demographic_anchor.worldview
+    if wv is None or not wv.political_era:
+        return None
+    if _extract_governing_party(wv.political_era) != "BJP":
+        return None
+    worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    political_lean_attr = worldview_cat.get("political_lean")
+    lean_value: str | None = str(political_lean_attr.value) if political_lean_attr else None
+    if not lean_value:
+        return None
+    return _INC_STANCES.get(lean_value)
 
 
 def _derive_cultural_context(persona: PersonaRecord) -> str | None:
