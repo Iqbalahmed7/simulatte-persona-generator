@@ -398,6 +398,13 @@ def _build_constraint_note(
                 "This is a genuine political conviction — not just a soft preference for BJP. "
             )
         else:  # bjp_lean
+            # Sprint A-21: add democratic-accountability framing to bjp_lean.
+            # A-18/A-19/A-20 root cause of in07 A-overshoot (A=60% vs Pew 44%):
+            # bjp_lean narratives say "strong leadership" without the democratic qualifier →
+            # they answer A ("completely agree") on the strong non-democratic leader question.
+            # Fix: embed that bjp_lean personas specifically value strong leadership THROUGH
+            # democratic elections — they want a decisive mandate-winner, not a bypass of elections.
+            # Expected: bjp_lean shifts from A→B on in07 (A=60%→~48%, B=15%→~30%).
             inc_conviction = (
                 "ADDITIONALLY: this persona leans toward BJP and is generally skeptical of the "
                 "Congress party (INC), but this is a political PREFERENCE — not a visceral identity. "
@@ -405,6 +412,11 @@ def _build_constraint_note(
                 "and that they believe Congress had corruption issues — but they are NOT deeply "
                 "hostile. They would honestly say 'somewhat unfavorable' about INC, not "
                 "'very unfavorable'. Do NOT write them as deeply anti-Congress. "
+                "IMPORTANTLY: this persona values strong, decisive governance specifically THROUGH "
+                "democratic elections — they admire leaders who win a strong mandate and govern "
+                "boldly from it. They believe elections are an important part of the process: "
+                "they want a powerful leader who earns that power through the ballot, not one who "
+                "bypasses democratic accountability. This is a genuine part of their political identity. "
             )
         notes.append(
             "BJP PERSONA NARRATIVE CONSTRAINT: This persona is a BJP supporter / BJP-leaning "

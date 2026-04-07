@@ -337,14 +337,13 @@ _INDIA_WORLDVIEW_BASE_DIMS: dict[str, tuple[float, float, float, float]] = {
     # Sprint A-16: lowered bjp_supporter inst_trust 0.83 → 0.76.
     # Sprint A-17: lowered bjp_supporter inst_trust 0.76 → 0.68.
     # Sprint A-18: RAISED bjp_supporter 0.68 → 0.74; RAISED bjp_lean 0.65 → 0.72.
-    # A-17 DISASTER: 0.68 base for bjp_supporter + bjp_lean base 0.65 caused bimodal collapse.
-    # bjp_lean (0.65 ± 0.04 = 0.61–0.69) mapped to C ("not much trust") rather than B ("somewhat").
-    # Result: A=65%, C=23%, B=13% — everyone went to extremes, nobody in the middle.
-    # New targets: bjp_supporter 0.74 ± 0.04 (0.70–0.78) → mix of A and B.
-    #              bjp_lean 0.72 ± 0.04 (0.68–0.76) → mostly B, some A.
-    # Expected: bjp_supporter ~55% A, ~45% B; bjp_lean ~20% A, ~80% B → overall A=42%, B=50%.
-    "bjp_supporter":  (0.74, 0.28, 0.72, 0.42),  # trust A-18 (0.68→0.74), low change pace, high collectivism
-    "bjp_lean":       (0.72, 0.38, 0.65, 0.48),  # trust A-18 (0.65→0.72)
+    # Sprint A-21: LOWER bjp_supporter 0.74 → 0.72 (small reduction to reduce in09/in07 A-overshoot).
+    # A-18/A-20: in09 A=62% vs Pew 42% — bjp_supporters still too often saying "a lot" trust.
+    # Lowering 0.74→0.72 keeps range 0.68–0.76 (same upper bound as bjp_lean) but shifts
+    # the center of mass toward B ("somewhat a lot") for more bjp_supporter personas.
+    # Safe: bjp_lean at 0.72 didn't cause bimodal collapse in A-18, so 0.72 is a stable value.
+    "bjp_supporter":  (0.72, 0.28, 0.72, 0.42),  # trust A-21 (0.74→0.72), low change pace, high collectivism
+    "bjp_lean":       (0.72, 0.38, 0.65, 0.48),  # trust unchanged A-18
     "neutral":        (0.55, 0.50, 0.60, 0.52),
     "opposition_lean":(0.42, 0.62, 0.55, 0.58),
     "opposition":     (0.32, 0.72, 0.50, 0.62),
