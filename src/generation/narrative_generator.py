@@ -350,6 +350,14 @@ def _build_constraint_note(
     # When asked about Modi, the persona's own voice says "I can't say very favorable
     # given my financial struggles" — overriding the stance-level DECOUPLE instruction.
     # Fix: prevent the hardship narrative from being written in the first place.
+    #
+    # Sprint A-7 Fix 5: BJP anti-INC narrative identity.
+    # Root cause of in04 modal-C lock (INC approval at 0% D): BJP personas hedge to C
+    # ('somewhat unfavorable') because their 'pragmatic moderate' tendency overrides the
+    # political stance anchors in current_conditions_stance and policy_stance.
+    # Fix: embed the anti-INC identity in the narrative itself — if bjp_supporter,
+    # the narrative must include Congress/INC as a core political opposition. This creates
+    # the identity-level conviction that overrides the pragmatic-moderate tendency at survey time.
     if political_lean in ("bjp_supporter", "bjp_lean"):
         notes.append(
             "BJP PERSONA NARRATIVE CONSTRAINT: This persona is a BJP supporter / BJP-leaning "
@@ -361,7 +369,14 @@ def _build_constraint_note(
             "If they have a lower income bracket, write their narrative around dignity in honest "
             "work and community belonging — NOT economic resentment or financial stress. "
             "Their narrative must not contain any language that could cause them to say "
-            "'I can't support Modi / BJP because of my personal financial situation.'"
+            "'I can't support Modi / BJP because of my personal financial situation.' "
+            "ADDITIONALLY: their narrative MUST reflect that they are deeply critical of "
+            "the Indian National Congress (INC / Congress party). Congress represents decades "
+            "of dynastic misrule and corruption to this persona. This is a core part of their "
+            "political identity — not a soft preference. Use language like 'frustrated with "
+            "Congress decades of dynastic politics' or 'believes Congress failed India'. "
+            "This conviction must be present in the narrative so they answer 'very unfavorable' "
+            "about INC without hedging."
         )
 
     if not notes:

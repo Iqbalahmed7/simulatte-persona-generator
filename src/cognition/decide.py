@@ -76,7 +76,18 @@ def _decide_core_memory_block(persona: PersonaRecord) -> str:
         f"You know yourself: {core.identity_statement}",
         f"What matters most to you: {', '.join(core.key_values)}.",
     ]
-    if constraints.budget_ceiling:
+    # Sprint A-7 Fix 1: suppress budget_ceiling injection for India BJP personas.
+    # Root cause (A-6 audit): budget_ceiling bleeds into political approval answers —
+    # "I can't say very favorable when my kitchen budget tells a different story."
+    # The 'Budget reality: Rs 15,000/month' line is irrelevant to political survey
+    # questions (in02/in08/in09) and actively contaminates BJP approval responses.
+    # Fix: gate injection on political lean — suppress for bjp_supporter and bjp_lean.
+    # "bjp_supporter" and "bjp_lean" are India-specific archetypes (no US impact).
+    _worldview_cat: dict[str, Any] = persona.attributes.get("worldview", {})
+    _lean_attr = _worldview_cat.get("political_lean")
+    _lean_value: str | None = str(_lean_attr.value) if _lean_attr else None
+    _suppress_budget_for_bjp = _lean_value in ("bjp_supporter", "bjp_lean")
+    if constraints.budget_ceiling and not _suppress_budget_for_bjp:
         lines.append(f"Budget reality: {constraints.budget_ceiling}.")
     if constraints.non_negotiables:
         lines.append(f"Non-negotiables: {'; '.join(constraints.non_negotiables)}.")
