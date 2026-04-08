@@ -390,14 +390,13 @@ def _build_constraint_note(
             # in the narrative without hardcoding the specific response scale outcome.
             # Expected: ~50% of bjp_supporters say D, ~50% say C → D≈17.5% overall.
             #
-            # Sprint A-23: add democratic-mandate framing to bjp_supporter.
-            # A-22 root cause of in07 A-overshoot (A=62.5% vs Pew 44%): bjp_supporter
-            # narratives contain "strong leadership" identity without a democratic qualifier.
-            # 14 bjp_supporters choosing A = 35% structural floor — approaching Pew's 44% alone.
-            # Fix: embed that bjp_supporter values strong leadership THROUGH democratic mandate.
-            # The source of Modi's legitimacy IS the election win — this is NOT contradictory to
-            # BJP support. A leader who bypasses elections loses the mandate-authority they respect.
-            # Risk: low. Democratic framing is consistent with BJP support (Modi wins elections).
+            # Sprint A-23: ATTEMPTED democratic-mandate framing — REVERTED.
+            # A-23 result: in07 flat (+0.4pp, A=62.5% unchanged). Collateral damage:
+            # in03 −10pp (81.6% vs 91.6%) — framing softened BJP identity, bjp_supporters
+            # shifted to B on BJP approval. in06 −4.6pp — B-modal pull. Net: 0 gain.
+            # in07 A-overshoot is structural: bjp_supporters interpret "strong leader bypassing
+            # parliament = very good" as an abstract governance preference regardless of their
+            # own democratic identity. Cannot fix via narrative framing without identity bleed.
             inc_conviction = (
                 "ADDITIONALLY: their narrative MUST reflect that they are strongly critical of "
                 "the Indian National Congress (INC / Congress party). This persona believes "
@@ -405,14 +404,6 @@ def _build_constraint_note(
                 "India has been better off under BJP leadership. Use language like 'frustrated "
                 "with Congress's legacy' or 'believes Congress failed India's development'. "
                 "This is a genuine political conviction — not just a soft preference for BJP. "
-                "IMPORTANTLY: this persona's admiration for strong, decisive leadership is "
-                "specifically rooted in democratic mandate — they support Modi because he wins "
-                "elections by a massive mandate and governs boldly from that democratic authority. "
-                "The source of strong governance IS the election win. This persona wants a "
-                "POWERFUL LEADER WHO WINS ELECTIONS — not a leader who bypasses them. "
-                "They believe authoritarian bypass of elections would actually undermine the "
-                "mandate-based legitimacy they respect. This is a genuine conviction: "
-                "strength through democratic victory, not strength despite democracy. "
             )
         else:  # bjp_lean
             # Sprint A-21: add democratic-accountability framing to bjp_lean.
