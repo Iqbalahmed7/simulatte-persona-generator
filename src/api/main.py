@@ -26,6 +26,8 @@ from src.api.models import (
     CohortsListResponse,
     GenerateRequest,
     GenerateResponse,
+    OrchestrateRequest,
+    OrchestrateResponse,
     PersonasResponse,
     ReportResponse,
     SimulateRequest,
@@ -223,6 +225,45 @@ async def survey(req: SurveyRequest) -> SurveyResponse:
 # ---------------------------------------------------------------------------
 # Report
 # ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# Orchestrate — single-call generate + simulate with cost estimate + quality
+# ---------------------------------------------------------------------------
+
+@app.post("/orchestrate", response_model=OrchestrateResponse)
+async def orchestrate(req: OrchestrateRequest) -> OrchestrateResponse:
+    """
+    Full orchestrated run: brief → cost estimate → generate → quality check → simulate.
+
+    This is the recommended endpoint for external callers.  Pass a
+    PersonaGenerationBrief as JSON; receive a PersonaGenerationResult as JSON.
+
+    The cost estimate is computed server-side and included in the response
+    (no interactive confirmation — set auto_confirm: true in the brief).
+    """
+    from src.orchestrator.brief import PersonaGenerationBrief
+    from src.orchestrator.invoke import invoke_persona_generator
+
+    try:
+        brief = PersonaGenerationBrief(**req.brief, auto_confirm=True)
+        result = await invoke_persona_generator(brief)
+        return OrchestrateResponse(
+            run_id=result.run_id,
+            cohort_id=result.cohort_id,
+            tier_used=result.tier_used,
+            count_delivered=result.count_delivered,
+            cost_actual=result.cost_actual.to_dict(),
+            quality_report=result.quality_report.to_dict(),
+            summary=result.summary,
+            cohort_file_path=result.cohort_file_path,
+            pipeline_doc_path=result.pipeline_doc_path,
+            simulation_results=result.simulation_results,
+            personas=result.personas,
+            cohort_envelope=result.cohort_envelope,
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+
 
 @app.get("/report/{cohort_id}", response_model=ReportResponse)
 async def report(cohort_id: str) -> ReportResponse:

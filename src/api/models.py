@@ -61,3 +61,51 @@ class PersonasResponse(BaseModel):
 
 class CohortsListResponse(BaseModel):
     cohort_ids: list[str]
+
+
+# ---------------------------------------------------------------------------
+# Orchestration endpoint models
+# ---------------------------------------------------------------------------
+
+class OrchestrateRequest(BaseModel):
+    """
+    POST /orchestrate request body.
+
+    Pass a PersonaGenerationBrief as a nested dict.
+    auto_confirm is forced True server-side (no stdin prompt in API context).
+
+    Minimal example::
+
+        {
+          "brief": {
+            "client": "LittleJoys",
+            "domain": "cpg",
+            "business_problem": "Why do Mumbai parents switch nutrition brands?",
+            "count": 30,
+            "run_intent": "deliver",
+            "sarvam_enabled": true,
+            "anchor_overrides": {"location": "Mumbai"},
+            "simulation": {
+              "stimuli": ["Ad copy here", "Product detail here"],
+              "decision_scenario": "Would you buy this today?"
+            }
+          }
+        }
+    """
+    brief: dict  # Parsed into PersonaGenerationBrief by the handler
+
+
+class OrchestrateResponse(BaseModel):
+    """Full PersonaGenerationResult as a REST response."""
+    run_id: str
+    cohort_id: str
+    tier_used: str
+    count_delivered: int
+    cost_actual: dict          # CostActual.to_dict()
+    quality_report: dict       # QualityReport.to_dict()
+    summary: str
+    cohort_file_path: str | None = None
+    pipeline_doc_path: str | None = None
+    simulation_results: dict | None = None
+    personas: list[dict]       # PersonaRecord dicts
+    cohort_envelope: dict      # Full CohortEnvelope dict
