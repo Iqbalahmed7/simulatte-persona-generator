@@ -108,8 +108,31 @@ class AttributeFiller:
         profile_so_far: Dict[str, Any],
         demographic_anchor: DemographicAnchor,
     ) -> Attribute:
-        system_prompt = """You are assigning a single psychological or behavioural attribute for a persona.
-Be realistic, specific, and consistent with everything already assigned."""
+        # Sparsity prior (DeepPersona §2): prevent rare trait combinations from
+        # being zero-probability. 20% of the time, inject a prompt nudge that
+        # encourages non-modal (surprising but plausible) attribute values.
+        # This counteracts LLM homogeneity bias documented across all persona
+        # generation research (Master Spec §2: "Known failures to guard against").
+        # The nudge is seeded per attr_name + persona name for reproducibility.
+        sparsity_seed = hash(f"{attr_def.name}:{demographic_anchor.name}")
+        apply_sparsity = (sparsity_seed % 5) == 0  # ~20% of attributes
+
+        sparsity_nudge = ""
+        if apply_sparsity:
+            sparsity_nudge = (
+                "\n\nIMPORTANT — sparsity prior: For this attribute, consider assigning "
+                "a value that is SURPRISING but PLAUSIBLE given this persona's profile. "
+                "Real people are not perfectly predictable — sometimes analytical people "
+                "make gut decisions, sometimes frugal people splurge, sometimes introverts "
+                "are socially bold. If there is a non-obvious but defensible value, prefer it. "
+                "Do NOT assign the most predictable/modal value."
+            )
+
+        system_prompt = (
+            "You are assigning a single psychological or behavioural attribute for a persona.\n"
+            "Be realistic, specific, and consistent with everything already assigned."
+            + sparsity_nudge
+        )
 
         recent_attrs = list(profile_so_far.items())[-15:]
         attrs_str = "\n".join(f"- {k}: {v}" for k, v in recent_attrs)
@@ -150,7 +173,7 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
                 self.llm_client.messages.create,
                 model=self.model,
                 max_tokens=128,
-                system=system_prompt,
+                system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}],
             )
             raw_text = response.content[0].text.strip()

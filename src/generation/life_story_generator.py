@@ -290,7 +290,7 @@ class LifeStoryGenerator:
                 self.llm.messages.create,
                 model=self.model,
                 max_tokens=1024,
-                system=_SYSTEM_PROMPT,
+                system=[{"type": "text", "text": _SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": full_user_prompt}],
             )
             raw_text = response.content[0].text

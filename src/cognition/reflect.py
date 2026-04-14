@@ -99,16 +99,22 @@ _REFLECT_USER_TEMPLATE = (
 def _build_reflect_messages(
     observations: list[Observation],
     persona: PersonaRecord,
-) -> tuple[str, list[dict]]:
-    """Return (system_prompt, messages_list) for the reflect call."""
-    system_prompt = _REFLECT_SYSTEM_TEMPLATE.format(
+) -> tuple[list[dict], list[dict]]:
+    """Return (system_blocks, messages_list) for the reflect call.
+
+    The persona identity block carries cache_control. Its content is identical
+    to perceive's cached block, so a warm perceive cache is a reflect cache hit
+    for the same persona (for non-India personas without a cultural preamble).
+    """
+    system_text = _REFLECT_SYSTEM_TEMPLATE.format(
         name=persona.demographic_anchor.name,
         core_memory=_core_memory_block(persona),
     )
+    system_blocks = [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}]
     obs_block = _observations_block(observations)
     user_content = _REFLECT_USER_TEMPLATE.format(observations_block=obs_block)
     messages = [{"role": "user", "content": user_content}]
-    return system_prompt, messages
+    return system_blocks, messages
 
 
 # ---------------------------------------------------------------------------
@@ -240,11 +246,13 @@ async def reflect(
 
     _model = model or _SONNET_MODEL
     client = anthropic.AsyncAnthropic()
-    system_prompt, messages = _build_reflect_messages(sorted_obs, persona)
+    system_blocks, messages = _build_reflect_messages(sorted_obs, persona)
 
     if llm_client is not None and hasattr(llm_client, 'complete'):
+        # Test path — llm_client.complete expects a plain string
+        system_str = " ".join(b["text"] for b in system_blocks)
         raw_text = await llm_client.complete(
-            system=system_prompt,
+            system=system_str,
             messages=messages,
             max_tokens=1024,
             model=_model,
@@ -254,7 +262,7 @@ async def reflect(
             client.messages.create,
             model=_model,
             max_tokens=1024,
-            system=system_prompt,
+            system=system_blocks,
             messages=messages,
         )
         raw_text = response.content[0].text

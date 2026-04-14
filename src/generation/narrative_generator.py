@@ -145,9 +145,12 @@ async def _call_llm(
     """Single LLM call; returns stripped text content.
 
     Supports both BaseLLMClient (with .complete()) and legacy Anthropic clients
-    (with .messages.create()).
+    (with .messages.create()). The real API path wraps the system prompt in a
+    cache_control block — narrative system prompts are constant across all personas
+    in a batch, so every call after the first is a cache hit.
     """
     if hasattr(llm_client, 'complete'):
+        # Test path — expects a plain string
         text = await llm_client.complete(
             system=system,
             messages=[{"role": "user", "content": user}],
@@ -159,7 +162,7 @@ async def _call_llm(
         llm_client.messages.create,
         model=model,
         max_tokens=512,
-        system=system,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
         messages=[{"role": "user", "content": user}],
     )
     return response.content[0].text.strip()

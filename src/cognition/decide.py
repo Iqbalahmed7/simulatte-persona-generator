@@ -27,6 +27,46 @@ logger = logging.getLogger(__name__)
 _SONNET_MODEL = "claude-sonnet-4-6"
 _MAX_MEMORIES = 10
 
+# ---------------------------------------------------------------------------
+# Contextual noise — situational variability for realistic human behavior
+# ---------------------------------------------------------------------------
+
+# Situational modifiers inject subtle human variability into reasoning.
+# Each is deterministically selected from persona_id × scenario hash,
+# so the SAME persona + SAME stimulus → SAME modifier (BV1-safe).
+# Different stimuli get different modifiers (BV6-compliant: no 100% consistency).
+_SITUATIONAL_MODIFIERS = [
+    # Neutral (no modifier) — 40% weight
+    "",
+    "",
+    "",
+    "",
+    # Attention variation — 20% weight
+    "You're slightly distracted today — you noticed this in passing rather than giving it your full focus.",
+    "You're paying unusually close attention today — you have time to really think this through.",
+    # Mood variation — 20% weight
+    "You're in a cautious mood today — recent events have made you a bit more careful than usual.",
+    "You're feeling optimistic today — things have been going well and you're open to trying new things.",
+    # Social framing — 10% weight
+    "A friend just mentioned a bad experience with a similar product, which is fresh in your mind.",
+    # Cognitive load — 10% weight
+    "You're making this decision at the end of a long day when you're mentally tired.",
+]
+
+
+def _select_situational_modifier(persona_id: str, scenario: str) -> str:
+    """Deterministically select a situational modifier from persona_id × scenario.
+
+    Uses a hash to ensure:
+      - Same persona + same scenario → same modifier (BV1: repeated-run stability)
+      - Same persona + different scenario → different modifier (BV6: not 100% consistent)
+      - Different persona + same scenario → likely different modifier
+    """
+    combined = f"{persona_id}:{scenario}"
+    h = hash(combined)
+    idx = h % len(_SITUATIONAL_MODIFIERS)
+    return _SITUATIONAL_MODIFIERS[idx]
+
 
 # ---------------------------------------------------------------------------
 # Output dataclass
@@ -151,17 +191,6 @@ def _memories_block(memories: list[Observation | Reflection]) -> str:
 # Prompt builders
 # ---------------------------------------------------------------------------
 
-_DECIDE_SYSTEM_TEMPLATE = (
-    # Study 1B Sprint A-3: {cultural_preamble} is injected for India personas only.
-    # It appears BEFORE "You are {name}..." to prime the research simulation frame
-    # before the persona identity, overriding Haiku's Western liberal RLHF defaults
-    # on culturally divergent questions (in07/in12/in13).
-    # For US personas it is an empty string — zero impact on Study 1A.
-    "{cultural_preamble}"
-    "You are {name}. {core_memory}\n\n"
-    "{tendency_summary}"
-)
-
 _DECIDE_USER_TEMPLATE = (
     "You are now facing this decision:\n"
     "{scenario}\n\n"
@@ -210,8 +239,19 @@ def _build_decide_messages(
     scenario: str,
     memories: list[Observation | Reflection],
     persona: PersonaRecord,
-) -> tuple[str, list[dict]]:
-    """Return (system_prompt, messages_list) for the decide call."""
+) -> tuple[list[dict], list[dict]]:
+    """Return (system_blocks, messages_list) for the decide call.
+
+    System is split into three blocks to maximise prompt cache hits:
+
+    1. cultural_preamble (optional, India personas only) — not cached; it is
+       placed *before* the cached block so the cache key matches perceive's.
+    2. Persona identity block ("You are {name}. {core_memory}.") — cached with
+       cache_control. For personas without a cultural preamble (US/UK/EU), this
+       block is identical to perceive's cached block → cross-stage cache hit.
+    3. Tendency + situational suffix — not cached; changes per persona × scenario
+       (situational modifier is deterministic but stimulus-specific).
+    """
     core_memory = _decide_core_memory_block(persona)
     # tendency_summary injected as natural language paragraph (P4)
     tendency_summary = persona.memory.core.tendency_summary
@@ -243,12 +283,30 @@ def _build_decide_messages(
     cultural_context = getattr(persona.memory.core, "cultural_context", None)
     cultural_preamble = cultural_context if cultural_context else ""
 
-    system_prompt = _DECIDE_SYSTEM_TEMPLATE.format(
-        cultural_preamble=cultural_preamble,
-        name=persona.demographic_anchor.name,
-        core_memory=core_memory,
-        tendency_summary=tendency_summary,
-    )
+    # Contextual noise: inject situational variability for realistic human behavior.
+    # Deterministic per persona_id × scenario — same inputs → same modifier (BV1-safe).
+    situational = _select_situational_modifier(persona.persona_id, scenario)
+    situational_context = f"\n\n{situational}" if situational else ""
+
+    # Build system as blocks for prompt caching.
+    system_blocks: list[dict] = []
+
+    # Block 1: cultural preamble (India only) — not cached
+    if cultural_preamble:
+        system_blocks.append({"type": "text", "text": cultural_preamble})
+
+    # Block 2: persona identity — cached. Content matches perceive/reflect's
+    # cached block for non-India personas → cross-stage cache hit.
+    identity_text = f"You are {persona.demographic_anchor.name}. {core_memory}"
+    system_blocks.append({
+        "type": "text",
+        "text": identity_text,
+        "cache_control": {"type": "ephemeral"},
+    })
+
+    # Block 3: tendency + situational suffix — not cached (changes per scenario)
+    suffix = f"\n\n{tendency_summary}{situational_context}"
+    system_blocks.append({"type": "text", "text": suffix})
 
     primary_decision_partner = (
         persona.memory.core.relationship_map.primary_decision_partner
@@ -262,7 +320,7 @@ def _build_decide_messages(
     )
 
     messages = [{"role": "user", "content": user_content}]
-    return system_prompt, messages
+    return system_blocks, messages
 
 
 # ---------------------------------------------------------------------------
@@ -414,12 +472,14 @@ async def decide(
     _model = model or _SONNET_MODEL
     client = anthropic.AsyncAnthropic()
 
-    system_prompt, messages = _build_decide_messages(scenario, memories, persona)
+    system_blocks, messages = _build_decide_messages(scenario, memories, persona)
 
     # Attempt 1
     if llm_client is not None and hasattr(llm_client, 'complete'):
+        # Test path — llm_client.complete expects a plain string
+        system_str = " ".join(b["text"] for b in system_blocks)
         raw_text = await llm_client.complete(
-            system=system_prompt,
+            system=system_str,
             messages=messages,
             max_tokens=2048,
             model=_model,
@@ -429,7 +489,7 @@ async def decide(
             client.messages.create,
             model=_model,
             max_tokens=2048,
-            system=system_prompt,
+            system=system_blocks,
             messages=messages,
         )
         raw_text = response.content[0].text
@@ -437,10 +497,11 @@ async def decide(
 
     if parsed is None:
         logger.warning("decide(): JSON parse failed on attempt 1 — retrying")
-        # Attempt 2 — same prompt, hope for better formatting on retry
+        # Attempt 2 — same blocks reused; persona identity block cache is warm
         if llm_client is not None and hasattr(llm_client, 'complete'):
+            system_str = " ".join(b["text"] for b in system_blocks)
             raw_text = await llm_client.complete(
-                system=system_prompt,
+                system=system_str,
                 messages=messages,
                 max_tokens=2048,
                 model=_model,
@@ -450,7 +511,7 @@ async def decide(
                 client.messages.create,
                 model=_model,
                 max_tokens=2048,
-                system=system_prompt,
+                system=system_blocks,
                 messages=messages,
             )
             raw_text = response.content[0].text

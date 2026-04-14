@@ -85,16 +85,22 @@ def _build_perceive_messages(
     stimulus: str,
     persona: PersonaRecord,
     retry: bool = False,
-) -> tuple[str, list[dict]]:
-    """Return (system_prompt, messages_list) for the perceive call."""
-    system_prompt = _PERCEIVE_SYSTEM_TEMPLATE.format(
+) -> tuple[list[dict], list[dict]]:
+    """Return (system_blocks, messages_list) for the perceive call.
+
+    system_blocks is a list of Anthropic content blocks. The persona identity
+    block carries cache_control so the API caches it across calls for the same
+    persona (cross-stimulus and retry savings).
+    """
+    system_text = _PERCEIVE_SYSTEM_TEMPLATE.format(
         name=persona.demographic_anchor.name,
         core_memory=_core_memory_block(persona),
     )
+    system_blocks = [{"type": "text", "text": system_text, "cache_control": {"type": "ephemeral"}}]
     user_template = _PERCEIVE_RETRY_USER_TEMPLATE if retry else _PERCEIVE_USER_TEMPLATE
     user_content = user_template.format(stimulus=stimulus)
     messages = [{"role": "user", "content": user_content}]
-    return system_prompt, messages
+    return system_blocks, messages
 
 
 # ---------------------------------------------------------------------------
@@ -192,10 +198,12 @@ async def perceive(
     client = anthropic.AsyncAnthropic()
 
     # Attempt 1
-    system_prompt, messages = _build_perceive_messages(stimulus, persona, retry=False)
+    system_blocks, messages = _build_perceive_messages(stimulus, persona, retry=False)
     if llm_client is not None and hasattr(llm_client, 'complete'):
+        # Test path — llm_client.complete expects a plain string
+        system_str = " ".join(b["text"] for b in system_blocks)
         raw_text = await llm_client.complete(
-            system=system_prompt,
+            system=system_str,
             messages=messages,
             max_tokens=512,
             model=_HAIKU_MODEL,
@@ -205,7 +213,7 @@ async def perceive(
             client.messages.create,
             model=_HAIKU_MODEL,
             max_tokens=512,
-            system=system_prompt,
+            system=system_blocks,
             messages=messages,
         )
         raw_text = response.content[0].text
@@ -213,11 +221,12 @@ async def perceive(
 
     if parsed is None:
         logger.warning("perceive(): JSON parse failed on attempt 1 — retrying with stricter prompt")
-        # Attempt 2 — stricter prompt
-        system_prompt, messages = _build_perceive_messages(stimulus, persona, retry=True)
+        # Attempt 2 — stricter prompt (system_blocks reused — cache already warm)
+        system_blocks, messages = _build_perceive_messages(stimulus, persona, retry=True)
         if llm_client is not None and hasattr(llm_client, 'complete'):
+            system_str = " ".join(b["text"] for b in system_blocks)
             raw_text = await llm_client.complete(
-                system=system_prompt,
+                system=system_str,
                 messages=messages,
                 max_tokens=512,
                 model=_HAIKU_MODEL,
@@ -227,7 +236,7 @@ async def perceive(
                 client.messages.create,
                 model=_HAIKU_MODEL,
                 max_tokens=512,
-                system=system_prompt,
+                system=system_blocks,
                 messages=messages,
             )
             raw_text = response.content[0].text
