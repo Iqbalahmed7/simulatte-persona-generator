@@ -360,6 +360,46 @@ _INDIA_GENERAL_POOL = [
     ("Kamakshi Iyer",        65, "female", "India", "Tamil Nadu",    "Chennai",           "metro",  "couple-no-kids", 2, "middle",  False, "retired",       "undergraduate", "retired",       "neutral",        "hindu",    "general"),
 ]
 
+# ── Delhi-specific pool ───────────────────────────────────────────────────────
+# 24 personas calibrated to Delhi (NCT) 2025 demographic and political profile.
+# Political lean distribution: bjp_supporter=4 (17%), bjp_lean=4 (17%),
+# neutral=5 (21%), opposition_lean=5 (21%), opposition=6 (25%).
+# This reflects Delhi's actual 2025 electorate: BJP 47.5%, AAP 29%, Others 23%.
+# Religion: Hindu=20 (83%), Muslim=3 (13%), Sikh=1 (4%).
+# Routed when anchor_overrides location contains "delhi".
+_DELHI_GENERAL_POOL = [
+    # BJP supporters (4) — strong Modi/BJP voters
+    ("Dinesh Kumar",    45, "male",   "India", "Delhi", "Old Delhi",   "metro", "joint",   5, "lower",  False, "mid-career",   "high-school",  "self-employed",   "bjp_supporter", "hindu",  "general"),
+    ("Anuj Sharma",     38, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", True,  "mid-career",   "postgraduate", "full-time",       "bjp_supporter", "hindu",  "general"),
+    ("Rahul Malhotra",  43, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "upper",  True,  "mid-career",   "postgraduate", "self-employed",   "bjp_supporter", "hindu",  "general"),
+    ("Vinod Kapoor",    55, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  False, "late-career",  "postgraduate", "self-employed",   "bjp_supporter", "hindu",  "general"),
+    # BJP leaners (4) — soft BJP, Modi economy / cultural identity
+    ("Ravi Kumar",      35, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "lower",  False, "mid-career",   "high-school",  "full-time",       "bjp_lean",      "hindu",  "obc"),
+    ("Manoj Gupta",     48, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","self-employed",   "bjp_lean",      "hindu",  "general"),
+    ("Sanjay Khanna",   52, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "middle", False, "late-career",  "undergraduate","retired",         "bjp_lean",      "hindu",  "general"),
+    ("Deepika Arora",   38, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  True,  "mid-career",   "postgraduate", "full-time",       "bjp_lean",      "hindu",  "general"),
+    # Neutral (5) — pragmatic, infrastructure-focused, swing voters
+    ("Sunil Prasad",    28, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "lower",  False, "early-career", "undergraduate","full-time",       "neutral",       "hindu",  "general"),
+    ("Rekha Singh",     40, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","full-time",       "neutral",       "hindu",  "general"),
+    ("Neha Verma",      33, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "middle", True,  "early-family", "undergraduate","full-time",       "neutral",       "hindu",  "general"),
+    ("Vikas Pandey",    31, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "middle", True,  "early-career", "postgraduate", "full-time",       "neutral",       "hindu",  "general"),
+    ("Sonia Mehta",     35, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  True,  "mid-career",   "postgraduate", "self-employed",   "neutral",       "hindu",  "general"),
+    # AAP-leaning opposition (5) — welfare beneficiaries, anti-BJP
+    ("Pushpa Rani",     38, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "lower",  False, "mid-career",   "high-school",  "part-time",       "opposition_lean","hindu", "dalit"),
+    ("Anita Chauhan",   32, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "lower",  False, "early-family", "high-school",  "homemaker",       "opposition_lean","hindu", "obc"),
+    ("Priya Rawat",     29, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 2, "middle", True,  "early-career", "undergraduate","full-time",       "opposition_lean","hindu", "general"),
+    ("Kavita Joshi",    44, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","full-time",       "opposition_lean","hindu", "general"),
+    ("Gurpreet Kaur",   44, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","full-time",       "opposition_lean","sikh",  "general"),
+    # Strong opposition (6) — Muslim voters + AAP loyalists disillusioned but still opposed to BJP
+    ("Geeta Devi",      42, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "lower",  False, "mid-career",   "high-school",  "homemaker",       "opposition",    "hindu",  "dalit"),
+    ("Rohit Yadav",     36, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", True,  "mid-career",   "undergraduate","full-time",       "opposition",    "hindu",  "obc"),
+    ("Sunita Devi",     45, "female", "India", "Delhi", "Old Delhi",   "metro", "joint",   5, "lower",  False, "mid-career",   "high-school",  "homemaker",       "opposition",    "hindu",  "obc"),
+    ("Shaheen Akhtar",  34, "female", "India", "Delhi", "Old Delhi",   "metro", "joint",   5, "lower",  False, "mid-career",   "high-school",  "homemaker",       "opposition",    "muslim", "general"),
+    ("Imran Siddiqui",  40, "male",   "India", "Delhi", "Old Delhi",   "metro", "nuclear", 4, "middle", True,  "mid-career",   "undergraduate","self-employed",   "opposition",    "muslim", "general"),
+    ("Nasreen Bano",    48, "female", "India", "Delhi", "Old Delhi",   "metro", "joint",   6, "lower",  False, "mid-career",   "high-school",  "homemaker",       "opposition",    "muslim", "general"),
+]
+
+
 # WorldviewAnchor base dimensions per India political lean.
 # (institutional_trust, social_change_pace, collectivism_score, economic_security_priority)
 # Calibrated against Spring 2023 Pew India: BJP very fav 42%, Modi fav 79%,
@@ -956,6 +996,8 @@ def sample_demographic_anchor(
             pool = _US_SOUTH_ASIAN_MUSLIM_POOL
         else:
             pool = _US_GENERAL_POOL
+    elif "delhi" in location_hint or location_hint == "dl":
+        pool = _DELHI_GENERAL_POOL
     elif "india" in location_hint or location_hint in ("ind", "in"):
         pool = _INDIA_GENERAL_POOL
     elif "united arab emirates" in location_hint or location_hint in ("uae", "gulf"):
@@ -992,7 +1034,7 @@ def sample_demographic_anchor(
     # restrict to entries of that religion so the LLM receives a demographically
     # appropriate anchor (names, caste, context encode religion implicitly).
     # Falls back to full pool if the filtered sub-pool is empty.
-    if "india" in location_hint or location_hint in ("ind", "in"):
+    if "india" in location_hint or "delhi" in location_hint or location_hint in ("ind", "in", "dl"):
         rel_filter = religiosity_hint.lower() if religiosity_hint else ""
         if rel_filter in ("hindu", "muslim", "sikh", "christian"):
             filtered_rel = [e for e in pool if len(e) > 15 and e[15] == rel_filter]
@@ -1036,7 +1078,7 @@ def sample_demographic_anchor(
     is_uae_muslim = _original_pool is _UAE_GULF_MUSLIM_POOL
     is_uk_south_asian_muslim = _original_pool is _UK_SOUTH_ASIAN_MUSLIM_POOL
     is_us_general = (domain.lower() in _US_GENERAL_DOMAINS or _original_pool is _US_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
-    is_india_general = (domain.lower() in {"india_general", "india_cpg"} or _original_pool is _INDIA_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
+    is_india_general = (domain.lower() in {"india_general", "india_cpg"} or _original_pool is _INDIA_GENERAL_POOL or _original_pool is _DELHI_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
     _EU_LOCATION_POOLS = (
         _FRANCE_GENERAL_POOL, _GERMANY_GENERAL_POOL, _GREECE_GENERAL_POOL,
         _HUNGARY_GENERAL_POOL, _ITALY_GENERAL_POOL, _NETHERLANDS_GENERAL_POOL,
