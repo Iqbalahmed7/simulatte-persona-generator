@@ -372,12 +372,12 @@ _DELHI_GENERAL_POOL = [
     ("Dinesh Kumar",    45, "male",   "India", "Delhi", "Old Delhi",   "metro", "joint",   5, "lower",  False, "mid-career",   "high-school",  "self-employed",   "bjp_supporter", "hindu",  "general"),
     ("Anuj Sharma",     38, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", True,  "mid-career",   "postgraduate", "full-time",       "bjp_supporter", "hindu",  "general"),
     ("Rahul Malhotra",  43, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "upper",  True,  "mid-career",   "postgraduate", "self-employed",   "bjp_supporter", "hindu",  "general"),
-    ("Vinod Kapoor",    55, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  False, "late-career",  "postgraduate", "self-employed",   "bjp_supporter", "hindu",  "general"),
+    ("Vinod Kapoor",    55, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  False, "late-career",  "postgraduate", "self-employed",   "neutral",       "hindu",  "general"),
     # BJP leaners (4) — soft BJP, Modi economy / cultural identity
     ("Ravi Kumar",      35, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "lower",  False, "mid-career",   "high-school",  "full-time",       "bjp_lean",      "hindu",  "obc"),
     ("Manoj Gupta",     48, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","self-employed",   "bjp_lean",      "hindu",  "general"),
     ("Sanjay Khanna",   52, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "middle", False, "late-career",  "undergraduate","retired",         "bjp_lean",      "hindu",  "general"),
-    ("Deepika Arora",   38, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  True,  "mid-career",   "postgraduate", "full-time",       "bjp_lean",      "hindu",  "general"),
+    ("Deepika Arora",   38, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "upper",  True,  "mid-career",   "postgraduate", "full-time",       "opposition_lean","hindu",  "general"),
     # Neutral (5) — pragmatic, infrastructure-focused, swing voters
     ("Sunil Prasad",    28, "male",   "India", "Delhi", "New Delhi",   "metro", "nuclear", 3, "lower",  False, "early-career", "undergraduate","full-time",       "neutral",       "hindu",  "general"),
     ("Rekha Singh",     40, "female", "India", "Delhi", "New Delhi",   "metro", "nuclear", 4, "middle", False, "mid-career",   "undergraduate","full-time",       "neutral",       "hindu",  "general"),
