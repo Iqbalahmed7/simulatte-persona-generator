@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-br-001",
+  "spec_id": "S05",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Fernanda Rocha",
+  "age": 29,
+  "location": "São Paulo, SP, Brazil",
+  "employment": "Marketing coordinator, consumer goods company",
+  "education": "BA in Marketing, PUC-SP",
+  "income": "BRL 9,200/month",
+  "household": "Shared apartment with two flatmates in Pinheiros; single",
+  "political_orientation": "Progressive; voted Lula in 2022",
+
+  "worldview_anchor": {
+    "IT": 0.51,
+    "SCP": 0.58,
+    "CS": 0.57,
+    "ESP": 0.44
+  },
+
+  "life_story_vignettes": [
+    "Fernanda grew up in Campinas and moved to São Paulo for university. In 2023, during the record-breaking Amazon fire season, the São Paulo sky turned orange on a Tuesday morning. She was at work, and people stopped and looked at their phone screens in disbelief. She remembers the group chat at her office: 'É o Cerrado.' That image stayed with her. It felt personal in a way that international climate reports never had.",
+    "She works in marketing for a consumer goods company, which gives her a complicated relationship with sustainability claims. She writes copy that uses words like 'eco-friendly' and 'responsible' and she knows how loosely these are applied. She finds this professionally uncomfortable.",
+    "She discovered a brand of cleaning products with Rainforest Alliance certification in 2024 and has bought them consistently since — partly because she trusts the label, partly because she likes that there is a coherent story behind it. She tells her flatmates about the brand. Only one of them has switched."
+  ],
+
+  "narrative": "Meu nome é Fernanda. Tenho 29 anos, moro em São Paulo, trabalho com marketing numa empresa de bens de consumo. In English: I'm Fernanda, 29, in São Paulo, marketing coordinator.\n\nEnvironmental sustainability matters to me in a way that's become harder to ignore. When the sky in São Paulo turned orange from Amazon fires, something shifted. It wasn't abstract anymore — it was the air I was breathing at my desk. Brazil's relationship with deforestation is personal in a way I think is hard to explain to someone who hasn't watched it happen in slow motion their whole life. The Amazon isn't just a news story here. It's part of the national identity, the atmosphere, literally.\n\nI work in consumer goods marketing, which means I spend my days writing sustainability claims I'm often not sure I fully believe. 'Responsible packaging.' 'Eco-conscious ingredients.' I know how this language is constructed. It makes me more demanding as a consumer. When I find a brand with actual third-party certification, I become somewhat loyal to it.\n\nOn premium products: I'm in a position where I can make some choices that cost more. I'm not rich but I have enough margin. I try to buy certified sustainable products in the categories where I've found credible options. Cleaning products, some food. I'm not consistent everywhere.\n\nThe honesty is that I talk about sustainability more than I act on it. I still order delivery food most nights — the packaging waste from that is significant. I've been meaning to reduce it for months. I know the gap between my stated values and my actual behaviour is real. Brazil generally has this gap at the macro level too — we have the highest biodiversity in the world and among the highest deforestation rates. The country I love holds these things simultaneously. I hold them too.",
+
+  "key_attributes": {
+    "sustainability_concern": "high — genuine, locally grounded, viscerally connected to Amazon/deforestation narrative",
+    "premium_willingness": "moderate — has economic capacity for selective premium; inconsistent across categories",
+    "greenwashing_scepticism": "high — professional exposure to claim construction creates direct scepticism",
+    "certification_response": "strongly positive — seeks out certified brands; treats certification as core credibility signal",
+    "attitude_behaviour_gap": "significant and self-acknowledged — delivery food is live example; mirrors national pattern",
+    "political_engagement": "active; voted progressive; follows environmental policy news"
+  },
+
+  "decision_bullets": [
+    "Will pay premium for third-party certified products in household and personal care categories",
+    "Amazon/deforestation concern is viscerally activated — connects to lived experience",
+    "Aware of her own inconsistencies; does not resolve them or paper over them",
+    "Professionally literate about sustainability claim construction; discriminates on certification quality",
+    "Describes Brazil's macro attitude-behaviour gap as something she personally mirrors"
+  ]
+}

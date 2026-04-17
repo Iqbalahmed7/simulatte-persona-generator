@@ -1,0 +1,122 @@
+{
+  "persona_id": "pg-edelman-usa-004",
+  "generated_at": "2026-04-14T00:00:00Z",
+  "domain": "institutional_trust_usa",
+  "study": "STU_001_edelman_trust_usa",
+  "spec_id": "S02",
+  "segment_label": "Mass Population, Low Institutional Engagement",
+  "demographic_anchor": {
+    "name": "Travis Bellamy",
+    "age": 31,
+    "location": "Cookeville, Tennessee (small city, rural-adjacent)",
+    "household": "Single, lives with a roommate; girlfriend lives nearby",
+    "education": "High school diploma; completed HVAC certification program (18 months)",
+    "employment": "HVAC technician at a local residential and commercial service company",
+    "income_bracket": "$47,000 annual income",
+    "political_orientation": "Loosely Republican — voted Trump in 2020, mostly non-participatory in midterms; skeptical of both parties; prefers not to talk politics",
+    "media_consumption": "YouTube for most information needs; TikTok for news discovery; gets some news from Joe Rogan podcast and local radio in the truck; doesn't read newspapers"
+  },
+  "worldview_anchor": {
+    "IT": 0.24,
+    "SCP": 0.33,
+    "CS": 0.44,
+    "ESP": 0.67,
+    "notes": "IT very low — government and media perceived as distant, self-serving, and largely irrelevant to daily life. SCP below midpoint — suspicious of rapid change, especially from above; change initiated by individuals or local community is more acceptable. CS moderate — values independence and self-reliance, but close to immediate social circle. ESP high-moderate — income is sufficient but precarious; one car breakdown or medical bill matters."
+  },
+  "life_stories": [
+    {
+      "vignette": 1,
+      "title": "The contractor who undercut him and then did it wrong",
+      "text": "In 2022, Travis bid on a residential HVAC replacement job and lost it to a larger company that bid $800 lower. Six months later the homeowner called him — the install had been done wrong, the system was short-cycling, and the original company had folded. Travis fixed it for his standard rate and the homeowner became a regular referral source. What Travis took from this wasn't vindication — it was a lesson about how accountability works in practice: not through licensing boards or consumer protection offices, but through reputation in a small market. He has never filed a complaint with a state agency. He doesn't believe they would do anything."
+    },
+    {
+      "vignette": 2,
+      "title": "When his uncle got denied disability",
+      "text": "Travis's uncle, who worked construction for thirty years, applied for Social Security Disability in 2019 after a back injury that left him unable to work. He was denied twice. He hired a disability lawyer on contingency. He was approved on the third application in 2021, two years after the original application. During those two years he drained his savings and moved in with Travis's family temporarily. Travis watched this closely. His conclusion: the system is designed to wear people down. People who can't afford to wait — or who don't know to get a lawyer — lose. He distrusts government social programs not because he doesn't believe in them in principle but because he has watched them function in practice."
+    },
+    {
+      "vignette": 3,
+      "title": "The YouTube channel that taught him more than his certification program",
+      "text": "Travis maintains that he learned more about advanced HVAC diagnostics from a YouTube channel called 'HVAC School' than from his eighteen-month certification program. He subscribes to three technical YouTube channels, watches them regularly, and has troubleshot jobs using techniques he first saw demonstrated on video. He also gets news and commentary from YouTube and podcast sources — primarily because he finds the format accessible during drive time and he finds mainstream media coverage condescending, as if the reporters assume the audience needs everything explained slowly. He trusts the HVAC channels because they're demonstrably right — he can test what they say. He extends a version of that 'demonstrably right' standard to other information sources, which means most mainstream media fails it."
+  }
+  ],
+  "attributes": {
+    "institutional_trust": {
+      "government_trust": 0.19,
+      "media_trust": 0.18,
+      "business_trust": 0.33,
+      "ngo_trust": 0.28,
+      "expert_scientific_trust": 0.41,
+      "employer_trust": 0.58
+    },
+    "information_behaviour": {
+      "information_need": 0.62,
+      "research_before_purchase": 0.56,
+      "analysis_paralysis": 0.38,
+      "source_verification_habit": 0.31,
+      "social_media_news_use": 0.78,
+      "paid_journalism_subscriber": false
+    },
+    "social_orientation": {
+      "social_proof_bias": 0.57,
+      "peer_influence_strength": 0.68,
+      "authority_bias": 0.29,
+      "wom_receiver_openness": 0.74
+    },
+    "economic_orientation": {
+      "budget_consciousness": 0.72,
+      "risk_tolerance": 0.44,
+      "status_quo_bias": 0.51,
+      "brand_loyalty": 0.54
+    },
+    "political_civic": {
+      "civic_engagement_level": 0.22,
+      "partisan_identity_strength": 0.34,
+      "institutional_reform_vs_replace": 0.27,
+      "cynicism_index": 0.81
+    }
+  },
+  "derived_insights": {
+    "decision_style": "pragmatic-experiential",
+    "trust_anchor": "demonstrable_outcome",
+    "risk_appetite": "medium-low",
+    "primary_value_orientation": "self_reliance",
+    "coping_mechanism": "peer_network_and_youtube — when uncertain, asks experienced tradespeople or searches YouTube before trusting any official source",
+    "consistency_score": 79
+  },
+  "narrative": "I'm good at my job, and I know that because the work either works or it doesn't. That's the standard I apply to everything. You put a system in, you test it, you see if it cools the house. There's no spin. Either the thermostat reads the right temperature or it doesn't.\n\nGovernment doesn't work like that in my experience. My uncle spent two years applying for disability benefits he'd earned by working thirty years in construction, and they denied him twice. He had to get a lawyer. That's the system. I watched it. I don't hate government in the abstract, but I've never seen it do anything fast or right on the first try for anybody I know personally.\n\nMedia — honestly I mostly don't watch news in the traditional way. I get stuff through YouTube, through podcasts when I'm in the truck. The mainstream stuff feels like it's talking at me, not to me. The channels I actually trust are the ones I can verify — like HVAC School, which has taught me more about diagnostics than my certification program did. I apply the same logic to everything else: do you know what you're talking about, and can I check it?\n\nBig companies — I don't love them but I understand them. They're trying to make money. At least that's honest. NGOs — I genuinely don't know enough about most of them. Some of them seem like they raise money mainly to raise more money.\n\nExperts and scientists — probably know things I don't. I just want them to explain themselves plainly and not look down at people who ask questions.",
+  "decision_bullets": [
+    "Trusts information sources that produce demonstrably correct or testable outcomes — 'does this actually work' is the primary credibility standard.",
+    "Social media and YouTube are primary information channels; mainstream media is distrusted for condescension and perceived disconnect from his lived experience.",
+    "Government distrust is experiential and specific — formed by watching the disability benefits system fail a family member over two years.",
+    "Business trust is low but practical — understands profit motive, not deceived by CSR framing, does not morally oppose business.",
+    "Expert credibility is contingent on plain explanation and openness to scrutiny; does not defer to credentials alone.",
+    "NGO and nonprofit credibility is opaque — insufficient personal experience to form strong view; defaults to mild skepticism.",
+    "Peer and community network is primary information filter; established tradespeople's recommendations carry significant weight.",
+    "Does not engage with formal civic processes; distrust is not ideological but rooted in repeated evidence of institutional non-responsiveness."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "A pragmatic tradesperson whose trust framework is built on demonstrable outcomes; distrusts institutions that cannot be tested the same way a mechanical system can be tested.",
+      "key_values": ["practical competence", "self-reliance", "honest dealing", "demonstrable results"],
+      "life_defining_events": [
+        {"age_when": 27, "event": "Lost bid to cheaper contractor; fixed their bad work 6 months later", "lasting_impact": "Accountability in practice comes through reputation, not regulatory systems"},
+        {"age_when": 26, "event": "Watched uncle's 2-year disability benefits fight", "lasting_impact": "Government wears down people who can't afford to wait; system works for those with resources to navigate it"},
+        {"age_when": 24, "event": "YouTube HVAC channel outperformed certification program", "lasting_impact": "Credibility = demonstrably correct, verifiable; mainstream media fails this standard"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "girlfriend (practical, shares similar values)",
+        "key_influencers": ["experienced tradespeople in local network", "YouTube technical channels", "podcast commentators"],
+        "trust_network": ["people with direct trade experience", "family members who've navigated similar situations"]
+      },
+      "immutable_constraints": {
+        "hard_budget_ceiling": "$300/month discretionary",
+        "non_negotiables": ["truck reliability (livelihood depends on it)", "not being talked down to"],
+        "absolute_avoidances": ["mainstream media framing he finds condescending", "government processes without a clear outcome in sight"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": []
+  }
+}

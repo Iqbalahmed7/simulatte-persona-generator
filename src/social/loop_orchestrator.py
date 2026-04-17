@@ -45,7 +45,7 @@ async def run_social_loop(
     decision_scenarios: list[str] | None = None,
     llm_client: Any = None,
     tier: SimulationTier = SimulationTier.DEEP,
-) -> tuple[list[PersonaRecord], SocialSimulationTrace]:
+) -> tuple[list[PersonaRecord], SocialSimulationTrace, dict[str, list[dict]]]:
     """Run a multi-turn social simulation for a cohort of personas.
 
     For each turn T:
@@ -77,7 +77,9 @@ async def run_social_loop(
 
     Returns
     -------
-    (final_personas, SocialSimulationTrace)
+    (final_personas, SocialSimulationTrace, per_persona_turns)
+        per_persona_turns maps persona_id → list of round dicts (one per stimulus turn),
+        matching the round format produced by the standard _simulate_persona() path.
     """
     from src.social.trace_builder import TraceBuilder
     from src.social.validity import check_sv1, check_sv2, check_sv3, check_sv4, check_sv5
@@ -101,6 +103,8 @@ async def run_social_loop(
     prior_decisions: dict[str, str] = {}
     all_decisions: list[str] = []
     personas_before = list(personas)  # snapshot for SV5
+    # Per-persona per-turn round data (mirrors _simulate_persona() round format)
+    per_persona_turns: dict[str, list[dict]] = {p.persona_id: [] for p in personas}
 
     for turn_idx in range(total_turns):
         stimulus = stimuli[turn_idx]
@@ -149,6 +153,21 @@ async def run_social_loop(
                 prior_decisions[pid] = decision_text
                 all_decisions.append(decision_text)
 
+            # Accumulate per-turn round data for this persona
+            round_entry: dict = {
+                "round": turn_idx + 1,
+                "stimulus": stimulus,
+                "observation_importance": loop_result.observation.importance,
+                "reflected": loop_result.reflected,
+                "decided": loop_result.decided,
+            }
+            if loop_result.decided and loop_result.decision:
+                round_entry["response"] = loop_result.observation.content
+                round_entry["decision"] = loop_result.decision.decision
+                round_entry["confidence"] = loop_result.decision.confidence
+                round_entry["reasoning"] = loop_result.decision.reasoning_trace
+            per_persona_turns[pid].append(round_entry)
+
     final_personas = list(persona_map.values())
 
     # Build trace
@@ -165,4 +184,4 @@ async def run_social_loop(
     }
 
     trace = trace.model_copy(update={"validity_gate_results": validity_results})
-    return final_personas, trace
+    return final_personas, trace, per_persona_turns

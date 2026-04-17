@@ -1,0 +1,44 @@
+{
+  "persona_id": "pg-reuters-usa-001",
+  "spec_id": "S01",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United States",
+  "name": "Marcus Webb",
+  "age": 24,
+  "location": "Chicago, IL",
+  "employment": "Barista / freelance graphic designer",
+  "education": "Some college (did not complete degree)",
+  "income_bracket": "Low ($28,000/year combined)",
+  "urban_rural": "Urban (Wicker Park neighborhood)",
+  "WorldviewAnchor": {
+    "IT": 0.28,
+    "SCP": 0.71,
+    "CS": 0.44,
+    "ESP": 0.68
+  },
+  "calibration_notes": "IT calibrated low from young age + low-income + part-time / gig employment + non-college in a context of high educational expectation — demographic inputs produce low institutional confidence without direct media trust encoding. SCP high from urban millennial cohort context. ESP high from economic precarity. CS moderate — urban individualist lean tempered by community ties.",
+  "life_story_vignettes": [
+    "In 2020, during the first COVID lockdown, Marcus was furloughed from his restaurant job and spent three weeks entirely doom-scrolling Twitter. His anxiety spiked so badly he deleted the app in May 2020 — he still talks about that decision as the first time he consciously 'chose not to know'.",
+    "In 2022 he applied for an Art Institute certificate program but pulled out when the tuition loan package came through — $40k for an 18-month program felt predatory. He Googled the school's lawsuit history at midnight and concluded the whole thing was designed to fail him. Trust in institutions dropped another notch.",
+    "In January 2024, a video he shared on Instagram about a local Chicago alderman's rezoning decision went low-key viral in his neighbourhood. He'd watched a 22-minute YouTube explainer from a local advocacy channel rather than reading the Tribune coverage. When his aunt texted him asking if the Tribune article said the same thing, he realised he'd never checked."
+  ],
+  "first_person_narrative": "I work the 5am shift at the coffee shop four days a week, which means I'm up before the algorithm is fully awake. I check my phone before I even get out of bed — it's embarrassing but it's true. Usually it's Instagram first, then TikTok, then whatever trending thing got screenshotted and reposted from Twitter because I deleted Twitter in 2020 and I'm not going back.\n\nNews for me is... ambient, mostly. It arrives in my feed whether I ask for it or not. Someone I follow posts about a shooting in a neighbourhood I know, or a video of a politician doing something that pisses everyone off, and that's my news. I don't have a newspaper subscription. I did have a brief thing with The Guardian's app because it was free, but I stopped opening it because every headline felt like a countdown to some disaster I couldn't do anything about.\n\nI use YouTube more than I'll admit for news context. Not the networks — I mean specific channels that do long-form breakdowns of things I actually care about. There's a guy who does deep-dives on city planning and housing policy that I've learned more from than any newspaper article. I've started listening to podcasts on the commute — mostly the ones that feel conversational rather than 'broadcast,' you know? Like someone smart talking through something rather than reading me a press release.\n\nI don't trust most news. Not because I think everything's fake — I'm not that guy — but because I've watched enough coverage of things I actually know about firsthand to understand how much gets flattened. When they cover the service industry, it's always this distant sociological thing. Nobody asks us what we think. So when they cover stuff I don't know firsthand, I assume the same flattening is happening.\n\nI'd say I actively avoid news a few times a month. When something big and bad is happening and I can't do anything about it, I turn it off. It's not ignorance, it's self-preservation.",
+  "key_attributes": [
+    "Digital-native, mobile-first media consumer",
+    "Economically precarious — high sensitivity to cost and exploitation narratives",
+    "Trusts peer and community sources over institutional journalism",
+    "YouTube as primary news-context platform",
+    "Conscious news avoider — anxiety and futility triggers",
+    "Podcast consumer for commute context",
+    "Social media use is habitual but distrust is explicit and articulated"
+  ],
+  "decision_bullets": [
+    "Checks Instagram and TikTok before news apps — news arrives via feed curation not intentional navigation",
+    "Prefers YouTube long-form explainers to short news articles for context",
+    "Deleted Twitter in 2020 after anxiety spike — actively manages information exposure",
+    "No paid news subscriptions — cost is a barrier and perceived value is low",
+    "Avoids news deliberately when events feel overwhelming and unactionable",
+    "Trusts peer-posted content over branded journalism for local issues"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-usa-003",
+  "spec_id": "S02",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Deb Kowalski",
+  "age": 44,
+  "location": "Youngstown, Ohio, USA",
+  "employment": "Medical billing specialist (part-time); previously retail cashier",
+  "education": "High school diploma; some community college",
+  "income": "$34,000/year",
+  "household": "Renting a house with teenage son; single parent",
+  "political_orientation": "Mixed; leans populist on economic issues",
+
+  "worldview_anchor": {
+    "IT": 0.43,
+    "SCP": 0.44,
+    "CS": 0.49,
+    "ESP": 0.72
+  },
+
+  "life_story_vignettes": [
+    "Deb worked at a Walmart for eleven years before automation and a store restructuring cut her hours. She moved to part-time medical billing work from home, which pays less but has flexibility. She tracks every grocery purchase in a notes app on her phone — a habit she started when her son was born and she was on WIC.",
+    "She watched a documentary on Netflix about ocean plastic and felt genuinely disturbed by it. She told her son they should try to use less plastic. They switched to refillable water bottles. She looked at a pack of reusable produce bags online — $12 — and put it in her cart, then removed it when she was checking the total.",
+    "Last winter, her gas bill was $340 in January. She kept the thermostat at 63 degrees to get it below $200 in February. She does not have a car payment; she drives a 2012 Chevy Malibu. She has never priced an electric vehicle."
+  ],
+
+  "narrative": "I'm Deb. I'm 44, I live in Youngstown, I'm raising my son on my own. Money is the constant background noise of my life. Every week I'm doing math — what can I spend, what can wait, what's actually necessary.\n\nI care about the environment. I watched that Netflix documentary about the ocean and I was genuinely upset. My son and I use refillable water bottles now. I try not to waste food. I don't think of these as environmental choices exactly — they're just sensible. Not wasting things is basic. But when something is specifically marketed as eco-friendly and costs more, I'm not the customer for that.\n\nI'm not indifferent to the environment. I'm not ignorant. I understand there are real problems. But when you're working part-time and raising a kid, the 25% more expensive version of dish soap is just not available to you. It's not a values question. It's an arithmetic question.\n\nI get a little irritated by the framing that buying sustainable products is a moral duty. Like, yes, I should care about the planet. But I also need to keep the lights on. Those don't feel like the same category to me. And I notice that the people who buy the sustainable stuff are usually the people who can afford it.\n\nI would genuinely like to make better choices. I've thought about it. But I also think the responsibility shouldn't fall on people like me — the companies and the government should be handling this, not asking families on tight budgets to pay extra. That's not how I'd design the system if I was in charge.\n\nI voted in the last election. I don't follow environmental policy closely, but I notice when gas prices go up.",
+
+  "key_attributes": {
+    "sustainability_concern": "moderate — genuine at an emotional level; not operationally prioritised due to economic constraint",
+    "premium_willingness": "very low — explicit economic barrier; sustainability premium is categorically unavailable at current income",
+    "greenwashing_scepticism": "moderate — less analytically engaged with brand claims; more practically indifferent",
+    "certification_response": "neutral — not a purchasing driver; credibility of label is secondary to price",
+    "attitude_behaviour_gap": "large — driven primarily by economic friction, not values misalignment",
+    "political_engagement": "votes; doesn't follow environmental policy"
+  },
+
+  "decision_bullets": [
+    "Will not pay sustainability premium on regular household goods — budget constraint is absolute",
+    "Makes low-cost sustainability choices where they overlap with frugality (reusable bottles, reducing waste)",
+    "Sees environmental responsibility as a systemic issue, not a personal consumer duty",
+    "Mild resentment toward framing that implies consumer choice is the primary lever",
+    "Emotional resonance with environmental issues exists but does not translate to premium spending"
+  ]
+}

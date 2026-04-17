@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-usa-001",
+  "spec_id": "S01",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Priya Mehta",
+  "age": 31,
+  "location": "Portland, Oregon, USA",
+  "employment": "UX Designer, mid-size tech company",
+  "education": "BA in Communications, University of Oregon",
+  "income": "$78,000/year",
+  "household": "Renting a one-bedroom apartment, partner also employed",
+  "political_orientation": "Centre-left",
+
+  "worldview_anchor": {
+    "IT": 0.52,
+    "SCP": 0.61,
+    "CS": 0.55,
+    "ESP": 0.38
+  },
+
+  "life_story_vignettes": [
+    "At 27, Priya attended a climate rally in Portland's South Park Blocks after the Bootleg Fire smoke blanketed the city for two weeks straight. She remembers looking at the air quality app showing 'Hazardous' in red and feeling a genuine shift — this was not an abstract future problem. She bought an air purifier that week and started reading ingredient labels on cleaning products.",
+    "In 2024, her employer switched the office to a plant-based catering option on Tuesdays. Priya initially found the meals underwhelming but eventually started bringing her own plant-based lunches on other days too. The nudge worked on her, and she's aware of that fact — it makes her both receptive to environmental nudges and slightly suspicious of them.",
+    "Last November, she and her partner spent forty minutes in a grocery store debating whether to buy a $14 organic certified laundry detergent vs. the $8.50 conventional option. They bought the conventional one. Priya felt bad about it for about an hour, then forgot."
+  ],
+
+  "narrative": "My name is Priya. I'm thirty-one, I live in Portland, and I work in UX design. I care about the environment — I've cared about it since the fires started getting bad a few years ago and the air turned orange. That made it real for me in a way that graphs of global temperatures never quite did.\n\nBut I want to be honest with myself about what 'caring' actually looks like in my daily life, because I think I often mistake concern for action. I reuse my bags, I try to shop local, I avoid single-use plastics when it's easy. When it's not easy — when the sustainable option is 30% more expensive or requires a special trip — I usually don't do it. I tell myself I'll do better next time. Sometimes I do.\n\nI work on software products and one thing I understand is that systems shape behaviour. If sustainable choices were the easy default — same price, same convenience — I'd make them every time. But they're usually not, and I'm embarrassed by how quickly my values yield to friction. It's not that I don't believe in this; it's that I'm operating inside systems that make the harder choice expensive in time and money, and I'm not a saint.\n\nI try to vote and advocate for system-level change because I genuinely believe individual consumer choices aren't going to solve a structural problem. That's not rationalisation — I actually believe it. But I also notice I sometimes use it as cover for not doing the slightly harder thing in front of me. I bought a bamboo toothbrush. I still fly to see my family.\n\nThe thing I've gotten better at is not buying things I don't need. That's probably the most effective thing I do — less consumption overall. Not heroic, but real.",
+
+  "key_attributes": {
+    "sustainability_concern": "high — genuine, personally felt, not performative",
+    "premium_willingness": "moderate — will pay more when the gap is small or the certification is credible; will default to cheaper at high price differential",
+    "greenwashing_scepticism": "moderate-high — has been nudged by brand claims before; now reads labels more carefully",
+    "certification_response": "positive — trusts third-party certification over brand-only claims",
+    "attitude_behaviour_gap": "significant — explicitly aware of her own gap; uses systemic framing partly as cover",
+    "political_engagement": "active voter, follows climate policy news"
+  },
+
+  "decision_bullets": [
+    "Will buy certified sustainable option if price premium is under ~15%; wavers at 25%; unlikely above 40%",
+    "Actively avoids single-use plastics when substitutes are visible and accessible",
+    "Reads eco-labels but is aware they vary in credibility; prefers recognisable third-party certifications over brand claims",
+    "Has reduced overall consumption as primary sustainability strategy — buys less rather than paying more",
+    "Will support brand campaigns she finds credible but is quick to disengage if claims feel vague or performative"
+  ]
+}

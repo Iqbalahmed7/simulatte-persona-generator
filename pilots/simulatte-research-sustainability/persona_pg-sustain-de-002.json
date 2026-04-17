@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-de-002",
+  "spec_id": "S03",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Tobias Lange",
+  "age": 41,
+  "location": "Munich, Germany",
+  "employment": "Sustainability lead, mid-size packaging company",
+  "education": "Diplom-Ingenieur (Environmental Engineering), TU Munich",
+  "income": "€72,000/year",
+  "household": "House with partner and two children (ages 8 and 11)",
+  "political_orientation": "Centre (SPD-leaning, pragmatically green)",
+
+  "worldview_anchor": {
+    "IT": 0.54,
+    "SCP": 0.62,
+    "CS": 0.64,
+    "ESP": 0.31
+  },
+
+  "life_story_vignettes": [
+    "Tobias led his company's transition to recyclable-only packaging in 2023 — a process that took two years of supplier negotiations and cost the company €1.2 million in initial investment. He is professionally immersed in the gap between sustainability ambition and operational reality. He knows which certifications mean something and which are essentially PR exercises.",
+    "His daughter came home from school in 2024 with a school project about the Aral Sea — he spent an evening explaining what happened and why. He said later that he felt the weight of his generation's responsibility more acutely than he had in years. He bought her a book about ecology.",
+    "He and his family spent a weekend volunteering at a local stream restoration project near Starnberg in the summer of 2025. His kids were initially unenthusiastic; by the end of the day they were the ones who didn't want to leave. He considers this one of his best parenting decisions."
+  ],
+
+  "narrative": "I'm Tobias. Forty-one, Munich, two kids, a job I took because I thought it would let me do something real. I work in sustainability at a packaging company, which means I spend my professional life trying to close the gap between what's possible and what the market actually rewards.\n\nFor me, sustainability is not a consumer choice. It's an engineering and systems problem. I find the framing of 'are you willing to pay more' slightly reductive, because the system should be priced to reflect real costs. It isn't, and until it is, I'll make personal choices that compensate at the margin.\n\nAt home, we've made real changes. Heat pump installed in 2022. Photovoltaics on the roof — covers about 60% of our electricity. We're mostly vegetarian — not completely, but the meat we eat we buy from a local farm where I know how it's raised. These decisions weren't agonising. They were straightforward once we did the analysis.\n\nOn premium products: I pay the premium routinely, for most categories. Twenty-five percent more for a certified product is inside my budget. I'd go higher. Where I draw the line is products where the certification is hollow — where the label is a marketing construct. My professional experience tells me which ones those are, which is both useful and sometimes exhausting.\n\nWhat I'm less certain about is air travel. We've cut it substantially but not eliminated it. We flew to Spain last summer. I bought carbon offsets, which I know are imperfect. It's not a comfortable position. I hold it honestly: I made a choice that's inconsistent with my stated priorities because the alternative was a 30-hour train journey with two children. I'll own that.\n\nThe sacrifice question is real for me. I've accepted quite a lot of personal inconvenience. There's a point beyond which I probably wouldn't go — I'm not certain exactly where it is, but it exists.",
+
+  "key_attributes": {
+    "sustainability_concern": "very high — professional and personal; technically informed; not naive about complexity",
+    "premium_willingness": "high — will pay substantial premium for credible certification; has real but high ceiling",
+    "greenwashing_scepticism": "very high — professionally literate; can distinguish credible from hollow certification",
+    "certification_response": "strongly positive and discriminating — certification quality matters, not just presence",
+    "attitude_behaviour_gap": "small but acknowledged — air travel is the live tension; does not paper over it",
+    "political_engagement": "moderate — informed voter; works through professional channels primarily"
+  },
+
+  "decision_bullets": [
+    "Pays premium routinely; threshold is credible third-party certification not brand marketing",
+    "Major structural investments (heat pump, solar) made; views these as primary contribution",
+    "Acknowledges air travel inconsistency openly; uses offsets while aware of their limits",
+    "Professional expertise allows him to identify hollow certifications — actively avoids greenwash",
+    "Has a real sacrifice ceiling — won't accept extreme inconvenience indefinitely; places it honestly"
+  ]
+}

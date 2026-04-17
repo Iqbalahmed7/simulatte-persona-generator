@@ -1,0 +1,158 @@
+{
+  "persona_id": "pg-rdn2-uk-007",
+  "generated_at": "2026-04-14T10:26:00Z",
+  "generator_version": "1.0",
+  "domain": "reuters-digital-news-usa-uk-v2",
+  "study_id": "STU_005_v2",
+  "cohort": "UK-S04",
+  "mode": "deep",
+
+  "demographic_anchor": {
+    "name": "Sian Griffiths",
+    "age": 49,
+    "gender": "female",
+    "location": {
+      "country": "United Kingdom",
+      "region": "Wales",
+      "city": "Cardiff",
+      "urban_tier": "metro"
+    },
+    "household": {
+      "structure": "nuclear",
+      "size": 4,
+      "income_bracket": "£42,000/year",
+      "dual_income": true
+    },
+    "life_stage": "mid-career, married with two children (secondary school age)",
+    "education": "bachelor's degree — nursing, Cardiff University",
+    "employment": "full-time — senior NHS nurse (ward sister), University Hospital of Wales"
+  },
+
+  "life_stories": [
+    {
+      "title": "Night shifts and the 3am BBC World Service",
+      "when": "age 25–40",
+      "event": "During the years she worked night shifts, Sian would listen to BBC World Service in the small hours — partly for company, partly out of genuine interest in what was happening globally. She found the international framing distinctive: less parochial than UK domestic news, more willing to provide geopolitical context. She developed an appreciation for international reporting and a mild frustration with UK news that assumes everything begins and ends in Westminster.",
+      "lasting_impact": "BBC trusted specifically for international coverage. Slight frustration with UK domestic political news parochialism. World Service habit long gone (she works days now) but the orientation toward international context has stayed."
+    },
+    {
+      "title": "NHS pay dispute — consuming news as a stakeholder",
+      "when": "age 47–49",
+      "event": "The NHS pay dispute over the past two years has made Sian a participant in a news story. She's been on picket lines, attended union meetings, and watched the coverage with the eye of someone who knows what's actually happening. She found the mainstream reporting — BBC included — frequently flattened the complexity of the dispute. She became a more active social media consumer during this period, following NHS workers' Twitter accounts and union official accounts that the mainstream press didn't feature prominently.",
+      "lasting_impact": "Personal involvement in a major news story has recalibrated her trust in mainstream media. She now has a stakeholder's scepticism — not cynicism, but the knowledge that she knows something the reporter doesn't. Social media use increased specifically for community-relevant professional news."
+    },
+    {
+      "title": "Raising bilingual children in Cardiff",
+      "when": "age 38–49",
+      "event": "Sian's children go to Welsh-medium schools. Cardiff's Welsh-language community has its own media ecosystem — S4C, BBC Wales, Welsh language social media — which Sian participates in partially. She reads some Welsh-language news, watches S4C occasionally, and follows the Welsh political landscape. This gives her a dual-frame perspective on UK news — she consumes it alongside Welsh-specific coverage and notices what UK national outlets miss or misframe about Wales.",
+      "lasting_impact": "Multi-frame news consumer with both UK national and Welsh-specific perspectives. BBC Wales and UK national BBC trusted differently — more trust for Welsh-specific coverage. Bilingual media consumption is unremarkable to her."
+    }
+  ],
+
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "status_quo_bias": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "information_need": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "values": {
+      "budget_consciousness": {"value": 0.58, "type": "continuous", "label": "moderate-high", "source": "anchored"},
+      "brand_loyalty": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "convenience_preference": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "civic_duty_orientation": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.58, "type": "continuous", "label": "moderate-high", "source": "inferred"}
+    },
+    "lifestyle": {
+      "perceived_time_scarcity": {"value": 0.72, "type": "continuous", "label": "high", "source": "anchored"},
+      "routine_adherence": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "simplicity_preference": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "digital_nativity": {"value": 0.58, "type": "continuous", "label": "moderate-high", "source": "anchored"}
+    },
+    "domain_specific": {
+      "news_trust_overall": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "news_avoidance_frequency": {"value": "sometimes", "type": "categorical", "label": "sometimes — avoids when NHS pay dispute coverage is frustrating or inaccurate", "source": "inferred"},
+      "avoidance_trigger": {"value": "partisanship", "type": "categorical", "label": "frustration with coverage of issues she's personally involved in — feels misrepresented", "source": "inferred"},
+      "primary_platform": {"value": "TV", "type": "categorical", "label": "BBC News (TV and app) + BBC Wales + S4C + Twitter/NHS workers community", "source": "inferred"},
+      "youtube_news_use": {"value": 0.12, "type": "continuous", "label": "very low", "source": "inferred"},
+      "podcast_news_use": {"value": 0.35, "type": "continuous", "label": "moderate — BBC podcasts; occasional nursing/healthcare podcasts", "source": "inferred"},
+      "social_media_news_use": {"value": 0.52, "type": "continuous", "label": "moderate — increased during NHS pay dispute", "source": "inferred"},
+      "mainstream_media_trust": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "social_media_news_trust": {"value": 0.38, "type": "continuous", "label": "low-moderate — NHS community accounts trusted; mainstream shares less so", "source": "inferred"},
+      "bbc_trust_level": {"value": 0.58, "type": "continuous", "label": "moderate-high — BBC as baseline trust with sector-specific reservations", "source": "inferred"},
+      "paid_subscription_held": {"value": "no", "type": "categorical", "label": "no paid news subscriptions", "source": "inferred"},
+      "ai_news_attitude": {"value": "ambivalent", "type": "categorical", "label": "ambivalent — healthcare AI familiar territory; news AI is different but not alarming", "source": "inferred"}
+    }
+  },
+
+  "derived_insights": {
+    "decision_style": "habitual",
+    "decision_style_score": 0.60,
+    "trust_anchor": "authority",
+    "risk_appetite": "medium",
+    "primary_value_orientation": "convenience",
+    "coping_mechanism": {
+      "type": "routine_control",
+      "description": "Sian maintains news consumption through the BBC as a reliable backdrop while supplementing with community sources when the domain is personally relevant. She manages frustration by switching to peer/community sources rather than withdrawing."
+    },
+    "consistency_score": 78,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Professional involvement in the NHS pay story has given her a stakeholder's lens that makes mainstream coverage frustrating — she knows the gap between reported and lived experience",
+      "BBC as trusted anchor coexists with clear-eyed acknowledgement that its coverage of NHS industrial action has been inadequate from her perspective"
+    ]
+  },
+
+  "narrative": "I used to work nights for fifteen years and the BBC World Service was company in the small hours. There's something about that international perspective — they'll actually explain what the geopolitical context is, rather than just assuming you already know why something matters. I still trust BBC, broadly. It's been there my whole working life. But the NHS pay dispute has been an education in watching yourself be covered. I've been on picket lines. I've been in the union meetings. I've watched the BBC news report and thought — that's not wrong exactly, but it's not the story either. So now I also follow several NHS workers' accounts and some union officials on Twitter, and they fill in what the mainstream doesn't. I'd never have done that three years ago. My news comes in through BBC TV and app, Radio Wales in the morning, occasional podcasts on the commute. YouTube for news — I genuinely can't think of the last time I watched news on YouTube. I might watch something if someone sent me a link. It's not where I'd go looking. I don't pay for any news subscriptions. Nursing salary, two teenagers in the house — there's not really room for that. The BBC licence fee is the subscription I pay. My Welsh is okay rather than fluent, but I'll read Welsh-language news sometimes — BBC Cymru, S4C. Cardiff is that kind of city. It gives you a different lens on what the London-based outlets think is happening in Wales.",
+
+  "decision_bullets": [
+    "BBC News (TV, app, Radio Wales) is the primary daily news platform — habitual and trusted as baseline.",
+    "NHS worker community Twitter accounts supplement BBC for professional domain coverage.",
+    "YouTube is not used for news — no habitual access; would only use if directly linked.",
+    "Podcast news use is moderate — BBC podcasts on commute; healthcare domain podcasts occasionally.",
+    "BBC trust is moderate-high overall but recalibrated downward for NHS industrial action coverage specifically.",
+    "No paid news subscriptions — BBC licence fee viewed as primary news subscription.",
+    "News avoidance is occasional and triggered by frustration with personal domain misrepresentation.",
+    "AI news summaries: healthcare AI context makes her less alarmed than most; open to adoption."
+  ],
+
+  "memory": {
+    "core_memory": {
+      "identity_statement": "NHS ward sister, Cardiff, £42k, BBC-primary consumer with community supplement, involved in NHS pay dispute, bilingual Welsh/English news context.",
+      "key_values": ["professional community trust", "civic engagement", "accurate representation of frontline experience"],
+      "life_defining_events": [
+        {"age_when": 30, "event": "Night shift BBC World Service habit; developed appreciation for international framing over UK parochialism", "lasting_impact": "Values international context in news; mild frustration with Westminster-centric UK coverage"},
+        {"age_when": 47, "event": "Active participation in NHS pay dispute; watched mainstream media flatten the story", "lasting_impact": "Stakeholder scepticism toward mainstream coverage of issues she directly experiences; community social media now supplementary"},
+        {"age_when": 38, "event": "Children in Welsh-medium school; absorbed into Cardiff's Welsh-language media ecosystem", "lasting_impact": "Dual-frame consumer — UK national and Welsh-specific news consumed together; BBC Wales trusted distinctly from BBC national"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "herself + NHS professional community",
+        "key_influencers": ["BBC news anchors (long-standing)", "NHS union officials (Twitter)", "BBC Wales/Radio Wales"],
+        "trust_network": ["BBC as institutional baseline", "NHS worker community accounts", "Welsh language media"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "£0 for news subscriptions",
+        "non_negotiables": ["BBC access", "NHS community news sources"],
+        "absolute_avoidances": ["YouTube as news source", "paid news subscriptions (budget)", "mainstream framing as sole source on NHS topics"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {
+      "current_turn": 0,
+      "importance_accumulator": 0.0,
+      "reflection_count": 0,
+      "awareness": {},
+      "consideration_set": [],
+      "last_decision": null
+    }
+  }
+}

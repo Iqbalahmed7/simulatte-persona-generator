@@ -95,6 +95,11 @@ def load_envelope(path: str | Path) -> Any:
     with open(resolved, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    # Handle CLI-saved files: {"envelope": {...}, "sarvam_enrichment": [...]}
+    # load_envelope expects the inner CohortEnvelope dict directly.
+    if "envelope" in data and isinstance(data["envelope"], dict):
+        data = data["envelope"]
+
     # Pre-process working memory fields before full Pydantic validation so that
     # archival-extended personas survive the round-trip.
     for persona_data in data.get("personas", []):

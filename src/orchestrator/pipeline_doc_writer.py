@@ -52,10 +52,13 @@ class PipelineDocWriter:
         out_dir.mkdir(parents=True, exist_ok=True)
 
         date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-        safe_client = self.brief.client.replace(" ", "_").lower()
+        safe_client = (
+            self.brief.client.replace(" ", "_").replace("/", "-").replace("\\", "-").lower()
+        )
         filename = f"{safe_client}_{date_str}_{self.result.run_id[-8:]}.md"
         path = out_dir / filename
 
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(self._render())
         return path
 

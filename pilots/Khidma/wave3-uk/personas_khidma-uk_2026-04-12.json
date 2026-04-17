@@ -1,0 +1,1322 @@
+{
+  "cohort_id": "cohort-khidma-uk-20260412",
+  "generated_at": "2026-04-12T00:00:00Z",
+  "domain": "muslim-mental-health-uk",
+  "business_problem": "Whether a British Muslim user will book a Sakeen session, refer it, or engage via a growth channel",
+  "mode": "simulation-ready",
+  "taxonomy_used": {
+    "categories": [
+      "islamic_practice_identity",
+      "mental_health_help_seeking",
+      "trust_verification",
+      "privacy_community",
+      "economics_price",
+      "decision_psychology",
+      "channel_discovery"
+    ],
+    "total_attributes": 28,
+    "domain_data_used": false
+  },
+  "personas": [
+    {
+      "persona_id": "pg-khidma-uk-s01",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S01",
+      "demographic_anchor": {
+        "name": "Amina Patel",
+        "age": 31,
+        "gender": "female",
+        "location": {
+          "country": "United Kingdom",
+          "region": "West Midlands",
+          "city": "Birmingham",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "married with one child",
+          "size": 3,
+          "income_bracket": "£32,000–£42,000 household",
+          "dual_income": true
+        },
+        "life_stage": "early parenthood, identity consolidation",
+        "education": "BSc Biomedical Science, University of Birmingham",
+        "employment": "NHS medical records administrator, part-time",
+        "worldview": {
+          "institutional_trust": 0.62,
+          "social_change_pace": 0.44,
+          "collectivism_score": 0.81,
+          "economic_security_priority": 0.72,
+          "religious_salience": 0.82
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The halaqah that changed everything",
+          "when": "Age 24, 2018",
+          "event": "Amina joined a women's halaqah circle in Alum Rock run by a local female scholar. Within six months she became one of the regular hosts, rotating it through her terraced house on Coventry Road. The group became her primary social fabric outside family.",
+          "lasting_impact": "Community belonging is now inseparable from spiritual identity. She trusts people she has sat in the same halaqah circle with at a qualitatively different level to everyone else."
+        },
+        {
+          "title": "Post-natal fog nobody named",
+          "when": "Age 29, 2023",
+          "event": "After the birth of her son Yunus, Amina experienced six months of low mood, disconnection from her husband, and a sense of spiritual emptiness she could not explain to her GP. The GP offered antidepressants. She did not fill the prescription. She eventually confided in one woman from the halaqah — not the group, just her — who listened for two hours.",
+          "lasting_impact": "She knows private, one-to-one disclosure works for her. She also knows the NHS does not understand the religious dimension. She has quietly researched Islamic counselling twice since."
+        },
+        {
+          "title": "The WhatsApp forward she almost sent",
+          "when": "Age 30, 2024",
+          "event": "A friend shared a Sakeen (then Khidma) link in a private message. Amina clicked, read the scholar bio, thought 'this is what I needed', then sat on it for three weeks before the moment passed.",
+          "lasting_impact": "She is aware Sakeen exists but has not converted. She would have converted if the friend had also said 'I tried it'. She is now in the position of being the friend who could say that to someone else — if she tried it."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.82,
+          "practice_regularity": 0.78,
+          "islamic_knowledge_depth": 0.61,
+          "community_mosque_attachment": 0.74,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.55,
+          "stigma_internalization": 0.64,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.42,
+          "crisis_threshold": 0.68
+        },
+        "trust_verification": {
+          "institutional_trust": 0.62,
+          "peer_trust_dominance": 0.81,
+          "verification_thoroughness": 0.48,
+          "scholar_authority_deference": 0.77,
+          "regulatory_credential_value": 0.55
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.86,
+          "privacy_concern_intensity": 0.72,
+          "reputation_sensitivity": 0.68,
+          "digital_privacy_awareness": 0.67
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.38,
+          "price_elasticity": 0.72,
+          "value_framing": "investment",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.44,
+          "avoidance_pattern": 0.61,
+          "social_validation_need": 0.78,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.71,
+          "information_need": 0.45
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.42,
+          "community_referral_trust": 0.88,
+          "online_discovery_comfort": 0.58,
+          "social_proof_bias": 0.76
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "communal disclosure",
+          "description": "Processes difficulty by privately confiding in one trusted woman from the halaqah rather than seeking formal help or suppressing entirely"
+        },
+        "consistency_score": 81,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Wants to privately refer Sakeen to a struggling friend but fears that even private WA disclosure implies she has personal experience",
+          "Values religious dimension in counselling deeply yet NHS framing is her default reference point for what counts as legitimate"
+        ]
+      },
+      "narrative": "I don't really use the word 'therapy' to be honest. It sounds very White, very Western — like something from a Channel 4 documentary. What I understand is that sometimes your heart gets heavy and you need someone who understands both sides: the deen side and the human side. My GP, bless him, he referred me to IAPT after Yunus was born. I sat in that waiting room on Stratford Road once, looked at the posters about CBT and mindfulness, and thought, none of this speaks to me. I never went back. What helped was Hafsa from my halaqah sitting in my kitchen for two hours and just listening in the way that only another Muslim woman who has been through it can listen.\n\nI know Sakeen exists. I know there are scholars and BACP-registered counsellors on the platform. I read the website properly that time my friend sent the link. I thought — actually, this is intelligent. They understand that I am not just a person with anxiety, I am a Muslim woman with a particular way of understanding the world. But I did not book. I kept waiting. Waiting for what, I don't know. Some kind of sign maybe, or for someone I trust to say 'I did this and it was fine'.\n\nThe thing is, I would never bring it up in halaqah. Not even as a question. Someone would tell someone and it would travel. In our community, looking for a counsellor reads as 'there is something seriously wrong in that house.' That is not what I want people to think about my marriage. But privately — if one of the sisters came to me at two in the morning on WhatsApp — I would send her the link. I would say 'I looked into this seriously.' I think that is worth something. The question is whether I can honestly say that in six months, after I have actually done it myself.",
+      "decision_bullets": [
+        "Will only book if she has a private one-to-one referral from someone she trusts in her halaqah circle — not a group forward",
+        "NHS is default legitimacy reference; any private service must feel at least as credible as IAPT, not more expensive without reason",
+        "Price at £35–45 is within range but will create 3–4 week delay while she convinces herself it is justified",
+        "Scholar credential (Makkah/Madinah trained) is a significant conversion factor — she will read that bio carefully",
+        "WhatsApp as a booking/delivery channel creates mild friction (feels informal) but she will accept if the pre-session communication looks professional",
+        "Will become a private WOM carrier if she books and it works; has at least 3 women in her network she would privately refer"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.22,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.72,
+          "band": "high",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.58,
+          "peer": 0.88,
+          "brand": 0.31,
+          "ad": 0.14,
+          "community": 0.82,
+          "dominant_anchor": "peer",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "privacy / community exposure",
+            "probability": 0.78,
+            "severity": "high",
+            "addressability": "medium — addressable by emphasising platform confidentiality and no community disclosure"
+          },
+          {
+            "objection_type": "price justification",
+            "probability": 0.65,
+            "severity": "medium",
+            "addressability": "high — first session pricing or clear value framing resolves"
+          },
+          {
+            "objection_type": "WhatsApp channel informality",
+            "probability": 0.44,
+            "severity": "low-medium",
+            "addressability": "high — professional pre-session communication resolves"
+          },
+          {
+            "objection_type": "no personal proof / waiting for validation",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "medium — testimonials from UK Muslim women could partially substitute"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a British Muslim woman, mother, and halaqah host — my faith, my community, and my family are one inseparable thing.",
+          "key_values": ["community loyalty", "private dignity", "faith-integrated healing"],
+          "life_defining_events": [
+            { "age_when": 24, "event": "Joined Alum Rock halaqah — became host within six months", "lasting_impact": "Community as primary trust network" },
+            { "age_when": 29, "event": "Post-natal low mood; NHS IAPT felt alien; halaqah sister rescued her", "lasting_impact": "Only faith-integrated, peer-endorsed support feels real" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "husband (consulted but not the deciding voice)",
+            "key_influencers": ["Hafsa (halaqah sister)", "mother-in-law", "halaqah female scholar"],
+            "trust_network": ["halaqah circle (6 women)", "childhood friends in Small Heath"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "£50/session absolute maximum without husband discussion",
+            "non_negotiables": ["confidentiality guarantee", "female practitioner if counsellor route"],
+            "absolute_avoidances": ["any group-visible disclosure", "mixed-gender counselling session"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uk-s02",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S02",
+      "demographic_anchor": {
+        "name": "Tariq Mahmood",
+        "age": 41,
+        "gender": "male",
+        "location": {
+          "country": "United Kingdom",
+          "region": "Greater London",
+          "city": "London",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "married, two children",
+          "size": 4,
+          "income_bracket": "£95,000–£130,000 household",
+          "dual_income": true
+        },
+        "life_stage": "established professional, community leadership",
+        "education": "LLB Law, University of Leeds; LPC Nottingham Law School",
+        "employment": "Senior Associate, commercial law firm, City of London",
+        "worldview": {
+          "institutional_trust": 0.61,
+          "social_change_pace": 0.38,
+          "collectivism_score": 0.58,
+          "economic_security_priority": 0.55,
+          "religious_salience": 0.65
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The colleague who recommended the wrong therapist",
+          "when": "Age 36, 2020",
+          "event": "A non-Muslim colleague recommended a life coach who turned out to have no recognised credentials and whose invoices were addressed to a company that no longer existed at Companies House. Tariq spent two weeks researching before declining. The episode crystallised his due-diligence reflex.",
+          "lasting_impact": "Every service he now considers — especially health-adjacent — gets a Companies House check, a regulatory register check, and a Google footprint audit. He has walked away from perfectly good services because a LinkedIn profile felt thin."
+        },
+        {
+          "title": "Father's breakdown, unnamed",
+          "when": "Age 22, 2006",
+          "event": "Tariq's father had what the family described as 'a difficult year' — in retrospect, a moderate depressive episode following redundancy. It was handled through family prayer, extended-family dinners, and quiet GP medication that was never discussed openly. No one used the word mental health.",
+          "lasting_impact": "He intellectually accepts that mental health is real and treatable. He has never once called it by name in front of his children. The family model is containment, not disclosure."
+        },
+        {
+          "title": "Sharing Sakeen in the Muslim Lawyers network",
+          "when": "Age 40, 2025",
+          "event": "Tariq encountered Sakeen through a LinkedIn post from a UK Muslim professional network. He clicked the website, found the BACP credential reference credible, then went to check whether the counsellors were individually listed on the BACP register. They were not individually named on the landing page. He bookmarked the site and sent an enquiry email. Never received a reply within 48 hours. He moved on.",
+          "lasting_impact": "Sakeen is in his mental 'possibly legitimate' file but not his 'share with confidence' file. He will not recommend a service in his professional Muslim network without being able to vouch for its accountability. One unanswered email is a near-disqualifying signal."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.65,
+          "practice_regularity": 0.60,
+          "islamic_knowledge_depth": 0.52,
+          "community_mosque_attachment": 0.48,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.71,
+          "stigma_internalization": 0.55,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.32,
+          "crisis_threshold": 0.74
+        },
+        "trust_verification": {
+          "institutional_trust": 0.61,
+          "peer_trust_dominance": 0.45,
+          "verification_thoroughness": 0.91,
+          "scholar_authority_deference": 0.52,
+          "regulatory_credential_value": 0.84
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.52,
+          "privacy_concern_intensity": 0.61,
+          "reputation_sensitivity": 0.74,
+          "digital_privacy_awareness": 0.82
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.78,
+          "price_elasticity": 0.28,
+          "value_framing": "investment",
+          "eap_access": "yes"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.58,
+          "avoidance_pattern": 0.52,
+          "social_validation_need": 0.38,
+          "masculine_stigma_barrier": 0.64,
+          "emotional_persuasion_susceptibility": 0.28,
+          "information_need": 0.88
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.28,
+          "community_referral_trust": 0.55,
+          "online_discovery_comfort": 0.74,
+          "social_proof_bias": 0.38
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "research-as-control",
+          "description": "When stressed, conducts extensive due diligence on potential solutions — the research process itself provides a sense of agency and delays the vulnerability of actually committing"
+        },
+        "consistency_score": 88,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Intellectually champions mental health support for others in his professional Muslim network but personal use requires a private, non-disclosed pathway that does not yet exist for him",
+          "Price is not the barrier — accountability is; yet his verification standard may be functionally impossible for a young platform to meet"
+        ]
+      },
+      "narrative": "I deal in risk every day. A client's commercial liability, a deal that could unravel at due diligence. I apply the same discipline to everything I put my name to. If someone in my Muslim Lawyers WhatsApp group asked me tomorrow 'is Sakeen legitimate?' I would not say yes or no based on a well-designed website. I would say: who are the counsellors, are they individually on the BACP register, who is the registered company, what is the ICO registration number, what is the complaints process, who is the clinical supervisor? Those are not hostile questions. Those are the questions that protect the person who takes the recommendation.\n\nThe Islamic dimension genuinely appeals to me. I have watched too many colleagues go through secular CBT and come out the other side still missing something. There is a vocabulary we have — tawakkul, sabr, the concept of the nafs — that a secular therapist has no access to. A Makkah-trained scholar who can hold that alongside clinical training? That is genuinely differentiated. But differentiated in concept is not the same as verified in practice.\n\nI know I have EAP through the firm. I have never used it. The idea of my employer's HR data pipeline touching my mental health notes is not something I would consider. I would pay privately, full rate, no problem. But I would pay privately to a service I can independently verify. That is the gap Sakeen currently sits in for me. I want to recommend it. I cannot yet. And the unanswered email from 2025 is still sitting in my sent folder, which is not a good sign.",
+      "decision_bullets": [
+        "Will not recommend to his professional Muslim network without verified BACP individual registration, named UK-registered company, and functional complaints email",
+        "Price is not a barrier — £75/session is fine; absence of verifiable accountability is the conversion blocker",
+        "EAP access exists but is a strong privacy disqualifier; would pay privately without hesitation if trust threshold cleared",
+        "WhatsApp delivery channel is a near-disqualifier for professional referral context; would accept secure portal or phone",
+        "Scholar credential appeals strongly at an intellectual level but does not substitute for clinical regulatory verification",
+        "Unanswered enquiry email is a near-disqualifying signal — responsiveness within 24 hours is a proxy for operational credibility"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.14,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.28,
+          "band": "low",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.84,
+          "peer": 0.45,
+          "brand": 0.38,
+          "ad": 0.08,
+          "community": 0.42,
+          "dominant_anchor": "expert",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "unverifiable regulatory accountability",
+            "probability": 0.91,
+            "severity": "high",
+            "addressability": "medium — individual BACP register listings and ICO registration number would resolve substantially"
+          },
+          {
+            "objection_type": "operational unresponsiveness (unanswered email)",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high — SLA-committed response policy and direct contact visible on site"
+          },
+          {
+            "objection_type": "WhatsApp as delivery channel",
+            "probability": 0.72,
+            "severity": "medium-high",
+            "addressability": "medium — encrypted alternative or professional portal needed for his endorsement"
+          },
+          {
+            "objection_type": "masculine identity / self-disclosure",
+            "probability": 0.58,
+            "severity": "medium",
+            "addressability": "low — this operates below conscious reasoning"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a City solicitor, British Muslim, father — I verify everything before I put my name to it because my word is my professional collateral.",
+          "key_values": ["intellectual rigour", "professional accountability", "faith as private discipline"],
+          "life_defining_events": [
+            { "age_when": 22, "event": "Father's unnamed depressive episode — family handled through containment, not disclosure", "lasting_impact": "Mental health is real but stays private; disclosure is a last resort" },
+            { "age_when": 36, "event": "Unqualified life coach recommended by colleague; due-diligence reflex crystallised", "lasting_impact": "Every service gets a regulatory and Companies House check before trust is extended" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self (does not consult wife on professional referrals)",
+            "key_influencers": ["Muslim Lawyers Network peers", "law school friend who became a GP"],
+            "trust_network": ["3–4 trusted professional Muslim peers", "older brother in Manchester"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "no ceiling if accountability verified",
+            "non_negotiables": ["independently verifiable practitioner credentials", "data privacy from employer", "functional complaints pathway"],
+            "absolute_avoidances": ["EAP for personal use", "any service he cannot verify before recommending", "group-visible personal disclosure"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uk-s03",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S03",
+      "demographic_anchor": {
+        "name": "Saima Hussain",
+        "age": 34,
+        "gender": "female",
+        "location": {
+          "country": "United Kingdom",
+          "region": "Greater Manchester",
+          "city": "Manchester",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "married, no children yet",
+          "size": 2,
+          "income_bracket": "£38,000–£52,000 household",
+          "dual_income": true
+        },
+        "life_stage": "establishing career, deferred family decisions, social identity flux",
+        "education": "BA Sociology, University of Manchester",
+        "employment": "Community engagement officer, local council, Rochdale",
+        "worldview": {
+          "institutional_trust": 0.48,
+          "social_change_pace": 0.55,
+          "collectivism_score": 0.67,
+          "economic_security_priority": 0.61,
+          "religious_salience": 0.54
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The sisters group that turned into a sales pitch",
+          "when": "Age 28, 2019",
+          "event": "A halaqah sister invited Saima to what was described as a 'wellbeing gathering'. It turned out to be an Arbonne introduction event. Four women from the circle were distributors. Saima left halfway through. She did not return to that halaqah.",
+          "lasting_impact": "She has a finely tuned antenna for when community sharing shades into product distribution. Any structured referral dynamic in a Muslim women's network now triggers pattern recognition. She distinguishes sharply between organic recommendation and organised promotion."
+        },
+        {
+          "title": "The anxiety that HR called burnout",
+          "when": "Age 31, 2022",
+          "event": "Saima had four months of persistent anxiety and sleep problems following a difficult council reorganisation. HR referred her to the EAP service. She completed three sessions with a counsellor called Sandra who was competent but who, on their second session, said 'so what does fasting actually involve?' Saima finished the course and felt somewhat better, but the disconnection was real.",
+          "lasting_impact": "She knows secular therapy can work practically. She also knows it misses something. She is more open to Islamic counselling than she lets on — but suspicious of over-spiritualised framings that feel like religious framing of her anxiety to avoid naming it properly."
+        },
+        {
+          "title": "The stigma conversation she started on Twitter",
+          "when": "Age 33, 2024",
+          "event": "Saima posted a thread on X about mental health stigma in British South Asian communities. It got 340 likes and a hostile reply from her cousin. The cousin's mother subsequently rang Saima's mother. The episode illustrated, in real time, the privacy cost of public disclosure in her network.",
+          "lasting_impact": "She is publicly literate about mental health but privately guarded about her own. She would engage with a service like Sakeen quietly, independently, not as part of a visible community recommendation chain."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.54,
+          "practice_regularity": 0.50,
+          "islamic_knowledge_depth": 0.38,
+          "community_mosque_attachment": 0.41,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.74,
+          "stigma_internalization": 0.58,
+          "help_seeking_history": "tried_nhs",
+          "self_disclosure_comfort": 0.45,
+          "crisis_threshold": 0.52
+        },
+        "trust_verification": {
+          "institutional_trust": 0.48,
+          "peer_trust_dominance": 0.52,
+          "verification_thoroughness": 0.61,
+          "scholar_authority_deference": 0.41,
+          "regulatory_credential_value": 0.67
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.58,
+          "privacy_concern_intensity": 0.71,
+          "reputation_sensitivity": 0.64,
+          "digital_privacy_awareness": 0.75
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.44,
+          "price_elasticity": 0.61,
+          "value_framing": "cost",
+          "eap_access": "yes"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.48,
+          "avoidance_pattern": 0.44,
+          "social_validation_need": 0.62,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.55,
+          "information_need": 0.58
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.38,
+          "community_referral_trust": 0.44,
+          "online_discovery_comfort": 0.71,
+          "social_proof_bias": 0.52
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "public advocacy / private avoidance",
+          "description": "Addresses community mental health stigma publicly and intellectually while privately deferring her own help-seeking — the public role substitutes for personal action"
+        },
+        "consistency_score": 77,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Has experienced EAP therapy and knows it works mechanically — but suspicious that Sakeen's Islamic framing might be spiritualising her anxiety rather than treating it",
+          "MLM-antenna fires on any structured community referral mechanic even when the underlying product is legitimate; must discover Sakeen independently to trust it"
+        ]
+      },
+      "narrative": "I work in community engagement for a living. I can tell within about four minutes whether someone is genuinely sharing something they found useful or whether they are working a room. And I have seen that dynamic in Muslim spaces too often. The Arbonne thing — I still wince. Four women from a halaqah I trusted, and they were all distributors. I left during the break and didn't go back.\n\nSo when someone in a WhatsApp group forwards a service link with a lot of enthusiasm, my first thought is: who sent this and what are they getting out of it? That is not cynicism, that is pattern recognition. The fact that the service is Islamic doesn't make me less suspicious. If anything, it raises the stakes because using religious identity to sell something is its own category of uncomfortable.\n\nWith Sakeen specifically — I know the basic offer and I think it is sensible. Scholar plus counsellor, WhatsApp delivery, flexible pricing. I have actually been to the website independently. The counsellors have BACP credentials, which I checked because Sandra from the EAP being competent but clueless about Ramadan is still fresh. The Islamic dimension genuinely matters to me — but I want it integrated intelligently, not as a substitute for clinical rigour.\n\nIf I were to book, I would do it myself, quietly, having found it through a Google search or an Instagram ad. Not because someone pushed it to me in a sisters' group. And I would not tell my mother. Not because I'm ashamed — I talked about mental health publicly on Twitter. But because in my community, your mother knowing is the same as everyone knowing.",
+      "decision_bullets": [
+        "MLM-pattern antenna fires on any structured community referral — must discover Sakeen independently via organic search or social ad to trust it",
+        "BACP credential is necessary but not sufficient; wants to see it integrated with clinical language, not Islamic framing as emotional override",
+        "EAP exists and she has used it — Sakeen must articulate why faith-integrated is better, not just different",
+        "Will not disclose personal use in any community channel; private, independent booking pathway is essential",
+        "Price at £35 is borderline acceptable; would prefer a subsidised first session to validate the value before committing",
+        "Instagram or targeted online discovery is her natural entry point — not community WOM, not WhatsApp forward"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.27,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.61,
+          "band": "medium",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.67,
+          "peer": 0.44,
+          "brand": 0.41,
+          "ad": 0.38,
+          "community": 0.28,
+          "dominant_anchor": "self",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "MLM / organised referral pattern suspicion",
+            "probability": 0.74,
+            "severity": "high",
+            "addressability": "medium — independent discovery channels bypass this entirely; community push amplifies it"
+          },
+          {
+            "objection_type": "Islamic framing as clinical substitute",
+            "probability": 0.62,
+            "severity": "medium-high",
+            "addressability": "high — evidence of clinical integration (not just spiritual framing) resolves"
+          },
+          {
+            "objection_type": "EAP already available",
+            "probability": 0.55,
+            "severity": "medium",
+            "addressability": "high — clear articulation of faith-integrated difference vs secular EAP"
+          },
+          {
+            "objection_type": "price vs EAP free-at-point-of-use",
+            "probability": 0.61,
+            "severity": "medium",
+            "addressability": "high — intro session pricing or money-back reduces activation energy"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a community professional who champions mental health openly while navigating my own needs very privately — these two things coexist uneasily.",
+          "key_values": ["intellectual integrity", "privacy as self-protection", "authentic community not transactional community"],
+          "life_defining_events": [
+            { "age_when": 28, "event": "Arbonne halaqah incident — trusted community space became product distribution", "lasting_impact": "Permanent antenna for structured referral dynamics in Muslim spaces" },
+            { "age_when": 31, "event": "EAP therapy with culturally disconnected counsellor Sandra", "lasting_impact": "Secular therapy works mechanically; Islamic integration genuinely valued but must be rigorous" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["colleagues in community sector", "Twitter/X mental health discourse"],
+            "trust_network": ["two university friends", "older sister in Bradford (not told about EAP)"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "£45/session; EAP as backstop comparison",
+            "non_negotiables": ["independent discovery pathway", "clinical credentials alongside Islamic framing"],
+            "absolute_avoidances": ["community-visible referral chain", "spiritualising without clinical grounding"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uk-s04",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S04",
+      "demographic_anchor": {
+        "name": "Yasmin Al-Rasheed",
+        "age": 36,
+        "gender": "female",
+        "location": {
+          "country": "United Kingdom",
+          "region": "Greater London",
+          "city": "London",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "single, living alone",
+          "size": 1,
+          "income_bracket": "£72,000–£95,000",
+          "dual_income": false
+        },
+        "life_stage": "established professional, high autonomy, deferred personal disclosure",
+        "education": "MEng Engineering, Imperial College London; MBA, London Business School",
+        "employment": "Senior Manager, global management consulting firm, Canary Wharf",
+        "worldview": {
+          "institutional_trust": 0.74,
+          "social_change_pace": 0.62,
+          "collectivism_score": 0.44,
+          "economic_security_priority": 0.38,
+          "religious_salience": 0.51
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The ERG she quietly built",
+          "when": "Age 32, 2022",
+          "event": "Yasmin co-founded her firm's Muslim ERG after noticing that Ramadan adjustments were handled ad hoc and inconsistently across offices. Within eighteen months the ERG had 140 members and a formal firm partnership with a halal food delivery service. She is chair.",
+          "lasting_impact": "She has learned to package personal and community needs in institutional language. ERG is her primary lever for change that she is comfortable with. She thinks in terms of scale and policy, not individual advocacy."
+        },
+        {
+          "title": "The therapist she saw for eleven months",
+          "when": "Age 33–34, 2023–2024",
+          "event": "Yasmin saw a private BACP-accredited therapist on Harley Street for eleven months — self-referred, self-paid, never mentioned at work. The therapist was excellent technically. Yasmin found herself editing what she said in sessions, omitting references to her faith, her relationship with her parents' marriage expectations, her identity as a Muslim woman in a predominantly non-Muslim professional space.",
+          "lasting_impact": "She knows what good therapy looks like. She also knows what is missing when the practitioner has no cultural frame of reference. This has primed her for a faith-integrated offering — but she would never disclose personal therapy use in a work context."
+        },
+        {
+          "title": "The ERG card concept",
+          "when": "Age 35, 2025",
+          "event": "Yasmin attended a conference on workplace mental health and picked up a card from a Muslim HR network listing culturally sensitive counselling resources. She kept it. She has since thought about creating an equivalent resource card for her ERG — a curated list of Muslim-specific mental health services she could put on a resource board without any personal disclosure.",
+          "lasting_impact": "Institutional framing is the channel through which she would make Sakeen visible to her network. Not personal endorsement. Not WhatsApp. An ERG resource card or digital equivalent, under the ERG's institutional authority."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.51,
+          "practice_regularity": 0.46,
+          "islamic_knowledge_depth": 0.42,
+          "community_mosque_attachment": 0.28,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.88,
+          "stigma_internalization": 0.34,
+          "help_seeking_history": "tried_private",
+          "self_disclosure_comfort": 0.22,
+          "crisis_threshold": 0.35
+        },
+        "trust_verification": {
+          "institutional_trust": 0.81,
+          "peer_trust_dominance": 0.34,
+          "verification_thoroughness": 0.77,
+          "scholar_authority_deference": 0.36,
+          "regulatory_credential_value": 0.88
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.31,
+          "privacy_concern_intensity": 0.81,
+          "reputation_sensitivity": 0.68,
+          "digital_privacy_awareness": 0.84
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.88,
+          "price_elasticity": 0.14,
+          "value_framing": "investment",
+          "eap_access": "yes"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.35,
+          "avoidance_pattern": 0.41,
+          "social_validation_need": 0.21,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.38,
+          "information_need": 0.71
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.28,
+          "community_referral_trust": 0.28,
+          "online_discovery_comfort": 0.88,
+          "social_proof_bias": 0.25
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "authority",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "institutional sublimation",
+          "description": "Channels personal needs and community advocacy through institutional structures (ERG, policy, resource curation) — the institutional role provides legitimate distance from personal disclosure"
+        },
+        "consistency_score": 85,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Has already accessed private therapy and knows the gap — is highly motivated to use Sakeen personally but would never disclose use in any professional or community context",
+          "High self-disclosure comfort for her own help-seeking decisions but self_disclosure_comfort score of 0.22 reflects terror of professional exposure — these operate in different domains"
+        ]
+      },
+      "narrative": "I have been in therapy. Proper therapy, privately, Harley Street prices. I know what I am doing when it comes to finding and vetting practitioners. I know what BACP accreditation means, I know what supervision means, I know the difference between a counsellor and a psychotherapist. What I found, after eleven months with a technically excellent therapist, was that there was a ceiling I kept hitting. She was superb at CBT techniques. She had no language for what it means to carry a dual identity — the professional Muslim woman in a non-Muslim workplace — and I spent half my sessions silently censoring myself.\n\nI would not tell anyone at work that I am considering Sakeen for myself. My EAP is sitting there unused for exactly this reason — the idea of my mental health being anywhere in my employer's data architecture is a hard no. I am the Muslim ERG chair. I cannot be simultaneously visibly struggling. Those two things do not coexist in a consulting firm.\n\nWhat I can do is put Sakeen on an ERG resource card. I do this already with other services — halal food delivery, prayer room directories, Ramadan toolkit resources. A mental health card fits the same format. I could list it as a curated community resource, verify the credentials myself, add it to our digital resource board. Nobody has to know it came from personal interest. The institutional cover is real and it is useful.\n\nThe WhatsApp delivery thing — I would need to think about that. My therapy was video and phone through a clinic portal. WhatsApp feels like my mother asking if I have eaten. I am not sure I can make that cognitive transition easily for something as significant as a counselling session.",
+      "decision_bullets": [
+        "Personal use is highly probable if Sakeen clears regulatory bar and explicitly explains data separation from employer (ICO registration visible)",
+        "Will not use EAP — data privacy from employer is non-negotiable; will pay £75/session privately without hesitation",
+        "ERG resource card is her primary referral vector — institutional framing, not personal endorsement; needs a B2B or ERG partnership pathway",
+        "WhatsApp delivery requires a cognitive frame shift; would prefer a secure portal or video call option alongside",
+        "Verification standard is high but she knows what to look for — BACP individual registration, ICO number, named supervisor on website",
+        "Has already been in private therapy — is not a novice; Sakeen's pitch must speak to someone who understands the landscape, not someone being introduced to therapy for the first time"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.41,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.14,
+          "band": "low",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.88,
+          "peer": 0.28,
+          "brand": 0.44,
+          "ad": 0.18,
+          "community": 0.21,
+          "dominant_anchor": "expert",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "employer data privacy / EAP data pipeline",
+            "probability": 0.81,
+            "severity": "high",
+            "addressability": "high — explicit ICO registration number and data separation statement resolves"
+          },
+          {
+            "objection_type": "WhatsApp delivery channel for professional therapeutic context",
+            "probability": 0.68,
+            "severity": "medium",
+            "addressability": "medium — secure portal alternative would resolve; WhatsApp for admin only could be acceptable"
+          },
+          {
+            "objection_type": "no ERG / institutional B2B pathway",
+            "probability": 0.72,
+            "severity": "medium-high",
+            "addressability": "high — ERG partnership or resource listing programme is high ROI for this persona type"
+          },
+          {
+            "objection_type": "pitch aimed at therapy novice not therapy-literate professional",
+            "probability": 0.55,
+            "severity": "medium",
+            "addressability": "high — segment-aware messaging for therapy-experienced users"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a Muslim woman in a non-Muslim professional world — I navigate that daily and I have learned to use institutional structures to advance what I cannot advance personally.",
+          "key_values": ["institutional credibility", "data sovereignty", "faith as private anchor"],
+          "life_defining_events": [
+            { "age_when": 33, "event": "Eleven months of private BACP therapy — effective but culturally incomplete", "lasting_impact": "Clear need for faith-integrated practitioner; clear understanding of what good therapy looks like" },
+            { "age_when": 32, "event": "Founded Muslim ERG at consulting firm", "lasting_impact": "Institutional framing is the legitimate channel for personal and community needs in professional context" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["former therapist (indirect)", "Muslim professional peers in ERG", "HR director who is a supporter"],
+            "trust_network": ["university friend from Imperial", "older brother in Dubai"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "no ceiling",
+            "non_negotiables": ["data separated from employer", "individually verified BACP practitioner", "option beyond WhatsApp for session delivery"],
+            "absolute_avoidances": ["EAP", "any disclosure in professional setting of personal mental health use", "scholar-only route without clinical grounding"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uk-s05",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S05",
+      "demographic_anchor": {
+        "name": "Imaan Khalil",
+        "age": 38,
+        "gender": "female",
+        "location": {
+          "country": "United Kingdom",
+          "region": "Greater London",
+          "city": "London",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "married, one child (age 4)",
+          "size": 3,
+          "income_bracket": "£68,000–£88,000 household",
+          "dual_income": true
+        },
+        "life_stage": "mid-career consolidation, parental identity, therapy-recurrent",
+        "education": "MSc Clinical Psychology (unfinished), University of East London; BA Psychology, King's College London",
+        "employment": "Senior policy analyst, NHS England (mental health policy team)",
+        "worldview": {
+          "institutional_trust": 0.68,
+          "social_change_pace": 0.58,
+          "collectivism_score": 0.55,
+          "economic_security_priority": 0.48,
+          "religious_salience": 0.66
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The IAPT placement that broke her optimism",
+          "when": "Age 25, 2013",
+          "event": "During her part-completed MSc, Imaan did a placement in an NHS IAPT service in Lewisham. The volume, the six-session maximum, the way complex presentations were triaged into brief intervention — it was effective at scale and completely inadequate for the individuals who fell through the cracks. She left the MSc. She never finished.",
+          "lasting_impact": "She has a sophisticated and somewhat disillusioned view of the UK mental health system. She uses it to help others professionally but would not put herself in a standard NHS referral pathway. She knows too much about what happens to complex presentations."
+        },
+        {
+          "title": "Fourteen months with a BACP-accredited therapist in Bethnal Green",
+          "when": "Age 33–35, 2021–2023",
+          "event": "Imaan self-referred to a BACP-accredited therapist who worked from a practice on Roman Road in Bethnal Green. The therapist had worked with Muslim clients before and understood cultural context. Imaan found the work genuinely transformative. She ended the relationship when the therapist retired. She has not found a replacement she trusts sufficiently.",
+          "lasting_impact": "She knows exactly what she needs and how to evaluate it. She has been researching replacements for 16 months. She has looked at seven services including Sakeen. She has not booked any of them. She is aware this is avoidance."
+        },
+        {
+          "title": "The Sakeen tab that has been open for six weeks",
+          "when": "Age 38, 2026",
+          "event": "Imaan opened the Sakeen website on a Sunday evening after a difficult week. She read the counsellor descriptions, noted the BACP registration references, and went to check whether a named supervisor and professional indemnity statement were listed. They were not immediately visible. She opened a second tab to search for the company on Companies House. Left the browser open. The tab is still open.",
+          "lasting_impact": "She is in active consideration. The verification gap (no named supervisor visible, no indemnity statement) is the functional blocker. She knows that if she does not book within the next two weeks she will find another reason to delay."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.66,
+          "practice_regularity": 0.62,
+          "islamic_knowledge_depth": 0.55,
+          "community_mosque_attachment": 0.42,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.95,
+          "stigma_internalization": 0.28,
+          "help_seeking_history": "tried_private",
+          "self_disclosure_comfort": 0.48,
+          "crisis_threshold": 0.31
+        },
+        "trust_verification": {
+          "institutional_trust": 0.68,
+          "peer_trust_dominance": 0.38,
+          "verification_thoroughness": 0.86,
+          "scholar_authority_deference": 0.48,
+          "regulatory_credential_value": 0.91
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.44,
+          "privacy_concern_intensity": 0.48,
+          "reputation_sensitivity": 0.41,
+          "digital_privacy_awareness": 0.81
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.64,
+          "price_elasticity": 0.38,
+          "value_framing": "investment",
+          "eap_access": "yes"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.77,
+          "avoidance_pattern": 0.72,
+          "social_validation_need": 0.28,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.44,
+          "information_need": 0.88
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.41,
+          "community_referral_trust": 0.35,
+          "online_discovery_comfort": 0.84,
+          "social_proof_bias": 0.28
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "productive delay",
+          "description": "Channels the energy of needing help into research activity — each new piece of verification information provides temporary relief from the discomfort of not being in therapy, while deferring the commitment"
+        },
+        "consistency_score": 83,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Has the highest mental health literacy in the cohort and the most specific knowledge of what she needs — yet has not booked anything in 16 months precisely because her standard is so high that no service perfectly meets it",
+          "Recognises the avoidance pattern intellectually (she could write a clinical formulation of it) and uses that recognition as another delay mechanism"
+        ]
+      },
+      "narrative": "I work in NHS mental health policy. I understand the evidence base for most therapeutic modalities. I know what a good supervision structure looks like. I know what professional indemnity insurance covers and what it does not. I know the difference between a BACP member and a BACP-accredited practitioner. I am, in other words, the worst possible client for a service that is not ready to answer very specific professional questions — and possibly the best possible endorser for one that is.\n\nMy therapist on Roman Road retired in 2023. She was brilliant. She held both worlds — she had worked with Muslim families in Tower Hamlets for fifteen years, she had read Seyyed Hossein Nasr, she understood fiqh at a lay level. She never confused the religious with the clinical. I have spent sixteen months looking for a replacement and I have not found one that I trust enough to actually call.\n\nSakeen has been in a browser tab for six weeks. The counsellor descriptions are good. The BACP references are credible. But I cannot find a named supervisor on the website. I cannot find a professional indemnity statement. I emailed to ask and received a generic response that did not answer the question. This is not pedantry — this is the minimum standard I would apply to a service I was recommending to an NHS commissioner. I cannot apply a lower standard to myself.\n\nHere is the thing I know about myself: this is avoidance. I am a policy analyst who literally writes about access barriers to mental health services. I know I am creating a barrier for myself. I know the session would cost less than the weekly cost of not having it. I am still in the browser tab phase. I would like to not be.",
+      "decision_bullets": [
+        "Named clinical supervisor and professional indemnity statement visible on the website would likely convert her within 48 hours — this is the single highest-leverage intervention",
+        "Generic email responses to specific professional questions are a near-disqualifying signal — she needs a response that demonstrates the person on the other end understands the question",
+        "EAP exists and is intellectually evaluated (NHS employer — she knows what that means for data governance) — she would not use it; will pay privately",
+        "Price is not the barrier at £55–75; the gap between her standard and Sakeen's visible accountability infrastructure is the barrier",
+        "Has BACP literacy that exceeds most consumers — pitching to her as if she is new to therapy will actively reduce trust",
+        "If she converts, she becomes an extremely high-value endorser — NHS policy credibility plus personal conviction is rare and powerful"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.31,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.38,
+          "band": "medium-low",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.91,
+          "peer": 0.32,
+          "brand": 0.38,
+          "ad": 0.12,
+          "community": 0.28,
+          "dominant_anchor": "expert",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "no named supervisor / indemnity statement visible",
+            "probability": 0.88,
+            "severity": "high",
+            "addressability": "high — add named supervisor and indemnity statement to website; single highest-impact fix"
+          },
+          {
+            "objection_type": "generic non-responsive email to specific clinical question",
+            "probability": 0.77,
+            "severity": "high",
+            "addressability": "high — trained clinical admin who can answer governance questions"
+          },
+          {
+            "objection_type": "analysis paralysis / productive delay pattern",
+            "probability": 0.77,
+            "severity": "high",
+            "addressability": "low — internal; time-limited offer or external prompt (friend comment) could break the loop"
+          },
+          {
+            "objection_type": "pitch aimed at therapy novice",
+            "probability": 0.65,
+            "severity": "medium",
+            "addressability": "high — practitioner-literacy messaging and visible professional governance signals"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I know the mental health system inside out — and I know I am using that knowledge to avoid being inside it myself right now.",
+          "key_values": ["clinical rigour", "faith-informed understanding", "professional accountability"],
+          "life_defining_events": [
+            { "age_when": 25, "event": "NHS IAPT placement in Lewisham — saw system limitations up close; left the MSc", "lasting_impact": "Sophisticated disillusionment; will not use standard NHS pathways for herself" },
+            { "age_when": 33, "event": "14-month private therapy relationship on Roman Road — transformative, now ended", "lasting_impact": "Knows exactly what good looks like; high threshold to replace it" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["former therapist (absent; retired)", "husband (supportive but not decision-maker)", "NHS professional peer network"],
+            "trust_network": ["two psychology PhD friends", "husband", "sister in Sheffield"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "£80/session",
+            "non_negotiables": ["named supervisor on record", "professional indemnity confirmed", "BACP-accredited (not just registered) practitioner if counsellor route"],
+            "absolute_avoidances": ["NHS referral for personal use", "therapy with practitioner who lacks cultural frame of reference", "EAP"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uk-s07",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uk",
+      "mode": "simulation-ready",
+      "slot": "S07",
+      "demographic_anchor": {
+        "name": "Usman Akhtar",
+        "age": 34,
+        "gender": "male",
+        "location": {
+          "country": "United Kingdom",
+          "region": "West Midlands",
+          "city": "Birmingham",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "married, two young children",
+          "size": 4,
+          "income_bracket": "£28,000–£38,000 household",
+          "dual_income": false
+        },
+        "life_stage": "provider under pressure, identity under strain",
+        "education": "HNC Electrical Engineering, Birmingham Metropolitan College",
+        "employment": "Electrician (self-employed), Sparkhill and surrounding areas",
+        "worldview": {
+          "institutional_trust": 0.38,
+          "social_change_pace": 0.32,
+          "collectivism_score": 0.84,
+          "economic_security_priority": 0.88,
+          "religious_salience": 0.84
+        }
+      },
+      "life_stories": [
+        {
+          "title": "His father's words at the wedding",
+          "when": "Age 26, 2018",
+          "event": "On the night before Usman's nikah, his father pulled him aside in the kitchen of their house on Stoney Lane and said: 'Whatever happens in your home stays in your home. You are the man. You carry it. You don't take family outside.' He meant it as wisdom. Usman has treated it as instruction.",
+          "lasting_impact": "External help-seeking for personal struggle — financial, marital, mental — has felt like a betrayal of his father's model of manhood. He has never told anyone outside family about his mental state, ever."
+        },
+        {
+          "title": "The year the contracts dried up",
+          "when": "Age 31–32, 2023–2024",
+          "event": "A combination of material cost increases and two delayed payments from commercial clients left Usman in four months of cashflow crisis. He did not tell his wife the full extent. He could not sleep. He began waking at 2am and reading Quran on his phone because it was the only thing that quieted the noise. He called his older brother once, said nothing, and hung up.",
+          "lasting_impact": "He associates 2am with the worst of it. He also associates it with the only genuine relief he found — Quranic recitation and dua. Any support that is not rooted in Islamic framework will feel like a category error."
+        },
+        {
+          "title": "The Naseeha helpline he almost called",
+          "when": "Age 33, 2025",
+          "event": "At 2:17am on a Wednesday in February 2025, Usman found the Naseeha helpline number on his phone. He held it for eleven minutes. He did not call. His reasoning: 'It's a queue. They'll have everyone's problems in that queue. I'm not an emergency.' He put the phone down, made wudu, prayed two rakat, and went back to bed.",
+          "lasting_impact": "Helpline model does not fit his self-concept. He would not queue. He needs something that feels private, specialist, not charitable. And the Islamic grounding is non-negotiable — the two rakat is the model of what relief looks like to him."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.86,
+          "practice_regularity": 0.82,
+          "islamic_knowledge_depth": 0.58,
+          "community_mosque_attachment": 0.78,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.32,
+          "stigma_internalization": 0.82,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.18,
+          "crisis_threshold": 0.88
+        },
+        "trust_verification": {
+          "institutional_trust": 0.38,
+          "peer_trust_dominance": 0.61,
+          "verification_thoroughness": 0.34,
+          "scholar_authority_deference": 0.84,
+          "regulatory_credential_value": 0.28
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.88,
+          "privacy_concern_intensity": 0.91,
+          "reputation_sensitivity": 0.84,
+          "digital_privacy_awareness": 0.58
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.24,
+          "price_elasticity": 0.88,
+          "value_framing": "cost",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.28,
+          "avoidance_pattern": 0.88,
+          "social_validation_need": 0.52,
+          "masculine_stigma_barrier": 0.88,
+          "emotional_persuasion_susceptibility": 0.78,
+          "information_need": 0.28
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.52,
+          "community_referral_trust": 0.68,
+          "online_discovery_comfort": 0.44,
+          "social_proof_bias": 0.58
+        }
+      },
+      "derived_insights": {
+        "decision_style": "emotional",
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "religious containment",
+          "description": "Manages acute distress through Islamic practice — tahajjud, dua, Quran recitation — as a containment mechanism rather than resolution; this works until it does not"
+        },
+        "consistency_score": 79,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Islamic masculine identity says 'handle it yourself' — Islamic religious framework says 'seeking help and using available means (asbab) is not weakness, it is trust in Allah'",
+          "Crisis threshold of 0.88 means he will only reach out at a 2am breaking point — but at that moment his price sensitivity collapses and he will pay what is asked if the first screen he hits feels right"
+        ]
+      },
+      "narrative": "I'm not someone who talks about feelings. That's just not how I was raised, and it's not how the men I respect were raised either. My dad ran a corner shop on Ladypool Road for twenty-two years. He buried his own father back in Pakistan while he was managing the shop. He came home, made du'a, went back to work. That's the model I have.\n\nBut I'll tell you something. There are nights when that model cracks. When the contracts aren't coming in, when the bills are the same size but the money isn't, when I'm lying there at 2am and my wife doesn't know the full picture because if she knows it becomes real and I don't want it to be real. I've read so much Quran at 2am in the last two years. It helps. It genuinely helps. But it doesn't solve the thing underneath.\n\nI looked up Naseeha once. I nearly rang. But a helpline feels like A&E — it's for emergencies, it's for people who have no one. I've got a wife, I've got a mosque, I've got brothers. The problem is I can't actually talk to any of them about this. Not really. So I've got everyone and I've got no one.\n\nIf Sakeen showed up on my screen at 2am, and it looked like a private thing — not a helpline, not a charity, not something where someone I know might be on the other end — and there was a scholar involved, someone who actually knows the deen and knows what it's like to carry weight as a Muslim man, and the first session wasn't going to cost me what a day's work costs — I think I'd ring. I think that's the moment. But you've got to catch me in that moment. By morning I've talked myself back.",
+      "decision_bullets": [
+        "2am is the conversion window — digital ad or search visibility at that moment is the primary acquisition lever for this persona type",
+        "Must be clearly framed as private specialist service, not helpline or charity — 'queue' framing is a hard blocker",
+        "Scholar credential (Makkah/Madinah trained Muslim man ideally) is the primary trust signal — BACP registration means almost nothing to him",
+        "Price at £20–30 for first session is within range; above £40 creates a barrier that breaks conversion even at 2am breaking point",
+        "Privacy must be the lead message — not community, not referral, not sharing; 'no one will know' is the conversion framing",
+        "Islamic reframe of help-seeking (asbab concept — using available means is Islamic) is a potentially powerful counter to masculine stigma barrier"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.18,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.88,
+          "band": "very high",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.72,
+          "peer": 0.52,
+          "brand": 0.22,
+          "ad": 0.28,
+          "community": 0.61,
+          "dominant_anchor": "authority",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "masculine identity / stigma",
+            "probability": 0.88,
+            "severity": "high",
+            "addressability": "medium — Islamic reframe of help-seeking (asbab) and scholar endorsement can move this"
+          },
+          {
+            "objection_type": "privacy / community exposure",
+            "probability": 0.91,
+            "severity": "high",
+            "addressability": "high — explicit private service framing, no community connection, clear confidentiality"
+          },
+          {
+            "objection_type": "price above crisis-moment threshold",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high — £20–25 first session pricing unlocks conversion at the 2am moment"
+          },
+          {
+            "objection_type": "helpline / charity association",
+            "probability": 0.77,
+            "severity": "high",
+            "addressability": "high — private specialist framing (not helpline, not queue, named scholar) resolves"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a Birmingham Muslim man, provider, father — I carry my family's weight and I carry it alone because that is what men in my family do.",
+          "key_values": ["family honour", "religious grounding", "masculine self-sufficiency"],
+          "life_defining_events": [
+            { "age_when": 26, "event": "Father's wedding-night instruction — 'carry it yourself, don't take family outside'", "lasting_impact": "Help-seeking has felt like betrayal of masculine and familial identity" },
+            { "age_when": 31, "event": "Four months of cashflow crisis, 2am Quran reading, near-call to Naseeha", "lasting_impact": "Crisis has a specific phenomenology — 2am, alone, phone in hand; this is the conversion moment" }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self only (does not consult wife on this)",
+            "key_influencers": ["imam at Sparkhill mosque (not yet approached)", "older brother in Handsworth (trusted but also told nothing)"],
+            "trust_network": ["wife (partial, shielded)", "mosque community (public, cannot disclose)"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "£30/session at baseline; price ceiling collapses at 2am breaking point if service looks right",
+            "non_negotiables": ["complete privacy from community", "Islamic scholar involvement", "not a helpline model"],
+            "absolute_avoidances": ["anything that could reach mosque community", "non-Islamic secular therapy as primary frame", "group settings"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    }
+  ],
+  "cohort_summary": {
+    "cohort_id": "cohort-khidma-uk-20260412",
+    "total_personas": 6,
+    "gender_split": { "female": 4, "male": 2 },
+    "age_range": { "min": 31, "max": 41, "mean": 35.7 },
+    "locations": ["Birmingham", "London", "Manchester"],
+    "decision_style_distribution": {
+      "analytical": 3,
+      "social": 2,
+      "emotional": 1,
+      "habitual": 0
+    },
+    "trust_anchor_distribution": {
+      "peer": 1,
+      "authority": 4,
+      "self": 1,
+      "family": 0
+    },
+    "help_seeking_history_distribution": {
+      "never": 0,
+      "considered": 3,
+      "tried_nhs": 1,
+      "tried_private": 2,
+      "ongoing": 0
+    },
+    "eap_access_distribution": {
+      "yes": 3,
+      "no": 2,
+      "unknown": 1
+    },
+    "mean_purchase_prob_baseline": 0.255,
+    "purchase_prob_range": { "min": 0.14, "max": 0.41 },
+    "mean_consistency_score": 82.2,
+    "consistency_range": { "min": 77, "max": 88 },
+    "key_uk_contextual_flags": [
+      "whatsapp_professionalism_perception uniformly lower than UAE cohort (range 0.28–0.52) — UK WhatsApp is personal/family channel",
+      "digital_privacy_awareness elevated across cohort (range 0.58–0.84) — UK GDPR awareness significantly higher than UAE",
+      "EAP access present for 3 of 6 personas — creates a free-at-point-of-use comparison that does not exist in UAE context",
+      "BACP/UKCP credential literacy high among professional personas — regulatory verification is a conversion factor, not a nice-to-have",
+      "2am crisis search window is the primary acquisition moment for S07 — suggests always-on digital presence is essential",
+      "MLM-pattern suspicion (S03) is a UK/British South Asian community-specific dynamic — organised referral mechanics risk backfiring"
+    ],
+    "top_conversion_levers": [
+      "Named individual BACP registration and clinical supervisor visible on website (unlocks S02, S04, S05)",
+      "£20–30 first session pricing or subsidised entry (unlocks S07, reduces friction for S01, S03)",
+      "Privacy as lead message — private specialist, not helpline, not community (unlocks S07, supports S01, S03, S04)",
+      "ERG / institutional B2B partnership pathway (unlocks S04 referral at scale)",
+      "Always-on digital presence for 2am crisis search — Google and Meta targeting (unlocks S07)",
+      "Asbab Islamic framing of help-seeking — seeking help is Islamic, not weakness (moves S07 masculine barrier)"
+    ],
+    "top_conversion_blockers": [
+      "Unanswered enquiry emails or generic responses to specific governance questions (blocks S02, S05)",
+      "WhatsApp as primary delivery channel without professional alternative (friction for S02, S04, S05)",
+      "Absence of named supervisor and professional indemnity statement (blocks S05, S02)",
+      "Organised community referral mechanics triggering MLM-pattern recognition (blocks S03)",
+      "Price above £35 for S07 at non-crisis moment; above £50 for S01 without prior validation"
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-de-003",
+  "spec_id": "S04",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Klaus Hartmann",
+  "age": 52,
+  "location": "Bochum, North Rhine-Westphalia, Germany",
+  "employment": "Factory floor supervisor, automotive parts manufacturer",
+  "education": "Ausbildung as industrial mechanic; Meisterbrief",
+  "income": "€36,000/year",
+  "household": "Renting apartment with wife; one adult child moved out",
+  "political_orientation": "Mixed; historically SPD, now uncertain",
+
+  "worldview_anchor": {
+    "IT": 0.44,
+    "SCP": 0.47,
+    "CS": 0.55,
+    "ESP": 0.61
+  },
+
+  "life_story_vignettes": [
+    "Klaus has worked in the Ruhr automotive supply chain for 28 years. His plant went through restructuring in 2024 as electrification shifted orders away from combustion engine parts. He survived the round of layoffs but lost eight colleagues. The transition to electric vehicles is not an abstract concept to him — it threatens his livelihood.",
+    "His wife grows vegetables in the Schrebergarten plot they've had since 2011. They preserve tomatoes every autumn. He thinks of this as practical and satisfying, not as an environmental statement — though he acknowledges it reduces what they spend at the supermarket.",
+    "He separated his waste correctly his entire adult life — this is simply what Germans do, as far as he's concerned. In 2023, he complained to the building manager when a neighbour was putting plastics in the Restmüll container. He sees environmental norms as civic duties, not consumer choices."
+  ],
+
+  "narrative": "Ich bin Klaus. Zweiundfünfzig, Bochum, Fabrikmeister. In English: I'm Klaus, 52, I supervise a factory floor. I've done this for almost thirty years.\n\nDo I care about the environment? Yes. I sort my rubbish correctly. I don't throw things out of car windows. My wife and I grow vegetables in our garden plot — that's food we don't need to buy from a supermarket that shipped it from Spain. These feel like basic responsibilities, not special commitments.\n\nWhat I'm less interested in is paying extra at the supermarket for eco-labels on cleaning products. I look at the price first. My household budget is careful. My wife and I track what we spend. If there's a certified sustainable product at roughly the same price, fine — I might choose it. But if it's meaningfully more expensive for something I can't evaluate, I'll buy the regular one.\n\nI'll be honest about something: the Energiewende conversation sometimes frustrates me. I work in the automotive sector. I've watched what the shift to electric vehicles is doing to jobs in this region. I support having cleaner energy and I believe in climate change — I'm not one of those people. But the transition is not cost-free and the costs are not shared equally. That's not my imagination.\n\nI trust state environmental regulations more than I trust company labels. If the government says something meets a standard, I believe it. If a company prints a leaf on its packaging, I don't automatically believe them.\n\nThe premium question is real for people at my income level. I earn a fair wage but we don't have room to pay 30% more for everything just because it has a certification.",
+
+  "key_attributes": {
+    "sustainability_concern": "moderate — genuine on civic duty framing; sceptical of consumer sustainability discourse",
+    "premium_willingness": "low-moderate — will consider certified products at marginal price difference; rejects substantial premium",
+    "greenwashing_scepticism": "moderate — trusts state regulation; distrusts brand-applied labels",
+    "certification_response": "moderate — government-backed certification trusted; brand-created labels viewed with scepticism",
+    "attitude_behaviour_gap": "low — doesn't frame sustainability through premium consumer choices; civic environmental norms are consistent",
+    "political_engagement": "historically SPD; increasingly frustrated with mainstream politics on economic transition"
+  },
+
+  "decision_bullets": [
+    "Separates waste, follows civic environmental norms as baseline — non-negotiable",
+    "Will not pay significant sustainability premium on household goods; budget is the binding constraint",
+    "Will favour government-certified options over brand claims when price difference is small",
+    "Critical of how energy transition costs are distributed — personal stake through job market exposure",
+    "Self-sufficient practices (garden, food preservation) preferred over premium consumer spending"
+  ]
+}

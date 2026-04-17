@@ -1,0 +1,157 @@
+{
+  "persona_id": "pg-rdn2-usa-006",
+  "generated_at": "2026-04-14T10:08:00Z",
+  "generator_version": "1.0",
+  "domain": "reuters-digital-news-usa-uk-v2",
+  "study_id": "STU_005_v2",
+  "cohort": "USA-S02",
+  "mode": "deep",
+
+  "demographic_anchor": {
+    "name": "Craig Hoffman",
+    "age": 52,
+    "gender": "male",
+    "location": {
+      "country": "United States",
+      "region": "South Central",
+      "city": "Dallas, TX (suburb — Frisco)",
+      "urban_tier": "metro"
+    },
+    "household": {
+      "structure": "nuclear",
+      "size": 4,
+      "income_bracket": "$88,000/year",
+      "dual_income": true
+    },
+    "life_stage": "mid-career, married with two teenagers, suburban homeowner",
+    "education": "bachelor's degree — accounting, University of Texas at Arlington",
+    "employment": "full-time — senior accountant, regional manufacturing firm"
+  },
+
+  "life_stories": [
+    {
+      "title": "The Wall Street Journal as professional necessity",
+      "when": "age 28–35",
+      "event": "Early in his accounting career at a Dallas firm, Craig's manager told him that reading the WSJ every morning was 'part of the job whether they paid for it or not.' He started the habit under professional duress and never dropped it. Over time he came to genuinely prefer financial news — it was concrete, had numbers in it, and gave him something useful to say at client meetings. He still reads the WSJ digital edition most mornings, though he'd never pay for it himself — his employer's subscription covers it.",
+      "lasting_impact": "Habitual news consumer with a strong preference for business and financial coverage. Trusts outlets with professional-grade fact standards. Would not pay personally for news he can get through work channels."
+    },
+    {
+      "title": "The Facebook political wars with his brothers",
+      "when": "age 46–50",
+      "event": "Craig has three brothers — one a staunch Democrat in Austin, one deeply conservative in rural East Texas, one who 'doesn't pay attention to any of it.' Their family Facebook group became a battleground during 2016 and 2020. Craig — moderate by temperament, fiscal conservative — found himself unable to read anything without immediately knowing what corner it came from. He left two political Facebook groups, muted most political accounts, and started consuming news as privately as possible.",
+      "lasting_impact": "Strong avoidance of politically charged news formats. Prefers financial and business news framing over political framing. Social media news is viewed as a conflict trigger rather than an information source."
+    },
+    {
+      "title": "Teaching his kids about financial literacy",
+      "when": "age 48–52",
+      "event": "As his teenagers reached high school, Craig started talking to them about money — savings, interest rates, what a recession actually means. He was surprised to find they knew almost nothing about economic news but had strong views on political topics they'd absorbed from social media. This gap bothered him. He put CNBC on during dinner twice a week and started directing them toward Bloomberg's more accessible content. He became more aware of his own media ecosystem in the process.",
+      "lasting_impact": "Increased awareness of how different media ecosystems produce different knowledge gaps. Motivated to maintain a financially-grounded news diet. Has tried CNBC and Bloomberg apps but finds them too real-time/market-oriented for his needs."
+    }
+  ],
+
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.40, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "status_quo_bias": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+      "information_need": {"value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.32, "type": "continuous", "label": "low", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"}
+    },
+    "values": {
+      "budget_consciousness": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "anchored"},
+      "brand_loyalty": {"value": 0.70, "type": "continuous", "label": "high", "source": "inferred"},
+      "convenience_preference": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "civic_duty_orientation": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"}
+    },
+    "lifestyle": {
+      "perceived_time_scarcity": {"value": 0.58, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "routine_adherence": {"value": 0.75, "type": "continuous", "label": "high", "source": "inferred"},
+      "simplicity_preference": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "digital_nativity": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "anchored"}
+    },
+    "domain_specific": {
+      "news_trust_overall": {"value": 0.40, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "news_avoidance_frequency": {"value": "sometimes", "type": "categorical", "label": "sometimes — specifically avoids political news formats", "source": "inferred"},
+      "avoidance_trigger": {"value": "partisanship", "type": "categorical", "label": "political framing and conflict — prefers business/economic coverage", "source": "inferred"},
+      "primary_platform": {"value": "newspaper_digital", "type": "categorical", "label": "WSJ digital (employer sub) + local Dallas Morning News", "source": "inferred"},
+      "youtube_news_use": {"value": 0.10, "type": "continuous", "label": "very low", "source": "inferred"},
+      "podcast_news_use": {"value": 0.18, "type": "continuous", "label": "low", "source": "inferred"},
+      "social_media_news_use": {"value": 0.15, "type": "continuous", "label": "very low", "source": "inferred"},
+      "mainstream_media_trust": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "social_media_news_trust": {"value": 0.10, "type": "continuous", "label": "very low", "source": "inferred"},
+      "paid_subscription_held": {"value": "yes", "type": "categorical", "label": "WSJ via employer (does not pay personally)", "source": "inferred"},
+      "ai_news_attitude": {"value": "ambivalent", "type": "categorical", "label": "ambivalent — comfortable with automation generally but uncertain about news AI", "source": "inferred"}
+    }
+  },
+
+  "derived_insights": {
+    "decision_style": "habitual",
+    "decision_style_score": 0.73,
+    "trust_anchor": "authority",
+    "risk_appetite": "low",
+    "primary_value_orientation": "convenience",
+    "coping_mechanism": {
+      "type": "routine_control",
+      "description": "Craig manages news overload by domain-filtering: sticking to business and financial coverage, actively avoiding political commentary, and keeping consumption tied to professional utility rather than civic engagement."
+    },
+    "consistency_score": 80,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Civic duty sense pulls toward broader news engagement but political polarisation has made that emotionally costly — resolved by narrowing to business/financial focus",
+      "Uses WSJ via employer but would not pay for it personally — suggests news has instrumental value but limited consumer priority"
+    ]
+  },
+
+  "narrative": "My relationship with news is pretty straightforward: I read what's useful for work, I avoid what makes me want to argue with my brothers on Facebook. That's honestly the framework. The WSJ has been my morning read since my mid-twenties — my employer pays for it, which helps — and I'll usually skim the Dallas Morning News for local stuff. Business and financial news I'll read in depth. Political news I'll skim the headline and move on. I've watched too many family dinners and group chats get destroyed by politics to have any appetite for the cable news shout-fest format. YouTube for news is something my kids do, not me — I might watch a CNBC explainer if someone sends me a link, but I don't browse it. I don't really do podcasts for news either. I listen to sports talk in the car, and the radio in the background is more noise than information at this point. My wife is more politically engaged than me — she'll bring things to my attention if they matter. I trust her editorial filter as much as I trust most news outlets, honestly. Social media for news is something I've basically given up on. I had a bad run with it during the last couple of election cycles and I'm not going back. I'll get my financial news from sources that actually know what they're talking about and leave the rest of it alone.",
+
+  "decision_bullets": [
+    "Business and financial news is actively consumed; political news is actively filtered out.",
+    "WSJ is the primary outlet — used via employer subscription, would not pay personally.",
+    "YouTube is not used for news; associated with his children's media habits, not his own.",
+    "Social media news trust is near zero — family political conflicts created permanent aversion.",
+    "Podcast news use is minimal — audio slot taken by sports/entertainment content.",
+    "Wife serves as informal editorial filter for political and social news outside his financial focus.",
+    "AI news summaries: moderately comfortable with automation but hasn't formed a strong position on news-specific AI.",
+    "Avoidance is domain-specific — business news engaged regularly; political news avoided systematically."
+  ],
+
+  "memory": {
+    "core_memory": {
+      "identity_statement": "Senior accountant, Dallas suburbs, $88k household, habitual WSJ reader, avoids political news, no social media news use.",
+      "key_values": ["professional utility", "financial clarity", "political neutrality in media"],
+      "life_defining_events": [
+        {"age_when": 28, "event": "Manager mandated WSJ reading as professional habit; formed durable morning news routine", "lasting_impact": "Business/financial news as professional anchor; treats it as work infrastructure"},
+        {"age_when": 47, "event": "Family Facebook political conflicts during 2020; withdrew from political social media entirely", "lasting_impact": "Political news avoidance; social media as news source permanently retired"},
+        {"age_when": 49, "event": "Observed teenagers' knowledge gaps vs. strong political opinions shaped by social media", "lasting_impact": "Increased awareness of how media ecosystems produce selective knowledge"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "wife — she filters political/social news and brings forward what matters",
+        "key_influencers": ["WSJ editors/columnists", "CNBC for markets", "local Dallas Morning News for local context"],
+        "trust_network": ["professional accounting/finance network", "employer colleagues"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$0 personal spending on news (relies on employer and free sources)",
+        "non_negotiables": ["business/financial coverage quality", "no political shouting-match formats"],
+        "absolute_avoidances": ["social media news", "political cable news", "opinion-led news formats"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {
+      "current_turn": 0,
+      "importance_accumulator": 0.0,
+      "reflection_count": 0,
+      "awareness": {},
+      "consideration_set": [],
+      "last_decision": null
+    }
+  }
+}

@@ -55,6 +55,8 @@ def _decision_output_to_dict(decision_output: Any) -> dict:
         "objections": list(getattr(decision_output, "objections", [])),
         "what_would_change_mind": getattr(decision_output, "what_would_change_mind", ""),
         "noise_applied": getattr(decision_output, "noise_applied", 0),
+        "follow_up_action": getattr(decision_output, "follow_up_action", ""),
+        "implied_purchase": bool(getattr(decision_output, "implied_purchase", False)),
     }
 
 
@@ -125,13 +127,22 @@ async def _run_one_persona(
             snapshot["decision_result"] = decision_dict
             final_decision = decision_dict
 
-            # Determine reorder flag: second purchase-like decision counts as reorder
+            # Determine reorder flag: second purchase-like event counts as reorder.
+            # A purchase event is either:
+            #   (a) decision label in _PURCHASE_DECISIONS, or
+            #   (b) implied_purchase=True — decision was research_more/defer but
+            #       follow_up_action describes an actual buy/order commitment.
             decision_label = decision_dict.get("decision", "").lower()
-            if decision_label in _PURCHASE_DECISIONS:
-                # First time we see a purchase it's the trial; second time is reorder
+            is_purchase = (
+                decision_label in _PURCHASE_DECISIONS
+                or decision_dict.get("implied_purchase", False)
+            )
+            if is_purchase:
+                # Scan prior snapshots for any earlier purchase event (explicit or implied)
                 already_bought = any(
                     (s.get("decision_result") or {}).get("decision", "").lower()
                     in _PURCHASE_DECISIONS
+                    or (s.get("decision_result") or {}).get("implied_purchase", False)
                     for s in snapshots
                 )
                 if already_bought:

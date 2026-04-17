@@ -1,0 +1,44 @@
+{
+  "persona_id": "pg-reuters-uk-003",
+  "spec_id": "S04",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United Kingdom",
+  "name": "Catherine Holt",
+  "age": 54,
+  "location": "Bristol, UK",
+  "employment": "Secondary school deputy head teacher",
+  "education": "Postgraduate Certificate in Education + BA, University of Bristol (History)",
+  "income_bracket": "Middle (£56,000/year)",
+  "urban_rural": "Suburban (Westbury-on-Trym, Bristol)",
+  "WorldviewAnchor": {
+    "IT": 0.54,
+    "SCP": 0.55,
+    "CS": 0.67,
+    "ESP": 0.36
+  },
+  "calibration_notes": "IT moderate — UK baseline higher than US equivalent; professional role in public education creates ongoing relationship with public institutions and moderate confidence in their frameworks even when sceptical of specific decisions. SCP moderate — educator's view of change as necessary but requiring evidence and care. CS high — school leadership requires collective thinking; community and civic engagement are core to her professional identity. ESP low-moderate — financially stable teaching salary, defined-benefit pension; economic security reduces ESP pressure.",
+  "life_story_vignettes": [
+    "Catherine remembers the moment in 2016 when the EU referendum result came through and a colleague arrived at school saying he'd voted Leave. They had a careful conversation over the staff room coffee. She realised she had not actually understood why someone like him — a fellow educated professional she respected — had voted that way. She started reading more widely after that, deliberately including outlets she disagreed with.",
+    "In 2020, during the first lockdown, Catherine led her school's home learning transition. She was watching multiple news briefings a day and sending educational guidance to parents. By August she describes being 'news-saturated and half of me was convinced I was better at this than the journalists.' She cut her news intake from three sessions a day to two after that summer.",
+    "In 2023 Catherine joined the Board of Governors of a local community arts charity. The experience of watching how a charity's decisions get covered (or miscovered) by local Bristol media gave her a more nuanced view of journalism — not hostile, but with specific awareness of how institutional life looks from the inside versus the outside."
+  ],
+  "first_person_narrative": "My morning begins with Radio 4 — it comes on with the alarm and I half-listen while I get ready. Then I check the BBC website on my phone over breakfast. That's my baseline. I have a Guardian subscription that I read properly on weekends when I have time to actually sit with a long piece. During the week it's scanning.\n\nTelevision news I watch in the evening — BBC News at Ten is still the main reference point for me for the day's events. ITV News occasionally. I find Sky News tends to be more breathless than I want after a day at school. I need news that doesn't shout.\n\nMy trust in news overall — I'd say I trust the BBC more than most things, but I've noticed the trust has shifted in the last few years. There used to be a quality of the BBC's reporting that felt authoritative in a reassuring way. Now it sometimes feels defensive or equivocating, particularly on politically charged topics. I still think it's the most reliable domestic news source I have. The Guardian I trust for analysis and opinion, less so for impartiality, but I know that going in.\n\nI do use podcasts — mostly Radio 4 programmes that I catch up with. Start the Week, The Rest Is History, In Our Time. Those aren't news exactly but they're context-setting. I listen on the drive home.\n\nI avoid news occasionally. About once a month there will be a day where I actively decide not to read anything or watch anything news-related. Usually after a week where a bad story has been relentlessly recycled. I don't feel guilty about it any more. It's maintenance, not negligence.\n\nSocial media — Twitter I left in 2023 when it became X. Too much shouting. I'm on Facebook for family and local community groups. I don't go there for news. It's not trustworthy in the way I need news to be trustworthy.",
+  "key_attributes": [
+    "Radio 4 morning anchor — audio-first, reflective format preference",
+    "BBC website daily, Guardian subscription weekend",
+    "BBC trust moderate-high but declining — notes defensive and equivocating quality",
+    "Evening BBC TV news habit maintained — format stability valued",
+    "Podcast consumer (Radio 4 catch-up) for commute",
+    "Occasional news avoider — once monthly, maintenance framing",
+    "Left Twitter/X 2023 — noise threshold exceeded; Facebook for community not news"
+  ],
+  "decision_bullets": [
+    "Radio 4 on at alarm — ambient morning news ritual",
+    "BBC website at breakfast — daily baseline check",
+    "Guardian subscription consumed properly at weekends — long-form reading as leisure",
+    "BBC News at Ten retained as evening anchor despite declining trust",
+    "Avoids news once monthly — deliberate maintenance decision, no guilt",
+    "Twitter/X abandoned 2023 — volume and quality degradation triggered exit"
+  ]
+}

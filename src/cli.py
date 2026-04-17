@@ -12,6 +12,7 @@ Usage:
 from __future__ import annotations
 
 import click
+from pathlib import Path
 
 # Load .env file automatically so ANTHROPIC_API_KEY is available
 try:
@@ -94,8 +95,27 @@ async def _run_generation(
     skip_gates: bool = False,
     registry_path: str | None = None,
     client: str = "",
+    streaming_writer: "StreamingCohortWriter | None" = None,  # type: ignore[name-defined]
 ) -> dict:
-    """Async inner function: builds N personas then assembles the cohort."""
+    """Async inner function: builds N personas then assembles the cohort.
+
+    When *streaming_writer* is provided (or auto-triggered above
+    ``StreamingCohortWriter.STREAMING_THRESHOLD``), personas are written to
+    disk immediately as they complete rather than held entirely in memory.
+    This provides two benefits:
+
+    - **Checkpoint resilience**: a crash after persona #22 of 30 can be
+      resumed from the last checkpoint rather than starting over.
+    - **LLM-agent efficiency**: when the Persona Generator skill (Claude Code)
+      is generating personas as text, it can produce one at a time and call
+      ``writer.append()`` between them, avoiding context-limit errors.
+
+    Pass an explicit ``StreamingCohortWriter`` instance to control output
+    location and cohort_id.  If ``streaming_writer=None`` and
+    ``count >= StreamingCohortWriter.STREAMING_THRESHOLD``, a writer is
+    created automatically using a temp directory.
+    """
+    from src.persistence.streaming_writer import StreamingCohortWriter
     import anthropic
     from src.generation.identity_constructor import IdentityConstructor, ICPSpec
     from src.cohort.assembler import assemble_cohort
@@ -149,7 +169,8 @@ async def _run_generation(
             persona_index=i,
             domain_data=domain_data,
         )
-        demographic_anchor = sample_demographic_anchor(domain=domain, index=i - 1)
+        pool_index_base = anchor_overrides.get("pool_index", 0)
+        demographic_anchor = sample_demographic_anchor(domain=domain, index=pool_index_base + (i - 1), anchor_overrides=anchor_overrides)
         persona = await constructor.build(
             demographic_anchor=demographic_anchor,
             icp_spec=icp,
@@ -157,13 +178,65 @@ async def _run_generation(
         click.echo(f"  Generated persona {i}/{generate_count}: {persona.persona_id} ({demographic_anchor.name})", err=True)
         return persona
 
+    # ------------------------------------------------------------------
+    # Determine whether to use streaming writes
+    # ------------------------------------------------------------------
+    # Streaming is activated when:
+    #   (a) an explicit streaming_writer was passed in, OR
+    #   (b) the requested count is at or above STREAMING_THRESHOLD
+    # In case (b) we create an auto writer using a temp directory.
+    _auto_writer_created = False
+    if streaming_writer is None and StreamingCohortWriter.should_stream(count):
+        import tempfile, uuid as _uuid
+        _tmp_dir = Path(tempfile.mkdtemp(prefix="pg_stream_"))
+        _cohort_id = f"cohort-{domain}-{_uuid.uuid4().hex[:8]}"
+        streaming_writer = StreamingCohortWriter(_tmp_dir, _cohort_id)
+        streaming_writer.begin({"cohort_id": _cohort_id, "domain": domain, "client": client})
+        _auto_writer_created = True
+        click.echo(
+            f"  [streaming] Auto-activated (count={count} >= "
+            f"threshold={StreamingCohortWriter.STREAMING_THRESHOLD}). "
+            f"Checkpointing to {streaming_writer.staging_dir}",
+            err=True,
+        )
+
+    # ------------------------------------------------------------------
     # Generate candidate pool for newly needed personas
     # (skip generation entirely if registry already covers full demand)
+    # ------------------------------------------------------------------
     newly_generated_personas: list = []
     if generate_count > 0:
         # Generate candidate pool (2× for stratification when generate_count >= 5)
         pool_size = max(generate_count * 2, generate_count + 4) if generate_count >= 5 else generate_count
-        candidates = list(await asyncio.gather(*[_build_one(i) for i in range(1, pool_size + 1)]))
+
+        # Bound concurrency to avoid saturating Anthropic rate limits.
+        # Each _build_one makes ~15-20 sequential API calls; at 10 concurrent
+        # builds that's ~150-200 in-flight requests — within safe limits.
+        # For large Niobe runs (500+ personas) unbounded concurrency causes all
+        # tasks to enter retry loops simultaneously and the event loop never drains.
+        # Override via PG_MAX_CONCURRENT_BUILDS env var.
+        _max_concurrent = int(os.getenv("PG_MAX_CONCURRENT_BUILDS", "10"))
+        _sem = asyncio.Semaphore(_max_concurrent)
+
+        async def _build_bounded(i: int):
+            async with _sem:
+                return await _build_one(i)
+
+        if streaming_writer is not None:
+            # ---- Streaming path: use as_completed so each persona is written
+            #      to disk the moment it finishes, regardless of overall order.
+            # Note: stratification still runs after all candidates are collected;
+            # the pre-stratification candidates are checkpointed, and the final
+            # selected set is what gets embedded in the cohort envelope.
+            tasks = [asyncio.create_task(_build_bounded(i)) for i in range(1, pool_size + 1)]
+            candidates = []
+            for coro in asyncio.as_completed(tasks):
+                p = await coro
+                streaming_writer.append(p.model_dump(mode="json"))
+                candidates.append(p)
+        else:
+            # ---- Batch path (original behaviour)
+            candidates = list(await asyncio.gather(*[_build_bounded(i) for i in range(1, pool_size + 1)]))
 
         # Stratify if cohort is large enough
         if generate_count >= 5 and len(candidates) > generate_count:
@@ -198,6 +271,18 @@ async def _run_generation(
         skip_gates=skip_gates,
     )
 
+    # ------------------------------------------------------------------
+    # If auto writer was created, finalize it now
+    # (explicit writers are finalized by the orchestrator, which can set
+    #  the cohort_id and output path correctly before calling finalize())
+    # ------------------------------------------------------------------
+    if _auto_writer_created and streaming_writer is not None:
+        envelope_dict_for_summary = envelope_obj.model_dump(mode="json")
+        streaming_writer.finalize(
+            cohort_summary=envelope_dict_for_summary.get("cohort_summary"),
+            overwrite=True,
+        )
+
     # Persist newly generated personas back to registry (if registry in use)
     if registry_path is not None and newly_generated_personas:
         from src.registry.persona_registry import PersonaRegistry
@@ -212,7 +297,7 @@ async def _run_generation(
         sarvam_config = SarvamConfig.enabled()
         enrichment_records = []
         for persona in personas:
-            record = await run_sarvam_enrichment(persona, sarvam_config, client)
+            record = await run_sarvam_enrichment(persona, sarvam_config, llm_client)
             enrichment_records.append(record.model_dump())
         return {
             "envelope": envelope_obj.model_dump(mode="json"),
@@ -498,6 +583,7 @@ def _parse_consistency_score(notes: str | None) -> float | None:
 async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, tier: str = "deep",
                           social_level: str = "isolated", social_topology: str = "random_encounter") -> dict:
     import asyncio
+    import uuid as _uuid
     from src.persistence.envelope_store import load_envelope
     from src.cognition.loop import run_loop
     from src.experiment.session import SimulationTier
@@ -515,58 +601,133 @@ async def _run_simulation(cohort_path: str, scenario_data: dict, rounds: int, ti
 
     click.echo(f"  Simulating {len(envelope.personas)} persona(s) × {rounds} round(s) [tier={tier}]...", err=True)
 
-    async def _simulate_persona(persona):
+    social_trace_dict: dict | None = None
+
+    if social_level != "isolated":
+        # ── Social simulation path — peer influence active ────────────────────
+        from src.social.loop_orchestrator import run_social_loop
+        from src.social.network_builder import build_full_mesh, build_random_encounter
+        from src.social.schema import SocialNetwork, NetworkTopology, SocialSimulationLevel
         import anthropic as _anthropic
         from src.utils.llm_router import get_llm_client
+
+        click.echo(
+            f"  Social mode: level={social_level}, topology={social_topology}",
+            err=True,
+        )
+
+        level = SocialSimulationLevel(social_level.lower())
+        personas = envelope.personas
+
+        if social_topology == "full_mesh":
+            edges = build_full_mesh(personas)
+            topology = NetworkTopology.FULL_MESH
+        else:
+            edges = build_random_encounter(personas)
+            topology = NetworkTopology.RANDOM_ENCOUNTER
+
+        network = SocialNetwork(topology=topology, edges=edges)
+
         _llm_base = _anthropic.AsyncAnthropic()
-        country = persona.demographic_anchor.location.country if hasattr(persona.demographic_anchor, 'location') else None
         _icp_spec = getattr(envelope, 'icp_spec', None)
         sarvam_enabled = getattr(_icp_spec, 'sarvam_enabled', False) if _icp_spec else False
-        _llm_client = get_llm_client(_llm_base, sarvam_enabled=sarvam_enabled, country=country)
-        persona_results = {
-            "persona_id": persona.persona_id,
-            "persona_name": persona.demographic_anchor.name,
-            "rounds": [],
-        }
-        current_persona = persona
-        for round_num, stimulus in enumerate(all_stimuli[:rounds], 1):
-            current_persona, loop_result = await run_loop(
-                stimulus=stimulus,
-                persona=current_persona,
-                decision_scenario=decision_scenario if round_num == rounds else None,
-                llm_client=_llm_client,
-                tier=_tier,
-            )
-            round_data = {
-                "round": round_num,
-                "stimulus": stimulus,
-                "observation_importance": loop_result.observation.importance,
-                "reflected": loop_result.reflected,
-                "decided": loop_result.decided,
-            }
-            if loop_result.decided and loop_result.decision:
-                round_data["response"] = loop_result.observation.content
-                round_data["decision"] = loop_result.decision.decision
-                round_data["confidence"] = loop_result.decision.confidence
-                round_data["reasoning"] = loop_result.decision.reasoning_trace
-            persona_results["rounds"].append(round_data)
-        click.echo(f"    Done: {persona.persona_id}", err=True)
-        return persona_results
+        _llm_client = get_llm_client(_llm_base, sarvam_enabled=sarvam_enabled)
 
-    results = list(await asyncio.gather(*[_simulate_persona(p) for p in envelope.personas]))
+        session_id = f"social-{_uuid.uuid4().hex[:8]}"
+        decision_scenarios = [decision_scenario] * len(all_stimuli) if decision_scenario else None
+
+        final_personas, trace, per_persona_turns = await run_social_loop(
+            personas=personas,
+            stimuli=all_stimuli,
+            network=network,
+            level=level,
+            session_id=session_id,
+            cohort_id=envelope.cohort_id,
+            decision_scenarios=decision_scenarios,
+            llm_client=_llm_client,
+            tier=_tier,
+        )
+
+        results = [
+            {
+                "persona_id": p.persona_id,
+                "persona_name": p.demographic_anchor.name,
+                "rounds": per_persona_turns.get(p.persona_id, []),
+            }
+            for p in final_personas
+        ]
+
+        social_trace_dict = {
+            "events_count": len(trace.events),
+            "validity_gates": trace.validity_gate_results,
+            "influence_vectors": {
+                pid: {
+                    "events_transmitted": iv.events_transmitted,
+                    "events_received": iv.events_received,
+                    "mean_gated_importance": iv.mean_gated_importance,
+                }
+                for pid, iv in (trace.influence_vectors or {}).items()
+            },
+        }
+
+        for p in final_personas:
+            click.echo(f"    Done (social): {p.persona_id}", err=True)
+
+    else:
+        # ── Standard isolated simulation path ─────────────────────────────────
+        async def _simulate_persona(persona):
+            import anthropic as _anthropic
+            from src.utils.llm_router import get_llm_client
+            _llm_base = _anthropic.AsyncAnthropic()
+            country = persona.demographic_anchor.location.country if hasattr(persona.demographic_anchor, 'location') else None
+            _icp_spec = getattr(envelope, 'icp_spec', None)
+            sarvam_enabled = getattr(_icp_spec, 'sarvam_enabled', False) if _icp_spec else False
+            _llm_client = get_llm_client(_llm_base, sarvam_enabled=sarvam_enabled, country=country)
+            persona_results = {
+                "persona_id": persona.persona_id,
+                "persona_name": persona.demographic_anchor.name,
+                "rounds": [],
+            }
+            current_persona = persona
+            for round_num, stimulus in enumerate(all_stimuli[:rounds], 1):
+                current_persona, loop_result = await run_loop(
+                    stimulus=stimulus,
+                    persona=current_persona,
+                    decision_scenario=decision_scenario if round_num == rounds else None,
+                    llm_client=_llm_client,
+                    tier=_tier,
+                )
+                round_data = {
+                    "round": round_num,
+                    "stimulus": stimulus,
+                    "observation_importance": loop_result.observation.importance,
+                    "reflected": loop_result.reflected,
+                    "decided": loop_result.decided,
+                }
+                if loop_result.decided and loop_result.decision:
+                    round_data["response"] = loop_result.observation.content
+                    round_data["decision"] = loop_result.decision.decision
+                    round_data["confidence"] = loop_result.decision.confidence
+                    round_data["reasoning"] = loop_result.decision.reasoning_trace
+                persona_results["rounds"].append(round_data)
+            click.echo(f"    Done: {persona.persona_id}", err=True)
+            return persona_results
+
+        results = list(await asyncio.gather(*[_simulate_persona(p) for p in envelope.personas]))
 
     # Apply calibration
     from src.cohort.calibrator import compute_calibration_state
     calibration = compute_calibration_state(envelope, results)
 
-    # Social simulation metadata (Sprint SB)
-    social_info = {
+    social_info: dict = {
         "social_level": social_level,
         "social_topology": social_topology if social_level != "isolated" else None,
     }
+    if social_trace_dict is not None:
+        social_info["trace"] = social_trace_dict
 
     return {
-        "simulation_id": f"sim-{__import__('uuid').uuid4().hex[:8]}",
+        "simulation_id": f"sim-{_uuid.uuid4().hex[:8]}",
         "cohort_id": envelope.cohort_id,
         "rounds": rounds,
         "decision_scenario": decision_scenario,

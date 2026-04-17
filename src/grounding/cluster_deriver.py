@@ -1,7 +1,8 @@
-"""Behavioural cluster derivation using pure-Python K-means.
+"""Behavioural cluster derivation using GMM (preferred) or K-means fallback.
 
 Sprint 8 — Grounding Pipeline Stage 3.
-No numpy, no sklearn. Standard library only.
+GMM provides probabilistic (soft) cluster assignment per Master Spec §7.
+Falls back to pure-Python K-means when sklearn is unavailable.
 """
 from __future__ import annotations
 
@@ -18,6 +19,14 @@ MIN_K = 3
 MAX_K = 8
 KMEANS_MAX_ITER = 100
 KMEANS_SEED = 42  # reproducible clustering in tests
+
+# Try to import sklearn for GMM; fall back to K-means if unavailable.
+try:
+    from sklearn.mixture import GaussianMixture
+    import numpy as np
+    _HAS_GMM = True
+except ImportError:
+    _HAS_GMM = False
 
 
 # ---------------------------------------------------------------------------
@@ -291,6 +300,77 @@ def _archetype_from_cluster(
 
 
 # ---------------------------------------------------------------------------
+# GMM clustering (preferred — probabilistic soft assignment)
+# ---------------------------------------------------------------------------
+
+def _gmm_derive(
+    vectors: list[Vector],
+    k_min: int,
+    k_max: int,
+    seed: int,
+) -> list[BehaviouralArchetype]:
+    """Derive archetypes using Gaussian Mixture Model.
+
+    Uses BIC (Bayesian Information Criterion) for model selection.
+    GMM provides probabilistic cluster membership — personas near cluster
+    boundaries blend traits from multiple archetypes rather than being
+    forced into one (per Master Spec §7).
+    """
+    X = np.array(vectors)
+    n = len(vectors)
+
+    effective_k_min = max(1, min(k_min, n))
+    effective_k_max = max(effective_k_min, min(k_max, n))
+
+    # Model selection via BIC (lower is better).
+    best_k = effective_k_min
+    best_bic = float("inf")
+
+    for k in range(effective_k_min, effective_k_max + 1):
+        gmm = GaussianMixture(
+            n_components=k,
+            covariance_type="full",
+            random_state=seed,
+            max_iter=200,
+            n_init=3,
+        )
+        gmm.fit(X)
+        bic = gmm.bic(X)
+        if bic < best_bic:
+            best_bic = bic
+            best_k = k
+
+    # Fit final model with best K.
+    gmm = GaussianMixture(
+        n_components=best_k,
+        covariance_type="full",
+        random_state=seed,
+        max_iter=200,
+        n_init=3,
+    )
+    gmm.fit(X)
+    assignments = gmm.predict(X).tolist()
+    centroids = gmm.means_.tolist()
+
+    # Build archetypes.
+    archetypes: list[BehaviouralArchetype] = []
+    for cluster_idx in range(best_k):
+        cluster_points = [
+            v for v, a in zip(vectors, assignments) if a == cluster_idx
+        ]
+        if not cluster_points:
+            continue
+        archetype = _archetype_from_cluster(
+            archetype_id=f"archetype_{cluster_idx + 1:02d}",
+            cluster_points=cluster_points,
+            centroid=centroids[cluster_idx],
+        )
+        archetypes.append(archetype)
+
+    return archetypes
+
+
+# ---------------------------------------------------------------------------
 # Public interface
 # ---------------------------------------------------------------------------
 
@@ -301,6 +381,9 @@ def derive_clusters(
     seed: int = KMEANS_SEED,
 ) -> list[BehaviouralArchetype]:
     """Derive behavioural archetypes from per-signal feature vectors.
+
+    Uses GMM (Gaussian Mixture Model) when sklearn is available for
+    probabilistic soft cluster assignment. Falls back to K-means++ otherwise.
 
     Args:
         vectors: List of 9-dim feature vectors (one per signal).
@@ -318,6 +401,12 @@ def derive_clusters(
     if not vectors:
         return []
 
+    # Prefer GMM when available (probabilistic assignment per Master Spec §7).
+    if _HAS_GMM and len(vectors) >= 10:
+        return _gmm_derive(vectors, k_min, k_max, seed)
+
+    # Fallback: pure-Python K-means (also used for very small datasets
+    # where GMM covariance estimation is unreliable).
     n = len(vectors)
     rng = random.Random(seed)
 

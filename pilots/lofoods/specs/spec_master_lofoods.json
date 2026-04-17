@@ -1,0 +1,412 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": ["Lo! Keto", "Protein Chef", "DiabeSmart", "Gluten Smart"],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase — not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C1",
+      "name": "Metro Health-Conscious Mainstream Consumer",
+      "count": 10,
+      "age_range": [25, 40],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune", "Chennai"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "protein_consciousness": "medium-high",
+        "clean_label_importance": "medium",
+        "quick_commerce_adoption": "high",
+        "functional_food_trust": "medium",
+        "indian_startup_brand_trust": "medium",
+        "premium_price_tolerance": "medium",
+        "keto_diet_adherence": "low",
+        "weight_management_drive": "medium-high"
+      },
+      "case_studies": [1, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 16, 18],
+      "notes": "Anchor archetype — appears in 13 of 18 case studies. Urban professional or semi-professional, health-aware but not diet-dogmatic. Primary channel: Blinkit/Zepto + Amazon. Knows Lo! Foods but may not have purchased yet."
+    },
+    {
+      "archetype_id": "C2",
+      "name": "Keto Lifestyle Follower",
+      "count": 10,
+      "age_range": [28, 42],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Chennai", "Pune"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle", "high"],
+      "household_types": ["nuclear"],
+      "key_signals": {
+        "keto_diet_adherence": "high",
+        "clean_label_importance": "high",
+        "functional_food_trust": "medium-low",
+        "indian_startup_brand_trust": "low-medium",
+        "premium_price_tolerance": "high",
+        "weight_management_drive": "high",
+        "protein_consciousness": "medium-high",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [1, 2, 5, 11],
+      "notes": "Strict keto adherent — tracks macros, reads ingredient lists carefully. Skeptical of Indian keto brands ('non-keto ingredients, fake ratings' concern from dLife/Reddit). Has likely tried Lo! Foods or evaluated it. May have DIY keto food preference."
+    },
+    {
+      "archetype_id": "C3",
+      "name": "Mainstream Fitness Enthusiast / Protein-Focused",
+      "count": 10,
+      "age_range": [22, 38],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune", "Ahmedabad"],
+      "urban_tiers": ["metro", "tier1"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "protein_consciousness": "high",
+        "keto_diet_adherence": "low",
+        "quick_commerce_adoption": "high",
+        "premium_price_tolerance": "medium",
+        "weight_management_drive": "medium-high",
+        "doctor_endorsement_weight": "low",
+        "clean_label_importance": "medium",
+        "functional_food_trust": "medium-high"
+      },
+      "case_studies": [2, 3, 9, 11, 14],
+      "notes": "Gym-goer or fitness-aware consumer who thinks protein-first. Not on keto. Compares protein per rupee. Primary competition: whey protein, eggs, Yoga Bar, True Elements. Lo! Foods is on radar via Instagram/gym community."
+    },
+    {
+      "archetype_id": "C4",
+      "name": "Regular Bread / Snack Buyer",
+      "count": 10,
+      "age_range": [25, 45],
+      "locations": ["Delhi", "Mumbai", "Kolkata", "Ahmedabad", "Jaipur", "Lucknow"],
+      "urban_tiers": ["metro", "tier1", "tier2"],
+      "income_brackets": ["lower-middle", "middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "protein_consciousness": "low",
+        "keto_diet_adherence": "low",
+        "premium_price_tolerance": "low",
+        "functional_food_trust": "low",
+        "clean_label_importance": "low-medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "low-medium",
+        "national_brand_attachment": "high"
+      },
+      "case_studies": [3, 9, 12, 16],
+      "notes": "Mainstream grocery shopper. Buys Britannia/Harvest Gold/local bakery bread. Price anchor is ₹45-55. Unfamiliar with Lo! Foods. Category creation challenge — this is the consumer Protein Chef needs to convert."
+    },
+    {
+      "archetype_id": "C5",
+      "name": "Quick Commerce Power User",
+      "count": 10,
+      "age_range": [22, 35],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Gurgaon", "Noida"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "quick_commerce_adoption": "very-high",
+        "quick_commerce_trust": "medium",
+        "d2c_comfort": "high",
+        "premium_price_tolerance": "medium",
+        "protein_consciousness": "medium",
+        "clean_label_importance": "medium",
+        "functional_food_trust": "medium"
+      },
+      "case_studies": [4, 16],
+      "notes": "Blinkit/Zepto as primary grocery channel. Makes 10-second browse decisions based on thumbnail + name + price. Has quality skepticism (aware of weight discrepancies, expiry issues) but continues using for convenience. Critical for shelf visibility study."
+    },
+    {
+      "archetype_id": "C6",
+      "name": "Parent / Family Health Decision-Maker",
+      "count": 10,
+      "age_range": [28, 45],
+      "gender_skew": "female-dominant (70%)",
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune", "Chennai"],
+      "urban_tiers": ["metro", "tier1"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "protein_consciousness": "medium",
+        "clean_label_importance": "high",
+        "doctor_endorsement_weight": "high",
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "medium-high",
+        "subscription_tolerance": "medium",
+        "weight_management_drive": "low-medium",
+        "quick_commerce_adoption": "medium-high"
+      },
+      "case_studies": [9, 14, 18],
+      "notes": "Primary grocery buyer for household with children. Evaluates products through 'is this good for my kids / family' lens. Doctor-influenced. Susceptible to 'growing kids need protein' and 'no maida' messaging. Retention challenge persona."
+    },
+    {
+      "archetype_id": "C7",
+      "name": "Type 2 Diabetic Patient",
+      "count": 10,
+      "age_range": [40, 65],
+      "locations": ["Delhi", "Mumbai", "Hyderabad", "Chennai", "Bangalore", "Kolkata"],
+      "urban_tiers": ["metro", "tier1", "tier2"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "diabetic_status": "high",
+        "doctor_endorsement_weight": "very-high",
+        "functional_food_trust": "medium",
+        "clean_label_importance": "high",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "low-medium",
+        "keto_diet_adherence": "low-medium",
+        "quick_commerce_adoption": "low-medium"
+      },
+      "case_studies": [6, 15],
+      "notes": "High-stakes category. Needs clinical credibility — FSSAI, clinical studies, doctor recommendations. Skeptical of startup brands without medical backing. Family member (C8) often makes purchase. Trust is the primary unlock, not price."
+    },
+    {
+      "archetype_id": "C8",
+      "name": "Diabetic Caretaker / Spouse",
+      "count": 10,
+      "age_range": [38, 60],
+      "gender_skew": "female-dominant (65%)",
+      "locations": ["Delhi", "Mumbai", "Hyderabad", "Chennai", "Bangalore", "Kolkata"],
+      "urban_tiers": ["metro", "tier1", "tier2"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "diabetic_status": "medium",
+        "doctor_endorsement_weight": "very-high",
+        "functional_food_trust": "medium-low",
+        "clean_label_importance": "high",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [6],
+      "notes": "Actual grocery buyer for diabetic family member. Higher skepticism than the patient — protective instinct. More likely to seek doctor validation before purchase. Will check ingredients meticulously. Represents the 'gatekeeper' in diabetic food purchase."
+    },
+    {
+      "archetype_id": "C9",
+      "name": "Tier 2 City Health-Aware Consumer",
+      "count": 10,
+      "age_range": [25, 45],
+      "locations": ["Jaipur", "Lucknow", "Coimbatore", "Indore", "Nagpur", "Bhopal"],
+      "urban_tiers": ["tier2", "tier3"],
+      "income_brackets": ["lower-middle", "middle"],
+      "household_types": ["joint", "nuclear"],
+      "key_signals": {
+        "tier2_health_aspiration": "high",
+        "keto_diet_adherence": "low",
+        "protein_consciousness": "medium",
+        "premium_price_tolerance": "low-medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "medium",
+        "national_brand_attachment": "high",
+        "functional_food_trust": "medium-low"
+      },
+      "case_studies": [7, 15],
+      "notes": "Health-aware but keto-unfamiliar. Rising protein awareness via gym culture. Compares against local and Patanjali/Dabur alternatives. Protein Chef concept is more accessible than keto. DiabeSmart resonates due to high diabetes prevalence. Price premium threshold is lower than metro."
+    },
+    {
+      "archetype_id": "C10",
+      "name": "Clinically Diagnosed Celiac / Gluten-Intolerant",
+      "count": 10,
+      "age_range": [25, 50],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Chennai", "Pune"],
+      "urban_tiers": ["metro", "tier1"],
+      "income_brackets": ["middle", "upper-middle", "high"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "gluten_sensitivity_belief": "very-high",
+        "doctor_endorsement_weight": "high",
+        "clean_label_importance": "very-high",
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "high",
+        "indian_startup_brand_trust": "medium",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [15],
+      "notes": "Medically diagnosed — non-negotiable requirement, not a lifestyle choice. Will pay premium for guaranteed gluten-free products. Verifies certifications. Strong community connection (support groups, online forums). Addressable but small market in India."
+    },
+    {
+      "archetype_id": "C11",
+      "name": "Gluten-Free Trend Follower",
+      "count": 10,
+      "age_range": [22, 38],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Pune", "Hyderabad"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "gluten_sensitivity_belief": "medium",
+        "clean_label_importance": "high",
+        "protein_consciousness": "medium",
+        "functional_food_trust": "medium-high",
+        "premium_price_tolerance": "medium-high",
+        "quick_commerce_adoption": "high",
+        "indian_startup_brand_trust": "medium-high"
+      },
+      "case_studies": [15],
+      "notes": "Self-identified gluten-avoider without medical diagnosis — lifestyle/wellness choice influenced by Western diet trends, Instagram wellness culture. Willing to pay premium but churn risk is high if product doesn't deliver perceived wellness benefit. Will not differentiate from C10 on packaging alone."
+    },
+    {
+      "archetype_id": "C12",
+      "name": "Social Media Active Health Shopper",
+      "count": 10,
+      "age_range": [22, 38],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "protein_consciousness": "medium-high",
+        "clean_label_importance": "medium-high",
+        "functional_food_trust": "medium-high",
+        "premium_price_tolerance": "medium",
+        "quick_commerce_adoption": "high",
+        "indian_startup_brand_trust": "medium-high",
+        "d2c_comfort": "high"
+      },
+      "case_studies": [10, 14],
+      "notes": "Discovers brands via Instagram/YouTube. Follows fitness creators, nutritionists, mom bloggers. Micro-influencer trust is higher than macro. Evaluates products through creator-endorsed lens before Amazon/Blinkit purchase. Key to Lo! Foods' digital acquisition funnel."
+    },
+    {
+      "archetype_id": "C13",
+      "name": "Amazon Regular Grocery Shopper",
+      "count": 10,
+      "age_range": [25, 45],
+      "locations": ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Kolkata", "Ahmedabad"],
+      "urban_tiers": ["metro", "tier1"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "joint"],
+      "key_signals": {
+        "protein_consciousness": "low-medium",
+        "clean_label_importance": "low-medium",
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "medium-low",
+        "d2c_comfort": "medium",
+        "quick_commerce_adoption": "medium",
+        "national_brand_attachment": "medium"
+      },
+      "case_studies": [3, 10],
+      "notes": "Habitual Amazon grocery buyer — compares price, reads reviews, uses search. Will search 'healthy cookies' or 'sugar free biscuit' before Lo! Foods specifically. Keyword and listing format is decisive in browse-to-cart conversion. Price comparison with Amazon search results is automatic."
+    },
+    {
+      "archetype_id": "C14",
+      "name": "First-Time Health Product Trial Buyer",
+      "count": 10,
+      "age_range": [25, 40],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune", "Chennai"],
+      "urban_tiers": ["metro", "tier1"],
+      "income_brackets": ["middle", "upper-middle"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "protein_consciousness": "medium",
+        "clean_label_importance": "medium",
+        "functional_food_trust": "medium-low",
+        "premium_price_tolerance": "medium-low",
+        "subscription_tolerance": "low",
+        "indian_startup_brand_trust": "low-medium",
+        "quick_commerce_adoption": "medium-high",
+        "weight_management_drive": "medium"
+      },
+      "case_studies": [18],
+      "notes": "In a health kick phase — New Year resolution, post-vacation, doctor visit trigger. High trial intent, high lapse risk. Will revert to familiar foods within 60-90 days without intervention. The 'health kick decay curve' persona. Retention intervention design is built around this archetype."
+    },
+    {
+      "archetype_id": "C15",
+      "name": "Cloud Kitchen Customer",
+      "count": 10,
+      "age_range": [25, 40],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle", "high"],
+      "household_types": ["nuclear", "single"],
+      "key_signals": {
+        "keto_diet_adherence": "medium-high",
+        "clean_label_importance": "high",
+        "premium_price_tolerance": "high",
+        "subscription_tolerance": "high",
+        "functional_food_trust": "high",
+        "quick_commerce_adoption": "medium",
+        "d2c_comfort": "high"
+      },
+      "case_studies": [5, 13],
+      "notes": "Existing Lo! Foods cloud kitchen customer via Swiggy/Zomato. Has direct fresh food experience. Key question: does this person also buy packaged products, or are they distinct audiences? High engagement, high spend — the most valuable customer to understand for channel strategy."
+    },
+    {
+      "archetype_id": "P1",
+      "name": "Hospital Dietitian / Clinical Nutritionist",
+      "count": 10,
+      "age_range": [28, 50],
+      "locations": ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai", "Kolkata"],
+      "urban_tiers": ["metro", "tier1"],
+      "role": "institutional food decision-maker and clinical patient advisor",
+      "key_signals": {
+        "functional_food_trust": "medium-low",
+        "clean_label_importance": "very-high",
+        "indian_startup_brand_trust": "low",
+        "doctor_endorsement_weight": "n/a — is the authority",
+        "premium_price_tolerance": "medium (institution budget-constrained)",
+        "diabetic_status": "varies — personal health"
+      },
+      "case_studies": [6, 17],
+      "notes": "Full 8-phase simulation including personal health beliefs — dietitians have their own dietary philosophies which influence recommendations. Skeptical of marketing claims without clinical evidence (FSSAI, peer-reviewed studies). Key gatekeeper for DiabeSmart hospital channel. Will not recommend without FSSAI + ideally clinical study backing."
+    },
+    {
+      "archetype_id": "P2",
+      "name": "GP / Endocrinologist",
+      "count": 10,
+      "age_range": [32, 55],
+      "locations": ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai", "Pune"],
+      "urban_tiers": ["metro", "tier1"],
+      "role": "patient advisor and recommendation authority for diabetic patients",
+      "key_signals": {
+        "functional_food_trust": "low-medium",
+        "indian_startup_brand_trust": "low",
+        "clean_label_importance": "high",
+        "doctor_endorsement_weight": "n/a — is the authority"
+      },
+      "case_studies": [6],
+      "notes": "Full 8-phase simulation — personal health beliefs matter. Many Indian doctors are health-conscious themselves; some are diabetic. DiabeSmart credibility hinges on this persona's recommendation likelihood. Will not recommend without clinical evidence. Prescription recommendation is the gold standard trigger for C7/C8 purchase."
+    },
+    {
+      "archetype_id": "P3",
+      "name": "Corporate Wellness / HR Manager",
+      "count": 10,
+      "age_range": [28, 45],
+      "locations": ["Bangalore", "Delhi", "Mumbai", "Hyderabad", "Pune", "Chennai"],
+      "urban_tiers": ["metro"],
+      "income_brackets": ["middle", "upper-middle"],
+      "role": "institutional buyer for employee wellness programs and cafeteria supply",
+      "key_signals": {
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "medium",
+        "protein_consciousness": "medium",
+        "clean_label_importance": "medium-high"
+      },
+      "case_studies": [17],
+      "notes": "Budget-constrained by employer. Evaluates B2B proposition through ROI + employee health outcome lens. Needs simple procurement process, bulk pricing, and compliance materials. Lo! Foods as a corporate wellness brand is nascent — credibility from consumer recognition helps."
+    },
+    {
+      "archetype_id": "P4",
+      "name": "Cafeteria / Institutional Food Operator",
+      "count": 10,
+      "age_range": [30, 55],
+      "locations": ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Chennai", "Kolkata"],
+      "urban_tiers": ["metro", "tier1"],
+      "role": "food procurement and operations decision-maker for institutional cafeterias",
+      "key_signals": {
+        "premium_price_tolerance": "low",
+        "functional_food_trust": "medium",
+        "indian_startup_brand_trust": "low-medium",
+        "clean_label_importance": "medium",
+        "quick_commerce_adoption": "low"
+      },
+      "case_studies": [17],
+      "notes": "Margin-sensitive. Evaluates on: bulk pricing, shelf life, consistent supply, ease of preparation/serving. Health claims are secondary to operational viability. Needs bulk format (not retail packs). Lo! Foods must solve the operational case before the health case for this buyer."
+    }
+  ]
+}

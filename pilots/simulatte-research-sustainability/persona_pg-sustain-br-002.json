@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-br-002",
+  "spec_id": "S05",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Rafael Souza",
+  "age": 35,
+  "location": "Belo Horizonte, MG, Brazil",
+  "employment": "Civil engineer, infrastructure consultancy",
+  "education": "B.Eng. Civil Engineering, UFMG; MBA",
+  "income": "BRL 11,500/month",
+  "household": "Apartment owner; married, one child (age 3)",
+  "political_orientation": "Centre; pragmatic on environmental issues",
+
+  "worldview_anchor": {
+    "IT": 0.49,
+    "SCP": 0.55,
+    "CS": 0.56,
+    "ESP": 0.40
+  },
+
+  "life_story_vignettes": [
+    "Rafael works on infrastructure projects, several of which have involved environmental licensing in the Atlantic Forest biome. He has navigated IBAMA approvals and understands at a practical level what deforestation assessments involve and how they are gamed. He is not naive about Brazil's environmental governance.",
+    "He and his wife visited a section of the Amazon near Manaus in 2021 for their anniversary. He describes it as transformative. Standing inside primary forest for the first time as an adult engineer — understanding what it structurally does for rainfall, temperature, biodiversity — made the abstraction concrete. He came back a changed person on this issue.",
+    "His consultancy won a contract in 2024 for a sustainable urban drainage project in BH — one of the first in the region applying new permeable infrastructure standards. He took it at lower margin than a comparable conventional project. It was professionally satisfying in a way most of his work isn't."
+  ],
+
+  "narrative": "Sou Rafael, tenho 35 anos, moro em Belo Horizonte. I'm Rafael, 35, civil engineer, BH.\n\nI think about sustainability every day professionally. My work involves environmental licensing, infrastructure planning, water management. I see what happens when you build badly and what happens when you build with the environment considered. The outcomes are different. The costs are different. This shapes how I think about everything.\n\nOn a personal level, I care deeply. My trip to the Amazon a few years ago changed how I think about what we have to lose. I stood in primary forest and understood something that no graph communicated to me before: this is a system that took tens of millions of years to build and it can be destroyed in decades. When I read about deforestation numbers — Amazon deforestation rates — it is not an abstraction. I know what that forest looks like. I know what it does.\n\nAs a consumer, I make choices where I can. We buy from local producers when possible. We've reduced meat significantly — not eliminated, but substantially. I care about certifications for wood products and some food items. I won't buy products I know are linked to problematic supply chains.\n\nThe honest assessment is that my premium willingness is selective. I'll pay more for things where the connection to impact is direct — certified timber, responsibly sourced food. I'm less consistent on, say, cleaning products, where the environmental claim feels less traceable.\n\nBrazil's environment is not someone else's problem. It's under my feet.",
+
+  "key_attributes": {
+    "sustainability_concern": "very high — professionally and personally grounded; Amazon connection is visceral and informed",
+    "premium_willingness": "moderate-high — selective by impact clarity; will pay where connection to outcome is direct",
+    "greenwashing_scepticism": "high — professional licensing experience creates acute awareness of how claims are constructed",
+    "certification_response": "strongly positive for credible labels; dismissive of empty certifications",
+    "attitude_behaviour_gap": "moderate — selective across categories; acknowledges inconsistency",
+    "political_engagement": "pragmatic centre; engages through professional sector channels"
+  },
+
+  "decision_bullets": [
+    "Will pay premium where environmental impact is traceable — certified timber, responsible food sourcing",
+    "Amazon/deforestation framing strongly activates concern — personal experiential connection",
+    "Professionally literate about how environmental claims and certifications are constructed and gamed",
+    "Less consistent on low-impact categories (cleaning products) — selectivity based on perceived impact",
+    "Views Brazil's environmental governance as structurally broken but personally obligated to act within it"
+  ]
+}

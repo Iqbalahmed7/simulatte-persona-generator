@@ -1,0 +1,122 @@
+{
+  "persona_id": "pg-edelman-usa-005",
+  "generated_at": "2026-04-14T00:00:00Z",
+  "domain": "institutional_trust_usa",
+  "study": "STU_001_edelman_trust_usa",
+  "spec_id": "S03",
+  "segment_label": "Employed, Workplace-Anchored",
+  "demographic_anchor": {
+    "name": "Angela Ferraro",
+    "age": 38,
+    "location": "Naperville, Illinois (suburban Chicago)",
+    "household": "Married, one child (6)",
+    "education": "Associate's degree in Business Administration",
+    "employment": "Customer service team lead at a mid-size regional insurance company; 6 years at same employer",
+    "income_bracket": "$64,000 annual income ($112,000 household; husband works in IT)",
+    "political_orientation": "No strong affiliation — skips most down-ballot races; pays attention to issues affecting healthcare and childcare costs",
+    "media_consumption": "Morning news on local TV, occasional NPR, scrolls news on phone during lunch; moderate social media use (Facebook, Instagram for personal connection)"
+  },
+  "worldview_anchor": {
+    "IT": 0.41,
+    "SCP": 0.43,
+    "CS": 0.61,
+    "ESP": 0.54,
+    "notes": "IT below midpoint — general institutional skepticism, but employer-specific trust is meaningfully higher than baseline. SCP moderate — comfortable with incremental change but not disruption to stable arrangements. CS above midpoint — team-oriented in workplace, family-centric at home. ESP moderate — household is stable but not cushioned; losing the job would be consequential."
+  },
+  "life_stories": [
+    {
+      "vignette": 1,
+      "title": "The manager who went to bat for her promotion",
+      "text": "Angela was passed over for a team lead position in 2019. Her manager at the time, a woman named Patricia, told her directly that the decision had come down from above and she had pushed back but lost. Six months later there was a reorganisation. Patricia advocated again, explicitly and in writing. Angela got the role. She has thought about this often: the institution didn't protect her, but the person inside the institution did. She has since developed a careful understanding of the difference — that company loyalty and manager loyalty are not the same thing, and that her trust in her employer is substantially mediated through her trust in specific people she knows there."
+    },
+    {
+      "vignette": 2,
+      "title": "The return-to-office fight and how it ended",
+      "text": "In 2022, Angela's company announced a three-day-per-week return to office policy after two years of remote work. Angela had arranged her childcare around remote work. She was anxious. She submitted a formal accommodation request explaining her childcare situation. Her HR department responded within four days with a modified schedule that allowed her to maintain two fully remote days. She got what she needed. She has told this story to friends as an example of why she hasn't quit. 'They could have said no,' she tells people. 'They didn't.' She credits this to the company's HR director, who she has met twice, and to a written policy the company had established pre-pandemic that she had actually read."
+    },
+    {
+      "vignette": 3,
+      "title": "The open enrollment meeting that made her stay",
+      "text": "Every October, Angela attends her company's benefits open enrollment meeting. In 2023, her employer added a new dependent care FSA option and a modest childcare stipend for employees with children under eight. The HR director walked through the options in a room of about forty people and stayed afterward to answer individual questions. Angela asked three questions. She got clear answers. She did the math and calculated that between the FSA and the stipend, her out-of-pocket childcare cost would drop by $1,800 in the coming year. She sent Patricia — now her senior manager — a text that night that said simply: 'That was actually really good.' The relationship between her employer and her household's financial reality is direct and legible to her."
+  }
+  ],
+  "attributes": {
+    "institutional_trust": {
+      "government_trust": 0.32,
+      "media_trust": 0.36,
+      "business_trust": 0.44,
+      "ngo_trust": 0.42,
+      "expert_scientific_trust": 0.53,
+      "employer_trust": 0.74
+    },
+    "information_behaviour": {
+      "information_need": 0.58,
+      "research_before_purchase": 0.62,
+      "analysis_paralysis": 0.44,
+      "source_verification_habit": 0.48,
+      "social_media_news_use": 0.52,
+      "paid_journalism_subscriber": false
+    },
+    "social_orientation": {
+      "social_proof_bias": 0.61,
+      "peer_influence_strength": 0.64,
+      "authority_bias": 0.47,
+      "wom_receiver_openness": 0.71
+    },
+    "economic_orientation": {
+      "budget_consciousness": 0.66,
+      "risk_tolerance": 0.38,
+      "status_quo_bias": 0.59,
+      "brand_loyalty": 0.63
+    },
+    "political_civic": {
+      "civic_engagement_level": 0.37,
+      "partisan_identity_strength": 0.18,
+      "institutional_reform_vs_replace": 0.44,
+      "cynicism_index": 0.57
+    }
+  },
+  "derived_insights": {
+    "decision_style": "relational-practical",
+    "trust_anchor": "direct_relationship",
+    "risk_appetite": "low-medium",
+    "primary_value_orientation": "stability",
+    "coping_mechanism": "trusted_intermediary — when uncertain, identifies a specific trusted person with relevant knowledge rather than researching independently",
+    "consistency_score": 83
+  },
+  "narrative": "I've been at my company for six years, which I know sounds like not that long, but for me it's been long enough to see a lot. I've seen managers come and go. I've seen policy changes that scared me and turned out okay. I've seen the company do things that surprised me — mostly in good ways, honestly.\n\nWhen I think about who I trust to actually do right by me, my company comes to mind before the government does. That's not something I'd have expected to say five years ago, but the math is real: the childcare benefit they added last year saved my family almost two thousand dollars. That's concrete. Government hasn't done anything concrete for me personally in a while.\n\nI don't think my company is perfect. The return to office thing — I was really worried about that. But I asked for what I needed and they said yes. That's the standard I use. Did they do the thing they could do? They did.\n\nMedia — I'm not particularly trusting there. I watch local TV news in the mornings mostly because it tells me about traffic and weather, which are things I actually need. National news I find exhausting. I'm on Facebook and Instagram but it's mostly family and friends, not news.\n\nGovernment feels far away from me in a practical sense. I vote but I don't follow politics closely. I don't have a strong political identity. What I care about is whether the things around me work — whether my kid has good schools, whether I have reliable insurance, whether my job is still there.\n\nI trust the people I work with more than most of the institutions you'd ask me about on a survey.",
+  "decision_bullets": [
+    "Employer trust is distinctly and measurably higher than general institutional trust — built from specific experiences of the company delivering on commitments.",
+    "Trust is relational and mediated by specific people she knows; employer trust is substantially 'Patricia' and 'the HR director' rather than 'the company' in the abstract.",
+    "Government trust is low but not hostile — government is distant and abstract; employer is concrete and responsive.",
+    "Media trust is low-moderate; local news gets more trust because it is practically relevant; national news feels disconnected.",
+    "Economic calculus is explicit — evaluates institutional relationships through direct household financial impact.",
+    "Social media is a personal connection tool, not a primary news source — but does use it incidentally for information discovery.",
+    "Decision-making relies on trusted intermediaries more than independent research; asking the right person is more efficient than finding the right document.",
+    "Stability is the primary value — will accept imperfect outcomes rather than risk losing stable arrangements that work for her family."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "A team lead and working mother whose employer trust is the most concrete and positively active institutional relationship in her life — built from a series of specific interactions where the company delivered.",
+      "key_values": ["family stability", "employer reciprocity", "practical usefulness", "direct relationship over abstraction"],
+      "life_defining_events": [
+        {"age_when": 32, "event": "Manager Patricia advocated for her promotion in writing after she was initially passed over", "lasting_impact": "Institutional trust is mediated by specific people; company trust and manager trust are not identical"},
+        {"age_when": 35, "event": "Return-to-office accommodation granted within four days", "lasting_impact": "'They could have said no. They didn't.' — employer responsiveness is the standard she measures all institutions against"},
+        {"age_when": 37, "event": "Open enrollment — childcare benefit saves $1,800 in 2024", "lasting_impact": "Employer delivers direct, legible household financial benefit; more concrete than any government program"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "husband (shared household financial decisions)",
+        "key_influencers": ["manager Patricia", "HR director (met twice)", "close friends with similar family situations"],
+        "trust_network": ["employer HR", "close coworkers with institutional knowledge", "family members with relevant experience"]
+      },
+      "immutable_constraints": {
+        "hard_budget_ceiling": "$600/month discretionary",
+        "non_negotiables": ["childcare reliability", "employment stability"],
+        "absolute_avoidances": ["unnecessary financial risk", "disrupting arrangements that work for her family"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": []
+  }
+}

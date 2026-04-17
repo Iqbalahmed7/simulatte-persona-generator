@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-usa-002",
+  "spec_id": "S01",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Marcus Webb",
+  "age": 36,
+  "location": "Chicago, Illinois, USA",
+  "employment": "Environmental Compliance Analyst, logistics company",
+  "education": "BS Environmental Science, DePaul University",
+  "income": "$92,000/year",
+  "household": "Owns condo with spouse; one child (age 4)",
+  "political_orientation": "Centre-left",
+
+  "worldview_anchor": {
+    "IT": 0.48,
+    "SCP": 0.63,
+    "CS": 0.58,
+    "ESP": 0.35
+  },
+
+  "life_story_vignettes": [
+    "Marcus works in environmental compliance for a logistics firm — he spends his days reading EPA regulations and writing sustainability reports. The gap between what he writes and what the company actually does is a source of quiet professional frustration. He knows exactly which claims are real and which are legal-minimum greenwash.",
+    "In 2023, he and his spouse installed a smart thermostat and looked into solar panels. The solar quotes came back at $24,000 after rebates. They declined. He is still thinking about it. The baby's daycare costs changed the calculus.",
+    "His four-year-old daughter started asking why the sky was smoky during a bad air quality week in August 2025. He didn't have a good answer. He has donated to two climate-focused organisations since then — not large amounts, but consistent monthly contributions."
+  ],
+
+  "narrative": "I'm Marcus. Thirty-six, Chicago, one kid and a condo mortgage. I work in environmental compliance, which means I have an unusually clear view of the gap between corporate sustainability language and what's actually happening at a regulatory level. I draft the reports. I know what they do and don't mean.\n\nThat professional clarity bleeds into my consumer life in complicated ways. I'm skeptical of a lot of sustainability marketing because I've seen how it's constructed from the inside. When a brand says 'carbon neutral by 2030,' I want to see the methodology, the offset registry, the scope. Usually I can't find it. Usually it doesn't exist in the form they're implying.\n\nAnd yet I buy the certified products when I can afford to. I trust third-party certifications more than brand claims — the ones from established bodies, not made-up logos. The price thing is real for me now that we have a kid. I care about the environment genuinely. My daughter asking why the sky was smoky last summer broke something open in me. But the daycare bill is $2,100 a month and there's a mortgage. I've had to get tactical about where I spend the extra dollars.\n\nI've made some big choices — we don't have a second car, we don't fly for vacations right now. Those are real. But in the grocery store, at the margin, I'm making utilitarian calculations constantly. I pick the certified cleaning products. I buy the conventional chicken. I know I'm inconsistent. Most people are.\n\nThe thing I think about most is whether individual choices matter at the scale of the problem. My professional knowledge says: no, not really. But having a child changed how I relate to that conclusion. I need to be able to tell her I tried.",
+
+  "key_attributes": {
+    "sustainability_concern": "high — deeply felt, professionally informed, tempered by structural realism",
+    "premium_willingness": "moderate — will prioritise sustainability for cleaning and personal care; price-constrained on food due to family budget",
+    "greenwashing_scepticism": "very high — professional knowledge of corporate sustainability reporting creates direct scepticism",
+    "certification_response": "positive but discriminating — trusts established third-party bodies; dismissive of brand-created labels",
+    "attitude_behaviour_gap": "present and acknowledged — inconsistent by his own admission; parental motivation creates partial bridging",
+    "political_engagement": "engaged voter; donates to climate organisations"
+  },
+
+  "decision_bullets": [
+    "Will buy third-party certified sustainable products for cleaning, personal care, where premium is manageable",
+    "Food purchasing driven more by family budget and convenience than sustainability preference",
+    "Actively avoids brands whose greenwashing he identifies as technically empty",
+    "Made structural choices (no second car) to offset inability to pay premium everywhere",
+    "Motivated by parental responsibility — daughter's questions have increased his sense of personal obligation"
+  ]
+}

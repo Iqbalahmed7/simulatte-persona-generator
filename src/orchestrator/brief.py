@@ -49,6 +49,20 @@ class SimulationScenario(BaseModel):
     stimuli: list[str] = Field(default_factory=list)
     decision_scenario: str | None = None
     rounds: int = Field(default=1, ge=1, le=10)
+    social_level: str = Field(
+        default="isolated",
+        description=(
+            "Peer-influence intensity: 'isolated' (no social influence), "
+            "'low', 'moderate', 'high', or 'saturated'. "
+            "Non-isolated levels activate the social loop orchestrator."
+        ),
+        pattern="^(isolated|low|moderate|high|saturated)$",
+    )
+    social_topology: str = Field(
+        default="random_encounter",
+        description="Network topology for peer influence: 'random_encounter' or 'full_mesh'.",
+        pattern="^(random_encounter|full_mesh)$",
+    )
 
 
 class PersonaGenerationBrief(BaseModel):

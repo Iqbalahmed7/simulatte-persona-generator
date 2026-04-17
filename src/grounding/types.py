@@ -81,7 +81,7 @@ class BehaviouralFeatures:
 
 @dataclass
 class BehaviouralArchetype:
-    """A behavioural cluster archetype derived from K-means clustering."""
+    """A behavioural cluster archetype derived from GMM or K-means clustering."""
     archetype_id: str
     size: int                                    # number of signals in this cluster
     price_sensitivity_band: Literal["low", "medium", "high", "extreme"]

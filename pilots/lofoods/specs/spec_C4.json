@@ -1,0 +1,66 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C4",
+      "name": "Regular Bread / Snack Buyer",
+      "count": 10,
+      "age_range": [
+        25,
+        45
+      ],
+      "locations": [
+        "Delhi",
+        "Mumbai",
+        "Kolkata",
+        "Ahmedabad",
+        "Jaipur",
+        "Lucknow"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1",
+        "tier2"
+      ],
+      "income_brackets": [
+        "lower-middle",
+        "middle"
+      ],
+      "household_types": [
+        "nuclear",
+        "joint"
+      ],
+      "key_signals": {
+        "protein_consciousness": "low",
+        "keto_diet_adherence": "low",
+        "premium_price_tolerance": "low",
+        "functional_food_trust": "low",
+        "clean_label_importance": "low-medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "low-medium",
+        "national_brand_attachment": "high"
+      },
+      "case_studies": [
+        3,
+        9,
+        12,
+        16
+      ],
+      "notes": "Mainstream grocery shopper. Buys Britannia/Harvest Gold/local bakery bread. Price anchor is \u20b945-55. Unfamiliar with Lo! Foods. Category creation challenge \u2014 this is the consumer Protein Chef needs to convert."
+    }
+  ]
+}

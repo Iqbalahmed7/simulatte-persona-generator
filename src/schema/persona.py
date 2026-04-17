@@ -401,6 +401,14 @@ class PersonaRecord(BaseModel):
     decision_bullets: list[str]
     memory: Memory
 
+    # Seeded generation metadata — set when this persona was produced as a
+    # demographic variant of an existing seed persona. None for standard
+    # full-pipeline ("deep") personas. seed_persona_id links back to the
+    # seed's persona_id; generation_mode distinguishes variants from seeds
+    # in analytics and cost accounting.
+    seed_persona_id: str | None = None
+    generation_mode: Literal["full", "variant"] = "full"
+
     @field_validator("life_stories")
     @classmethod
     def _life_stories_2_3(cls, v: list[LifeStory]) -> list[LifeStory]:

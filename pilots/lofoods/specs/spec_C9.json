@@ -1,0 +1,63 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C9",
+      "name": "Tier 2 City Health-Aware Consumer",
+      "count": 10,
+      "age_range": [
+        25,
+        45
+      ],
+      "locations": [
+        "Jaipur",
+        "Lucknow",
+        "Coimbatore",
+        "Indore",
+        "Nagpur",
+        "Bhopal"
+      ],
+      "urban_tiers": [
+        "tier2",
+        "tier3"
+      ],
+      "income_brackets": [
+        "lower-middle",
+        "middle"
+      ],
+      "household_types": [
+        "joint",
+        "nuclear"
+      ],
+      "key_signals": {
+        "tier2_health_aspiration": "high",
+        "keto_diet_adherence": "low",
+        "protein_consciousness": "medium",
+        "premium_price_tolerance": "low-medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "medium",
+        "national_brand_attachment": "high",
+        "functional_food_trust": "medium-low"
+      },
+      "case_studies": [
+        7,
+        15
+      ],
+      "notes": "Health-aware but keto-unfamiliar. Rising protein awareness via gym culture. Compares against local and Patanjali/Dabur alternatives. Protein Chef concept is more accessible than keto. DiabeSmart resonates due to high diabetes prevalence. Price premium threshold is lower than metro."
+    }
+  ]
+}

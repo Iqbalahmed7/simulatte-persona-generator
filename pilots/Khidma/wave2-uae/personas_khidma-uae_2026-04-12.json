@@ -1,0 +1,1344 @@
+{
+  "cohort_id": "cohort-khidma-uae-20260412",
+  "generated_at": "2026-04-12T00:00:00Z",
+  "domain": "muslim-mental-health-uae",
+  "business_problem": "Whether a Gulf Muslim user will book a Khidma session, refer it, or engage via a growth channel",
+  "mode": "simulation-ready",
+  "taxonomy_used": {
+    "categories": [
+      "islamic_practice_identity",
+      "mental_health_help_seeking",
+      "trust_verification",
+      "privacy_community",
+      "economics_price",
+      "decision_psychology",
+      "channel_discovery"
+    ],
+    "total_attributes": 28,
+    "domain_data_used": false
+  },
+  "personas": [
+    {
+      "persona_id": "pg-khidma-uae-s01",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S01",
+      "demographic_anchor": {
+        "name": "Hessa Al Mazrouei",
+        "age": 33,
+        "gender": "female",
+        "location": {
+          "country": "UAE",
+          "region": "Abu Dhabi",
+          "city": "Abu Dhabi",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Married, lives in extended family compound with in-laws",
+          "size": 7,
+          "income_bracket": "AED 25,000–35,000/month household",
+          "dual_income": true
+        },
+        "life_stage": "Married with young children, managing competing family loyalties",
+        "education": "Bachelor's degree in Business Administration, UAE University",
+        "employment": "Part-time HR coordinator, Abu Dhabi government entity",
+        "worldview": {
+          "institutional_trust": 0.62,
+          "social_change_pace": 0.38,
+          "collectivism_score": 0.88,
+          "economic_security_priority": 0.55,
+          "religious_salience": 0.87
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The Majlis Where She Cried in the Bathroom",
+          "when": "Age 29, Ramadan 2021, family majlis in Baniyas",
+          "event": "During a large family gathering at her mother-in-law's home, Hessa excused herself repeatedly to the bathroom to cry. She had been experiencing acute anxiety about her marriage and felt completely unable to speak about it to anyone in the room — the same people she would have to face at Eid the following week. Her sister noticed she had been gone too long and knocked on the door. Hessa said she had a headache. She drove home that night knowing no one in her world could be trusted with what was actually happening.",
+          "lasting_impact": "Cemented her belief that emotional pain must be hidden within family settings; created a persistent split between her public composure and private distress. She still has a visceral reaction to bathroom mirrors in majlis settings."
+        },
+        {
+          "title": "Finding Stability in the Quran After the Miscarriage",
+          "when": "Age 31, Al Ain hospital, summer 2023",
+          "event": "Hessa miscarried in her second trimester and spent three days in Al Ain hospital before returning home. Her mother read Surah Al-Baqarah to her each morning. That daily recitation was the only thing that felt genuinely helpful. The hospital counsellor who came to check on her spoke only about 'processing grief' in clinical language that felt alien. She discharged herself early. She told her mother-in-law the baby 'was not meant to be' and never raised the subject again at family gatherings.",
+          "lasting_impact": "Solidified her conviction that Islamic framing is not optional for her — it is the only psychological language she trusts. She has deeply internalised that worldly sorrow must be met with Quranic response, but she is aware that recitation alone has not resolved her underlying anxiety."
+        },
+        {
+          "title": "The WhatsApp Voice Note from Her Cousin Fatima",
+          "when": "Age 32, late 2024, via WhatsApp",
+          "event": "Her cousin Fatima in Dubai sent her a 4-minute voice note about using an Islamic wellbeing service. Fatima described speaking to a scholar about her marital frustrations and said it had helped her 'think clearly in halal terms'. Hessa listened to the voice note three times. She did not reply for two days. When she did, she asked only one question: 'Is it on the phone or in a room?' Fatima confirmed it was all audio, no video, no in-person. Hessa saved the message and has returned to it four times since.",
+          "lasting_impact": "The peer-to-peer audio format changed her perception of what seeking help could look like. She now understands that faith-integrated support can be accessed invisibly. The framing 'think clearly in halal terms' is language she has internally adopted and repeated to herself."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.87,
+          "practice_regularity": 0.85,
+          "islamic_knowledge_depth": 0.62,
+          "community_mosque_attachment": 0.58,
+          "arabic_language_proficiency": "fluent"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.42,
+          "stigma_internalization": 0.78,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.29,
+          "crisis_threshold": 0.72
+        },
+        "trust_verification": {
+          "institutional_trust": 0.62,
+          "peer_trust_dominance": 0.82,
+          "verification_thoroughness": 0.44,
+          "scholar_authority_deference": 0.88,
+          "regulatory_credential_value": 0.38
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.92,
+          "privacy_concern_intensity": 0.86,
+          "reputation_sensitivity": 0.89,
+          "digital_privacy_awareness": 0.32
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.58,
+          "price_elasticity": 0.55,
+          "value_framing": "essential",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.48,
+          "avoidance_pattern": 0.65,
+          "social_validation_need": 0.88,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.75,
+          "information_need": 0.42
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.88,
+          "community_referral_trust": 0.92,
+          "online_discovery_comfort": 0.41,
+          "social_proof_bias": 0.82
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "religious_suppression",
+          "description": "Channels distress into increased Quran recitation and prayer while outwardly performing composure for family. Avoids naming psychological states explicitly."
+        },
+        "consistency_score": 81,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Needs emotional support urgently but any disclosure risks her reputation within a tightly connected Emirati family network she cannot exit",
+          "Trusts Islamic scholars deeply but fears that consulting one known to the family would create a permanent record of her struggles within the community"
+        ]
+      },
+      "narrative": "I run our house, I run the majlis evenings, I smile when my mother-in-law asks how everything is. Alhamdulillah, everything is fine. That is what I say. That is what I always say. But there is something sitting behind my ribs that I cannot name in Arabic, and I have been carrying it since at least after the miscarriage — maybe before. In our family, you do not speak about these things outside the walls of the house, and inside the walls, you definitely do not speak about them either. Mental health — that phrase already feels foreign, almost un-Islamic to me, like something for people who have lost their way. But then my cousin Fatima sent me that voice note, and she used the words 'think clearly in halal terms', and I understood exactly what she meant. I have listened to it four times. When I imagine speaking to a scholar, I feel the anxiety drop slightly — not because a scholar would fix it, but because a scholar would frame it inside something that makes sense to me. Quran, sabr, dua, but also actual guidance for my specific situation. That is different from just reading. When I think about speaking to a counsellor I feel resistance — counsellors are for people in Western dramas who lie on sofas. But a Makkah-trained scholar? That is someone whose advice would sit inside my deen, not beside it. The WhatsApp part matters enormously to me. No clinic. No building. No chance anyone from Baniyas sees my car outside somewhere. Audio only means I can be in my car, or in my room with the door locked, and no one knows. I would pay whatever the session costs — the money is not the issue. The issue is: if I book this, and if somehow Fatima's name appears on any message, or if the scholar is someone who knows someone who knows my family, then everything I have held together for four years collapses in a single afternoon. That cannot happen. I need to know it is sealed. I need someone who has used it to tell me it is safe. That is the only thing standing between me and booking.",
+      "decision_bullets": [
+        "Will not book without a peer referral from a trusted woman in her social circle who has personally used the service and confirmed confidentiality",
+        "Scholar framing is essential — would reject a 'counsellor only' option; Makkah/Madinah training is a meaningful trust signal for her",
+        "WhatsApp audio delivery resolves her in-person visibility concern; she would never attend a clinic",
+        "Price is not a barrier at the 99–299 AED range given household income",
+        "Her booking decision depends heavily on whether the service feels genuinely sealed from her family network",
+        "Internal contradiction: she believes seeking help is a sign of weakness but simultaneously believes Allah sends resources to those who need them — she has not resolved this"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.31,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.55,
+          "band": "moderate",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.72,
+          "peer": 0.92,
+          "brand": 0.28,
+          "ad": 0.12,
+          "community": 0.85,
+          "dominant_anchor": "peer",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "privacy_and_confidentiality",
+            "probability": 0.91,
+            "severity": "critical",
+            "addressability": "high_if_demonstrated"
+          },
+          {
+            "objection_type": "scholar_identity_and_network_proximity",
+            "probability": 0.74,
+            "severity": "high",
+            "addressability": "medium"
+          },
+          {
+            "objection_type": "stigma_of_need",
+            "probability": 0.65,
+            "severity": "medium",
+            "addressability": "low_requires_reframe"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a devoted Emirati wife and mother who holds the family together while quietly carrying a weight no one around me is allowed to see.",
+          "key_values": ["family honour", "Islamic authenticity", "invisible strength"],
+          "life_defining_events": [
+            {
+              "age_when": 29,
+              "event": "Cried alone in a bathroom during a family majlis rather than disclose marital anxiety to anyone in the room",
+              "lasting_impact": "Absolute belief that emotional pain must remain hidden from family and community"
+            },
+            {
+              "age_when": 31,
+              "event": "Miscarriage in Al Ain hospital; Quranic recitation by her mother was the only comfort that worked",
+              "lasting_impact": "Islamic framing is non-negotiable for any psychological support she would accept"
+            },
+            {
+              "age_when": 32,
+              "event": "Received voice note from cousin Fatima about an Islamic audio wellbeing service",
+              "lasting_impact": "Audio/WhatsApp format unlocked a concept of help-seeking that felt safe and invisible"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Cousin Fatima (trusted peer, already used a similar service)",
+            "key_influencers": ["Cousin Fatima", "her mother (Quran-as-comfort model)", "mother-in-law (surveillance presence)"],
+            "trust_network": ["Cousin Fatima", "close female friends from university who live outside Abu Dhabi"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "AED 350/session maximum before hesitation sets in",
+            "non_negotiables": ["Complete anonymity from family network", "Islamic scholar or Islamically-trained counsellor only", "No in-person or video format"],
+            "absolute_avoidances": ["Any service that could be discovered by in-laws", "Non-Muslim therapist for core issues", "Group sessions of any kind"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uae-s02",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S02",
+      "demographic_anchor": {
+        "name": "Rima Khalaf",
+        "age": 37,
+        "gender": "female",
+        "location": {
+          "country": "UAE",
+          "region": "Dubai",
+          "city": "Dubai",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Married, lives in DIFC-adjacent apartment with husband and one child",
+          "size": 3,
+          "income_bracket": "AED 45,000–60,000/month household",
+          "dual_income": true
+        },
+        "life_stage": "Senior professional, first-time mother navigating career and identity pressure",
+        "education": "LLB from University of Edinburgh, LLM International Commercial Law from UCL",
+        "employment": "Senior Associate, international law firm, DIFC",
+        "worldview": {
+          "institutional_trust": 0.78,
+          "social_change_pace": 0.55,
+          "collectivism_score": 0.52,
+          "economic_security_priority": 0.42,
+          "religious_salience": 0.63
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The DHA Verification Call That Took 45 Minutes",
+          "when": "Age 35, Dubai, 2023 — before hiring a nutritionist",
+          "event": "Before signing up with a nutritionist recommended by a colleague, Rima spent 45 minutes on hold with the Dubai Health Authority to verify the practitioner's licence number. Her colleague was annoyed. Rima considered this the bare minimum. The nutritionist thanked her afterwards and said no client had ever done that. Rima said she would do the same for any healthcare professional working with her body or mind.",
+          "lasting_impact": "Regulatory verification is now a hardwired pre-condition for any health service provider. She does not experience this as excessive — it is simply due diligence. Unlicensed or unverifiable practitioners do not exist in her decision-making set, regardless of warmth or testimonials."
+        },
+        {
+          "title": "The Partner Meeting That Unravelled Her",
+          "when": "Age 36, DIFC office, February 2024",
+          "event": "After being passed over for partner promotion for the second time in three years, Rima sat in the office bathroom for twenty-two minutes staring at the sink before returning to her desk. She drafted a resignation letter that night and deleted it the next morning. Over the following month she became short-tempered with her husband and began waking at 4am. She eventually purchased a CBT-based app but abandoned it after six sessions because the content felt culturally disconnected — it did not account for the spiritual dimension of identity that was actually driving her distress.",
+          "lasting_impact": "Confirmed that secular CBT tools are insufficient for her specific kind of suffering, which is located partly in questions of meaning and divine will. She now actively seeks something that bridges clinical rigour with Islamic framework — not as a compromise but as the correct specification."
+        },
+        {
+          "title": "Reading the UAE PDPL 2022 Privacy Policy Section",
+          "when": "Age 37, February 2026, while evaluating Khidma",
+          "event": "After seeing a Khidma mention in a LinkedIn post from a UAE wellbeing consultant, Rima spent 90 minutes reading the service's terms, looking for references to UAE Federal Decree-Law No. 45 of 2021 (PDPL). She found no explicit PDPL reference. She drafted a WhatsApp message asking about data handling three times and deleted it each time, feeling that asking would commit her to something before she was ready.",
+          "lasting_impact": "She has not booked. She is genuinely interested but has parked the decision pending a data handling clarification she hasn't yet sent. This is characteristic of her pattern: thorough pre-evaluation that terminates in a drafted but unsent question."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.63,
+          "practice_regularity": 0.61,
+          "islamic_knowledge_depth": 0.55,
+          "community_mosque_attachment": 0.28,
+          "arabic_language_proficiency": "conversational"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.88,
+          "stigma_internalization": 0.38,
+          "help_seeking_history": "tried_conventional",
+          "self_disclosure_comfort": 0.58,
+          "crisis_threshold": 0.45
+        },
+        "trust_verification": {
+          "institutional_trust": 0.78,
+          "peer_trust_dominance": 0.42,
+          "verification_thoroughness": 0.95,
+          "scholar_authority_deference": 0.52,
+          "regulatory_credential_value": 0.92
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.38,
+          "privacy_concern_intensity": 0.48,
+          "reputation_sensitivity": 0.44,
+          "digital_privacy_awareness": 0.88
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.88,
+          "price_elasticity": 0.22,
+          "value_framing": "investment",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.78,
+          "avoidance_pattern": 0.42,
+          "social_validation_need": 0.28,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.32,
+          "information_need": 0.91
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.78,
+          "community_referral_trust": 0.35,
+          "online_discovery_comfort": 0.82,
+          "social_proof_bias": 0.28
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "intellectual_displacement",
+          "description": "Converts emotional distress into research tasks. Channels anxiety about unresolved personal questions into documentation review, credential verification, and draft communications she does not send."
+        },
+        "consistency_score": 87,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Has both the money and the genuine need but her verification standard is so high that she has engineered a loop of perpetual due diligence that prevents commitment",
+          "Believes Islamic framing is clinically necessary for her wellbeing yet is sceptical of scholar authority unchecked by clinical licensing — wants both, fears neither alone is sufficient"
+        ]
+      },
+      "narrative": "I have billed 2,100 hours in a year, cross-examined senior partners in the DIFC Courts, and been told I am 'too intense' by people who cannot keep up with me. None of that has prepared me for whatever is happening to me at 4am when I am staring at the ceiling and cannot remember why I chose any of this. I tried a CBT app after the second promotion pass. It wanted me to 'identify distorted thoughts.' My thoughts are not distorted. They are accurate. The problem is that they are accurate and still leave me feeling empty, which is a spiritual problem, not a cognitive one. I know what I need. I need a clinically qualified practitioner who also understands that my distress is partly about meaning, divine will, and identity — not just workplace stress. The Islamic dimension is not supplementary. It is the actual terrain. But I am not willing to accept Islamic framing without clinical accountability. I checked the DHA website before writing this sentence. I spent forty-five minutes verifying a nutritionist's licence number last year. I will do the same here, and I should be able to. Khidma says DHA-registered counsellors. I want to verify that independently. I also want to understand their data handling under UAE PDPL 2022 — I have written that question three times and not sent it yet, which tells me something about where I am emotionally with this. I am ready to pay whatever the session costs. Price is completely irrelevant. What I am paying for is accountability and genuine integration of two things — clinical competence and Islamic depth. If either is missing, the service is not what it claims. The internal contradiction I live with is this: I am a person of deep analytical control who is seeking help precisely because that control is failing me. And I am applying the control to the act of seeking help in a way that is preventing me from actually getting it.",
+      "decision_bullets": [
+        "Will independently verify DHA counsellor registration numbers before booking — this is non-negotiable and must be possible through the DHA public portal",
+        "Wants explicit confirmation of UAE PDPL 2022 data handling policy; absence of this will stall her indefinitely",
+        "Scholar credential (Makkah/Madinah training) is a meaningful trust signal but insufficient alone — clinical licensing must accompany it",
+        "Price insensitive at 99–299 AED; would pay up to AED 600/session without hesitation if credentials are verified",
+        "Will not be moved by testimonials or peer referrals — requires primary source verification (regulatory body lookups)",
+        "Internal contradiction: her analytical verification loop is itself a form of avoidance that she is partially aware of but unable to interrupt"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.41,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.22,
+          "band": "low",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.88,
+          "peer": 0.32,
+          "brand": 0.45,
+          "ad": 0.08,
+          "community": 0.22,
+          "dominant_anchor": "authority",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "credential_verification_gap",
+            "probability": 0.94,
+            "severity": "critical",
+            "addressability": "high_if_verifiable"
+          },
+          {
+            "objection_type": "data_privacy_compliance",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high_with_pdpl_documentation"
+          },
+          {
+            "objection_type": "analysis_paralysis_loop",
+            "probability": 0.72,
+            "severity": "medium",
+            "addressability": "low_requires_commitment_prompt"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a high-performing lawyer who applies the same due diligence to my own mental health that I apply to my clients' contracts — and that thoroughness is both my strength and my trap.",
+          "key_values": ["clinical accountability", "Islamic authenticity", "intellectual rigour"],
+          "life_defining_events": [
+            {
+              "age_when": 35,
+              "event": "Spent 45 minutes verifying a nutritionist's DHA licence before signing up — considered this the bare minimum",
+              "lasting_impact": "Regulatory verification is an immutable pre-condition for any healthcare provider"
+            },
+            {
+              "age_when": 36,
+              "event": "Abandoned CBT app after 6 sessions because it could not address the spiritual dimension of her identity distress",
+              "lasting_impact": "Islamic integration is clinically necessary, not optional or supplementary"
+            },
+            {
+              "age_when": 37,
+              "event": "Drafted a PDPL data handling question to Khidma three times and deleted it each time",
+              "lasting_impact": "Her verification loop has become a form of avoidance she is partially aware of"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Self (analytically autonomous)",
+            "key_influencers": ["DHA public portal", "UAE PDPL 2022 framework", "her own prior due-diligence experiences"],
+            "trust_network": ["Husband (knows she is struggling, does not know she is evaluating Khidma)", "one trusted female colleague in Dubai who knows she has been researching"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "No effective ceiling at current income level for clinically verified service",
+            "non_negotiables": ["DHA registration independently verifiable", "Explicit PDPL data policy", "Both clinical AND Islamic credentials present"],
+            "absolute_avoidances": ["Any provider whose credentials cannot be independently confirmed", "Islamic-only framing without clinical licensing", "Group therapy in any format"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uae-s03",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S03",
+      "demographic_anchor": {
+        "name": "Yasmine Aziz",
+        "age": 29,
+        "gender": "female",
+        "location": {
+          "country": "UAE",
+          "region": "Dubai",
+          "city": "Dubai (Al Barsha)",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Renting with two female flatmates, Egyptian and Pakistani",
+          "size": 3,
+          "income_bracket": "AED 14,000–18,000/month personal",
+          "dual_income": false
+        },
+        "life_stage": "Single, post-relocation expat, building independent identity in Dubai",
+        "education": "BSc Psychology, American University in Cairo; Diploma in Counselling (incomplete), online",
+        "employment": "UX Researcher, mid-size tech firm, Dubai Internet City",
+        "worldview": {
+          "institutional_trust": 0.62,
+          "social_change_pace": 0.68,
+          "collectivism_score": 0.58,
+          "economic_security_priority": 0.62,
+          "religious_salience": 0.53
+        }
+      },
+      "life_stories": [
+        {
+          "title": "Six Sessions With a Secular Therapist in Cairo That Left Something Missing",
+          "when": "Age 24, Cairo, Maadi district, 2021",
+          "event": "Yasmine completed six sessions with a well-regarded secular CBT therapist in Maadi who had a waiting list. The therapist was excellent by every clinical measure. But when Yasmine raised the concept of qadar — divine will — in the context of a breakup that had upended her, the therapist nodded and moved on. Yasmine felt instantly that she had to compartmentalise. She split herself: the psychological self who sat in the clinic, and the Muslim self who sat in the prayer room. The therapy helped, but partially. She always felt there was a ceiling imposed by the compartmentalisation.",
+          "lasting_impact": "She carries a clear, articulable definition of what was missing: a practitioner who does not require her to leave her faith at the door. She has tried conventional therapy and found it clinically sufficient but spiritually incomplete. This specificity makes her Khidma's most ready convert — but also its most demanding evaluator."
+        },
+        {
+          "title": "Discovering the UAE Muslim Mental Health Space on Instagram",
+          "when": "Age 27, Dubai, 2024",
+          "event": "While scrolling Instagram at 11pm in her Al Barsha flat, Yasmine found an account run by a Dubai-based Muslim counsellor discussing boundaries in Islam. She spent two hours reading back through the posts, saving 34 of them. She DMed the account a question about the difference between Islamic counselling and scholar sessions. The account responded 24 hours later with a thoughtful reply. This single exchange shifted her from passive interest to active search for a service that combined both.",
+          "lasting_impact": "Social media is her primary discovery channel for this category. She trusts content before she trusts services. She is now in a consideration phase and has bookmarked three services; Khidma is the one she keeps returning to because of the dual-track (scholar and counsellor) model."
+        },
+        {
+          "title": "The Conversation With Her Mother About Seeing a Therapist",
+          "when": "Age 28, video call, Cairo 2025",
+          "event": "Yasmine told her mother she had been speaking to a therapist (referring to the Cairo sessions years earlier, which her mother did not know about). Her mother went silent for 11 seconds — Yasmine counted — then said: 'What are you telling strangers that you cannot tell your family?' The conversation ended badly. Yasmine spent the following week feeling guilty and resolved two things: she would not hide seeking help, but she would also not announce it to family. She would simply do it quietly without lying.",
+          "lasting_impact": "She occupies a middle position on stigma — not fully internalised, not fully resolved. She will seek help but will not make it visible to family in Cairo. This makes digital delivery (WhatsApp audio, no clinic address) practically useful for her even though her primary concern is content quality, not physical anonymity."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.53,
+          "practice_regularity": 0.58,
+          "islamic_knowledge_depth": 0.48,
+          "community_mosque_attachment": 0.22,
+          "arabic_language_proficiency": "fluent"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.88,
+          "stigma_internalization": 0.38,
+          "help_seeking_history": "tried_conventional",
+          "self_disclosure_comfort": 0.68,
+          "crisis_threshold": 0.32
+        },
+        "trust_verification": {
+          "institutional_trust": 0.62,
+          "peer_trust_dominance": 0.55,
+          "verification_thoroughness": 0.62,
+          "scholar_authority_deference": 0.48,
+          "regulatory_credential_value": 0.65
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.38,
+          "privacy_concern_intensity": 0.42,
+          "reputation_sensitivity": 0.35,
+          "digital_privacy_awareness": 0.62
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.52,
+          "price_elasticity": 0.62,
+          "value_framing": "investment",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.42,
+          "avoidance_pattern": 0.32,
+          "social_validation_need": 0.48,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.65,
+          "information_need": 0.68
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.78,
+          "community_referral_trust": 0.55,
+          "online_discovery_comfort": 0.88,
+          "social_proof_bias": 0.52
+        }
+      },
+      "derived_insights": {
+        "decision_style": "emotional",
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "intellectualised_seeking",
+          "description": "Processes distress by researching and consuming wellbeing content — Instagram accounts, podcasts, saved posts — which feels productive but substitutes for actual booking. The research is genuine but also a comfort behaviour in itself."
+        },
+        "consistency_score": 78,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Values both clinical rigour and Islamic authenticity equally and fears that a service optimised for one will inevitably compromise the other",
+          "Is psychologically ready to book and financially capable but moderately price-sensitive, meaning the 299 AED ceiling matters — she will calculate sessions-per-month against other Dubai expenditures"
+        ]
+      },
+      "narrative": "I have a partial diploma in counselling. I have read the DSM-5 summaries. I know what CBT is, I know what ACT is, I know what schema therapy is. And I also know that none of those frameworks alone is sufficient for me, because I am a Muslim woman whose worldview includes the concept of the soul, divine will, and the idea that certain kinds of suffering are meaningful rather than merely dysfunctional. My Cairo therapist was excellent and left me feeling like half the work had been done. I did not go back because I did not want to do therapy by committee — the clinical half in one room and the Islamic half in my sajdah. I want them in the same room. When I found that Instagram account about Muslim counselling in the UAE, I stayed up until 1am reading. I know exactly what the dual-track model is — a scholar for the Islamic guidance questions, a Muslim counsellor for the therapeutic work. I understand why that matters and I find it genuinely exciting in a way I have not felt about a service in this space before. My concern is not about trust or credentials in the abstract. My concern is about execution. I want to know: is the counsellor actually trained in both trauma-informed practice AND Islamic ethics, or is one of those things bolted on? Is the scholar session exploratory or fatwa-issuing? Because I want exploration, not judgment. My price sensitivity is real — I can do maybe two sessions a month without it affecting my savings plan. At 99 AED I would do four a month. At 299 I would do one and evaluate whether it is worth the restructure. The WhatsApp audio model is fine — I am in Dubai, everyone runs their life through WhatsApp, that is completely normal to me. What I need before I book is one piece of specific content: tell me what a counsellor session actually looks like. Not marketing language. A real description.",
+      "decision_bullets": [
+        "Highest-readiness persona in the cohort — has tried therapy, found it clinically sufficient but Islamically incomplete, and is now specifically seeking the integration Khidma offers",
+        "Primary conversion barrier is content clarity: needs a specific, non-marketing description of what a counsellor session involves before booking",
+        "Price sensitive in a practical way — will calculate sessions per month against Dubai living costs; 99 AED/session enables high frequency, 299 AED limits to evaluation mode",
+        "Trust is earned through content quality (Instagram posts, thoughtful DM responses) not credentials alone",
+        "Internal contradiction: she is a trained observer of psychological processes who struggles to observe her own avoidance — her research-as-comfort behaviour is invisible to her as delay",
+        "WhatsApp delivery is completely normalised for her; no friction from the format itself"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.58,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.62,
+          "band": "moderate-high",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.65,
+          "peer": 0.55,
+          "brand": 0.48,
+          "ad": 0.28,
+          "community": 0.45,
+          "dominant_anchor": "self",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "integration_quality_uncertainty",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high_with_session_description"
+          },
+          {
+            "objection_type": "price_vs_frequency_tradeoff",
+            "probability": 0.68,
+            "severity": "medium",
+            "addressability": "high_with_tiered_pricing"
+          },
+          {
+            "objection_type": "scholar_session_tone_concern",
+            "probability": 0.55,
+            "severity": "medium",
+            "addressability": "high_with_framing_clarity"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a Muslim woman with a psychology background who has tried secular therapy and found it half-complete — I know exactly what I am looking for and I will know it when I find it.",
+          "key_values": ["integrated wellbeing", "intellectual honesty", "Islamic authenticity without rigidity"],
+          "life_defining_events": [
+            {
+              "age_when": 24,
+              "event": "Six sessions with a skilled Cairo therapist who could not engage with the concept of qadar — left feeling split between her psychological and Islamic selves",
+              "lasting_impact": "Has a precise, experiential definition of what is missing from secular therapy; this makes her Khidma's most motivated potential user"
+            },
+            {
+              "age_when": 27,
+              "event": "Discovered UAE Muslim counselling content on Instagram; spent two hours reading and saved 34 posts",
+              "lasting_impact": "Content quality is the primary trust-building mechanism; she forms attachment to services through their educational voice before their commercial proposition"
+            },
+            {
+              "age_when": 28,
+              "event": "Told her mother about past therapy; her mother's silence and question ('What are you telling strangers?') generated residual guilt without changing her intentions",
+              "lasting_impact": "Will seek help quietly without announcing it to family; no physical anonymity pressure but will not broadcast"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Self (moderately autonomous, light social validation need)",
+            "key_influencers": ["Dubai-based Muslim counselling Instagram accounts", "her Egyptian flatmate who has discussed therapy openly", "distant echo of mother's disapproval"],
+            "trust_network": ["Egyptian flatmate", "one close friend from AUC who now lives in London and has done therapy"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "AED 300/session; above this requires explicit justification per session",
+            "non_negotiables": ["Genuine integration of clinical and Islamic frameworks — not one bolted onto the other", "Counsellor must have actual therapeutic training", "No judgmental religious framing"],
+            "absolute_avoidances": ["Scholar session that becomes a fatwa consultation rather than exploration", "Service that treats Islamic integration as marketing rather than substance", "Group therapy"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uae-s04",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S04",
+      "demographic_anchor": {
+        "name": "Sana Mirza",
+        "age": 34,
+        "gender": "female",
+        "location": {
+          "country": "UAE",
+          "region": "Dubai",
+          "city": "Dubai (Business Bay)",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Married, apartment in Business Bay with husband and no children",
+          "size": 2,
+          "income_bracket": "AED 28,000–38,000/month household",
+          "dual_income": true
+        },
+        "life_stage": "Senior manager, considering children in the next 18 months, managing identity anxiety",
+        "education": "MSc Organizational Psychology, University of Manchester",
+        "employment": "People and Culture Manager, UAE regional HQ of global FMCG multinational",
+        "worldview": {
+          "institutional_trust": 0.72,
+          "social_change_pace": 0.62,
+          "collectivism_score": 0.55,
+          "economic_security_priority": 0.55,
+          "religious_salience": 0.48
+        }
+      },
+      "life_stories": [
+        {
+          "title": "Six Free EAP Sessions That Were Competent and Culturally Blank",
+          "when": "Age 33, 2025, via her employer's EAP provider (ICAS)",
+          "event": "Sana used all six of her annual EAP sessions after a period of sustained work stress and a triggering conversation about family planning pressure. Her EAP counsellor was qualified and warm. But across six sessions, the counsellor never once asked about Sana's faith, made no reference to Islamic identity, and in one session suggested a mindfulness exercise using imagery that felt uncomfortable in an Islamic context. Sana completed all six sessions and felt partially helped. She also felt that an important part of her self had been left outside the room.",
+          "lasting_impact": "She now has a precise gap definition: EAP provides clinical competence without cultural specificity. She has six sessions of data confirming this. She can articulate the gap to herself and to a hypothetical provider. She is now evaluating what to do after EAP ends."
+        },
+        {
+          "title": "Her Pakistani Mother's Dua That Replaced Her Panic Attack",
+          "when": "Age 31, family visit Lahore 2023",
+          "event": "During a visit to her parents in Lahore, Sana had a panic attack at 2am — the first she had ever experienced. Her mother, without knowing what a panic attack was, sat beside her and recited Ayat al-Kursi repeatedly until Sana's breathing slowed. It took twenty minutes. Sana could not explain scientifically why it worked — whether it was the sound, the meaning, or her mother's presence — but the felt experience was unmistakable: Islamic practice reached a part of her nervous system that no amount of workplace resilience training had ever touched.",
+          "lasting_impact": "She now holds a private, unresolved tension: her professional identity is entirely secular and evidence-based (Organizational Psychology MSc, corporate HR), but the most effective intervention she has ever experienced for acute distress was Quranic recitation. She has not integrated these two facts."
+        },
+        {
+          "title": "Calculating the Khidma Cost Against Her Wellbeing Budget",
+          "when": "Age 34, February 2026, Business Bay apartment",
+          "event": "On a Sunday evening Sana opened a spreadsheet she uses to track discretionary spending. She added a row for 'Islamic therapy' and entered 199 AED per session, twice a month. She looked at the number for a while. It was manageable. She then added a note: 'Check if this is legitimate before telling husband.' She has not told her husband she is evaluating this. She is unsure whether to frame it as a mental health investment or simply as 'speaking to a counsellor'. She is also unsure whether her husband would be confused by the Islamic framing given that he is more secular in practice.",
+          "lasting_impact": "Her evaluation is real and financially modelled. Her delay is social rather than financial — specifically the complexity of explaining a faith-integrated mental health service to a more secular husband without creating a misleading impression of her religious trajectory."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.48,
+          "practice_regularity": 0.52,
+          "islamic_knowledge_depth": 0.42,
+          "community_mosque_attachment": 0.18,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.92,
+          "stigma_internalization": 0.28,
+          "help_seeking_history": "tried_conventional",
+          "self_disclosure_comfort": 0.65,
+          "crisis_threshold": 0.28
+        },
+        "trust_verification": {
+          "institutional_trust": 0.72,
+          "peer_trust_dominance": 0.45,
+          "verification_thoroughness": 0.72,
+          "scholar_authority_deference": 0.35,
+          "regulatory_credential_value": 0.78
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.42,
+          "privacy_concern_intensity": 0.38,
+          "reputation_sensitivity": 0.42,
+          "digital_privacy_awareness": 0.72
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.72,
+          "price_elasticity": 0.55,
+          "value_framing": "investment",
+          "eap_access": "yes"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.52,
+          "avoidance_pattern": 0.38,
+          "social_validation_need": 0.52,
+          "masculine_stigma_barrier": 0.0,
+          "emotional_persuasion_susceptibility": 0.55,
+          "information_need": 0.72
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.82,
+          "community_referral_trust": 0.45,
+          "online_discovery_comfort": 0.78,
+          "social_proof_bias": 0.42
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "authority",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "professional_displacement",
+          "description": "Applies her organizational psychology training to her own case — frames personal distress as a 'gap analysis' between EAP capability and identity-specific need. This is genuinely useful but also creates a professional distance from her own pain."
+        },
+        "consistency_score": 79,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Has free EAP sessions that are clinically adequate but culturally blank; Khidma fills the gap but costs money and requires an explanation to her husband she has not yet figured out",
+          "Her professional identity is secular and evidence-based while her most powerful lived experience of emotional regulation was Islamic — she has not reconciled these and Khidma sits directly at the fault line"
+        ]
+      },
+      "narrative": "I have an MSc in Organizational Psychology and I manage wellbeing programmes for 400 employees. I know what good mental health support looks like. I also know what a gap analysis is. My EAP is a 6 out of 10. Clinically competent, culturally blank. The counsellor never asked about my faith, never acknowledged the part of me that does my five prayers — yes, not always, but more than people assume — never understood that for me there is a question underneath the work stress question, and the question underneath is: am I living in alignment with who I actually am? That is not a CBT question. That is not a resilience workshop question. That is a question that needs someone who understands both Ibn Qayyim and attachment theory. My EAP ends. I have been modelling the Khidma cost. It is manageable. What I have not done is tell my husband. He is Pakistani, Muslim, but more secular in practice than I am — or at least, he thinks he knows my relationship with my deen, and I am not sure he knows the parts that have been getting louder. Explaining that I want Islamic-integrated therapy is also explaining something about where I am spiritually, and I have not had that conversation yet. The WhatsApp model means there is no calendar invite to explain, no clinic on the calendar. I can just start. But I would still feel I am keeping something from him. That is the friction that has actually nothing to do with Khidma and everything to do with the fact that the service is making me confront an identity I have not fully shared with my own marriage. That is how I know I probably need this.",
+      "decision_bullets": [
+        "Has already financially modelled the cost and found it manageable — price is not the primary barrier",
+        "Free EAP is still available as a fallback but she has exhausted 6 sessions and found them culturally insufficient",
+        "Conversion barrier is the internal complexity of explaining a faith-integrated service to a more secular husband — this is a communication and identity disclosure problem, not a product problem",
+        "DHA registration is a meaningful signal for her given her organisational psychology background; she will check it",
+        "Internal contradiction: her professional role involves designing wellbeing support for others while she avoids completing her own wellbeing decision",
+        "Could be a strong referral source and advocate if she books and experiences the integration she is seeking — high word-of-mouth potential in HR/people management networks"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.48,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.55,
+          "band": "moderate",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.78,
+          "peer": 0.45,
+          "brand": 0.52,
+          "ad": 0.18,
+          "community": 0.38,
+          "dominant_anchor": "authority",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "spousal_communication_complexity",
+            "probability": 0.78,
+            "severity": "high",
+            "addressability": "low_external_to_service"
+          },
+          {
+            "objection_type": "eap_adequacy_rationalisation",
+            "probability": 0.62,
+            "severity": "medium",
+            "addressability": "high_with_gap_framing"
+          },
+          {
+            "objection_type": "identity_integration_uncertainty",
+            "probability": 0.55,
+            "severity": "medium",
+            "addressability": "medium_with_content"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am an organizational psychologist who designs wellbeing programmes for others and has spent two years not completing her own — I know the gap analysis, I just haven't submitted the recommendation.",
+          "key_values": ["evidence-based practice", "identity integration", "professional credibility"],
+          "life_defining_events": [
+            {
+              "age_when": 31,
+              "event": "Panic attack resolved by her mother's Ayat al-Kursi recitation — the most effective acute intervention she has ever experienced",
+              "lasting_impact": "Holds a private, unresolved tension between her secular professional identity and the lived efficacy of Islamic practice"
+            },
+            {
+              "age_when": 33,
+              "event": "Six EAP sessions that were clinically competent and culturally blank — never engaged with Islamic identity",
+              "lasting_impact": "Has precise gap definition; knows exactly what is missing and can articulate it"
+            },
+            {
+              "age_when": 34,
+              "event": "Opened a spreadsheet and modelled Khidma sessions at 199 AED twice monthly; has not told husband",
+              "lasting_impact": "Financially ready; blocked by the identity disclosure complexity the service forces her to confront"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Herself; husband is a consideration but not a blocker she has tested yet",
+            "key_influencers": ["EAP experience as a baseline", "her organisational psychology training", "her mother's Quranic intervention as a data point"],
+            "trust_network": ["One female colleague in People & Culture who has discussed therapy openly", "her sister in Lahore who knows about the EAP"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "AED 400/session; above this would require restructuring other discretionary spend",
+            "non_negotiables": ["DHA registered counsellor", "genuine clinical training not just Islamic background", "flexible scheduling compatible with corporate hours"],
+            "absolute_avoidances": ["Scholar-only framing without clinical component", "Any service requiring spousal sign-off or co-registration", "Group sessions"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uae-s05",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S05",
+      "demographic_anchor": {
+        "name": "Hamdan Al Suwaidi",
+        "age": 41,
+        "gender": "male",
+        "location": {
+          "country": "UAE",
+          "region": "Abu Dhabi",
+          "city": "Abu Dhabi (Khalidiyah)",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Married with three children; wife and children live in family villa; his parents live in adjacent villa",
+          "size": 5,
+          "income_bracket": "AED 35,000–50,000/month personal",
+          "dual_income": false
+        },
+        "life_stage": "Senior mid-career government official; primary breadwinner; managing silent pressure and hidden burnout",
+        "education": "Bachelor's degree in Political Science, UAE University; attended executive leadership programme at INSEAD Abu Dhabi",
+        "employment": "Senior Director, UAE federal government entity, Abu Dhabi",
+        "worldview": {
+          "institutional_trust": 0.68,
+          "social_change_pace": 0.35,
+          "collectivism_score": 0.78,
+          "economic_security_priority": 0.45,
+          "religious_salience": 0.82
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The Sheikh's Khutbah That Described His Situation Exactly",
+          "when": "Age 38, Jumeirah Mosque equivalent in Abu Dhabi, Friday khutbah, 2023",
+          "event": "During a Friday khutbah at his local mosque, the imam spoke about the burden men carry in silence and the Islamic concept of having someone trustworthy to confide in — referencing the Prophet's relationship with companions as a model for male emotional disclosure. Hamdan sat still for the entire khutbah with the feeling that he was being spoken to directly. He took a photo of the imam's name on the mosque board afterwards. He never contacted the imam. He thought about that khutbah for several weeks.",
+          "lasting_impact": "Established that Islamic framing is the only socially permissible form of help-seeking he can imagine. A conversation with a scholar is, for him, categorically different from therapy — it is a religious act, not a psychological one. This distinction is the narrow gate through which Khidma could reach him."
+        },
+        {
+          "title": "The Work Crisis That Never Became a Conversation",
+          "when": "Age 39, Abu Dhabi government offices, 2024",
+          "event": "Following an internal restructure that removed two of Hamdan's direct reports and narrowed his portfolio significantly, he experienced six weeks of what he now privately thinks of as 'darkness' — loss of motivation, disrupted sleep, eating alone in his car during lunch. His wife noticed he was quieter but assumed work was busy. He told her work was busy. His closest male friend, who works in the same ministry, mentioned over coffee that he seemed tired. Hamdan said he had been fasting extra days. The conversation ended there. No one received the truth.",
+          "lasting_impact": "He is now deeply aware that he has no channel through which male Emirati emotional disclosure is socially safe. His coping strategy is redirection: more work, more prayer, more physical exercise. All of these are effective short-term and insufficient long-term. He knows this."
+        },
+        {
+          "title": "Scrolling Past a Khidma Post at Midnight",
+          "when": "Age 41, March 2026, lying in bed in Khalidiyah",
+          "event": "Unable to sleep, Hamdan scrolled through his phone and paused on an Arabic-language post about Islamic counselling. The post referenced the concept of the 'aql and the ruh — reason and spirit — as two dimensions of a man's wellbeing that require different care. He read it twice. He then went to the account's profile and spent twelve minutes reading before closing the phone and putting it face down. He did not save the post. He did not follow the account. He has thought about it every day since.",
+          "lasting_impact": "He is in silent awareness. He knows something exists. He has not moved toward it. The gap between awareness and action is being held in place by a specific fear: that any man from his government entity, his neighbourhood, or his extended family who sees him engaged with a mental health service will permanently alter how they read him as a leader, a father, and an Emirati man."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.82,
+          "practice_regularity": 0.88,
+          "islamic_knowledge_depth": 0.68,
+          "community_mosque_attachment": 0.72,
+          "arabic_language_proficiency": "fluent"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.38,
+          "stigma_internalization": 0.84,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.22,
+          "crisis_threshold": 0.82
+        },
+        "trust_verification": {
+          "institutional_trust": 0.68,
+          "peer_trust_dominance": 0.42,
+          "verification_thoroughness": 0.52,
+          "scholar_authority_deference": 0.88,
+          "regulatory_credential_value": 0.42
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.88,
+          "privacy_concern_intensity": 0.88,
+          "reputation_sensitivity": 0.92,
+          "digital_privacy_awareness": 0.38
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.82,
+          "price_elasticity": 0.22,
+          "value_framing": "essential",
+          "eap_access": "unknown"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.42,
+          "avoidance_pattern": 0.88,
+          "social_validation_need": 0.52,
+          "masculine_stigma_barrier": 0.88,
+          "emotional_persuasion_susceptibility": 0.48,
+          "information_need": 0.52
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.82,
+          "community_referral_trust": 0.45,
+          "online_discovery_comfort": 0.38,
+          "social_proof_bias": 0.35
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "active_displacement",
+          "description": "Manages unspoken emotional weight through intensified religious practice (extra fasts, extended prayer), work absorption, and physical exercise. Each of these is genuinely beneficial and also functions as avoidance of the underlying material."
+        },
+        "consistency_score": 82,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Islamic scholar framing makes help-seeking conceptually permissible for him but he has not acted in three years of knowing he needs something — the framing unlocks the concept but does not override the avoidance habit",
+          "Has complete financial capacity and no logistical barrier to booking; the only barrier is his belief that engagement with any mental health adjacent service would permanently damage how he is read by the Emirati male social network he depends on for professional and family standing"
+        ]
+      },
+      "narrative": "I am responsible for many things. That is simply what I am. My father was the same. You carry it quietly, you perform your duties, you do not show the weight because the weight is yours and no one else's. This is not weakness — it is adab. Dignity. In our culture, a man who speaks about his interior life to strangers is a man who has lost the plot. I believe that. I also know that what I experienced after the restructure was not just tiredness. I know it intellectually, even if I have never said it out loud. When the imam gave that khutbah about men needing companions to confide in — referencing the Prophet, peace be upon him — I understood immediately. He was describing a legitimate Islamic act. Consultation with a man of knowledge is not weakness; it is sunnah. That is the only door through which I could walk. Not therapy. Not a counsellor. A scholar. A Makkah-trained scholar speaking Arabic, understanding Gulf culture, understanding what it means to be a man with responsibilities in this specific social context — that is someone whose words would land. WhatsApp audio means no building, no parking lot, no receptionist who might recognise me. I could be in my car, parked in the basement of my office block. No one would know. The price is irrelevant. I would pay ten times the amount. What I have not done is actually pick up the phone and start the process, and I am aware of the irony that I have known for three years that I need something and I have not acted. If I am honest, I am waiting for the moment when the cost of not acting becomes obviously higher than the cost of acting. I am not there yet. Or perhaps I am and I am not admitting it.",
+      "decision_bullets": [
+        "Scholar framing is the only socially and religiously permissible entry point — counsellor-only framing would be rejected; Makkah/Madinah-trained scholar conducting audio sessions in Arabic is the product that fits",
+        "WhatsApp audio delivery resolves physical exposure risk; basement car park is his imagined booking environment",
+        "Price is completely irrelevant — will not be converted by pricing or promotions; this is a dignity and permission decision",
+        "Has been in 'silent awareness' for approximately three years without conversion; avoidance is the dominant habit and requires a specific trigger event or accumulated crisis to break",
+        "Does not want peer referral or social proof — this would require someone he knows to have also admitted to seeking help, which he cannot imagine happening",
+        "Internal contradiction: frames non-action as 'adab' (dignity) while privately aware that it is the opposite of what the imam described as the Islamic model of male emotional disclosure"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.18,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.22,
+          "band": "low",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.88,
+          "peer": 0.22,
+          "brand": 0.38,
+          "ad": 0.08,
+          "community": 0.28,
+          "dominant_anchor": "authority",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "masculine_reputation_risk",
+            "probability": 0.94,
+            "severity": "critical",
+            "addressability": "medium_only_through_framing"
+          },
+          {
+            "objection_type": "avoidance_as_identity",
+            "probability": 0.88,
+            "severity": "high",
+            "addressability": "low_requires_crisis_trigger"
+          },
+          {
+            "objection_type": "community_network_exposure",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high_with_privacy_demonstration"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am an Emirati government official who carries responsibility for everyone around me with complete dignity, who has known for three years he needs something and has not moved toward it.",
+          "key_values": ["male dignity (karama)", "Islamic scholarship authority", "family and professional honour"],
+          "life_defining_events": [
+            {
+              "age_when": 38,
+              "event": "A Friday khutbah described male emotional disclosure as Prophetic sunnah — the only framing under which seeking help feels permissible",
+              "lasting_impact": "Scholar consultation is categorically different from therapy in his mind — it is a religious act, not a psychological one"
+            },
+            {
+              "age_when": 39,
+              "event": "Six weeks of silent burnout after work restructure; coped alone through extra fasting, prayer, and eating in his car",
+              "lasting_impact": "Has no social channel through which male Emirati emotional disclosure is currently safe"
+            },
+            {
+              "age_when": 41,
+              "event": "Scrolled past an Arabic post about 'aql and ruh'; read it twice; put phone face down; has thought about it every day since",
+              "lasting_impact": "In silent awareness; gap between knowing and acting is maintained by reputation protection instinct"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Self only — cannot discuss this with wife, family, or male colleagues",
+            "key_influencers": ["The anonymous imam whose khutbah described the sunnah of male confiding", "Arabic-language Islamic content on phone when alone"],
+            "trust_network": ["No one currently in his trust network knows he is considering this"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "No effective ceiling",
+            "non_negotiables": ["Arabic-language scholar", "Makkah or Madinah training", "Complete digital privacy — no named account, no credit card statement trail visible to family"],
+            "absolute_avoidances": ["Counsellor framing without scholar framing", "Any service that markets to Muslim men in ways that could appear in his social feed", "Group sessions in any format", "Video sessions"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-khidma-uae-s07",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "2.1.0",
+      "domain": "muslim-mental-health-uae",
+      "mode": "simulation-ready",
+      "slot": "S07",
+      "demographic_anchor": {
+        "name": "Tariq Mahmood",
+        "age": 32,
+        "gender": "male",
+        "location": {
+          "country": "UAE",
+          "region": "Sharjah",
+          "city": "Sharjah (Al Nahda)",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "Shared apartment with two male Pakistani colleagues; wife and daughter in Lahore (separated 14 months)",
+          "size": 3,
+          "income_bracket": "AED 12,000–16,000/month personal",
+          "dual_income": false
+        },
+        "life_stage": "Estranged husband, long-distance father, managing private crisis without local support network",
+        "education": "BEng Electrical Engineering, NUST Islamabad",
+        "employment": "Mid-level engineer, Dubai industrial zone (commutes from Sharjah)",
+        "worldview": {
+          "institutional_trust": 0.45,
+          "social_change_pace": 0.42,
+          "collectivism_score": 0.72,
+          "economic_security_priority": 0.78,
+          "religious_salience": 0.82
+        }
+      },
+      "life_stories": [
+        {
+          "title": "The Night the Call From Lahore Did Not Come",
+          "when": "Age 31, Al Nahda apartment, Sharjah, March 2025",
+          "event": "Tariq's wife had said she would call at 9pm UAE time to discuss their daughter's school situation. At 11pm the call had not come. At 1am Tariq was sitting on the floor of his shared bathroom — the only private space in the flat — looking up Islamic counselling on his phone. He found three services. He read about each one for twenty minutes. He did not contact any of them. At 3am his wife messaged: 'Too tired, tomorrow.' He did not sleep. He went to Fajr prayer and felt marginally less alone.",
+          "lasting_impact": "The 2am-to-Fajr window is his crisis window. He reaches out digitally in that time because it feels private and the flatmates are asleep. But reaching out online at 3am and then retreating is a pattern — he has done this four times in 14 months. Each time he stops short of contact. The barrier is not that he doesn't know help exists; it's that committing to contact feels like formally acknowledging the severity of his situation."
+        },
+        {
+          "title": "The Imam in Sharjah Who Told Him to Have Sabr",
+          "when": "Age 31, Al Nahda mosque, Sharjah, late 2024",
+          "event": "During a difficult period after his wife left for Lahore with their daughter, Tariq waited after Jumu'ah to speak privately with the mosque imam. He gave a very partial version of his situation — marital difficulties, long distance, feeling low. The imam was kind and told him to have sabr, make dua, and perhaps recite Surah Al-Inshirah regularly. The imam was not dismissive. But Tariq came away feeling that he had given 20% of the problem and received advice calibrated to 20% of the problem. He needed to give 100% and knew he could not do it in a mosque corridor after Friday prayers.",
+          "lasting_impact": "He understands that informal Islamic guidance channels — mosque imams, family elders — cannot hold the full weight of his situation. He needs a structured, private, contained space. This is why a WhatsApp audio session, where he could say the full version, is genuinely useful rather than just a format preference."
+        },
+        {
+          "title": "The Khidma Link His Brother-in-Law Forwarded Without Context",
+          "when": "Age 32, February 2026, via WhatsApp",
+          "event": "His brother-in-law in Birmingham (who uses Sakeen, the UK sister brand) forwarded a WhatsApp link about Islamic mental health support with the message: 'good service bhai, worth checking'. No more context. Tariq opened the link at 1am, read the entire landing page, and then checked the UAE pricing. 99 AED. He read that number three times. He has 350 AED left in his wellbeing mental budget for the month after remittances to Lahore. He could do three sessions. He still has not booked. He is not sure whether he is ready to say out loud — even to a stranger on audio — that his marriage may not survive.",
+          "lasting_impact": "The peer referral from a trusted male family member (brother-in-law) plus the low-commitment entry point (WhatsApp audio, no in-person) have brought him to the threshold. He is the closest to booking of any male persona in this cohort. The barrier is not logistical or financial — it is the emotional cost of converting private anguish into spoken words, which will make it real in a way his 3am phone searches do not."
+        }
+      ],
+      "attributes": {
+        "islamic_practice_identity": {
+          "religious_salience": 0.82,
+          "practice_regularity": 0.85,
+          "islamic_knowledge_depth": 0.58,
+          "community_mosque_attachment": 0.52,
+          "arabic_language_proficiency": "basic"
+        },
+        "mental_health_help_seeking": {
+          "mental_health_literacy": 0.48,
+          "stigma_internalization": 0.72,
+          "help_seeking_history": "considered",
+          "self_disclosure_comfort": 0.28,
+          "crisis_threshold": 0.88
+        },
+        "trust_verification": {
+          "institutional_trust": 0.45,
+          "peer_trust_dominance": 0.75,
+          "verification_thoroughness": 0.38,
+          "scholar_authority_deference": 0.82,
+          "regulatory_credential_value": 0.32
+        },
+        "privacy_community": {
+          "community_embeddedness": 0.78,
+          "privacy_concern_intensity": 0.88,
+          "reputation_sensitivity": 0.82,
+          "digital_privacy_awareness": 0.38
+        },
+        "economics_price": {
+          "disposable_income_for_wellbeing": 0.32,
+          "price_elasticity": 0.82,
+          "value_framing": "essential",
+          "eap_access": "no"
+        },
+        "decision_psychology": {
+          "analysis_paralysis": 0.35,
+          "avoidance_pattern": 0.75,
+          "social_validation_need": 0.55,
+          "masculine_stigma_barrier": 0.72,
+          "emotional_persuasion_susceptibility": 0.78,
+          "information_need": 0.38
+        },
+        "channel_discovery": {
+          "whatsapp_professionalism_perception": 0.85,
+          "community_referral_trust": 0.88,
+          "online_discovery_comfort": 0.55,
+          "social_proof_bias": 0.65
+        }
+      },
+      "derived_insights": {
+        "decision_style": "emotional",
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "convenience",
+        "coping_mechanism": {
+          "type": "nocturnal_digital_seeking_and_retreat",
+          "description": "Between 11pm and Fajr, reaches out digitally toward help resources and then retreats before contact is made. Prayer at Fajr provides temporary stabilisation. This cycle has repeated at least four times in 14 months without breaking into actual contact."
+        },
+        "consistency_score": 76,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Is at the threshold of booking after a trusted peer referral and confirmed affordable pricing, but converting private anguish into spoken words will make the severity of his situation permanently real in a way 3am phone scrolling does not",
+          "The UAE Pakistani Muslim community in Sharjah is so tightly networked that even digital engagement feels traceable — WhatsApp is trusted infrastructure but it is also the same infrastructure through which news of his marital situation could spread"
+        ]
+      },
+      "narrative": "My flatmates sleep by 11pm and that is when I am most alone. The bathroom is the only room with a lock. I have sat on that floor four times in the last year and looked up services like this one on my phone. I always stop before I press anything. I tell myself I am not ready. Partly that is true. Partly I am scared that if I say out loud to a real person — even on audio, even anonymously — that my wife has been in Lahore for fourteen months and my daughter does not really know my voice anymore, then it becomes a fact in a way it is not quite yet while it only lives on my phone screen. My brother-in-law uses Sakeen in Birmingham. He forwarded me a link and said it was good. That is the closest thing I have to a recommendation I trust, because he is a man I respect and he clearly was not ashamed to use it. That meant something. 99 AED — I can do that. After remittances to Lahore I have enough. Three sessions a month is possible. The WhatsApp audio model — this is how I think about it: if I am in my bathroom with the door locked at 1am, no one in this building is going to know what I am doing. My flatmates are not going to see a clinic on my phone calendar. There is no car in a car park. There is no one at reception. It is just me and a voice. That is the only version of this I could actually do. My concern — and this is real — is the Pakistani community in Sharjah and Dubai. We all know each other. Information travels. I am not sure how. But if I use a service and somehow — through some digital trace, some conversation, some screenshot someone takes of something — if that gets back to my wife's family in Lahore, it changes the narrative of our situation in a way I cannot control. I know that sounds paranoid. But this community is that tight. What I need is to trust that the first session is truly private. And I need to trust that saying the words out loud will not break me. I am not sure about either of those things.",
+      "decision_bullets": [
+        "Closest-to-booking male in the cohort — peer referral from trusted brother-in-law plus confirmed affordable price (99 AED) have brought him to the threshold",
+        "99 AED entry price is critical; any higher and the sessions-per-month calculation against Lahore remittances makes it unworkable",
+        "The conversion barrier is emotional, not logistical: speaking the words aloud will make the situation irreversibly real; a low-commitment, zero-pressure first contact mechanism (e.g. 'ask one question' on WhatsApp before committing to booking) could break the threshold",
+        "Privacy concern is diffuse but powerful — not that he fears a specific person seeing a clinic visit, but that the UAE South Asian Muslim community feels so networked that digital traces feel traceable",
+        "Fajr prayer is his daily stabilisation mechanism — any messaging reaching him in the 5am window post-prayer might find him in his most open, post-crisis state",
+        "Internal contradiction: uses digital privacy (locked bathroom, 1am searches) to feel safe while simultaneously fearing digital traces — does not fully understand where the real privacy boundary lies"
+      ],
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.35,
+          "source": "proxy_estimated"
+        },
+        "price_elasticity": {
+          "value": 0.82,
+          "band": "high",
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.58,
+          "peer": 0.88,
+          "brand": 0.32,
+          "ad": 0.12,
+          "community": 0.72,
+          "dominant_anchor": "peer",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {
+            "objection_type": "emotional_commitment_cost",
+            "probability": 0.88,
+            "severity": "critical",
+            "addressability": "high_with_zero_commitment_entry"
+          },
+          {
+            "objection_type": "community_trace_anxiety",
+            "probability": 0.82,
+            "severity": "high",
+            "addressability": "high_with_privacy_reassurance"
+          },
+          {
+            "objection_type": "price_vs_remittance_competition",
+            "probability": 0.72,
+            "severity": "high",
+            "addressability": "high_at_99_aedsession"
+          }
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a Pakistani engineer in Sharjah who sits on his bathroom floor at 1am looking up help I have not yet asked for — I am at the edge and I know it.",
+          "key_values": ["family duty", "Islamic dignity", "privacy at all costs"],
+          "life_defining_events": [
+            {
+              "age_when": 31,
+              "event": "Sat on bathroom floor at 1am researching Islamic counselling after wife's call did not come; went to Fajr prayer instead of contacting anyone",
+              "lasting_impact": "The 2am-to-Fajr window is his crisis window; digital search followed by retreat is the established pattern"
+            },
+            {
+              "age_when": 31,
+              "event": "Spoke to mosque imam after Jumu'ah and received advice calibrated to 20% of his actual problem because he could only share 20%",
+              "lasting_impact": "Understands that informal Islamic channels cannot hold the full weight; needs a structured private container for the full version"
+            },
+            {
+              "age_when": 32,
+              "event": "Brother-in-law forwarded Khidma/Sakeen link saying 'good service bhai, worth checking'; he read the pricing at 1am and has not booked",
+              "lasting_impact": "A trusted male peer referral plus affordable pricing have brought him to the threshold; the final barrier is speaking the words aloud"
+            }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Self only locally; brother-in-law in Birmingham is the trusted external voice",
+            "key_influencers": ["Brother-in-law (trusted male peer referral)", "mosque imam (shows he has sought incomplete help before)", "wife in Lahore (her call patterns trigger crisis windows)"],
+            "trust_network": ["Brother-in-law in Birmingham", "no one in the UAE community — community presence is a threat, not a resource"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "AED 120/session maximum after remittances; 99 AED is workable, 199 AED would require reducing other spending",
+            "non_negotiables": ["Audio only — no video under any circumstances", "No named account linked to real identity if possible", "Scholar or Muslim counsellor — non-Muslim practitioner would feel wrong"],
+            "absolute_avoidances": ["Any service that sends WhatsApp messages that could be visible to flatmates on a shared device", "Group sessions", "Any format requiring in-person attendance", "Video calls"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    }
+  ],
+  "cohort_summary": {
+    "cohort_id": "cohort-khidma-uae-20260412",
+    "total_personas": 6,
+    "gender_split": { "female": 4, "male": 2 },
+    "age_range": { "min": 29, "max": 41, "mean": 34.3 },
+    "nationality_mix": ["Emirati", "Lebanese-Jordanian (Arab expat)", "Egyptian (Arab expat)", "Pakistani expat", "Emirati", "Pakistani expat"],
+    "location_spread": ["Abu Dhabi", "Dubai (DIFC)", "Dubai (Al Barsha)", "Dubai (Business Bay)", "Abu Dhabi (Khalidiyah)", "Sharjah (Al Nahda)"],
+    "decision_styles_present": ["social", "analytical", "emotional", "habitual"],
+    "help_seeking_history_distribution": {
+      "never": 0,
+      "considered": 3,
+      "tried_conventional": 2,
+      "tried_islamic": 0,
+      "ongoing": 0
+    },
+    "religious_salience_range": { "min": 0.48, "max": 0.87, "mean": 0.69 },
+    "purchase_prob_range": { "min": 0.18, "max": 0.58, "mean": 0.39 },
+    "price_elasticity_range": { "min": 0.22, "max": 0.82 },
+    "eap_access_distribution": { "yes": 1, "no": 4, "unknown": 1 },
+    "whatsapp_professionalism_perception_range": { "min": 0.78, "max": 0.88, "mean": 0.83 },
+    "consistency_scores": {
+      "S01_Hessa": 81,
+      "S02_Rima": 87,
+      "S03_Yasmine": 78,
+      "S04_Sana": 79,
+      "S05_Hamdan": 82,
+      "S07_Tariq": 76
+    },
+    "all_consistency_above_65": true,
+    "dominant_objection_types": [
+      "privacy_and_confidentiality",
+      "credential_verification_gap",
+      "masculine_reputation_risk",
+      "emotional_commitment_cost",
+      "integration_quality_uncertainty"
+    ],
+    "cohort_insight": "The cohort spans the full engagement funnel for Khidma — from Yasmine (S03, highest purchase probability at 0.58, has tried therapy and knows what she wants) through Sana and Hessa (mid-funnel, real need, specific barriers) to Hamdan (lowest purchase probability at 0.18, three-year avoidance pattern). The two male personas present categorically different conversion challenges: Hamdan requires a crisis event or accumulated pain to break his avoidance habit, while Tariq is threshold-ready and needs only a zero-commitment first contact mechanism. All 6 personas show high WhatsApp professionalism perception (0.78–0.88), confirming format is not a barrier for this UAE cohort. The scholar track is critical for males; the counsellor track with Islamic integration is the female differentiator. DHA credentials matter most to analytical personas (Rima, Sana); peer referral matters most to social/emotional personas (Hessa, Tariq)."
+  }
+}

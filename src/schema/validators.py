@@ -71,6 +71,10 @@ class PersonaValidator:
             # Note: G3 requires the full taxonomy list for reference if needed,
             # but the rules TR1-TR8 specify category/name directly.
             self.g3_tendency_attribute_consistency(persona),
+            # G-CORR: Soft directional-correlation enforcement (§10).
+            # Emits warnings for every KNOWN_CORRELATIONS tension; fails
+            # only when tensions exceed the structural-incoherence threshold.
+            self.g_correlation_consistency(persona),
         ]
         if include_narrative:
             results.append(self.g4_narrative_completeness(persona))
@@ -113,7 +117,7 @@ class PersonaValidator:
         # (AttributeSource is a Literal, Pydantic already enforces this)
         
         # persona_id matches format pg-[prefix]-[NNN]
-        if not re.match(r"^pg-[a-zA-Z0-9_]+-\d+$", persona.persona_id):
+        if not re.match(r"^pg-[a-zA-Z0-9_-]+-\d+$", persona.persona_id):
             failures.append(f"G1: persona_id {persona.persona_id} does not match format pg-[prefix]-[NNN]")
 
         return ValidationResult(passed=len(failures) == 0, gate="G1", failures=failures)
@@ -503,6 +507,52 @@ class PersonaValidator:
             seen.add(obs_id)
 
         return ValidationResult(passed=len(failures) == 0, gate="G10", failures=failures)
+
+    def g_correlation_consistency(
+        self,
+        persona: PersonaRecord,
+        max_tensions: int = 5,
+    ) -> ValidationResult:
+        """G-CORR: Soft directional-correlation enforcement.
+
+        Uses KNOWN_CORRELATIONS (§10) via ConstraintChecker. Correlation
+        violations are soft ("tension") — they degrade realism but do not
+        block the persona. This gate surfaces them as *warnings* on the
+        ValidationResult so they are visible in cohort reports and can
+        drive PQS's identity_depth sub-score.
+
+        Historically this data was printed to stdout only (see
+        attribute_filler.py::_apply_correlation_check). Surfacing it
+        structurally closes §10's "ρ rules" enforcement gap (P5 in
+        the master-spec gap audit).
+
+        Gate fails only when the number of tensions exceeds max_tensions —
+        at that point the persona is sufficiently incoherent that the
+        downstream pipeline should quarantine or regenerate.
+        """
+        violations = self.constraint_checker.check_correlation_consistency(
+            persona.attributes
+        )
+        warnings = [
+            f"G-CORR: {v.description} "
+            f"({v.attr_a} vs {v.attr_b})"
+            for v in violations
+        ]
+
+        failures: list[str] = []
+        if len(violations) > max_tensions:
+            failures.append(
+                f"G-CORR: {len(violations)} correlation tensions exceeds "
+                f"max_tensions={max_tensions} — persona is structurally "
+                f"inconsistent"
+            )
+
+        return ValidationResult(
+            passed=len(failures) == 0,
+            gate="G-CORR",
+            failures=failures,
+            warnings=warnings,
+        )
 
     def _get_attr_value(
         self,

@@ -1,0 +1,65 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C6",
+      "name": "Parent / Family Health Decision-Maker",
+      "count": 10,
+      "age_range": [
+        28,
+        45
+      ],
+      "gender_skew": "female-dominant (70%)",
+      "locations": [
+        "Bangalore",
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Pune",
+        "Chennai"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle"
+      ],
+      "household_types": [
+        "nuclear",
+        "joint"
+      ],
+      "key_signals": {
+        "protein_consciousness": "medium",
+        "clean_label_importance": "high",
+        "doctor_endorsement_weight": "high",
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "medium-high",
+        "subscription_tolerance": "medium",
+        "weight_management_drive": "low-medium",
+        "quick_commerce_adoption": "medium-high"
+      },
+      "case_studies": [
+        9,
+        14,
+        18
+      ],
+      "notes": "Primary grocery buyer for household with children. Evaluates products through 'is this good for my kids / family' lens. Doctor-influenced. Susceptible to 'growing kids need protein' and 'no maida' messaging. Retention challenge persona."
+    }
+  ]
+}

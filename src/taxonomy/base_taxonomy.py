@@ -297,6 +297,24 @@ BASE_TAXONOMY: list[AttributeDefinition] = [
     _continuous("ad_receptivity", "lifestyle", "Baseline receptivity to advertising messages.", 0.41),
     _continuous("deal_alert_attention", "lifestyle", "Attention to app, email, or social discount alerts.", 0.52),
     _continuous("subscription_comfort", "lifestyle", "Comfort with recurring subscription commitments.", 0.46),
+    _continuous(
+        "cancellation_inertia",
+        "lifestyle",
+        "Resistance to acting on subscription cancellation intent. High = continues paying even after mentally deciding to cancel. "
+        "Calibrated from Peloton Q1 2021 retro-blind study: 80% expressed cancel intent, ~35% actually churned within 9 months "
+        "(implied conversion ≈ 0.44). Population prior set to 0.55 — most people delay cancellation relative to stated intent.",
+        0.55,
+    ),
+    _continuous(
+        "usage_vs_cost_sensitivity",
+        "lifestyle",
+        "Sensitivity to the ratio of product usage frequency vs. ongoing cost. High = exit intent rises sharply when "
+        "rides/sessions per period ÷ monthly cost falls below personal threshold. "
+        "Calibrated from Peloton Q1 2021 retro-blind study: the usage confrontation stimulus (4 rides / $44/month) "
+        "was the primary decision crystallisation moment across all non-enthusiast personas. "
+        "Negatively correlates with sunk_cost_sensitivity (high sunk cost focus delays cost-per-use calculation).",
+        0.52,
+    ),
     _continuous("digital_payment_comfort", "lifestyle", "Comfort using digital payment methods.", 0.63),
     _continuous("simplicity_preference", "lifestyle", "Preference for simpler products and workflows.", 0.57),
     _continuous("clutter_tolerance", "lifestyle", "Tolerance for complexity and information clutter.", 0.43),
@@ -565,7 +583,7 @@ def _validate_taxonomy() -> None:
         "psychology": 31,
         "values": 25,
         "social": 25,
-        "lifestyle": 25,
+        "lifestyle": 27,  # +2: cancellation_inertia, usage_vs_cost_sensitivity (Peloton calibration, 2026-04-12)
         "identity": 20,
         "decision_making": 25,
         "worldview": 7,   # 6 from Sprint A-1 + religious_salience from Sprint A-3

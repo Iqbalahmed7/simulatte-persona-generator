@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-br-004",
+  "spec_id": "S06",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Diego Nascimento",
+  "age": 31,
+  "location": "Contagem (periurban Belo Horizonte), MG, Brazil",
+  "employment": "Delivery driver (app-based); part-time store assistant",
+  "education": "Ensino Médio; incomplete university (abandoned after 1 year due to costs)",
+  "income": "BRL 2,100/month (variable)",
+  "household": "Rents room in shared house; sends money home to family in interior MG",
+  "political_orientation": "Variable; economically driven",
+
+  "worldview_anchor": {
+    "IT": 0.42,
+    "SCP": 0.50,
+    "CS": 0.58,
+    "ESP": 0.78
+  },
+
+  "life_story_vignettes": [
+    "Diego rides a motorcycle 8-10 hours a day delivering food and packages. He knows every pothole in his delivery zone. In the summer of 2025, he worked through several days where the heat index exceeded 42°C. He bought an electrolyte powder to mix into his water bottle. He thinks about climate heat as an occupational hazard, not as an environmental concept.",
+    "He had to stop his university course in administration after one year because his family needed money. He thinks about this often — the counterfactual of where he'd be if he'd been able to finish. He doesn't frame this as resentment; more as a structural fact that he navigated.",
+    "He noticed some of the restaurants he delivers from started using paper bags in 2024. He thought: good. That was the extent of his engagement with sustainability in consumer terms. He doesn't have disposable income to spend on certified products."
+  ],
+
+  "narrative": "Meu nome é Diego. Tenho 31 anos, moro em Contagem, faço entrega de aplicativo. In English: I'm Diego, 31, delivery driver, Contagem.\n\nI think about the environment when the weather is bad for my work. The heat this past summer was brutal — I was on the road all day in 42-degree heat. The rains in January — the flooding — I had to reroute my whole delivery zone twice. Climate is real to me in very practical terms.\n\nBut I need to be honest: my financial situation is precarious. I earn around two thousand reais a month, sometimes less if the platform has fewer orders. I send some home. I don't have money for rent in a nicer place and I certainly don't have money for products with eco-certification. That's not the reality of my life.\n\nI'm not against sustainability. I liked when the restaurants started using paper bags. I don't litter. When I have kids someday I want them to have a decent world. These things matter to me at a value level.\n\nBut the sustainable consumer economy — the premium products, the certified labels, the ethical brands — that's for people who earn ten times what I earn. It's not a conversation that includes me, and I'm a bit sceptical of people who act like everyone can just choose to pay more. Not everyone can.\n\nIf the cheaper product was also the better one for the environment, I'd choose it every time. I'm not the problem. The problem is the system that prices responsibility as a luxury.",
+
+  "key_attributes": {
+    "sustainability_concern": "moderate — felt through climate impacts on work; values-level agreement but not operational engagement",
+    "premium_willingness": "very low — income does not permit any sustainability premium",
+    "greenwashing_scepticism": "low-moderate — not deeply engaged with sustainability marketing; simply out of scope for his market segment",
+    "certification_response": "irrelevant — not a purchasing driver at his income level",
+    "attitude_behaviour_gap": "large — entirely driven by economic constraint; explicitly rejects the framing that he bears consumer responsibility",
+    "political_engagement": "low formal engagement; practically oriented"
+  },
+
+  "decision_bullets": [
+    "Experiences climate as occupational hazard — heat, flooding affect his livelihood directly",
+    "No capacity to pay sustainability premium — BRL 2,100/month variable income",
+    "Values environmental outcomes but rejects consumer choice as the mechanism for people at his income level",
+    "Makes zero-cost environmental choices when they don't require additional spending",
+    "Sends remittance home — household financial obligations exceed any discretionary margin"
+  ]
+}

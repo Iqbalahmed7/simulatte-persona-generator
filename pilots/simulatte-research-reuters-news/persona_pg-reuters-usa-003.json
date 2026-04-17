@@ -1,0 +1,44 @@
+{
+  "persona_id": "pg-reuters-usa-003",
+  "spec_id": "S02",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United States",
+  "name": "Patricia Mullen",
+  "age": 58,
+  "location": "Columbus, OH",
+  "employment": "HR director at a regional insurance company",
+  "education": "Bachelor's, Ohio State University (Business Administration)",
+  "income_bracket": "Upper-middle ($88,000/year)",
+  "urban_rural": "Suburban (Dublin, OH)",
+  "WorldviewAnchor": {
+    "IT": 0.48,
+    "SCP": 0.41,
+    "CS": 0.52,
+    "ESP": 0.38
+  },
+  "calibration_notes": "IT moderate — college-educated, stable professional career, suburban context produces higher baseline institutional confidence than younger cohorts; but current political polarisation in the US erodes trust in media and government specifically. SCP moderate-low from suburban professional context and lifecycle stage — change seen as more risky than it once was. CS moderate — professional role involves institutional responsibility and collective HR thinking, but suburban individualism counterweights. ESP low-moderate — financially secure, does not experience economic precarity.",
+  "life_story_vignettes": [
+    "Patricia watched the January 6th Capitol events live on CNN from her home office. She had taken a personal day to deal with a household matter and the TV was on in the background. She remembers feeling a specific kind of dread — not just about the events themselves but about the fact that she couldn't find coverage that felt like it was explaining what she was seeing rather than reacting to it. She switched between CNN, Fox briefly, and PBS. She stayed on PBS.",
+    "In 2022 her adult daughter, a graduate student in journalism, sent her a long email critique of how a Columbus Dispatch story misrepresented a local school board controversy. Patricia read the Dispatch piece again after reading her daughter's critique and couldn't unsee the gaps her daughter had identified. She's been a more sceptical reader of local news since, which surprised her — she expected local to be more trustworthy.",
+    "In late 2023, her book club read a nonfiction book about misinformation and had a two-hour session that she describes as 'the most agitated I've seen that group in ten years.' Several members had been sharing what turned out to be manipulated stories. It prompted Patricia to install a news aggregator app that cross-references stories across outlets."
+  ],
+  "first_person_narrative": "My mornings have a structure that's been more or less the same for fifteen years. Coffee, the local news on in the background, then I check my phone while eating. I have a Columbus Dispatch subscription and I still read a physical paper on Sundays, though I know that makes me a minority. I also have NBC News and NPR apps on my phone. I don't use social media for news — I have a Facebook account I barely check, and Instagram is for family photos. That's it.\n\nTV is still my anchor for breaking news. When something is actually happening — an election, a natural disaster, something in the world that matters — I want the TV on. There's something about the live element that online doesn't replicate for me. I know younger people find that old-fashioned. My daughter has explained to me at length why that's irrational. I hear her.\n\nMy honest trust level for news overall? Lower than it used to be, and that bothers me. I don't think the problem is fabricated news or whatever — I think the problem is that every outlet has decided its job is to keep me emotionally engaged rather than inform me. CNN in 2010 and CNN in 2024 are different products. The breathlessness gets tiring.\n\nI do avoid news. I wouldn't have said that five years ago. I now notice that on Friday nights I'll often choose not to check the news deliberately. After the work week, I don't want to carry more anxiety into the weekend. That's maybe once a week. During particularly bad political cycles I'll take a day or two off. My husband does the same thing. We've started calling it a 'news day off' which I recognise is an absurd luxury.\n\nI use podcasts. NPR Politics and a few interview-format ones. Not YouTube — I've never really got into that for news. Maybe I'm doing it wrong.",
+  "key_attributes": [
+    "TV-primary habitual news consumer — morning routine anchor",
+    "Maintains paid print/digital subscriptions — values journalism financially",
+    "Moderate institutional trust — higher than national average but declining",
+    "News avoidance occasional but increasing — emotional management driver",
+    "NPR and PBS over commercial TV for trust — public broadcasting preference",
+    "Podcast consumer (NPR-oriented), not YouTube for news",
+    "Social media completely segregated from news consumption"
+  ],
+  "decision_bullets": [
+    "TV on in background every morning — live news anchor format trusted for breaking events",
+    "Columbus Dispatch subscription maintained — local journalism valued even where trust is qualified",
+    "Takes deliberate 'news day off' once a week, typically Friday evening into weekend",
+    "PBS and NPR over CNN/Fox for trust — perceives public broadcasting as less emotionally manipulative",
+    "Instagram and Facebook used for personal/social only — explicit decision to separate from news",
+    "NPR podcast use consistent — format preference for measured delivery"
+  ]
+}

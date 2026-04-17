@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-de-004",
+  "spec_id": "S04",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Sabine Krüger",
+  "age": 47,
+  "location": "Erfurt, Thuringia, Germany",
+  "employment": "Supermarket department manager (produce section)",
+  "education": "Realschulabschluss; apprenticeship in retail trade",
+  "income": "€28,000/year",
+  "household": "Owns small apartment; lives alone after divorce; one teenage daughter (shared custody)",
+  "political_orientation": "SPD historically; recently considers AfD on economic issues (not cultural)",
+
+  "worldview_anchor": {
+    "IT": 0.41,
+    "SCP": 0.43,
+    "CS": 0.52,
+    "ESP": 0.67
+  },
+
+  "life_story_vignettes": [
+    "Sabine manages the produce section of an Edeka supermarket and can see every day which products move and which sit on the shelf. She notices that the bio (organic) section has grown in the last decade but that price-sensitive shoppers — most of her regular customers — rarely pick up the certified items when the price difference is significant. She reads the purchasing data differently from how marketing presents it.",
+    "Her daughter, now 16, came home from school talking about Fridays for Future in 2019. Sabine attended one rally with her. She found it moving. She also felt, in a way she struggled to articulate, that the concerns were real but the solutions being discussed didn't seem to apply to her life. Nobody seemed to be talking about people earning €28,000.",
+    "Her apartment building underwent insulation retrofitting in 2024 — mandated by the building owner after the Gebäudeenergiegesetz update. Her heating bills dropped by €60/month. She supports this kind of change but notes she had no choice in it and would not have initiated it herself."
+  ],
+
+  "narrative": "Ich heiße Sabine. Ich bin 47, ich wohne in Erfurt, ich arbeite im Lebensmittelhandel. Auf Englisch: I manage the produce department at a supermarket. I've worked in retail my whole career.\n\nOf course the environment matters. I see it in my job — the produce that comes from further and further away, the packaging. I sort my rubbish correctly. I try not to waste food. I buy regionally produced items when the price is similar. I care.\n\nBut I earn €28,000 a year and I have a daughter half-time. I cannot afford to pay 30 or 40 percent more for everything with a bio label. This is not a choice I'm making — it is arithmetic. When I see the campaigns asking consumers to 'vote with their wallets,' I notice that this is asking people with limited wallets to carry the cost of a system that was built by others.\n\nIn my job, I see who buys the organic products and who doesn't. It's not a mystery. It tracks income very closely. People aren't indifferent to quality — they're constrained by price.\n\nI'm frustrated by the political framing of this. After my heating bills dropped because of the building retrofit, I thought: this is how change should happen — through structures, not through asking individuals to spend more. I didn't choose the retrofit. Someone made it mandatory. My bills went down. That was better than any certification label.\n\nI trust government environmental standards more than company labels. If the state says something meets a standard, I'll accept it. If a company prints green text on a packet, I'm not convinced.\n\nI would like a world where the right choice is also the affordable choice. We're not there yet.",
+
+  "key_attributes": {
+    "sustainability_concern": "moderate — genuine and grounded in direct observation; frustrated by the framing of consumer responsibility",
+    "premium_willingness": "low — budget constraint is binding; minor premium acceptable when visible and justified",
+    "greenwashing_scepticism": "moderate-high — direct retail experience gives her a grounded view of bio certification value",
+    "certification_response": "conditional — trusts state-backed standards; moderately distrusts brand-applied labels",
+    "attitude_behaviour_gap": "moderate — sees her behaviour as constrained, not as values failure",
+    "political_engagement": "shifting; increasingly responsive to economic arguments across political spectrum"
+  },
+
+  "decision_bullets": [
+    "Buys regional produce over imported when price is comparable — direct observation drives this",
+    "Will not pay significant premium for eco-certified products on a €28k budget",
+    "Positive about structural/regulatory changes that reduce cost (building retrofit as model)",
+    "Sceptical of consumer responsibility framing; sees income distribution as the underlying issue",
+    "Trusts German state environmental standards; lower trust in brand-applied certification"
+  ]
+}

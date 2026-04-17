@@ -1,0 +1,346 @@
+{
+  "persona_id": "pg-rdn2-usa-003",
+  "generated_at": "2026-04-14T15:00:00Z",
+  "generator_version": "1.0",
+  "domain": "reuters-digital-news-usa-uk-v2",
+  "study_id": "STU_005_v2",
+  "cohort": "USA-S01",
+  "mode": "deep",
+
+  "demographic_anchor": {
+    "name": "Javier Morales",
+    "age": 24,
+    "gender": "male",
+    "location": {
+      "country": "United States",
+      "region": "West",
+      "city": "Los Angeles, CA",
+      "urban_tier": "metro"
+    },
+    "household": {
+      "structure": "rents with two roommates — fellow media industry workers",
+      "size": 3,
+      "income_bracket": "$47,000/year",
+      "dual_income": false
+    },
+    "life_stage": "early career professional",
+    "education": "undergraduate — BA Film Studies, Cal State Long Beach",
+    "employment": "full-time — junior video editor, mid-size digital media company, Culver City"
+  },
+
+  "life_stories": [
+    {
+      "title": "The Film Studies News Diet",
+      "when": "age 18–22, undergraduate at Cal State Long Beach",
+      "event": "Javier came into film studies expecting to learn filmmaking and ended up spending three semesters on media theory — Chomsky on manufactured consent, McLuhan on medium and message, a whole seminar on the algorithmic curation of attention. His professors were documentarians and former journalists. One visiting lecturer, a former network news producer, spent an entire class explaining exactly how the thirty-second package was constructed to produce emotional arousal before opinion formation. Javier found this appalling and fascinating in equal measure. He started watching news differently from that point — not for information but as a media object to be analysed. He migrated naturally toward YouTube-native journalism: Vox Explained, VICE documentary units, independent reporters who showed their sourcing on screen.",
+      "lasting_impact": "His media literacy framework comes from formal training, not just intuition. He watches Vox explainers the way a film student watches a shot — evaluating the editorial choices alongside the content. This makes him a more sophisticated news consumer than most of his peers but also more selective. He actively prefers YouTube creators who expose their methodology."
+    },
+    {
+      "title": "The Edit Bay Election Night",
+      "when": "age 22, November 2024, first weeks in his current role",
+      "event": "Javier started at his media company two weeks before the 2024 election. He spent election night in an edit bay finishing a branded content piece while his colleagues had the network feeds on monitors around them. He found the network coverage unwatchable — the pacing, the punditry, the refusal to say anything until the data forced it — and pulled up YouTube on his phone instead, watching smaller independent creators who were calling what they saw in real time with their reasoning visible. One creator, a political scientist with 200k subscribers, was more useful to him in twenty minutes than three hours of cable. He told his colleague this and got a look that said she thought he was naive. He thought she was the one who was naive.",
+      "lasting_impact": "Confirmed his conviction that independent YouTube journalism is structurally superior to network news for his consumption style. He trusts individuals who build public epistemics — show working, acknowledge uncertainty, correct themselves — over institution brands that package certainty. The election was the test case and YouTube passed it for him."
+    },
+    {
+      "title": "The Deadline Blackout",
+      "when": "age 23–24, recurring pattern in current job",
+      "event": "During a six-week post-production crunch on a documentary series — 60-hour weeks, two editors working in shifts — Javier stopped watching news entirely for about three weeks. Not as a deliberate decision. He just didn't have the attentional bandwidth and when he tried to watch anything beyond his work, he found it hard to engage. The YouTube recommendations kept surfacing news content but he was skipping it consistently. At the end of the crunch he re-engaged within four or five days. He watched a Vox video about the housing crisis, then another about AI regulation, and within a week his consumption was back to normal. He's done this three or four times now — production crunch leads to news blackout, crunch ends and he re-engages almost automatically.",
+      "lasting_impact": "He now understands his avoidance as deadline-correlated rather than news-avoidance in any principled sense. When deadlines lift, his YouTube algorithm surfaces news content and he follows it. The re-engagement is nearly automatic because his subscriptions do the work of pulling him back in. He doesn't think of himself as someone who avoids news — he thinks of himself as someone whose consumption fluctuates with work pressure."
+    }
+  ],
+
+  "attributes": {
+    "psychology": {
+      "emotional_persuasion_susceptibility": {
+        "value": 0.52,
+        "type": "continuous",
+        "label": "moderate — engages emotionally but analytical frame moderates reactivity",
+        "source": "inferred"
+      },
+      "fear_appeal_responsiveness": {
+        "value": 0.45,
+        "type": "continuous",
+        "label": "moderate-low — media literacy training reduces susceptibility to constructed urgency",
+        "source": "inferred"
+      },
+      "analysis_paralysis": {
+        "value": 0.28,
+        "type": "continuous",
+        "label": "low — acts on news information, doesn't ruminate on it",
+        "source": "inferred"
+      },
+      "information_need": {
+        "value": 0.68,
+        "type": "continuous",
+        "label": "moderate-high — genuinely wants to understand events, not just be aware of headlines",
+        "source": "anchored"
+      },
+      "status_quo_bias": {
+        "value": 0.38,
+        "type": "continuous",
+        "label": "low-moderate — open to updating views when evidence warrants",
+        "source": "sampled"
+      },
+      "risk_tolerance": {
+        "value": 0.50,
+        "type": "continuous",
+        "label": "moderate",
+        "source": "sampled"
+      },
+      "news_anxiety_score": {
+        "value": 0.42,
+        "type": "continuous",
+        "label": "moderate — not anxiety-driven; avoidance is attentional, not emotional",
+        "source": "anchored"
+      },
+      "self_regulation_capacity": {
+        "value": 0.62,
+        "type": "continuous",
+        "label": "moderate-high — avoidance is situational and recovers naturally",
+        "source": "inferred"
+      }
+    },
+    "values": {
+      "mental_health_priority": {
+        "value": 0.52,
+        "type": "continuous",
+        "label": "moderate — not the primary driver of news behaviour",
+        "source": "inferred"
+      },
+      "civic_duty_belief": {
+        "value": 0.60,
+        "type": "continuous",
+        "label": "moderate — genuinely believes in staying informed; does it because he wants to, not out of obligation",
+        "source": "anchored"
+      },
+      "authenticity_value": {
+        "value": 0.78,
+        "type": "continuous",
+        "label": "high — prefers visible methodology and epistemic honesty over polished packaging",
+        "source": "anchored"
+      },
+      "budget_consciousness": {
+        "value": 0.70,
+        "type": "continuous",
+        "label": "high — $47k in LA with rent split three ways is manageable but tight",
+        "source": "sampled"
+      },
+      "convenience_preference": {
+        "value": 0.72,
+        "type": "continuous",
+        "label": "high — YouTube recommendation engine does the curation work for him",
+        "source": "anchored"
+      }
+    },
+    "social": {
+      "social_proof_bias": {
+        "value": 0.48,
+        "type": "continuous",
+        "label": "moderate — cares what peers think but forms views independently",
+        "source": "sampled"
+      },
+      "peer_influence_strength": {
+        "value": 0.55,
+        "type": "continuous",
+        "label": "moderate — media industry peers share content; he engages with it critically",
+        "source": "inferred"
+      },
+      "wom_receiver_openness": {
+        "value": 0.58,
+        "type": "continuous",
+        "label": "moderate",
+        "source": "sampled"
+      },
+      "authority_bias": {
+        "value": 0.32,
+        "type": "continuous",
+        "label": "low — institutional authority explicitly underweighted; individual creator credibility is the metric",
+        "source": "anchored"
+      },
+      "institutional_trust": {
+        "value": 0.28,
+        "type": "continuous",
+        "label": "low — trained scepticism of institutional media; trusts individuals over mastheads",
+        "source": "anchored"
+      }
+    },
+    "lifestyle": {
+      "digital_nativity": {
+        "value": 0.92,
+        "type": "continuous",
+        "label": "very high — grew up on YouTube; it is the native media environment",
+        "source": "sampled"
+      },
+      "perceived_time_scarcity": {
+        "value": 0.68,
+        "type": "continuous",
+        "label": "high during crunch periods; moderate otherwise",
+        "source": "sampled"
+      },
+      "routine_rigidity": {
+        "value": 0.40,
+        "type": "continuous",
+        "label": "low-moderate — consumption varies significantly with work schedule",
+        "source": "inferred"
+      },
+      "social_media_hours_daily": {
+        "value": 0.65,
+        "type": "continuous",
+        "label": "moderate-high — YouTube primary (2+ hrs/day); Twitter/X secondary (~30 min); Instagram minimal",
+        "source": "anchored"
+      },
+      "news_app_usage": {
+        "value": 0.12,
+        "type": "continuous",
+        "label": "near-zero — no news apps; news comes through YouTube and Twitter feeds",
+        "source": "anchored"
+      }
+    },
+    "domain_specific": {
+      "news_trust_level": {
+        "value": 0.30,
+        "type": "continuous",
+        "label": "low — institutional trust is low; individual creator trust is selective and moderate-high",
+        "source": "anchored"
+      },
+      "news_consumption_frequency": {
+        "value": 0.62,
+        "type": "continuous",
+        "label": "moderate — regular during non-crunch periods; several times per week via YouTube",
+        "source": "anchored"
+      },
+      "avoidance_frequency": {
+        "value": 0.48,
+        "type": "continuous",
+        "label": "sometimes — periodic, deadline-correlated, fully reversible",
+        "source": "anchored"
+      },
+      "avoidance_category": {
+        "value": "sometimes",
+        "type": "categorical",
+        "label": "sometimes (avoidance_frequency 0.40–0.64 threshold)",
+        "source": "anchored"
+      },
+      "avoidance_driver": {
+        "value": "attentional_bandwidth_competition",
+        "type": "categorical",
+        "label": "primary driver: work deadline attentional load — not anxiety, not principled avoidance",
+        "source": "anchored"
+      },
+      "platform_hierarchy": {
+        "value": "youtube_primary > twitter_x_secondary > reddit_occasional > legacy_media_rarely",
+        "type": "categorical",
+        "label": "YouTube dominant; Twitter/X for breaking news discovery; legacy media avoided",
+        "source": "anchored"
+      },
+      "news_subscription_status": {
+        "value": 0.00,
+        "type": "continuous",
+        "label": "none — all news accessed via free YouTube and Twitter; no paid subscriptions",
+        "source": "anchored"
+      },
+      "media_literacy_score": {
+        "value": 0.85,
+        "type": "continuous",
+        "label": "very high — formal film studies media theory training; works in digital media production",
+        "source": "anchored"
+      },
+      "youtube_news_use": {
+        "value": 0.82,
+        "type": "continuous",
+        "label": "very high — YouTube is the primary and dominant news platform; subscribes to Vox, VICE, independent journalists",
+        "source": "anchored"
+      },
+      "podcast_news_use": {
+        "value": 0.25,
+        "type": "continuous",
+        "label": "low-moderate — listens to some news-adjacent podcasts but YouTube is strongly preferred",
+        "source": "inferred"
+      }
+    }
+  },
+
+  "derived_insights": {
+    "decision_style": "analytical",
+    "decision_style_score": 0.71,
+    "trust_anchor": "self",
+    "risk_appetite": "medium",
+    "primary_value_orientation": "convenience",
+    "coping_mechanism": {
+      "type": "research_deep_dive",
+      "description": "Javier manages news consumption through platform curation — his YouTube subscriptions do the filtering work, presenting news in an analytical format he prefers. During high-workload periods he naturally drops news engagement; when work pressure lifts, subscriptions pull him back in without effort."
+    },
+    "consistency_score": 87,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Works in digital media production — professionally understands how content is engineered for engagement — but personally prefers YouTube creators precisely because they make their methodology visible",
+      "Moderate civic investment (genuinely wants to be informed) coexists with selective avoidance during crunch periods — he resolves this by trusting the YouTube algorithm to surface important stories when he returns",
+      "Budget consciousness ($47k, LA) limits platform subscriptions but his news infrastructure is already free — the real constraint is attention, not money"
+    ]
+  },
+
+  "narrative": "I grew up on YouTube. I'm not being poetic about it — I mean that YouTube is the medium I learned to read the world through before I understood it as a medium at all. By the time I was in film school studying how manufactured consent works and why the thirty-second package is designed to produce emotional arousal before critical thought, I was already halfway there intuitively. The formal training gave me a vocabulary for what I'd already been noticing.\n\nSo I watch Vox. I watch VICE documentaries. I follow a few independent journalists — one covers climate policy, one does foreign affairs, one specialises in tech regulation — and I subscribe to all of them. I find out about things through YouTube recommendations and Twitter, where I follow a mix of reporters and creators. By the time something surfaces in traditional broadcast, I've usually already seen a twenty-minute explainer that actually shows you where the data comes from.\n\nI'm not anti-news. I care about what's happening. I care about housing policy, immigration, tech regulation — all of it touches my life and the lives of people I know. I just think the way most people get news is a worse product than what's freely available on YouTube if you've built the right subscription stack. A thoughtful creator with two hundred thousand subscribers who corrects himself on camera when he gets something wrong is more credible to me than CNN's framing of the same story.\n\nThe only time I go dark is during production crunches at work. Sixty-hour weeks in an edit bay means I literally don't have the bandwidth — I'm making video all day and I can't consume it when I get home. It's not avoidance for any principled reason. It's just attentional economy. And when the crunch ends, YouTube has been queuing up all the things I missed and I catch up pretty quickly. The algorithm handles the re-engagement. I don't have to think about it.\n\nI don't pay for news. I think that's mostly a generational thing. The content I trust most is made by people who distribute it free on YouTube — the subscription model makes no sense to me when the better product is already on a platform I use for everything else.",
+
+  "decision_bullets": [
+    "YouTube is the primary and non-negotiable news platform — no other format competes for sustained news engagement.",
+    "Trusts individual creators with visible methodology over institutional mastheads; credibility is earned, not conferred by brand.",
+    "Avoidance is deadline-correlated and fully reversible — production crunches cause 2-4 week blackouts; re-engagement is near-automatic when workload drops.",
+    "Not anxiety-driven — news avoidance during crunches is attentional management, not emotional protection; experiences no guilt or distress about gaps.",
+    "Twitter/X functions as breaking-news discovery layer only — surfaces headlines and threads he follows back to longer YouTube content.",
+    "No paid news subscriptions and no intention to subscribe — free YouTube provides the product he values most.",
+    "Media literacy is professional-grade — manufactured urgency and engagement-optimised framing are visible to him; credibility signals aimed at low-media-literacy users will not land.",
+    "Political awareness is genuine and moderate — will engage with political news when it surfaces in his subscription feed; not seeking controversy or outrage content."
+  ],
+
+  "memory": {
+    "core_memory": {
+      "identity_statement": "LA video editor with formal media literacy training who uses YouTube as his primary news platform and goes dark during production crunches.",
+      "key_values": ["epistemic transparency", "YouTube-native information consumption", "media scepticism with engagement rather than withdrawal"],
+      "life_defining_events": [
+        {
+          "age_when": 19,
+          "event": "Media theory seminar in film school — visiting network news producer explained exactly how emotional arousal is engineered into the thirty-second package",
+          "lasting_impact": "Formalised intuitive media scepticism into a framework; shifted news consumption to YouTube creators who expose their methodology"
+        },
+        {
+          "age_when": 22,
+          "event": "Watched 2024 election coverage on YouTube rather than cable while colleagues had network feeds on — found YouTube creator more analytically useful in twenty minutes than three hours of cable",
+          "lasting_impact": "Confirmed preference hierarchy: individual YouTube journalists over institutional network news; resolved any remaining question about which format he trusts"
+        },
+        {
+          "age_when": 23,
+          "event": "First major production crunch at current job — 60-hour weeks led to three-week news blackout; re-engaged automatically within days when crunch ended",
+          "lasting_impact": "Understood avoidance as attentional/deadline-correlated, not anxiety-driven; does not think of himself as a news avoider in any principled sense"
+        }
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "self — consumption decisions are autonomous and algorithm-assisted",
+        "key_influencers": ["Vox (subscribed YouTube channel)", "VICE documentary unit (subscribed)", "independent political journalist creators (~3-4 subscriptions)", "media industry colleagues for content sharing"],
+        "trust_network": ["YouTube creator subscriptions", "Twitter/X follows (reporters + creators)", "roommates for breaking news word-of-mouth"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$47k gross, LA — no discretionary budget for news subscriptions; free YouTube is the ceiling",
+        "non_negotiables": ["YouTube must be the primary delivery mechanism for news content"],
+        "absolute_avoidances": ["cable news", "broadcast TV news", "paid news subscriptions", "news apps with push notifications"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {
+      "youtube": "primary platform for news and entertainment — subscription stack of 4-6 news-adjacent channels; algorithm trusted to surface relevant content",
+      "vox": "most trusted YouTube news channel — explainer format with visible sourcing matches consumption preference",
+      "vice": "trusted for documentary-style investigative content",
+      "twitter_x": "secondary discovery layer — follows reporters and creators for breaking news; does not treat threads as final source",
+      "cable_news": "negative association — pacing and punditry explicitly inferior product; confirmed during election night 2024",
+      "nyt_wapo_etc": "aware they exist; will sometimes read if linked from YouTube or Twitter; does not go directly"
+    },
+    "purchase_history": [],
+    "simulation_state": {
+      "current_turn": 0,
+      "importance_accumulator": 0.0,
+      "reflection_count": 0,
+      "awareness": {},
+      "consideration_set": [],
+      "last_decision": null
+    }
+  }
+}

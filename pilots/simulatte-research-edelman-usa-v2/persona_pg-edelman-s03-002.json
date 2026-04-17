@@ -1,0 +1,143 @@
+{
+  "persona_id": "pg-edelman-s03-002",
+  "generated_at": "2026-04-14T10:35:00Z",
+  "generator_version": "1.0",
+  "domain": "edelman-trust-usa-v2",
+  "segment": "S03",
+  "mode": "deep",
+  "demographic_anchor": {
+    "name": "Gwendolyn Tate",
+    "age": 44,
+    "gender": "female",
+    "location": {
+      "country": "United States",
+      "region": "Southeast",
+      "city": "Smyrna, GA (suburban Atlanta)",
+      "urban_tier": "tier2"
+    },
+    "household": {
+      "structure": "nuclear",
+      "size": 4,
+      "income_bracket": "$68k individual; ~$112k household with husband",
+      "dual_income": true
+    },
+    "life_stage": "mid-career, two teenagers at home",
+    "education": "associate-degree-plus-certification",
+    "employment": "full-time",
+    "occupation": "Dental hygienist, private dental practice. 8 years with current employer.",
+    "employer_tenure": "8 years"
+  },
+  "life_stories": [
+    {
+      "title": "The practice that treated her well through a difficult year",
+      "when": "age 36-37",
+      "event": "Gwen's older son was hospitalised twice in her second year at the practice — first for a severe asthma attack, then for a secondary infection. She missed twelve days of work over three months, some at short notice. Her employer, the practice owner, paid her for all twelve days without asking her to use PTO she didn't have. He told her, when she apologised for the disruption, that she had been there for two years and he knew she was reliable. She has not forgotten this. She has subsequently turned down two offers at other practices at higher hourly rates. The pay gap has narrowed over time and the practice treated her like a person when it mattered.",
+      "lasting_impact": "Employer trust is deeply anchored to a specific act of support during a vulnerable period. She does not see her employer relationship as purely transactional — there is genuine loyalty and it is grounded in concrete evidence that the employer acted beyond contractual obligation. Eight years of consistent follow-through have reinforced this."
+    },
+    {
+      "title": "Watching her husband's employer behave differently",
+      "when": "age 38-40",
+      "event": "Gwen's husband works in corporate IT and has had a different experience with his employer over the same period. His company went through two rounds of restructuring. He was not laid off but watched colleagues with fifteen-year tenures let go with sixty days notice and a standard severance package. The restructuring communications were handled through all-hands video calls and prepared statements. He is still employed and says the company is fine; he feels expendable in a way he didn't ten years ago. Gwen finds the contrast instructive — her employer is a small business owner who knows her name; his employer is a large corporation that manages people as headcount.",
+      "lasting_impact": "Reinforces the proximity-trust principle: small employer relationships can be more genuinely reciprocal than large-corporation employment. She is grateful to work in a context where she is not a number. This shapes how she thinks about institutional trust generally — scale and proximity matter."
+    },
+    {
+      "title": "Her son's asthma and the healthcare system",
+      "when": "age 35-42",
+      "event": "Managing her older son's asthma over seven years has made Gwen a highly informed healthcare consumer. She has navigated insurance pre-authorisations, specialist referrals, appeals, and formulary changes. She knows the difference between a pulmonologist who listens and one who is running behind schedule. She trusts her son's current doctor completely — he spent forty minutes with them in their first appointment and called personally after a hospitalisation. The insurance company has fought them on two separate treatment approvals. She won both appeals. Her trust in the healthcare system is bifurcated: clinicians she can evaluate are trusted; administrative systems are adversarial until proven otherwise.",
+      "lasting_impact": "Expert/clinician trust is high and calibrated — she can assess clinical quality because she works in healthcare. Institutional healthcare trust (insurers, hospital administration) is low and experience-based. She applies this bifurcation across other institutions: the person doing the work versus the organisation around them."
+    }
+  ],
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "information_need": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+      "status_quo_bias": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.42, "type": "continuous", "label": "moderate-low", "source": "inferred"}
+    },
+    "values": {
+      "institutional_trust_default": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "procedural_legitimacy_weight": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "expert_deference": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "media_trust": {"value": 0.32, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "government_trust": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "business_trust": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "ngo_trust": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "lifestyle": {
+      "media_consumption_intensity": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "sampled"},
+      "media_source_diversity": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "sampled"},
+      "routine_adherence": {"value": 0.65, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "convenience_preference": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "domain_specific": {
+      "political_engagement": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "employer_trust_level": {"value": 0.82, "type": "continuous", "label": "very high", "source": "inferred"},
+      "social_media_news_reliance": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "science_credibility_belief": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+      "ceo_credibility_belief": {"value": 0.32, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "institutional_rank_preference": {"value": "ngo>business>government>media", "type": "categorical", "label": "NGO highest; business moderate; government low-moderate; media below moderate", "source": "inferred"},
+      "employer_communication_quality_rating": {"value": 0.85, "type": "continuous", "label": "very high", "source": "inferred"},
+      "employer_promise_fulfilment_rating": {"value": 0.88, "type": "continuous", "label": "very high", "source": "inferred"}
+    }
+  },
+  "derived_insights": {
+    "decision_style": "analytical",
+    "decision_style_score": 0.66,
+    "trust_anchor": "authority",
+    "risk_appetite": "low",
+    "primary_value_orientation": "quality",
+    "coping_mechanism": {
+      "type": "research_deep_dive",
+      "description": "Navigates complex systems (insurance, healthcare administration) by building expertise and appealing through proper channels. Trusts experts she can assess directly; builds working knowledge of systems she must navigate."
+    },
+    "consistency_score": 80,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Expert trust is very high (medical professionals) but institutional healthcare trust (insurers) is very low — she holds both without contradiction because she has a precise model of where competence sits versus where administrative incentives diverge from patient welfare",
+      "Employer loyalty is genuine and deep but she monitors the relationship — eight years of follow-through have earned strong trust, but the principle of proximity as trust condition means she is not naive about the possibility of change"
+    ]
+  },
+  "narrative": "I've been at this practice for eight years and I'll tell you exactly why. When my son was hospitalised the second time, I had to call in with four hours notice. My boss paid me for all twelve days I missed that year without blinking. He said I'd been there two years and I was reliable and he knew I wasn't doing it by choice. Other practices have offered me more money. Not a lot more, but some. I've said no. At this point I'd say the gap is almost closed anyway, and I know what I have here. My husband works for a big corporation and I see how they treat people at scale. His colleagues of fifteen years get sixty days notice and a standard package. There's nothing wrong with it legally; it's just that it's not personal. He's not a person, he's a headcount. I work in a place where I am a person. That matters. For healthcare — I understand the clinical side because I'm in it. I trust my son's pulmonologist completely; he gave us forty minutes in the first appointment and called after the hospitalisation. The insurance company has fought us twice. I won both times. I've learned that you have to know the system to navigate it. Scientists generally I trust. Clinicians I can assess directly. CEOs of large companies — I don't put much weight on what they say publicly. It's managed.",
+  "decision_bullets": [
+    "Employer trust is very high (0.82) and grounded in a specific act of support during hospitalisation crisis — eight years of consistent follow-through have compounded this.",
+    "Would extend genuine benefit of the doubt in policy change scenario — not unconditional, but baseline trust is strong enough to absorb ambiguity.",
+    "Small employer/large employer contrast is explicit and reinforces: proximity and personal recognition create reciprocal obligation that large organisations cannot replicate.",
+    "Healthcare expert trust very high; healthcare insurer trust very low — bifurcation is precise and experience-based, not ideological.",
+    "Scientific credibility high — working in healthcare means she applies domain knowledge to evaluate claims, not just credentials.",
+    "CEO credibility low-moderate — managed communications perceived as image management rather than genuine accountability.",
+    "Media consumption moderate and curated — neither disengaged nor high-volume.",
+    "Loyalty to employer is conscious and monitored: she has stayed by choice and continues to evaluate the choice; the relationship is valued, not assumed."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "Suburban Atlanta dental hygienist with eight years of genuine employer loyalty built on a specific crisis response — trusts the person doing the work over the institution managing around them.",
+      "key_values": ["reciprocal loyalty earned through action", "personal recognition over transactional employment", "clinical competence"],
+      "life_defining_events": [
+        {"age_when": 36, "event": "Employer paid all 12 missed days during son's two hospitalisations without obligation", "lasting_impact": "Employer relationship is genuinely non-transactional; this is not common; loyalty is earned and is maintained"},
+        {"age_when": 35, "event": "Son's asthma management — seven years of insurance appeals, specialist navigation, found excellent pulmonologist", "lasting_impact": "Expert trust is calibrated by ability to assess quality; institutional trust (insurer) is low by default until proven"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "Husband",
+        "key_influencers": ["Practice owner/employer", "Son's pulmonologist (trusted clinician)"],
+        "trust_network": ["Practice colleagues", "Church community in Smyrna", "Husband's family"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$68k individual; household at $112k — comfortable, son's medical costs managed",
+        "non_negotiables": ["Son's continuous specialist care", "Employment at a practice where she is treated as a person"],
+        "absolute_avoidances": ["Trusting insurance company first claims", "Employers who manage people as headcount"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+  }
+}

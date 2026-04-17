@@ -1,0 +1,52 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "P4",
+      "name": "Cafeteria / Institutional Food Operator",
+      "count": 10,
+      "age_range": [
+        30,
+        55
+      ],
+      "locations": [
+        "Delhi",
+        "Mumbai",
+        "Bangalore",
+        "Hyderabad",
+        "Chennai",
+        "Kolkata"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1"
+      ],
+      "role": "food procurement and operations decision-maker for institutional cafeterias",
+      "key_signals": {
+        "premium_price_tolerance": "low",
+        "functional_food_trust": "medium",
+        "indian_startup_brand_trust": "low-medium",
+        "clean_label_importance": "medium",
+        "quick_commerce_adoption": "low"
+      },
+      "case_studies": [
+        17
+      ],
+      "notes": "Margin-sensitive. Evaluates on: bulk pricing, shelf life, consistent supply, ease of preparation/serving. Health claims are secondary to operational viability. Needs bulk format (not retail packs). Lo! Foods must solve the operational case before the health case for this buyer."
+    }
+  ]
+}

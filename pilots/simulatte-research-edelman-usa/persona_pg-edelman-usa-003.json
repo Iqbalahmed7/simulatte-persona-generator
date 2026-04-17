@@ -1,0 +1,122 @@
+{
+  "persona_id": "pg-edelman-usa-003",
+  "generated_at": "2026-04-14T00:00:00Z",
+  "domain": "institutional_trust_usa",
+  "study": "STU_001_edelman_trust_usa",
+  "spec_id": "S02",
+  "segment_label": "Mass Population, Low Institutional Engagement",
+  "demographic_anchor": {
+    "name": "Brenda Kowalski",
+    "age": 44,
+    "location": "Racine, Wisconsin (suburban/small city)",
+    "household": "Married, two children (11 and 16)",
+    "education": "Some college — attended community college for two years, did not complete degree",
+    "employment": "Medical billing specialist at a regional clinic; part-time cashier at Kohl's during school year",
+    "income_bracket": "$52,000 combined household income (husband works in warehouse logistics)",
+    "political_orientation": "Mixed — voted Republican in 2016 and 2020, Democrat in 2018 midterms; says she votes for whoever seems least likely to make things worse",
+    "media_consumption": "Local TV news, Facebook for news discovery, occasionally watches Fox News with husband; scrolls Google News on phone during breaks"
+  },
+  "worldview_anchor": {
+    "IT": 0.29,
+    "SCP": 0.38,
+    "CS": 0.58,
+    "ESP": 0.74,
+    "notes": "IT low — sustained experience of institutions not delivering for people like her; government and media perceived as serving other interests. SCP below midpoint — change feels threatening rather than promising given economic precarity. CS above midpoint — family and community orientation strong; relies on local social networks. ESP high — household budget is tight; economic security is the primary lens through which institutions are evaluated."
+  },
+  "life_stories": [
+    {
+      "vignette": 1,
+      "title": "The medical bill that took two years to fix",
+      "text": "In 2020, Brenda's daughter was rushed to the emergency room with appendicitis. The surgery went fine. The billing was a catastrophe. The hospital had processed the claim through an out-of-network code despite the attending surgeon being in-network. Brenda spent over a year disputing the charge — $8,400 that insurance initially refused to cover. She ultimately won the appeal but only because a coworker walked her through the process. What she remembers most clearly is that nobody at the hospital billing department seemed to be on her side. They were reading scripts. The system that was supposed to protect her didn't even know she existed until she made enough noise to be heard."
+    },
+    {
+      "vignette": 2,
+      "title": "The factory closure nobody warned them about",
+      "text": "Brenda's husband, Dale, worked for a plastics manufacturer in Racine that announced a closure in February 2018 with sixty days notice. The company had received state economic development grants in 2014. Nobody at the Wisconsin economic development office called to explain what happened. A local TV reporter covered it for two days. Dale was out of work for nine months. They burned through savings. He eventually found the warehouse job, which pays less. Brenda does not believe government or business exist to protect working people. She believes they exist to protect themselves and occasionally intersect with working people's interests by accident."
+    },
+    {
+      "vignette": 3,
+      "title": "The Facebook group that helped more than anything official",
+      "text": "During the COVID-19 pandemic, Brenda joined a local Facebook group called 'Racine Moms Help' that became the most useful source of information in her life for about eighteen months. Members shared which pharmacies had tests, which schools were closing, who had food bank connections, which local businesses had shut down and which had pivoted to delivery. She got more actionable information from that group than from the county health department website, which she found confusing and slow to update. She is aware that Facebook also spread misinformation. She found it more useful than the alternatives anyway. She has not fully resolved this tension."
+    }
+  ],
+  "attributes": {
+    "institutional_trust": {
+      "government_trust": 0.22,
+      "media_trust": 0.24,
+      "business_trust": 0.31,
+      "ngo_trust": 0.37,
+      "expert_scientific_trust": 0.44,
+      "employer_trust": 0.51
+    },
+    "information_behaviour": {
+      "information_need": 0.54,
+      "research_before_purchase": 0.48,
+      "analysis_paralysis": 0.61,
+      "source_verification_habit": 0.27,
+      "social_media_news_use": 0.71,
+      "paid_journalism_subscriber": false
+    },
+    "social_orientation": {
+      "social_proof_bias": 0.69,
+      "peer_influence_strength": 0.72,
+      "authority_bias": 0.38,
+      "wom_receiver_openness": 0.79
+    },
+    "economic_orientation": {
+      "budget_consciousness": 0.84,
+      "risk_tolerance": 0.26,
+      "status_quo_bias": 0.57,
+      "brand_loyalty": 0.62
+    },
+    "political_civic": {
+      "civic_engagement_level": 0.31,
+      "partisan_identity_strength": 0.28,
+      "institutional_reform_vs_replace": 0.33,
+      "cynicism_index": 0.78
+    }
+  },
+  "derived_insights": {
+    "decision_style": "experience-anchored",
+    "trust_anchor": "personal_experience",
+    "risk_appetite": "low",
+    "primary_value_orientation": "security",
+    "coping_mechanism": "community_network — when uncertain, asks people she trusts in her immediate social circle before consulting any formal source",
+    "consistency_score": 81
+  },
+  "narrative": "I'm not a cynical person. I want to be clear about that. I go to church, I care about this town, I volunteer at my kids' school. But I've watched my family get let down by a lot of things that were supposed to protect us, and after a while you stop giving the benefit of the doubt to things that have never earned it.\n\nGovernment — I can't think of a time government did something for me specifically. I know it does things in the background, roads and whatever, but when my daughter was in the hospital and the billing department was trying to take eight thousand dollars from us, no government office called to help. My coworker helped. When Dale's factory closed, no state agency showed up. The local TV station did two stories and moved on.\n\nMedia — I honestly don't know what to believe anymore. I watch local news because at least it's about things I recognise. National news, I don't know who they're talking to. It doesn't feel like they're talking to me. I'm on Facebook a lot because that's where my actual information is — my neighbours, local moms I trust, people who know what's actually happening in Racine.\n\nCompanies — they're trying to make money, which I understand. But when they get government money and then close anyway, that's not okay. I don't hate businesses. I'm just not under any illusion they're looking out for me.\n\nScientists, experts — I think they probably know things. I don't always understand what they're saying or whether it applies to my situation. During COVID I followed the local health guidance but also the Facebook group, because the Facebook group told me which pharmacy actually had tests available right now.",
+  "decision_bullets": [
+    "Trusts information from people in her immediate community significantly more than institutional or media sources.",
+    "Social media is a primary news discovery channel despite acknowledged unreliability — usefulness outweighs distrust in practice.",
+    "Government distrust is not ideological but experiential — formed by specific failures to help at moments of need.",
+    "Business trust is low but not zero — understands profit motive, objects to businesses that take public money and fail communities.",
+    "Expert trust is qualified — believes experts know things, but struggles to assess relevance or applicability to her specific situation.",
+    "Media distrust is diffuse — national media feels disconnected from her reality; local TV gets more trust by proximity.",
+    "Decisions are made with strong reference to peer experience and community input; formal research process is not her mode.",
+    "Economic security frames every institutional evaluation — the primary question is whether this institution helps or hinders her household's stability."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "A community-oriented, economically-pressured working mother whose institutional distrust is built from specific experiences of being let down, not from ideology.",
+      "key_values": ["family stability", "community solidarity", "economic security", "practical usefulness"],
+      "life_defining_events": [
+        {"age_when": 38, "event": "Daughter's appendicitis billing dispute ($8,400 out-of-network error)", "lasting_impact": "Institutions exist to serve themselves; individuals must fight to be seen"},
+        {"age_when": 36, "event": "Husband's factory closure (plastics manufacturer, 60 days notice)", "lasting_impact": "Government and business do not protect working people by design"},
+        {"age_when": 42, "event": "COVID Facebook group more useful than county health department", "lasting_impact": "Community networks deliver; official channels perform; paradox unresolved"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "husband Dale (practical, instinct-driven)",
+        "key_influencers": ["Racine Moms Help Facebook group", "church community", "coworkers at clinic"],
+        "trust_network": ["personal acquaintances with direct experience", "local community members"]
+      },
+      "immutable_constraints": {
+        "hard_budget_ceiling": "$400/month discretionary maximum",
+        "non_negotiables": ["family financial security", "school stability for children"],
+        "absolute_avoidances": ["financial risk without clear payoff", "trusting institutions that have previously failed her"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": []
+  }
+}

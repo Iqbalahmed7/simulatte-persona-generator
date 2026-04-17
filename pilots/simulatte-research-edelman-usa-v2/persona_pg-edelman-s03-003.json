@@ -1,0 +1,144 @@
+{
+  "persona_id": "pg-edelman-s03-003",
+  "generated_at": "2026-04-14T10:40:00Z",
+  "generator_version": "1.0",
+  "domain": "edelman-trust-usa-v2",
+  "segment": "S03",
+  "mode": "deep",
+  "demographic_anchor": {
+    "name": "Gerald Pittman",
+    "age": 51,
+    "gender": "male",
+    "location": {
+      "country": "United States",
+      "region": "Southeast",
+      "city": "Charlotte, NC",
+      "urban_tier": "tier2"
+    },
+    "household": {
+      "structure": "nuclear",
+      "size": 2,
+      "income_bracket": "$78k individual; household same (wife retired early on disability)",
+      "dual_income": false
+    },
+    "life_stage": "late mid-career, primary earner",
+    "education": "some-college",
+    "employment": "full-time",
+    "occupation": "Mid-level retail store manager, regional big-box chain. 11 years with current employer.",
+    "employer_tenure": "11 years"
+  },
+  "life_stories": [
+    {
+      "title": "Getting promoted to store manager after the previous manager was fired",
+      "when": "age 40",
+      "event": "Gerald had been a department manager at the same big-box store for four years when the store manager was terminated for cause — inventory discrepancies that amounted to what the district manager described as 'a culture problem.' Gerald was asked to take over as interim manager, then made permanent after eight months. He had not applied for the job; he was identified. His district manager at the time told him plainly: 'You run a tight department and your staff don't leave.' He has managed the store for eleven years. He has been offered regional management roles twice and declined both times, preferring to be in a place where he knows the people and they know him.",
+      "lasting_impact": "Career identity is built on reliability and proximity. He values being the person who knows his team and his store. His employer trust is stable and long-established — eleven years of direct relationship with district management has built a record that is resilient to individual disappointing events."
+    },
+    {
+      "title": "The pandemic retail crisis and his team",
+      "when": "age 45-46",
+      "event": "Running a retail store during 2020-2021 was, Gerald says, the hardest professional period of his career. He managed PPE distribution, enforced mask policies under customer hostility, handled an employee infection cluster in June 2020 that required fourteen-day closures in two departments, and managed the anxiety of twenty-eight direct reports who were afraid to come to work. Corporate sent policy updates every week. Some were late. Some contradicted the previous week's guidance. He implemented every policy and pushed back through proper channels when he thought guidance was wrong. Three of his employees did not return after the pandemic — one was afraid to return, one had a medical condition, one found another job. All three he helped navigate the transition.",
+      "lasting_impact": "His employer trust was tested during the pandemic and emerged qualified. He respects that corporate tried to manage an impossible situation. He also has specific criticisms of how communication was handled. He distinguishes the organisation's intent (generally trustworthy) from its execution (sometimes poor). This nuanced view is how he approaches policy changes now — he extends benefit of the doubt on intent while actively questioning execution."
+    },
+    {
+      "title": "Wife's early disability retirement and the insurance battle",
+      "when": "age 47-49",
+      "event": "Gerald's wife Karen developed a progressive neurological condition that forced her early retirement at 49. The long-term disability claim through her former employer's insurer took fourteen months to resolve — she was denied twice before the appeal was upheld. During that period Gerald's income was the household's only source. The household navigated it but the experience of watching his wife fight an insurance company while managing a frightening illness has left Gerald with specific, detailed distrust of insurance industry practices. He now advocates loudly, when given the chance, for people to document everything and not accept first-pass denials.",
+      "lasting_impact": "Distinguishes healthcare professionals (trusted) from healthcare insurers (distrusted). More broadly: institutions that derive benefit from denying legitimate claims are treated as adversarial by default. This is one area where he is not willing to extend benefit of the doubt."
+    }
+  ],
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "information_need": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "status_quo_bias": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.42, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.40, "type": "continuous", "label": "moderate-low", "source": "inferred"}
+    },
+    "values": {
+      "institutional_trust_default": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "procedural_legitimacy_weight": {"value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "expert_deference": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "media_trust": {"value": 0.30, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "government_trust": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "business_trust": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "ngo_trust": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.42, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "lifestyle": {
+      "media_consumption_intensity": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "sampled"},
+      "media_source_diversity": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "sampled"},
+      "routine_adherence": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "convenience_preference": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "domain_specific": {
+      "political_engagement": {"value": 0.40, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "employer_trust_level": {"value": 0.68, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "social_media_news_reliance": {"value": 0.32, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "science_credibility_belief": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "ceo_credibility_belief": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "institutional_rank_preference": {"value": "business>ngo>government>media", "type": "categorical", "label": "business moderate; NGO moderate; government low-moderate; media below moderate", "source": "inferred"},
+      "employer_communication_quality_rating": {"value": 0.62, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "employer_promise_fulfilment_rating": {"value": 0.70, "type": "continuous", "label": "moderate-high", "source": "inferred"}
+    }
+  },
+  "derived_insights": {
+    "decision_style": "analytical",
+    "decision_style_score": 0.62,
+    "trust_anchor": "self",
+    "risk_appetite": "low",
+    "primary_value_orientation": "quality",
+    "coping_mechanism": {
+      "type": "research_deep_dive",
+      "description": "Approaches institutional claims by assessing intent separately from execution — extends benefit of the doubt on motivation while actively questioning implementation. This is how he manages his own team and how he evaluates organisations above him."
+    },
+    "consistency_score": 76,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Eleven years of employer trust is genuine but pandemic experience revealed gaps in corporate communication quality — trust is robust but not unreserved",
+      "Procedural legitimacy is important to him (proper channels, documented process) but his wife's insurance experience proved that proper process can be weaponised against the claimant — holding both beliefs creates ongoing tension"
+    ]
+  },
+  "narrative": "Eleven years at this company, the last eleven of them managing this store. I was promoted because my staff didn't leave and I ran things right. I still manage most of the same team. My district manager knows my name and I know hers. That's not nothing at a big retailer. During COVID I implemented every policy that came down, even the ones that contradicted last week's policy, and I pushed back through the right channels when I thought they had something wrong. Corporate was trying — I believe that. They were also sometimes late and sometimes contradictory. I've given them credit for the effort and I've kept a mental log of the gaps. Eleven years of generally good behaviour earns the benefit of the doubt. My wife's disability insurance battle was different. Fourteen months, two denials, a successful appeal. I watched her fight that while managing a frightening illness. Insurance companies are a separate category for me — I don't give them benefit of the doubt, not after what we went through. Government I follow but don't trust strongly. I vote. I follow news. Scientists I believe more than politicians. CEOs saying things publicly — I'm in retail management, I understand what a managed communication is. I know the difference between someone telling me something and someone's PR team telling me something.",
+  "decision_bullets": [
+    "Employer trust is moderate-high (0.68) — earned over eleven years of consistent follow-through; pandemic execution gaps noted but absorbed without breaking trust.",
+    "Extends benefit of the doubt to employer on policy changes when intent is credible — but actively evaluates execution separately.",
+    "Insurance industry is categorically distrusted — wife's disability battle removed benefit of the doubt permanently for this sector.",
+    "Business trust moderate overall — distinguishes direct employer (higher trust) from large corporations at distance (lower trust).",
+    "Communication quality is a specific variable he monitors in his employer — values functional honesty over reassuring vagueness.",
+    "Scientific credibility moderate-high — health science specifically calibrated by pandemic observation of inconsistency.",
+    "CEO public credibility low-moderate — professional experience of managed communications makes him alert to the gap between stated and operational intent.",
+    "Government trust low-moderate — engages with public affairs without strong affiliation; follows news without fully believing it."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "Charlotte retail store manager with eleven years of tenure who trusts his employer with deliberate qualification, categorically distrusts insurance systems, and manages institutional trust through a documented mental track record.",
+      "key_values": ["reliable execution over stated intent", "proximity as the basis for genuine trust", "protecting the people directly in his care"],
+      "life_defining_events": [
+        {"age_when": 40, "event": "Promoted to store manager — identified for reliability and staff retention, not because he applied", "lasting_impact": "Career identity built on consistency and knowing his team; proximity is the basis of his effectiveness"},
+        {"age_when": 45, "event": "Pandemic retail management — implemented contradictory policies, supported 28 staff through fear and infection", "lasting_impact": "Employer trust qualified but intact — intent credited, execution gap noted and held as calibration data"},
+        {"age_when": 47, "event": "Wife's LTD insurance battle — 14 months, 2 denials, successful appeal while she managed a neurological diagnosis", "lasting_impact": "Insurance companies categorically distrusted; benefit of the doubt cannot be extended to institutions that profit from denial"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "Wife Karen",
+        "key_influencers": ["District manager", "Long-term store team members"],
+        "trust_network": ["Store management team", "Karen's medical team", "Church community in Charlotte"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$78k sole income; wife on disability benefit; household manageable but not comfortable",
+        "non_negotiables": ["Employment stability as sole earner", "Karen's medical and disability coverage"],
+        "absolute_avoidances": ["Accepting first-pass insurance denials without appeal", "Retail employers that manage headcount rather than people"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+  }
+}

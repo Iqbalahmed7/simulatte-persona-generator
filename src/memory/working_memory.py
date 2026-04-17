@@ -31,6 +31,31 @@ _OBS_HARD_CAP: int = 1000
 _OBS_EVICT_TARGET: int = 900
 
 
+def _adaptive_threshold(expected_stimuli: int | None) -> float:
+    """Compute reflection threshold adaptively based on simulation length.
+
+    Master Spec §14A O6: reflection threshold is an open question.
+    Default 50 is calibrated for ~10-stimulus simulations. But short
+    simulations (3 stimuli) never accumulate enough importance, and
+    long simulations (20+) over-reflect.
+
+    Scaling:
+      1-3 stimuli  → 15  (reflect early in short runs)
+      4-8 stimuli  → 35  (balanced)
+      9-20 stimuli → 50  (standard)
+      20+ stimuli  → 75  (avoid over-reflecting)
+    """
+    if expected_stimuli is None:
+        return 50.0
+    if expected_stimuli <= 3:
+        return 15.0
+    if expected_stimuli <= 8:
+        return 35.0
+    if expected_stimuli <= 20:
+        return 50.0
+    return 75.0
+
+
 class WorkingMemoryManager:
     """
     All working-memory operations.  Stateless — the WorkingMemory object
@@ -256,10 +281,36 @@ class WorkingMemoryManager:
     def should_reflect(
         self,
         working: WorkingMemory,
-        threshold: float = 50.0,
+        threshold: float | None = None,
+        obs_count_trigger: int = 3,
+        expected_stimuli: int | None = None,
     ) -> bool:
         """
-        Returns True if importance_accumulator > threshold.
-        Default threshold = 50 (Open Question O5 — subject to empirical validation).
+        Returns True if importance_accumulator > threshold OR if the persona
+        has accumulated >= obs_count_trigger observations and hasn't reflected yet.
+
+        The obs_count_trigger path ensures reflection fires in short simulations
+        (e.g. 3-round case studies) where the importance accumulator never reaches
+        the threshold before decisions are made.
+
+        Adaptive threshold (new):
+          If threshold is None, it's computed from expected_stimuli:
+            - 1-3 stimuli  → threshold = 15 (reflect early in short runs)
+            - 4-8 stimuli  → threshold = 35 (balanced)
+            - 9-20 stimuli → threshold = 50 (standard, per Master Spec §14A O6)
+            - 20+ stimuli  → threshold = 75 (avoid over-reflecting in long runs)
+          If expected_stimuli is also None, defaults to 50.0.
+
+        threshold: explicit override (Open Question O6).
+        obs_count_trigger: 3 (fire on 3rd observation if no prior reflection).
+        expected_stimuli: total stimuli in this simulation (for adaptive threshold).
         """
-        return working.simulation_state.importance_accumulator > threshold
+        effective_threshold = threshold
+        if effective_threshold is None:
+            effective_threshold = _adaptive_threshold(expected_stimuli)
+
+        if working.simulation_state.importance_accumulator > effective_threshold:
+            return True
+        n_obs = len(working.observations)
+        no_prior_reflection = working.simulation_state.reflection_count == 0
+        return n_obs >= obs_count_trigger and no_prior_reflection

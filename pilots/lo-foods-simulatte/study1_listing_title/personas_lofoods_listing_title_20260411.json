@@ -1,0 +1,776 @@
+[
+  {
+    "persona_id": "pg-lofoods-lt-001",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "A — Metro Health-Conscious",
+    "demographic_anchor": {
+      "name": "Meera Joshi",
+      "age": 31,
+      "gender": "F",
+      "location": "Bangalore",
+      "employment": "Software engineer, mid-size tech company",
+      "household": "Single, flatmate",
+      "income_inr_pa": 1800000,
+      "monthly_grocery_inr": 8000,
+      "primary_channels": ["Amazon", "Blinkit"]
+    },
+    "life_stories": [
+      "Meera gained 6 kg during WFH in 2022. She went down a YouTube rabbit hole — nutrition influencers, macro tutorials, 'what I eat in a day' videos. She never committed to keto or any specific protocol, but started scanning labels for 'high protein' and 'low carb.' Bought her first protein bread in 2023 — a Britannia variant. It wasn't good. She gave up for a few months before a colleague mentioned Lo! in a Slack message. That Slack message converted her in under 15 minutes.",
+      "Meera tells herself she eats healthy but orders Zomato 3–4 times a week. She'll buy expensive functional food and eat pizza the same evening. She's not trying to follow a diet — she's trying to feel like she's making progress without giving up what she likes. The bread purchase is part of a mental accounting system: if staples are healthy, the rest can slide."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.05,
+      "health_salience": 0.72,
+      "label_reading_behavior": "occasional",
+      "diet_label_receptivity": "protein",
+      "price_sensitivity": 0.45,
+      "convenience_orientation": 0.78,
+      "research_depth": 0.55,
+      "brand_loyalty": 0.30,
+      "decision_speed": 0.65,
+      "analysis_paralysis": 0.35,
+      "risk_appetite": "medium",
+      "social_proof_dependence": 0.58,
+      "expert_trust": 0.55,
+      "peer_trust": 0.62,
+      "creator_trust": 0.70,
+      "brand_trust": 0.40,
+      "health_bread_familiarity": 0.45,
+      "functional_food_openness": 0.68,
+      "trial_propensity": 0.62,
+      "category_skepticism": 0.38,
+      "monthly_grocery_budget_inr": 8000,
+      "health_food_share": 0.25,
+      "wtp_per_loaf_inr": 130,
+      "deal_sensitivity": 0.48
+    },
+    "derived_insights": {
+      "decision_style": "social/emotional",
+      "trust_anchor": "peer",
+      "risk_appetite": "medium",
+      "primary_value_orientation": "quality",
+      "coping_mechanism": "Mental accounting — healthy staples grant permission for indulgences elsewhere",
+      "consistency_score": 78
+    },
+    "narrative": "I'm 31, I work at a tech company in Bangalore. I'm not on any diet — I tried keto for like 10 days in 2022 and quit. That's not me. But I do try to eat better. After I gained weight during lockdown I started reading labels — protein and calories, mostly. If something says 12 grams of protein per slice, that means something to me. Keto? Honestly, that word just makes me think of someone who's really intense about their diet. I order Zomato three times a week. I am not that person. I discovered Lo! because my colleague Aditi mentioned it in our work Slack. She'd been on it for a month and said she actually noticed a difference. That's the kind of signal I trust — not ads, not someone I don't know, but someone who sits near me and whose lunch I've actually seen. I looked it up on Amazon, read about 8–10 reviews, compared it briefly to another protein bread, and bought it. That took maybe 15 minutes, which for me is actually quite considered. I spend about ₹8,000 a month on groceries, maybe 20–25% of that on things I think of as 'health' products. I won't pay more than ₹120–130 for a small loaf. Above that it starts feeling indulgent in the wrong way — I want to feel like I'm making a smart choice, not an expensive one.",
+    "decision_bullets": [
+      "Responds to quantified protein claims ('12g per slice') — concrete numbers over vague health descriptors.",
+      "'Keto' in the title signals the product is for someone more committed than herself — may scroll past.",
+      "Primary purchase trigger is peer recommendation — colleague or WhatsApp, not influencer content.",
+      "Will spend 10–15 minutes researching before first purchase; subsequent purchases become habitual.",
+      "Hard WTP ceiling of ₹130 for 200g loaf — above that, calculus breaks regardless of quality.",
+      "Mental accounting drives repeat loyalty: healthy staple = permission to be flexible elsewhere.",
+      "Convenience is non-negotiable — product must slot into existing routine without menu redesign."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "C — Protein-led", "reasoning": "12g per slice is a real number I can check. That tells me something."},
+        {"rank": 2, "variant": "B — Benefit-led", "reasoning": "High protein, low carb, guilt-free — that's the framing I'm looking for."},
+        {"rank": 3, "variant": "D — Outcome-led", "reasoning": "Everyday healthy is fine. Feels a bit generic but approachable."},
+        {"rank": 4, "variant": "A — Keto-led", "reasoning": "That's for someone on a keto diet. I'm not on a keto diet. I'd scroll past."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Urban software engineer, 31, Bangalore. Health-curious but not protocol-committed. Trusts peer signals over influencers. Mental accounting allows indulgence if staples are healthy.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "WFH weight gain 2022 triggered interest in healthier eating; started reading protein and calorie labels.", "valence": -0.4, "salience": 0.7},
+          {"event_type": "product_discovery", "content": "Colleague Aditi recommended Lo! bread on Slack; purchased within 15 minutes — fastest health food conversion ever.", "valence": 0.8, "salience": 0.9},
+          {"event_type": "failed_trial", "content": "Tried keto for 10 days in 2022, quit. The restriction felt identity-incompatible.", "valence": -0.3, "salience": 0.6}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {"lo_foods": {"first_exposure": "colleague_recommendation", "sentiment": "positive", "repurchase_intent": 0.72}},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-002",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "A — Metro Health-Conscious",
+    "demographic_anchor": {
+      "name": "Rohan Mehta",
+      "age": 36,
+      "gender": "M",
+      "location": "Mumbai",
+      "employment": "VP, private equity firm",
+      "household": "Married, no children yet",
+      "income_inr_pa": 3500000,
+      "monthly_grocery_inr": 12000,
+      "primary_channels": ["Amazon", "specialty health stores"]
+    },
+    "life_stories": [
+      "Rohan's father had a heart attack at 57. Rohan was 28. He got blood work done the following week — borderline high cholesterol. He started exercising, researching, and reading. He's tried keto twice, intermittent fasting (still does 16:8), and briefly went vegan. He is currently in a self-defined 'high-protein, moderate-carb' phase, monitored via a weekly macro spreadsheet.",
+      "He spent 45 minutes comparing bread products on Amazon before his first health bread purchase, had 7 browser tabs open, abandoned the cart, waited a week, found a Reddit thread questioning one brand, waited 3 more days, then finally bought. His wife calls it 'analysis by paralysis.' He's recently capped his research time to one session."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.48,
+      "health_salience": 0.91,
+      "label_reading_behavior": "habitual",
+      "diet_label_receptivity": "protein",
+      "price_sensitivity": 0.28,
+      "convenience_orientation": 0.38,
+      "research_depth": 0.92,
+      "brand_loyalty": 0.55,
+      "decision_speed": 0.18,
+      "analysis_paralysis": 0.78,
+      "risk_appetite": "low",
+      "social_proof_dependence": 0.40,
+      "expert_trust": 0.88,
+      "peer_trust": 0.38,
+      "creator_trust": 0.25,
+      "brand_trust": 0.48,
+      "health_bread_familiarity": 0.75,
+      "functional_food_openness": 0.85,
+      "trial_propensity": 0.32,
+      "category_skepticism": 0.52,
+      "monthly_grocery_budget_inr": 12000,
+      "health_food_share": 0.40,
+      "wtp_per_loaf_inr": 180,
+      "deal_sensitivity": 0.20
+    },
+    "derived_insights": {
+      "decision_style": "analytical",
+      "trust_anchor": "expert/authority",
+      "risk_appetite": "low",
+      "primary_value_orientation": "quality/features",
+      "coping_mechanism": "Researching as health anxiety management; spreadsheet tracking as control; capping research time as self-regulation",
+      "consistency_score": 85
+    },
+    "narrative": "I don't follow a diet — I optimize. I have a spreadsheet. I track my weekly protein, fat, and net carbs. After my father's heart attack when I was 28, I realized you cannot outsource this to anyone. I've tried keto twice. First time, 6 weeks, felt excellent. Second time I decided the complete carb restriction wasn't worth the long-term trade-offs. Now I'm doing high-protein, moderate carb, 16:8 fasting. When I want to test a new product I research it. Not casually. I'll spend an hour. I've read Reddit threads about Lo! bread. I've cross-referenced the nutritional panel. My wife says I'm exhausting. She's correct. But my cholesterol is meaningfully better than it was at 28. What I won't do is buy based on vague health claims. 'Guilt-free' and 'wholesome' are words. Give me the numbers. Twelve grams per slice — that's something I can put in my spreadsheet.",
+    "decision_bullets": [
+      "Requires specific macros in the title — 'X grams protein per serving' is a trigger, not a nice-to-have.",
+      "Trusts nutritional data over label categories — will verify before adding to cart.",
+      "Won't convert on first browse — expects multiple research sessions before first purchase.",
+      "Keto label is acceptable (has been keto before) but protein specificity is more relevant to current protocol.",
+      "Price is a weak barrier — WTP of ₹180 but only pays if evidence justifies.",
+      "Reads 3-star reviews specifically to understand failure modes.",
+      "Brand loyalty kicks in post-trust — losing his trust means permanent exit."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "C — Protein-led", "reasoning": "12g per slice is verifiable. I can put it in my spreadsheet. That's a real claim."},
+        {"rank": 2, "variant": "A — Keto-led", "reasoning": "Zero carb is also a testable claim. I've done keto. I know what I'm checking."},
+        {"rank": 3, "variant": "B — Benefit-led", "reasoning": "High protein, low carb — acceptable. 'Guilt-free' is marketing language, I ignore it."},
+        {"rank": 4, "variant": "D — Outcome-led", "reasoning": "Low calorie, high fibre — not my primary metrics. Too vague to be useful."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "VP, PE firm, 36, Mumbai. Father's heart attack at 57 triggered health optimization lifestyle. Analytical decision-maker. Macro spreadsheet. Keto-experienced but currently high-protein moderate-carb.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Father's heart attack at 57; borderline cholesterol result the following week. Became the primary driver of all health decisions.", "valence": -0.9, "salience": 1.0},
+          {"event_type": "protocol_experience", "content": "Tried keto twice. First run excellent. Second run abandoned — complete carb restriction not sustainable long-term.", "valence": 0.2, "salience": 0.7},
+          {"event_type": "research_behavior", "content": "45-minute Amazon research session, 7 tabs, cart abandoned, week-long delay before first health bread purchase.", "valence": -0.2, "salience": 0.6}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-003",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "A — Metro Health-Conscious",
+    "demographic_anchor": {
+      "name": "Divya Krishnan",
+      "age": 29,
+      "gender": "F",
+      "location": "Hyderabad",
+      "employment": "Marketing manager, startup",
+      "household": "Married 8 months, no children",
+      "income_inr_pa": 2200000,
+      "monthly_grocery_inr": 9000,
+      "primary_channels": ["Amazon", "Swiggy Instamart"]
+    },
+    "life_stories": [
+      "Divya's first health-bread purchase happened because her friend Preethi posted a dinner photo in their college WhatsApp group. The sandwich looked normal. Divya asked what bread it was. Preethi sent the Lo! Amazon link. Within 10 minutes Divya had added it to cart. She would not have found it through independent search.",
+      "She investigated keto in 2022 when it trended on Instagram. Watched 3 reels, read one article. Concluded the rules were too restrictive and the community too intense. She's not anti-low-carb — she's anti-commitment. She will buy a protein bread, but she won't buy a keto identity."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.08,
+      "health_salience": 0.62,
+      "label_reading_behavior": "occasional",
+      "diet_label_receptivity": "wholesome/protein",
+      "price_sensitivity": 0.52,
+      "convenience_orientation": 0.72,
+      "research_depth": 0.25,
+      "brand_loyalty": 0.35,
+      "decision_speed": 0.82,
+      "analysis_paralysis": 0.15,
+      "risk_appetite": "medium",
+      "social_proof_dependence": 0.89,
+      "expert_trust": 0.38,
+      "peer_trust": 0.90,
+      "creator_trust": 0.55,
+      "brand_trust": 0.38,
+      "health_bread_familiarity": 0.35,
+      "functional_food_openness": 0.58,
+      "trial_propensity": 0.75,
+      "category_skepticism": 0.28,
+      "monthly_grocery_budget_inr": 9000,
+      "health_food_share": 0.20,
+      "wtp_per_loaf_inr": 110,
+      "deal_sensitivity": 0.60
+    },
+    "derived_insights": {
+      "decision_style": "social",
+      "trust_anchor": "peer",
+      "risk_appetite": "medium",
+      "primary_value_orientation": "convenience/social validation",
+      "coping_mechanism": "Outsourcing dietary decisions to trusted social circle; treating purchases as social acts",
+      "consistency_score": 82
+    },
+    "narrative": "I'm 29, in Hyderabad. I care about eating reasonably well but I'm not on any specific diet. When my friend Preethi posted her sandwich photo on our college WhatsApp, I was like — what bread is that? She sent me the link and I bought it in 10 minutes. That's genuinely how I find most things. I trust Preethi completely. I do look at calories sometimes, maybe protein. 'Keto' — I looked into it in 2022 for about a week. It felt like a full-time commitment and the community felt very intense. My friend Shruti tried it for three months and said it was exhausting. I don't want exhausting. I want something that makes my regular lunch slightly better. If Preethi or someone in my group recommends it, I don't think twice about adding it to cart. I might even screenshot it and send it to the group.",
+    "decision_bullets": [
+      "Primary purchase trigger is peer recommendation — without it, won't browse this category.",
+      "'Keto' creates distance — a community identity she hasn't joined and doesn't want to.",
+      "Fast purchase cycle when social signal exists (under 15 minutes from link to cart).",
+      "Hard WTP ceiling of ₹110 — above that, needs additional justification from group.",
+      "Benefit framing ('guilt-free', 'everyday') more welcoming than protocol framing ('keto').",
+      "Shareable framing increases likelihood she becomes a propagator in her group.",
+      "Won't research beyond 1–2 rating checks — decision is made by peer trust."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "B — Benefit-led", "reasoning": "'Guilt-free' is exactly what I'd screenshot to my group. It's approachable and shareable."},
+        {"rank": 2, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy' — sounds like something I could eat every day without it being a big deal."},
+        {"rank": 3, "variant": "C — Protein-led", "reasoning": "12g per slice is fine, but it feels a bit technical for me."},
+        {"rank": 4, "variant": "A — Keto-led", "reasoning": "'Keto bread' tells me it's for someone who's done the whole keto thing. I haven't."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Marketing manager, 29, Hyderabad. Social validator — trusts college friends above all. Anti-commitment on diet protocols. Fast purchase cycle when peer signal is present.",
+        "seed_memories": [
+          {"event_type": "product_discovery", "content": "Friend Preethi's WhatsApp sandwich photo led to Lo! purchase in under 10 minutes — social signal converted immediately.", "valence": 0.9, "salience": 0.95},
+          {"event_type": "protocol_rejection", "content": "Investigated keto 2022 via Instagram reels. Concluded too restrictive, community too intense. Identity-incompatible.", "valence": -0.5, "salience": 0.65},
+          {"event_type": "peer_influence", "content": "Friend Shruti's negative keto experience reinforced her own aversion to protocol-labelled products.", "valence": -0.4, "salience": 0.60}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {"lo_foods": {"first_exposure": "whatsapp_peer_link", "sentiment": "positive", "repurchase_intent": 0.68}},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-004",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "B — Diet Adherents (Keto/Low-Carb)",
+    "demographic_anchor": {
+      "name": "Karan Malhotra",
+      "age": 38,
+      "gender": "M",
+      "location": "Gurgaon, Delhi NCR",
+      "employment": "Senior IT manager",
+      "household": "Married, 1 child (7F)",
+      "income_inr_pa": 2800000,
+      "monthly_grocery_inr": 14000,
+      "primary_channels": ["Amazon", "specialty keto stores", "Telegram community"]
+    },
+    "life_stories": [
+      "Karan was pre-diabetic at 36. Fasting glucose 112. His doctor gave him a pamphlet and said 'watch what you eat.' He researched online and found keto. He read Jason Fung's The Obesity Code in two weeks. He went strict keto the following Monday. In 4 months he lost 11 kg and his next HbA1c was normal. He is deeply committed because he has seen it in bloodwork, not just the mirror.",
+      "He became an evangelist in his 2,400-member Telegram keto community. He reviews products thoroughly — ingredient list, macros per slice, net carb calculation, taste comparison against his homemade keto loaf. His Lo! review got 248 reactions. He feels a weight of responsibility: a bad recommendation is damage he can't easily undo."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.92,
+      "health_salience": 0.93,
+      "label_reading_behavior": "habitual",
+      "diet_label_receptivity": "keto",
+      "price_sensitivity": 0.30,
+      "convenience_orientation": 0.55,
+      "research_depth": 0.82,
+      "brand_loyalty": 0.70,
+      "decision_speed": 0.72,
+      "analysis_paralysis": 0.30,
+      "risk_appetite": "low",
+      "social_proof_dependence": 0.65,
+      "expert_trust": 0.75,
+      "peer_trust": 0.82,
+      "creator_trust": 0.60,
+      "brand_trust": 0.55,
+      "health_bread_familiarity": 0.88,
+      "functional_food_openness": 0.90,
+      "trial_propensity": 0.70,
+      "category_skepticism": 0.72,
+      "monthly_grocery_budget_inr": 14000,
+      "health_food_share": 0.45,
+      "wtp_per_loaf_inr": 200,
+      "deal_sensitivity": 0.25
+    },
+    "derived_insights": {
+      "decision_style": "analytical/habitual",
+      "trust_anchor": "community/expert",
+      "risk_appetite": "low",
+      "primary_value_orientation": "quality/features",
+      "coping_mechanism": "Community accountability and public reviews as compliance and identity reinforcement",
+      "consistency_score": 89
+    },
+    "narrative": "I've been keto for 22 months. Started because my fasting glucose was creeping into pre-diabetic territory. My doctor gave me a pamphlet. I didn't read the pamphlet — I researched everything else. I read Jason Fung. I went strict keto the next Monday. In four months I lost 11 kilos and my numbers normalized. I'm not doing this for aesthetics. I'm doing this because I've seen it in my bloodwork. I'm in a Telegram keto community with about 2,400 people. I review products there when I try them. My Lo! Bread review got 248 reactions. I take that responsibility seriously. When I see a product title that says 'keto bread,' I know what to do next. I look at the net carbs. Then protein. Then the ingredient list for anything that could spike insulin. 'Keto' is not just a word for me. It's a specification. A company that puts it in their title has made a promise I will verify.",
+    "decision_bullets": [
+      "'Keto' in the title is a positive filter — identifies product as worth investigating.",
+      "Net carb verification is mandatory — won't convert without checking ingredients.",
+      "Community review from Telegram is the decision accelerator.",
+      "'Zero carb' (Variant A) is the strongest specification signal.",
+      "WTP of ₹200 — price is not a barrier if keto specs are confirmed.",
+      "High amplification potential: positive review reaches 248+ engaged community members.",
+      "'Everyday healthy bread' framing feels like a category betrayal — would not click."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "A — Keto-led", "reasoning": "'Keto bread, zero carb' — I click that, check the net carbs, check the ingredients. That's my process."},
+        {"rank": 2, "variant": "C — Protein-led", "reasoning": "12g per slice is the second claim I'd want to verify. Quantified, testable."},
+        {"rank": 3, "variant": "B — Benefit-led", "reasoning": "'Low carb' is acceptable but vague compared to 'zero carb.' 'Guilt-free' is irrelevant to me."},
+        {"rank": 4, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy, low calorie' — that's for someone not tracking macros. That's not me."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Senior IT manager, 38, Gurgaon. Strict keto 22 months — bloodwork-driven, not aesthetic. Telegram community influencer with 248 reactions on Lo! review. Low risk tolerance around glucose.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Pre-diabetic at 36, fasting glucose 112. Doctor's pamphlet replaced with self-research — found keto, went strict in one week.", "valence": -0.8, "salience": 1.0},
+          {"event_type": "health_outcome", "content": "Lost 11kg in 4 months; next HbA1c normalized. Permanently committed to keto after seeing bloodwork evidence.", "valence": 0.95, "salience": 1.0},
+          {"event_type": "community_action", "content": "Lo! Bread review on Telegram got 248 reactions — largest engagement on any product review. Felt responsibility of trusted advisor.", "valence": 0.80, "salience": 0.85}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {"lo_foods": {"first_exposure": "telegram_community", "sentiment": "strongly_positive", "repurchase_intent": 0.90}},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-005",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "B — Diet Adherents (Keto/Low-Carb)",
+    "demographic_anchor": {
+      "name": "Anjali Rao",
+      "age": 34,
+      "gender": "F",
+      "location": "Bangalore",
+      "employment": "Freelance UX designer",
+      "household": "Married, 1 child (4M)",
+      "income_inr_pa": 1900000,
+      "monthly_grocery_inr": 10000,
+      "primary_channels": ["Amazon Prime", "local specialty store"]
+    },
+    "life_stories": [
+      "Anjali's post-pregnancy weight didn't shift with conventional dieting. A college friend who was strict keto shared meal ideas with her. She adopted the framework but modified it — she can't do zero-carb with a 4-year-old who sometimes wants to share food. She uses 'keto' and 'low-carb' interchangeably. She tracks net carbs on weekdays.",
+      "She made almond flour flatbreads at home for three weeks before she found Lo! on Amazon Prime. The Prime delivery converted her. She previously switched from another keto bread brand because that one required a WhatsApp order from a specialty store — one more step than she had bandwidth for with a toddler and client deadlines."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.65,
+      "health_salience": 0.75,
+      "label_reading_behavior": "habitual",
+      "diet_label_receptivity": "keto/protein",
+      "price_sensitivity": 0.62,
+      "convenience_orientation": 0.80,
+      "research_depth": 0.50,
+      "brand_loyalty": 0.58,
+      "decision_speed": 0.68,
+      "analysis_paralysis": 0.28,
+      "risk_appetite": "medium",
+      "social_proof_dependence": 0.55,
+      "expert_trust": 0.55,
+      "peer_trust": 0.65,
+      "creator_trust": 0.48,
+      "brand_trust": 0.52,
+      "health_bread_familiarity": 0.70,
+      "functional_food_openness": 0.75,
+      "trial_propensity": 0.60,
+      "category_skepticism": 0.45,
+      "monthly_grocery_budget_inr": 10000,
+      "health_food_share": 0.30,
+      "wtp_per_loaf_inr": 150,
+      "deal_sensitivity": 0.58
+    },
+    "derived_insights": {
+      "decision_style": "habitual/pragmatic",
+      "trust_anchor": "peer",
+      "risk_appetite": "medium",
+      "primary_value_orientation": "convenience/quality balance",
+      "coping_mechanism": "Flexible interpretation of keto rules to reduce family friction; 'good enough' as sustainable strategy",
+      "consistency_score": 79
+    },
+    "narrative": "I'm low-carb, loosely. I borrowed my friend Priyanka's keto framework and then adapted it for real life with a 4-year-old. I can't do zero-carb when my son wants to share my sandwich. I track net carbs on weekdays, mostly. Weekends, I'm more relaxed. When I see a keto label on a bread, I click through. That's my first filter. Then I check the net carbs per slice. Then the price. I made almond flour flatbreads for three weeks before I found Lo! on Amazon Prime. The Prime delivery is what convinced me — I was getting almond flour from a specialty store with a 2-day lag. Lo! arrives next morning. With a toddler and client deadlines, next morning wins every time.",
+    "decision_bullets": [
+      "Keto label is primary click trigger — filters out non-protocol products immediately.",
+      "Net carb figure is the second check — clicks through to verify, doesn't buy on title alone.",
+      "Amazon Prime availability is a hard requirement — adds to cart only if next-day delivery confirmed.",
+      "WTP ceiling ₹150 — above that, makes almond flour alternative at home.",
+      "Convenience is the retention driver — has switched brands before due to ordering friction.",
+      "'Zero carb' is a stronger claim than 'low carb' but she'll read the panel either way.",
+      "Moderate propagation potential — shares with college friend group if valuable."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "A — Keto-led", "reasoning": "'Keto, zero carb' — yes, that's my filter. I click that first."},
+        {"rank": 2, "variant": "C — Protein-led", "reasoning": "12g protein is useful to know. I'd click this if A wasn't there."},
+        {"rank": 3, "variant": "B — Benefit-led", "reasoning": "'Low carb' is fine, a bit vague. 'Guilt-free' is background noise."},
+        {"rank": 4, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy' — that's a mainstream product. Not what I'm looking for."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Freelance UX designer, 34, Bangalore. Flexible keto — adapted for toddler reality. Convenience is the compliance enabler. Prime delivery is non-negotiable.",
+        "seed_memories": [
+          {"event_type": "protocol_adoption", "content": "Post-pregnancy weight plateau led to borrowing friend Priyanka's keto framework; adapted it to be family-compatible.", "valence": 0.6, "salience": 0.75},
+          {"event_type": "product_switch", "content": "Switched to Lo! from specialty-store keto bread specifically because Amazon Prime eliminated ordering friction.", "valence": 0.8, "salience": 0.85},
+          {"event_type": "diy_phase", "content": "Made almond flour flatbreads at home for 3 weeks — effort was unsustainable with toddler and client workload.", "valence": -0.3, "salience": 0.60}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {"lo_foods": {"first_exposure": "amazon_prime_search", "sentiment": "positive", "repurchase_intent": 0.80}},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-006",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "B — Diet Adherents (Keto/Low-Carb)",
+    "demographic_anchor": {
+      "name": "Vikram Nair",
+      "age": 42,
+      "gender": "M",
+      "location": "Chennai",
+      "employment": "Government engineer",
+      "household": "Divorced, 2 children (with ex-wife)",
+      "income_inr_pa": 1100000,
+      "monthly_grocery_inr": 4500,
+      "primary_channels": ["Amazon", "homemade alternatives"]
+    },
+    "life_stories": [
+      "Vikram was diagnosed Type 2 diabetic at 39. His GP put him on Metformin. He took it for two months, researched dietary reversal, found Dr. Unwin's work and the Diet Doctor community. He eliminated refined carbs entirely and reversed his diagnosis within 10 months. His GP was skeptical. That interaction made him permanently skeptical of mainstream medical and food industry advice.",
+      "He makes his own almond-flax bread most weeks. He buys Lo! when time is short but reads the ingredient panel with a critical eye each time, as if auditing a supplier. He has returned two products in the past year for misleading net carb claims."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.98,
+      "health_salience": 0.97,
+      "label_reading_behavior": "habitual",
+      "diet_label_receptivity": "keto",
+      "price_sensitivity": 0.72,
+      "convenience_orientation": 0.32,
+      "research_depth": 0.90,
+      "brand_loyalty": 0.35,
+      "decision_speed": 0.42,
+      "analysis_paralysis": 0.38,
+      "risk_appetite": "low",
+      "social_proof_dependence": 0.30,
+      "expert_trust": 0.72,
+      "peer_trust": 0.55,
+      "creator_trust": 0.20,
+      "brand_trust": 0.18,
+      "health_bread_familiarity": 0.92,
+      "functional_food_openness": 0.68,
+      "trial_propensity": 0.40,
+      "category_skepticism": 0.90,
+      "monthly_grocery_budget_inr": 4500,
+      "health_food_share": 0.55,
+      "wtp_per_loaf_inr": 130,
+      "deal_sensitivity": 0.70
+    },
+    "derived_insights": {
+      "decision_style": "analytical",
+      "trust_anchor": "expert",
+      "risk_appetite": "low",
+      "primary_value_orientation": "quality/features (keto compliance)",
+      "coping_mechanism": "Self-reliance as defence against institutional mistrust; making it himself as control mechanism",
+      "consistency_score": 88
+    },
+    "narrative": "I reversed Type 2 diabetes through diet. My GP didn't believe I could. I have the bloodwork. I take no medication. That changes you — you stop trusting labels that the food industry writes. 'Keto' on a product title tells me: look harder. Because brands have learned to put 'keto' on anything that's vaguely low-carb, including products with maltitol or 6g net carbs per slice hidden in the fine print. I've returned two products in the last year. The word on the title is an invitation to audit, not a reason to trust. Most weeks I make my own almond-flax loaf. It takes 25 minutes. I know exactly what's in it. I buy Lo! when I'm short on time — and I check the label every time, even though I've bought it before.",
+    "decision_bullets": [
+      "'Keto' title triggers a click but also triggers a full audit — not a conversion signal on its own.",
+      "'Zero carb' is the strongest claim and the most verification-demanding one.",
+      "Will read full ingredient panel regardless of title framing — title determines whether he clicks.",
+      "Deal sensitivity is real — a discount can tip the make-vs-buy decision toward buying.",
+      "Won't buy if net carb calculation doesn't hold up — will leave a public review.",
+      "High-integrity keto framing with verifiable specs > benefit-led or wholesome framing.",
+      "'Everyday healthy' framing dismissed immediately — signals mainstream positioning."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "A — Keto-led", "reasoning": "'Zero carb' is a strong claim. I'll verify it. If it holds up, this is the product."},
+        {"rank": 2, "variant": "C — Protein-led", "reasoning": "12g protein is specific and verifiable. Second-most useful title I see here."},
+        {"rank": 3, "variant": "B — Benefit-led", "reasoning": "'Low carb' is vague. I need a number. 'Guilt-free' is meaningless to me."},
+        {"rank": 4, "variant": "D — Outcome-led", "reasoning": "This is a mainstream product masquerading as health food. I scroll past."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Government engineer, 42, Chennai. Reversed Type 2 diabetes through strict keto. Deep distrust of food industry and mainstream medical advice. Makes own bread most weeks. High category skepticism.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Type 2 diabetes diagnosis at 39; GP prescribed Metformin. Took it 2 months then self-researched dietary reversal.", "valence": -0.9, "salience": 1.0},
+          {"event_type": "health_outcome", "content": "Reversed diabetes in 10 months through diet alone. GP skeptical — this permanently ended trust in mainstream authority.", "valence": 0.90, "salience": 1.0},
+          {"event_type": "product_return", "content": "Returned 2 keto-labelled products in past year for misleading net carb claims. Now audits every purchase.", "valence": -0.7, "salience": 0.85}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {"lo_foods": {"first_exposure": "amazon_search", "sentiment": "cautiously_positive", "repurchase_intent": 0.60}},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-007",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "C — Mainstream E-Commerce Shoppers",
+    "demographic_anchor": {
+      "name": "Sunita Verma",
+      "age": 44,
+      "gender": "F",
+      "location": "Lucknow",
+      "employment": "Government school teacher",
+      "household": "Married, 2 children (17M, 14F)",
+      "income_inr_pa": 950000,
+      "monthly_grocery_inr": 12000,
+      "primary_channels": ["Amazon", "local market"]
+    },
+    "life_stories": [
+      "Sunita's husband Rajesh got health check results in January — high cholesterol, borderline BP. The doctor said 'eat better.' Sunita manages the household food. She started replacing some items — switched to low-fat milk, bought brown rice once (family rejected it), and is now looking at bread. She doesn't know what keto is. She typed 'healthy bread Amazon' last Tuesday.",
+      "She manages a family of four on a teacher's salary. She has set a mental limit of ₹80 for anything she calls 'bread' — because regular bread costs ₹35 and she already considers that an indulgence over roti. Anything above ₹80 requires an explanation she hasn't yet given herself."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.00,
+      "health_salience": 0.52,
+      "label_reading_behavior": "none",
+      "diet_label_receptivity": "wholesome/familiar",
+      "price_sensitivity": 0.90,
+      "convenience_orientation": 0.65,
+      "research_depth": 0.18,
+      "brand_loyalty": 0.68,
+      "decision_speed": 0.55,
+      "analysis_paralysis": 0.22,
+      "risk_appetite": "low",
+      "social_proof_dependence": 0.72,
+      "expert_trust": 0.45,
+      "peer_trust": 0.55,
+      "creator_trust": 0.18,
+      "brand_trust": 0.80,
+      "health_bread_familiarity": 0.10,
+      "functional_food_openness": 0.38,
+      "trial_propensity": 0.42,
+      "category_skepticism": 0.65,
+      "monthly_grocery_budget_inr": 12000,
+      "health_food_share": 0.08,
+      "wtp_per_loaf_inr": 80,
+      "deal_sensitivity": 0.88
+    },
+    "derived_insights": {
+      "decision_style": "habitual/emotional",
+      "trust_anchor": "brand",
+      "risk_appetite": "low",
+      "primary_value_orientation": "price/familiarity",
+      "coping_mechanism": "Satisficing — finds the first option meeting a minimum bar rather than optimizing",
+      "consistency_score": 81
+    },
+    "narrative": "My husband's cholesterol came back high this January. The doctor said to eat better. I manage what we eat at home. I tried brown rice once — my children refused it. I'm not trying that again with bread. I typed 'healthy bread Amazon' and sorted by rating. I don't understand what keto means. I see it on some labels. My neighbour says it's some kind of diet, very strict. That's not what I'm looking for — I just want bread that's better for Rajesh's cholesterol. I spend ₹35 on regular bread and I already think that's a lot compared to making roti. If I'm going to spend more, it needs to be for a reason I can explain: 'this bread is healthy, better for Papa's heart.' I can say that. I cannot explain 'keto' to my 17-year-old son who just wants a good sandwich.",
+    "decision_bullets": [
+      "'Keto' in the title creates confusion and signals the product is not for her — likely to skip.",
+      "'Everyday healthy' framing is the closest match to her mental model.",
+      "4-star rating and 200+ reviews is the key purchase trigger — not nutrition claims.",
+      "Hard WTP of ₹80; trial offer or combo deal could convert her at up to ₹100.",
+      "Family acceptance is the primary retention criterion — if children reject it, she won't reorder.",
+      "Unfamiliarity with Lo! brand is a barrier; a well-known brand partner or endorsement helps.",
+      "Research depth minimal — whatever ranks in the top 3 of her search gets evaluated."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy bread, low calorie' — I understand this. This is what I was searching for."},
+        {"rank": 2, "variant": "B — Benefit-led", "reasoning": "'High protein, guilt-free' — I don't fully understand protein claims but guilt-free sounds right."},
+        {"rank": 3, "variant": "C — Protein-led", "reasoning": "12g protein per slice — I don't know if that's good or bad. Too technical for me."},
+        {"rank": 4, "variant": "A — Keto-led", "reasoning": "Keto bread. I don't know what that is. I'll look at the next result."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "School teacher, 44, Lucknow. Family food manager; motivated by husband's health report. Price-constrained. Unknown with diet terminology — 'keto' is a foreign word. First-time health bread searcher.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Husband Rajesh's high cholesterol and borderline BP in January. Doctor said 'eat better.' She is the household food manager — this became her responsibility.", "valence": -0.6, "salience": 0.90},
+          {"event_type": "failed_category_trial", "content": "Bought brown rice as a health swap — family rejected it. Created strong risk aversion for unfamiliar health products that might not get eaten.", "valence": -0.7, "salience": 0.85},
+          {"event_type": "search_behavior", "content": "Typed 'healthy bread Amazon' and sorted by rating — first contact with health bread category.", "valence": 0.2, "salience": 0.55}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-008",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "C — Mainstream E-Commerce Shoppers",
+    "demographic_anchor": {
+      "name": "Abhishek Gupta",
+      "age": 33,
+      "gender": "M",
+      "location": "Pune",
+      "employment": "Mid-level ops manager, logistics company",
+      "household": "Single, lives alone",
+      "income_inr_pa": 1400000,
+      "monthly_grocery_inr": 5000,
+      "primary_channels": ["Amazon", "Blinkit"]
+    },
+    "life_stories": [
+      "Abhishek joined a gym 14 months ago. His trainer said 'eat more protein.' He bought whey. He started eating more eggs. He switched from white bread to brown bread because brown 'seems better.' He discovered Blinkit and has not gone to a physical grocery store since. He has a notes app list of things he buys on autopilot.",
+      "He added a protein bread to his last Amazon order because it was in a 'frequently bought together' suggestion below the whey he was repurchasing. He didn't research it. He read the title, saw 'protein' and 'low carb,' thought 'that fits,' and added it in under 8 seconds."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.05,
+      "health_salience": 0.55,
+      "label_reading_behavior": "none",
+      "diet_label_receptivity": "protein",
+      "price_sensitivity": 0.40,
+      "convenience_orientation": 0.95,
+      "research_depth": 0.08,
+      "brand_loyalty": 0.25,
+      "decision_speed": 0.92,
+      "analysis_paralysis": 0.05,
+      "risk_appetite": "high",
+      "social_proof_dependence": 0.35,
+      "expert_trust": 0.40,
+      "peer_trust": 0.35,
+      "creator_trust": 0.38,
+      "brand_trust": 0.42,
+      "health_bread_familiarity": 0.30,
+      "functional_food_openness": 0.65,
+      "trial_propensity": 0.88,
+      "category_skepticism": 0.20,
+      "monthly_grocery_budget_inr": 5000,
+      "health_food_share": 0.22,
+      "wtp_per_loaf_inr": 140,
+      "deal_sensitivity": 0.30
+    },
+    "derived_insights": {
+      "decision_style": "habitual",
+      "trust_anchor": "platform algorithm",
+      "risk_appetite": "high",
+      "primary_value_orientation": "convenience",
+      "coping_mechanism": "Automation of routine decisions; notes-app grocery list to eliminate repeat thinking",
+      "consistency_score": 83
+    },
+    "narrative": "I order groceries the way I deal with most admin — get it done fast, move on. I'm in the gym three times a week. My trainer said eat more protein. I bought whey, started eating more eggs, switched to brown bread because brown seems healthier. I found a protein bread because it showed up in 'frequently bought together' when I was reordering whey. Saw 'protein' in the title. Added it in about 8 seconds. Didn't read the panel. Didn't check the price difference. Keto? I know people who have done keto. Sounds complicated. If a bread title says keto bread, I assume it's for people on a diet I'm not on. I'd probably keep scrolling. I want the title to tell me it's better than regular bread in a way I already understand. Protein, less carbs, healthy — I get all of those.",
+    "decision_bullets": [
+      "Discovers products via platform recommendations — title must convert in under 8 seconds.",
+      "'Protein' in the title is the right word — maps directly to his one nutritional rule.",
+      "'Keto' signals irrelevance — he's not on a diet and the word excludes rather than invites.",
+      "High trial propensity but zero loyalty — must also be frictionless to reorder.",
+      "Doesn't read nutritional panels — the title is the full decision surface.",
+      "Platform placement matters more than any single title attribute.",
+      "Outcome-led and benefit-led framing accessible but protein-led is his closest match."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "C — Protein-led", "reasoning": "'Protein bread, 12g per slice' — protein is my thing. That makes sense to me immediately."},
+        {"rank": 2, "variant": "B — Benefit-led", "reasoning": "'High protein' — yes. 'Low carb' — fine. Quick read, I get it."},
+        {"rank": 3, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy' — generic but approachable. I'd scroll to it if C wasn't there."},
+        {"rank": 4, "variant": "A — Keto-led", "reasoning": "'Keto bread.' I'm not keto. I'd scroll past and look for the one that says protein."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "Ops manager, 33, Pune. Gym-goer with one rule: more protein. Extreme convenience orientation. Autopilot grocery decisions via platform recommendations. Zero dietary framework beyond 'more protein.'",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Gym trainer said 'eat more protein' 14 months ago. This became the single nutritional rule governing all food decisions.", "valence": 0.6, "salience": 0.70},
+          {"event_type": "product_discovery", "content": "Added protein bread to cart in 8 seconds via 'frequently bought together' while reordering whey. No research conducted.", "valence": 0.7, "salience": 0.80},
+          {"event_type": "channel_shift", "content": "Discovered Blinkit — has not visited a physical grocery store since. Convenience optimization completed.", "valence": 0.8, "salience": 0.75}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {},
+      "purchase_history": []
+    }
+  },
+  {
+    "persona_id": "pg-lofoods-lt-009",
+    "generated_at": "2026-04-11T00:00:00Z",
+    "domain": "lofoods_fmcg",
+    "cohort": "C — Mainstream E-Commerce Shoppers",
+    "demographic_anchor": {
+      "name": "Pooja Nambiar",
+      "age": 38,
+      "gender": "F",
+      "location": "Kochi",
+      "employment": "HR manager, private company",
+      "household": "Married, 1 child (11F)",
+      "income_inr_pa": 1700000,
+      "monthly_grocery_inr": 9000,
+      "primary_channels": ["Amazon Prime", "local supermarket"]
+    },
+    "life_stories": [
+      "Pooja's mother was diagnosed pre-diabetic at 56. Pooja is now hyper-aware of blood sugar. She doesn't eat badly by normal standards — she's started thinking about bread as a category that might be doing something to her. She typed 'low calorie bread' into Amazon three weeks ago. Bought nothing. Went back, read more reviews, added two options to a wishlist. Hasn't purchased yet.",
+      "She reads health articles on her phone during lunch. She understands that low-carb is 'better' but doesn't understand the mechanism. She'd feel more comfortable buying something that says 'everyday' or 'guilt-free' than something that asks her to understand a dietary framework she hasn't adopted."
+    ],
+    "attributes": {
+      "protocol_commitment": 0.00,
+      "health_salience": 0.70,
+      "label_reading_behavior": "occasional",
+      "diet_label_receptivity": "low-cal/wholesome",
+      "price_sensitivity": 0.55,
+      "convenience_orientation": 0.68,
+      "research_depth": 0.65,
+      "brand_loyalty": 0.52,
+      "decision_speed": 0.35,
+      "analysis_paralysis": 0.60,
+      "risk_appetite": "low-medium",
+      "social_proof_dependence": 0.68,
+      "expert_trust": 0.60,
+      "peer_trust": 0.55,
+      "creator_trust": 0.42,
+      "brand_trust": 0.58,
+      "health_bread_familiarity": 0.20,
+      "functional_food_openness": 0.60,
+      "trial_propensity": 0.50,
+      "category_skepticism": 0.55,
+      "monthly_grocery_budget_inr": 9000,
+      "health_food_share": 0.15,
+      "wtp_per_loaf_inr": 115,
+      "deal_sensitivity": 0.65
+    },
+    "derived_insights": {
+      "decision_style": "analytical",
+      "trust_anchor": "expert/brand",
+      "risk_appetite": "low-medium",
+      "primary_value_orientation": "quality/safety",
+      "coping_mechanism": "Research-as-action — building wishlists as substitute for buying; converts under the right trigger",
+      "consistency_score": 77
+    },
+    "narrative": "My mother was told she's pre-diabetic last year. She's 56. I'm 38. I've started paying attention to what I eat in a way I hadn't before. I use a calorie app, loosely. I check calories on labels sometimes. I started wondering about bread — is white bread doing something to my blood sugar? I searched 'low calorie bread' on Amazon three weeks ago. I found a few options. I added two to my wishlist. I'm still there. 'Everyday healthy bread' makes sense to me. 'Low calorie, high fibre' — yes, I get that. 'Keto bread' — I don't know if that means it's only for keto people or if it's fine for everyone. The uncertainty makes me hesitate. I'll probably buy something in the next 2–3 weeks. If there's a good offer, that might push me.",
+    "decision_bullets": [
+      "Currently in consideration phase — trial offer or smaller SKU would trigger first purchase.",
+      "'Everyday healthy' and 'low calorie, high fibre' are the clearest frames for her mental model.",
+      "'Keto' creates hesitation — she doesn't know if it's for her specifically; uncertainty equals delay.",
+      "Rating quality matters more than count — reads reviews, not just the star average.",
+      "Mother's pre-diabetes is the emotional driver — products should signal blood sugar safety.",
+      "WTP ₹115; a ₹99 trial size would convert without the full commitment risk.",
+      "Once converted and family approves, high likelihood of subscription or repeat purchase."
+    ],
+    "simulation_result": {
+      "title_rankings": [
+        {"rank": 1, "variant": "D — Outcome-led", "reasoning": "'Everyday healthy, low calorie, high fibre' — this is exactly what I was searching for. Clear."},
+        {"rank": 2, "variant": "B — Benefit-led", "reasoning": "'High protein, low carb, guilt-free' — approachable. I understand all these words."},
+        {"rank": 3, "variant": "C — Protein-led", "reasoning": "12g protein — I'd have to read more to know if that's relevant to what I need."},
+        {"rank": 4, "variant": "A — Keto-led", "reasoning": "'Keto bread.' I don't know if keto bread is right for me. I'd look at the next option first."}
+      ]
+    },
+    "memory": {
+      "core_memory": {
+        "identity_summary": "HR manager, 38, Kochi. Rising health salience driven by mother's pre-diabetes. Currently in wishlist/consideration phase for health bread. Needs accessible framing, not protocol-specific language.",
+        "seed_memories": [
+          {"event_type": "health_catalyst", "content": "Mother's pre-diabetic diagnosis at 56. Pooja is 38 — triggered self-awareness around blood sugar and dietary choices.", "valence": -0.7, "salience": 0.90},
+          {"event_type": "search_behavior", "content": "Searched 'low calorie bread' on Amazon 3 weeks ago. Added 2 products to wishlist. Has not yet purchased — in consideration phase.", "valence": 0.3, "salience": 0.70},
+          {"event_type": "category_confusion", "content": "Sees 'keto bread' in search results but doesn't know if it applies to her. Uncertainty causing purchase delay.", "valence": -0.3, "salience": 0.65}
+        ]
+      },
+      "operational_stream": [],
+      "brand_memories": {},
+      "purchase_history": []
+    }
+  }
+]

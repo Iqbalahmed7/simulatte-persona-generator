@@ -31,25 +31,31 @@ class CostActual:
         pre_generation: float = 0.0,
         generation: float = 0.0,
         simulation: float = 0.0,
+        count: int = 0,
     ) -> None:
         self.pre_generation = pre_generation
         self.generation = generation
         self.simulation = simulation
+        self.count = count  # personas delivered; set after generation
 
     @property
     def total(self) -> float:
         return self.pre_generation + self.generation + self.simulation
 
-    def per_persona(self, count: int) -> float:
-        return self.total / max(count, 1)
+    def per_persona(self, count: int | None = None) -> float:
+        n = count if count is not None else self.count
+        return self.total / max(n, 1)
 
     def to_dict(self) -> dict[str, float]:
-        return {
+        d: dict[str, float] = {
             "pre_generation": round(self.pre_generation, 4),
             "generation": round(self.generation, 4),
             "simulation": round(self.simulation, 4),
             "total": round(self.total, 4),
         }
+        if self.count > 0:
+            d["per_persona"] = round(self.per_persona(), 4)
+        return d
 
 
 class QualityReport:

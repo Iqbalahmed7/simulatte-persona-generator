@@ -1,0 +1,44 @@
+{
+  "persona_id": "pg-reuters-uk-001",
+  "spec_id": "S03",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United Kingdom",
+  "name": "Priya Nair",
+  "age": 26,
+  "location": "London, UK (Hackney)",
+  "employment": "Junior project manager, digital agency",
+  "education": "BA, University of Leeds (Media and Communications)",
+  "income_bracket": "Lower-middle (£29,000/year)",
+  "urban_rural": "Urban (London)",
+  "WorldviewAnchor": {
+    "IT": 0.37,
+    "SCP": 0.69,
+    "CS": 0.61,
+    "ESP": 0.63
+  },
+  "calibration_notes": "IT calibrated somewhat higher than USA S01 equivalent — UK baseline institutional context modestly higher than US; however young, lower-income, post-Brexit London context still produces low-moderate range. SCP high from urban London young professional millennial context. CS higher than USA equivalent — London multicultural community embeddedness and non-US cultural context. ESP high from London cost-of-living pressures on entry-level salary.",
+  "life_story_vignettes": [
+    "Priya was 19 when the Brexit referendum happened in 2016. She watched the results come in with her family in Leeds. She remembers being confused by the coverage — journalists seemed as surprised as voters. That moment lodged a specific doubt about whether journalists understood the country they were covering.",
+    "In 2023, during the cost-of-living crisis spike, Priya's rent increased by £300/month when her lease renewed. She spent a week reading every piece she could find about the rental crisis. Some of the Guardian coverage felt genuinely good. Most of the tabloid coverage felt like it was about property investors, not people like her. That week sharpened her sense of which outlets were talking to her and which weren't.",
+    "In early 2024, Priya attended a media literacy workshop run by a Hackney community organisation. The facilitator showed examples of how the same set of economic statistics could produce completely opposite headlines across different outlets. Priya photographed the slides and still refers back to them."
+  ],
+  "first_person_narrative": "I'm on my phone before I get out of bed — Instagram, then a quick look at what's trending, then maybe a couple of news notifications if something big is happening. I've got BBC News notifications on but I've muted a lot of them because honestly, the volume was too much.\n\nMy actual news literacy practice is more deliberate than my morning scroll suggests. I read the Guardian most days — I have the free version, I've thought about subscribing but I'm genuinely not sure I can justify it on my salary right now with London rents being what they are. I also check the BBC website, but I've become increasingly aware that BBC online has started doing a certain kind of 'both sides' framing on things that aren't really two-sides issues, and that gets under my skin.\n\nYouTube is a big part of how I get context on things. There are channels I follow that do proper deep-dives on UK housing policy, climate stuff, international news. Way better than a four-paragraph news article for actually understanding something. Podcasts — yes, quite a few. I listen on my commute, usually news or politics ones. The Rest Is Politics is the main one. Sometimes Pod Save the UK.\n\nMy overall trust in news... I'd say moderate-low? I don't think journalists are lying to me. I think they're working within systems and commercial pressures that shape what they cover and how. The BBC specifically — I grew up trusting the BBC the way you trust water from a tap. That trust has got more complicated for me in the last few years. I still think it's better than most, but 'better than most' isn't the same as trustworthy.\n\nI avoid news when the news cycle is just the same thing going around and around. The Partygate coverage at a certain point was just the same story recycled. I turn it off for a day or two, usually on weekends.",
+  "key_attributes": [
+    "Mobile-first, Instagram and BBC notifications as morning habit",
+    "Guardian reader — qualified trust, considers subscribing but held back by cost",
+    "BBC trust — qualified and declining relative to childhood baseline",
+    "YouTube for context and depth on policy topics",
+    "Podcast consumer — political/current affairs format (commute)",
+    "Deliberate but occasional news avoider — cycle fatigue rather than anxiety",
+    "Media literate — attends workshops, actively analyses framing"
+  ],
+  "decision_bullets": [
+    "BBC notifications active but heavily muted — volume management",
+    "Guardian free tier regular consumer — subscription under consideration but income-constrained",
+    "YouTube used for policy deep-dives that replace rather than supplement article reading",
+    "Listens to 2-3 political podcasts on commute weekly",
+    "Avoids news 1-2 days on weekends when cycle feels repetitive",
+    "BBC trust lower than it was — specific complaint about false equivalence framing"
+  ]
+}

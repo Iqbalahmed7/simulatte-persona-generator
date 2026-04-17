@@ -1,0 +1,54 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "P1",
+      "name": "Hospital Dietitian / Clinical Nutritionist",
+      "count": 10,
+      "age_range": [
+        28,
+        50
+      ],
+      "locations": [
+        "Delhi",
+        "Mumbai",
+        "Bangalore",
+        "Hyderabad",
+        "Chennai",
+        "Kolkata"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1"
+      ],
+      "role": "institutional food decision-maker and clinical patient advisor",
+      "key_signals": {
+        "functional_food_trust": "medium-low",
+        "clean_label_importance": "very-high",
+        "indian_startup_brand_trust": "low",
+        "doctor_endorsement_weight": "n/a \u2014 is the authority",
+        "premium_price_tolerance": "medium (institution budget-constrained)",
+        "diabetic_status": "varies \u2014 personal health"
+      },
+      "case_studies": [
+        6,
+        17
+      ],
+      "notes": "Full 8-phase simulation including personal health beliefs \u2014 dietitians have their own dietary philosophies which influence recommendations. Skeptical of marketing claims without clinical evidence (FSSAI, peer-reviewed studies). Key gatekeeper for DiabeSmart hospital channel. Will not recommend without FSSAI + ideally clinical study backing."
+    }
+  ]
+}

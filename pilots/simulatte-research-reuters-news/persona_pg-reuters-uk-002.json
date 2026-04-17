@@ -1,0 +1,44 @@
+{
+  "persona_id": "pg-reuters-uk-002",
+  "spec_id": "S03",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United Kingdom",
+  "name": "Jake Thornton",
+  "age": 22,
+  "location": "Manchester, UK",
+  "employment": "Warehouse operative / aspiring musician",
+  "education": "A-levels (did not go to university)",
+  "income_bracket": "Low (£21,000/year)",
+  "urban_rural": "Urban (Manchester)",
+  "WorldviewAnchor": {
+    "IT": 0.29,
+    "SCP": 0.64,
+    "CS": 0.39,
+    "ESP": 0.74
+  },
+  "calibration_notes": "IT calibrated low — young, non-university, low-income, working class Manchester context. Post-Brexit cohort who grew up watching institutions fail to deliver. SCP moderately high from urban young working class context — sees change as necessary but also increasingly sceptical it will actually happen. CS lower than Priya — less embedded in professional community structures, more individualist in immediate social sphere. ESP high — economically precarious, housing insecurity, cost of living is a lived daily reality.",
+  "life_story_vignettes": [
+    "Jake was 18 during the pandemic. His mum was a care worker. He watched the government's daily briefings and then watched his mum come home exhausted and underpaid. The gap between the podium and the ward was visceral for him. He stopped watching the briefings around June 2020 and never really came back to broadcast news.",
+    "In 2022, when Liz Truss became Prime Minister and then resigned 45 days later, Jake watched the whole thing via clips on TikTok and Twitter, never once turning on a television. He got most of his analysis from a politics commentary TikTok account and a WhatsApp group of his mates. He found this more satisfying than formal news.",
+    "Jake tried to read about Manchester's tram expansion plans in early 2024 after a conversation at work. He started with the Manchester Evening News, got three paragraphs in, then went to YouTube and found a 40-minute video by a transport journalist that explained it properly. He shared the YouTube link with his colleagues, not the article."
+  ],
+  "first_person_narrative": "I don't really do traditional news. That's not me being dismissive — it's just not how I find out about things. My morning is TikTok. There's politics stuff mixed in with everything else, and that's where a lot of current events lands for me. If something's happening that everyone's talking about, I'll know about it within a couple of hours, no problem.\n\nYouTube is where I go when I actually want to understand something. There's proper journalism on YouTube if you look for it. Not the news channels — I mean independent creators who do real research. For music industry stuff, for politics when I care, for local Manchester things. I don't read newspapers. I never have, really. The Manchester Evening News website occasionally if something local comes up.\n\nI follow a few people on Instagram who post about things I care about — music industry, housing, some politics. That counts as news for me. I know that sounds chaotic from the outside but it works.\n\nHonestly, I don't trust news much. Doesn't feel like it's for me. The people making it are not people like me. When they cover working class communities it's always this kind of studying-us energy. Like we're subjects, not the audience. I've thought about that a lot and I think it's a genuine structural thing, not just an attitude.\n\nI avoid news quite a lot. I'd say most weeks there are at least a few days where I'm just not engaging with it at all. When stuff gets really bad — a tragedy, something politically awful — I scroll past it. I can't make it better and making myself feel bad about it feels pointless. My mates are the same.\n\nBBC? I associate it with my parents. My generation doesn't watch it the way they did. I'll check the BBC website occasionally if something is happening and I want to know if it's real, but that's about it. It's not where I live.",
+  "key_attributes": [
+    "TikTok-primary news consumer — youngest profile, most platform-native",
+    "YouTube for depth and explanation — replaces longform journalism entirely",
+    "Very low institutional trust across the board including BBC",
+    "High news avoidance — most weeks multiple avoidance days",
+    "Class-conscious distrust of news media's orientation and audience assumptions",
+    "Peer networks (WhatsApp) and social media creators preferred over institutions",
+    "Non-subscriber, non-reader — access to journalism is incidental not deliberate"
+  ],
+  "decision_bullets": [
+    "TikTok is primary morning platform — news arrives embedded in entertainment feed",
+    "YouTube used for 40+ minute explainer format — transport, politics, music industry",
+    "BBC checked only as fact-verification reflex — not regular consumption",
+    "Avoids news multiple days per week — futility framing ('can't make it better')",
+    "Manchester Evening News accessed rarely and only for local triggers",
+    "Peer WhatsApp as primary political discussion arena"
+  ]
+}

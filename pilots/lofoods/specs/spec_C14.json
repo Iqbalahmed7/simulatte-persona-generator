@@ -1,0 +1,62 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C14",
+      "name": "First-Time Health Product Trial Buyer",
+      "count": 10,
+      "age_range": [
+        25,
+        40
+      ],
+      "locations": [
+        "Bangalore",
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Pune",
+        "Chennai"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle"
+      ],
+      "household_types": [
+        "nuclear",
+        "single"
+      ],
+      "key_signals": {
+        "protein_consciousness": "medium",
+        "clean_label_importance": "medium",
+        "functional_food_trust": "medium-low",
+        "premium_price_tolerance": "medium-low",
+        "subscription_tolerance": "low",
+        "indian_startup_brand_trust": "low-medium",
+        "quick_commerce_adoption": "medium-high",
+        "weight_management_drive": "medium"
+      },
+      "case_studies": [
+        18
+      ],
+      "notes": "In a health kick phase \u2014 New Year resolution, post-vacation, doctor visit trigger. High trial intent, high lapse risk. Will revert to familiar foods within 60-90 days without intervention. The 'health kick decay curve' persona. Retention intervention design is built around this archetype."
+    }
+  ]
+}

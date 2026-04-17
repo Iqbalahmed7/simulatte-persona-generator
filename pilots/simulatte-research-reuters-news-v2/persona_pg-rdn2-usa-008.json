@@ -1,0 +1,157 @@
+{
+  "persona_id": "pg-rdn2-usa-008",
+  "generated_at": "2026-04-14T10:12:00Z",
+  "generator_version": "1.0",
+  "domain": "reuters-digital-news-usa-uk-v2",
+  "study_id": "STU_005_v2",
+  "cohort": "USA-S02",
+  "mode": "deep",
+
+  "demographic_anchor": {
+    "name": "Dale Hutchins",
+    "age": 48,
+    "gender": "male",
+    "location": {
+      "country": "United States",
+      "region": "Midwest",
+      "city": "rural Iowa (Hardin County)",
+      "urban_tier": "rural"
+    },
+    "household": {
+      "structure": "nuclear",
+      "size": 3,
+      "income_bracket": "$71,000/year",
+      "dual_income": false
+    },
+    "life_stage": "mid-life, small business owner, rural homeowner",
+    "education": "some college — 1 year at Iowa Central Community College",
+    "employment": "self-employed — owner, Hutchins Hardware & Farm Supply, Eldora IA"
+  },
+
+  "life_stories": [
+    {
+      "title": "Taking over the hardware store from his father",
+      "when": "age 30",
+      "event": "Dale took over Hutchins Hardware from his dad, who had run it for twenty-six years. The handover wasn't smooth — his father was reluctant to let go of the supplier relationships he'd built, and Dale had to fight to bring in credit card payments and a basic inventory system. But Dale learned something important in that transition: local information is worth more than national information. The price of diesel in Chicago doesn't matter to him. The price of diesel in Eldora, and who's buying or selling equipment in the county — that does.",
+      "lasting_impact": "Strong localisation filter for news. National news is consumed when it has direct rural/agricultural/small business implications. Abstract politics and coastal-centric coverage produces quick disengagement."
+    },
+    {
+      "title": "The broadband fight in Hardin County",
+      "when": "age 42–46",
+      "event": "Dale was one of five local business owners who pushed for rural broadband expansion in Hardin County for four years. He went to county board meetings, wrote letters to his state representative, and watched a federal infrastructure announcement come and go without a single fibre line reaching his town. He checked national news coverage of the rural broadband issue and found it focused entirely on coastal tech politics, not the implementation failure in places like his. He stopped expecting national news to cover his life.",
+      "lasting_impact": "Deep scepticism of national news relevance to rural life. Sees mainstream media as structurally urban-centric. Local and agricultural news sources are more trusted and more read. Radio (WHO and local AM) preferred for immediacy."
+    },
+    {
+      "title": "Facebook as the town square",
+      "when": "age 40–48",
+      "event": "In Eldora — population 2,700 — Facebook has effectively replaced the town newspaper, which folded in 2018. Community events, school announcements, obituaries, road closures, who's selling a truck — it's all on Facebook. Dale is on it every day, not because he thinks it's reliable news but because it's the community noticeboard. He's learned to mentally sort: community events are reliable, shared political content is suspect, anything with a big red arrow pointing at something is definitely not trustworthy.",
+      "lasting_impact": "Pragmatic, category-sorted relationship with Facebook. Community information trusted; political news on Facebook deeply sceptical. Has developed a folk-level media literacy based on experience rather than formal training."
+    }
+  ],
+
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "status_quo_bias": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "information_need": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "values": {
+      "budget_consciousness": {"value": 0.62, "type": "continuous", "label": "moderate-high", "source": "anchored"},
+      "brand_loyalty": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "convenience_preference": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+      "civic_duty_orientation": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "authority_bias": {"value": 0.40, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"}
+    },
+    "lifestyle": {
+      "perceived_time_scarcity": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "routine_adherence": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+      "simplicity_preference": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+      "digital_nativity": {"value": 0.38, "type": "continuous", "label": "moderate-low", "source": "anchored"}
+    },
+    "domain_specific": {
+      "news_trust_overall": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "news_avoidance_frequency": {"value": "sometimes", "type": "categorical", "label": "sometimes — national political news avoided; local/agricultural actively consumed", "source": "inferred"},
+      "avoidance_trigger": {"value": "irrelevance", "type": "categorical", "label": "perceived irrelevance of national news to rural daily life", "source": "inferred"},
+      "primary_platform": {"value": "radio", "type": "categorical", "label": "AM radio (WHO Des Moines, local KHKE) + Facebook community groups + local Eldora newspaper remnant", "source": "inferred"},
+      "youtube_news_use": {"value": 0.12, "type": "continuous", "label": "very low — occasional instructional content, not news", "source": "inferred"},
+      "podcast_news_use": {"value": 0.08, "type": "continuous", "label": "very low", "source": "inferred"},
+      "social_media_news_use": {"value": 0.52, "type": "continuous", "label": "moderate — but for community information, not national news", "source": "inferred"},
+      "mainstream_media_trust": {"value": 0.22, "type": "continuous", "label": "low", "source": "inferred"},
+      "social_media_news_trust": {"value": 0.28, "type": "continuous", "label": "low — community content trusted, political shares distrusted", "source": "inferred"},
+      "paid_subscription_held": {"value": "no", "type": "categorical", "label": "no paid digital news subscriptions", "source": "inferred"},
+      "ai_news_attitude": {"value": "resistant", "type": "categorical", "label": "resistant — low digital trust generally; AI news feels like one more layer between him and truth", "source": "inferred"}
+    }
+  },
+
+  "derived_insights": {
+    "decision_style": "habitual",
+    "decision_style_score": 0.65,
+    "trust_anchor": "peer",
+    "risk_appetite": "medium",
+    "primary_value_orientation": "convenience",
+    "coping_mechanism": {
+      "type": "routine_control",
+      "description": "Dale manages an information environment he fundamentally distrusts by imposing strong relevance filters — radio for local/agricultural news, Facebook for community events, and a near-complete dismissal of national mainstream media as applicable to his life."
+    },
+    "consistency_score": 78,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Local and community information is highly valued and actively sought, but the platforms that carry it (Facebook) are the same ones he distrusts for national news — creates uncomfortable cognitive partition",
+      "Civic duty orientation makes him vote and care about policy but national news coverage doesn't map onto his lived experience — leaves him feeling both engaged and unrepresented"
+    ]
+  },
+
+  "narrative": "I open the store at seven-thirty, I've already had the radio on since six. WHO out of Des Moines, sometimes the local KHKE. Weather first, commodity prices, anything affecting the supply chain for what I sell. That's my news. I check Facebook on my phone during lunch — not for news exactly, but because that's where the town lives now. Who's selling a tractor, who had a baby, what happened at the school board meeting. The actual newspaper folded a few years back and Facebook replaced it whether we wanted it to or not. National news — the stuff that's on CNN or whatever — I'll catch bits of it but I've basically given up expecting it to say anything useful about my life. The broadband fight we had here, four years of county meetings and federal promises and nothing happened, and I watched the national coverage of rural broadband be entirely about some tech company's lobbying position. That's not journalism, that's PR. YouTube I use to figure out how to fix things — I've watched probably a hundred repair videos on plumbing and equipment. Not for news. I don't think I've ever watched news on YouTube deliberately. Podcasts I don't do. I'm in the store all day, I've got the radio. I'd rather hear a real voice in real time than something recorded last week. My trust in the big media companies is pretty low. I vote, I pay attention to what affects farming and small business, but I filter it heavy. Most of what gets called news isn't news about anything that's happening to me.",
+
+  "decision_bullets": [
+    "AM radio is the primary news consumption vehicle — real-time, local, weather/commodity focused.",
+    "Facebook is used for community information (trusted), not national political news (distrusted).",
+    "YouTube is not used for news — associated exclusively with instructional/how-to content.",
+    "National mainstream media dismissed as urban-centric and irrelevant to rural small business reality.",
+    "News avoidance is topic-specific: local/agricultural actively consumed; national political regularly avoided.",
+    "Zero paid news subscriptions — will not pay for content he doesn't perceive as locally relevant.",
+    "Podcast news use is very low — radio fills the audio slot with real-time local content.",
+    "AI news summaries are resisted — adds a layer of abstraction to an information ecosystem he already distrusts."
+  ],
+
+  "memory": {
+    "core_memory": {
+      "identity_statement": "Hardware store owner, rural Iowa, $71k, radio/Facebook for local news, distrusts national media as irrelevant, no paid news subs.",
+      "key_values": ["local relevance", "practical information", "community trust"],
+      "life_defining_events": [
+        {"age_when": 30, "event": "Took over hardware store; learned local information has more value than national for his daily decisions", "lasting_impact": "Strong local information filter; national news consumed only when it has direct rural/agricultural implication"},
+        {"age_when": 43, "event": "4-year rural broadband campaign; watched national media cover it as tech politics, not rural infrastructure failure", "lasting_impact": "Permanent scepticism of mainstream media's relevance to rural life"},
+        {"age_when": 40, "event": "Local newspaper folded; Facebook became the de-facto community noticeboard", "lasting_impact": "Category-sorted Facebook use: community content trusted, political shares dismissed"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "himself + community peer network",
+        "key_influencers": ["local business community in Eldora", "WHO Des Moines radio hosts", "county extension office"],
+        "trust_network": ["local farmers and business owners", "county government sources", "radio news"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$0 for digital news subscriptions",
+        "non_negotiables": ["local/regional relevance", "practical applicability"],
+        "absolute_avoidances": ["cable national news", "paywalled coastal publications", "algorithm-curated national news feeds"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {
+      "current_turn": 0,
+      "importance_accumulator": 0.0,
+      "reflection_count": 0,
+      "awareness": {},
+      "consideration_set": [],
+      "last_decision": null
+    }
+  }
+}

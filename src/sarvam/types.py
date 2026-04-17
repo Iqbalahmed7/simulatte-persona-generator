@@ -43,13 +43,25 @@ class ValidationStatus(BaseModel):
     """CR1: Persona record not modified by enrichment. Automated."""
 
     cr2_stereotype_audit: CRStatus = "not_run"
-    """CR2: Cultural details derive from attributes. Manual/semi-automated."""
+    """CR2: Anti-stereotypicality audit on enriched narratives. Automated."""
 
     cr3_cultural_realism: CRStatus = "not_run"
-    """CR3: Human evaluator rating >= 4.0/5.0. Human-evaluated."""
+    """CR3: Region/religion/urban-tier consistency. Automated."""
 
     cr4_persona_fidelity: CRStatus = "not_run"
-    """CR4: Enriched output is the same person. Human-evaluated."""
+    """CR4: Enriched narrative preserves key persona facts. Automated."""
+
+    def all_passed(self) -> bool:
+        """True only if every CR check explicitly passed (not_run counts as fail)."""
+        return all(
+            s == "pass"
+            for s in (
+                self.cr1_isolation,
+                self.cr2_stereotype_audit,
+                self.cr3_cultural_realism,
+                self.cr4_persona_fidelity,
+            )
+        )
 
 
 class SarvamEnrichmentRecord(BaseModel):
@@ -78,6 +90,10 @@ class SarvamEnrichmentRecord(BaseModel):
 
     validation_status: ValidationStatus = Field(default_factory=ValidationStatus)
     """CR test status. All 'not_run' until explicitly evaluated."""
+
+    cr_diagnostics: dict[str, list[str]] = Field(default_factory=dict)
+    """Per-CR violation messages. Keyed by 'cr1' | 'cr2' | 'cr3' | 'cr4'.
+    Populated only for checks that ran and produced violations/warnings."""
 
     skip_reason: str | None = None
     """Reason enrichment was skipped (if enrichment_applied is False)."""

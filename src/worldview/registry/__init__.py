@@ -6,28 +6,50 @@ Adding a new geography = one new file in this directory + one entry below.
 Nothing else in the system changes.
 
 Currently supported countries:
-  - "USA"   (launched with ARCH-001 / Sprint A-1)
-  - "India" (launched with Study 1B / Sprint B-9)
-
-Planned (future sprints):
-  - "UK"
-  - "Germany"
-  - "Brazil"
+  - "USA"         (launched with ARCH-001 / Sprint A-1)
+  - "India"       (launched with Study 1B / Sprint B-9)
+  - "United Kingdom" (Europe Benchmark v2)
+  - "France"      (Europe Benchmark v2)
+  - "Germany"     (Europe Benchmark v2)
+  - "Greece"      (Europe Benchmark v2)
+  - "Hungary"     (Europe Benchmark v2)
+  - "Italy"       (Europe Benchmark v2)
+  - "Netherlands" (Europe Benchmark v2)
+  - "Poland"      (Europe Benchmark v2)
+  - "Spain"       (Europe Benchmark v2)
+  - "Sweden"      (Europe Benchmark v2)
 """
 
 from __future__ import annotations
 
 from .us import US_POLITICAL_ARCHETYPES
 from .india import INDIA_POLITICAL_ARCHETYPES
+from .uk import UK_POLITICAL_ARCHETYPES
+from .france import FRANCE_POLITICAL_ARCHETYPES
+from .germany import GERMANY_POLITICAL_ARCHETYPES
+from .greece import GREECE_POLITICAL_ARCHETYPES
+from .hungary import HUNGARY_POLITICAL_ARCHETYPES
+from .italy import ITALY_POLITICAL_ARCHETYPES
+from .netherlands import NETHERLANDS_POLITICAL_ARCHETYPES
+from .poland import POLAND_POLITICAL_ARCHETYPES
+from .spain import SPAIN_POLITICAL_ARCHETYPES
+from .sweden import SWEDEN_POLITICAL_ARCHETYPES
 
 # Registry map: ISO country name → valid archetype strings
 # Add new countries here when their registry file is research-complete.
 _REGISTRY_DATA: dict[str, dict[str, str]] = {
     "USA": US_POLITICAL_ARCHETYPES,
     "India": INDIA_POLITICAL_ARCHETYPES,
-    # "UK":    UK_POLITICAL_ARCHETYPES,
-    # "UK":    UK_POLITICAL_ARCHETYPES,
-    # "Germany": GERMANY_POLITICAL_ARCHETYPES,
+    "United Kingdom": UK_POLITICAL_ARCHETYPES,
+    "France": FRANCE_POLITICAL_ARCHETYPES,
+    "Germany": GERMANY_POLITICAL_ARCHETYPES,
+    "Greece": GREECE_POLITICAL_ARCHETYPES,
+    "Hungary": HUNGARY_POLITICAL_ARCHETYPES,
+    "Italy": ITALY_POLITICAL_ARCHETYPES,
+    "Netherlands": NETHERLANDS_POLITICAL_ARCHETYPES,
+    "Poland": POLAND_POLITICAL_ARCHETYPES,
+    "Spain": SPAIN_POLITICAL_ARCHETYPES,
+    "Sweden": SWEDEN_POLITICAL_ARCHETYPES,
 }
 
 

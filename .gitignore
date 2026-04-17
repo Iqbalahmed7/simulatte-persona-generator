@@ -14,3 +14,22 @@ build/
 
 # macOS
 .DS_Store
+
+# Generated / output data
+data/
+personas_generated/
+
+# Office documents & decks
+*.pptx
+*.docx
+*.xlsx
+*.pdf
+
+# Claude Code internal
+.claude/
+
+# Benchmarks output
+benchmarks/
+
+# Random scratch docs
+"Random Docs"/

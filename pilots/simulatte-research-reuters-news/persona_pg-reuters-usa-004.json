@@ -1,0 +1,43 @@
+{
+  "persona_id": "pg-reuters-usa-004",
+  "spec_id": "S02",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United States",
+  "name": "Robert 'Bob' Vandenberg",
+  "age": 63,
+  "location": "Grand Rapids, MI",
+  "employment": "Retired — former plant manager at an auto parts supplier",
+  "education": "Bachelor's, Western Michigan University (Management)",
+  "income_bracket": "Middle ($71,000/year — pension + part-time consulting)",
+  "urban_rural": "Suburban (Cascade Township, Grand Rapids)",
+  "WorldviewAnchor": {
+    "IT": 0.43,
+    "SCP": 0.35,
+    "CS": 0.48,
+    "ESP": 0.42
+  },
+  "calibration_notes": "IT moderate-low for S02 — college-educated but in a context of post-industrial Michigan where institutional trust has been eroded by economic transitions; retired status means he no longer has professional incentive to maintain institutional confidence. SCP lower than Patricia — retired, fixed income, post-industrial Midwest context skews conservative on pace of change. CS moderate — management background instils collective responsibility orientation but suburban retirement context counterweights. ESP moderate — pension provides security but manufacturing decline created a generational wariness about economic disruption.",
+  "life_story_vignettes": [
+    "Bob retired in 2021, two years earlier than planned, after his plant closed down its Michigan operations. He watched the announcement on local TV news and then saw the same event covered nationally in a way he felt missed the human story entirely. That gap — between local experience and national coverage — became a recurring frustration in his retirement.",
+    "In the 2022 midterms, Bob split his ticket for the first time in his voting life. He describes the decision as coming after 'three months of trying to figure out who was actually telling me the truth.' He watched Fox, then CNN, then local, then read the Grand Rapids Press. He came away feeling that every outlet had a version of reality shaped by who they wanted him to vote for. 'I stopped trusting any of them fully that year,' he says.",
+    "Bob's son-in-law is a journalist at a regional Michigan outlet. Bob has had dinner conversations that have shifted his understanding of how newsrooms actually work — underfunding, speed pressure, the relationship with advertiser-friendly coverage choices. He trusts his son-in-law personally and finds the institutional product harder to dismiss than he might otherwise."
+  ],
+  "first_person_narrative": "Retirement means I have more time to consume news than I ever did working. That might not be a good thing. I watch the local news every morning on TV — it's the first thing that goes on. Then I check the Grand Rapids Press online, sometimes I'll flip to CNN or Fox for national news. I try to split between them so I can see what each is choosing to cover and how.\n\nMy trust in news has honestly declined the most in retirement. When I was working, news was just part of the background — I absorbed it but I didn't scrutinise it. Now I have time to notice things. When I watch two outlets cover the same press conference differently, I can't pretend that one of them isn't making choices. They both are.\n\nI don't use social media for news and I'm deliberately not going to start. Facebook is where my family posts photos. My wife is on it more than I am. News on social media seems like a recipe for confusion and I've seen enough confused people at my age to know I don't want to be one of them.\n\nPodcasts — yes, I've gotten into those in retirement. There's a few political ones and a history one I listen to on walks. I'm not a YouTube guy for news. I watch YouTube for how-to stuff, gardening, that kind of thing. Clicking through news videos on there feels like falling down a rabbit hole and I'm not sure the rabbit hole leads anywhere good.\n\nI avoid news — more than I'd admit to my wife. When the political stuff gets too loud, I take a day. Usually substitute with a long walk or a book. It's not that I'm uninformed; I've absorbed enough that a day off doesn't leave me behind. I'd estimate I take a deliberate break maybe twice a month.",
+  "key_attributes": [
+    "Retired — high news consumption time but increased scepticism from scrutiny",
+    "TV-primary with active cross-referencing between Fox and CNN for perceived balance",
+    "Moderate institutional trust — post-industrial Michigan context produces higher scepticism than typical S02",
+    "Podcast consumer for walk/leisure context",
+    "Deliberate social media avoidance for news — principled decision, not inability",
+    "Occasional news avoider — twice monthly when political intensity is high"
+  ],
+  "decision_bullets": [
+    "Local TV first every morning — regional context prioritised over national",
+    "Actively cross-references CNN and Fox to identify framing differences — unusually sceptical media literacy practice",
+    "No social media for news — principled avoidance to prevent 'rabbit hole' confusion",
+    "Podcasts consumed on daily walks — format compatible with retirement lifestyle",
+    "Takes deliberate news breaks twice monthly — 'political loudness' as primary trigger",
+    "Grand Rapids Press maintained as local news anchor — regional identity and investment"
+  ]
+}

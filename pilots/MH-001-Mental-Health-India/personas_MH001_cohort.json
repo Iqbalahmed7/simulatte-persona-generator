@@ -1,0 +1,1107 @@
+{
+  "cohort_id": "cohort-mhi-20260408",
+  "generated_at": "2026-04-08T00:00:00+05:30",
+  "generator_version": "1.0",
+  "domain": "mental-health-help-seeking-urban-india",
+  "business_problem": "Why do urban Indians delay professional mental health help-seeking for 12–36 months after self-recognizing the need, and which interventions measurably close that gap?",
+  "mode": "simulation-ready",
+  "study_id": "MH-001",
+  "taxonomy_used": {
+    "categories": ["awareness", "identity_social_stakes", "barrier_architecture", "readiness", "social_exposure", "coping_repertoire", "economics", "intervention_receptivity"],
+    "total_attributes": 34,
+    "domain_data_used": false,
+    "data_confidence": "PROXY_ONLY"
+  },
+  "personas": [
+    {
+      "persona_id": "pg-mhi-001",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P1-AVOIDANCE",
+      "demographic_anchor": {
+        "name": "Anika",
+        "age": 28,
+        "gender": "female",
+        "location": {
+          "country": "India",
+          "region": "Karnataka",
+          "city": "Bengaluru",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "single — lives alone",
+          "size": 1,
+          "income_bracket": "18–24 LPA",
+          "dual_income": false,
+          "family_of_origin": "Jaipur — joint family, parents + extended"
+        },
+        "life_stage": "early-career professional, active arranged marriage search",
+        "education": "postgraduate",
+        "employment": "full-time — Product Manager"
+      },
+      "life_stories": [
+        {
+          "title": "The family information management system",
+          "when": "age 12 onwards",
+          "event": "Anika watched her mother manage a family secret — a relative's divorce — with surgical precision for three years. What relatives knew, when they knew it, how it was framed. By the time she was 16, she understood that information in her family was not neutral; it was a resource to be controlled. Nothing was allowed to simply 'come out.'",
+          "lasting_impact": "She treats her own personal information as a managed resource, not a private right. 'Who will find out' is always a live question."
+        },
+        {
+          "title": "The friend who went to therapy",
+          "when": "age 24",
+          "event": "Her college friend Shreya started seeing a therapist after a bad breakup. Anika's initial reaction was 'that's a bit much' — a reflexive judgment she noticed even as she made it. Over the next 18 months, she watched Shreya become noticeably less reactive, less self-doubting. It unsettled Anika's original assessment quietly.",
+          "lasting_impact": "She has proof of concept. The question has shifted from 'does it work' to 'can I afford the information risk of doing it.'"
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+          "condition_self_recognition": {"value": 0.82, "type": "continuous", "label": "high", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.78, "type": "continuous", "label": "positive", "source": "inferred"},
+          "therapy_attitude_actual": {"value": 0.72, "type": "continuous", "label": "positive but conditional", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.80, "type": "continuous", "label": "high", "source": "anchored"},
+          "primary_social_audience": {"value": "mother", "type": "categorical", "source": "anchored"},
+          "stigma_personal": {"value": 0.22, "type": "continuous", "label": "low", "source": "inferred"},
+          "stigma_projected": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"},
+          "arranged_marriage_pressure": {"value": 0.82, "type": "continuous", "label": "active and consequential", "source": "anchored"},
+          "provider_identity_stake": {"value": 0.10, "type": "continuous", "label": "low — not applicable", "source": "inferred"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.10, "type": "continuous", "label": "not a factor", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.20, "type": "continuous", "label": "occasionally mentioned, not real", "source": "inferred"},
+          "process_clarity": {"value": 0.62, "type": "continuous", "label": "moderate — knows how to search", "source": "inferred"},
+          "clinical_naming_gap": {"value": 0.35, "type": "continuous", "label": "low — uses 'anxiety' privately", "source": "inferred"},
+          "obligation_barrier": {"value": 0.25, "type": "continuous", "label": "low — no active dependents", "source": "inferred"},
+          "category_misclassification": {"value": 0.25, "type": "continuous", "label": "low", "source": "inferred"},
+          "primary_barrier": {"value": "consequence_management", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "contemplation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "threshold_calibration": {"value": "functional_impairment_already_present", "type": "categorical", "source": "inferred"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.55, "type": "continuous", "label": "one close friend — ambivalent initially, positive on reflection", "source": "anchored"},
+          "peer_normalization_receptivity": {"value": 0.72, "type": "continuous", "label": "high if peer context is identical", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.68, "type": "continuous", "label": "medium-high", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.30, "type": "continuous", "label": "low — avoidance dominant", "source": "inferred"},
+          "avoidance_coping_reliance": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "self_medication_index": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹35,000–50,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.85, "type": "continuous", "label": "very high — would pay ₹3000/session", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.75, "type": "continuous", "label": "high — if peer has identical social context", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.35, "type": "continuous", "label": "low — already self-recognizes", "source": "inferred"},
+          "responds_to_frictionless_path": {"value": 0.55, "type": "continuous", "label": "medium — path isn't the core problem", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.40, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.35, "type": "continuous", "label": "low — she doesn't need permission", "source": "inferred"},
+          "responds_to_privacy_architecture": {"value": 0.92, "type": "continuous", "label": "very high — primary unlock", "source": "anchored"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.77,
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "privacy",
+        "coping_mechanism": {
+          "type": "denial/avoidance",
+          "description": "Active negotiation with circumstances — not denying the problem exists, but managing the timing and conditions of addressing it. The avoidance is strategic, not emotional."
+        },
+        "consistency_score": 84,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Knows exactly what she needs; has calculated the social cost and is waiting for conditions to change",
+          "Therapy-positive as a Bengaluru professional; therapy-risky as a Jaipur family member on the marriage market"
+        ]
+      },
+      "narrative": "I'm aware of the irony. I'm a product manager — I optimise systems for a living — and I cannot seem to solve this particular one. I know what's going on. I call it overthinking. That's partly accurate and partly convenient. I've been sleeping badly since the breakup, I ruminate through Sundays, I've deleted a meditation app twice, and at 10:47pm last Sunday I was searching 'therapist Bengaluru' on my phone. Then I stopped. Here's the thing: I don't think therapy is weird. My friend Shreya went after her breakup and she's visibly different — steadier, less reactive. I've been watching that for a year. I want what she has. But Shreya lives in Bengaluru and her family is from Chennai and she's not in the middle of a shaadi search. Mine is. My mother calls every night at nine. The conversation always ends somewhere near the same topic. My father was a government officer in Jaipur and has never in his life said the words 'mental health.' My Bengaluru friends think therapy is normal. My Jaipur family does not. I know exactly how information travels in my family — I watched my mother manage a relative's divorce for three years when I was a teenager. Nothing leaks without her, and everything leaks eventually. So: I know I need help. I know where to get it. I've done the math. The answer is: not right now. Post-settlement, post-settling — fine. Right now it creates a variable I can't control. So I manage. It's the managing that's exhausting.",
+      "decision_bullets": [
+        "Will not use any platform she cannot verify is confidential from family information networks — this is the primary gate",
+        "Searches at night (10–11pm) in the window after her parents have already called — this is the buying window",
+        "Price is irrelevant — willingness to pay is very high; the constraint is not economic",
+        "One peer with identical social context (marriage search active, similar family) who confirms information privacy = near-certain booking",
+        "Post-marriage-settlement she will almost certainly seek help — the delay is explicitly timed",
+        "Independent private practitioner (no platform account) framing is more persuasive than app-based services"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I'm a product manager in Bengaluru who knows exactly what I need and has calculated the social cost of getting it at this particular moment.",
+          "key_values": ["strategic information management", "self-awareness", "family relationship preservation"],
+          "life_defining_events": [
+            {"age_when": 12, "event": "Watched mother manage relative's divorce as an information resource", "lasting_impact": "Information is never neutral — it is a managed resource"},
+            {"age_when": 24, "event": "Friend Shreya went to therapy; Anika initially judged it, then observed the positive change", "lasting_impact": "Proof of concept exists; barrier is not effectiveness but information risk"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "herself",
+            "key_influencers": ["mother (primary social audience)", "Shreya (proof of concept)"],
+            "trust_network": ["self", "close Bengaluru friends", "not family of origin for this decision"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "none — income is not a factor",
+            "non_negotiables": ["complete confidentiality from family information channels"],
+            "absolute_avoidances": ["any platform with traceable digital footprint visible to family"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+    {
+      "persona_id": "pg-mhi-002",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P2-IDENTITY",
+      "demographic_anchor": {
+        "name": "Rohan",
+        "age": 34,
+        "gender": "male",
+        "location": {"country": "India", "region": "Maharashtra", "city": "Mumbai", "urban_tier": "metro"},
+        "household": {"structure": "nuclear", "size": 3, "income_bracket": "28–36 LPA", "dual_income": true},
+        "life_stage": "mid-career professional, primary earner, young child",
+        "education": "postgraduate — MBA",
+        "employment": "full-time — Sales Director"
+      },
+      "life_stories": [
+        {
+          "title": "Age 14: the thing that was never named",
+          "when": "age 14",
+          "event": "Rohan's father was hospitalised for three weeks. The family never said why. Neighbours were told it was his heart. Rohan heard 'nervous breakdown' exactly once, whispered between two aunts. The topic was then sealed. His father came home quieter. The family moved on. Rohan decided at some unexamined level that he would never be that man.",
+          "lasting_impact": "Therapy = breakdown = the thing the family spent 20 years not talking about. This equation is unconscious and will not yield to stigma-reduction messaging."
+        },
+        {
+          "title": "The EAP brochure",
+          "when": "age 32",
+          "event": "His company began offering an Employee Assistance Program. He received the onboarding email, opened it, read it cover to cover, and forwarded it to his team the same afternoon with the note: 'For anyone who might need this.' He did not acknowledge to himself that he had read it.",
+          "lasting_impact": "He is aware of the resource. The forward was a form of deniability — someone else might need it. Not him."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.30, "type": "continuous", "label": "low — no internal language for his state", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.25, "type": "continuous", "label": "low — reclassifies in real time", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.50, "type": "continuous", "label": "neutral — 'it works for some people'", "source": "inferred"},
+          "therapy_attitude_actual": {"value": 0.20, "type": "continuous", "label": "avoidant", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.90, "type": "continuous", "label": "very high", "source": "anchored"},
+          "primary_social_audience": {"value": "self", "type": "categorical", "source": "anchored"},
+          "stigma_personal": {"value": 0.75, "type": "continuous", "label": "high — he is his own most hostile observer", "source": "anchored"},
+          "stigma_projected": {"value": 0.50, "type": "continuous", "label": "medium", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.0, "type": "continuous", "label": "not applicable", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.92, "type": "continuous", "label": "extremely high — core identity", "source": "anchored"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.05, "type": "continuous", "label": "not a factor", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.15, "type": "continuous", "label": "rarely cited", "source": "inferred"},
+          "process_clarity": {"value": 0.55, "type": "continuous", "label": "medium — knows what EAP is", "source": "inferred"},
+          "clinical_naming_gap": {"value": 0.70, "type": "continuous", "label": "high — no language for internal state", "source": "anchored"},
+          "obligation_barrier": {"value": 0.55, "type": "continuous", "label": "medium — provider role", "source": "inferred"},
+          "category_misclassification": {"value": 0.55, "type": "continuous", "label": "medium — might be 'stress' not 'disorder'", "source": "inferred"},
+          "primary_barrier": {"value": "identity_threat", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "precontemplation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.35, "type": "continuous", "label": "low — reclassifies every symptom", "source": "inferred"},
+          "threshold_calibration": {"value": "hospitalisation_not_functional_impairment", "type": "categorical", "source": "inferred"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.15, "type": "continuous", "label": "very low — no male peer models for this", "source": "anchored"},
+          "peer_normalization_receptivity": {"value": 0.65, "type": "continuous", "label": "high — if framed as performance, not vulnerability", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.60, "type": "continuous", "label": "medium — only if peer is credible in his terms", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.20, "type": "continuous", "label": "low — denial dominant", "source": "inferred"},
+          "avoidance_coping_reliance": {"value": 0.85, "type": "continuous", "label": "very high", "source": "inferred"},
+          "self_medication_index": {"value": 0.55, "type": "continuous", "label": "medium — overwork as coping", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹50,000–80,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.70, "type": "continuous", "label": "high once framing problem is solved", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.80, "type": "continuous", "label": "very high — if peer is same profile and uses performance framing", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.50, "type": "continuous", "label": "medium — names help if they don't trigger father association", "source": "inferred"},
+          "responds_to_frictionless_path": {"value": 0.40, "type": "continuous", "label": "medium — path isn't the issue", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.88, "type": "continuous", "label": "very high — primary unlock", "source": "anchored"},
+          "responds_to_authority_permission": {"value": 0.35, "type": "continuous", "label": "low — doesn't want external authority", "source": "inferred"},
+          "responds_to_privacy_architecture": {"value": 0.40, "type": "continuous", "label": "medium", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "decision_style_score": 0.74,
+        "trust_anchor": "self",
+        "risk_appetite": "low",
+        "primary_value_orientation": "performance",
+        "coping_mechanism": {
+          "type": "denial/avoidance",
+          "description": "Active reclassification of symptoms — every signal is categorised as something non-psychological (caffeine, stress, bad quarter) before the mental health category can even be accessed."
+        },
+        "consistency_score": 78,
+        "consistency_band": "medium-high",
+        "key_tensions": [
+          "Invests in gym, nutrition, sleep tracking for performance — mental performance is the unconstructed category",
+          "Read the EAP brochure; forwarded it to his team; cannot acknowledge he read it"
+        ]
+      },
+      "narrative": "The quarter has been rough. It always is, Q3 especially. I'm sleeping a bit less than I'd like — four hours here, five hours there — but you push through. That's the job. I had something in the car last week that I thought was a caffeine thing. Blood pressure, maybe. I need to book that checkup. My numbers are down 18% but the pipeline is strong. I'll recover in Q4, I always do. I forward that EAP thing every year to the team. Mental health is real — I think that. For some people it's really useful. I'm just not wired that way. I've got the gym, I watch what I eat, I track my sleep when I can. I manage. My dad went through something when I was 14. The family handled it. He came out of it. We're fine. I don't really think about it. The thing I don't have time for is when people suggest that working hard and being reliable and being the person everyone counts on is somehow a problem. It's not a problem. It's what I am. I'm in the car park right now and I need to go into this meeting. Eight minutes. I'm fine.",
+      "decision_bullets": [
+        "Performance-coach framing (not therapist, not mental health) bypasses the identity-threat mechanism",
+        "The words 'feelings,' 'emotional,' 'wellness' are category-exit signals — avoid completely",
+        "Male peer, same career stage, visibly high-performing, who says 'this improved my Q4' = highest-probability conversion",
+        "Sleep data and cognitive performance metrics are his language — panic attack statistics, cortisol research, executive function studies",
+        "The father association must never be triggered — approach through performance decline, not historical pattern",
+        "3am waking is his highest-vulnerability window — he has almost booked twice; the next time needs an immediate pathway available"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am the person who delivers. I have been that person since I was 14. I do not need the thing I forward to my team.",
+          "key_values": ["performance", "reliability", "being the one who doesn't break"],
+          "life_defining_events": [
+            {"age_when": 14, "event": "Father's breakdown, never named, family sealed the topic", "lasting_impact": "Therapy = becoming that — an equation he has never examined"},
+            {"age_when": 32, "event": "Read EAP brochure, forwarded to team", "lasting_impact": "Awareness exists; deniability maintained"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "himself (hostile)",
+            "key_influencers": ["wife (secondary — has raised concerns twice)", "own performance metrics"],
+            "trust_network": ["himself", "performance data"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "none",
+            "non_negotiables": ["performance identity must not be threatened by the help-seeking act"],
+            "absolute_avoidances": ["any framing that echoes his father's breakdown", "emotional/feelings vocabulary"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-003",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P3-KNOWLEDGE-GAP",
+      "demographic_anchor": {
+        "name": "Zara",
+        "age": 23,
+        "gender": "female",
+        "location": {"country": "India", "region": "Delhi NCR", "city": "Delhi", "urban_tier": "metro"},
+        "household": {"structure": "shared flat — 2 flatmates", "size": 3, "income_bracket": "6–9 LPA", "dual_income": false},
+        "life_stage": "early career, post-college, remote-working",
+        "education": "undergraduate — design",
+        "employment": "full-time — UX Designer (remote)"
+      },
+      "life_stories": [
+        {
+          "title": "The Instagram education",
+          "when": "age 19–23",
+          "event": "Zara has been educated about mental health almost entirely through Instagram. She followed accounts that taught her CBT frameworks, somatic awareness, attachment theory. She can explain anxious attachment in a voice note. She has never been in a room with a therapist. Her knowledge is parasocial — real in vocabulary, absent in experience.",
+          "lasting_impact": "She understands the concepts but has no map from concept to practitioner. The vocabulary gave her awareness without access."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.82, "type": "continuous", "label": "very high — more than most adults", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.60, "type": "continuous", "label": "medium — says 'a bit off', not depression", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.92, "type": "continuous", "label": "fully positive", "source": "anchored"},
+          "therapy_attitude_actual": {"value": 0.88, "type": "continuous", "label": "positive — the gap is not attitudinal", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.15, "type": "continuous", "label": "very low", "source": "anchored"},
+          "primary_social_audience": {"value": "peers (positive)", "type": "categorical", "source": "inferred"},
+          "stigma_personal": {"value": 0.05, "type": "continuous", "label": "essentially zero", "source": "anchored"},
+          "stigma_projected": {"value": 0.12, "type": "continuous", "label": "very low", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.20, "type": "continuous", "label": "low — not currently active", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.05, "type": "continuous", "label": "not applicable", "source": "inferred"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.50, "type": "continuous", "label": "medium — ₹1200/session is significant on her income", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"},
+          "process_clarity": {"value": 0.18, "type": "continuous", "label": "very low — the primary barrier", "source": "anchored"},
+          "clinical_naming_gap": {"value": 0.55, "type": "continuous", "label": "medium — says 'a bit off' not depressive episode", "source": "anchored"},
+          "obligation_barrier": {"value": 0.10, "type": "continuous", "label": "very low", "source": "inferred"},
+          "category_misclassification": {"value": 0.30, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "primary_barrier": {"value": "process_friction_and_worthiness_gap", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "preparation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.45, "type": "continuous", "label": "medium-low", "source": "inferred"},
+          "threshold_calibration": {"value": "minimizes_own_symptoms_relative_to_trauma_benchmarks", "type": "categorical", "source": "anchored"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.75, "type": "continuous", "label": "high — multiple friends in therapy", "source": "inferred"},
+          "peer_normalization_receptivity": {"value": 0.90, "type": "continuous", "label": "very high — if comes with practical next step", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.85, "type": "continuous", "label": "very high", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.35, "type": "continuous", "label": "low — passive coping (journaling, doomscrolling)", "source": "inferred"},
+          "avoidance_coping_reliance": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "self_medication_index": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹8,000–15,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.62, "type": "continuous", "label": "medium — sensitive to price at this income level", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.85, "type": "continuous", "label": "very high", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.60, "type": "continuous", "label": "medium — 'you don't need a crisis' framing helps", "source": "inferred"},
+          "responds_to_frictionless_path": {"value": 0.95, "type": "continuous", "label": "primary unlock — near-certain conversion", "source": "anchored"},
+          "responds_to_performance_frame": {"value": 0.25, "type": "continuous", "label": "low — not her frame", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"},
+          "responds_to_privacy_architecture": {"value": 0.20, "type": "continuous", "label": "very low — not relevant", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.71,
+        "trust_anchor": "peer",
+        "risk_appetite": "medium-high",
+        "primary_value_orientation": "convenience",
+        "coping_mechanism": {
+          "type": "research_deep_dive",
+          "description": "Opens research into therapy options, encounters paralysing choice architecture, closes the tab. The research coping mechanism itself becomes an obstacle."
+        },
+        "consistency_score": 85,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Highest mental health vocabulary in the cohort; lowest actual help-seeking",
+          "Believes 'her problems aren't serious enough' while demonstrating classic dysthymia symptoms for 6 weeks"
+        ]
+      },
+      "narrative": "I know what somatic experiencing is. I know the difference between anxious and avoidant attachment. I posted a graphic about the window of tolerance last week. I have never in my life been inside a therapy room. I've been feeling flat for about six weeks now — not like depressed depressed, just kind of empty and unmotivated. I told two friends. Both said I should see someone. I agreed. Then I opened a therapy platform and there were fourteen therapists and I didn't know how to choose. Psychodynamic vs. CBT vs. ACT — I know what these mean in theory and I don't know how to know which one I need. I don't know if ₹1,200 is normal or expensive. I don't know if my situation warrants it — I haven't been through trauma or anything. I worry I'd be wasting their time. So I closed the tab. I've closed the tab six times now. If one of my friends just gave me a name and a number and said 'here, this person, this is what they do, this is what the first session is like,' I'd probably book it this week. I think about the Instagram accounts I follow and I know they're not the same as actually going, but it's the closest I've gotten.",
+      "decision_bullets": [
+        "One specific referral (name, contact, price, first-session description) = near-certain booking within the week",
+        "Aggregator platforms with 14+ listings actively increase her delay — they are the problem, not the solution",
+        "'You don't need a crisis to go' framing directly dissolves her worthiness barrier",
+        "Price is moderately sensitive — ₹800–1000 is in range; ₹1500+ requires justification",
+        "Online only for first session — will not travel for a first contact with an unknown person",
+        "Friend's own therapist referral is worth 10x any platform marketing — trust transfer is complete"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I know the vocabulary and the concepts. I've been meaning to go for six weeks. I just can't figure out where to start.",
+          "key_values": ["mental health normalisation", "peer community", "practical over performative"],
+          "life_defining_events": [
+            {"age_when": 19, "event": "Instagram became primary mental health education source", "lasting_impact": "Vocabulary without practical access map"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "close friends",
+            "key_influencers": ["two friends in therapy", "mental health Instagram accounts"],
+            "trust_network": ["close friends", "trusted online community"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "₹1,200/session is the stretch point",
+            "non_negotiables": ["online delivery", "simple booking process"],
+            "absolute_avoidances": ["complex multi-step onboarding", "in-person first sessions"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-004",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P4-OBLIGATION",
+      "demographic_anchor": {
+        "name": "Arjun",
+        "age": 26,
+        "gender": "male",
+        "location": {"country": "India", "region": "Telangana", "city": "Hyderabad", "urban_tier": "metro"},
+        "household": {"structure": "shared flat — 1 roommate", "size": 2, "income_bracket": "5–6 LPA", "dual_income": false},
+        "life_stage": "early career, first-gen migrant professional, primary family remittance sender",
+        "education": "undergraduate — engineering",
+        "employment": "full-time — Junior Software Engineer"
+      },
+      "life_stories": [
+        {
+          "title": "The success story the family tells",
+          "when": "age 22–26",
+          "event": "When Arjun got his Hyderabad job offer, his father called all the relatives. 'He earns in lakhs now.' Arjun sends ₹15,000 home each month. His actual salary is ₹5.5L. After rent, utilities, food, and the remittance, he has approximately ₹3,000 per month of discretionary spending. He has never told his family he is financially underwater. The story they are telling about him is load-bearing.",
+          "lasting_impact": "Disclosure of struggle would collapse the family narrative he is holding up. Silence is a form of structural support."
+        },
+        {
+          "title": "The bathroom after the promotion decision",
+          "when": "age 26",
+          "event": "His manager told him he was passed over for the project lead role. 'You need to work on your communication and visibility.' Arjun went to the bathroom and stayed for 25 minutes. He has heard some version of this feedback five times in his career. Each time he has tried harder to be more visible. Each time the result is the same.",
+          "lasting_impact": "He is beginning to understand that trying harder at the same thing is not solving the problem — but he does not yet know the problem has a name."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.10, "type": "continuous", "label": "very low — zero background in mental health concepts", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.25, "type": "continuous", "label": "low — calls it introversion", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.40, "type": "continuous", "label": "neutral-ambivalent", "source": "inferred"},
+          "therapy_attitude_actual": {"value": 0.35, "type": "continuous", "label": "skeptical — doesn't believe it treats what he has", "source": "anchored"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.70, "type": "continuous", "label": "high — first-gen success story cannot show cracks", "source": "anchored"},
+          "primary_social_audience": {"value": "family in Kurnool", "type": "categorical", "source": "anchored"},
+          "stigma_personal": {"value": 0.40, "type": "continuous", "label": "medium", "source": "inferred"},
+          "stigma_projected": {"value": 0.55, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.50, "type": "continuous", "label": "medium — beginning", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.75, "type": "continuous", "label": "high — family financial dependency", "source": "anchored"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.88, "type": "continuous", "label": "very high — genuinely cannot afford ₹1500/session", "source": "anchored"},
+          "cost_barrier_rationalized": {"value": 0.15, "type": "continuous", "label": "low — cost is real, not a cover story here", "source": "anchored"},
+          "process_clarity": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+          "clinical_naming_gap": {"value": 0.90, "type": "continuous", "label": "very high — does not know social anxiety is a clinical category", "source": "anchored"},
+          "obligation_barrier": {"value": 0.75, "type": "continuous", "label": "high — family remittance framing", "source": "anchored"},
+          "category_misclassification": {"value": 0.85, "type": "continuous", "label": "very high — calls it introversion", "source": "anchored"},
+          "primary_barrier": {"value": "clinical_naming_gap_plus_genuine_cost", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "precontemplation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.30, "type": "continuous", "label": "low — doesn't see it as a health issue", "source": "inferred"},
+          "threshold_calibration": {"value": "doesn't_apply_health_threshold_to_this_domain", "type": "categorical", "source": "anchored"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.05, "type": "continuous", "label": "essentially zero", "source": "anchored"},
+          "peer_normalization_receptivity": {"value": 0.45, "type": "continuous", "label": "medium — if peer is from same background", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.50, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.25, "type": "continuous", "label": "low — confidence YouTube videos, checklists", "source": "inferred"},
+          "avoidance_coping_reliance": {"value": 0.75, "type": "continuous", "label": "high — avoids triggering situations", "source": "anchored"},
+          "self_medication_index": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹2,500–4,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.30, "type": "continuous", "label": "low — genuine constraint, not reluctance", "source": "anchored"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.55, "type": "continuous", "label": "medium — if peer is from identical background", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.92, "type": "continuous", "label": "very high — primary unlock", "source": "anchored"},
+          "responds_to_frictionless_path": {"value": 0.60, "type": "continuous", "label": "medium — needed but not sufficient", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.70, "type": "continuous", "label": "high — career ROI is tangible to him", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_privacy_architecture": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.68,
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "utility",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Behavioural checklists and YouTube-based confidence-building, applied to the wrong category — these are social skills hacks for what is actually a clinical condition."
+        },
+        "consistency_score": 76,
+        "consistency_band": "medium-high",
+        "key_tensions": [
+          "Sends ₹15K home on a salary where ₹1500/session is two weeks' groceries — cost is real",
+          "Tries harder at the same behavioural interventions that have repeatedly failed — hasn't yet understood the problem has a different name"
+        ]
+      },
+      "narrative": "I'm good at my job. My code reviews are always clean, I've never missed a deadline. The thing I can't do is be visible in the way they keep asking for. My manager said 'communication and visibility' again last week. I stayed in the bathroom for a while after that. I've been trying. I made a checklist. I went to the team lunch. I left after twelve minutes because I didn't know what to say and it felt like everyone could tell. I'm not bad at my job. I'm bad at the version of my job that happens in conference rooms. I looked up therapy once. The prices start at ₹1,000 per session. That's two weeks of groceries. I send money home. My family talks about me to relatives. I can't use that money on myself. And anyway — I don't think therapy is for this. Therapy is for people with bigger problems, childhood things, trauma. I'm just an introvert who got placed in an extrovert's role. If someone explained to me that what I have has a name — that it's a condition that responds to treatment, not a personality I'm stuck with — I think that would change things.",
+      "decision_bullets": [
+        "Clinical naming ('social anxiety disorder' is what this is, and it's treatable) must precede any access offer",
+        "Free/subsidized access (employer EAP, academic institution, government scheme) removes the real cost barrier",
+        "'This is why your manager said visibility' career ROI framing makes the treatment tangible",
+        "Never use 'confidence' framing — he has tried confidence interventions repeatedly; they've failed; he doesn't trust the frame",
+        "Anonymous online and skills-based (CBT) over exploratory/reflective therapy — practical, not introspective",
+        "Peer from identical background (first-gen engineer, non-metro origin, similar family situation) is highest-trust normalization source"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I'm the first in my family to have this job. I send money home. I don't have problems — I have introversion and a tough role.",
+          "key_values": ["family responsibility", "career success", "practical solutions"],
+          "life_defining_events": [
+            {"age_when": 22, "event": "Family's success narrative begins with his job offer", "lasting_impact": "Disclosure of struggle would collapse load-bearing story"},
+            {"age_when": 26, "event": "Fifth 'work on visibility' feedback, bathroom for 25 minutes", "lasting_impact": "Beginning to understand trying harder at the wrong thing doesn't work"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "himself (alone — no one to consult)",
+            "key_influencers": ["family expectations", "manager's feedback"],
+            "trust_network": ["roommate (limited)", "YouTube career channels"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "₹500/session is the genuine ceiling; ₹1000+ requires external subsidy",
+            "non_negotiables": ["career improvement must be the frame", "family must not be told"],
+            "absolute_avoidances": ["childhood/trauma framing", "anything that looks like weakness"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-005",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P5-CAREGIVER",
+      "demographic_anchor": {
+        "name": "Sunita",
+        "age": 38,
+        "gender": "female",
+        "location": {"country": "India", "region": "Maharashtra", "city": "Pune", "urban_tier": "metro"},
+        "household": {"structure": "joint family", "size": 5, "income_bracket": "8–12 LPA", "dual_income": true},
+        "life_stage": "mid-career, married 11 years, two children, joint family",
+        "education": "postgraduate — B.Ed",
+        "employment": "full-time — Schoolteacher"
+      },
+      "life_stories": [
+        {
+          "title": "The counsellor's card in her wallet",
+          "when": "age 36",
+          "event": "She referred a student's parent to the school counsellor. She handled the conversation with care, normalised the need, and followed up to make sure the parent had booked. The counsellor gave her his card. She put it in her wallet. It has been there for two years. She has never called it for herself.",
+          "lasting_impact": "She has direct access to the mental health infrastructure. She has used it for every subject except herself."
+        },
+        {
+          "title": "Her mother's silence as a model",
+          "when": "childhood — ongoing",
+          "event": "Her mother managed a household, a diabetic husband, three children, a mother-in-law, and a part-time job without ever once saying she was not coping. Sunita grew up understanding that women in the role of family manager do not have the luxury of being the ones who need support. Her mother is now 65, diabetic herself, and still managing.",
+          "lasting_impact": "The role of 'stable one' is inherited, not chosen. It is what women in this position do."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.70, "type": "continuous", "label": "high — professional exposure", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.50, "type": "continuous", "label": "medium — calls it 'tired', suspects more", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.75, "type": "continuous", "label": "positive — recommends it to others", "source": "anchored"},
+          "therapy_attitude_actual": {"value": 0.45, "type": "continuous", "label": "ambivalent when applied to herself", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.82, "type": "continuous", "label": "high", "source": "anchored"},
+          "primary_social_audience": {"value": "mother-in-law + own mother (internalized)", "type": "categorical", "source": "anchored"},
+          "stigma_personal": {"value": 0.35, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "stigma_projected": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.0, "type": "continuous", "label": "not applicable", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.88, "type": "continuous", "label": "very high — emotional provider role", "source": "anchored"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.45, "type": "continuous", "label": "medium — manageable but requires justification", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.30, "type": "continuous", "label": "sometimes cited", "source": "inferred"},
+          "process_clarity": {"value": 0.72, "type": "continuous", "label": "high — professional familiarity", "source": "anchored"},
+          "clinical_naming_gap": {"value": 0.50, "type": "continuous", "label": "medium — suspects depression but won't name it", "source": "inferred"},
+          "obligation_barrier": {"value": 0.90, "type": "continuous", "label": "very high — primary barrier", "source": "anchored"},
+          "category_misclassification": {"value": 0.40, "type": "continuous", "label": "medium — 'tired' vs clinical", "source": "anchored"},
+          "primary_barrier": {"value": "role_identity_obligation", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "contemplation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.40, "type": "continuous", "label": "medium-low — normalises her state", "source": "inferred"},
+          "threshold_calibration": {"value": "compares_to_women_with_objectively_worse_situations", "type": "categorical", "source": "anchored"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.65, "type": "continuous", "label": "high — recommends it professionally", "source": "anchored"},
+          "peer_normalization_receptivity": {"value": 0.50, "type": "continuous", "label": "medium — peer story won't move her alone", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.20, "type": "continuous", "label": "low — car crying as only outlet", "source": "anchored"},
+          "avoidance_coping_reliance": {"value": 0.80, "type": "continuous", "label": "high", "source": "inferred"},
+          "self_medication_index": {"value": 0.25, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹10,000–18,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.45, "type": "continuous", "label": "medium — would need permission to spend on herself", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.40, "type": "continuous", "label": "low — doesn't help with the role identity barrier", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_frictionless_path": {"value": 0.55, "type": "continuous", "label": "medium — knows how to find a therapist", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.88, "type": "continuous", "label": "very high — primary unlock", "source": "anchored"},
+          "responds_to_better_caregiver_reframe": {"value": 0.90, "type": "continuous", "label": "very high — works within her value system", "source": "anchored"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "decision_style_score": 0.73,
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "role performance",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Manages distress through maintaining the outward structure of the role — keeping the household running, showing up at school, being functional. The car commute is the only unstructured space."
+        },
+        "consistency_score": 80,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Professionally connected to therapy infrastructure and recommends it to others; cannot access it for herself",
+          "Her delay is not a failure to recognize her need — it is a reasoned sacrifice within her role definition"
+        ]
+      },
+      "narrative": "I'm fine. I'm tired — but I think all teachers are tired right now. It's just the term. I referred one of my students to the counsellor last month. He was really struggling. I followed up to make sure the family booked the appointment. I have Rajesh's — the counsellor's — card in my wallet. I've had it for two years. It's not that I think going would be wrong. It's that I can't be the one who needs help in this house. My mother-in-law is on the ground floor. My husband doesn't notice things unless they're very obvious. My kids are nine and six. If I'm not steady, nothing is steady. My problems are ordinary. I see parents at school who are going through actual crises — divorces, illness. I'm just tired and a bit sad sometimes. That's not enough to take up a therapist's time. My colleague told me about an online platform. I saved the link. I put it under 'recipes' in my notes. I'm not sure why I did that. I think if my doctor told me to go, I'd go. I'd have a reason then that wasn't just about me.",
+      "decision_bullets": [
+        "'Better caregiver, not self-care' framing is the only message that works within her value system",
+        "Authority permission (doctor, principal, husband explicitly saying 'please go') increases booking probability 3–4x",
+        "Saved the link under 'recipes' — disguised intent is already present; the conversion is incomplete, not absent",
+        "Car commute window (morning, before school) is the only private processing time — audio/phone-based therapy fits",
+        "Employer/school-provided mental health support allows access without self-prioritization — institutional frame removes guilt",
+        "Her mother's silence as a model is the deepest conditioning — do not challenge it directly; work around it"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am the stable one. I manage things. My problems are ordinary and I don't have time to be the one who needs help right now.",
+          "key_values": ["family stability", "role performance", "not being a burden"],
+          "life_defining_events": [
+            {"age_when": "childhood", "event": "Mother's silent management as model", "lasting_impact": "Women in this role do not need support — they are the support"},
+            {"age_when": 36, "event": "Counsellor's card in wallet for two years", "lasting_impact": "Has access; cannot position herself as the user"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "doctor or husband (authority sanction needed)",
+            "key_influencers": ["mother-in-law (social audience)", "own mother (internalized model)"],
+            "trust_network": ["school counsellor (professional)", "doctor (medical authority)"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "will not spend on herself without authority permission",
+            "non_negotiables": ["family stability must not be visibly disrupted", "must not be seen as 'not coping'"],
+            "absolute_avoidances": ["'you deserve self-care' framing — she will reject self-desert arguments"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-006",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P6-BURNOUT",
+      "demographic_anchor": {
+        "name": "Vikram",
+        "age": 41,
+        "gender": "male",
+        "location": {"country": "India", "region": "Delhi NCR", "city": "Delhi", "urban_tier": "metro"},
+        "household": {"structure": "nuclear", "size": 3, "income_bracket": "40–60 LPA", "dual_income": true},
+        "life_stage": "senior professional, 14-year career, one child",
+        "education": "postgraduate — MBA",
+        "employment": "full-time — Senior Manager, consulting"
+      },
+      "life_stories": [
+        {
+          "title": "The machine",
+          "when": "age 30–41",
+          "event": "Somewhere around 2020, his team started calling him 'machine.' He liked it. He started using it himself. 'I'm wired differently — I don't need what other people need.' He took the reputation as evidence. He turned down a promotion in 2022 because it would mean managing more people and less work. He prefers doing to managing. He has never taken more than 3 days of consecutive leave.",
+          "lasting_impact": "His identity is fused with his output. Reduction in output = reduction in self."
+        },
+        {
+          "title": "The school play",
+          "when": "age 39, 40, 41",
+          "event": "His son's school has an annual play. He has missed it three years in a row for client calls. The first year his son cried. The second year his son said nothing. The third year his son said 'It's okay Papa, I know you're busy.' Vikram has been waking at 3am since that third year. He cannot identify why that sentence specifically will not stop echoing.",
+          "lasting_impact": "His son's acceptance rather than protest is the destabilising signal. He doesn't yet know why."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.35, "type": "continuous", "label": "low for mental health; high for business/performance", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.20, "type": "continuous", "label": "very low — reclassifies as logistics", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.45, "type": "continuous", "label": "neutral — it's useful for some", "source": "inferred"},
+          "therapy_attitude_actual": {"value": 0.25, "type": "continuous", "label": "avoidant — not for him", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.90, "type": "continuous", "label": "extremely high — output = identity", "source": "anchored"},
+          "primary_social_audience": {"value": "self and professional peers", "type": "categorical", "source": "anchored"},
+          "stigma_personal": {"value": 0.70, "type": "continuous", "label": "high — would see it as performance failure", "source": "inferred"},
+          "stigma_projected": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.0, "type": "continuous", "label": "not applicable", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.80, "type": "continuous", "label": "high — but not primarily financial", "source": "inferred"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.02, "type": "continuous", "label": "not a factor", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.05, "type": "continuous", "label": "never cited", "source": "inferred"},
+          "process_clarity": {"value": 0.60, "type": "continuous", "label": "medium — knows about EAP", "source": "anchored"},
+          "clinical_naming_gap": {"value": 0.80, "type": "continuous", "label": "high — doesn't know burnout is a clinical condition", "source": "anchored"},
+          "obligation_barrier": {"value": 0.40, "type": "continuous", "label": "medium — time scarcity real", "source": "inferred"},
+          "category_misclassification": {"value": 0.92, "type": "continuous", "label": "very high — primary barrier", "source": "anchored"},
+          "primary_barrier": {"value": "category_misclassification", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "precontemplation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.20, "type": "continuous", "label": "very low — not in the relevant category", "source": "inferred"},
+          "threshold_calibration": {"value": "hospitalization_or_complete_breakdown", "type": "categorical", "source": "inferred"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"},
+          "peer_normalization_receptivity": {"value": 0.70, "type": "continuous", "label": "high — if peer is high-performing and uses performance frame", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.15, "type": "continuous", "label": "very low — vacation didn't work", "source": "anchored"},
+          "avoidance_coping_reliance": {"value": 0.88, "type": "continuous", "label": "very high — work as avoidance", "source": "inferred"},
+          "self_medication_index": {"value": 0.70, "type": "continuous", "label": "high — overwork is the primary self-medication", "source": "anchored"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹80,000–120,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.80, "type": "continuous", "label": "high once category problem is solved", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.72, "type": "continuous", "label": "high — if peer is visibly high-performing", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.88, "type": "continuous", "label": "very high — primary unlock", "source": "anchored"},
+          "responds_to_frictionless_path": {"value": 0.40, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.92, "type": "continuous", "label": "very high — the only frame that works", "source": "anchored"},
+          "responds_to_authority_permission": {"value": 0.45, "type": "continuous", "label": "medium — data authority, not personal authority", "source": "inferred"},
+          "responds_to_privacy_architecture": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.78,
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "performance",
+        "coping_mechanism": {
+          "type": "denial/avoidance",
+          "description": "Reclassifies every symptom as a logistics problem with an operational solution. Vacations, systems, project-end promises. The solutions are correct for the wrong problem."
+        },
+        "consistency_score": 75,
+        "consistency_band": "medium-high",
+        "key_tensions": [
+          "Forwards EAP to team; cannot conceive of using it himself — the forward is functional deniability",
+          "Son's acceptance rather than protest is the only signal penetrating his performance frame"
+        ]
+      },
+      "narrative": "I don't have a mental health problem. I have a Q3 problem and a staffing problem and a client who doesn't know what he wants. Once this engagement closes, I'll take a proper break. I've been saying that for about twelve projects. I went to Goa in December — answered forty-seven emails. Came back the same. I think vacations just don't work for me. I'm wired differently. I sleep a bit less than I used to. Four, five hours. I wake up at three and I'm already running through the project. That's just how it is when you care about the work. My team calls me machine. I take it as a compliment. The EAP thing — I forward it every year. Some people need it. I think it's good that it exists. My son had his school play. I missed it again. He said 'It's okay Papa, I know you're busy.' I keep thinking about that. I don't know why that sentence keeps coming back. I'm fine. I just need this project to end.",
+      "decision_bullets": [
+        "Burnout must be named as a clinical condition with neurological evidence before any intervention can land",
+        "Performance metrics vocabulary only: 'executive function decline,' 'decision quality degradation,' 'cortisol dysregulation' — not feelings language",
+        "Peer from identical industry (consulting/high-performance) who says 'I did this and my numbers improved' = high conversion",
+        "Son's statement is the live emotional signal — do not weaponize it, but it is the only crack in the performance frame",
+        "Never use 'wellness,' 'emotional support,' 'self-care' — these are category-exit signals",
+        "Frame: 'a cognitive performance specialist' not 'a therapist' — language must not trigger the emotional-support association"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am the machine. I deliver. I don't need what other people need. I just need this project to end.",
+          "key_values": ["performance", "delivery", "being the one who doesn't stop"],
+          "life_defining_events": [
+            {"age_when": 30, "event": "Team names him 'machine'; he accepts it as identity", "lasting_impact": "Output = identity; reduction = failure"},
+            {"age_when": 41, "event": "Son says 'It's okay Papa, I know you're busy'", "lasting_impact": "The acceptance, not the complaint, is the destabilising signal"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "himself",
+            "key_influencers": ["performance data", "peer consultants"],
+            "trust_network": ["self", "trusted senior colleague"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "none",
+            "non_negotiables": ["performance identity must be maintained or enhanced by the intervention"],
+            "absolute_avoidances": ["emotional/feelings vocabulary", "self-care framing", "anything that implies breakdown risk"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-007",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P7-PROXY",
+      "demographic_anchor": {
+        "name": "Meena",
+        "age": 44,
+        "gender": "female",
+        "location": {"country": "India", "region": "Telangana", "city": "Hyderabad", "urban_tier": "metro"},
+        "household": {"structure": "nuclear (son at home)", "size": 3, "income_bracket": "22–30 LPA household", "dual_income": false},
+        "life_stage": "homemaker, children adult/near-adult, entering empty-nest phase",
+        "education": "undergraduate",
+        "employment": "homemaker"
+      },
+      "life_stories": [
+        {
+          "title": "The postpartum winter that was never named",
+          "when": "age 24",
+          "event": "After her second child, Meena had a period of several months that she remembers as 'the baby was difficult and I was not feeling well.' She did not sleep, could not find pleasure in anything, felt detached from the newborn. Her mother-in-law said some women just take longer to adjust. Her doctor checked her haemoglobin. The word 'depression' was not used. The episode resolved after six months. It was stored as a difficult time, not a health event.",
+          "lasting_impact": "She carries a 21-year-old undiagnosed episode with no frame for it. Retroactive recognition is possible and significant."
+        },
+        {
+          "title": "The call to the helpline",
+          "when": "age 44",
+          "event": "Her son has been withdrawing for two months — not attending college, not eating properly, not speaking. She called the family doctor, who referred her to a helpline. She is calling about her son. She has prepared what she will say about him. She has not prepared to answer questions about herself.",
+          "lasting_impact": "She has entered the mental health system through a door labeled 'my son.' The door labeled 'me' is adjacent."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.35, "type": "continuous", "label": "low — generational gap", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.15, "type": "continuous", "label": "very low — no self frame", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.55, "type": "continuous", "label": "open for son, neutral for self", "source": "inferred"},
+          "therapy_attitude_actual": {"value": 0.50, "type": "continuous", "label": "not resistant — simply no self-application frame", "source": "anchored"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.60, "type": "continuous", "label": "medium — but framed around son's situation, not own", "source": "inferred"},
+          "primary_social_audience": {"value": "family (son, husband)", "type": "categorical", "source": "inferred"},
+          "stigma_personal": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"},
+          "stigma_projected": {"value": 0.50, "type": "continuous", "label": "medium", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.0, "type": "continuous", "label": "not applicable", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.70, "type": "continuous", "label": "high — emotional provider", "source": "inferred"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.30, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.15, "type": "continuous", "label": "low", "source": "inferred"},
+          "process_clarity": {"value": 0.45, "type": "continuous", "label": "medium — navigating for son but not for self", "source": "inferred"},
+          "clinical_naming_gap": {"value": 0.75, "type": "continuous", "label": "high — own history is unnamed", "source": "anchored"},
+          "obligation_barrier": {"value": 0.65, "type": "continuous", "label": "medium-high — son is primary focus", "source": "inferred"},
+          "category_misclassification": {"value": 0.70, "type": "continuous", "label": "high — no mental health frame for self", "source": "anchored"},
+          "primary_barrier": {"value": "frame_invisibility", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "precontemplation_for_self", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.15, "type": "continuous", "label": "very low for self — not even a category", "source": "inferred"},
+          "threshold_calibration": {"value": "not_applicable_self_not_visible_as_subject", "type": "categorical", "source": "anchored"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.35, "type": "continuous", "label": "low — generational gap", "source": "inferred"},
+          "peer_normalization_receptivity": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"},
+          "wom_trust_weight": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.40, "type": "continuous", "label": "medium — very active but all directed outward", "source": "inferred"},
+          "avoidance_coping_reliance": {"value": 0.55, "type": "continuous", "label": "medium — for self", "source": "inferred"},
+          "self_medication_index": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹15,000–25,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.55, "type": "continuous", "label": "medium — would pay for son readily; for self needs framing", "source": "inferred"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_clinical_naming": {"value": 0.70, "type": "continuous", "label": "high — retroactive naming of postpartum is significant", "source": "anchored"},
+          "responds_to_frictionless_path": {"value": 0.60, "type": "continuous", "label": "medium-high — once frame opens", "source": "inferred"},
+          "responds_to_performance_frame": {"value": 0.35, "type": "continuous", "label": "low — not her frame", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.72, "type": "continuous", "label": "high — counsellor's direct question is the key", "source": "anchored"},
+          "responds_to_proxy_pathway": {"value": 0.92, "type": "continuous", "label": "very high — the only entry that works", "source": "anchored"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "decision_style_score": 0.70,
+        "trust_anchor": "family",
+        "risk_appetite": "low",
+        "primary_value_orientation": "family stability",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Directs all coping energy outward — toward her son, her husband, the household. Has not been in a frame where her own coping is a subject."
+        },
+        "consistency_score": 77,
+        "consistency_band": "medium-high",
+        "key_tensions": [
+          "Navigating mental health system expertly for her son; completely outside it as a subject herself",
+          "Carries a 21-year undiagnosed episode that could be retroactively named in this interaction"
+        ]
+      },
+      "narrative": "I'm calling about my son. He's 19, he stopped going to class about two months ago. He stays in his room. He's eating very little. He used to be so social — football with friends, always talking. Now he doesn't come out. My husband says give him time. I don't think time is the problem. I spoke to our family doctor and he gave me this number. I want to understand what is happening and what I can do. I'm fine. I'm worried, obviously — any mother would be. But I'm okay. I'm just very tired. I haven't been sleeping properly since this started. Sometimes I feel — I don't know. It's nothing. It's him I'm calling about. How do I help him?",
+      "decision_bullets": [
+        "The counsellor's direct 'how are YOU doing?' is the turning point — creates the frame for self-visibility",
+        "'Helping yourself is part of helping him' is the only self-prioritization frame that doesn't require abandoning her role",
+        "Retroactive naming of the postpartum episode may be the most significant intervention — it retroactively creates a mental health self-history",
+        "Once the frame opens, she is not resistant — practical next steps are what she needs, not persuasion",
+        "Daughter in the US is an unexpected ally — the WhatsApp channel has already started this conversation",
+        "She is action-oriented and competent — give her concrete steps once she's in the frame, not more exploration"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am calling about my son. I am fine. I am just a mother who is worried and hasn't slept properly.",
+          "key_values": ["family wellbeing", "being the one who handles things", "her son's recovery"],
+          "life_defining_events": [
+            {"age_when": 24, "event": "Postpartum episode — named as 'difficult time,' never as mental health event", "lasting_impact": "A 21-year unrecognized episode available for retroactive naming"},
+            {"age_when": 44, "event": "Calling helpline for son", "lasting_impact": "First entry into mental health system — adjacent door to own recognition"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "husband (practical), daughter (emotional, WhatsApp)",
+            "key_influencers": ["son's situation", "family doctor who referred her"],
+            "trust_network": ["family doctor", "helpline counsellor", "daughter abroad"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "none for son; moderate for self",
+            "non_negotiables": ["son's improvement is the primary goal"],
+            "absolute_avoidances": ["framing that diverts attention from son before his situation is addressed"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    },
+    {
+      "persona_id": "pg-mhi-008",
+      "generated_at": "2026-04-08T00:00:00+05:30",
+      "domain": "mental-health-help-seeking-urban-india",
+      "study_code": "P8-PERPETUAL",
+      "demographic_anchor": {
+        "name": "Divya",
+        "age": 31,
+        "gender": "female",
+        "location": {"country": "India", "region": "Maharashtra", "city": "Mumbai", "urban_tier": "metro"},
+        "household": {"structure": "nuclear — lives alone", "size": 1, "income_bracket": "18–26 LPA", "dual_income": false},
+        "life_stage": "early-mid career, unmarried, socially active",
+        "education": "postgraduate — MBA",
+        "employment": "full-time — Marketing Manager"
+      },
+      "life_stories": [
+        {
+          "title": "The WhatsApp chat named 'therapy recs?'",
+          "when": "age 29–31",
+          "event": "Divya created a WhatsApp group with two friends 24 months ago to collect therapist recommendations. The chat has 23 messages. A referral, a price, a note that 'she's really good with anxiety.' A follow-up: 'Did you book?' An emoji reply. No appointments made. The chat is still pinned in her WhatsApp. She opens it sometimes.",
+          "lasting_impact": "Intent is persistent; action is not. The gap is not motivational — it is mechanical."
+        },
+        {
+          "title": "Recommending therapy to her colleague",
+          "when": "age 30",
+          "event": "Her colleague's relationship was falling apart. Divya spent forty minutes one afternoon telling her why therapy could help, how to find a therapist, what the first session would be like. Her colleague booked. Divya was genuinely happy for her. She did not book her own appointment.",
+          "lasting_impact": "The distance between 'I recommend therapy' and 'I am in therapy' is the core structural irony of her current life."
+        }
+      ],
+      "attributes": {
+        "awareness": {
+          "clinical_vocabulary": {"value": 0.75, "type": "continuous", "label": "high", "source": "anchored"},
+          "condition_self_recognition": {"value": 0.78, "type": "continuous", "label": "high — uses the word 'my anxiety'", "source": "anchored"},
+          "therapy_attitude_stated": {"value": 0.90, "type": "continuous", "label": "fully positive", "source": "anchored"},
+          "therapy_attitude_actual": {"value": 0.85, "type": "continuous", "label": "positive — the gap is not attitudinal", "source": "inferred"}
+        },
+        "identity_social_stakes": {
+          "social_identity_at_risk": {"value": 0.20, "type": "continuous", "label": "very low", "source": "inferred"},
+          "primary_social_audience": {"value": "peers (supportive)", "type": "categorical", "source": "inferred"},
+          "stigma_personal": {"value": 0.08, "type": "continuous", "label": "essentially zero", "source": "anchored"},
+          "stigma_projected": {"value": 0.15, "type": "continuous", "label": "very low", "source": "inferred"},
+          "arranged_marriage_pressure": {"value": 0.35, "type": "continuous", "label": "low-medium — background noise", "source": "inferred"},
+          "provider_identity_stake": {"value": 0.10, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "barrier_architecture": {
+          "cost_barrier_real": {"value": 0.15, "type": "continuous", "label": "very low — earns well", "source": "inferred"},
+          "cost_barrier_rationalized": {"value": 0.20, "type": "continuous", "label": "occasionally mentioned but not real", "source": "inferred"},
+          "process_clarity": {"value": 0.55, "type": "continuous", "label": "medium — knows how in theory, hasn't done it", "source": "inferred"},
+          "clinical_naming_gap": {"value": 0.15, "type": "continuous", "label": "very low — already uses the word", "source": "anchored"},
+          "obligation_barrier": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"},
+          "category_misclassification": {"value": 0.10, "type": "continuous", "label": "very low", "source": "inferred"},
+          "primary_barrier": {"value": "urgency_gap_and_action_intent_decay", "type": "categorical", "source": "anchored"}
+        },
+        "readiness": {
+          "stage_of_change": {"value": "preparation", "type": "categorical", "source": "anchored"},
+          "urgency_perception": {"value": 0.38, "type": "continuous", "label": "medium-low — 7/10 discomfort, manageable", "source": "anchored"},
+          "threshold_calibration": {"value": "comfortable_7_out_of_10_is_not_enough_to_act", "type": "categorical", "source": "anchored"}
+        },
+        "social_exposure": {
+          "peer_therapy_exposure": {"value": 0.85, "type": "continuous", "label": "very high — two close friends in therapy", "source": "anchored"},
+          "peer_normalization_receptivity": {"value": 0.88, "type": "continuous", "label": "very high — but requires simultaneous action pathway", "source": "anchored"},
+          "wom_trust_weight": {"value": 0.82, "type": "continuous", "label": "very high", "source": "inferred"}
+        },
+        "coping_repertoire": {
+          "active_coping_quality": {"value": 0.48, "type": "continuous", "label": "medium — exercise and podcasts are genuine partial relief", "source": "anchored"},
+          "avoidance_coping_reliance": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "self_medication_index": {"value": 0.55, "type": "continuous", "label": "medium — exercise, wine, podcast as anxiety management", "source": "anchored"}
+        },
+        "economics": {
+          "disposable_income_monthly": {"value": "₹35,000–55,000 approx", "type": "categorical", "source": "inferred"},
+          "willingness_to_pay": {"value": 0.80, "type": "continuous", "label": "high — has stated ₹1500/session is fine", "source": "anchored"}
+        },
+        "intervention_receptivity": {
+          "responds_to_peer_story": {"value": 0.85, "type": "continuous", "label": "very high — the LinkedIn post demonstrates this", "source": "anchored"},
+          "responds_to_clinical_naming": {"value": 0.30, "type": "continuous", "label": "low — already named it", "source": "inferred"},
+          "responds_to_frictionless_path": {"value": 0.88, "type": "continuous", "label": "very high — but only if simultaneous with high-intent moment", "source": "anchored"},
+          "responds_to_performance_frame": {"value": 0.40, "type": "continuous", "label": "medium", "source": "inferred"},
+          "responds_to_authority_permission": {"value": 0.25, "type": "continuous", "label": "low — doesn't need it", "source": "inferred"},
+          "responds_to_peer_plus_immediate_path": {"value": 0.94, "type": "continuous", "label": "very high — requires BOTH simultaneously", "source": "anchored"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "decision_style_score": 0.76,
+        "trust_anchor": "peer",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "wellbeing",
+        "coping_mechanism": {
+          "type": "social_validation",
+          "description": "Manages anxiety through social connection, exercise routine, and podcast consumption. These provide genuine partial relief that reduces urgency below the action threshold."
+        },
+        "consistency_score": 83,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Most active normalizer of therapy in her social circle; has never attended herself",
+          "Intent rises reliably in high-signal moments and decays within 48–72 hours without a simultaneous pathway"
+        ]
+      },
+      "narrative": "I have anxiety. It's not like debilitating or anything — I work, I go out, I'm fine. It's just kind of always there in the background. I exercise five days a week, which helps. I do this thing where I listen to podcasts while cooking so I don't have to be alone with my thoughts, which — I know. I know. I've been meaning to see a therapist for about two years. I have a WhatsApp chat called 'therapy recs?' — yes, with the question mark — and it has 23 messages and no appointments. I helped my colleague Sia book her first session last year. I spent forty minutes telling her how good it would be. She's been going for eight months and she says it's changed her. I recommended it to two other people this year. I have not booked my own. I read this LinkedIn post today — a woman I barely know, she used to work with a friend of mine. She wrote about how she went to therapy and she stopped picking fights with her husband over dishes. Specifically dishes. I read it three times. I don't know why that specificity got me. I've been thinking about it all afternoon. I think if there had been a 'book here' button at the bottom of that post I might actually have clicked it.",
+      "decision_bullets": [
+        "Peer story must describe a specific, relatable, non-transformational outcome — 'stopped picking fights over dishes' works; 'healed my trauma' does not",
+        "Booking option must appear at peak intent moment — delay of 6+ hours between story and pathway = 60% conversion decay",
+        "'You don't need to be worse — two years of meaning to go is exactly the right trigger' disarms the mild shame of delayed action",
+        "Friends booking together ('come book with me right now') is the highest-conversion single intervention",
+        "Price is not a factor: stated ₹1500/session is comfortable; do not discount",
+        "She is already a referrer — making her a 'converted referrer' (I finally went) is the identity shift that converts"
+      ],
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I have anxiety, I know it, I recommend therapy to everyone, and I have a WhatsApp chat called 'therapy recs?' with 23 messages and no appointment.",
+          "key_values": ["mental health normalisation", "self-awareness", "community"],
+          "life_defining_events": [
+            {"age_when": 29, "event": "Created 'therapy recs?' WhatsApp chat", "lasting_impact": "Persistent documented intent; persistent non-action — the gap is mechanical not motivational"},
+            {"age_when": 30, "event": "Helped colleague Sia book therapy", "lasting_impact": "The distance between 'I recommend this' and 'I do this' is her defining tension"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "close friends (two in therapy)",
+            "key_influencers": ["peer stories", "LinkedIn professional network"],
+            "trust_network": ["close friends", "professional peers with similar values"]
+          },
+          "immutable_constraints": {
+            "hard_budget_ceiling": "none practically",
+            "non_negotiables": ["online delivery acceptable", "first session low-friction"],
+            "absolute_avoidances": ["crisis framing", "transformation narrative — too far from her current situation"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+      }
+    }
+  ],
+  "cohort_summary": {
+    "decision_style_distribution": {"emotional": 0.0, "analytical": 0.5, "habitual": 0.25, "social": 0.25},
+    "trust_anchor_distribution": {"self": 0.375, "peer": 0.25, "authority": 0.25, "family": 0.125},
+    "risk_appetite_distribution": {"low": 0.375, "medium": 0.5, "high": 0.125},
+    "consistency_scores": {"mean": 80, "min": 75, "max": 85},
+    "behavioural_params_summary": {
+      "dominant_trust_anchor": "self (but peer is the highest-leverage intervention for most)",
+      "top_barrier_types": ["identity_threat", "category_misclassification", "process_friction", "role_obligation", "urgency_gap"],
+      "top_intervention_types": ["performance_reframe", "clinical_naming", "frictionless_pathway", "authority_permission", "peer_plus_immediate_path"],
+      "params_source_distribution": {"proxy_estimated": 1.0}
+    },
+    "calibration_state": {
+      "status": "uncalibrated",
+      "method_applied": "none",
+      "last_calibrated": null,
+      "benchmark_source": null
+    },
+    "coverage_assessment": "Good coverage of gender (5F/3M), age range (23–44), income range (lower-middle to upper-middle), and barrier diversity (7 distinct barrier mechanisms across 8 personas). Gaps: no Tier-2/3 representation, no student age bracket (18–22), no prior-bad-therapy-experience archetype, no LGBTQ+ dimension.",
+    "dominant_tensions": [
+      "High stated openness to therapy + near-zero behavioral uptake across the cohort",
+      "Expertise and awareness about mental health for others + blindness to own situation (Sunita, Meena, Divya)"
+    ]
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "persona_id": "pg-rdn2-uk-004",
+  "generated_at": "2026-04-14T10:20:00Z",
+  "generator_version": "1.0",
+  "domain": "reuters-digital-news-usa-uk-v2",
+  "study_id": "STU_005_v2",
+  "cohort": "UK-S03",
+  "mode": "deep",
+
+  "demographic_anchor": {
+    "name": "Fiona MacLeod",
+    "age": 32,
+    "gender": "female",
+    "location": {
+      "country": "United Kingdom",
+      "region": "Scotland",
+      "city": "Edinburgh",
+      "urban_tier": "metro"
+    },
+    "household": {
+      "structure": "other",
+      "size": 1,
+      "income_bracket": "£21,000/year (part-time work + stipend)",
+      "dual_income": false
+    },
+    "life_stage": "mature postgraduate student (PhD year 2), part-time work to support studies",
+    "education": "postgraduate (PhD candidate) — Scottish literature, University of Edinburgh",
+    "employment": "part-time — university library assistant (15 hrs/wk) + occasional marking"
+  },
+
+  "life_stories": [
+    {
+      "title": "The long road to a PhD",
+      "when": "age 24–32",
+      "event": "Fiona did her undergraduate at Aberdeen, worked for four years in publishing in Edinburgh, then got accepted to Edinburgh's PhD programme. She had been turned down once before and spent three years revising her proposal. She is acutely aware that she is doing this the expensive way — living on a thin stipend, giving up career income — and she has made peace with it. She reads constantly; news is simply one of the many things she reads.",
+      "lasting_impact": "Highly literate, text-comfortable news consumer. Treats news as reading rather than viewing. Comfortable with long-form and academic-adjacent journalism. Patient consumer — not urgency-driven."
+    },
+    {
+      "title": "Scottish independence and the political awakening",
+      "when": "age 20–22",
+      "event": "The 2014 independence referendum was the event that made Fiona political. She was 20, she campaigned (Yes side), and she watched the media coverage with growing frustration at what she saw as consistent pro-Union framing. She read the academic literature on media bias in referendum coverage afterwards. She became deeply interested in how ownership structures and editorial positions shape coverage, and how to read between the lines of any politically charged story.",
+      "lasting_impact": "Politically sophisticated media consumer with specific interest in ownership and framing analysis. High scepticism of unionist-owned Scottish press. Reads The National, The Guardian, and follows Wings Over Scotland (though critically). Strong views on BBC Scotland specifically."
+    },
+    {
+      "title": "The research library as information environment",
+      "when": "age 28–32",
+      "event": "Working and studying in university libraries has given Fiona a particular relationship with information. She uses library databases as naturally as most people use Google. When she wants to understand a news story, she often pulls the primary report, the academic context, or the historical background. She is not a fast-moving news consumer — she processes slowly and deeply. She reads three or four longform pieces in the time most people scan twenty headlines.",
+      "lasting_impact": "Deep, slow news consumer. Prefers primary sources and longform over briefings and summaries. Research habits from academic work carry directly into news consumption. Will disengage from any outlet that feels like it's presenting conclusions without showing the evidence."
+    }
+  ],
+
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.58, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "status_quo_bias": {"value": 0.20, "type": "continuous", "label": "low", "source": "inferred"},
+      "information_need": {"value": 0.88, "type": "continuous", "label": "very high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.40, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "values": {
+      "budget_consciousness": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"},
+      "brand_loyalty": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "convenience_preference": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "civic_duty_orientation": {"value": 0.82, "type": "continuous", "label": "very high", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.30, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.40, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.35, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "lifestyle": {
+      "perceived_time_scarcity": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "routine_adherence": {"value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "simplicity_preference": {"value": 0.22, "type": "continuous", "label": "low", "source": "inferred"},
+      "digital_nativity": {"value": 0.72, "type": "continuous", "label": "high", "source": "anchored"}
+    },
+    "domain_specific": {
+      "news_trust_overall": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "news_avoidance_frequency": {"value": "rarely", "type": "categorical", "label": "rarely — very high information need sustains engagement", "source": "inferred"},
+      "avoidance_trigger": {"value": "overload", "type": "categorical", "label": "occasionally overwhelmed during thesis crunch periods", "source": "inferred"},
+      "primary_platform": {"value": "newspaper_digital", "type": "categorical", "label": "The Guardian + The National + longform reading apps (Pocket/Instapaper)", "source": "inferred"},
+      "youtube_news_use": {"value": 0.15, "type": "continuous", "label": "low — occasional documentary/explainer content", "source": "inferred"},
+      "podcast_news_use": {"value": 0.42, "type": "continuous", "label": "moderate — audio while walking/commuting", "source": "inferred"},
+      "social_media_news_use": {"value": 0.40, "type": "continuous", "label": "moderate — Twitter/Mastodon for political commentary; not primary source", "source": "inferred"},
+      "mainstream_media_trust": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "social_media_news_trust": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "bbc_trust_level": {"value": 0.38, "type": "continuous", "label": "moderate-low — specifically critical of BBC Scotland coverage; more trust for international reporting", "source": "inferred"},
+      "paid_subscription_held": {"value": "yes", "type": "categorical", "label": "The Guardian (student rate) + The National (digital)", "source": "inferred"},
+      "ai_news_attitude": {"value": "resistant", "type": "categorical", "label": "resistant — academic background makes her deeply suspicious of automated synthesis", "source": "inferred"}
+    }
+  },
+
+  "derived_insights": {
+    "decision_style": "analytical",
+    "decision_style_score": 0.77,
+    "trust_anchor": "self",
+    "risk_appetite": "medium",
+    "primary_value_orientation": "quality",
+    "coping_mechanism": {
+      "type": "research_deep_dive",
+      "description": "Fiona processes news the same way she processes academic literature — going to primary sources, tracking down the original report or data, reading multiple perspectives before forming a view. This is intellectually satisfying but slow."
+    },
+    "consistency_score": 84,
+    "consistency_band": "high",
+    "key_tensions": [
+      "Very high civic and information need creates intensive news engagement, but PhD-level critical standards means almost no outlet fully satisfies her — she reads a lot and trusts little",
+      "Strong Yes/independence political identity makes objectivity difficult — she is aware of her own framing biases but still holds them"
+    ]
+  },
+
+  "narrative": "I've been reading The Guardian and The National alongside each other for years now, which probably tells you something about where I land politically. I'm a PhD student so 'slow reading' is basically my whole professional personality — I don't do skimming. When something happens and I want to understand it, I'll pull the primary report, I'll read two or three pieces from different angles, and then I'll form a view. That's slower than most people have time for but I genuinely can't do it the other way. I got politically activated during the independence referendum — I was 20, I campaigned for Yes, and I watched the media coverage with a kind of growing horror at how the framing worked. I read the academic analysis of BBC Scotland's referendum coverage afterwards. That experience made me a different kind of news reader. I'm aware of ownership structures, I'm aware of editorial positions, I try to triangulate. BBC — I have different views on different parts of it. Their international reporting is broadly solid. Their Scottish political coverage I don't trust at all. I'll listen to podcasts when I'm walking or on the bus — The Guardian's ones, occasionally The Rest Is Politics, some Scottish political podcasts. YouTube occasionally for documentary stuff. I don't use it for news in the regular sense. AI news summaries — as a researcher I know what gets lost in automated synthesis. I won't use them for anything that actually matters.",
+
+  "decision_bullets": [
+    "Primary platforms are The Guardian and The National — reads both for triangulation of UK/Scotland political framing.",
+    "Academic reading habits carry into news — seeks primary sources and multiple perspectives before forming a view.",
+    "BBC Scotland coverage specifically distrusted; BBC international reporting viewed more positively.",
+    "YouTube is occasional and documentary-specific — not a regular news source.",
+    "Podcast news use is moderate — Guardian podcasts and Scottish political podcasts on commute/walks.",
+    "Pays for news at student rates — views subscription as supporting journalism infrastructure.",
+    "AI news summaries strongly rejected — researcher's understanding of what automated synthesis loses.",
+    "News avoidance is very rare; civic duty and intellectual drive sustain engagement despite low outlet trust."
+  ],
+
+  "memory": {
+    "core_memory": {
+      "identity_statement": "PhD candidate, Edinburgh, £21k stipend, deep analytical news consumer, Scottish independence-aligned, The Guardian/National subscriber.",
+      "key_values": ["information depth", "political accountability", "editorial transparency"],
+      "life_defining_events": [
+        {"age_when": 20, "event": "2014 independence referendum campaign; observed systematic framing bias in coverage", "lasting_impact": "Politically sophisticated framing-aware reader; specific distrust of BBC Scotland and unionist press"},
+        {"age_when": 24, "event": "Began PhD research; academic information habits formed and consolidated", "lasting_impact": "Primary-source-first news consumer; won't accept conclusions without seeing the evidence"},
+        {"age_when": 28, "event": "Library work integrated into research life; information sourcing became second nature", "lasting_impact": "High information need; slow, deep news consumption preferred over fast, wide"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "herself — high intellectual autonomy",
+        "key_influencers": ["Guardian journalists", "Scottish political commentators", "academic political science community"],
+        "trust_network": ["independent Scottish media", "academic peer network", "Guardian editorial standards"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "~£10/month for news (student budget)",
+        "non_negotiables": ["editorial transparency", "primary source access"],
+        "absolute_avoidances": ["BBC Scotland political coverage as primary source", "AI-synthesised news", "unionist Scottish press on Scottish independence topics"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {
+      "current_turn": 0,
+      "importance_accumulator": 0.0,
+      "reflection_count": 0,
+      "awareness": {},
+      "consideration_set": [],
+      "last_decision": null
+    }
+  }
+}

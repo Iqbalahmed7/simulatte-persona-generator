@@ -1,0 +1,64 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C2",
+      "name": "Keto Lifestyle Follower",
+      "count": 10,
+      "age_range": [
+        28,
+        42
+      ],
+      "locations": [
+        "Bangalore",
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Chennai",
+        "Pune"
+      ],
+      "urban_tiers": [
+        "metro"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle",
+        "high"
+      ],
+      "household_types": [
+        "nuclear"
+      ],
+      "key_signals": {
+        "keto_diet_adherence": "high",
+        "clean_label_importance": "high",
+        "functional_food_trust": "medium-low",
+        "indian_startup_brand_trust": "low-medium",
+        "premium_price_tolerance": "high",
+        "weight_management_drive": "high",
+        "protein_consciousness": "medium-high",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [
+        1,
+        2,
+        5,
+        11
+      ],
+      "notes": "Strict keto adherent \u2014 tracks macros, reads ingredient lists carefully. Skeptical of Indian keto brands ('non-keto ingredients, fake ratings' concern from dLife/Reddit). Has likely tried Lo! Foods or evaluated it. May have DIY keto food preference."
+    }
+  ]
+}

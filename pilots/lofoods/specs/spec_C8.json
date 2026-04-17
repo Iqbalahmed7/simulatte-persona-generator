@@ -1,0 +1,63 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C8",
+      "name": "Diabetic Caretaker / Spouse",
+      "count": 10,
+      "age_range": [
+        38,
+        60
+      ],
+      "gender_skew": "female-dominant (65%)",
+      "locations": [
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Chennai",
+        "Bangalore",
+        "Kolkata"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1",
+        "tier2"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle"
+      ],
+      "household_types": [
+        "nuclear",
+        "joint"
+      ],
+      "key_signals": {
+        "diabetic_status": "medium",
+        "doctor_endorsement_weight": "very-high",
+        "functional_food_trust": "medium-low",
+        "clean_label_importance": "high",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "low",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [
+        6
+      ],
+      "notes": "Actual grocery buyer for diabetic family member. Higher skepticism than the patient \u2014 protective instinct. More likely to seek doctor validation before purchase. Will check ingredients meticulously. Represents the 'gatekeeper' in diabetic food purchase."
+    }
+  ]
+}

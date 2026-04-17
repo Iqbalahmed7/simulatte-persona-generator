@@ -1,0 +1,55 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "P3",
+      "name": "Corporate Wellness / HR Manager",
+      "count": 10,
+      "age_range": [
+        28,
+        45
+      ],
+      "locations": [
+        "Bangalore",
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Pune",
+        "Chennai"
+      ],
+      "urban_tiers": [
+        "metro"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle"
+      ],
+      "role": "institutional buyer for employee wellness programs and cafeteria supply",
+      "key_signals": {
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "medium",
+        "protein_consciousness": "medium",
+        "clean_label_importance": "medium-high"
+      },
+      "case_studies": [
+        17
+      ],
+      "notes": "Budget-constrained by employer. Evaluates B2B proposition through ROI + employee health outcome lens. Needs simple procurement process, bulk pricing, and compliance materials. Lo! Foods as a corporate wellness brand is nascent \u2014 credibility from consumer recognition helps."
+    }
+  ]
+}

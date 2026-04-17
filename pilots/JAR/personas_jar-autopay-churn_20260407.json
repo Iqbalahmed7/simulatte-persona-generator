@@ -1,0 +1,1135 @@
+{
+  "cohort_id": "cohort-jar-autopay-churn-20260407",
+  "generated_at": "2026-04-07T00:00:00Z",
+  "domain": "jar-autopay-churn",
+  "business_problem": "Why do first-time Jar savers lapse after 30-60 days on AutoPay, and which intervention prevents permanent churn?",
+  "mode": "deep-simulation-ready",
+  "taxonomy_used": {
+    "categories": ["psychology", "financial_behavior", "social_influence", "digital_behavior", "cultural_context", "domain_specific"],
+    "total_attributes": 42,
+    "domain_data_used": false,
+    "params_source": "proxy_estimated"
+  },
+  "personas": [
+    {
+      "persona_id": "pg-jar-001",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "jar-autopay-churn",
+      "segment": "Fragile Starter",
+      "demographic_anchor": {
+        "name": "Sunita Devi",
+        "age": 24,
+        "gender": "female",
+        "location": {
+          "country": "India",
+          "region": "Bihar",
+          "city": "Sitamarhi",
+          "urban_tier": "tier3"
+        },
+        "household": {
+          "structure": "joint",
+          "size": 6,
+          "income_bracket": "₹10,000-13,000/month",
+          "dual_income": false
+        },
+        "life_stage": "newly married, no children yet",
+        "education": "high-school",
+        "employment": "homemaker"
+      },
+      "life_stories": [
+        {
+          "title": "The chit fund collapse",
+          "when": "age 20",
+          "event": "A neighbor Kamla Didi ran a women's chit fund in the colony. Sunita contributed ₹500/month for 11 months. In month 12, Kamla Didi stopped answering her door. The ₹5,500 was gone. No police report was filed — her father-in-law said it was shameful to publicize. Sunita has never spoken about it directly but avoids all group savings schemes.",
+          "lasting_impact": "Permanent distrust of any scheme involving a human intermediary. Prefers automated, invisible savings. Paradoxically, this is what made AutoPay appealing — no person holds the money."
+        },
+        {
+          "title": "The necklace that started it all",
+          "when": "age 23",
+          "event": "Her friend Priya wore a gold pendant to Diwali puja — bought through Nek from her Jar savings. Sunita touched it, asked about the purity stamp. Priya showed her the app. Sunita downloaded it that evening, set up ₹10/day AutoPay, and told no one in the household.",
+          "lasting_impact": "The necklace is her savings goal — she has a specific pendant in mind. But as months pass without explicitly tracking progress toward it, the goal is slowly decoupling from the behavior."
+        },
+        {
+          "title": "The silent stall",
+          "when": "age 24",
+          "event": "Her father-in-law borrowed her phone for 40 days while his was being repaired. Her Jar AutoPay mandate silently expired. When she got the phone back she saw the frozen balance (₹1,340), attempted re-setup, hit an error screen, and closed the app. She hasn't opened it in 6 weeks.",
+          "lasting_impact": "UPI re-setup friction is now her primary exit door. She hasn't consciously decided to quit — she's drifted without a mechanism to return."
+        }
+      ],
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.22, "type": "continuous", "label": "low", "source": "inferred"},
+          "loss_aversion": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"},
+          "guilt_responsiveness": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "status_quo_bias": {"value": 0.58, "type": "continuous", "label": "medium", "source": "sampled"},
+          "information_need": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+          "analysis_paralysis": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "optimism_bias": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.18, "type": "continuous", "label": "very low", "source": "anchored"},
+          "income_volatility": {"value": 0.72, "type": "continuous", "label": "high", "source": "sampled"},
+          "emergency_fund_adequacy": {"value": 0.08, "type": "continuous", "label": "very low", "source": "sampled"},
+          "financial_literacy": {"value": 0.24, "type": "continuous", "label": "low", "source": "anchored"},
+          "savings_goal_specificity": {"value": 0.52, "type": "continuous", "label": "medium", "source": "inferred"},
+          "budget_consciousness": {"value": 0.78, "type": "continuous", "label": "high", "source": "sampled"},
+          "habit_fragility": {"value": 0.82, "type": "continuous", "label": "very high", "source": "anchored"}
+        },
+        "social_influence": {
+          "social_proof_bias": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "sampled"},
+          "peer_influence_strength": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+          "wom_vulnerability": {"value": 0.78, "type": "continuous", "label": "high", "source": "inferred"},
+          "scam_susceptibility": {"value": 0.75, "type": "continuous", "label": "high", "source": "inferred"},
+          "authority_bias": {"value": 0.38, "type": "continuous", "label": "low", "source": "inferred"},
+          "family_consensus_need": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"},
+          "app_engagement": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"},
+          "notification_responsiveness": {"value": 0.62, "type": "continuous", "label": "medium", "source": "sampled"},
+          "digital_payment_comfort": {"value": 0.42, "type": "continuous", "label": "low-medium", "source": "sampled"},
+          "gamification_responsiveness": {"value": 0.32, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "cultural_context": {
+          "cultural_gold_trust": {"value": 0.78, "type": "continuous", "label": "high", "source": "anchored"},
+          "digital_gold_anxiety": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+          "group_scheme_trauma": {"value": 0.90, "type": "continuous", "label": "very high", "source": "domain_data"},
+          "financial_secrecy_need": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "domain_specific": {
+          "intrinsic_motivation": {"value": 0.38, "type": "continuous", "label": "low", "source": "inferred"},
+          "streak_identity": {"value": 0.42, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "goal_dream_coupling": {"value": 0.52, "type": "continuous", "label": "medium-decoupling", "source": "inferred"},
+          "autopay_trust": {"value": 0.68, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "intervention_window_days": {"value": 3, "type": "categorical", "label": "72 hours post-disruption", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "emotional",
+        "decision_style_score": 0.77,
+        "trust_anchor": "family",
+        "risk_appetite": "low",
+        "primary_value_orientation": "price",
+        "coping_mechanism": {
+          "type": "optimism_bias",
+          "description": "Defers action with 'agli baar salary aane do' framing. Believes disruption will self-resolve. Does not consciously decide to quit — drifts until too much time has passed to return without shame."
+        },
+        "consistency_score": 94,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Cultural gold trust (0.78) coexists with active digital gold anxiety (0.68) and prior scam trauma — she holds all three simultaneously without resolution",
+          "Chose AutoPay for invisibility AND resents the deduction when money is tight — wants savings to be automatic and controllable at the same time"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {
+          "churn_probability": 7,
+          "response_narrative": "AutoPay continues (she doesn't know how to cancel it). If mandate happens to expire simultaneously, the combination creates permanent exit. The medical event alone doesn't churn her — the compounding with UPI friction does.",
+          "critical_window": "5 days post-expense if mandate is within 30 days of expiry"
+        },
+        "gold_price_drop_8pct": {
+          "churn_probability": 4,
+          "response_narrative": "Doesn't notice until she opens the app. First interpretation: 'Jar ne paise maar liye.' If a family member simultaneously calls digital gold a scam, churn probability spikes to 9/10.",
+          "critical_window": "48 hours after first seeing the reduced balance"
+        },
+        "upi_mandate_expiry": {
+          "churn_probability": 8,
+          "response_narrative": "Cannot navigate re-setup independently (tech_setup_friction: 0.85). Waits for it to auto-resolve. Tells herself she'll fix it 'baad mein.' The baad mein never comes. This is her #1 churn path.",
+          "critical_window": "First 48 hours post-expiry notification"
+        },
+        "scam_narrative": {
+          "churn_probability": 9,
+          "response_narrative": "Sister-in-law forwards a WhatsApp message. Sunita is shaken. Defers to husband. Husband says 'better safe than sorry' — he has no stake in her secret savings. Cancels within 3 days. Group_scheme_trauma reactivated.",
+          "critical_window": "72 hours — the family consensus happens fast"
+        }
+      },
+      "intervention_sensitivity": {
+        "streak_notification": {
+          "effectiveness": "high",
+          "condition": "Must arrive before the first missed day. After day 1 of no-save, guilt snowballs and she stops opening notifications.",
+          "why": "guilt_responsiveness: 0.72. Lands as a gentle reminder, not an accusation."
+        },
+        "gamification_badge": {
+          "effectiveness": "low",
+          "condition": "None — this intervention doesn't connect to her motivation system",
+          "why": "gamification_responsiveness: 0.32. 'Gold Member' badge is meaningless without an aspirational frame she understands."
+        },
+        "social_proof": {
+          "effectiveness": "conditional",
+          "condition": "Effective before scam narrative enters her household. Actively backfires after.",
+          "why": "social_proof_bias: 0.62 — 'others are doing it' is reassuring until 'others got scammed' becomes the competing signal."
+        },
+        "financial_education": {
+          "effectiveness": "low",
+          "condition": "None",
+          "why": "Financial literacy: 0.24. Authority_bias: 0.38. Cannot process the statistical argument. Brand messaging doesn't carry authority weight for her."
+        },
+        "flexible_pause": {
+          "effectiveness": "highest",
+          "condition": "Must be proactively surfaced — she will never find it herself",
+          "why": "Eliminates the UPI re-setup terror entirely. 'We'll restart automatically' removes the one cognitive burden that creates her #1 churn path."
+        }
+      },
+      "inner_logic": "I'll save when I can, and the app will handle the rest — but the moment it asks something of me I don't understand, I quietly disappear.",
+      "narrative": "My mother always kept a small gold chain hidden under the mattress. Not because she didn't trust my father — but because a woman who has nothing of her own has nothing to stand on when things go wrong. I keep my Jar savings the same way. Nobody in the house knows about it. When my bhabhi showed me her Nek pendant at Diwali last year — purity certificate and everything — I felt something shift. I wanted that. I set up ₹10 a day that same evening. It felt like nothing and everything at the same time.\n\nBut then Papa-ji's phone broke and he used mine for forty days. I forgot about Jar. When I got it back, the balance had stopped growing. I tried to set the AutoPay again but there was some error — something about my bank not responding. I closed the app. I told myself I'd fix it on the 1st. But the 1st came and went and now I feel strange opening the app, like I failed at something. I haven't deleted it. My ₹1,340 is still there.\n\nKamla Didi took ₹5,500 from me when I was twenty. I never told anyone outside the family. With Jar, at least no person is holding my money. That's why I chose it. But if my nanad says it's a scam, I don't have the words to argue back. Gold I understand. Digital gold — I trust it, but I can't explain why to someone who doesn't.",
+      "decision_bullets": [
+        "Will not re-setup AutoPay independently — tech friction is a permanent exit door, not a temporary inconvenience.",
+        "Scam narrative from one household member overrides all product experience within 72 hours.",
+        "₹10/day represents her emotional floor — even in crisis months, this amount feels morally achievable.",
+        "Necklace goal is the emotional anchor; if it decouples from behavior, intrinsic motivation collapses.",
+        "Flexible pause option alone would have prevented her mandate-expiry churn — she didn't know it existed.",
+        "Pre-disruption streak notifications (day 0, not day 3) are the only intervention that fits her window.",
+        "Social proof works only while household trust network hasn't been seeded with a scam narrative."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "purchase_prob": {
+          "baseline_at_ask_price": 0.72,
+          "source": "proxy_estimated",
+          "calibration_applied": false
+        },
+        "price_elasticity": {
+          "value": -0.48,
+          "band": "high",
+          "source": "proxy_estimated"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.14,
+          "satisfaction_multiplier": 0.5,
+          "competitive_stimulus_multiplier": 2.4,
+          "switching_cost_index": 0.28,
+          "estimated_tenure_periods": 3,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.28,
+          "peer": 0.65,
+          "brand": 0.32,
+          "ad": 0.18,
+          "community": 0.55,
+          "family": 0.88,
+          "dominant_anchor": "family",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          {"objection_type": "tech_friction", "probability": 0.85, "severity": "blocking", "addressability": "high"},
+          {"objection_type": "scam_trust_deficit", "probability": 0.75, "severity": "blocking", "addressability": "medium"},
+          {"objection_type": "goal_decoupling", "probability": 0.52, "severity": "friction", "addressability": "high"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a homemaker in Sitamarhi who saves ₹10/day in digital gold secretly, haunted by a chit fund loss I never talk about.",
+          "key_values": ["financial_independence_in_silence", "gold_as_security", "protecting_against_human_intermediaries"],
+          "life_defining_events": [
+            {"age_when": 20, "event": "Chit fund collapse — lost ₹5,500 to neighbor Kamla Didi", "lasting_impact": "Permanent distrust of group schemes; prefers automated, no-human-intermediary savings"},
+            {"age_when": 23, "event": "Saw Priya's Nek pendant at Diwali, downloaded Jar that night", "lasting_impact": "Necklace as savings goal — emotional anchor that is slowly decoupling"},
+            {"age_when": 24, "event": "Phone borrowed by father-in-law for 40 days; AutoPay mandate expired", "lasting_impact": "Now stuck at ₹1,340 balance, hasn't returned to app"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "husband (consulted for all financial decisions above ₹500)",
+            "key_influencers": ["sister-in-law (scam narrative risk)", "friend Priya (original adopter)"],
+            "trust_network": ["mother (gold philosophy origin)", "Priya"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹300/month maximum savings (₹10/day)",
+            "non_negotiables": ["savings must be invisible to household", "cannot involve human intermediary"],
+            "absolute_avoidances": ["group schemes", "anything requiring family financial disclosure"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "jar": {"valence": 0.52, "last_interaction": "6 weeks ago", "association": "frozen balance, error screen, unresolved"}
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": ["Jar (inactive)"],
+          "last_decision": "passive_churn_via_drift"
+        }
+      }
+    },
+    {
+      "persona_id": "pg-jar-002",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "jar-autopay-churn",
+      "segment": "Aspirational Disciplined",
+      "demographic_anchor": {
+        "name": "Ravi Shankar Mishra",
+        "age": 29,
+        "gender": "male",
+        "location": {"country": "India", "region": "Uttar Pradesh", "city": "Gorakhpur", "urban_tier": "tier2"},
+        "household": {"structure": "joint", "size": 5, "income_bracket": "₹24,000/month", "dual_income": false},
+        "life_stage": "married, planning children in 2 years",
+        "education": "undergraduate",
+        "employment": "full-time"
+      },
+      "life_stories": [
+        {
+          "title": "The apology at his sister's wedding",
+          "when": "age 22",
+          "event": "At his elder sister's wedding, Ravi heard his mother quietly apologize to a guest: 'Hum zyada nahi kar sake.' The jewelry was modest. The guests noticed. Ravi noticed them noticing. He has a younger sister, Chhoti, currently 17. He started a notebook that evening with the calculation: 30g gold for her wedding, current price ₹1.95 lakhs, 3 years away, requires ₹5,400/month.",
+          "lasting_impact": "The notebook calculation exists. He tracks it. Gold savings is a ledger entry tied to his identity as the provider who will not let his family be embarrassed again."
+        },
+        {
+          "title": "The salary hike that didn't come",
+          "when": "age 26",
+          "event": "His manager promised a hike 'by Diwali' for 7 months before it materialized. Ravi learned that promises don't have calendars. He restructured his finances so the savings deduction happens on salary day (1st), before his spending brain activates.",
+          "lasting_impact": "Systematic pre-commitment to savings. AutoPay on the 1st is non-negotiable. He doesn't think of it as discipline — it's just how money works."
+        }
+      ],
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.42, "type": "continuous", "label": "medium", "source": "inferred"},
+          "loss_aversion": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "guilt_responsiveness": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+          "status_quo_bias": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "information_need": {"value": 0.58, "type": "continuous", "label": "medium", "source": "inferred"},
+          "procrastination_risk": {"value": 0.52, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.62, "type": "continuous", "label": "medium", "source": "inferred"},
+          "income_volatility": {"value": 0.35, "type": "continuous", "label": "medium-low", "source": "sampled"},
+          "emergency_fund_adequacy": {"value": 0.45, "type": "continuous", "label": "moderate", "source": "sampled"},
+          "financial_literacy": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "savings_goal_specificity": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"},
+          "budget_consciousness": {"value": 0.72, "type": "continuous", "label": "high", "source": "sampled"},
+          "habit_fragility": {"value": 0.38, "type": "continuous", "label": "low-medium", "source": "inferred"}
+        },
+        "social_influence": {
+          "social_proof_bias": {"value": 0.42, "type": "continuous", "label": "low-medium", "source": "sampled"},
+          "scam_susceptibility": {"value": 0.32, "type": "continuous", "label": "low", "source": "inferred"},
+          "authority_bias": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "family_consensus_need": {"value": 0.70, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.42, "type": "continuous", "label": "medium", "source": "sampled"},
+          "app_engagement": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "notification_responsiveness": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "sampled"},
+          "gamification_responsiveness": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"}
+        },
+        "cultural_context": {
+          "cultural_gold_trust": {"value": 0.80, "type": "continuous", "label": "high", "source": "anchored"},
+          "digital_gold_anxiety": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"},
+          "gold_as_investment": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "domain_specific": {
+          "intrinsic_motivation": {"value": 0.88, "type": "continuous", "label": "very high", "source": "anchored"},
+          "streak_identity": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "goal_dream_coupling": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"},
+          "habit_fragility": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "emotional",
+        "decision_style_score": 0.74,
+        "trust_anchor": "family",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "price",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Savings on day 1 of the month is a pre-commitment device. He doesn't exercise willpower — he removes the decision from willpower's reach."
+        },
+        "consistency_score": 94,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Emotionally driven goal (sister's honor) executing through analytical behavior (BCom notebook calculation)",
+          "High goal-specificity provides strong retention — but 3-year horizon means goal can drift if sister's wedding date shifts"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 2, "response_narrative": "Depletes partial emergency fund, borrows ₹2,000 from brother. Calculates impact on wedding gold target. Does NOT cancel AutoPay.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 1, "response_narrative": "Recalculates gram-accumulation rate. Considers increasing savings ('gold cheaper today'). Cultural gold trust: 0.80 provides full conviction.", "critical_window": "N/A"},
+        "upi_mandate_expiry": {"churn_probability": 4, "response_narrative": "Knows what to do technically. Creates a task. If work is intense, task slides 2-3 weeks. Guilt accumulates. Avoidance spiral begins.", "critical_window": "Days 14-21 post-expiry if not resolved"},
+        "scam_narrative": {"churn_probability": 2, "response_narrative": "Researches independently using BCom-trained analytical approach. Finds SEBI registration. Explains logic to worried father.", "critical_window": "N/A"}
+      },
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "high", "condition": "Works as a check-in trigger to prevent procrastination spiral", "why": "streak_identity: 0.65 + guilt_responsiveness: 0.68"},
+        "gamification_badge": {"effectiveness": "conditional", "condition": "Only if framed as progress toward gold goal, not generic badge", "why": "Goal-framing is his native motivation system"},
+        "social_proof": {"effectiveness": "low", "condition": "None", "why": "social_proof_bias: 0.42. He doesn't make decisions based on what others do."},
+        "financial_education": {"effectiveness": "moderate", "condition": "Confirms conviction, doesn't change behavior", "why": "Analytical style validates existing belief"},
+        "flexible_pause": {"effectiveness": "high", "condition": "Critical for mandate-expiry scenario only", "why": "Removes the procrastination trap that is his single churn vulnerability"}
+      },
+      "inner_logic": "I'm not saving money — I'm paying a debt I owe to my family's dignity, one day at a time.",
+      "narrative": "I have a notebook. It's a blue Classmate notebook, the cheap one. On the first page: 30 grams, ₹1.95 lakhs, 1,095 days. Every month I calculate where I am against the target. I am currently 4.2 grams short of schedule because I missed savings in November when Baba needed money for his knee surgery. I am aware of this 4.2-gram deficit.\n\nWhen my sister got married — my elder sister — I heard my mother apologize for the jewelry. The guests looked. I was 22. I had a younger sister who was 14. I went home and did the math. That math has not left me.\n\nI save with Jar because the AutoPay fires on the 1st before I touch the money. I don't trust willpower. I trusted my manager's promise for 7 months and learned what that's worth. So I remove choices. The ₹50/day moves before I can redirect it. Gold dropped last month — I noticed it makes the grams-per-rupee better. I didn't panic. I understand that gold prices move; what matters is the 10-year chart.\n\nMy only weakness is the UPI re-setup. Twice the mandate has expired. Both times I fixed it, but once it took me 3 weeks because work was crushing and I kept putting it aside. In those 3 weeks I felt a strange guilt every time I thought about Chhoti's wedding. That's what eventually made me fix it — not the app, not a notification. The notebook.",
+      "decision_bullets": [
+        "Goal-specificity (sister's wedding gold) functions as a near-invincible retention mechanism against financial shocks.",
+        "Procrastination during mandate re-setup is his only realistic churn path — the 3-week window is the intervention target.",
+        "Goal-progress view (grams accumulated vs. target grams) would be more motivating than any rupee-denominated balance display.",
+        "Social proof messaging is wasted budget on this segment; goal-progress framing is the unlock.",
+        "Price drops reframe as opportunity ('gold cheaper'); pre-built 'gold on sale' messaging reinforces his existing logic.",
+        "Flexible pause must be framed as 'your goal doesn't pause' — continuity of purpose, not just convenience."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.04, "switching_cost_index": 0.72, "estimated_tenure_periods": 24, "source": "proxy_estimated"},
+        "trust_vector": {"expert": 0.55, "peer": 0.42, "brand": 0.45, "family": 0.80, "dominant_anchor": "family", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "procrastination_on_friction", "probability": 0.52, "severity": "friction", "addressability": "high"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am saving 30g of gold for my younger sister Chhoti's wedding — I have a notebook with the exact calculation and I track it monthly.",
+          "key_values": ["family_honor", "pre_commitment_over_willpower", "gold_as_obligation"],
+          "life_defining_events": [
+            {"age_when": 22, "event": "Heard mother apologize for modest wedding jewelry at sister's wedding", "lasting_impact": "Created the 30g gold target for younger sister Chhoti"},
+            {"age_when": 26, "event": "7-month salary hike delay — learned promises don't have calendars", "lasting_impact": "Pre-commitment on day 1 of month; removes decision from willpower"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self (analytical)",
+            "key_influencers": ["notebook calculation", "Chhoti's implicit expectation"],
+            "trust_network": ["father", "BCom training"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹1,500/month (₹50/day)",
+            "non_negotiables": ["AutoPay on 1st of month", "30g target by Chhoti's wedding"],
+            "absolute_avoidances": ["missing the target date", "manual discretionary savings (removes pre-commitment)"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.78, "association": "reliable vehicle for the notebook target"}},
+        "purchase_history": [],
+        "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": ["Jar (active, day 180+)"], "last_decision": "continued_autopay"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-003",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "jar-autopay-churn",
+      "segment": "Habit-Formed Saver",
+      "demographic_anchor": {
+        "name": "Kavitha Suresh",
+        "age": 38,
+        "gender": "female",
+        "location": {"country": "India", "region": "Karnataka", "city": "Hubli", "urban_tier": "tier2"},
+        "household": {"structure": "nuclear", "size": 4, "income_bracket": "₹42,000/month", "dual_income": true},
+        "life_stage": "mid-career professional, two children (9 and 13)",
+        "education": "undergraduate",
+        "employment": "self-employed"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "loss_aversion": {"value": 0.60, "type": "continuous", "label": "medium", "source": "inferred"},
+          "status_quo_bias": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "information_need": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "simplicity_preference": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"},
+          "income_volatility": {"value": 0.45, "type": "continuous", "label": "medium", "source": "sampled"},
+          "emergency_fund_adequacy": {"value": 0.80, "type": "continuous", "label": "high", "source": "inferred"},
+          "financial_literacy": {"value": 0.80, "type": "continuous", "label": "high", "source": "inferred"},
+          "savings_goal_specificity": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "habit_fragility": {"value": 0.18, "type": "continuous", "label": "very low", "source": "anchored"},
+          "multi_instrument_saver": {"value": 0.90, "type": "continuous", "label": "very high", "source": "inferred"}
+        },
+        "social_influence": {
+          "social_proof_bias": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+          "scam_susceptibility": {"value": 0.22, "type": "continuous", "label": "very low", "source": "inferred"},
+          "authority_bias": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "wom_transmitter_tendency": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.35, "type": "continuous", "label": "low", "source": "sampled"},
+          "app_engagement": {"value": 0.70, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "notification_responsiveness": {"value": 0.58, "type": "continuous", "label": "medium", "source": "sampled"},
+          "gamification_responsiveness": {"value": 0.18, "type": "continuous", "label": "very low", "source": "inferred"}
+        },
+        "domain_specific": {
+          "intrinsic_motivation": {"value": 0.88, "type": "continuous", "label": "very high", "source": "anchored"},
+          "streak_identity": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "complexity_tolerance": {"value": 0.28, "type": "continuous", "label": "low", "source": "anchored"},
+          "product_identity_sensitivity": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "decision_style_score": 0.72,
+        "trust_anchor": "authority",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Has three-lock savings system (Post Office RD, Jar, bank FD) that functions independently of mood or markets. The system is the coping mechanism."
+        },
+        "consistency_score": 92,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Highly financially sophisticated yet deliberately chose the most basic savings product — she knows better options exist and consciously rejected them",
+          "Strong word-of-mouth transmitter who introduced Jar to a vulnerable client — her advocacy is Jar's distribution but also her reputation risk if product quality drops"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 1, "response_narrative": "Emergency fund absorbs it completely. AutoPay untouched.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 1, "response_narrative": "Notes it. Compares to prior market cycles. May discuss gold allocation with a client.", "critical_window": "N/A"},
+        "upi_mandate_expiry": {"churn_probability": 1, "response_narrative": "Sees notification. Re-sets up same day (tech_setup_friction: 0.35).", "critical_window": "N/A"},
+        "scam_narrative": {"churn_probability": 1, "response_narrative": "Looks up SEBI registration. Educates the person who told her.", "critical_window": "N/A"}
+      },
+      "true_churn_triggers": [
+        "Product complexity creep — new features cluttering the interface she chose for simplicity",
+        "Jar becoming 'another PhonePe' — super-app repositioning is existential for her relationship with the product",
+        "A verified regulatory or purity scandal (not a rumor — an actual event with SEBI action)"
+      ],
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "moderate", "condition": "She knows her streak; doesn't need the reminder but not harmed by it", "why": "streak_identity: 0.72"},
+        "gamification_badge": {"effectiveness": "backfires", "condition": "None", "why": "gamification_responsiveness: 0.18. Signals 'this is for beginners' — condescending to a 9-year LIC professional"},
+        "social_proof": {"effectiveness": "backfires", "condition": "None", "why": "social_proof_bias: 0.28. Mass-market messaging feels like the wrong product for her"},
+        "financial_education": {"effectiveness": "highest", "condition": "Must be accurate, cited, RBI/SEBI-referenced", "why": "authority_bias: 0.65 + information_need: 0.62. She will read it, verify it, feel confirmed."},
+        "flexible_pause": {"effectiveness": "good", "condition": "Doesn't need it but values knowing it exists", "why": "Reduces background anxiety; appreciates the thoughtfulness of the feature"}
+      },
+      "inner_logic": "I chose Jar because it requires nothing of me — the moment it starts requiring things, I'll find a simpler vehicle.",
+      "decision_bullets": [
+        "Product simplicity is a feature she actively chose; any complexity addition is a churn trigger.",
+        "Don't spend retention budget here — she self-retains; any resource spent is wasted.",
+        "Financial education (accurate, cited) deepens her trust; it's the only intervention that builds rather than maintains.",
+        "Gamification and social proof messaging signals 'this is a consumer app, not a financial product' and may cause her to re-evaluate.",
+        "Her word-of-mouth network (LIC clients, neighbors) is Jar's most cost-effective distribution channel — protect it.",
+        "Her actual churn risk is the product roadmap, not any financial or behavioral shock."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.01, "switching_cost_index": 0.82, "estimated_tenure_periods": 48, "source": "proxy_estimated"},
+        "trust_vector": {"expert": 0.72, "peer": 0.30, "brand": 0.50, "family": 0.45, "dominant_anchor": "authority", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "product_complexity_creep", "probability": 0.72, "severity": "blocking", "addressability": "medium"},
+          {"objection_type": "brand_identity_dilution", "probability": 0.65, "severity": "friction", "addressability": "low"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a 9-year LIC agent in Hubli with a three-lock savings system; Jar is the one that asks nothing of me.",
+          "key_values": ["systematic_simplicity", "financial_independence", "professional_credibility"],
+          "life_defining_events": [
+            {"age_when": 34, "event": "8 months of near-zero LIC commissions during COVID — had to ask husband for household money for first time", "lasting_impact": "Built three-lock savings system; financial independence is non-negotiable"},
+            {"age_when": 37, "event": "Introduced Jar to a housewife client as a private savings vehicle", "lasting_impact": "Understanding that Jar's simplicity is a feature, not a limitation — and her reputation is tied to it"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["SEBI/RBI data", "own analytical process"],
+            "trust_network": ["LIC colleagues", "select clients"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹150/day (₹4,500/month across all three savings instruments)",
+            "non_negotiables": ["three-lock system intact", "Jar remains the simple instrument"],
+            "absolute_avoidances": ["any product requiring active management from Jar specifically"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.88, "streak": "143 days", "association": "the one that doesn't ask anything"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (active, 143-day streak)"], "last_decision": "continued_autopay"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-004",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "domain": "jar-autopay-churn",
+      "segment": "Socially-Anchored",
+      "demographic_anchor": {
+        "name": "Dinesh Kumar Yadav",
+        "age": 31,
+        "gender": "male",
+        "location": {"country": "India", "region": "Uttar Pradesh", "city": "Meerut", "urban_tier": "tier2"},
+        "household": {"structure": "joint", "size": 5, "income_bracket": "₹16,000-22,000/month (seasonal variance)", "dual_income": false},
+        "life_stage": "married, one child (4)",
+        "education": "high-school",
+        "employment": "self-employed"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.32, "type": "continuous", "label": "low", "source": "sampled"},
+          "social_proof_bias": {"value": 0.68, "type": "continuous", "label": "high", "source": "anchored"},
+          "peer_influence_strength": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"},
+          "wom_vulnerability": {"value": 0.85, "type": "continuous", "label": "very high", "source": "inferred"},
+          "intrinsic_motivation": {"value": 0.32, "type": "continuous", "label": "low", "source": "anchored"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+          "income_volatility": {"value": 0.68, "type": "continuous", "label": "high", "source": "sampled"},
+          "savings_goal_specificity": {"value": 0.28, "type": "continuous", "label": "low", "source": "anchored"},
+          "habit_fragility": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"},
+          "financial_secrecy_need": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.68, "type": "continuous", "label": "medium-high", "source": "sampled"},
+          "gamification_responsiveness": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "notification_responsiveness": {"value": 0.55, "type": "continuous", "label": "medium", "source": "sampled"}
+        },
+        "domain_specific": {
+          "peer_bridge_dependency": {"value": 0.88, "type": "continuous", "label": "critical", "source": "anchored"},
+          "streak_identity": {"value": 0.42, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "goal_setting_readiness": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "social",
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "price",
+        "coping_mechanism": {"type": "social_validation", "description": "Outsources all financial product decisions to Raju. Raju is his fintech proxy — positive and negative signals pass through Raju unchanged."},
+        "consistency_score": 88,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Adopted Jar entirely on Raju's signal — retention must now become intrinsic but hasn't yet",
+          "Keeps savings hidden from wife (financial secrecy) but has no goal for the money — secrecy without purpose creates a fragile foundation"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 3, "response_narrative": "AutoPay continues automatically. Doesn't connect medical event to Jar.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 2, "response_narrative": "Doesn't track prices. Risk entirely contingent on whether Raju panics and calls him.", "critical_window": "48 hours after Raju's potential call"},
+        "upi_mandate_expiry": {"churn_probability": 7, "response_narrative": "Calls Raju to help over a WhatsApp call. If Raju is unavailable for 14+ days, permanent drift.", "critical_window": "Days 1-14 post-expiry"},
+        "scam_narrative": {"churn_probability": 8, "response_narrative": "Shopkeeper WhatsApp group forward. Calls Raju. Raju's response is the entire decision within 24 hours.", "critical_window": "24 hours — faster than any other persona"}
+      },
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "conditional", "condition": "Only works if framed socially: 'you and 23 lakh others are on a streak'", "why": "social_proof_bias: 0.68 — social frame is his native language"},
+        "social_proof": {"effectiveness": "highest", "condition": "None needed — this is his primary persuasion channel", "why": "Normalizing, reassuring, legible without any financial knowledge"},
+        "gamification_badge": {"effectiveness": "high if shareable", "condition": "Badge must be showable to Raju", "why": "If he can show Raju 'bhai, Gold Member ban gaya' — the badge extends Raju's positive influence"},
+        "financial_education": {"effectiveness": "low", "condition": "None", "why": "Doesn't process financial data; Raju is his data source"},
+        "flexible_pause": {"effectiveness": "critical", "condition": "Must be clearly visible during mandate expiry notification", "why": "Removes the 'need Raju to re-setup for me' dependency entirely"}
+      },
+      "inner_logic": "Raju said it's good. Raju will say if it's not good. Until then, I don't need to think about it.",
+      "decision_bullets": [
+        "Raju is both the acquisition channel and the primary retention risk — Jar cannot control this variable.",
+        "Social proof messaging (mass normalization) is the most cost-effective retention investment for this segment.",
+        "UPI mandate friction during Raju's unavailability is the highest-probability churn path.",
+        "Gamification only works if it's socially shareable — a private badge is worthless; a badge he can show Raju is gold.",
+        "Goal-setting nudge within first 30 days is the strategic intervention: 'Dinesh, what are you saving for?' converts extrinsic to intrinsic motivation.",
+        "Savings_goal_specificity: 0.28 is the long-term LTV threat — he'll disengage when the app stops feeling novel without Raju's continued engagement."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.10, "switching_cost_index": 0.32, "estimated_tenure_periods": 6, "source": "proxy_estimated"},
+        "trust_vector": {"peer": 0.92, "family": 0.55, "brand": 0.28, "expert": 0.22, "dominant_anchor": "peer", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "peer_bridge_failure", "probability": 0.85, "severity": "blocking", "addressability": "high"},
+          {"objection_type": "scam_narrative_transmission", "probability": 0.75, "severity": "blocking", "addressability": "medium"},
+          {"objection_type": "goal_vacuum", "probability": 0.65, "severity": "friction", "addressability": "high"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I save because Raju showed me his balance at Diwali. Raju says Jar is good, so Jar is good.",
+          "key_values": ["peer_validation", "financial_secrecy_from_household", "low_effort_saving"],
+          "life_defining_events": [
+            {"age_when": 30, "event": "Brother Raju showed ₹4,600 Jar balance at Diwali — downloaded app that night", "lasting_impact": "Jar adoption is entirely social; intrinsic motivation has not developed"},
+            {"age_when": 30, "event": "Wife accidentally spent ₹8,000 of piggy bank savings once", "lasting_impact": "Chose AutoPay partly for invisible savings outside household awareness"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Raju (brother, 24, Noida call center)",
+            "key_influencers": ["Raju", "shopkeeper WhatsApp group"],
+            "trust_network": ["Raju only for fintech decisions"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹200/month variable (reduces to ₹100 in slow season Mar-Jun)",
+            "non_negotiables": ["savings invisible to household"],
+            "absolute_avoidances": ["any re-setup requiring independent technical navigation"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.65, "association": "Raju-approved; haven't thought about it independently"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (active)"], "last_decision": "passive_continuation"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-005",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "domain": "jar-autopay-churn",
+      "segment": "Gamification-Responsive",
+      "demographic_anchor": {
+        "name": "Arjun Tiwari",
+        "age": 21,
+        "gender": "male",
+        "location": {"country": "India", "region": "Chhattisgarh", "city": "Raipur", "urban_tier": "tier2"},
+        "household": {"structure": "other", "size": 2, "income_bracket": "₹14,000/month", "dual_income": false},
+        "life_stage": "single, renting with roommate, first job",
+        "education": "undergraduate",
+        "employment": "full-time"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.58, "type": "continuous", "label": "medium", "source": "sampled"},
+          "gamification_responsiveness": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"},
+          "streak_identity": {"value": 0.90, "type": "continuous", "label": "very high", "source": "anchored"},
+          "notification_responsiveness": {"value": 0.88, "type": "continuous", "label": "very high", "source": "inferred"},
+          "social_proof_bias": {"value": 0.60, "type": "continuous", "label": "medium-high", "source": "sampled"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.22, "type": "continuous", "label": "low", "source": "anchored"},
+          "savings_goal_specificity": {"value": 0.18, "type": "continuous", "label": "very low", "source": "anchored"},
+          "financial_literacy": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"},
+          "habit_fragility": {"value": 0.35, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "intrinsic_motivation": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.30, "type": "continuous", "label": "low", "source": "anchored"},
+          "app_engagement": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"},
+          "digital_native_fluency": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"}
+        },
+        "domain_specific": {
+          "streak_as_primary_product": {"value": 0.90, "type": "continuous", "label": "defining characteristic", "source": "anchored"},
+          "gold_as_secondary": {"value": 0.20, "type": "continuous", "label": "incidental", "source": "inferred"},
+          "peer_showcase_tendency": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "gamification_migration_risk": {"value": 0.65, "type": "continuous", "label": "high", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "trust_anchor": "peer",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "features",
+        "coping_mechanism": {"type": "routine_control", "description": "The streak IS the routine. Any disruption to the streak counter is experienced as a disruption to identity, not just behavior."},
+        "consistency_score": 85,
+        "consistency_band": "high",
+        "key_tensions": [
+          "streak_identity: 0.90 provides strong behavioral anchor — but the anchor is to the counter, not to gold or financial goals",
+          "savings_goal_specificity: 0.18 means long-term retention requires Jar to continuously advance the gamification ladder"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 2, "response_narrative": "₹2,500 food poisoning. Barely registers. AutoPay continues. Streak intact.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 2, "response_narrative": "Opens app to check streak count, notices lower balance. 'Streak hai, balance kam hua.' Moves on.", "critical_window": "N/A"},
+        "upi_mandate_expiry": {"churn_probability": 5, "response_narrative": "CATASTROPHIC emotionally. Streak counter breaks. Tech re-setup is easy (0.30 friction) but if streak resets to zero he may feel the whole thing is 'over.' The emotional loss, not the technical friction, is the churn driver.", "critical_window": "First 24 hours post-expiry — streak counter display is the critical UX decision"},
+        "scam_narrative": {"churn_probability": 3, "response_narrative": "Roommate shows forward. First thought: 'But my streak...' Searches YouTube. Digital native finds debunking content independently.", "critical_window": "N/A"}
+      },
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "highest", "condition": "Must arrive before first missed day — day 0 is the intervention window", "why": "streak_identity: 0.90, gamification_responsiveness: 0.92, notification_responsiveness: 0.88 — this is his entire motivation system"},
+        "gamification_badge": {"effectiveness": "very high", "condition": "Badge with countdown ('5 more days') is more effective than achievement badge", "why": "Forward-looking gamification maintains engagement tension"},
+        "social_proof": {"effectiveness": "moderate", "condition": "Works as ambient reinforcement", "why": "social_proof_bias: 0.60 — not the primary channel but supportive"},
+        "financial_education": {"effectiveness": "low", "condition": "None", "why": "Not how he processes Jar — gold is incidental to his motivation system"},
+        "flexible_pause": {"effectiveness": "critical with condition", "condition": "Must explicitly say 'YOUR STREAK WILL BE PRESERVED' — without that exact phrase the feature is useless to him", "why": "The streak preservation is the only thing he needs to know. Standard pause framing doesn't address his core anxiety."}
+      },
+      "inner_logic": "The streak is the product. The gold is proof I'm winning. If the counter resets, I haven't lost money — I've lost the game.",
+      "decision_bullets": [
+        "Streak counter reset during mandate expiry is the highest-probability churn event — UX must explicitly preserve and display streak across re-setup.",
+        "Flexible pause must include 'your streak will be preserved' — without it, the feature doesn't address his core anxiety.",
+        "Financial literacy interventions are budget waste; gamification investment has near-linear returns for this persona.",
+        "Long-term retention requires advancing the gamification ladder continuously — there must always be a next badge to chase.",
+        "The ₹2,280 screenshot he sends his roommate is Jar's most cost-effective marketing — cultivate shareable balance/streak moments.",
+        "No financial goal means this segment converts or churns based on whether gamification stays fresh; goal-setting nudge within day 30 is a strategic option."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.06, "switching_cost_index": 0.55, "estimated_tenure_periods": 12, "source": "proxy_estimated"},
+        "trust_vector": {"peer": 0.72, "brand": 0.40, "expert": 0.25, "family": 0.38, "dominant_anchor": "peer", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "streak_reset_trauma", "probability": 0.90, "severity": "blocking", "addressability": "high"},
+          {"objection_type": "gamification_staleness", "probability": 0.65, "severity": "friction", "addressability": "medium"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I am a 340-day BGMI streak holder who added Jar savings as 'ek aur streak' — gold is incidental; the counter is everything.",
+          "key_values": ["streak_integrity", "peer_showcase", "winning_as_identity"],
+          "life_defining_events": [
+            {"age_when": 19, "event": "Maintained BGMI streak through a hospital visit and power cut — streak identity formed", "lasting_impact": "Streak preservation is a non-negotiable identity commitment"},
+            {"age_when": 21, "event": "Checked Jar balance month-end: ₹2,280. Roommate said 'tu toh investor ban gaya.' Screenshotted.", "lasting_impact": "Peer validation of financial milestone as social currency"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "roommate (social validation)",
+            "key_influencers": ["YouTube debunking content", "roommate reactions"],
+            "trust_network": ["roommate", "gaming community"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹50/day",
+            "non_negotiables": ["streak counter must never reset", "savings must feel like a game"],
+            "absolute_avoidances": ["anything that reads as 'boring adult finance'"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.78, "streak": "active", "association": "the streak app that also saves gold"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (active)"], "last_decision": "daily_autopay_continuation"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-006",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "domain": "jar-autopay-churn",
+      "segment": "Price-Sensitive Rationalist",
+      "demographic_anchor": {
+        "name": "Pradeep Agarwal",
+        "age": 35,
+        "gender": "male",
+        "location": {"country": "India", "region": "Uttar Pradesh", "city": "Agra", "urban_tier": "tier2"},
+        "household": {"structure": "nuclear", "size": 3, "income_bracket": "₹28,000-42,000/month (seasonal)", "dual_income": false},
+        "life_stage": "married, one child (7)",
+        "education": "undergraduate",
+        "employment": "self-employed"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.50, "type": "continuous", "label": "medium", "source": "inferred"},
+          "loss_aversion": {"value": 0.85, "type": "continuous", "label": "high", "source": "anchored"},
+          "information_need": {"value": 0.82, "type": "continuous", "label": "very high", "source": "anchored"},
+          "analysis_paralysis": {"value": 0.38, "type": "continuous", "label": "low", "source": "inferred"},
+          "gamification_responsiveness": {"value": 0.20, "type": "continuous", "label": "very low", "source": "anchored"},
+          "social_proof_bias": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "income_volatility": {"value": 0.65, "type": "continuous", "label": "high", "source": "sampled"},
+          "financial_literacy": {"value": 0.78, "type": "continuous", "label": "high", "source": "anchored"},
+          "savings_goal_specificity": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "gold_as_investment": {"value": 0.92, "type": "continuous", "label": "defining", "source": "anchored"},
+          "habit_fragility": {"value": 0.42, "type": "continuous", "label": "medium", "source": "inferred"},
+          "seasonal_cashflow_sensitivity": {"value": 0.72, "type": "continuous", "label": "high", "source": "sampled"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.30, "type": "continuous", "label": "low", "source": "sampled"},
+          "price_tracking_habit": {"value": 0.88, "type": "continuous", "label": "very high", "source": "anchored"},
+          "multi_app_user": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "domain_specific": {
+          "intrinsic_motivation": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"},
+          "cost_basis_optimization": {"value": 0.90, "type": "continuous", "label": "very high", "source": "anchored"},
+          "product_identity_sensitivity": {"value": 0.78, "type": "continuous", "label": "high", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {"type": "research_deep_dive", "description": "Verifies every claim against MCX data or official sources. Uses Jar + MCX app in parallel. Cross-referencing is his default behavior before any financial decision."},
+        "consistency_score": 88,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Chose Jar for simplicity AND finds lack of in-app price trend data an ongoing friction — uses Jar + MCX in parallel",
+          "gamification_responsiveness: 0.20 means gamification-forward product design actively signals wrong product category to him"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 1, "response_narrative": "Emergency fund covers. Evaluates whether to liquidate gold (calculates: gold in appreciation, doesn't liquidate).", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 3, "response_narrative": "Checks MCX data. One-week blip: increases savings ('gold on sale'). Sustained correction (>15%, >30 days): pauses and re-evaluates allocation.", "critical_window": "Day 30 if correction is sustained"},
+        "upi_mandate_expiry": {"churn_probability": 3, "response_narrative": "Re-sets up easily. Only risk during slow textile season (Mar-May) when he's actively cost-cutting all discretionary items.", "critical_window": "March-May window"},
+        "scam_narrative": {"churn_probability": 1, "response_narrative": "Looks up SEBI regulatory status immediately. Immune to WOM. May correct the person who told him.", "critical_window": "N/A"}
+      },
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "low", "condition": "None", "why": "streak_identity: 0.38 — doesn't think in streak terms"},
+        "gamification_badge": {"effectiveness": "backfires", "condition": "None", "why": "gamification_responsiveness: 0.20. Makes him question whether Jar is a serious financial product"},
+        "social_proof": {"effectiveness": "backfires", "condition": "None", "why": "'23 lakh log kya karte hain, mujhe kya?' — social behavior is irrelevant to his financial logic"},
+        "financial_education": {"effectiveness": "highest with condition", "condition": "Must be factually precise and citable — he WILL verify against MCX", "why": "Speaks his native language. Accurate data deepens conviction permanently. Inaccurate data destroys trust permanently."},
+        "flexible_pause": {"effectiveness": "moderate", "condition": "Useful during slow season; frame as portfolio optimization", "why": "Doesn't feel like weakness — feels like active management"}
+      },
+      "inner_logic": "I'm not saving. I'm accumulating gold at the best possible cost basis — and I track that cost basis every morning.",
+      "decision_bullets": [
+        "In-app price trend chart (30-day, 1-year) would be the single highest-value product feature for this segment.",
+        "Financial education content must be data-forward and citable — inaccurate numbers destroy trust with no recovery path.",
+        "Gamification and social proof messaging signals 'consumer app, not investment vehicle' — may migrate to Augmont or SafeGold.",
+        "Seasonal income volatility (textile, Mar-May) means flexible pause is a genuine strategic tool, not a churn prevention trick.",
+        "Price drop is reframing opportunity: 'gold on sale today' activates his cost-basis optimization instinct.",
+        "This segment is under-served by current UX; a portfolio view mode would dramatically increase LTV."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.05, "switching_cost_index": 0.60, "estimated_tenure_periods": 18, "source": "proxy_estimated"},
+        "trust_vector": {"self": 0.82, "expert": 0.72, "peer": 0.28, "brand": 0.38, "dominant_anchor": "self", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "data_visibility_gap", "probability": 0.82, "severity": "friction", "addressability": "high"},
+          {"objection_type": "sustained_price_correction", "probability": 0.55, "severity": "blocking", "addressability": "medium"},
+          {"objection_type": "product_identity_dilution", "probability": 0.65, "severity": "friction", "addressability": "low"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I track MCX gold prices every morning with my chai. Jar is my cost-efficient accumulation vehicle — not a savings app.",
+          "key_values": ["data_driven_decisions", "cost_basis_optimization", "financial_self_reliance"],
+          "life_defining_events": [
+            {"age_when": 30, "event": "Bought physical gold at ₹42,000/10g, sold at ₹48,000 — ₹12,000 gain in 8 months", "lasting_impact": "Converted from cultural gold buyer to active price tracker; treats gold as a managed asset"},
+            {"age_when": 33, "event": "Calculated FD returns (6.5%) vs. inflation (7.8%) — real loss realization", "lasting_impact": "Moved savings allocation toward gold and away from FDs; analytical approach to instrument selection"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self + MCX data",
+            "key_influencers": ["MCX price feed", "SEBI regulatory data"],
+            "trust_network": ["own analysis", "verified financial sources"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹1,200/month (₹40/day) — reduces to ₹600 in March-May slow season",
+            "non_negotiables": ["decisions must be data-backed", "product must not feel like a consumer app"],
+            "absolute_avoidances": ["gamification", "social-proof messaging", "unverifiable financial claims"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.72, "association": "cost-efficient vehicle, lacking price data visibility"}, "mcx": {"valence": 0.90, "association": "daily price reference"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (active)", "Augmont (aware, not converted)"], "last_decision": "continued_autopay"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-007",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "domain": "jar-autopay-churn",
+      "segment": "Edge Case A — Persistent Non-Churner at Low Income",
+      "demographic_anchor": {
+        "name": "Meena Kumari",
+        "age": 42,
+        "gender": "female",
+        "location": {"country": "India", "region": "Bihar", "city": "Muzaffarpur", "urban_tier": "tier3"},
+        "household": {"structure": "nuclear", "size": 4, "income_bracket": "₹9,000-11,000/month (government stipend, irregular)", "dual_income": false},
+        "life_stage": "mid-life, two children (18 and 14)",
+        "education": "high-school",
+        "employment": "part-time"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+          "loss_aversion": {"value": 0.80, "type": "continuous", "label": "high", "source": "inferred"},
+          "status_quo_bias": {"value": 0.75, "type": "continuous", "label": "high", "source": "inferred"},
+          "guilt_responsiveness": {"value": 0.80, "type": "continuous", "label": "high", "source": "inferred"},
+          "optimism_bias": {"value": 0.62, "type": "continuous", "label": "medium-high", "source": "inferred"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"},
+          "income_volatility": {"value": 0.90, "type": "continuous", "label": "very high", "source": "anchored"},
+          "emergency_fund_adequacy": {"value": 0.12, "type": "continuous", "label": "very low", "source": "sampled"},
+          "financial_literacy": {"value": 0.38, "type": "continuous", "label": "low-medium", "source": "inferred"},
+          "habit_fragility": {"value": 0.25, "type": "continuous", "label": "very low", "source": "anchored"},
+          "savings_goal_specificity": {"value": 0.60, "type": "continuous", "label": "medium", "source": "inferred"},
+          "intrinsic_motivation": {"value": 0.85, "type": "continuous", "label": "very high", "source": "anchored"}
+        },
+        "cultural_context": {
+          "cultural_gold_trust": {"value": 0.95, "type": "continuous", "label": "very high", "source": "anchored"},
+          "digital_gold_anxiety": {"value": 0.55, "type": "continuous", "label": "medium", "source": "inferred"},
+          "gold_as_obligation": {"value": 0.90, "type": "continuous", "label": "defining", "source": "anchored"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.72, "type": "continuous", "label": "high", "source": "sampled"},
+          "app_engagement": {"value": 0.38, "type": "continuous", "label": "low", "source": "inferred"},
+          "tech_bridge_dependency": {"value": 0.78, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "domain_specific": {
+          "intergenerational_commitment": {"value": 0.88, "type": "continuous", "label": "very high", "source": "inferred"},
+          "wom_transmitter": {"value": 0.82, "type": "continuous", "label": "high", "source": "inferred"},
+          "10_rupee_floor_belief": {"value": 0.92, "type": "continuous", "label": "very high", "source": "anchored"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "habitual",
+        "trust_anchor": "family",
+        "risk_appetite": "low",
+        "primary_value_orientation": "price",
+        "coping_mechanism": {"type": "routine_control", "description": "Gold saving is a moral obligation inherited from her mother, not a financial product choice. The ₹10/day is her minimum moral floor — she kept it running during a 52-day stipend delay."},
+        "consistency_score": 90,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Highest income volatility (0.90) + near-zero emergency fund (0.12) + lowest habit fragility (0.25) — disproves income-predicts-retention hypothesis",
+          "digital_gold_anxiety: 0.55 (partial discomfort) AND has saved for 2.5+ years — cultural_gold_trust: 0.95 overrides all anxiety"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 1, "response_narrative": "Has handled worse. AutoPay continues.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 0, "response_narrative": "Doesn't check. Not her frame of reference. Gold is measured in grams and moral obligation, not current price.", "critical_window": "N/A"},
+        "upi_mandate_expiry": {"churn_probability": 4, "response_narrative": "tech_setup_friction: 0.72. Needs daughter (18) to re-setup. If daughter available: done within a week. If daughter delayed 30+ days: slow drift begins.", "critical_window": "Days 7-30 depending on daughter availability"},
+        "scam_narrative": {"churn_probability": 3, "response_narrative": "'Paise ja sakta hai, sona nahin jaata.' cultural_gold_trust: 0.95 anchors her. May reduce to ₹5/day as hedge but doesn't exit.", "critical_window": "N/A"}
+      },
+      "why_she_doesnt_churn": [
+        "cultural_gold_trust: 0.95 — gold saving is a sacred obligation, not a product",
+        "intrinsic_motivation: 0.85 — the act itself is the reward; no external validation needed",
+        "₹10/day cognitive floor — 'Isse kam kya hoga?' persists through 52-day stipend delays",
+        "Doesn't watch balance obsessively — savings accumulate peacefully out of sight",
+        "Intergenerational commitment — daughter downloaded Jar because of her; she won't break that story"
+      ],
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "moderate", "condition": "Works — she's proud of her streak and wouldn't want to lose it", "why": "guilt_responsiveness: 0.80 + long streak she's attached to"},
+        "gamification_badge": {"effectiveness": "irrelevant", "condition": "None", "why": "Doesn't engage with gamification layer; not her world"},
+        "social_proof": {"effectiveness": "mild", "condition": "'Others like me' framing provides quiet validation", "why": "social_proof_bias: 0.42 — moderate; provides background reassurance"},
+        "financial_education": {"effectiveness": "low", "condition": "None", "why": "Not her frame; she doesn't need convincing about gold"},
+        "flexible_pause": {"effectiveness": "highest with specific framing", "condition": "Must say 'your gold is safe — take a 7-day break, we'll restart' — gold safety language is the key", "why": "Standard pause framing alone insufficient; it's about the gold being protected, not the convenience"}
+      },
+      "inner_logic": "Gold doesn't argue with you when you're struggling. It just waits. I save ₹10 because that's the least I can do.",
+      "decision_bullets": [
+        "Income does not predict churn — intrinsic_motivation, cultural_gold_trust, and habit_fragility are the real variables.",
+        "Her only churn path: UPI mandate expiry + daughter unavailability simultaneously — address both together.",
+        "Gold safety language ('your gold is safe') is the only communication register that lands; financial return language is irrelevant.",
+        "She is an organic retention and acquisition engine — neighbors, daughter, and colleagues use Jar because of her.",
+        "Retention investment in this segment is near-zero — she self-retains; any resource spent here is wasted.",
+        "Her behavioral profile is the calibration benchmark for genuine savings habit formation."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.02, "switching_cost_index": 0.88, "estimated_tenure_periods": 60, "source": "proxy_estimated"},
+        "trust_vector": {"family": 0.92, "peer": 0.55, "brand": 0.42, "expert": 0.30, "dominant_anchor": "family", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "tech_bridge_unavailability", "probability": 0.45, "severity": "friction", "addressability": "high"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I kept saving ₹10/day through a 52-day stipend delay because Amma's gold chain was the family's safety — and now my daughter saves too.",
+          "key_values": ["gold_as_moral_obligation", "generational_continuity", "financial_independence_at_any_income"],
+          "life_defining_events": [
+            {"age_when": 12, "event": "Mother pawned gold chain for father's hernia surgery; redeemed 2 years later through systematic saving", "lasting_impact": "Gold = family's last line of defense; saving it is a moral duty not a financial choice"},
+            {"age_when": 40, "event": "Stipend delayed 52 days; kept ₹10/day AutoPay running throughout", "lasting_impact": "Self-definition as someone who saves regardless of circumstance"},
+            {"age_when": 42, "event": "Showed daughter (then 16) her ₹11,400 balance; daughter downloaded Jar same day", "lasting_impact": "Intergenerational commitment formed — breaking the habit means breaking the story she told her daughter"}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["mother's gold chain story", "daughter's adoption of Jar"],
+            "trust_network": ["daughter (tech bridge)", "two neighbors who now use Jar"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹10/day (moral floor, not a ceiling)",
+            "non_negotiables": ["savings continue through any income disruption", "gold must be safe"],
+            "absolute_avoidances": ["anything requiring independent tech navigation beyond her ability"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.88, "balance": "₹11,400+", "association": "the chain Amma would have kept digital"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (active, 2.5 years)"], "last_decision": "continued_autopay"}
+      }
+    },
+    {
+      "persona_id": "pg-jar-008",
+      "generated_at": "2026-04-07T00:00:00Z",
+      "domain": "jar-autopay-churn",
+      "segment": "Edge Case B — High-Income Churner",
+      "demographic_anchor": {
+        "name": "Vikram Nair",
+        "age": 33,
+        "gender": "male",
+        "location": {"country": "India", "region": "Kerala", "city": "Kochi", "urban_tier": "tier2"},
+        "household": {"structure": "nuclear", "size": 3, "income_bracket": "₹48,000/month", "dual_income": true},
+        "life_stage": "married, one child (6)",
+        "education": "postgraduate",
+        "employment": "full-time"
+      },
+      "attributes": {
+        "psychology": {
+          "risk_tolerance": {"value": 0.45, "type": "continuous", "label": "medium", "source": "inferred"},
+          "loss_aversion": {"value": 0.78, "type": "continuous", "label": "high", "source": "anchored"},
+          "financial_anxiety": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+          "information_need": {"value": 0.65, "type": "continuous", "label": "medium-high", "source": "inferred"},
+          "analysis_paralysis": {"value": 0.42, "type": "continuous", "label": "medium", "source": "inferred"},
+          "gamification_responsiveness": {"value": 0.35, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "financial_behavior": {
+          "prior_savings_habit": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+          "income_volatility": {"value": 0.18, "type": "continuous", "label": "very low", "source": "anchored"},
+          "emergency_fund_adequacy": {"value": 0.85, "type": "continuous", "label": "high", "source": "inferred"},
+          "savings_goal_specificity": {"value": 0.22, "type": "continuous", "label": "very low", "source": "anchored"},
+          "habit_fragility": {"value": 0.72, "type": "continuous", "label": "high", "source": "anchored"},
+          "intrinsic_motivation": {"value": 0.35, "type": "continuous", "label": "low", "source": "anchored"},
+          "identity_savings": {"value": 0.78, "type": "continuous", "label": "high", "source": "inferred"}
+        },
+        "digital_behavior": {
+          "tech_setup_friction": {"value": 0.28, "type": "continuous", "label": "very low", "source": "anchored"},
+          "notification_responsiveness": {"value": 0.30, "type": "continuous", "label": "low", "source": "anchored"},
+          "fintech_app_churn_history": {"value": 0.88, "type": "continuous", "label": "very high", "source": "anchored"},
+          "app_engagement": {"value": 0.40, "type": "continuous", "label": "low", "source": "inferred"}
+        },
+        "domain_specific": {
+          "streak_identity": {"value": 0.38, "type": "continuous", "label": "low", "source": "inferred"},
+          "performative_saver_identity": {"value": 0.78, "type": "continuous", "label": "high", "source": "anchored"},
+          "reactivation_probability": {"value": 0.38, "type": "continuous", "label": "moderate", "source": "inferred"}
+        }
+      },
+      "derived_insights": {
+        "decision_style": "analytical",
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "convenience",
+        "coping_mechanism": {"type": "denial/avoidance", "description": "Tells himself he'll 'restart when things calm down.' This is not a decision — it's a deferral that has no end condition. He hasn't deleted the app."},
+        "consistency_score": 78,
+        "consistency_band": "medium-high",
+        "key_tensions": [
+          "high income + high loss_aversion + low financial_anxiety — unusual combination. Resolved by context: wife Asha handles real financial anxiety; Vikram's loss_aversion is aesthetic (affront to identity), not existential",
+          "prior_savings_habit: 0.72 (sophisticated; has SIPs, FDs) AND churned from a ₹50/day product that's less than one lunch — the disproportion reveals identity-savings, not financial-savings"
+        ]
+      },
+      "shock_responses": {
+        "medical_expense_5000": {"churn_probability": 0, "response_narrative": "Emergency fund: 0.85. Zero impact.", "critical_window": "N/A"},
+        "gold_price_drop_8pct": {"churn_probability": 7, "response_narrative": "His actual trigger — but it manifested at only 5%. loss_aversion (0.78) + no financial goal = pain of paper loss outweighs value of continuation. Canceled that evening.", "critical_window": "Same evening as first viewing the reduced balance"},
+        "upi_mandate_expiry": {"churn_probability": 6, "response_narrative": "Technically capable (friction: 0.28). notification_responsiveness: 0.30 — won't see the alert. Mandate expires silently. Habit fades before he notices.", "critical_window": "Days 7-14 post-expiry during busy periods"},
+        "scam_narrative": {"churn_probability": 0, "response_narrative": "scam_susceptibility: 0.18. Looks it up. Immune.", "critical_window": "N/A"}
+      },
+      "actual_churn_narrative": "Day 67: 4-day work trip to Hyderabad. No Jar engagement. Returned exhausted. Saw 3 unread Jar notifications — felt flicker of guilt, postponed. Day 72: Opened app. Gold -5%. Balance ₹9,575 vs ₹10,080. Felt annoyed — not devastated. Canceled AutoPay that evening. Has not deleted the app. Tells himself he'll restart when things calm down.",
+      "root_cause_analysis": [
+        "savings_goal_specificity: 0.22 — no concrete goal; Jar was an identity product, not a financial one",
+        "intrinsic_motivation: 0.35 — 'being someone who saves' fades without reinforcement",
+        "habit_fragility: 0.72 — any multi-day disruption breaks performative habit with no roots",
+        "notification_responsiveness: 0.30 — intervention arrived but was never seen",
+        "The ₹505 loss was the excuse, not the cause — he was already disengaged before seeing the balance"
+      ],
+      "intervention_sensitivity": {
+        "streak_notification": {"effectiveness": "low", "condition": "None", "why": "notification_responsiveness: 0.30 — dismisses notifications. Never saw the pre-churn notification."},
+        "gamification_badge": {"effectiveness": "low", "condition": "None", "why": "gamification_responsiveness: 0.35 — below his perceived sophistication"},
+        "social_proof": {"effectiveness": "low", "condition": "None", "why": "social_proof_bias: 0.28"},
+        "financial_education": {"effectiveness": "moderate", "condition": "Must include actionable data: 'your ₹9,575 will statistically recover to ₹10,500 in 90 days based on 15-year gold history'", "why": "Analytical style. Qualitative education slides off — needs a number to act on"},
+        "flexible_pause": {"effectiveness": "would have prevented churn entirely", "condition": "During Hyderabad trip — a 4-day pause would have contained the disengagement spiral", "why": "His churn was not a decision — it was a 4-day gap that was never closed. Pause would have bridged it."}
+      },
+      "inner_logic": "I don't need to save ₹50/day. I liked being the kind of person who does. When it asked something of me — even just to open the app — I stopped being that person.",
+      "reactivation_strategy": "30-40% reactivation probability. Key: 'your gold is still there, waiting' message after 30-day lapse. Do NOT mention the loss. Frame as continuity, not restart. Pair with goal-setting prompt: 'What would you save for?'",
+      "decision_bullets": [
+        "Income is a false predictor of retention — goal-specificity and habit_fragility are the real variables.",
+        "His churn was a disengagement spiral, not a deliberate decision — a frictionless pause would have interrupted it entirely.",
+        "Proactive goal-setting in the first 7 days is the strategic intervention to convert identity-savings to purpose-savings.",
+        "Financial education must be data-forward and action-oriented: a specific recovery projection, not general gold history.",
+        "He hasn't deleted the app — reactivation probability 30-40% with the right message at day 30-45 post-churn.",
+        "This segment is a re-activation opportunity, not a retention loss — treat it as a separate funnel."
+      ],
+      "behavioural_params": {
+        "mode": "proxy_estimated",
+        "switching_hazard": {"baseline_rate_per_period": 0.12, "switching_cost_index": 0.25, "estimated_tenure_periods": 3, "source": "proxy_estimated"},
+        "trust_vector": {"self": 0.82, "expert": 0.65, "peer": 0.28, "brand": 0.38, "dominant_anchor": "self", "source": "proxy_estimated"},
+        "objection_profile": [
+          {"objection_type": "goal_vacuum", "probability": 0.88, "severity": "blocking", "addressability": "high"},
+          {"objection_type": "identity_savings_without_reinforcement", "probability": 0.78, "severity": "blocking", "addressability": "medium"},
+          {"objection_type": "notification_blindness", "probability": 0.72, "severity": "friction", "addressability": "medium"}
+        ]
+      },
+      "memory": {
+        "core_memory": {
+          "identity_statement": "I have 11 abandoned fintech apps. Jar was my 'own' thing, until a 4-day work trip and a 5% gold drop ended it.",
+          "key_values": ["financial_sophistication_identity", "low_friction_above_all", "aesthetic_investment_self_image"],
+          "life_defining_events": [
+            {"age_when": 29, "event": "11th fintech app downloaded-and-abandoned. Pattern established.", "lasting_impact": "Fintech adoption is exploratory identity behavior, not committed financial behavior"},
+            {"age_when": 33, "event": "4-day Hyderabad trip → disengagement spiral → ₹505 paper loss → AutoPay canceled", "lasting_impact": "Has not deleted app. Reactivation window open."}
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "Asha (wife handles real finances)",
+            "key_influencers": ["own analytical process", "Asha's implicit approval"],
+            "trust_network": ["self", "Asha"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "₹50/day — but this ceiling is aspirational; real floor is zero currently",
+            "non_negotiables": ["product must not ask active engagement when he hasn't offered it"],
+            "absolute_avoidances": ["anything that makes him confront the 4-day gap without a forward exit"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {"jar": {"valence": 0.42, "status": "churned_day_67", "association": "the one I canceled after Hyderabad; still have the app"}},
+        "simulation_state": {"current_turn": 0, "consideration_set": ["Jar (churned, reactivation possible)"], "last_decision": "autopay_canceled_day_67"}
+      }
+    }
+  ],
+  "cohort_summary": {
+    "decision_style_distribution": {"emotional": 0.25, "analytical": 0.25, "habitual": 0.375, "social": 0.125},
+    "trust_anchor_distribution": {"family": 0.375, "peer": 0.25, "authority": 0.125, "self": 0.25},
+    "risk_appetite_distribution": {"low": 0.375, "medium": 0.375, "high": 0.25},
+    "primary_value_orientation": {"price": 0.50, "quality": 0.25, "features": 0.125, "convenience": 0.125},
+    "consistency_scores": {"mean": 89, "min": 78, "max": 94},
+    "behavioural_params_summary": {
+      "mean_baseline_switch_rate": 0.062,
+      "dominant_trust_anchor": "family",
+      "top_objection_types": ["tech_friction_on_mandate_expiry", "scam_narrative_transmission", "goal_vacuum"],
+      "params_source_distribution": {"proxy_estimated": 1.0, "cluster_estimated": 0.0}
+    },
+    "calibration_state": {
+      "status": "uncalibrated",
+      "method_applied": "none",
+      "last_calibrated": null,
+      "benchmark_source": null,
+      "notes": "Jar internal analytics (30/60/90-day retention curves) would allow intercept adjustment across all 8 personas. Even a single aggregate churn rate would significantly improve switching_hazard calibration."
+    },
+    "coverage_assessment": "Cohort spans 8 distinct behavioral archetypes with meaningful diversity across decision style, trust anchor, and income. Northeast India, Muslim-majority Tier 3 contexts, and age 45-55 pre-retirement segment are not represented. Female breadwinner in nuclear household (distinct from Kavitha's dual-income context) is absent.",
+    "dominant_tensions": [
+      "Cultural gold trust (universal, high, untested by real price correction) vs. first-loss panic potential — the volatility scenario will reveal which personas hold",
+      "Income volatility reality vs. savings aspiration — 6/8 personas face ±20-40% monthly variance yet aspire to daily savings consistency; flexible pause is the only intervention that addresses this structurally"
+    ]
+  }
+}

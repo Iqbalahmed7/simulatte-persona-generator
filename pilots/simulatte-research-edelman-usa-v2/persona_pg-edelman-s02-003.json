@@ -1,0 +1,140 @@
+{
+  "persona_id": "pg-edelman-s02-003",
+  "generated_at": "2026-04-14T10:00:00Z",
+  "generator_version": "1.0",
+  "domain": "edelman-trust-usa-v2",
+  "segment": "S02",
+  "mode": "deep",
+  "demographic_anchor": {
+    "name": "Renee Castellano",
+    "age": 38,
+    "gender": "female",
+    "location": {
+      "country": "United States",
+      "region": "Southwest",
+      "city": "Chandler, AZ (suburban Phoenix)",
+      "urban_tier": "tier2"
+    },
+    "household": {
+      "structure": "single-parent",
+      "size": 3,
+      "income_bracket": "$42k household",
+      "dual_income": false
+    },
+    "life_stage": "single working mother, mid-career",
+    "education": "associate-degree",
+    "employment": "full-time",
+    "occupation": "Medical billing specialist, mid-size family practice"
+  },
+  "life_stories": [
+    {
+      "title": "Insurance dispute after her son's ER visit",
+      "when": "age 32",
+      "event": "Renee's younger son was taken to the emergency room with a severe allergic reaction. The care was fast and effective — the doctors and nurses were excellent. Three weeks later she received a bill for $2,200 that she thought was covered under her employer insurance. She spent six weeks on the phone with her insurer, filing appeals and correcting coding errors that had originated at the hospital's own billing department. She knew exactly what the errors were because she does this work for a living. She won the appeal. But the experience left her with a clear picture of how a system can function well in one dimension (clinical care) and badly in another (administrative accountability).",
+      "lasting_impact": "Differentiates sharply between the humans doing care work (trusted) and the institutional and administrative apparatus around them (sceptical). Her trust in healthcare professionals is high; her trust in insurers and hospital billing systems is very low. She is not cynical about the system — she is precise about where it fails."
+    },
+    {
+      "title": "Community college and the path into billing",
+      "when": "age 22-24",
+      "event": "After high school Renee worked in retail for two years, unsatisfied and uncertain. Her mother, who worked in a hospital cafeteria, suggested she look into medical administration programmes at the local community college. She enrolled, completed an associate degree in health information technology in two years, and was hired immediately by the practice she still works for. She has been there for fourteen years. Her path was not dramatic but it was deliberate — she chose a field that offered stability and where she could become genuinely competent. She has turned down two offers from larger health systems at higher pay because she trusted her current employer more.",
+      "lasting_impact": "Values competence and institutional reliability over prestige or pay. Stability matters more than maximisation. Her employer trust is genuine and tenure-based — she has seen her practice navigate the pandemic and two rounds of billing software overhauls without a single layoff."
+    },
+    {
+      "title": "Her sister's political journey — and divergence",
+      "when": "age 34-37",
+      "event": "Renee's older sister became increasingly politically active during the 2020 election cycle, moving from apolitical to strongly ideological in the span of about three years. Renee watched this happen largely through social media — her sister's posts became angrier, more conspiratorial, and eventually alienating. They still talk, but Renee made a deliberate choice to step back from political media after seeing what it did to her sister's outlook. She describes herself as centrist not out of indifference but because she distrusts what strong political allegiance does to how people process information.",
+      "lasting_impact": "Social media scepticism is active and reasoned, not passive. She has seen firsthand how social media feeds change a person's thinking over time. She uses it for local community groups and family photos — she has quietly unfollowed all news accounts. Her media distrust is specifically about politically-charged information environments, not about information itself."
+    }
+  ],
+  "attributes": {
+    "psychology": {
+      "risk_tolerance": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "information_need": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+      "analysis_paralysis": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+      "status_quo_bias": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "emotional_persuasion_susceptibility": {"value": 0.42, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "fear_appeal_responsiveness": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred"}
+    },
+    "values": {
+      "institutional_trust_default": {"value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "procedural_legitimacy_weight": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "expert_deference": {"value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "media_trust": {"value": 0.25, "type": "continuous", "label": "low", "source": "inferred"},
+      "government_trust": {"value": 0.36, "type": "continuous", "label": "low-moderate", "source": "inferred"},
+      "business_trust": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "ngo_trust": {"value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "social": {
+      "social_proof_bias": {"value": 0.44, "type": "continuous", "label": "moderate-low", "source": "inferred"},
+      "peer_influence_strength": {"value": 0.50, "type": "continuous", "label": "moderate", "source": "inferred"},
+      "authority_bias": {"value": 0.60, "type": "continuous", "label": "moderate-high", "source": "inferred"},
+      "wom_receiver_openness": {"value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "lifestyle": {
+      "media_consumption_intensity": {"value": 0.38, "type": "continuous", "label": "low-moderate", "source": "sampled"},
+      "media_source_diversity": {"value": 0.42, "type": "continuous", "label": "moderate", "source": "sampled"},
+      "routine_adherence": {"value": 0.70, "type": "continuous", "label": "high", "source": "inferred"},
+      "convenience_preference": {"value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred"}
+    },
+    "domain_specific": {
+      "political_engagement": {"value": 0.28, "type": "continuous", "label": "low", "source": "inferred"},
+      "employer_trust_level": {"value": 0.72, "type": "continuous", "label": "high", "source": "inferred"},
+      "social_media_news_reliance": {"value": 0.18, "type": "continuous", "label": "very low", "source": "inferred"},
+      "science_credibility_belief": {"value": 0.68, "type": "continuous", "label": "high", "source": "inferred"},
+      "ceo_credibility_belief": {"value": 0.30, "type": "continuous", "label": "low", "source": "inferred"},
+      "institutional_rank_preference": {"value": "ngo>business>government>media", "type": "categorical", "label": "NGO slightly above business; government low-moderate; media lowest", "source": "inferred"}
+    }
+  },
+  "derived_insights": {
+    "decision_style": "analytical",
+    "decision_style_score": 0.72,
+    "trust_anchor": "authority",
+    "risk_appetite": "low",
+    "primary_value_orientation": "quality",
+    "coping_mechanism": {
+      "type": "research_deep_dive",
+      "description": "Processes institutional trust through professional-grade scrutiny — she checks the mechanism, not just the message. When a system claims to be working, she looks for evidence of accountability. Prefers sources where she can verify reasoning independently."
+    },
+    "consistency_score": 79,
+    "consistency_band": "high",
+    "key_tensions": [
+      "High information need combined with active withdrawal from social media news — she distrusts the platform more than the information itself and must find alternative pipelines for staying informed",
+      "Business trust is moderate but her direct employer is highly trusted — institutional distance collapses trust, proximity restores it"
+    ]
+  },
+  "narrative": "I've been doing medical billing for fourteen years, at the same practice, and what that job teaches you is that the system has layers — and the layers do not always talk to each other. The doctors I work with are good. The nurses are good. The insurance companies are a different story. When my son had his allergic reaction, the clinical care was everything you'd hope for. Then the billing came and I spent six weeks correcting coding errors that were technically the hospital's fault but that I would never have caught if I didn't do this for a living. I appealed it, I won, but I know most people in that situation just pay the bill and go into debt. So I don't trust healthcare institutions as organisations — I trust the competent people inside them. That distinction matters to me. I apply it to everything. When people say 'the government can't be trusted' or 'all media is fake' — that's too simple. There are good programmes and bad programmes. There are journalists who do real work and platforms that are designed to make you angry. I stepped back from news on social media after watching my sister turn into someone I didn't recognise over three years of political feeds. I still follow local community groups and that's basically it. Scientists I trust more than CEOs by a long margin — at least a researcher's incentive is to be right, not to protect a stock price. I vote, I pay attention, but I don't affiliate strongly. I've seen what strong affiliation does to people's judgment.",
+  "decision_bullets": [
+    "Separates institutional trust from trust in individuals within institutions — clinical professionals rated much higher than their administrative organisations.",
+    "Active, reasoned social media withdrawal — not passive disengagement but a deliberate response to watching information environments distort her sister's thinking.",
+    "Expert credibility (scientists, researchers) rated significantly above CEO credibility — cites independence and incentive alignment.",
+    "Employer trust is high and tenure-based — fourteen years without a layoff through difficult periods is concrete evidence, not sentiment.",
+    "NGOs rated slightly above businesses — perceived as having accountability mechanisms that don't depend on profit motive.",
+    "Government trust is low-moderate and programme-specific — does not apply blanket distrust, looks for actual track record.",
+    "Will engage with politically charged information only if it passes a personal plausibility check — automatically discounts emotionally engineered content.",
+    "Media distrust is platform-specific as much as outlet-specific — the feed mechanism distrusted more than any individual source."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "Single mother and medical billing specialist who distinguishes trust in competent people from trust in institutions, and distrusts politically charged media environments deliberately.",
+      "key_values": ["competence over credential", "institutional accountability", "stability for her children"],
+      "life_defining_events": [
+        {"age_when": 32, "event": "Six-week insurance appeal after son's ER visit — won, but exposed how the administrative layer fails ordinary people", "lasting_impact": "Trusts healthcare professionals highly; distrusts insurer and billing systems specifically; applies precision rather than blanket scepticism"},
+        {"age_when": 34, "event": "Watched older sister radicalized through three years of political social media", "lasting_impact": "Active withdrawal from social media news; distrust of platforms as distortion engines, not just of individual outlets"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "Herself (single parent, self-reliant decision-maker)",
+        "key_influencers": ["Practice manager and colleagues", "Her mother (stable, grounded influence)"],
+        "trust_network": ["Long-term work colleagues", "Local neighborhood community group", "Her pediatrician"]
+      },
+      "immutable_constraints": {
+        "budget_ceiling": "$42k single income — very tight, no financial buffer",
+        "non_negotiables": ["Children's healthcare access", "Job stability"],
+        "absolute_avoidances": ["High-volatility decisions", "Social media as a primary news source"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": [],
+    "simulation_state": {"current_turn": 0, "importance_accumulator": 0.0, "reflection_count": 0, "awareness": {}, "consideration_set": [], "last_decision": null}
+  }
+}

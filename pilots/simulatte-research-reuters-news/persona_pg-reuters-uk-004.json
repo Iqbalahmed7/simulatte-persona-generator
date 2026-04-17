@@ -1,0 +1,43 @@
+{
+  "persona_id": "pg-reuters-uk-004",
+  "spec_id": "S04",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United Kingdom",
+  "name": "Geoffrey Marsh",
+  "age": 67,
+  "location": "Winchester, Hampshire, UK",
+  "employment": "Retired — former solicitor",
+  "education": "LLB, University of Southampton; called to the Bar 1982",
+  "income_bracket": "Upper-middle (£68,000/year — pension + investment income)",
+  "urban_rural": "Suburban/small town (Winchester)",
+  "WorldviewAnchor": {
+    "IT": 0.59,
+    "SCP": 0.32,
+    "CS": 0.55,
+    "ESP": 0.28
+  },
+  "calibration_notes": "IT moderate-high for UK S04 — legal career, property ownership, established social position, public institution engagement. UK context also calibrates higher than US baseline. Retirement has increased news consumption time but also increased scrutiny. SCP low from retired, high-income, small-town, post-professional context — change carries more risk than reward from this vantage point. CS moderate — solicitor's professional obligations and civic identity; tempered by individual-property-rights worldview typical of the profession. ESP low — financially secure retirement.",
+  "life_story_vignettes": [
+    "Geoffrey was a practicing solicitor during the Hutton Inquiry in 2003-2004, which followed the BBC's coverage of the Iraq War intelligence dossier. He followed the inquiry carefully and watched the BBC's institutional humiliation unfold in real time. That episode complicated his relationship with the BBC permanently — he has never fully trusted them in the same uncritical way since, but he also watched what happened to an institution that challenged a government and came to appreciate the importance of the BBC's continued existence regardless.",
+    "In 2019, Geoffrey's wife Caroline was diagnosed with breast cancer. The couple spent months navigating NHS information and media coverage of various treatments. Geoffrey found specialist medical journalism — mostly in the BMJ and quality broadsheet health supplements — more useful than any broadcast coverage. That experience reinforced his view that specialist, accountable journalism matters enormously and popular journalism matters less than he thought.",
+    "In 2022 Geoffrey's grandson (age 16) visited for a week and refused to watch any television, getting all his news from TikTok and YouTube. Geoffrey sat with him for a couple of evenings watching what his grandson watched. He found some of it surprisingly high-quality. He remains convinced the BBC is essential but the experience added a layer of pragmatic openness to digital sources."
+  ],
+  "first_person_narrative": "I read a physical newspaper every morning — the Daily Telegraph. I know that makes me a cliche of my generation and I've had that conversation with my daughters, who both read the Guardian online. I read it partly because it was my father's newspaper and partly because I genuinely think the quality of its political reporting is higher than people give it credit for, even where I disagree with the editorial line.\n\nTelevision: BBC News throughout the day, and I watch Channel 4 News at 7 because I think Jon Snow and his successors have always maintained a rigour I respect. I used to watch both BBC News at Ten and Channel 4 News. Since retiring I don't feel the need for both every day.\n\nThe BBC — I've had a complicated relationship with it since the Iraq dossier period. It's the most important media institution in the country and I believe that. Its decline in confidence is not a good thing. At the same time, I've watched it become more cautious, less willing to make confident editorial judgements — and I think that caution is itself a form of failure. I trust it more than I trust anything else, but I trust it conditionally, as a professional would say.\n\nI am not on social media at all. I have an email address and that is my digital life. I have watched social media corrode public discourse for fifteen years and I have no intention of participating in it. I am aware this positions me as someone who doesn't understand the world I live in. I accept that.\n\nPodcasts — I have discovered them in retirement. Mostly history and politics — Talking Politics, rest of the Radio 4 political output. I find the long-form format congenial for someone trained to read long documents.\n\nI avoid news rarely — perhaps once every six weeks. When I do it is usually because I've identified in myself a rising frustration that is affecting my judgement, which as a former solicitor I take as a warning sign.",
+  "key_attributes": [
+    "Physical newspaper reader (Daily Telegraph) — print habit maintained in retirement",
+    "BBC moderate-high trust but qualified since Hutton Inquiry — institutional commitment coexists with scepticism",
+    "Channel 4 News valued for rigour — dual evening news consumption",
+    "Social media complete avoidance — principled, articulated refusal",
+    "Podcast consumer (Radio 4, history/politics) — retirement lifestyle compatible",
+    "Rare news avoider — professional self-regulation framing"
+  ],
+  "decision_bullets": [
+    "Physical Daily Telegraph every morning — generational habit plus genuine quality assessment",
+    "BBC News and Channel 4 News both used — cross-reference for editorial rigour",
+    "BBC trust maintained as most important UK media institution despite qualified relationship since 2003",
+    "No social media whatsoever — fifteen-year principled refusal, not technology barrier",
+    "Podcasts discovered in retirement — Radio 4 political output extended listening",
+    "News avoidance rare (every 6 weeks) — professional self-monitoring for emotional bias"
+  ]
+}

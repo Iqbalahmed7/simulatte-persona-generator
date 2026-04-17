@@ -1,0 +1,1154 @@
+{
+  "cohort_id": "cohort-mvp-20260412",
+  "generated_at": "2026-04-12T00:00:00Z",
+  "domain": "saas-video-production",
+  "business_problem": "Montage is building a Watch & Decide navigator for raw footage, targeting video professionals who lose significant project time deciding which clips to use. The research question is whether the problem (footage selection decision labor, derivative re-watch, absence of decision logging) is real and large enough to support a paid B2B SaaS tool, and which segments experience it most acutely.",
+  "mode": "simulation-ready",
+  "taxonomy_used": {
+    "categories": ["psychology", "values", "social", "lifestyle", "identity", "decision_making", "domain_specific"],
+    "total_attributes": 47,
+    "domain_data_used": false
+  },
+  "personas": [
+    {
+      "persona_id": "pg-mvp-001",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "saas-video-production",
+      "mode": "simulation-ready",
+      "slot": "S01",
+      "archetype": "The Craftsperson",
+      "persona_type": "Anxious Optimizer",
+
+      "demographic_anchor": {
+        "name": "Ryan Kowalski",
+        "age": 34,
+        "gender": "male",
+        "location": {
+          "country": "US",
+          "region": "Pacific Northwest",
+          "city": "Portland, OR",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "couple-no-kids",
+          "size": 2,
+          "income_bracket": "$110K–$140K",
+          "dual_income": true
+        },
+        "life_stage": "established freelancer, early-peak earnings phase",
+        "education": "undergraduate",
+        "employment": "self-employed"
+      },
+
+      "life_stories": [
+        {
+          "title": "The First Wedding That Broke Him",
+          "when": "age 22",
+          "event": "Ryan shot his first paid wedding solo — a cousin's backyard ceremony with a single Canon DSLR and no backup plan. He came home with 28 hours of footage, no organization system, and a $1,800 payment that evaporated across 12 days of editing. He delivered a 6-minute highlight film that his cousin cried over — but spent three of those days just rewatching everything to find the moment the vows cracked. He vowed he'd build a system. He didn't, not really. He just got faster at the pain.",
+          "lasting_impact": "This experience cemented his identity as a craftsperson over a businessperson. He still measures a successful project not by profit margin but by whether the edit made someone cry. The memory of those 12 days surfaces every time he opens a new project folder."
+        },
+        {
+          "title": "The Corporate Client He Lost",
+          "when": "age 28",
+          "event": "A mid-size tech firm hired Ryan for a $6,200 annual video contract covering four quarterly all-hands events. After the third event, they asked for a 90-second sponsor cut from footage he'd already reviewed and filed away. Ryan spent 11 hours finding the clips — footage he'd watched three months earlier, notes lost in a Premiere marker he couldn't decode. He quoted two hours. The fourth contract was given to a larger agency that 'had a workflow for this kind of request.' He never heard from them again.",
+          "lasting_impact": "The loss wasn't the money — it was the proof that his informal memory-and-markers system had a ceiling. He now quotes derivative requests as separate line items. But he still doesn't have a system. He has anxiety instead."
+        },
+        {
+          "title": "The Sony FX3 Upgrade",
+          "when": "age 33",
+          "event": "Ryan upgraded to the Sony FX3, which tripled his raw footage output per shoot. What had been 18 hours of wedding footage became 55 hours across multiple angles. The first post-shoot Monday with the new camera, he sat down to log clips at 9 AM and looked up at 4 PM having reviewed maybe 20% of the material. He posted in a Facebook group for wedding videographers: 'Does anyone else feel like you spent the whole day in the footage and didn't make anything?' Thirty-seven people replied. Most said yes. Several said they'd started outsourcing the review phase entirely.",
+          "lasting_impact": "The upgrade changed his relationship to footage from manageable pain to genuine dread. He now delays post-shoot work by 2-3 days because starting the review phase ruins what he calls 'the Saturday afternoon feeling' — the creative high from a shoot. The Facebook post became a mental reference point for knowing he wasn't alone."
+        }
+      ],
+
+      "attributes": {
+        "psychology": {
+          "change_resistance": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "anchored" },
+          "feature_complexity_tolerance": { "value": 0.50, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "loss_aversion": { "value": 0.64, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "cognitive_load_sensitivity": { "value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "anxiety_index": { "value": 0.72, "type": "continuous", "label": "high", "source": "inferred" },
+          "perfectionism_score": { "value": 0.78, "type": "continuous", "label": "high", "source": "inferred" }
+        },
+        "values": {
+          "autonomy_value": { "value": 0.82, "type": "continuous", "label": "very high", "source": "anchored" },
+          "startup_tool_openness": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "achievement_orientation": { "value": 0.76, "type": "continuous", "label": "high", "source": "anchored" },
+          "switching_cost_aversion": { "value": 0.65, "type": "continuous", "label": "moderate-high", "source": "anchored" },
+          "budget_consciousness": { "value": 0.44, "type": "continuous", "label": "moderate-low", "source": "inferred" },
+          "quality_over_price": { "value": 0.81, "type": "continuous", "label": "very high", "source": "inferred" }
+        },
+        "social": {
+          "reputational_concern": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "peer_influence_susceptibility": { "value": 0.68, "type": "continuous", "label": "high", "source": "inferred" },
+          "committee_buy_in_need": { "value": 0.05, "type": "continuous", "label": "very low", "source": "sampled" },
+          "wom_sensitivity": { "value": 0.74, "type": "continuous", "label": "high", "source": "inferred" }
+        },
+        "lifestyle": {
+          "perceived_time_scarcity": { "value": 0.80, "type": "continuous", "label": "high", "source": "anchored" },
+          "routine_adherence": { "value": 0.55, "type": "continuous", "label": "moderate", "source": "sampled" },
+          "simplicity_preference": { "value": 0.56, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "identity": {
+          "time_to_value_requirement": { "value": 0.78, "type": "continuous", "label": "high", "source": "anchored" },
+          "solo_decision_authority": { "value": 0.95, "type": "continuous", "label": "very high", "source": "sampled" },
+          "craft_identity_strength": { "value": 0.88, "type": "continuous", "label": "very high", "source": "inferred" }
+        },
+        "decision_making": {
+          "trial_before_commitment_preference": { "value": 0.75, "type": "continuous", "label": "high", "source": "anchored" },
+          "free_trial_dependency": { "value": 0.70, "type": "continuous", "label": "high", "source": "inferred" },
+          "shortlisting_discipline": { "value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "domain_specific": {
+          "footage_volume_per_project_hrs": { "value": 0.74, "type": "continuous", "label": "high (40-60hrs avg)", "source": "sampled" },
+          "derivative_request_frequency": { "value": 0.55, "type": "continuous", "label": "moderate", "source": "sampled" },
+          "decision_logging_current": { "value": 0.08, "type": "continuous", "label": "none (markers only)", "source": "inferred" },
+          "post_shoot_dread_index": { "value": 0.84, "type": "continuous", "label": "very high", "source": "inferred" },
+          "nle_lock_in": { "value": 0.78, "type": "continuous", "label": "high (Premiere Pro)", "source": "sampled" },
+          "ai_selection_openness": { "value": 0.28, "type": "continuous", "label": "low — control-preferring", "source": "inferred" },
+          "multi_project_concurrency": { "value": 0.62, "type": "continuous", "label": "moderate (2-3 active)", "source": "sampled" }
+        }
+      },
+
+      "derived_insights": {
+        "decision_style": "emotional",
+        "decision_style_score": 0.78,
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Ryan manages footage dread by establishing micro-rituals — a specific coffee order, a specific playlist — before opening a project folder. The rituals don't solve the problem but they lower the activation energy to begin. When overwhelmed, he revisits a past edit he's proud of to re-establish craft identity before returning to the new material."
+        },
+        "consistency_score": 96,
+        "consistency_band": "high",
+        "key_tensions": [
+          "Values creative control absolutely (0.82 autonomy) but recognises his current system — markers + memory — is failing him at scale",
+          "High quality orientation drives perfectionism in selection, which is the very behaviour that makes the Watch & Decide phase so expensive",
+          "Evaluates tools against 'last project' relevance but delays adoption until pain threshold is crossed — misses the compounding cost in between"
+        ]
+      },
+
+      "narrative": "I've been doing this twelve years. Solo. Which means I shoot it, I produce it, I edit it, and I deliver it — and when a client emails asking for something extra three months later, I'm the one who goes back into the folder and finds it. Or tries to.\n\nI love the shoot. That Saturday afternoon feeling when you nail a ceremony moment or catch the CEO actually laughing — there's nothing like it. And then Monday comes and I open the project folder and there's 55 hours of footage and the high is just... gone. I've started telling myself that's normal. That it's part of the craft. But honestly? I dread it. I've delayed starting the review phase by two, three days after a big shoot, just to preserve the good feeling a little longer.\n\nI use Premiere. I've used Premiere since college and I know it the way I know my own apartment — where everything is, what creaks, what doesn't work the way it should. When people ask why I don't try other tools, I usually say 'my workflow is fine' and I believe it when I say it. What I don't say is that my workflow is fine when I remember what I saw and where I marked it. It's less fine three months later when a client wants a corporate cut and I'm rewatching eight hours of material I know I've already reviewed.\n\nI lost a long-term client that way. A tech company, nice quarterly contract. They wanted a 90-second sponsor cut from a shoot I'd wrapped months earlier. I'd kept my usual markers — 'good,' 'maybe,' 'B-roll' — and I had no idea what any of them meant anymore in context. I quoted two hours. It took eleven. I never mentioned that. The contract went to a bigger agency anyway. They 'had a workflow for derivative requests.' I've thought about that phrase probably once a week since.\n\nI'm not an early adopter. I need to see something working for someone like me — not an agency, not a YouTube content creator, a solo freelance videographer who shoots weddings and corporate events — before I'll touch it. But if something could put me back in the edit chair on Monday morning with the Saturday feeling still intact? I'd try it. I'd need a free trial. I'd need it to work on my actual footage, not demos. And I'd need it not to take over the decisions I actually care about — the cut, the story, the moment. Those are mine.",
+
+      "decision_bullets": [
+        "Will not purchase without a free trial on real project footage — demo environments are insufficient signal.",
+        "Evaluates tools against the specific pain of the last bad project — abstract efficiency claims don't land.",
+        "Reads reviews from solo freelance videographers specifically; agency or content creator endorsements do not transfer.",
+        "Prices tools against personal hourly rate — '$49/month is worth it if it saves 2 hours per project.'",
+        "Abandons tools that add workflow steps without proportional time savings within the trial period.",
+        "Strong control preference for clip selection decisions — AI assist is acceptable, AI replacement is a deal-breaker.",
+        "Makes purchase decisions unilaterally with no approval needed; trial results are the sole input."
+      ],
+
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "intercept": 0.31,
+          "price_gap_coeff": -0.28,
+          "need_intensity_coeff": 0.62,
+          "trust_level_coeff": 0.44,
+          "baseline_at_ask_price": 0.48,
+          "source": "proxy_estimated",
+          "calibration_applied": false,
+          "calibration_factor": null,
+          "calibrated_baseline": null
+        },
+        "price_elasticity": {
+          "value": -0.45,
+          "band": "medium",
+          "source": "proxy_estimated",
+          "proxy_signal": "budget_consciousness(0.44) × switching_cost_aversion(0.65) → medium elasticity; trial_before_commitment(0.75) reduces impulse purchase risk"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.05,
+          "satisfaction_multiplier": 0.55,
+          "competitive_stimulus_multiplier": 1.4,
+          "switching_cost_index": 0.65,
+          "estimated_tenure_periods": 22,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.44,
+          "peer": 0.86,
+          "brand": 0.22,
+          "ad": 0.08,
+          "community": 0.72,
+          "influencer": 0.31,
+          "dominant_anchor": "peer",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          { "objection_type": "workflow_disruption", "probability": 0.74, "severity": "blocking", "addressability": "medium" },
+          { "objection_type": "tool_overlap_with_premiere", "probability": 0.68, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "ai_control_loss", "probability": 0.62, "severity": "blocking", "addressability": "medium" },
+          { "objection_type": "price_vs_value", "probability": 0.38, "severity": "friction", "addressability": "high" }
+        ]
+      },
+
+      "memory": {
+        "core_memory": {
+          "identity_statement": "Solo wedding and corporate videographer who trades creative momentum for footage volume every Monday morning and hasn't solved it yet.",
+          "key_values": ["creative control", "craft quality over throughput", "earned trust before commitment"],
+          "life_defining_events": [
+            { "age_when": 22, "event": "Lost 12 days editing first paid wedding solo with no organisation system", "lasting_impact": "Defines success as emotional impact not margin; established dread of the review phase as normal." },
+            { "age_when": 28, "event": "Lost $6K annual contract by taking 11 hours on a 'simple' derivative request quoted at 2", "lasting_impact": "Understands intellectually that the memory-and-markers system has a ceiling; anxiety substitutes for a real solution." },
+            { "age_when": 33, "event": "Sony FX3 upgrade tripled footage per shoot; first post-shoot Monday took all day to review 20% of material", "lasting_impact": "Post-shoot dread became a named phenomenon; Facebook group validation normalised the pain without solving it." }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self (no team)",
+            "key_influencers": ["Portland freelance videographer community (Facebook group)", "trusted peer reviewer 'Alina' (wedding videographer)"],
+            "trust_network": ["freelance videographer peers", "YouTube tutorial creators he respects"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "$150/month hard limit for software subscriptions",
+            "non_negotiables": ["free trial required", "Premiere Pro compatibility", "final selection control stays with me"],
+            "absolute_avoidances": ["AI that selects clips without review", "tools requiring full workflow migration", "per-seat pricing models"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "Premiere Pro": { "sentiment": "trust", "note": "12 years of muscle memory; known limitations accepted as familiar" },
+          "Frame.io": { "sentiment": "neutral", "note": "Seen used by agency colleagues; considered but not adopted — 'overkill for solo work'" },
+          "Descript": { "sentiment": "skeptical", "note": "Tried briefly; felt more oriented toward podcast/talking-head work than event footage" }
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+
+    {
+      "persona_id": "pg-mvp-002",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "saas-video-production",
+      "mode": "simulation-ready",
+      "slot": "S02",
+      "archetype": "The Volume Handler",
+      "persona_type": "Power User",
+
+      "demographic_anchor": {
+        "name": "Marcus Webb",
+        "age": 41,
+        "gender": "male",
+        "location": {
+          "country": "US",
+          "region": "Mountain West",
+          "city": "Denver, CO",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "nuclear",
+          "size": 4,
+          "income_bracket": "$210K–$260K",
+          "dual_income": true
+        },
+        "life_stage": "peak earnings, established business, two school-age kids",
+        "education": "undergraduate",
+        "employment": "self-employed"
+      },
+
+      "life_stories": [
+        {
+          "title": "Switching From Weddings",
+          "when": "age 26",
+          "event": "Marcus spent four years doing weddings and hated the emotional dependency — brides who changed their minds about music, families who wanted 30-minute films. At 26 he took a risk and cold-emailed 40 event production companies in Denver offering conference coverage. Three replied. One hired him for a 2-day tech summit. He shot it with two cameras, delivered in 5 days, got paid without a single revision request. He never shot another wedding. 'Weddings are about feelings. Events are about deliverables. I know which one I'm better at running as a business.'",
+          "lasting_impact": "Marcus approaches every project as a logistics problem first and a creative problem second. His identity as a businessperson is stronger than his identity as a craftsperson — the inverse of S01 archetypes. He evaluates tools on systems compatibility, not creative fit."
+        },
+        {
+          "title": "The First Fortune 500 Sponsor Package",
+          "when": "age 34",
+          "event": "Marcus landed a 3-day enterprise tech conference — 4 cameras, 22 sessions, $48,000 contract. Then came the sponsor deliverables list: 14 individual sponsor clips, each 60-90 seconds, each requiring branded content from across the full 3 days. He'd never built the time into the quote. He and one assistant spent 22 unbilled hours going through 96 hours of footage to fulfil the list. He charged nothing extra. 'I didn't want to look like I didn't know what I was doing.' He built the sponsor package line item into every subsequent quote. But not the review time.",
+          "lasting_impact": "The scale of that derivative work permanently altered how Marcus thinks about footage. He now sees every shoot as producing two deliverables: the primary output, and the derivative raw material that clients will come back for. He has still not solved the review problem — only priced around its symptoms."
+        },
+        {
+          "title": "The 1TB Event",
+          "when": "current (age 41)",
+          "event": "Marcus now regularly shoots conferences generating over 1TB of footage per event — 4-6 camera angles, keynotes, breakouts, networking footage, B-roll. He has tried Frame.io for collaborative review, Notion for logging, a custom spreadsheet system, and a brief experiment with AI transcription for session content. None has addressed the core problem: when the marketing director emails asking for 'the best moment from the Thursday afternoon panel,' Marcus is back in the NLE, rewatching. He has a VA he could delegate to but has never trusted that person with selection decisions.",
+          "lasting_impact": "Marcus has accepted systematic re-watch as an operational cost. He's open to solutions but highly skeptical — he's tried many and none delivered. His adoption bar is: does it save me time on my next event in a way I can measure before I commit?"
+        }
+      ],
+
+      "attributes": {
+        "psychology": {
+          "change_resistance": { "value": 0.35, "type": "continuous", "label": "low-moderate", "source": "anchored" },
+          "feature_complexity_tolerance": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "loss_aversion": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "cognitive_load_sensitivity": { "value": 0.32, "type": "continuous", "label": "low", "source": "inferred" },
+          "anxiety_index": { "value": 0.44, "type": "continuous", "label": "moderate-low", "source": "inferred" },
+          "perfectionism_score": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" }
+        },
+        "values": {
+          "autonomy_value": { "value": 0.56, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "startup_tool_openness": { "value": 0.68, "type": "continuous", "label": "high", "source": "anchored" },
+          "achievement_orientation": { "value": 0.78, "type": "continuous", "label": "high", "source": "anchored" },
+          "switching_cost_aversion": { "value": 0.30, "type": "continuous", "label": "low", "source": "inferred" },
+          "budget_consciousness": { "value": 0.28, "type": "continuous", "label": "low", "source": "inferred" },
+          "quality_over_price": { "value": 0.56, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "social": {
+          "reputational_concern": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "peer_influence_susceptibility": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" },
+          "committee_buy_in_need": { "value": 0.05, "type": "continuous", "label": "very low", "source": "sampled" },
+          "wom_sensitivity": { "value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "lifestyle": {
+          "perceived_time_scarcity": { "value": 0.88, "type": "continuous", "label": "very high", "source": "anchored" },
+          "routine_adherence": { "value": 0.35, "type": "continuous", "label": "low-moderate", "source": "anchored" },
+          "simplicity_preference": { "value": 0.28, "type": "continuous", "label": "low", "source": "inferred" }
+        },
+        "identity": {
+          "time_to_value_requirement": { "value": 0.82, "type": "continuous", "label": "very high", "source": "anchored" },
+          "solo_decision_authority": { "value": 0.92, "type": "continuous", "label": "very high", "source": "sampled" },
+          "craft_identity_strength": { "value": 0.34, "type": "continuous", "label": "low-moderate", "source": "inferred" }
+        },
+        "decision_making": {
+          "trial_before_commitment_preference": { "value": 0.72, "type": "continuous", "label": "high", "source": "inferred" },
+          "free_trial_dependency": { "value": 0.55, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "shortlisting_discipline": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" }
+        },
+        "domain_specific": {
+          "footage_volume_per_project_hrs": { "value": 0.96, "type": "continuous", "label": "very high (80-120hrs avg)", "source": "sampled" },
+          "derivative_request_frequency": { "value": 0.88, "type": "continuous", "label": "very high (standard on every event)", "source": "sampled" },
+          "decision_logging_current": { "value": 0.15, "type": "continuous", "label": "minimal (spreadsheet, inconsistent)", "source": "inferred" },
+          "post_shoot_dread_index": { "value": 0.58, "type": "continuous", "label": "moderate (accepted as operational cost)", "source": "inferred" },
+          "nle_lock_in": { "value": 0.82, "type": "continuous", "label": "high (Premiere Pro)", "source": "sampled" },
+          "ai_selection_openness": { "value": 0.62, "type": "continuous", "label": "moderate-high — open to AI assist or first-pass AI", "source": "inferred" },
+          "multi_project_concurrency": { "value": 0.84, "type": "continuous", "label": "very high (4-8 active)", "source": "sampled" }
+        }
+      },
+
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.82,
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "features",
+        "coping_mechanism": {
+          "type": "research_deep_dive",
+          "description": "Marcus runs parallel evaluations — he'll trial a tool on one real event while continuing his existing process on another, then compare outputs. He doesn't read reviews to decide; he reads them to shortlist. The actual decision is made by testing on his own footage. If a tool doesn't prove itself in one event's workflow, it's gone."
+        },
+        "consistency_score": 99,
+        "consistency_band": "high",
+        "key_tensions": [
+          "High loss aversion (0.72) combined with low switching cost aversion (0.30) — fears making a costly mistake but is genuinely willing to move on if something better appears",
+          "Moderate autonomy (0.56) means he could accept AI-first selection for high-volume impersonal footage but would need to verify quality before trusting it at scale",
+          "Very high time scarcity (0.88) means the adoption bar is 'saves time this event' — cannot afford a long onboarding ramp"
+        ]
+      },
+
+      "narrative": "I run a one-person operation that generates enterprise-scale output. Last quarter I covered three multi-day conferences, a gala, and two product launches. Four cameras on the last conference. 1.1 terabytes of footage. I billed $178,000 for the year before expenses and I want to get to $250K without hiring a full-time editor, because the moment I hire someone, I have a whole different set of problems.\n\nI don't dread the footage the way some people do. I accept it. It's the job. What I don't accept — but have learned to live with — is the re-watch. Every sponsor package, every 'can we get a clip of the Thursday keynote moment,' every marketing director follow-up two months later sends me back into 96 hours of footage to find something I know I've already seen. I've logged it, kind of. I have a spreadsheet that I maintain pretty well for the first day of a shoot and then stop maintaining when the shoots get back-to-back. So I usually end up rewatching anyway.\n\nI've tried things. Frame.io for collaborative review — useful for client feedback, doesn't help me find my own clips faster. Notion for logging — I used it for three events and quit. AI transcription for session content — helpful for spoken word, useless for visual content. Nothing has closed the gap between 'I know I saw that moment' and 'I can find that moment in under five minutes.'\n\nI'll try something new if it works on my actual footage. I'm not precious about tools. I replaced my NAS setup twice, rebuilt my Premiere template from scratch, dropped Frame.io for a season and came back to it. If something demonstrably saves me four hours on an event, I'll pay for it and I won't lose sleep over switching. What I won't do is retrain my workflow for six weeks to find out if it works. I need to see the value in one event.",
+
+      "decision_bullets": [
+        "Evaluates tools by testing them on one real event before committing — demo footage does not count.",
+        "Calculates ROI as time saved per event × number of events per year; needs to clear $200/month value to justify any tool.",
+        "Low switching cost aversion — will replace tools when faster alternatives emerge with minimal hesitation.",
+        "Open to AI-first clip selection on impersonal high-volume footage (conference, trade show) where creative control is less important.",
+        "Needs Premiere Pro compatibility — workflow disruption is a hard blocker, not a preference.",
+        "Makes purchase decisions unilaterally with no approval needed; speed of decision mirrors speed of operation.",
+        "Does not need free trial by default but will walk away if onboarding takes more than one working session."
+      ],
+
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "intercept": 0.42,
+          "price_gap_coeff": -0.18,
+          "need_intensity_coeff": 0.68,
+          "trust_level_coeff": 0.52,
+          "baseline_at_ask_price": 0.64,
+          "source": "proxy_estimated",
+          "calibration_applied": false,
+          "calibration_factor": null,
+          "calibrated_baseline": null
+        },
+        "price_elasticity": {
+          "value": -0.22,
+          "band": "low",
+          "source": "proxy_estimated",
+          "proxy_signal": "budget_consciousness(0.28) × high revenue × ROI-driven evaluation → low price elasticity; feature quality dominates price signal"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.08,
+          "satisfaction_multiplier": 0.45,
+          "competitive_stimulus_multiplier": 2.1,
+          "switching_cost_index": 0.30,
+          "estimated_tenure_periods": 14,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.48,
+          "peer": 0.44,
+          "brand": 0.30,
+          "ad": 0.10,
+          "community": 0.42,
+          "influencer": 0.22,
+          "dominant_anchor": "self",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          { "objection_type": "onboarding_time_cost", "probability": 0.72, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "premiere_integration_gap", "probability": 0.68, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "unproven_at_scale", "probability": 0.58, "severity": "friction", "addressability": "medium" },
+          { "objection_type": "price_vs_value", "probability": 0.22, "severity": "minor", "addressability": "high" }
+        ]
+      },
+
+      "memory": {
+        "core_memory": {
+          "identity_statement": "Enterprise conference videographer who treats footage as logistics, not craft, and has priced around the derivative problem without ever actually solving it.",
+          "key_values": ["measurable ROI over theoretical benefit", "operational efficiency at scale", "speed of decision-making"],
+          "life_defining_events": [
+            { "age_when": 26, "event": "Deliberately exited wedding market for corporate events — chose predictability over emotion", "lasting_impact": "Business identity dominates creative identity; evaluates every tool as a systems problem." },
+            { "age_when": 34, "event": "22 unbilled hours on Fortune 500 sponsor packages across 96 hours of conference footage", "lasting_impact": "Derivative work is now a priced line item — but the review time within that line item is still unresolved." }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self (solo business)",
+            "key_influencers": ["event production company clients (who dictate deliverable formats)", "VA (trusted for admin, not selection decisions)"],
+            "trust_network": ["own empirical testing", "other independent conference videographers"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "$500/month for tools (flexible if ROI clears the bar)",
+            "non_negotiables": ["must integrate with Premiere Pro", "must prove value in one real event", "no multi-week onboarding ramp"],
+            "absolute_avoidances": ["client-facing tools that require client adoption", "tools that add steps without removing steps"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "Frame.io": { "sentiment": "positive-functional", "note": "Good for client review, not useful for internal selection logging" },
+          "Premiere Pro": { "sentiment": "trust", "note": "Primary NLE, deeply embedded, not negotiable" },
+          "Notion": { "sentiment": "tried-and-quit", "note": "Used for 3 events, didn't survive back-to-back shoot schedule" }
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+
+    {
+      "persona_id": "pg-mvp-003",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "saas-video-production",
+      "mode": "simulation-ready",
+      "slot": "S03",
+      "archetype": "The Repetitive Processor",
+      "persona_type": "Reluctant User",
+
+      "demographic_anchor": {
+        "name": "Priya Sundaram",
+        "age": 29,
+        "gender": "female",
+        "location": {
+          "country": "US",
+          "region": "South Central",
+          "city": "Austin, TX",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "other",
+          "size": 1,
+          "income_bracket": "$72K–$95K",
+          "dual_income": false
+        },
+        "life_stage": "early-career independent, building client base, single household",
+        "education": "undergraduate",
+        "employment": "self-employed"
+      },
+
+      "life_stories": [
+        {
+          "title": "The Accidental Podcast Business",
+          "when": "age 24",
+          "event": "Priya was working in content marketing when a client asked if she could edit a podcast episode 'since you're already doing the blog.' She said yes to be helpful. That client told two others. Within eight months she had 11 active podcast clients and had quit the content marketing job. She never intended to be a podcast editor. She just kept saying yes until it was her whole income. Her tools evolved the same way — Descript because a client used it, Riverside because a client recorded on it, a spreadsheet tracker because she needed something and that was the first thing she made.",
+          "lasting_impact": "Priya's business was built on responsiveness, not deliberate strategy. She stays in tools that clients already use. She is resistant to adopting anything clients don't need her to have — the value has to be internal to her workflow, not client-visible."
+        },
+        {
+          "title": "The Forty-Hour Best-Of",
+          "when": "age 27",
+          "event": "A long-term client asked Priya to compile a '100 best moments from three years of the podcast' as a special episode. It should have been a premium project. She quoted eight hours. She spent forty — not because any single clip was hard to find, but because she had never accumulated anything from her editing sessions. Every episode had been processed and closed. There was no record of which clips had stood out, which moments were especially strong, which she'd flagged as memorable at the time. She rebuilt it entirely from re-listening. She charged the eight hours. 'I didn't know how to explain what had happened.'",
+          "lasting_impact": "The forty-hour project is her reference point for what the absence of a decision log costs. She has thought about building a logging habit many times. She hasn't, because each episode feels too small to justify it, and the cost only becomes visible when something like the 'best of' compilation reveals the gap."
+        },
+        {
+          "title": "The Descript Ceiling",
+          "when": "current (age 29)",
+          "event": "Priya uses Descript for all her editing and genuinely believes it's the best tool for the job. Transcript-based editing, word-level precision, solid export pipeline. When anyone mentions workflow problems, she says 'Descript handles that.' What it doesn't handle: knowing which clip from episode 47 is the one the client will want when they ask for a 'best moment on leadership.' That decision is still in Priya's head, reconstructed fresh each time. She does 14 episodes a month across 9 clients. The decisions accumulate. None of them get recorded.",
+          "lasting_impact": "Descript is a genuine solution to the editing problem. It is not a solution to the selection problem. Priya conflates the two because the pain of selection isn't sharp enough per episode to register as a problem — it only surfaces in the aggregate. This is her primary gap: she won't feel the pain until someone asks her to look back."
+        }
+      ],
+
+      "attributes": {
+        "psychology": {
+          "change_resistance": { "value": 0.30, "type": "continuous", "label": "low", "source": "anchored" },
+          "feature_complexity_tolerance": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "loss_aversion": { "value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "cognitive_load_sensitivity": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "anxiety_index": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" },
+          "perfectionism_score": { "value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "values": {
+          "autonomy_value": { "value": 0.34, "type": "continuous", "label": "low", "source": "anchored" },
+          "startup_tool_openness": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "achievement_orientation": { "value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "switching_cost_aversion": { "value": 0.32, "type": "continuous", "label": "low", "source": "inferred" },
+          "budget_consciousness": { "value": 0.64, "type": "continuous", "label": "moderate-high", "source": "anchored" },
+          "per_seat_preference": { "value": 0.32, "type": "continuous", "label": "low", "source": "anchored" },
+          "quality_over_price": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "social": {
+          "reputational_concern": { "value": 0.48, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "peer_influence_susceptibility": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "committee_buy_in_need": { "value": 0.05, "type": "continuous", "label": "very low", "source": "sampled" },
+          "wom_sensitivity": { "value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "lifestyle": {
+          "perceived_time_scarcity": { "value": 0.58, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "routine_adherence": { "value": 0.78, "type": "continuous", "label": "high", "source": "anchored" },
+          "simplicity_preference": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" }
+        },
+        "identity": {
+          "time_to_value_requirement": { "value": 0.72, "type": "continuous", "label": "high", "source": "inferred" },
+          "solo_decision_authority": { "value": 0.90, "type": "continuous", "label": "very high", "source": "sampled" },
+          "craft_identity_strength": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" }
+        },
+        "decision_making": {
+          "trial_before_commitment_preference": { "value": 0.78, "type": "continuous", "label": "high", "source": "inferred" },
+          "free_trial_dependency": { "value": 0.80, "type": "continuous", "label": "very high", "source": "anchored" },
+          "shortlisting_discipline": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "domain_specific": {
+          "footage_volume_per_project_hrs": { "value": 0.28, "type": "continuous", "label": "low per episode (1-3hrs)", "source": "sampled" },
+          "derivative_request_frequency": { "value": 0.44, "type": "continuous", "label": "moderate (occasional compilations)", "source": "sampled" },
+          "decision_logging_current": { "value": 0.04, "type": "continuous", "label": "none", "source": "inferred" },
+          "post_shoot_dread_index": { "value": 0.22, "type": "continuous", "label": "low per episode (accumulated over time)", "source": "inferred" },
+          "nle_lock_in": { "value": 0.72, "type": "continuous", "label": "high (Descript)", "source": "sampled" },
+          "ai_selection_openness": { "value": 0.72, "type": "continuous", "label": "high — automation-open anchor", "source": "inferred" },
+          "multi_project_concurrency": { "value": 0.78, "type": "continuous", "label": "high (9 clients, 14 eps/month)", "source": "sampled" }
+        }
+      },
+
+      "derived_insights": {
+        "decision_style": "habitual",
+        "decision_style_score": 0.76,
+        "trust_anchor": "self",
+        "risk_appetite": "medium",
+        "primary_value_orientation": "convenience",
+        "coping_mechanism": {
+          "type": "routine_control",
+          "description": "Priya handles high-volume repetitive work by building tight routines and treating each episode as a closed unit. The coping strategy works per-episode but fails cross-episode — she has no mechanism for accumulating knowledge across 200+ episodes. When the gap surfaces (like the 'best of' compilation), she absorbs the extra cost privately rather than identifying it as a systemic problem."
+        },
+        "consistency_score": 95,
+        "consistency_band": "high",
+        "key_tensions": [
+          "High routine adherence (0.78) means she runs a tight, repeatable per-episode process — but that very tightness prevents her from building cross-episode accumulation",
+          "High startup_tool_openness (0.72) and low change_resistance (0.30) make her receptive in principle — but Descript identity ('it's fine') acts as a soft blocker requiring felt pain to overcome",
+          "High free_trial_dependency (0.80) + budget_consciousness (0.64) means the pricing model matters as much as the feature set"
+        ]
+      },
+
+      "narrative": "I edit podcasts for a living. Nine clients, fourteen episodes a month, every week on a schedule that doesn't really stop. I fell into it — started as a favour to one client, and then their friends started asking, and now it's my whole business. I don't mind that. I like the regularity. I like knowing Monday is client A, Tuesday is clients B and C, Wednesday is client D and E. It's repeatable work and I've gotten fast at it.\n\nDescript is my tool. Transcript-based editing is genuinely better for this kind of work — I can see the words, I can cut silences, I can fix pacing by looking at text rather than waveforms. When people ask me if I have workflow problems, I say no, because episode to episode I really don't. The problem is when someone asks me to look backward.\n\nI had a client ask me to do a 'best of three years' episode last year. I quoted eight hours because each episode takes me one to two hours and I assumed I could pull from memory and some rough notes. I spent forty hours on it. Not because any one clip was hard to find — I knew roughly which episodes were good — but because I'd never written anything down about why. Which moments were exceptional. Which quotes I'd noticed at the time. Three years of weekly episodes, 150-odd hours of content, and I had to listen to all of it again fresh. I charged eight hours. I don't know how to explain forty.\n\nI'm very open to tools. I'll try things if they have a free tier or a low entry price. I don't need to be sold — I need to see it work. What I'm not open to is paying $30 a month for something that solves a problem I don't feel weekly. The 'best of' moment, that was a problem. But that was once. The routine is fine. If something could make the routine slightly more useful without breaking it, I'd look at it. But the bar is: does it work inside my existing cadence, per episode, without adding decisions I don't already need to make?",
+
+      "decision_bullets": [
+        "Will not pay for a tool that solves problems she doesn't feel weekly — pain must be recurring to justify subscription.",
+        "Requires free tier or entry price under $20/month; prices tools against per-client monthly revenue.",
+        "Evaluates against Descript specifically — must answer 'what does this do that Descript can't?'",
+        "Adopts tools that reduce repetitive decisions across clients; will not adopt anything adding per-episode decisions.",
+        "High automation openness (0.34 autonomy) — the automation-open anchor of the cohort; less control attachment than any other slot.",
+        "Makes trial decisions based on per-episode results, not product marketing or peer reviews.",
+        "Abandons tools with steep onboarding curves — weekly cadence leaves no window for learning ramps."
+      ],
+
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "intercept": 0.28,
+          "price_gap_coeff": -0.48,
+          "need_intensity_coeff": 0.44,
+          "trust_level_coeff": 0.38,
+          "baseline_at_ask_price": 0.36,
+          "source": "proxy_estimated",
+          "calibration_applied": false,
+          "calibration_factor": null,
+          "calibrated_baseline": null
+        },
+        "price_elasticity": {
+          "value": -0.72,
+          "band": "high",
+          "source": "proxy_estimated",
+          "proxy_signal": "budget_consciousness(0.64) + lower income bracket + free_trial_dependency(0.80) → high price elasticity; price point is decision-relevant"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.06,
+          "satisfaction_multiplier": 0.50,
+          "competitive_stimulus_multiplier": 1.6,
+          "switching_cost_index": 0.32,
+          "estimated_tenure_periods": 16,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.32,
+          "peer": 0.62,
+          "brand": 0.28,
+          "ad": 0.08,
+          "community": 0.54,
+          "influencer": 0.38,
+          "dominant_anchor": "self",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          { "objection_type": "descript_is_sufficient", "probability": 0.78, "severity": "blocking", "addressability": "medium" },
+          { "objection_type": "price_vs_value", "probability": 0.72, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "pain_not_felt_weekly", "probability": 0.65, "severity": "friction", "addressability": "medium" },
+          { "objection_type": "workflow_disruption", "probability": 0.38, "severity": "friction", "addressability": "high" }
+        ]
+      },
+
+      "memory": {
+        "core_memory": {
+          "identity_statement": "High-volume podcast editor running a tight per-episode routine across nine clients — efficient per episode, blind across episodes.",
+          "key_values": ["predictable repeatable routine", "client responsiveness", "per-episode closure"],
+          "life_defining_events": [
+            { "age_when": 24, "event": "Built podcast editing business accidentally by saying yes to a single client favour that multiplied", "lasting_impact": "Responsive to client needs as primary driver; tools adopted reactively, not proactively." },
+            { "age_when": 27, "event": "Spent 40 hours on a 'best of' compilation quoted at 8 hours — no accumulated selection records across 3 years of work", "lasting_impact": "Understands the cross-episode cost conceptually but doesn't feel it weekly; gap only visible on retrospective requests." }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "self",
+            "key_influencers": ["podcast editor community on Twitter/X", "Descript user forums"],
+            "trust_network": ["own trial results", "other solo podcast editors"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "$20/month per new tool hard limit",
+            "non_negotiables": ["must work per-episode not per-project", "must integrate with Descript pipeline", "free trial required"],
+            "absolute_avoidances": ["per-seat pricing", "tools that require workflow rebuild", "client-facing tools she'd have to explain"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "Descript": { "sentiment": "high-trust", "note": "Primary tool — genuinely solves the editing problem; conflated with solving the selection problem" },
+          "Riverside": { "sentiment": "neutral-functional", "note": "Used because clients record on it; not a preference, a compatibility requirement" }
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+
+    {
+      "persona_id": "pg-mvp-004",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "saas-video-production",
+      "mode": "simulation-ready",
+      "slot": "S04",
+      "archetype": "The Margin Manager",
+      "persona_type": "Loyalist",
+
+      "demographic_anchor": {
+        "name": "Dana Chen",
+        "age": 38,
+        "gender": "female",
+        "location": {
+          "country": "US",
+          "region": "Midwest",
+          "city": "Chicago, IL",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "nuclear",
+          "size": 3,
+          "income_bracket": "$105K–$120K salary + agency equity",
+          "dual_income": true
+        },
+        "life_stage": "established agency founder, one school-age child, mid-career peak",
+        "education": "postgraduate",
+        "employment": "full-time"
+      },
+
+      "life_stories": [
+        {
+          "title": "Watching the Owner Lose a Client",
+          "when": "age 26",
+          "event": "Dana was a junior producer at a boutique video agency in Chicago when the owner took a contract for a large annual conference without reading the scope carefully. The client assumed derivatives were included. The agency assumed they weren't. By the time the disagreement surfaced — three months after delivery, when the client asked for 12 speaker highlight clips — the relationship had soured, the client left, and the agency spent 40 hours building deliverables nobody got paid for. Dana watched all of it. She took notes.",
+          "lasting_impact": "This became Dana's reference contract story. She quotes derivatives explicitly on every project, defines scope in writing before work begins, and documents handoff expectations with editors. The lesson was not 'be careful with clients' — it was 'the money you lose is always on the thing you didn't anticipate.'"
+        },
+        {
+          "title": "Starting Chen Creative",
+          "when": "age 31",
+          "event": "Dana left the agency to start Chen Creative with one retained client and a 6-month savings runway. She hired a part-time editor within three months because the volume exceeded what she could do alone. The first year she ran the business through a combination of shared Dropbox folders, Slack channels, and handwritten brief documents. She adopted Frame.io when a client required it for review. She adopted Slack for internal communication because it was free. By year three the stack was entrenched: Frame.io for client review, Slack for editor briefs, Google Drive for assets. It worked. It also bled money on every derivative request.",
+          "lasting_impact": "Dana's tool stack was built reactively, not strategically. Each tool solved a specific problem at a specific moment. The gaps between tools — particularly around what editors know about what was already reviewed, and why — have never been solved. She's accepted this as the cost of running a small agency."
+        },
+        {
+          "title": "The $3,000 Month",
+          "when": "current (age 38)",
+          "event": "Chen Creative now has six staff — three full-time, three contract editors — and manages 12-18 active projects simultaneously. In any given month, Dana estimates that $3,000–$5,000 of editor time is spent on derivative requests that weren't scoped in the original contract. Some of these are billed. Most aren't, because the client conversation about scope feels harder than absorbing the cost. Dana has started tracking this on a whiteboard in her office. The number is consistent month over month. She tells her business partner they need to 'fix the process.' Neither of them knows what the fix looks like.",
+          "lasting_impact": "The whiteboard number has become a standing agenda item and a standing source of low-grade organisational frustration. Dana is actively looking for a solution framed as margin recovery — not efficiency improvement, not better tools. Margin recovery."
+        }
+      ],
+
+      "attributes": {
+        "psychology": {
+          "change_resistance": { "value": 0.54, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "feature_complexity_tolerance": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "loss_aversion": { "value": 0.76, "type": "continuous", "label": "high", "source": "anchored" },
+          "cognitive_load_sensitivity": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" },
+          "anxiety_index": { "value": 0.56, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "perfectionism_score": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "values": {
+          "autonomy_value": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "startup_tool_openness": { "value": 0.50, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "achievement_orientation": { "value": 0.78, "type": "continuous", "label": "high", "source": "anchored" },
+          "switching_cost_aversion": { "value": 0.66, "type": "continuous", "label": "moderate-high", "source": "anchored" },
+          "budget_consciousness": { "value": 0.46, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "economic_constraint_level": { "value": 0.48, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "quality_over_price": { "value": 0.68, "type": "continuous", "label": "high", "source": "inferred" }
+        },
+        "social": {
+          "reputational_concern": { "value": 0.74, "type": "continuous", "label": "high", "source": "anchored" },
+          "peer_influence_susceptibility": { "value": 0.46, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "committee_buy_in_need": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "wom_sensitivity": { "value": 0.66, "type": "continuous", "label": "high", "source": "inferred" }
+        },
+        "lifestyle": {
+          "perceived_time_scarcity": { "value": 0.76, "type": "continuous", "label": "high", "source": "inferred" },
+          "routine_adherence": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "simplicity_preference": { "value": 0.38, "type": "continuous", "label": "low-moderate", "source": "inferred" }
+        },
+        "identity": {
+          "time_to_value_requirement": { "value": 0.68, "type": "continuous", "label": "high", "source": "inferred" },
+          "solo_decision_authority": { "value": 0.64, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "craft_identity_strength": { "value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "decision_making": {
+          "trial_before_commitment_preference": { "value": 0.68, "type": "continuous", "label": "high", "source": "inferred" },
+          "free_trial_dependency": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "shortlisting_discipline": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" }
+        },
+        "domain_specific": {
+          "footage_volume_per_project_hrs": { "value": 0.68, "type": "continuous", "label": "high (30-80hrs depending on event)", "source": "sampled" },
+          "derivative_request_frequency": { "value": 0.82, "type": "continuous", "label": "very high (standard feature of agency contracts)", "source": "sampled" },
+          "decision_logging_current": { "value": 0.22, "type": "continuous", "label": "low (Slack messages, informal)", "source": "inferred" },
+          "post_shoot_dread_index": { "value": 0.44, "type": "continuous", "label": "moderate (pain is financial, not emotional)", "source": "inferred" },
+          "nle_lock_in": { "value": 0.58, "type": "continuous", "label": "moderate (editors use Premiere, she uses Frame.io for review)", "source": "sampled" },
+          "ai_selection_openness": { "value": 0.54, "type": "continuous", "label": "moderate — business case driven", "source": "inferred" },
+          "multi_project_concurrency": { "value": 0.88, "type": "continuous", "label": "very high (12-18 simultaneous)", "source": "sampled" }
+        }
+      },
+
+      "derived_insights": {
+        "decision_style": "analytical",
+        "decision_style_score": 0.84,
+        "trust_anchor": "authority",
+        "risk_appetite": "low",
+        "primary_value_orientation": "quality",
+        "coping_mechanism": {
+          "type": "research_deep_dive",
+          "description": "Dana processes uncertainty by building documentation — case studies, tracking sheets, reference calls. When evaluating a tool, she shortlists over 30-60 days, looks for comparable agencies who've adopted it, and runs a structured pilot before rolling out to her team. Her coping mechanism is the same as her management style: impose structure on ambiguity and measure the outcome."
+        },
+        "consistency_score": 97,
+        "consistency_band": "high",
+        "key_tensions": [
+          "High loss aversion (0.76) makes her fear both the cost of adopting a tool that fails and the cost of not adopting a tool that would have recovered margin",
+          "Committee buy-in need (0.52) means any tool that only works for her doesn't solve the problem — it needs editor adoption to deliver the margin recovery she tracks",
+          "Switching cost aversion (0.66) creates a status quo bias toward Frame.io + Slack even when she can quantify the cost of that stack's limitations"
+        ]
+      },
+
+      "narrative": "I run a six-person agency. We do corporate events, branded content, product launches, trade shows. The work is good. The margins are not.\n\nEvery month I look at my whiteboard — I have an actual whiteboard in my office where I track unbilled time by category — and somewhere between $3,000 and $5,000 is sitting under 'derivative requests.' Some of that gets billed. Most of it doesn't, because explaining scope creep to a client who thinks they're just asking for something small feels harder than eating the time. I know the math is wrong. I track it anyway.\n\nWe use Frame.io for client review. We use Slack for everything else. My editors are good and they work fast, but when a client comes back two months after delivery asking for the speaker highlight clips or the sponsor reel we didn't know they'd want, the process is Slack message to editor, editor goes back into the drive, editor rewatches. There's no record of what was reviewed, what was good, what was set aside. Every derivative is a cold start.\n\nI'm not easy to sell to. I've sat through a lot of demos for tools that promised to solve things and didn't. When I evaluate something new, I shortlist it first — meaning I talk to other agencies our size, I ask what problem it actually solved and what it didn't, I get a reference if I can. Then I run a 30-day pilot on a contained project. Then I ask whether my editors would actually use it, because a tool that only I use doesn't recover the margin I'm tracking.\n\nThe framing that gets my attention isn't 'save time' — it's 'here's exactly how much money you're leaving on the table and here's how this closes that gap.' I respond to the specific, not the general. And I respond better to case studies than claims.",
+
+      "decision_bullets": [
+        "Evaluates tools as business investments — requires a clear ROI case before entering pilot phase.",
+        "Shortlists over 30-60 days using reference calls from comparable agencies; case studies outweigh feature sheets.",
+        "Needs editor adoption to deliver value — a tool only the producer uses does not solve the margin problem.",
+        "Compares per-seat cost against unbilled revision hours tracked monthly on her whiteboard.",
+        "High switching cost aversion (0.66) — will not migrate the Frame.io + Slack stack without documented evidence of improvement.",
+        "Framing as margin recovery lands significantly better than efficiency framing — 'here's what you're losing' over 'here's what you'll gain.'",
+        "Resistant to buying without a 30-day structured pilot on a contained real project."
+      ],
+
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "intercept": 0.26,
+          "price_gap_coeff": -0.24,
+          "need_intensity_coeff": 0.58,
+          "trust_level_coeff": 0.62,
+          "baseline_at_ask_price": 0.44,
+          "source": "proxy_estimated",
+          "calibration_applied": false,
+          "calibration_factor": null,
+          "calibrated_baseline": null
+        },
+        "price_elasticity": {
+          "value": -0.38,
+          "band": "medium",
+          "source": "proxy_estimated",
+          "proxy_signal": "budget_consciousness(0.46) × per-seat team model × ROI-framed evaluation → medium elasticity; team-level value calculation dominates individual price signal"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.03,
+          "satisfaction_multiplier": 0.60,
+          "competitive_stimulus_multiplier": 1.3,
+          "switching_cost_index": 0.66,
+          "estimated_tenure_periods": 32,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.72,
+          "peer": 0.58,
+          "brand": 0.42,
+          "ad": 0.06,
+          "community": 0.44,
+          "influencer": 0.14,
+          "dominant_anchor": "authority",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          { "objection_type": "team_adoption_uncertainty", "probability": 0.76, "severity": "blocking", "addressability": "medium" },
+          { "objection_type": "stack_integration_risk", "probability": 0.68, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "no_comparable_agency_reference", "probability": 0.64, "severity": "friction", "addressability": "medium" },
+          { "objection_type": "30_60_day_shortlist_cycle", "probability": 0.58, "severity": "friction", "addressability": "low" }
+        ]
+      },
+
+      "memory": {
+        "core_memory": {
+          "identity_statement": "Six-person agency producer who tracks derivative margin loss on a whiteboard and hasn't found the process fix that closes it.",
+          "key_values": ["margin recovery over efficiency narrative", "documented evidence over promises", "team adoption as adoption criterion"],
+          "life_defining_events": [
+            { "age_when": 26, "event": "Watched agency owner lose client over unscoped derivatives; took notes", "lasting_impact": "Quotes derivatives explicitly on every project; the unscoped derivative is her primary loss frame." },
+            { "age_when": 31, "event": "Started Chen Creative; built Frame.io + Slack stack reactively over three years", "lasting_impact": "Tool stack is entrenched and functional with known gaps; switching cost is real and felt." }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "business partner (operational decisions shared)",
+            "key_influencers": ["comparable agency producers in Chicago network", "Frame.io power user community"],
+            "trust_network": ["peer agency principals", "editorial director at current anchor client"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "$400/month for new tools (team-level); per-seat model acceptable if ROI positive",
+            "non_negotiables": ["Frame.io compatibility required", "must solve derivative logging not just review", "editor team must adopt it"],
+            "absolute_avoidances": ["tools that require client onboarding", "tools without agency-scale case studies", "anything that adds editor workflow steps without reducing them elsewhere"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "Frame.io": { "sentiment": "high-trust-with-gaps", "note": "Entrenched for client review; respected but known to not solve internal selection logging" },
+          "Slack": { "sentiment": "functional-tolerance", "note": "Briefing and internal comms; functional, not loved; creates informal decision trails that evaporate" }
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    },
+
+    {
+      "persona_id": "pg-mvp-005",
+      "generated_at": "2026-04-12T00:00:00Z",
+      "generator_version": "1.0",
+      "domain": "saas-video-production",
+      "mode": "simulation-ready",
+      "slot": "S05",
+      "archetype": "The Lone Internal",
+      "persona_type": "Pragmatist",
+
+      "demographic_anchor": {
+        "name": "Jordan Tate",
+        "age": 32,
+        "gender": "non-binary",
+        "location": {
+          "country": "US",
+          "region": "Upper Midwest",
+          "city": "Minneapolis, MN",
+          "urban_tier": "metro"
+        },
+        "household": {
+          "structure": "couple-no-kids",
+          "size": 2,
+          "income_bracket": "$82K–$96K",
+          "dual_income": true
+        },
+        "life_stage": "mid-career professional, stabilising income, building internal credibility",
+        "education": "undergraduate",
+        "employment": "full-time"
+      },
+
+      "life_stories": [
+        {
+          "title": "The Accidental Video Person",
+          "when": "age 25",
+          "event": "Jordan was hired as a marketing coordinator at a mid-size retail company. On their third week, the team needed someone to film a product launch event because the agency they'd budgeted for fell through. Jordan had a DSLR from college. They volunteered. The footage was fine. The company cancelled the agency retainer and gave Jordan a $2,000 annual 'video budget.' Jordan was now, without discussion, the video person. They bought a used gimbal, started watching YouTube tutorials, and never mentioned that they didn't know what they were doing.",
+          "lasting_impact": "Jordan's video identity was assigned, not chosen. They are competent and improving, but they carry a persistent low-level anxiety about being found out — about being in a meeting where someone with real production experience asks a question they can't answer. This shapes how they evaluate tools: will this make me look more competent, or expose that I'm figuring this out?"
+        },
+        {
+          "title": "The Scope That Kept Growing",
+          "when": "age 29",
+          "event": "At their current company — a 1,800-person healthcare software firm — Jordan's role was listed as 'Marketing Content Specialist.' By year two, they were producing 6 videos a month. By year three, it was 10. The VP of Marketing added live event coverage to Jordan's scope without a conversation. The Head of Comms started sending Jordan raw footage from external shoots asking for recap videos within 48 hours. No one increased Jordan's headcount, budget, or formal title. Jordan said yes to everything. 'I didn't want to seem like I couldn't handle it.'",
+          "lasting_impact": "Jordan is now doing the job of a 3-person video team alone. The competence anxiety has become a time anxiety — they can handle the work technically but the gap between what they're given and what they know is always visible to them, even if it isn't visible to their manager."
+        },
+        {
+          "title": "The Brief That Never Comes",
+          "when": "current (age 32)",
+          "event": "Jordan receives external event footage — from agency shoots, from the communications team's iPhone, from contractors — with instructions like 'make something for the all-hands' or 'we need social clips.' What Jordan rarely receives is a brief: who is the audience, what is the message, which moments matter, what does success look like. They spend significant time before each edit just trying to figure out what the video is for. They review all the footage to identify anything important before they can decide what's important. 'I watch everything twice — once to see what's there, and once to actually edit.'",
+          "lasting_impact": "The brief-gap is Jordan's primary operational pain. Not footage volume — they don't shoot multi-camera events. Not derivative requests — they're internal. It's the absence of structure at the start of every project that creates the re-watch problem. A tool that gave them a way to capture intent and orient footage review to that intent would be materially different from a speed tool."
+        }
+      ],
+
+      "attributes": {
+        "psychology": {
+          "change_resistance": { "value": 0.36, "type": "continuous", "label": "low-moderate", "source": "anchored" },
+          "feature_complexity_tolerance": { "value": 0.34, "type": "continuous", "label": "low-moderate", "source": "inferred" },
+          "loss_aversion": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "cognitive_load_sensitivity": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "anxiety_index": { "value": 0.68, "type": "continuous", "label": "high (competence + scope)", "source": "inferred" },
+          "perfectionism_score": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "values": {
+          "autonomy_value": { "value": 0.38, "type": "continuous", "label": "low", "source": "anchored" },
+          "startup_tool_openness": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "achievement_orientation": { "value": 0.62, "type": "continuous", "label": "moderate-high", "source": "inferred" },
+          "switching_cost_aversion": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "budget_consciousness": { "value": 0.72, "type": "continuous", "label": "high", "source": "anchored" },
+          "status_seeking": { "value": 0.68, "type": "continuous", "label": "high", "source": "anchored" },
+          "quality_over_price": { "value": 0.52, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "social": {
+          "reputational_concern": { "value": 0.76, "type": "continuous", "label": "high", "source": "anchored" },
+          "peer_influence_susceptibility": { "value": 0.58, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "committee_buy_in_need": { "value": 0.42, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "wom_sensitivity": { "value": 0.64, "type": "continuous", "label": "high", "source": "inferred" }
+        },
+        "lifestyle": {
+          "perceived_time_scarcity": { "value": 0.70, "type": "continuous", "label": "high", "source": "anchored" },
+          "routine_adherence": { "value": 0.54, "type": "continuous", "label": "moderate", "source": "inferred" },
+          "simplicity_preference": { "value": 0.75, "type": "continuous", "label": "high", "source": "anchored" }
+        },
+        "identity": {
+          "time_to_value_requirement": { "value": 0.76, "type": "continuous", "label": "high", "source": "inferred" },
+          "solo_decision_authority": { "value": 0.54, "type": "continuous", "label": "moderate", "source": "anchored" },
+          "craft_identity_strength": { "value": 0.36, "type": "continuous", "label": "low-moderate", "source": "inferred" }
+        },
+        "decision_making": {
+          "trial_before_commitment_preference": { "value": 0.70, "type": "continuous", "label": "high", "source": "inferred" },
+          "free_trial_dependency": { "value": 0.74, "type": "continuous", "label": "high", "source": "inferred" },
+          "shortlisting_discipline": { "value": 0.44, "type": "continuous", "label": "moderate", "source": "inferred" }
+        },
+        "domain_specific": {
+          "footage_volume_per_project_hrs": { "value": 0.38, "type": "continuous", "label": "low-moderate (4-15hrs per project)", "source": "sampled" },
+          "derivative_request_frequency": { "value": 0.48, "type": "continuous", "label": "moderate (internal re-use requests)", "source": "sampled" },
+          "decision_logging_current": { "value": 0.05, "type": "continuous", "label": "none", "source": "inferred" },
+          "post_shoot_dread_index": { "value": 0.46, "type": "continuous", "label": "moderate (driven by brief-gap anxiety, not volume)", "source": "inferred" },
+          "nle_lock_in": { "value": 0.54, "type": "continuous", "label": "moderate (CapCut + occasional Premiere)", "source": "sampled" },
+          "ai_selection_openness": { "value": 0.74, "type": "continuous", "label": "high — simplicity and delegation preference", "source": "inferred" },
+          "multi_project_concurrency": { "value": 0.62, "type": "continuous", "label": "moderate (4-8 projects, varying scale)", "source": "sampled" }
+        }
+      },
+
+      "derived_insights": {
+        "decision_style": "social",
+        "decision_style_score": 0.72,
+        "trust_anchor": "peer",
+        "risk_appetite": "low",
+        "primary_value_orientation": "convenience",
+        "coping_mechanism": {
+          "type": "social_validation",
+          "description": "Jordan manages the gap between their actual skill and their perceived role by producing work that looks professional in a screen share with their manager. They select tools the same way — not the most powerful tool, but the most legible tool: the one they can demo in a meeting without explanation. The coping mechanism is presentation-oriented: if it looks right, the anxiety subsides temporarily."
+        },
+        "consistency_score": 96,
+        "consistency_band": "high",
+        "key_tensions": [
+          "High reputational concern (0.76) + status seeking (0.68) means tools must be credible upward — but budget consciousness (0.72) means free or near-free is the effective constraint",
+          "Low autonomy value (0.38) makes Jordan genuinely open to AI or structured assistance — they want help, not control — but cognitive load sensitivity (0.72) means complexity is a harder blocker than for any other slot",
+          "Solo decision authority (0.54) is moderate — Jordan makes the tool decision but frames it upward; this creates a dual audience for any pitch (does it solve Jordan's problem AND does it sound credible to the VP of Marketing)"
+        ]
+      },
+
+      "narrative": "I'm the video person at a 1,800-person software company. There is no video team. There is me, a CapCut subscription, a good gimbal, and a shared Dropbox folder that I've stopped trying to organise.\n\nI got into this by accident — I had a camera in college and I volunteered for something and now it's my job. I'm good at it. I'm better at it than I was. But there's a version of this role that I imagine existing where someone gives me a brief before they hand me footage, and that version doesn't really exist here. What I get is 'here's the all-hands footage, we need something for next Tuesday.' Or 'here are the clips from the product launch, can you make a recap?' And I watch everything — every hour of it — once to understand what we even have, and then again to actually edit. Because I don't know what they want until I know what exists.\n\nI use CapCut for almost everything. It's simple. It exports cleanly. I can use it in a meeting without explaining what I'm doing. That last one matters more than it probably should — I've been in enough screens shares with stakeholders who watch me work, and CapCut doesn't make me look like I'm figuring something out. I'm not ready for a tool that makes me look like I'm learning.\n\nWhen I think about what would actually make my job better, it's not speed. It's not AI that picks clips for me. It's knowing what the business wants before I start reviewing. And then — once I know that — having some way to mark what I've seen so I'm not rewatching three weeks later when the VP wants something from the same event. I watch everything twice. I would like to watch everything once.",
+
+      "decision_bullets": [
+        "Evaluates tools on simplicity first — must be usable in a manager screen share without explanation or visible learning curve.",
+        "Makes tool decisions solo but frames them upward for manager awareness; credibility to non-video stakeholders is a selection criterion.",
+        "Budget ceiling is free or under $30/month; frames against personal budget, not company budget.",
+        "High AI openness (low autonomy value 0.38) — genuinely wants AI or structured assistance to reduce the brief-gap decisions she makes alone.",
+        "Primary pain is brief-gap anxiety, not footage volume — positioning as a speed tool undersells to this segment.",
+        "Avoids tools requiring IT approval or complex integrations — perceived approval friction is a blocker even if the actual approval would be granted.",
+        "Requires immediate visible value on first use — will not adopt tools with deferred or accumulating payoff."
+      ],
+
+      "behavioural_params": {
+        "mode": "proxy",
+        "purchase_prob": {
+          "intercept": 0.34,
+          "price_gap_coeff": -0.52,
+          "need_intensity_coeff": 0.48,
+          "trust_level_coeff": 0.40,
+          "baseline_at_ask_price": 0.42,
+          "source": "proxy_estimated",
+          "calibration_applied": false,
+          "calibration_factor": null,
+          "calibrated_baseline": null
+        },
+        "price_elasticity": {
+          "value": -0.68,
+          "band": "high",
+          "source": "proxy_estimated",
+          "proxy_signal": "budget_consciousness(0.72) + salary income bracket + free_trial_dependency(0.74) → high price elasticity; hard ceiling at ~$30/month"
+        },
+        "switching_hazard": {
+          "baseline_rate_per_period": 0.07,
+          "satisfaction_multiplier": 0.55,
+          "competitive_stimulus_multiplier": 1.5,
+          "switching_cost_index": 0.44,
+          "estimated_tenure_periods": 18,
+          "source": "proxy_estimated"
+        },
+        "trust_vector": {
+          "expert": 0.38,
+          "peer": 0.78,
+          "brand": 0.44,
+          "ad": 0.12,
+          "community": 0.52,
+          "influencer": 0.46,
+          "dominant_anchor": "peer",
+          "source": "proxy_estimated"
+        },
+        "objection_profile": [
+          { "objection_type": "complexity_too_high", "probability": 0.76, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "price_vs_value", "probability": 0.68, "severity": "blocking", "addressability": "high" },
+          { "objection_type": "it_approval_friction_perceived", "probability": 0.56, "severity": "friction", "addressability": "medium" },
+          { "objection_type": "capcut_is_sufficient", "probability": 0.44, "severity": "friction", "addressability": "high" }
+        ]
+      },
+
+      "memory": {
+        "core_memory": {
+          "identity_statement": "Accidental in-house video lead managing a 3-person video workload alone, oriented more toward looking competent than producing perfect work.",
+          "key_values": ["looking credible to management", "managing scope without breaking", "simplicity that doesn't expose the learning curve"],
+          "life_defining_events": [
+            { "age_when": 25, "event": "Volunteered with a college DSLR for a product launch and accidentally became the company's video person", "lasting_impact": "Video identity is assigned not chosen; competence anxiety is persistent and managed through tool legibility." },
+            { "age_when": 29, "event": "Scope expanded to 10 videos/month + live event coverage without headcount increase or role change", "lasting_impact": "Has accepted over-scope as a fixed condition; copes by always saying yes and hoping the tools keep up." }
+          ],
+          "relationship_map": {
+            "primary_decision_partner": "VP of Marketing (approval context, not collaborative decision)",
+            "key_influencers": ["other in-house video leads in similar-sized companies", "marketing tool review communities (G2, Product Hunt)"],
+            "trust_network": ["peer in-house content creators", "manager's implicit approval signal"]
+          },
+          "immutable_constraints": {
+            "budget_ceiling": "$30/month personal budget ceiling; company tool approval process creates perceived friction even if approval is likely",
+            "non_negotiables": ["must look clean in a screen share with stakeholders", "must not require IT setup or integration approval", "must deliver visible value on first project"],
+            "absolute_avoidances": ["tools that look 'professional/complex' and might prompt questions Jordan can't answer", "anything requiring team onboarding", "per-seat pricing models that require manager approval"]
+          }
+        },
+        "operational_stream": [],
+        "brand_memories": {
+          "CapCut": { "sentiment": "comfortable-default", "note": "Simple, exportable, screen-share safe; the tool Jordan uses not because it's best but because it's legible" },
+          "Canva": { "sentiment": "positive-functional", "note": "Used for social static content; occasionally used for simple video" },
+          "Premiere Pro": { "sentiment": "aspirational-intimidating", "note": "Knows it's 'the right tool'; hasn't committed to learning it fully; feels like it would expose the gap" }
+        },
+        "purchase_history": [],
+        "simulation_state": {
+          "current_turn": 0,
+          "importance_accumulator": 0.0,
+          "reflection_count": 0,
+          "awareness": {},
+          "consideration_set": [],
+          "last_decision": null
+        }
+      }
+    }
+  ],
+
+  "cohort_summary": {
+    "decision_style_distribution": {
+      "emotional": 0.20,
+      "analytical": 0.40,
+      "habitual": 0.20,
+      "social": 0.20
+    },
+    "trust_anchor_distribution": {
+      "self": 0.40,
+      "peer": 0.40,
+      "authority": 0.20,
+      "family": 0.00
+    },
+    "risk_appetite_distribution": {
+      "low": 0.40,
+      "medium": 0.40,
+      "high": 0.20
+    },
+    "consistency_scores": {
+      "mean": 97,
+      "min": 95,
+      "max": 99
+    },
+    "behavioural_params_summary": {
+      "price_elasticity_distribution": {
+        "low": 0.20,
+        "medium": 0.40,
+        "high": 0.40
+      },
+      "mean_baseline_purchase_prob": 0.47,
+      "mean_baseline_switch_rate": 0.058,
+      "dominant_trust_anchor": "self/peer (tied)",
+      "top_objection_types": [
+        "workflow_disruption_or_tool_overlap",
+        "price_vs_value (especially for budget-constrained slots)",
+        "adoption_uncertainty (team or self)"
+      ],
+      "params_source_distribution": {
+        "cluster_estimated": 0.0,
+        "proxy_estimated": 1.0,
+        "benchmark_calibrated": 0.0
+      }
+    },
+    "calibration_state": {
+      "status": "uncalibrated",
+      "method_applied": "none",
+      "last_calibrated": null,
+      "benchmark_source": null,
+      "pre_calibration_metrics": {
+        "conversion_rate": null,
+        "churn_rate": null,
+        "kl_divergence": null
+      },
+      "post_calibration_metrics": {
+        "conversion_rate": null,
+        "churn_rate": null,
+        "kl_divergence": null
+      },
+      "intercept_adjustment_applied": null,
+      "segments_adjusted": [],
+      "notes": "Pilot cohort (1 persona per slot). Scale to n≥40 per slot before probe sessions for HIGH RISK hypotheses."
+    },
+    "coverage_assessment": "Cohort spans 5 distinct archetypes across the full autonomy gradient (0.82→0.56→0.52→0.38→0.34), producing visible differentiation on the H08/H09 control-vs-automation axis. Decision styles cover emotional (S01), analytical (S02, S04), habitual (S03), and social (S05) — all four types represented. Primary gap: single persona per slot means HIGH RISK single-segment hypotheses (H15, H17, H18, H23-H29) require n≥40 generation runs before statistical confidence is achievable.",
+    "dominant_tensions": [
+      "Control vs. automation splits sharply across the autonomy gradient — S01 (0.82) will resist AI selection that S03 (0.34) and S05 (0.38) actively want",
+      "Pain framing differs by segment: S01 feels creative dread, S02 feels operational cost, S03 feels accumulated invisibility, S04 feels margin erosion, S05 feels brief-gap competence anxiety — a single positioning cannot address all five"
+    ]
+  }
+}

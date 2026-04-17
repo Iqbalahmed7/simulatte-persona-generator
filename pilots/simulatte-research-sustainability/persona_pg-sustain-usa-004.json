@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-usa-004",
+  "spec_id": "S02",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Troy Sanderson",
+  "age": 49,
+  "location": "Lakeland, Florida, USA",
+  "employment": "HVAC technician; occasional weekend handyman work",
+  "education": "High school; vocational certificate in HVAC",
+  "income": "$51,000/year",
+  "household": "Owns home (mortgaged) with wife; two adult children",
+  "political_orientation": "Conservative-leaning on economics; mixed on environment",
+
+  "worldview_anchor": {
+    "IT": 0.39,
+    "SCP": 0.38,
+    "CS": 0.44,
+    "ESP": 0.68
+  },
+
+  "life_story_vignettes": [
+    "Troy has worked on air conditioning systems for twenty-five years. Florida heat is his professional reality — when temperatures hit 103 degrees in August 2025, he was on a roof fixing a unit for eight hours. He thinks a lot about heat and energy in practical terms. He doesn't frame it as climate change. He notices the summers are longer.",
+    "His wife pushed to upgrade their home insulation in 2023 — primarily to cut the electric bill, which was running $380/month in summer. The upgrade cost $4,200 and paid back in about two and a half years. Troy thinks about sustainability in terms of payback periods.",
+    "He bought a used truck that gets 16 mpg. He's aware this is bad on gas. He drives it because it holds his equipment and he needs it for work. He looked at hybrid trucks once. The price difference for a new one was $12,000. He's keeping the old truck."
+  ],
+
+  "narrative": "My name is Troy. I'm 49, I'm an HVAC tech, I've lived in Florida most of my life. I fix the things that keep people cool and I've watched those things get more expensive to run over my career. The summers are hotter than when I started. I don't need a scientist to tell me that — I feel it on the roof.\n\nDo I care about the environment? Sure. I'm not going to say I don't. I grew up fishing in the Peace River and the water quality has gotten worse in my lifetime, obviously. I care about that. What I don't care about is paying a premium at the grocery store for organic labels or eco-certified cleaning spray. That stuff doesn't feel connected to the actual problem.\n\nI made a real investment in my house — better insulation, a more efficient AC unit. That cost money but it saves money too. I think about sustainability the way I think about anything: what's the payback? If a decision makes financial sense and it's also better for the environment, I'm in. If it only makes environmental sense, I'll probably skip it.\n\nI work hard for what I have. I'm not interested in being lectured about my consumption choices by people who don't know what it costs to run a household. My wife buys some of the organic stuff at the store because she thinks it tastes better. I'm fine with that. But it's not because of the certification.\n\nI think the electric grid, the fuel standards, the building codes — that's where the real changes happen. Not in whether I buy the $9 dish soap or the $6 one.",
+
+  "key_attributes": {
+    "sustainability_concern": "low-moderate — genuine on local environmental quality; frames through economic lens rather than values lens",
+    "premium_willingness": "low — will invest in efficiency with clear ROI; rejects premium for premium's sake",
+    "greenwashing_scepticism": "moderate — not analytically engaged; simply doesn't see organic/eco-labels as relevant to real environmental change",
+    "certification_response": "neutral to negative — doesn't drive decisions; mildly dismissive of consumer sustainability discourse",
+    "attitude_behaviour_gap": "moderate — sees no gap because he frames environmental action through financial efficiency",
+    "political_engagement": "votes; pragmatic on energy policy"
+  },
+
+  "decision_bullets": [
+    "Will invest in home efficiency upgrades when payback period is clear and manageable",
+    "Will not pay sustainability premium on consumer goods without demonstrable personal economic benefit",
+    "Respects practical environmental action; dismissive of consumer virtue signalling",
+    "Aware of environmental deterioration through personal observation; doesn't use climate change framing",
+    "Wife has more influence on household food and cleaning product choices"
+  ]
+}

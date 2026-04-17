@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-de-001",
+  "spec_id": "S03",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Hannah Becker",
+  "age": 34,
+  "location": "Berlin, Germany",
+  "employment": "Project manager, public sector (federal housing ministry)",
+  "education": "M.A. Urban Planning, TU Berlin",
+  "income": "€58,000/year",
+  "household": "Two-person household; long-term partner, no children",
+  "political_orientation": "Centre-green (Grüne, but pragmatic)",
+
+  "worldview_anchor": {
+    "IT": 0.59,
+    "SCP": 0.65,
+    "CS": 0.66,
+    "ESP": 0.28
+  },
+
+  "life_story_vignettes": [
+    "Hannah grew up in Freiburg, which she describes as the city that took environmental planning seriously before it was fashionable. Her parents were both public sector employees — her mother worked in municipal waste management. Separating trash and composting were never taught as special virtues; they were simply what you did.",
+    "In 2022 she participated in a Bürgerrat — a citizens' assembly on climate policy — as a randomly selected participant. The experience confirmed her belief that systemic change happens through institutions, not individual heroics. She came away frustrated at how slowly policy moves but more committed to working within it.",
+    "She and her partner gave up their car entirely in 2021 when they moved to Prenzlauer Berg. They use a car-sharing service two or three times a year for trips to the countryside. She does not miss it. She has calculated that the cost savings plus reduced stress has been substantial."
+  ],
+
+  "narrative": "Mein Name ist Hannah. Ich bin 34, lebe in Berlin, arbeite im Bundesministerium für Wohnen. Auf Englisch: I grew up believing that caring for shared resources is just part of living in a society. Not a political position — a baseline.\n\nSustainability matters to me personally, and I don't mean that as a statement of identity. I mean I've structured real parts of my life around it. We don't have a car. We buy secondhand. We cook mostly plant-based at home, not for health but because the environmental calculation is obvious if you look at the numbers. We go on holiday mostly by train — Italy last summer, four hours from Berlin. I pay attention to what I buy and where it comes from.\n\nI work in urban planning, so I understand that individual choices have limits. I'm not naive about the scale. But I also don't use structural arguments as an excuse to opt out personally. Both things are true: I make considered choices and I vote for parties that treat this as policy, not marketing.\n\nOn consumer goods, I'll pay more for certified sustainable products. The certification matters to me — I don't trust brand claims, I want independent verification. A 25% premium on cleaning products or food is not something I agonise over. It's already in how I budget. I budget for it.\n\nThe thing I've been thinking about more lately is what sacrifice I'm actually willing to make at the margin. I have a comfortable life relative to many people. Flying to see a friend in New York — I haven't done that in three years, partly because of cost and partly because it felt wrong. But I also know that my individual flight is not the point. The system needs to change. I'm trying to navigate the tension between those two things honestly.",
+
+  "key_attributes": {
+    "sustainability_concern": "very high — structural and personal; not performative; deeply integrated into life choices",
+    "premium_willingness": "high — budgets for sustainable products; 25% premium is manageable and expected",
+    "greenwashing_scepticism": "high — specifically distrusts brand-only claims; requires third-party certification",
+    "certification_response": "strongly positive — certification is the deciding factor; meaningfully increases trust",
+    "attitude_behaviour_gap": "small but present — systemic realism vs. personal obligation is her live tension",
+    "political_engagement": "high — participates in deliberative democracy processes; votes Green-pragmatic"
+  },
+
+  "decision_bullets": [
+    "Routinely chooses certified sustainable option when available; 25% premium is budget-normal",
+    "Requires third-party certification — brand environmental claims without independent verification are discounted",
+    "Structural choices (no car, train travel, plant-based diet) are primary sustainability levers",
+    "Does not maximise sustainability at any cost — has a real price ceiling but it is high",
+    "Works within institutions for systemic change; views personal action and policy advocacy as complementary"
+  ]
+}

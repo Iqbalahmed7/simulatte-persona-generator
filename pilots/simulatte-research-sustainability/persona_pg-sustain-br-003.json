@@ -1,0 +1,47 @@
+{
+  "persona_id": "pg-sustain-br-003",
+  "spec_id": "S06",
+  "study_id": "STU_004_sustainability_usa_de_br",
+  "generated_at": "2026-04-13",
+
+  "name": "Claudia Ferreira",
+  "age": 38,
+  "location": "Osasco (periurban São Paulo), SP, Brazil",
+  "employment": "Domestic worker (live-out); occasional informal cleaning jobs",
+  "education": "Ensino Médio (secondary complete)",
+  "income": "BRL 2,400/month",
+  "household": "Rents two-bedroom with husband and two children (ages 9 and 12); husband works construction (informal)",
+  "political_orientation": "Moderate; pragmatic; voted Lula",
+
+  "worldview_anchor": {
+    "IT": 0.45,
+    "SCP": 0.48,
+    "CS": 0.60,
+    "ESP": 0.81
+  },
+
+  "life_story_vignettes": [
+    "Claudia's combined household income is approximately BRL 4,500/month when her husband has construction work. When construction is slow — which happened for five months in 2024 — she carried the household on her domestic work income alone. She does not have a formal employment contract. She knows she is one slow month away from real difficulty.",
+    "She grew up in Bahia, near the São Francisco river. She remembers the river being fuller. She moved to the São Paulo periphery at 22 for work. She misses the green of the interior but doesn't think of her current life through an environmental lens — survival occupies most of that space.",
+    "Her daughter brought home a school worksheet about recycling in 2024. Claudia helped her fill it out. They now separate plastic and paper from organic waste — partly because the school project asked them to, partly because Claudia found it made taking out the bins simpler. She has not framed this as an environmental commitment."
+  ],
+
+  "narrative": "Meu nome é Claudia. Tenho 38 anos, moro em Osasco, trabalho como empregada doméstica. In English: I'm Claudia, 38, domestic worker, living near São Paulo.\n\nDo I worry about the environment? Of course. I grew up near the São Francisco river in Bahia — I remember when it had more water. I see the weather getting stranger. My children ask about the storms we had last summer. I'm not unaware.\n\nBut I need to be direct about what my life looks like: my husband and I earn together about four thousand reais a month when things are going well. My rent is twelve hundred. Food for four people is roughly nine hundred a month. There is not a lot left over. When I'm at the supermarket with my children, I'm looking at the price first, second, and third. The 'eco' label is not something I'm reading.\n\nI separate my rubbish now because my daughter's school asked us to. That I can do. It doesn't cost anything. But paying double for a cleaning product because it has a certification — that's not available to me. That's the reality.\n\nI think about this sometimes in the houses I clean in Moema and Itaim. I clean the kitchens and see the Natura and the organic products. They're for people who earn ten times what I earn. The conversation about choosing sustainable brands is happening in a different economic universe than mine.\n\nI do want a better world for my children. I'm not indifferent. But it's hard to think about the planet when I'm not sure about next month.",
+
+  "key_attributes": {
+    "sustainability_concern": "moderate — genuine and experiential; economically subordinated to immediate survival",
+    "premium_willingness": "very low — absolute economic constraint; sustainability premium is categorically unaffordable",
+    "greenwashing_scepticism": "low — not the relevant lens; practically indifferent to brand claims as she doesn't engage with premium tier",
+    "certification_response": "neutral to irrelevant — certifications are for a market she cannot access",
+    "attitude_behaviour_gap": "large — driven entirely by economic constraint, not values indifference; she would care more if she could",
+    "political_engagement": "low engagement; votes for economic security framing"
+  },
+
+  "decision_bullets": [
+    "Cannot afford any sustainability premium — household budget does not permit it",
+    "Makes zero-cost sustainability choices when asked to (school waste sorting)",
+    "Environmental concern is genuine but competes with immediate economic precarity",
+    "Observes sustainability as a class-stratified phenomenon through her domestic work",
+    "Does not engage with sustainability marketing — not the primary customer for that conversation"
+  ]
+}

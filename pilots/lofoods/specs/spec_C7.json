@@ -1,0 +1,64 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C7",
+      "name": "Type 2 Diabetic Patient",
+      "count": 10,
+      "age_range": [
+        40,
+        65
+      ],
+      "locations": [
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Chennai",
+        "Bangalore",
+        "Kolkata"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1",
+        "tier2"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle"
+      ],
+      "household_types": [
+        "nuclear",
+        "joint"
+      ],
+      "key_signals": {
+        "diabetic_status": "high",
+        "doctor_endorsement_weight": "very-high",
+        "functional_food_trust": "medium",
+        "clean_label_importance": "high",
+        "premium_price_tolerance": "medium",
+        "indian_startup_brand_trust": "low-medium",
+        "keto_diet_adherence": "low-medium",
+        "quick_commerce_adoption": "low-medium"
+      },
+      "case_studies": [
+        6,
+        15
+      ],
+      "notes": "High-stakes category. Needs clinical credibility \u2014 FSSAI, clinical studies, doctor recommendations. Skeptical of startup brands without medical backing. Family member (C8) often makes purchase. Trust is the primary unlock, not price."
+    }
+  ]
+}

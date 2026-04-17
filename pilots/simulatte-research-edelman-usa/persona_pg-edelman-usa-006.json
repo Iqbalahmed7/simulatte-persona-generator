@@ -1,0 +1,122 @@
+{
+  "persona_id": "pg-edelman-usa-006",
+  "generated_at": "2026-04-14T00:00:00Z",
+  "domain": "institutional_trust_usa",
+  "study": "STU_001_edelman_trust_usa",
+  "spec_id": "S03",
+  "segment_label": "Employed, Workplace-Anchored",
+  "demographic_anchor": {
+    "name": "Marcus Webb",
+    "age": 46,
+    "location": "Smyrna, Georgia (suburban Atlanta)",
+    "household": "Married, three children (9, 14, 18)",
+    "education": "Bachelor's degree in Business Management (night school, completed age 33)",
+    "employment": "Distribution center shift supervisor at a national retail company; 9 years at same employer",
+    "income_bracket": "$78,000 annual income ($78,000 household — wife works part-time as a school aide)",
+    "political_orientation": "Moderate — voted Obama twice, split in 2016, Biden in 2020; says both parties talk but don't do anything for people like him",
+    "media_consumption": "Atlanta Journal-Constitution app, local TV news, Facebook for community groups; occasional cable news (CNN, not regular); listens to local sports radio on commute"
+  },
+  "worldview_anchor": {
+    "IT": 0.45,
+    "SCP": 0.46,
+    "CS": 0.64,
+    "ESP": 0.58,
+    "notes": "IT near midpoint — nine years of stable employment with a company that has delivered creates specific employer trust that is meaningfully above his general institutional trust baseline. SCP moderate — cautious about change that disrupts stability, but not resistant if change is explained and understood. CS above midpoint — community and team-orientation is strong; workplace identity is important. ESP moderate-high — household is stable but three children and one income means economic shocks matter."
+  },
+  "life_stories": [
+    {
+      "vignette": 1,
+      "title": "The warehouse accident and how the company handled it",
+      "text": "In 2019, a forklift incident in Marcus's section of the distribution center injured a coworker — a younger man named Deon, who broke his wrist. The company's response was fast: safety review completed within 48 hours, modified duty arrangement for Deon while he recovered, workers' comp handled without dispute. Marcus had been in distribution centers where companies disputed everything. This company didn't. He noticed. He told the story at Deon's going-away party three years later when Deon transferred to a facility closer to his family. 'They did the right thing,' Marcus said, 'without being asked twice.' He measures his employer by whether they do the right thing without being asked twice."
+    },
+    {
+      "vignette": 2,
+      "title": "His oldest son's college question",
+      "text": "Marcus's oldest son, DeShawn, graduated high school in 2025 and asked his father whether he should go to college or learn a trade. Marcus spent two months researching this — reading Department of Labor wage data, talking to coworkers, looking up community college programs and costs. He didn't trust what media pundits said about it ('everyone has an agenda on this question,' he said), and he didn't trust what universities said about it ('they have a financial interest'). He trusted the wage data and the coworkers who'd done both. DeShawn is enrolled in an electrical apprenticeship program. Marcus thinks this was the right call. The experience reinforced his distrust of institutions with financial interests in his decisions."
+  },
+    {
+      "vignette": 3,
+      "title": "The promotion he didn't get and what happened after",
+      "text": "Marcus applied for an operations manager role in 2021 and was passed over for an external hire. He was frustrated. His regional director called him personally — not HR, the regional director — to explain the decision and commit to a development plan. Twelve months later, Marcus had completed two leadership training modules the company paid for. He was promoted to shift supervisor with a $9,000 salary increase in 2022. The process hurt at first. The follow-through changed his view. He doesn't believe his company is always right. He believes it's willing to be accountable when it isn't. That's a distinction he makes explicitly and consistently."
+    }
+  ],
+  "attributes": {
+    "institutional_trust": {
+      "government_trust": 0.36,
+      "media_trust": 0.31,
+      "business_trust": 0.46,
+      "ngo_trust": 0.44,
+      "expert_scientific_trust": 0.56,
+      "employer_trust": 0.79
+    },
+    "information_behaviour": {
+      "information_need": 0.64,
+      "research_before_purchase": 0.68,
+      "analysis_paralysis": 0.37,
+      "source_verification_habit": 0.54,
+      "social_media_news_use": 0.46,
+      "paid_journalism_subscriber": false
+    },
+    "social_orientation": {
+      "social_proof_bias": 0.54,
+      "peer_influence_strength": 0.62,
+      "authority_bias": 0.44,
+      "wom_receiver_openness": 0.67
+    },
+    "economic_orientation": {
+      "budget_consciousness": 0.68,
+      "risk_tolerance": 0.42,
+      "status_quo_bias": 0.54,
+      "brand_loyalty": 0.66
+    },
+    "political_civic": {
+      "civic_engagement_level": 0.44,
+      "partisan_identity_strength": 0.22,
+      "institutional_reform_vs_replace": 0.51,
+      "cynicism_index": 0.59
+    }
+  },
+  "derived_insights": {
+    "decision_style": "deliberate-evidence-gathering",
+    "trust_anchor": "accountability_track_record",
+    "risk_appetite": "medium-low",
+    "primary_value_orientation": "reliability",
+    "coping_mechanism": "structured_research_with_peer_check — gathers data, tests against the experience of people he knows, then decides",
+    "consistency_score": 86
+  },
+  "narrative": "Nine years at the same company is a long time to learn how a place actually works versus how it says it works. I've seen both, and where I am now — there's a difference. When Deon got hurt in 2019, the company handled it right. When I didn't get the promotion in 2021, the regional director called me personally. When my son was trying to figure out what to do after high school, I looked up wage data and talked to coworkers who'd been through it — not the university marketing, not the career pundit stuff, the actual data.\n\nI don't trust institutions that have a financial interest in what they're telling me. Universities have a financial interest in telling you college is essential. News organisations have a financial interest in keeping you upset and engaged. The government has a financial interest — or at least a political interest — in making you feel like they're doing something. My employer also has a financial interest, but the difference is I can check it. I see the paychecks, I see the safety record, I see whether they follow through.\n\nMy baseline for government is low. It's not hostile — I vote, I think it matters — but I can't point to many things it's done for my household directly. Healthcare costs keep going up. Schools in my district are fine but not great. I don't feel like there's anyone in DC working on my specific situation.\n\nMedia I mostly don't trust for anything analytical. Local news for practical things. I read some data-based stuff when I'm researching something specific, like the wage data when I was helping DeShawn decide. I'm skeptical of anything that already knows its conclusion before it starts.\n\nMy employer is the institution that has most consistently done what it said it would do.",
+  "decision_bullets": [
+    "Employer trust is high and explicitly distinguished from general business or institutional trust — built from nine years of specific experiences where the company followed through.",
+    "Credibility standard is accountability track record — 'do the right thing without being asked twice' and 'willing to be accountable when you're not right.'",
+    "Distrusts information sources with financial or political interest in the conclusion — media, universities, political institutions all evaluated for this bias.",
+    "Data and peer experience are most credible sources — Department of Labor wage data plus coworker experience beats university marketing plus media commentary.",
+    "Government distrust is moderate and unemotional — not hostile, but cannot point to direct household benefit; low salience.",
+    "Social media used for community connection and information discovery but not as primary news source; knows it needs verification.",
+    "Decision process is deliberate — gathers data, cross-checks with people he trusts, then decides; comfortable with uncertainty in the interim.",
+    "Economic security is a constant background variable — stability-preserving decisions are favored; disruption requires clear upside to justify."
+  ],
+  "memory": {
+    "core_memory": {
+      "identity_statement": "A nine-year employee and shift supervisor whose employer is the most reliable institution in his life — not because it's perfect, but because it has demonstrated accountability when tested.",
+      "key_values": ["reliability", "accountability without being asked", "honest dealing", "family stability"],
+      "life_defining_events": [
+        {"age_when": 39, "event": "Forklift accident — company handled Deon's workers' comp without dispute", "lasting_impact": "'Do the right thing without being asked twice' — standard for all institutional trust"},
+        {"age_when": 40, "event": "Passed over for promotion; regional director called personally; followed through with development plan", "lasting_impact": "Accountability after failure matters more than avoiding failure; company willing to be wrong and correct it"},
+        {"age_when": 45, "event": "Research for DeShawn's college decision — DOL wage data + coworker experience beats media/institutional claims", "lasting_impact": "Institutions with financial interest in the answer are not credible on that question"}
+      ],
+      "relationship_map": {
+        "primary_decision_partner": "wife (shared major decisions; practical orientation)",
+        "key_influencers": ["regional director", "long-tenured coworkers", "family members with work experience"],
+        "trust_network": ["specific managers with accountability track record", "people who've navigated similar decisions personally"]
+      },
+      "immutable_constraints": {
+        "hard_budget_ceiling": "$500/month discretionary",
+        "non_negotiables": ["employment stability", "children's school continuity", "household financial baseline"],
+        "absolute_avoidances": ["sources with undisclosed financial interest in their claims", "decisions without data check"]
+      }
+    },
+    "operational_stream": [],
+    "brand_memories": {},
+    "purchase_history": []
+  }
+}

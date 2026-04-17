@@ -1,0 +1,43 @@
+{
+  "persona_id": "pg-reuters-usa-002",
+  "spec_id": "S01",
+  "study_id": "STU_005",
+  "generated_at": "2026-04-13",
+  "country": "United States",
+  "name": "Destiny Okafor",
+  "age": 29,
+  "location": "Atlanta, GA",
+  "employment": "UX researcher at a mid-size tech company",
+  "education": "Bachelor's, Georgia State University (Communications)",
+  "income_bracket": "Lower-middle ($54,000/year)",
+  "urban_rural": "Urban (Old Fourth Ward)",
+  "WorldviewAnchor": {
+    "IT": 0.34,
+    "SCP": 0.77,
+    "CS": 0.58,
+    "ESP": 0.55
+  },
+  "calibration_notes": "IT slightly higher than Marcus — stable employment and college completion moderate low-institutional baseline, but professional frustration with structural inequities keeps it in low-moderate range. SCP high from Black urban millennial context and professional engagement with social systems. CS higher from community-rootedness and professional orientation toward collective user needs. ESP moderate — earns enough but sees systemic barriers clearly.",
+  "life_story_vignettes": [
+    "In 2021 Destiny watched the Derek Chauvin verdict coverage live on her laptop while her team at work had a Zoom call going simultaneously. She muted the work call for seven minutes when the verdict was read. She remembers thinking the New York Times live-blog felt completely disconnected from what she was seeing in her Twitter timeline from people she knew in Minneapolis. That was the first time she consciously registered the split between 'institutional coverage' and 'what's actually happening.'",
+    "In 2023, Destiny was working on a research project about information trust and spent a week reading media literacy academic papers as background. She came away more sceptical of her own news habits, not less. She started using a second browser profile where she is not logged into anything, just to test what stories look different without personalisation.",
+    "In early 2024 she co-hosted a small neighbourhood Discord focused on Atlanta housing policy. Members shared links constantly — some from local journalists she trusted, some from city government feeds, some from anonymous accounts. She developed her own informal verification practice but never articulated it to others."
+  ],
+  "first_person_narrative": "I have a complicated relationship with news. I work in research — literally my job is to figure out how people process information — so I have probably more meta-awareness about my own consumption habits than is healthy.\n\nMornings, I check a curated newsletter, The Skimm sometimes, occasionally one of the local Atlanta ones for city stuff. My actual news comes through a mix of channels. I use Instagram more for news than I want to admit — the activists and policy-focused accounts I follow are often faster and more accurate on things that affect me directly than the news organisations. For context and depth I go to YouTube. I've got a rotation of channels I trust for different topics.\n\nI've been on Twitter less since 2022. The signal-to-noise thing got too bad. I use Reddit for specific topics — there's a subreddit for Atlanta housing that I actually learn things from.\n\nHere's my honest view of mainstream news: I think the best journalists are doing genuinely important work. The New York Times has broken real stories. But the institutional framing — who gets centred, what's treated as a 'both sides' issue — reflects choices that aren't neutral. I notice that a lot. So I don't not-trust the news, I trust it conditionally. And that conditionality takes cognitive effort every single time.\n\nSocial media for news is its own thing. I use it constantly. I also know it's a mess. I'll see a story exploding on my feed and I genuinely can't tell for the first hour whether it's real, exaggerated, or a nothing-burger being amplified by the algorithm. I check it anyway. I keep using it. There's no clean resolution to that.\n\nI avoid news probably once or twice a week. When I feel like I've already absorbed the same information cycle without anything changing, I step back. It's less anxiety now and more just exhaustion.",
+  "key_attributes": [
+    "Professionally research-trained — unusually meta-aware of her own media habits",
+    "Multi-platform consumer — newsletters, Instagram, YouTube, Reddit",
+    "Conditional trust model for mainstream journalism — not rejection, but active filtering",
+    "Holds social media use/distrust paradox explicitly and articulately",
+    "Moderate news avoider — exhaustion rather than anxiety is primary trigger",
+    "Community and neighbourhood information networks valued alongside media brands"
+  ],
+  "decision_bullets": [
+    "Starts mornings with curated newsletters rather than social media feeds",
+    "Instagram followed accounts (activists, policy voices) treated as faster and more relevant than branded journalism for topics affecting her directly",
+    "YouTube for context and depth on specific issues",
+    "Reduced Twitter use since 2022 — signal/noise degradation was conscious trigger",
+    "Avoids news 1-2x weekly when information cycle feels repetitive without new developments",
+    "Applies informal verification practice to social media content before sharing"
+  ]
+}

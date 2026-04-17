@@ -165,7 +165,34 @@ async def invoke_persona_generator(
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # ── 5. Generate personas ──────────────────────────────────────────────
+    from src.persistence.streaming_writer import StreamingCohortWriter
+
     print(f"[orchestrator] Generating {brief.count} {tier.upper()} personas for {brief.client}…")
+
+    # Determine cohort_id early so the streaming writer can use it as the
+    # output filename (matches the single-file path set later).
+    cohort_id_early = f"cohort-{brief.domain}-{run_id[-6:]}"
+
+    streaming_writer: StreamingCohortWriter | None = None
+    if StreamingCohortWriter.should_stream(brief.count):
+        streaming_writer = StreamingCohortWriter(output_dir, cohort_id_early)
+        # Begin the writer with the cohort-level metadata we already know;
+        # cohort_summary will be added by finalize() after assemble_cohort().
+        streaming_writer.begin({
+            "cohort_id": cohort_id_early,
+            "run_id": run_id,
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "domain": brief.domain,
+            "client": brief.client,
+            "business_problem": brief.business_problem or "",
+            "tier": tier,
+            "count_requested": brief.count,
+        })
+        print(
+            f"[orchestrator] Streaming mode active — "
+            f"threshold={StreamingCohortWriter.STREAMING_THRESHOLD}, "
+            f"personas will be checkpointed as they complete."
+        )
 
     raw_envelope = await _run_generation(
         count=brief.count,
@@ -178,6 +205,7 @@ async def invoke_persona_generator(
         skip_gates=brief.skip_gates,
         registry_path=str(brief.registry_path) if brief.registry_path else None,
         client=brief.client,
+        streaming_writer=streaming_writer,
     )
 
     # Handle Sarvam wrapper
@@ -187,11 +215,24 @@ async def invoke_persona_generator(
         cohort_envelope = raw_envelope
 
     # ── 6. Save cohort to disk ────────────────────────────────────────────
-    cohort_id = cohort_envelope.get("cohort_id", run_id)
-    cohort_filename = f"{cohort_id}.json"
-    cohort_file_path = output_dir / cohort_filename
-    cohort_file_path.write_text(json.dumps(cohort_envelope, default=str, indent=2))
-    print(f"[orchestrator] Cohort saved → {cohort_file_path}")
+    if streaming_writer is not None:
+        # Streaming writer already wrote the file to output_dir / cohort_id_early.json.
+        # Use cohort_id_early as the authoritative cohort_id so that the simulation
+        # step below can find the file.  (The envelope's internal cohort_id may differ
+        # from the filename that the streaming writer committed.)
+        cohort_id = cohort_id_early
+        cohort_file_path = output_dir / f"{cohort_id_early}.json"
+        streaming_writer.finalize(
+            envelope_meta=cohort_envelope,  # full dict including stratified personas
+            overwrite=True,
+        )
+        print(f"[orchestrator] Cohort streamed → {cohort_file_path}")
+    else:
+        # Original single-write path (small cohorts below threshold)
+        cohort_id = cohort_envelope.get("cohort_id", cohort_id_early)
+        cohort_file_path = output_dir / f"{cohort_id}.json"
+        cohort_file_path.write_text(json.dumps(cohort_envelope, default=str, indent=2))
+        print(f"[orchestrator] Cohort saved → {cohort_file_path}")
 
     # ── 7. Quality enforcement ─────────────────────────────────────────────
     quality_report = _build_quality_report(cohort_envelope)
@@ -206,6 +247,20 @@ async def invoke_persona_generator(
                 f"personas quarantined ({qpct:.0%} > threshold {brief.max_quarantine_pct:.0%}). "
                 f"Check domain data quality or relax max_quarantine_pct."
             )
+
+    # ── 7b. PQS — internal quality tracking ────────────────────────────────
+    pqs_score: float | None = None
+    try:
+        from src.quality.pqs import compute_pqs_from_dict, format_pqs_summary
+        pqs_report = compute_pqs_from_dict(cohort_envelope)
+        if pqs_report is not None:
+            pqs_score = pqs_report["pqs"]
+            print(format_pqs_summary(pqs_report))
+            # Persist PQS in the cohort envelope for historical tracking
+            cohort_envelope["_pqs"] = pqs_report
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).debug("PQS computation skipped: %s", e)
 
     # ── 8. Optional simulation ────────────────────────────────────────────
     simulation_results: dict | None = None
@@ -224,21 +279,25 @@ async def invoke_persona_generator(
             scenario_data=scenario_data,
             rounds=brief.simulation.rounds,
             tier=tier,
+            social_level=brief.simulation.social_level,
+            social_topology=brief.simulation.social_topology,
         )
         print("[orchestrator] Simulation complete.")
 
         # Rough sim cost from estimator
         sim_cost = estimate.sim_total
 
-    # ── 9. Compute actual costs ────────────────────────────────────────────
+    # ── 9 / 10. Extract personas then compute actual costs ────────────────
+    personas = cohort_envelope.get("personas", [])
+
     cost_actual = CostActual(
         pre_generation=estimate.pre_gen_total,
         generation=estimate.gen_total,
         simulation=sim_cost,
+        count=len(personas),
     )
 
     # ── 10. Build result ──────────────────────────────────────────────────
-    personas = cohort_envelope.get("personas", [])
     wall_clock = time.monotonic() - start_time
 
     result = PersonaGenerationResult(

@@ -110,17 +110,23 @@ async def run_loop(
             entry for entry in top_20 if entry.type == "observation"
         ]
 
-        raw_reflections: list[Reflection] = await reflect(
-            obs_for_reflect, persona,
-            llm_client=llm_client,
-            model=_models["reflect"],
-        )
+        # Guard: reflect() requires at least 5 observations (see reflect.py _MIN_OBSERVATIONS).
+        # should_reflect() can fire at 3 obs (obs_count_trigger) for short simulations,
+        # so we defer reflection until the minimum is met rather than raising.
+        if len(obs_for_reflect) < 5:
+            raw_reflections = []
+        else:
+            raw_reflections: list[Reflection] = await reflect(
+                obs_for_reflect, persona,
+                llm_client=llm_client,
+                model=_models["reflect"],
+            )
 
         for ref in raw_reflections:
             working = manager.write_reflection(working, ref)
             new_reflections.append(ref)
 
-        reflected = True
+        reflected = len(new_reflections) > 0
 
     # ------------------------------------------------------------------
     # Step 4b: Memory promotion pass

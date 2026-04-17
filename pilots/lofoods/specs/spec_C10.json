@@ -1,0 +1,62 @@
+{
+  "client": "Lo! Foods",
+  "product_portfolio": [
+    "Lo! Keto",
+    "Protein Chef",
+    "DiabeSmart",
+    "Gluten Smart"
+  ],
+  "parent_brand": "Bajo Foods",
+  "domain": "lofoods_fmcg",
+  "sarvam_enabled": true,
+  "mode": "simulation-ready",
+  "use_case": "18 business case study simulations for Lo! Foods brand strategy research across sub-brands, channels, pricing, and consumer segments in Indian health food market.",
+  "grounding_signals_path": "pilots/lofoods/signals/lofoods_signals.json",
+  "total_personas": 190,
+  "notes": "Real brand name used throughout. Interventions emerge dynamically from probing phase \u2014 not pre-set. All personas are India-grounded with Sarvam cultural layer enabled. B2B professional personas (P1-P4) run full 8-phase simulation including personal health beliefs.",
+  "target_segments": [
+    {
+      "archetype_id": "C10",
+      "name": "Clinically Diagnosed Celiac / Gluten-Intolerant",
+      "count": 10,
+      "age_range": [
+        25,
+        50
+      ],
+      "locations": [
+        "Bangalore",
+        "Delhi",
+        "Mumbai",
+        "Hyderabad",
+        "Chennai",
+        "Pune"
+      ],
+      "urban_tiers": [
+        "metro",
+        "tier1"
+      ],
+      "income_brackets": [
+        "middle",
+        "upper-middle",
+        "high"
+      ],
+      "household_types": [
+        "nuclear",
+        "joint"
+      ],
+      "key_signals": {
+        "gluten_sensitivity_belief": "very-high",
+        "doctor_endorsement_weight": "high",
+        "clean_label_importance": "very-high",
+        "functional_food_trust": "medium",
+        "premium_price_tolerance": "high",
+        "indian_startup_brand_trust": "medium",
+        "quick_commerce_adoption": "medium"
+      },
+      "case_studies": [
+        15
+      ],
+      "notes": "Medically diagnosed \u2014 non-negotiable requirement, not a lifestyle choice. Will pay premium for guaranteed gluten-free products. Verifies certifications. Strong community connection (support groups, online forums). Addressable but small market in India."
+    }
+  ]
+}
