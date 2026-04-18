@@ -103,14 +103,14 @@ _US_GENERAL_POOL = [
     #
     # Political lean distribution (n=40, A-US-1 rebalance for 2024 election accuracy):
     #   conservative:       6 (15%)
-    #   lean_conservative:  9 (22.5%)  A-US-1: +1 (Hernandez TX Hispanic man)
-    #   moderate:          11 (27.5%)  A-US-1: +2 (Garcia FL Hispanic woman, Hall CA young male)
-    #   lean_progressive:   9 (22.5%)  A-US-1: -1 (Garcia), -1 (Hall) → 11→9; also Maria→moderate shifts
+    #   lean_conservative: 11 (27.5%)  A-US-2: +2 (Miller OH white male, Reyes AZ Hispanic self-employed)
+    #   moderate:           9 (22.5%)  A-US-2: -2 (Miller, Reyes)
+    #   lean_progressive:   9 (22.5%)  A-US-1: -1 (Garcia), -1 (Hall)
     #   progressive:        6 (15%)
     # A-US-1 rationale: Pew 2024 shows Hispanic men +15pp toward Trump, young non-college
     # men +11pp toward R, FL Hispanic women +8pp right vs 2020. Prior pool overrepresented
     # progressive Hispanic/young entries relative to 2024 electorate.
-    # New expected 2-party: Trump 37.5% (R-lean) + ~50% of 27.5% moderates = ~51% → near 50/50.
+    # A-US-2 expected 2-party: 17 Trump-lean + ~50% of 9 moderates ≈ 21.5/41 = ~52.5% Trump → matches swing avg.
     # Assignments based on region, education, age, and racial identity patterns
     # from Pew Research Center 2023/2024 Political Typology data.
 
@@ -123,7 +123,7 @@ _US_GENERAL_POOL = [
     ("Nancy Moore",        54, "female", "USA", "Iowa",           "Des Moines",    "tier2",    "nuclear",        4, "middle",        True,  "late-career",   "high-school",   "full-time",  "conservative"),
 
     # Midwest — male, varied age + income
-    ("James Miller",       48, "male",   "USA", "Ohio",           "Columbus",      "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "undergraduate", "full-time",  "moderate"),
+    ("James Miller",       48, "male",   "USA", "Ohio",           "Columbus",      "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "undergraduate", "full-time",  "lean_conservative"),  # A-US-2: moderate→lean_conservative (white Midwest non-postgrad males 45-64 voted Trump 65-32, exit polls 2024)
     ("Robert Davis",       61, "male",   "USA", "Michigan",       "Detroit",       "metro",    "nuclear",        3, "lower-middle",  False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
     ("William Wilson",     38, "male",   "USA", "Illinois",       "Chicago",       "metro",    "nuclear",        4, "upper-middle",  True,  "mid-career",    "undergraduate", "full-time",  "moderate"),
     ("Thomas Anderson",    55, "male",   "USA", "Minnesota",      "Minneapolis",   "metro",    "nuclear",        3, "upper-middle",  True,  "late-career",   "postgraduate",  "full-time",  "moderate"),
@@ -167,7 +167,7 @@ _US_GENERAL_POOL = [
     ("Carmen Lopez",       38, "female", "USA", "California",     "Los Angeles",   "metro",    "nuclear",        5, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "lean_progressive"),
     ("Miguel Hernandez",   29, "male",   "USA", "Texas",          "San Antonio",   "metro",    "nuclear",        4, "lower-middle",  True,  "early-career",  "high-school",   "full-time",  "lean_conservative"),
     ("Rosa Gonzalez",      52, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "middle",        False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
-    ("Carlos Reyes",       44, "male",   "USA", "Arizona",        "Tucson",        "tier2",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "self-employed", "moderate"),
+    ("Carlos Reyes",       44, "male",   "USA", "Arizona",        "Tucson",        "tier2",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "self-employed", "lean_conservative"),  # A-US-2: moderate→lean_conservative (self-employed Hispanic males SW, Pew 2024: Hispanic men +15pp toward Trump)
 
     # Sprint B-1 Fix 3: Upper-income additions (~6 personas).
     # Pew shows 34% of US adults "living comfortably" financially.
