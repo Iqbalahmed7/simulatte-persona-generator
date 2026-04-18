@@ -1056,8 +1056,30 @@ def sample_demographic_anchor(
                 if filtered_inc:
                     pool = filtered_inc
 
-    # Save original pool reference before age filtering (identity checks below depend on it)
+    # Save original pool reference before any sub-filtering.
+    # Identity checks below (is_us_general, is_india_general, etc.) depend on
+    # this pointing to the base pool constant, not a filtered slice.
     _original_pool = pool
+
+    # Political lean sub-filtering for US pool.
+    # The US pool tuple has political_lean at index 14.
+    # When anchor_overrides specifies political_lean_hint, restrict pool to
+    # matching entries so that state-level partisan skew can be calibrated.
+    # Falls back to full pool if the filtered sub-pool is empty.
+    if "united states" in location_hint or location_hint in ("usa", "us"):
+        political_lean_hint = anchor_overrides.get("political_lean_hint", "").lower()
+        if political_lean_hint in ("conservative", "lean_conservative", "moderate", "lean_progressive", "progressive"):
+            filtered_lean = [e for e in pool if len(e) > 14 and e[14] == political_lean_hint]
+            if filtered_lean:
+                pool = filtered_lean
+        elif political_lean_hint in ("republican", "trump", "r_lean"):
+            filtered_lean = [e for e in pool if len(e) > 14 and e[14] in ("conservative", "lean_conservative")]
+            if filtered_lean:
+                pool = filtered_lean
+        elif political_lean_hint in ("democrat", "harris", "democratic", "d_lean"):
+            filtered_lean = [e for e in pool if len(e) > 14 and e[14] in ("lean_progressive", "progressive")]
+            if filtered_lean:
+                pool = filtered_lean
 
     # Age filtering — restrict pool to entries within age_min/age_max.
     # The age field is index 1 in every pool tuple format.
