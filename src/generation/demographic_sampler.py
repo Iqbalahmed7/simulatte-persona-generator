@@ -101,19 +101,23 @@ _US_GENERAL_POOL = [
     #  structure, size, income_bracket, dual_income,
     #  life_stage, education, employment, political_lean)
     #
-    # Political lean distribution (n=34) calibrated against Pew 2023 party ID:
-    #   conservative:       5 (15%)  target 15%
-    #   lean_conservative:  7 (21%)  target 20%
-    #   moderate:           9 (26%)  target 25%
-    #   lean_progressive:   8 (24%)  target 22%
-    #   progressive:        5 (15%)  target 18%
+    # Political lean distribution (n=40, A-US-1 rebalance for 2024 election accuracy):
+    #   conservative:       6 (15%)
+    #   lean_conservative:  9 (22.5%)  A-US-1: +1 (Hernandez TX Hispanic man)
+    #   moderate:          11 (27.5%)  A-US-1: +2 (Garcia FL Hispanic woman, Hall CA young male)
+    #   lean_progressive:   9 (22.5%)  A-US-1: -1 (Garcia), -1 (Hall) → 11→9; also Maria→moderate shifts
+    #   progressive:        6 (15%)
+    # A-US-1 rationale: Pew 2024 shows Hispanic men +15pp toward Trump, young non-college
+    # men +11pp toward R, FL Hispanic women +8pp right vs 2020. Prior pool overrepresented
+    # progressive Hispanic/young entries relative to 2024 electorate.
+    # New expected 2-party: Trump 37.5% (R-lean) + ~50% of 27.5% moderates = ~51% → near 50/50.
     # Assignments based on region, education, age, and racial identity patterns
-    # from Pew Research Center 2023 Political Typology data.
+    # from Pew Research Center 2023/2024 Political Typology data.
 
     # South — female, varied age + income
     ("Patricia Williams",  43, "female", "USA", "Georgia",        "Atlanta",       "metro",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "full-time",  "lean_conservative"),
     ("Sandra Johnson",     58, "female", "USA", "Texas",          "Houston",       "metro",    "nuclear",        3, "middle",        False, "late-career",   "high-school",   "part-time",  "conservative"),
-    ("Maria Garcia",       35, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "lean_progressive"),
+    ("Maria Garcia",       35, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "moderate"),  # A-US-1: lean_progressive→moderate (FL Hispanic women +8pp right, Pew 2024)
     ("Linda Brown",        67, "female", "USA", "North Carolina", "Charlotte",     "metro",    "couple-no-kids", 2, "middle",        False, "retired",       "undergraduate", "retired",    "moderate"),
     ("Betty Jackson",      63, "female", "USA", "Alabama",        "Birmingham",    "tier2",    "nuclear",        3, "lower-middle",  False, "late-career",   "high-school",   "part-time",  "conservative"),
     ("Nancy Moore",        54, "female", "USA", "Iowa",           "Des Moines",    "tier2",    "nuclear",        4, "middle",        True,  "late-career",   "high-school",   "full-time",  "conservative"),
@@ -146,7 +150,7 @@ _US_GENERAL_POOL = [
 
     # Young adults
     ("Michelle Walker",    24, "female", "USA", "Texas",          "Austin",        "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "moderate"),
-    ("Kevin Hall",         22, "male",   "USA", "California",     "San Diego",     "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "part-time",  "lean_progressive"),
+    ("Kevin Hall",         22, "male",   "USA", "California",     "San Diego",     "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "part-time",  "moderate"),  # A-US-1: lean_progressive→moderate (young non-college men shifted right 2024; Pew: 18-29 men +11pp R)
     ("Amanda Allen",       27, "female", "USA", "New York",       "Brooklyn",      "metro",    "other",          2, "middle",        False, "early-career",  "undergraduate", "full-time",  "progressive"),
     ("Ryan Young",         26, "male",   "USA", "Washington",     "Seattle",       "metro",    "other",          1, "middle",        False, "early-career",  "postgraduate",  "full-time",  "progressive"),
 
@@ -156,9 +160,12 @@ _US_GENERAL_POOL = [
     ("Keisha Brown",       28, "female", "USA", "Texas",          "Dallas",        "metro",    "other",          1, "lower-middle",  False, "early-career",  "high-school",   "full-time",  "lean_progressive"),
     ("Darnell Williams",   55, "male",   "USA", "Maryland",       "Baltimore",     "metro",    "nuclear",        4, "upper-middle",  True,  "late-career",   "undergraduate", "full-time",  "progressive"),
 
-    # Hispanic Americans (~13% of pool) — Pew: majority Dem-leaning, significant moderate
+    # Hispanic Americans (~13% of pool) — Pew 2024: Hispanic men shifted sharply right
+    # (+15pp toward Trump vs 2020); Hispanic women also moved but less dramatically.
+    # A-US-1: Garcia lean_progressive→moderate (FL Hispanic women shifted ~8pp right, 2024)
+    # A-US-1: Hernandez moderate→lean_conservative (TX Hispanic men, 2024 shift documented)
     ("Carmen Lopez",       38, "female", "USA", "California",     "Los Angeles",   "metro",    "nuclear",        5, "lower-middle",  True,  "early-family",  "high-school",   "full-time",  "lean_progressive"),
-    ("Miguel Hernandez",   29, "male",   "USA", "Texas",          "San Antonio",   "metro",    "nuclear",        4, "lower-middle",  True,  "early-career",  "high-school",   "full-time",  "moderate"),
+    ("Miguel Hernandez",   29, "male",   "USA", "Texas",          "San Antonio",   "metro",    "nuclear",        4, "lower-middle",  True,  "early-career",  "high-school",   "full-time",  "lean_conservative"),
     ("Rosa Gonzalez",      52, "female", "USA", "Florida",        "Miami",         "metro",    "nuclear",        4, "middle",        False, "late-career",   "high-school",   "full-time",  "lean_conservative"),
     ("Carlos Reyes",       44, "male",   "USA", "Arizona",        "Tucson",        "tier2",    "nuclear",        4, "middle",        True,  "mid-career",    "high-school",   "self-employed", "moderate"),
 
