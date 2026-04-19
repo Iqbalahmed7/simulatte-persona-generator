@@ -570,6 +570,82 @@ _BENGAL_GENERAL_POOL = [
     ("Pratima Ghosh",       42, "female", "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        3, "middle",       True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","hindu",  "general"),   # Durgapur educated woman, soft TMC
     ("Kartik Pal",          57, "male",   "India", "West Bengal", "Hooghly",         "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "bjp_supporter",  "hindu",  "obc"),       # Ex-CPM voter shifted BJP, frustrated with TMC
     ("Ratna Mukherjee",     35, "female", "India", "West Bengal", "Durgapur",        "tier2",  "other",          2, "middle",       False, "mid-career",    "undergraduate", "full-time",     "bjp_lean",       "hindu",  "general"),   # Urban educated, BJP sympathiser
+
+    # ── B-WB-2 EXPANSION (+40): Rural Bengal, Women, Matua depth, Youth, ─────
+    # Gorkha hills, Ex-CPM→BJP switchers, Sandeshkhali women.
+    # Brings pool to 80 personas. Political lean (new 40):
+    #   opposition×12 / opposition_lean×4 / neutral×10 / bjp_lean×11 / bjp_supporter×3
+    # Full 80-pool: TMC-lean 42.5% (34/80) / BJP-lean 35% (28/80) / neutral 22.5% (18/80)
+    # Rural share raised from ~30% → ~50% (Bengal is 72% rural per 2021 census).
+    # Women raised from 30% → 43% (women are Mamata's primary constituency).
+
+    # ── RURAL BENGAL (15) ────────────────────────────────────────────────────
+    # Rural Muslim Murshidabad/Malda
+    ("Akbar Ali",           48, "male",   "India", "West Bengal", "Murshidabad",     "rural",  "joint",          7, "lower",        False, "mid-career",    "high-school",   "full-time",     "opposition",     "muslim", "general"),   # Paddy farmer, strong TMC
+    ("Rani Begum",          35, "female", "India", "West Bengal", "Malda",           "rural",  "joint",          6, "lower",        False, "early-family",  "high-school",   "homemaker",     "opposition",     "muslim", "general"),   # Lakshmir Bhandar recipient, loyal TMC
+    ("Jabbar Sheikh",       62, "male",   "India", "West Bengal", "Berhampore",      "rural",  "joint",          8, "lower",        False, "retired",       "high-school",   "retired",       "opposition",     "muslim", "general"),   # Elderly farmer, opposition bloc
+    # Rural South Bengal — TMC heartland
+    ("Kamala Baidya",       45, "female", "India", "West Bengal", "Basirhat",        "rural",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "part-time",     "opposition",     "hindu",  "obc"),       # Agricultural worker, Lakshmir Bhandar
+    ("Sukumar Mondal",      55, "male",   "India", "West Bengal", "Kakdwip",         "rural",  "joint",          6, "lower",        False, "late-career",   "high-school",   "full-time",     "opposition",     "hindu",  "sc"),        # Sundarbans fisherman community, S24Pgs
+    ("Shefali Roy",         40, "female", "India", "West Bengal", "Canning",         "rural",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition_lean","hindu",  "sc"),        # S24Pgs rural, soft TMC
+    # Rural North Bengal BJP belt
+    ("Dinesh Barman",       50, "male",   "India", "West Bengal", "Cooch Behar",     "rural",  "joint",          6, "lower",        False, "late-career",   "high-school",   "full-time",     "bjp_supporter",  "hindu",  "obc"),       # Rajbanshi, rural Cooch Behar, strong BJP
+    ("Phul Maya Rai",       38, "female", "India", "West Bengal", "Jalpaiguri",      "rural",  "joint",          7, "lower",        False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "obc"),       # Tea garden worker community, BJP lean
+    # Rural Jungle Mahal — tribal
+    ("Budhna Hansda",       45, "male",   "India", "West Bengal", "Jhargram",        "rural",  "joint",          7, "lower",        False, "mid-career",    "high-school",   "full-time",     "bjp_lean",       "hindu",  "st"),        # Santali, Jhargram, BJP inroads
+    ("Somri Murmu",         35, "female", "India", "West Bengal", "Bankura",         "rural",  "joint",          5, "lower",        False, "early-family",  "high-school",   "part-time",     "opposition_lean","hindu",  "st"),        # Tribal woman, MGNREGA dependent, lean TMC
+    # Rural Birbhum/Burdwan
+    ("Gopal Mondal",        52, "male",   "India", "West Bengal", "Bolpur",          "rural",  "joint",          5, "lower",        False, "late-career",   "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # Birbhum, ex-CPM area, undecided swing
+    ("Sufia Khatun",        38, "female", "India", "West Bengal", "Birbhum",         "rural",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "muslim", "general"),   # Muslim rural Birbhum, TMC
+    ("Bhola Bauri",         48, "male",   "India", "West Bengal", "Burdwan",         "rural",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "full-time",     "neutral",        "hindu",  "sc"),        # SC, Burdwan rural, pragmatic
+    # Rural Nadia/N24Pgs
+    ("Laltu Biswas",        44, "male",   "India", "West Bengal", "Krishnagar",      "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "full-time",     "bjp_lean",       "hindu",  "sc"),        # Matua-adjacent, Nadia, BJP lean
+    ("Mamata Sarkar",       36, "female", "India", "West Bengal", "Barasat",         "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "part-time",     "opposition",     "hindu",  "obc"),       # Welfare recipient, N24Pgs, TMC
+
+    # ── WOMEN VOTERS (8) ─────────────────────────────────────────────────────
+    ("Gita Mondal",         42, "female", "India", "West Bengal", "Howrah",          "rural",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "hindu",  "obc"),       # Howrah rural, Lakshmir Bhandar loyal
+    ("Parveen Bibi",        38, "female", "India", "West Bengal", "Murshidabad",     "rural",  "joint",          7, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "muslim", "general"),   # Rural Muslim woman, TMC
+    ("Laxmi Bai Roy",       50, "female", "India", "West Bengal", "Midnapore",       "rural",  "joint",          6, "lower",        False, "late-career",   "high-school",   "part-time",     "opposition_lean","hindu",  "sc"),        # SC woman, Lakshmir Bhandar, soft TMC
+    ("Sunita Ghosh",        32, "female", "India", "West Bengal", "Kolkata",         "metro",  "other",          2, "middle",       False, "early-career",  "postgraduate",  "full-time",     "opposition_lean","hindu",  "general"),   # Educated Kolkata woman, soft TMC
+    ("Rupa Mandal",         28, "female", "India", "West Bengal", "Siliguri",        "tier2",  "nuclear",        3, "lower-middle", False, "early-career",  "undergraduate", "full-time",     "bjp_lean",       "hindu",  "obc"),       # Young North Bengal woman, BJP lean
+    ("Nasrin Ahmed",        34, "female", "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        4, "lower",        False, "mid-career",    "undergraduate", "full-time",     "opposition",     "muslim", "general"),   # Muslim educated woman, TMC
+    ("Mridula Chatterjee",  55, "female", "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        3, "middle",       True,  "late-career",   "undergraduate", "full-time",     "neutral",        "hindu",  "general"),   # Educated Durgapur woman, uncommitted
+    ("Anwara Begum",        46, "female", "India", "West Bengal", "Canning",         "tier3",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "muslim", "obc"),       # Muslim woman S24Pgs, strong TMC
+
+    # ── MATUA COMMUNITY DEPTH (4) ────────────────────────────────────────────
+    # Matua = SC Hindu (Bangladesh-origin), ~17 lakh voters, Nadia/N24Pgs belt.
+    # Most pivotal 2026 swing community: CAA promise from BJP vs welfare from TMC.
+    ("Tarun Biswas",        38, "male",   "India", "West Bengal", "Bangaon",         "tier3",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",  "sc"),        # Young Matua activist, CAA champion, firm BJP
+    ("Bimala Mondal",       52, "female", "India", "West Bengal", "Ranaghat",        "tier3",  "nuclear",        4, "lower",        False, "late-career",   "high-school",   "homemaker",     "bjp_lean",       "hindu",  "sc"),        # Matua woman, CAA promise vs welfare torn
+    ("Nirmal Sarkar",       60, "male",   "India", "West Bengal", "Basirhat",        "tier3",  "couple-no-kids", 2, "lower-middle", False, "retired",       "high-school",   "retired",       "neutral",        "hindu",  "sc"),        # Elderly Matua, pragmatic, genuinely undecided
+    ("Kalyani Das",         35, "female", "India", "West Bengal", "Bangaon",         "tier3",  "nuclear",        3, "lower",        False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "sc"),        # Matua woman, BJP lean on identity grounds
+
+    # ── YOUNG FIRST-TIME VOTERS 18-25 (5) ────────────────────────────────────
+    # Unemployment is #1 issue for this cohort — volatile, no strong party loyalty.
+    ("Arpita Roy",          21, "female", "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        4, "middle",       False, "early-career",  "undergraduate", "student",       "neutral",        "hindu",  "general"),   # Kolkata student, first vote, undecided
+    ("Rahul Barman",        22, "male",   "India", "West Bengal", "Siliguri",        "tier2",  "nuclear",        4, "lower-middle", False, "early-career",  "undergraduate", "part-time",     "bjp_lean",       "hindu",  "obc"),       # Unemployed graduate, North Bengal, BJP lean
+    ("Sabana Khatun",       20, "female", "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        5, "lower",        False, "early-career",  "high-school",   "part-time",     "opposition",     "muslim", "general"),   # Young Muslim woman, first vote, TMC
+    ("Sourav Das",          23, "male",   "India", "West Bengal", "Howrah",          "metro",  "other",          3, "lower",        False, "early-career",  "high-school",   "full-time",     "neutral",        "hindu",  "sc"),        # Young SC jobseeker, Howrah, disillusioned
+    ("Priya Barua",         24, "female", "India", "West Bengal", "Darjeeling",      "tier2",  "nuclear",        3, "middle",       False, "early-career",  "undergraduate", "part-time",     "neutral",        "hindu",  "general"),   # Young Gorkha-adjacent, complex identity
+
+    # ── GORKHA / DARJEELING HILL SEATS (3) ───────────────────────────────────
+    # 3 hill seats with distinct GJM/GNLF vs BJP dynamics. Separate statehood demand.
+    ("Pemba Tamang",        45, "male",   "India", "West Bengal", "Darjeeling",      "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "self-employed", "neutral",        "hindu",  "obc"),       # GJM voter, Gorkhaland demand overrides party
+    ("Sunita Rai",          38, "female", "India", "West Bengal", "Kurseong",        "tier2",  "nuclear",        3, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "bjp_lean",       "hindu",  "general"),   # Gorkha woman, BJP/GJM alignment
+    ("Bishal Gurung",       52, "male",   "India", "West Bengal", "Kalimpong",       "tier2",  "nuclear",        4, "middle",       False, "late-career",   "undergraduate", "self-employed", "neutral",        "hindu",  "obc"),       # Gorkha identity politics, pragmatic swing
+
+    # ── EX-CPM → BJP SWITCHERS (3) ───────────────────────────────────────────
+    # Documented demographic: voted CPM 1977-2011, refused TMC, flipped BJP 2019.
+    # Concentrated in Hooghly/Burdwan industrial belt and Jungle Mahal.
+    ("Debabrata Mondal",    58, "male",   "India", "West Bengal", "Chinsurah",       "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "undergraduate", "full-time",     "bjp_lean",       "hindu",  "obc"),       # Ex-CPM union man, Hooghly, BJP since 2019
+    ("Sudha Pal",           54, "female", "India", "West Bengal", "Burdwan",         "tier2",  "nuclear",        3, "middle",       True,  "late-career",   "undergraduate", "full-time",     "bjp_lean",       "hindu",  "sc"),        # Ex-CPM schoolteacher, shifted BJP on corruption
+    ("Haran Mahato",        55, "male",   "India", "West Bengal", "Midnapore",       "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "self-employed", "bjp_supporter",  "hindu",  "obc"),       # Ex-CPM Jungle Mahal, firm BJP since 2019
+
+    # ── SANDESHKHALI-PROXIMATE WOMEN (2) ─────────────────────────────────────
+    # North 24 Pgs coastal belt. 2024 sexual violence/land-grab case (TMC leaders)
+    # created a specific anti-TMC sentiment among local women.
+    ("Rekha Halder",        40, "female", "India", "West Bengal", "Sandeshkhali",    "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "neutral",        "hindu",  "sc"),        # Angry at TMC but fearful of BJP too — genuine swing
+    ("Bina Naskar",         45, "female", "India", "West Bengal", "Sandeshkhali",    "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "bjp_lean",       "hindu",  "obc"),       # Sandeshkhali, anti-TMC post-incident, BJP lean
 ]
 
 # Religious salience for Bengal general pool.
@@ -624,6 +700,55 @@ _BENGAL_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
     "Pratima Ghosh":       0.58,   # urban educated, secular Bengali
     "Kartik Pal":          0.72,
     "Ratna Mukherjee":     0.60,   # urban educated
+
+    # ── B-WB-2 expansion (+40 personas) ─────────────────────────────────────
+    # Rural Bengal (15)
+    "Akbar Ali":           0.90,   # rural Muslim Murshidabad, devout
+    "Rani Begum":          0.88,   # rural Muslim Malda, devout
+    "Jabbar Sheikh":       0.90,   # elderly Muslim farmer, devout
+    "Kamala Baidya":       0.78,   # Hindu OBC agricultural worker
+    "Sukumar Mondal":      0.80,   # Hindu SC fisherman, Sundarbans
+    "Shefali Roy":         0.75,   # Hindu SC rural woman
+    "Dinesh Barman":       0.82,   # Rajbanshi Hindu, BJP-leaning communal identity
+    "Phul Maya Rai":       0.78,   # tea garden woman, Hindu OBC
+    "Budhna Hansda":       0.82,   # Santali Hindu, Jhargram tribal belt
+    "Somri Murmu":         0.80,   # tribal woman, syncretist Hindu
+    "Gopal Mondal":        0.72,   # Hindu OBC, Birbhum ex-CPM secular legacy
+    "Sufia Khatun":        0.88,   # Muslim rural Birbhum, devout
+    "Bhola Bauri":         0.76,   # SC Hindu, Burdwan rural
+    "Laltu Biswas":        0.78,   # Matua-adjacent SC, Nadia
+    "Mamata Sarkar":       0.72,   # Hindu OBC, N24Pgs welfare recipient
+    # Women voters (8)
+    "Gita Mondal":         0.78,   # Hindu OBC homemaker, Howrah rural
+    "Parveen Bibi":        0.90,   # Muslim woman, rural Murshidabad, devout
+    "Laxmi Bai Roy":       0.76,   # SC woman, rural Midnapore
+    "Sunita Ghosh":        0.52,   # educated Kolkata woman, secular
+    "Rupa Mandal":         0.72,   # young North Bengal OBC woman
+    "Nasrin Ahmed":        0.85,   # Muslim educated woman, moderate devout
+    "Mridula Chatterjee":  0.50,   # educated Durgapur, secular
+    "Anwara Begum":        0.88,   # Muslim woman S24Pgs, devout
+    # Matua community depth (4)
+    "Tarun Biswas":        0.82,   # young Matua activist, identity-religious salience (CAA)
+    "Bimala Mondal":       0.80,   # Matua woman homemaker
+    "Nirmal Sarkar":       0.72,   # elderly Matua, pragmatic moderate
+    "Kalyani Das":         0.80,   # Matua woman, identity-driven
+    # Young first-time voters (5)
+    "Arpita Roy":          0.50,   # Kolkata student, secular urban milieu
+    "Rahul Barman":        0.68,   # unemployed graduate, North Bengal
+    "Sabana Khatun":       0.88,   # young Muslim woman, first vote
+    "Sourav Das":          0.65,   # SC jobseeker, Howrah, disillusioned
+    "Priya Barua":         0.62,   # young Gorkha-adjacent, mixed identity
+    # Gorkha / Darjeeling hills (3)
+    "Pemba Tamang":        0.72,   # GJM voter, Hindu OBC, Gorkha identity primary
+    "Sunita Rai":          0.68,   # Gorkha woman, moderate Hindu
+    "Bishal Gurung":       0.65,   # Gorkha pragmatic, secular-ish business
+    # Ex-CPM → BJP switchers (3)
+    "Debabrata Mondal":    0.58,   # ex-CPM union man, secular Left legacy
+    "Sudha Pal":           0.55,   # ex-CPM schoolteacher, secular
+    "Haran Mahato":        0.68,   # ex-CPM OBC, Jungle Mahal, modest salience
+    # Sandeshkhali women (2)
+    "Rekha Halder":        0.78,   # SC woman, folk Hindu, rural
+    "Bina Naskar":         0.76,   # OBC woman, anti-TMC post-incident
 }
 
 # ---------------------------------------------------------------------------
