@@ -478,6 +478,155 @@ _INDIA_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
 _INDIA_POLITICAL_ERA = "BJP government in power (Modi, 2014– second term from 2024)"
 
 # ---------------------------------------------------------------------------
+# West Bengal General Population pool — for Bengal 2026 state assembly election.
+# Approximates Bengal electorate across religion, region, community, caste,
+# urban/rural tier, and TMC/BJP/Left-Congress political lean.
+#
+# Political lean mapping for Bengal context:
+#   opposition/opposition_lean = TMC (Trinamool Congress, Mamata Banerjee)
+#   bjp_supporter/bjp_lean     = BJP (Narendra Modi / state BJP leadership)
+#   neutral                    = swing voters (includes Left/Congress residual)
+#
+# 2021 Assembly ground truth: TMC 47.9% (215/294 seats), BJP 38.1% (77/294),
+#   Left+Congress ~9.7% (2 seats).
+#
+# Political lean distribution (n=40, B-WB-1 initial calibration):
+#   opposition:      10 (25.0%) — strong TMC (Muslim vote bank, South Bengal heartland)
+#   opposition_lean:  8 (20.0%) — soft TMC (educated Bengali Hindu, swing TMC)
+#   neutral:          8 (20.0%) — swing + residual Left/Congress
+#   bjp_lean:         8 (20.0%) — soft BJP (Matua belt, North Bengal OBC)
+#   bjp_supporter:    6 (15.0%) — strong BJP (Cooch Behar, Jungle Mahal OBC/ST)
+# Expected BJP vote share proxy: 35% (2021 actual: 38.1%); TMC: 45% (2021: 47.9%)
+#
+# Religion: Hindu 80% (32), Muslim 20% (8); actual Bengal ~70/27 — minor under-sample
+#   of Muslim adjusted upward from India general pool's typical 13%.
+# Caste: general ~28%, obc ~35%, sc ~22%, st ~15%
+# Geography: Kolkata metro (8), North Bengal (7), Murshidabad/Malda (5),
+#   Nadia/N24Pgs Matua belt (6), South Bengal/Howrah (6), Jungle Mahal (4),
+#   Birbhum/Burdwan/Hooghly (4)
+# ---------------------------------------------------------------------------
+_BENGAL_GENERAL_POOL = [
+    # (name, age, gender, country, region, city, urban_tier,
+    #  structure, size, income_bracket, dual_income,
+    #  life_stage, education, employment, political_lean, religion, caste)
+
+    # ── KOLKATA METRO (8) ──────────────────────────────────────────────────
+    # Urban educated Bengali — more secular, mixed TMC/BJP
+    ("Dipankar Chatterjee", 52, "male",   "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        4, "middle",       True,  "late-career",   "postgraduate",  "full-time",     "opposition",     "hindu",  "general"),   # College lecturer, South Kolkata, TMC intellectual
+    ("Supriya Roy",         38, "female", "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        3, "middle",       True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","hindu",  "general"),   # Schoolteacher, New Alipore, soft TMC
+    ("Abhijit Sen",         44, "male",   "India", "West Bengal", "Kolkata",         "metro",  "other",          2, "upper-middle", False, "mid-career",    "postgraduate",  "full-time",     "neutral",        "hindu",  "general"),   # IT professional, New Town, fence-sitter
+    ("Malati Ghosh",        60, "female", "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        4, "lower",        False, "late-career",   "high-school",   "part-time",     "opposition",     "hindu",  "sc"),        # Domestic worker, North Kolkata, strong TMC
+    ("Rina Das",            29, "female", "India", "West Bengal", "Kolkata",         "metro",  "other",          1, "middle",       False, "early-career",  "undergraduate", "full-time",     "bjp_lean",       "hindu",  "general"),   # Private-sector, BJP-sympathetic young Hindu
+    ("Sabir Ahmed",         35, "male",   "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "self-employed", "opposition",     "muslim", "general"),   # Small shopkeeper, Park Circus, strong TMC
+    ("Priyanka Bose",       26, "female", "India", "West Bengal", "Kolkata",         "metro",  "other",          2, "middle",       False, "early-career",  "postgraduate",  "full-time",     "opposition_lean","hindu",  "general"),   # Graduate, Salt Lake, lean TMC
+    ("Sanjay Poddar",       48, "male",   "India", "West Bengal", "Kolkata",         "metro",  "nuclear",        4, "middle",       True,  "mid-career",    "undergraduate", "self-employed", "neutral",        "hindu",  "obc"),       # Trader, Behala, pragmatic swing
+
+    # ── NORTH BENGAL — Cooch Behar / Jalpaiguri / Darjeeling (7) ──────────
+    # BJP stronghold since 2019; Rajbanshi (OBC) + tea garden (ST) communities
+    ("Biswajit Barman",     42, "male",   "India", "West Bengal", "Cooch Behar",     "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "full-time",     "bjp_supporter",  "hindu",  "obc"),       # Rajbanshi community, BJP stronghold
+    ("Purnima Adhikari",    38, "female", "India", "West Bengal", "Cooch Behar",     "tier2",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "bjp_lean",       "hindu",  "obc"),       # North Bengal housewife, BJP lean
+    ("Ranjit Barua",        55, "male",   "India", "West Bengal", "Darjeeling",      "tier2",  "nuclear",        3, "middle",       False, "late-career",   "undergraduate", "self-employed", "bjp_supporter",  "hindu",  "general"),   # Tea-estate adjacent trader, BJP
+    ("Kamala Oraon",        45, "female", "India", "West Bengal", "Jalpaiguri",      "rural",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "st"),        # Tea garden worker (Oraon tribal), BJP lean
+    ("Dilip Saha",          33, "male",   "India", "West Bengal", "Siliguri",        "tier2",  "nuclear",        3, "lower-middle", False, "early-career",  "undergraduate", "full-time",     "neutral",        "hindu",  "general"),   # Small trader, Siliguri, swing
+    ("Mahadev Ray",         62, "male",   "India", "West Bengal", "Cooch Behar",     "tier2",  "couple-no-kids", 2, "lower",        False, "retired",       "high-school",   "retired",       "bjp_supporter",  "hindu",  "obc"),       # Retired, Cooch Behar town, strong BJP
+    ("Renuka Barman",       28, "female", "India", "West Bengal", "Jalpaiguri",      "tier3",  "nuclear",        3, "lower",        False, "early-career",  "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # Young North Bengal woman, uncertain
+
+    # ── MURSHIDABAD / MALDA (5) ────────────────────────────────────────────
+    # Muslim-majority districts, TMC stronghold; moderate Left legacy
+    ("Rahim Sheikh",        50, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "joint",          6, "lower",        False, "late-career",   "high-school",   "full-time",     "opposition",     "muslim", "general"),   # Farmer, Murshidabad, strong TMC
+    ("Hasina Bibi",         40, "female", "India", "West Bengal", "Malda",           "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "muslim", "general"),   # Homemaker, Malda, strong TMC
+    ("Nazrul Islam",        32, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        4, "lower",        False, "early-career",  "high-school",   "full-time",     "opposition",     "muslim", "obc"),       # Factory worker, Murshidabad, TMC
+    ("Sabina Begum",        47, "female", "India", "West Bengal", "Jangipur",        "tier3",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "opposition_lean","muslim", "general"),   # Schoolteacher, Jangipur, soft TMC
+    ("Abdul Mannan",        58, "male",   "India", "West Bengal", "Malda",           "rural",  "joint",          6, "lower",        False, "late-career",   "high-school",   "full-time",     "neutral",        "muslim", "obc"),       # Farmer, border area, pragmatic swing
+
+    # ── NADIA / NORTH 24 PARGANAS — Matua Belt (6) ─────────────────────────
+    # Matua community (SC Hindu, Bangladesh-origin refugees) — BJP's CAA voter base
+    ("Haripada Biswas",     55, "male",   "India", "West Bengal", "Ranaghat",        "tier3",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "bjp_supporter",  "hindu",  "sc"),        # Matua community, Ranaghat, strong BJP
+    ("Gour Mandal",         48, "male",   "India", "West Bengal", "Bangaon",         "tier3",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "full-time",     "bjp_lean",       "hindu",  "sc"),        # Matua, Bangaon (BJP seat 2021), BJP lean
+    ("Saraswati Mondal",    42, "female", "India", "West Bengal", "Basirhat",        "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "bjp_lean",       "hindu",  "sc"),        # SC woman, Basirhat, BJP lean
+    ("Nikhil Gain",         36, "male",   "India", "West Bengal", "Ranaghat",        "tier3",  "nuclear",        3, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "neutral",        "hindu",  "sc"),        # SC, Nadia, neutral — CAA issue cuts both ways
+    ("Lakshmi Sarkar",      50, "female", "India", "West Bengal", "Barasat",         "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "part-time",     "opposition_lean","hindu",  "obc"),       # N24 Pgs OBC woman, soft TMC
+    ("Pratap Roy",          62, "male",   "India", "West Bengal", "Barasat",         "tier2",  "couple-no-kids", 2, "middle",       False, "retired",       "undergraduate", "retired",       "bjp_lean",       "hindu",  "general"),   # Retired, suburban Kolkata orbit, BJP lean
+
+    # ── SOUTH 24 PARGANAS / HOWRAH (6) ─────────────────────────────────────
+    # TMC heartland; industrial Howrah; Sundarbans fisher communities
+    ("Tapas Haldar",        44, "male",   "India", "West Bengal", "Howrah",          "metro",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "full-time",     "opposition",     "hindu",  "sc"),        # Industrial worker, Howrah, strong TMC
+    ("Rekha Das",           38, "female", "India", "West Bengal", "Diamond Harbour", "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "opposition",     "hindu",  "sc"),        # S24 Pgs, TMC stronghold
+    ("Subrata Pal",         52, "male",   "India", "West Bengal", "Howrah",          "metro",  "nuclear",        4, "lower-middle", True,  "late-career",   "undergraduate", "full-time",     "opposition_lean","hindu",  "obc"),       # Howrah suburb, soft TMC
+    ("Mina Khatun",         33, "female", "India", "West Bengal", "Canning",         "tier3",  "nuclear",        5, "lower",        False, "early-family",  "high-school",   "homemaker",     "opposition",     "muslim", "general"),   # Muslim, Canning, strong TMC
+    ("Bablu Roy",           28, "male",   "India", "West Bengal", "Howrah",          "metro",  "other",          2, "lower",        False, "early-career",  "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # Young jobseeker, Howrah, swing
+    ("Champa Bhunia",       55, "female", "India", "West Bengal", "Kakdwip",         "rural",  "joint",          6, "lower",        False, "late-career",   "high-school",   "part-time",     "opposition",     "hindu",  "obc"),       # Fisherwoman, Sundarbans, strong TMC
+
+    # ── JUNGLE MAHAL — West Midnapore / Bankura / Purulia (4) ─────────────
+    # Tribal (ST) belt; BJP made inroads post-2019 in former Left stronghold
+    ("Mangal Soren",        40, "male",   "India", "West Bengal", "Bankura",         "tier3",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "full-time",     "bjp_lean",       "hindu",  "st"),        # Santali farmer, Bankura, BJP lean
+    ("Sukru Munda",         35, "male",   "India", "West Bengal", "Purulia",         "tier3",  "joint",          5, "lower",        False, "mid-career",    "high-school",   "full-time",     "neutral",        "hindu",  "st"),        # Tribal, Purulia, TMC/BJP swing
+    ("Basanti Kisku",       30, "female", "India", "West Bengal", "Bankura",         "rural",  "joint",          5, "lower",        False, "early-family",  "high-school",   "part-time",     "opposition_lean","hindu",  "st"),        # Tribal woman, MGNREGA beneficiary, lean TMC
+    ("Anil Mahato",         50, "male",   "India", "West Bengal", "Midnapore",       "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "self-employed", "bjp_supporter",  "hindu",  "obc"),       # OBC trader, Jungle Mahal, BJP since 2019
+
+    # ── BIRBHUM / BURDWAN / HOOGHLY (4) ────────────────────────────────────
+    # Mixed: CPM history → TMC; BJP urban gains; Muslim pocket in Birbhum
+    ("Mosaraf Hossain",     45, "male",   "India", "West Bengal", "Suri",            "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "full-time",     "opposition_lean","muslim", "obc"),       # Birbhum Muslim, aware of TMC flaws, lean TMC
+    ("Pratima Ghosh",       42, "female", "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        3, "middle",       True,  "mid-career",    "undergraduate", "full-time",     "opposition_lean","hindu",  "general"),   # Durgapur educated woman, soft TMC
+    ("Kartik Pal",          57, "male",   "India", "West Bengal", "Hooghly",         "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "bjp_supporter",  "hindu",  "obc"),       # Ex-CPM voter shifted BJP, frustrated with TMC
+    ("Ratna Mukherjee",     35, "female", "India", "West Bengal", "Durgapur",        "tier2",  "other",          2, "middle",       False, "mid-career",    "undergraduate", "full-time",     "bjp_lean",       "hindu",  "general"),   # Urban educated, BJP sympathiser
+]
+
+# Religious salience for Bengal general pool.
+# Bengal Hindu is significantly more secular than pan-India average (Kolkata
+# intellectual tradition; Rabindranath legacy; Left 34-year rule).
+# Muslim voters in Murshidabad/Malda rank among India's more devout rural Muslims.
+_BENGAL_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
+    # Kolkata metro — lower salience, urban secular Bengali
+    "Dipankar Chatterjee": 0.55,   # college lecturer, secular intellectual
+    "Supriya Roy":         0.62,
+    "Abhijit Sen":         0.45,   # IT professional, secular
+    "Malati Ghosh":        0.72,   # working-class woman, moderate Hindu
+    "Rina Das":            0.65,
+    "Sabir Ahmed":         0.85,   # Muslim, devout
+    "Priyanka Bose":       0.55,
+    "Sanjay Poddar":       0.68,
+    # North Bengal
+    "Biswajit Barman":     0.78,   # Rajbanshi community, Hindu devout
+    "Purnima Adhikari":    0.80,
+    "Ranjit Barua":        0.72,
+    "Kamala Oraon":        0.82,   # tribal, syncretist Hindu + folk religion
+    "Dilip Saha":          0.65,
+    "Mahadev Ray":         0.75,
+    "Renuka Barman":       0.72,
+    # Murshidabad/Malda — high Muslim devoutness (rural)
+    "Rahim Sheikh":        0.90,
+    "Hasina Bibi":         0.92,
+    "Nazrul Islam":        0.88,
+    "Sabina Begum":        0.82,   # teacher, somewhat lower
+    "Abdul Mannan":        0.88,
+    # Nadia/N24Pgs — Matua community (lower-caste Hindu, moderate salience)
+    "Haripada Biswas":     0.78,
+    "Gour Mandal":         0.80,
+    "Saraswati Mondal":    0.82,
+    "Nikhil Gain":         0.70,
+    "Lakshmi Sarkar":      0.75,
+    "Pratap Roy":          0.65,
+    # South Bengal/Howrah
+    "Tapas Haldar":        0.75,
+    "Rekha Das":           0.78,
+    "Subrata Pal":         0.65,
+    "Mina Khatun":         0.88,   # Muslim woman
+    "Bablu Roy":           0.60,   # young urban, lower
+    "Champa Bhunia":       0.80,   # rural fisherwoman, folk Hindu
+    # Jungle Mahal — tribal, syncretist religion
+    "Mangal Soren":        0.82,
+    "Sukru Munda":         0.80,
+    "Basanti Kisku":       0.78,
+    "Anil Mahato":         0.72,
+    # Birbhum/Burdwan/Hooghly
+    "Mosaraf Hossain":     0.86,   # Muslim
+    "Pratima Ghosh":       0.58,   # urban educated, secular Bengali
+    "Kartik Pal":          0.72,
+    "Ratna Mukherjee":     0.60,   # urban educated
+}
+
+# ---------------------------------------------------------------------------
 # Europe Benchmark v2 — demographic pools (9 countries)
 # Each entry: (name, age, gender, country, region, city, urban_tier,
 #              structure, size, income_bracket, dual_income,
@@ -940,6 +1089,7 @@ _DOMAIN_POOLS = {
     "lofoods_fmcg": _LOFOODS_FMCG_POOL,
     "us_general": _US_GENERAL_POOL,
     "india_general": _INDIA_GENERAL_POOL,
+    "bengal_general": _BENGAL_GENERAL_POOL,
     # Europe Benchmark v2
     "uk_general":          _UK_GENERAL_POOL,
     "france_general":      _FRANCE_GENERAL_POOL,
@@ -1005,6 +1155,8 @@ def sample_demographic_anchor(
             pool = _US_GENERAL_POOL
     elif "delhi" in location_hint or location_hint == "dl":
         pool = _DELHI_GENERAL_POOL
+    elif "west bengal" in location_hint or "bengal" in location_hint or location_hint in ("wb", "wbl"):
+        pool = _BENGAL_GENERAL_POOL
     elif "india" in location_hint or location_hint in ("ind", "in"):
         pool = _INDIA_GENERAL_POOL
     elif "united arab emirates" in location_hint or location_hint in ("uae", "gulf"):
@@ -1041,7 +1193,7 @@ def sample_demographic_anchor(
     # restrict to entries of that religion so the LLM receives a demographically
     # appropriate anchor (names, caste, context encode religion implicitly).
     # Falls back to full pool if the filtered sub-pool is empty.
-    if "india" in location_hint or "delhi" in location_hint or location_hint in ("ind", "in", "dl"):
+    if "india" in location_hint or "delhi" in location_hint or "bengal" in location_hint or location_hint in ("ind", "in", "dl", "wb", "wbl"):
         rel_filter = religiosity_hint.lower() if religiosity_hint else ""
         if rel_filter in ("hindu", "muslim", "sikh", "christian"):
             filtered_rel = [e for e in pool if len(e) > 15 and e[15] == rel_filter]
@@ -1107,7 +1259,7 @@ def sample_demographic_anchor(
     is_uae_muslim = _original_pool is _UAE_GULF_MUSLIM_POOL
     is_uk_south_asian_muslim = _original_pool is _UK_SOUTH_ASIAN_MUSLIM_POOL
     is_us_general = (domain.lower() in _US_GENERAL_DOMAINS or _original_pool is _US_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
-    is_india_general = (domain.lower() in {"india_general", "india_cpg"} or _original_pool is _INDIA_GENERAL_POOL or _original_pool is _DELHI_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
+    is_india_general = (domain.lower() in {"india_general", "india_cpg", "bengal_general"} or _original_pool is _INDIA_GENERAL_POOL or _original_pool is _DELHI_GENERAL_POOL or _original_pool is _BENGAL_GENERAL_POOL) and not is_uae_muslim and not is_uk_south_asian_muslim
     _EU_LOCATION_POOLS = (
         _FRANCE_GENERAL_POOL, _GERMANY_GENERAL_POOL, _GREECE_GENERAL_POOL,
         _HUNGARY_GENERAL_POOL, _ITALY_GENERAL_POOL, _NETHERLANDS_GENERAL_POOL,
@@ -1196,7 +1348,10 @@ def sample_demographic_anchor(
         rng = random.Random(persona_seed)
         jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
 
-        religious_salience = _INDIA_GENERAL_RELIGIOUS_SALIENCE.get(name, 0.82)
+        religious_salience = (
+            _INDIA_GENERAL_RELIGIOUS_SALIENCE.get(name)
+            or _BENGAL_GENERAL_RELIGIOUS_SALIENCE.get(name, 0.78)
+        )
         religious_salience = round(
             max(0.0, min(1.0, religious_salience + rng.uniform(-0.03, 0.03))), 2
         )
