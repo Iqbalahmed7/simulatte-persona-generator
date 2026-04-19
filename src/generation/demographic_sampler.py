@@ -615,8 +615,8 @@ _BENGAL_GENERAL_POOL = [
     # ── MATUA COMMUNITY DEPTH (4) ────────────────────────────────────────────
     # Matua = SC Hindu (Bangladesh-origin), ~17 lakh voters, Nadia/N24Pgs belt.
     # Most pivotal 2026 swing community: CAA promise from BJP vs welfare from TMC.
-    ("Tarun Biswas",        38, "male",   "India", "West Bengal", "Bangaon",         "tier3",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "bjp_supporter",  "hindu",  "sc"),        # Young Matua activist, CAA champion, firm BJP
-    ("Bimala Mondal",       52, "female", "India", "West Bengal", "Ranaghat",        "tier3",  "nuclear",        4, "lower",        False, "late-career",   "high-school",   "homemaker",     "bjp_lean",       "hindu",  "sc"),        # Matua woman, CAA promise vs welfare torn
+    ("Tarun Biswas",        38, "male",   "India", "West Bengal", "Bangaon",         "tier3",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "neutral",        "hindu",  "sc"),        # Young Matua activist — CAA promise proven hollow, SIR deleted family members from rolls; genuine swing
+    ("Bimala Mondal",       52, "female", "India", "West Bengal", "Ranaghat",        "tier3",  "nuclear",        4, "lower",        False, "late-career",   "high-school",   "homemaker",     "neutral",        "hindu",  "sc"),        # Matua woman — CAA disillusionment + SIR anxiety, torn between BJP identity and TMC welfare
     ("Nirmal Sarkar",       60, "male",   "India", "West Bengal", "Basirhat",        "tier3",  "couple-no-kids", 2, "lower-middle", False, "retired",       "high-school",   "retired",       "neutral",        "hindu",  "sc"),        # Elderly Matua, pragmatic, genuinely undecided
     ("Kalyani Das",         35, "female", "India", "West Bengal", "Bangaon",         "tier3",  "nuclear",        3, "lower",        False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "sc"),        # Matua woman, BJP lean on identity grounds
 
@@ -646,6 +646,31 @@ _BENGAL_GENERAL_POOL = [
     # created a specific anti-TMC sentiment among local women.
     ("Rekha Halder",        40, "female", "India", "West Bengal", "Sandeshkhali",    "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "neutral",        "hindu",  "sc"),        # Angry at TMC but fearful of BJP too — genuine swing
     ("Bina Naskar",         45, "female", "India", "West Bengal", "Sandeshkhali",    "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "homemaker",     "bjp_lean",       "hindu",  "obc"),       # Sandeshkhali, anti-TMC post-incident, BJP lean
+
+    # ── B-WB-3 CALIBRATION FIXES (+9): CPM holdouts, AIMIM Muslims, ────────
+    # Matua lean corrections. Grounded in real poll data (Matrize/VoteVibe/
+    # Matrix-IANS, April 2026): consensus TMC ~43%, BJP ~40%, Others ~12-16%.
+    # Key new signals: SIR voter-roll deletions hitting TMC strongholds;
+    # Matua CAA disillusionment (BJP promise hollow); AIMIM fragmenting
+    # Muslim vote in Murshidabad/Malda. Pool now 89 personas.
+
+    # ── CPM / LEFT-CONGRESS HOLDOUTS (6) ─────────────────────────────────────
+    # Committed Left-Congress voters — refuse to vote TMC or BJP.
+    # Concentrated in Birbhum/Burdwan/Hooghly industrial belt and Jadavpur.
+    # Political lean = neutral; Left identity encoded in geography + background.
+    ("Arun Bhattacharya",   67, "male",   "India", "West Bengal", "Jadavpur",        "metro",  "couple-no-kids", 2, "middle",       True,  "retired",       "postgraduate",  "retired",       "neutral",        "hindu",  "general"),   # Retired professor, Jadavpur, lifelong CPM voter, deeply secular
+    ("Subhas Chattopadhyay",58, "male",   "India", "West Bengal", "Bolpur",          "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # CPM booth worker, Birbhum, never left the party
+    ("Meenakshi Roy",       52, "female", "India", "West Bengal", "Burdwan",         "tier2",  "nuclear",        3, "lower-middle", True,  "late-career",   "undergraduate", "full-time",     "neutral",        "hindu",  "general"),   # Ex-CITU union member, Burdwan, Congress-Left voter
+    ("Pradip Ghosh",        62, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "couple-no-kids", 3, "middle",       False, "retired",       "undergraduate", "retired",       "neutral",        "hindu",  "general"),   # Congress loyalist, Berhampore (Adhir Ranjan's base), Murshidabad
+    ("Tapan Mondal",        56, "male",   "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # Ex-CPM steel worker, Durgapur, will not vote TMC or BJP
+    ("Sabitri Das",         49, "female", "India", "West Bengal", "Chinsurah",       "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "part-time",     "neutral",        "hindu",  "sc"),        # SC woman, Hooghly, Left-Congress alliance loyalty
+
+    # ── AIMIM / OTHERS — DISILLUSIONED MUSLIMS (3) ───────────────────────────
+    # AIMIM-AJUP alliance contesting Muslim-majority seats in Murshidabad/Malda.
+    # Fragments TMC's Muslim vote bank. ~5-8% peel in dense Muslim constituencies.
+    ("Abdul Karim",         55, "male",   "India", "West Bengal", "Murshidabad",     "tier2",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "self-employed", "neutral",        "muslim", "general"),   # Madrasa-educated, Murshidabad, AIMIM sympathiser, anti-TMC tokenism
+    ("Ruksana Parvin",      36, "female", "India", "West Bengal", "Malda",           "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "neutral",        "muslim", "general"),   # Educated Muslim woman, Malda, sceptical of TMC, open to AIMIM
+    ("Nurul Haque",         46, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "self-employed", "neutral",        "muslim", "obc"),       # Muslim trader, Berhampore, angry at TMC corruption, considering AIMIM
 ]
 
 # Religious salience for Bengal general pool.
@@ -749,6 +774,19 @@ _BENGAL_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
     # Sandeshkhali women (2)
     "Rekha Halder":        0.78,   # SC woman, folk Hindu, rural
     "Bina Naskar":         0.76,   # OBC woman, anti-TMC post-incident
+
+    # ── B-WB-3 calibration additions (9) ─────────────────────────────────────
+    # CPM / Left-Congress holdouts (6) — secular Left tradition, low salience
+    "Arun Bhattacharya":   0.38,   # Jadavpur retired professor, deeply secular
+    "Subhas Chattopadhyay":0.62,   # CPM booth worker, moderate Hindu
+    "Meenakshi Roy":       0.55,   # Ex-CITU union, urban educated, secular
+    "Pradip Ghosh":        0.52,   # Congress loyalist, Berhampore, secular
+    "Tapan Mondal":        0.60,   # Ex-CPM steel worker, working-class moderate
+    "Sabitri Das":         0.68,   # SC woman, Hooghly, folk Hindu
+    # AIMIM / disillusioned Muslim voters (3) — high devoutness
+    "Abdul Karim":         0.92,   # Madrasa-educated, Murshidabad, very devout
+    "Ruksana Parvin":      0.82,   # Educated Muslim woman, Malda, moderate devout
+    "Nurul Haque":         0.86,   # Muslim trader, Berhampore, devout
 }
 
 # ---------------------------------------------------------------------------
