@@ -139,6 +139,10 @@ _POLITICAL_LEAN_STATEMENTS: dict[str, str] = {
                          "governance, minority rights, and economic inequality",
     "opposition":        "Strong opposition supporter — critical of BJP's communal politics; "
                          "values secular, inclusive governance; concerned about democratic institutions",
+    # Bengal Left-Congress alliance
+    "left_lean":         "Rooted in Bengal's Left-Congress tradition — opposed to both BJP's communal "
+                         "politics AND TMC's syndicate corruption; believes in secular, working-class "
+                         "politics; would vote Left-Front or Congress alliance before either main party",
 }
 
 # Temporal political era → current-conditions stance per political lean.
@@ -365,6 +369,12 @@ _GENDER_NORMS_STANCES: dict[str, str] = {
         "On whether a wife must always obey her husband: your honest answer is 'completely disagree'. "
         "On whether men should have priority over women for jobs when jobs are scarce: "
         "your honest answer is 'completely disagree' — equal rights regardless of gender.",
+    "left_lean":
+        "Your Left political tradition emphasises workers' rights and gender equality. "
+        "On whether a wife must always obey her husband: your honest answer is 'somewhat disagree' — "
+        "you respect cultural traditions but believe in equal partnership within marriage. "
+        "On whether men should have priority over women for jobs when jobs are scarce: "
+        "your honest answer is 'somewhat disagree' — trade union values mean equal work rights.",
 }
 
 # Governance/leadership stance per India political lean — Study 1B Sprint A-2 Fix 2.
@@ -416,6 +426,12 @@ _GOVERNANCE_STANCES: dict[str, str] = {
         "On having a strong leader who does not have to bother with parliament or elections: "
         "your honest answer is 'very bad' — removing elections is unacceptable regardless "
         "of how efficient it might seem.",
+    "left_lean":
+        "Your Left tradition is rooted in parliamentary democracy, trade union rights, and "
+        "opposition to authoritarian governance of any kind — BJP or TMC. "
+        "On having a strong leader who does not have to bother with parliament or elections: "
+        "your honest answer is 'very bad' — democratic institutions are non-negotiable "
+        "in the Marxist-Leninist parliamentary tradition of Bengal's Left movement.",
 }
 
 
@@ -563,6 +579,10 @@ _INC_STANCES: dict[str, str] = {
         "VERY favorable — option A, not B. Congress is the democratic "
         "alternative to BJP authoritarianism. You are strongly favorable — "
         "not just somewhat. Your answer is A.",
+    "left_lean":
+        "Somewhat favorable — option B. Congress is your Left-Front alliance "
+        "partner against both BJP and TMC. You support them as a coalition "
+        "partner for 2026, though your primary identity is Left/CPM, not INC.",
 }
 
 
@@ -722,6 +742,15 @@ _POLICY_STANCE_STATEMENTS: dict[str, str] = {
         "on the Indian National Congress (INC/Congress): your honest answer is "
         "'VERY favorable' — option A, not B. INC is the democratic alternative "
         "to BJP authoritarianism. You are strongly favorable, not just somewhat.",
+    "left_lean":
+        "Rooted in Bengal's Left-Front tradition — values workers' rights, secular governance, "
+        "and democratic accountability over both BJP's communalism and TMC's patronage politics; "
+        "on India's global influence: 'staying about the same' — development narrative is overblown "
+        "while inequality grows; "
+        "on government trust: 'not at all' — you distrust the BJP central government; "
+        "climate change is a 'major threat' — Left parties have strong environmental commitments; "
+        "on INC/Congress: 'somewhat favorable' — Left-Congress are alliance partners for 2026 "
+        "in Bengal, united against BJP. You support this alliance.",
 }
 
 # Religious salience thresholds → key_values statements.
