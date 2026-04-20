@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "simulatte-persona-generator"
+version = "0.1.0"
+description = "Simulatte Persona Generator — synthetic persona engine"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+# Install everything under src/ as a top-level package named 'src',
+# preserving the existing `from src.social.*` import convention used
+# by PopScale and Niobe.
+where = ["."]
+include = ["src*"]
