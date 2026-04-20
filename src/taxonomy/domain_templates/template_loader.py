@@ -27,6 +27,18 @@ DOMAIN_REGISTRY: dict[str, list[AttributeDefinition]] = {
     # West Bengal general population — base taxonomy only, no domain extensions.
     # Used for WB 2026 assembly election population study.
     "bengal_general": [],
+    # Bengal constituency cluster pools — B-WB-6
+    # 10 demographic clusters covering all 294 WB assembly seats.
+    "bengal_murshidabad":        [],
+    "bengal_malda":              [],
+    "bengal_matua_belt":         [],
+    "bengal_jungle_mahal":       [],
+    "bengal_north_bengal":       [],
+    "bengal_kolkata_urban":      [],
+    "bengal_south_rural":        [],
+    "bengal_burdwan_industrial": [],
+    "bengal_presidency_suburbs": [],
+    "bengal_darjeeling_hills":   [],
     # Europe Benchmark v2 — base taxonomy only, no domain extensions.
     "uk_general": [],
     "france_general": [],
