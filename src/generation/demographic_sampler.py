@@ -658,19 +658,40 @@ _BENGAL_GENERAL_POOL = [
     # Committed Left-Congress voters — refuse to vote TMC or BJP.
     # Concentrated in Birbhum/Burdwan/Hooghly industrial belt and Jadavpur.
     # Political lean = neutral; Left identity encoded in geography + background.
-    ("Arun Bhattacharya",   67, "male",   "India", "West Bengal", "Jadavpur",        "metro",  "couple-no-kids", 2, "middle",       True,  "retired",       "postgraduate",  "retired",       "neutral",        "hindu",  "general"),   # Retired professor, Jadavpur, lifelong CPM voter, deeply secular
-    ("Subhas Chattopadhyay",58, "male",   "India", "West Bengal", "Bolpur",          "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # CPM booth worker, Birbhum, never left the party
-    ("Meenakshi Roy",       52, "female", "India", "West Bengal", "Burdwan",         "tier2",  "nuclear",        3, "lower-middle", True,  "late-career",   "undergraduate", "full-time",     "neutral",        "hindu",  "general"),   # Ex-CITU union member, Burdwan, Congress-Left voter
-    ("Pradip Ghosh",        62, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "couple-no-kids", 3, "middle",       False, "retired",       "undergraduate", "retired",       "neutral",        "hindu",  "general"),   # Congress loyalist, Berhampore (Adhir Ranjan's base), Murshidabad
-    ("Tapan Mondal",        56, "male",   "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "neutral",        "hindu",  "obc"),       # Ex-CPM steel worker, Durgapur, will not vote TMC or BJP
-    ("Sabitri Das",         49, "female", "India", "West Bengal", "Chinsurah",       "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "part-time",     "neutral",        "hindu",  "sc"),        # SC woman, Hooghly, Left-Congress alliance loyalty
+    ("Arun Bhattacharya",   67, "male",   "India", "West Bengal", "Jadavpur",        "metro",  "couple-no-kids", 2, "middle",       True,  "retired",       "postgraduate",  "retired",       "left_lean",      "hindu",  "general"),   # Retired professor, Jadavpur, lifelong CPM voter, deeply secular
+    ("Subhas Chattopadhyay",58, "male",   "India", "West Bengal", "Bolpur",          "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "left_lean",      "hindu",  "obc"),       # CPM booth worker, Birbhum, never left the party
+    ("Meenakshi Roy",       52, "female", "India", "West Bengal", "Burdwan",         "tier2",  "nuclear",        3, "lower-middle", True,  "late-career",   "undergraduate", "full-time",     "left_lean",      "hindu",  "general"),   # Ex-CITU union member, Burdwan, Congress-Left voter
+    ("Pradip Ghosh",        62, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "couple-no-kids", 3, "middle",       False, "retired",       "undergraduate", "retired",       "left_lean",      "hindu",  "general"),   # Congress loyalist, Berhampore (Adhir Ranjan's base), Murshidabad
+    ("Tapan Mondal",        56, "male",   "India", "West Bengal", "Durgapur",        "tier2",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "full-time",     "left_lean",      "hindu",  "obc"),       # Ex-CPM steel worker, Durgapur, will not vote TMC or BJP
+    ("Sabitri Das",         49, "female", "India", "West Bengal", "Chinsurah",       "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "part-time",     "left_lean",      "hindu",  "sc"),        # SC woman, Hooghly, Left-Congress alliance loyalty
 
     # ── AIMIM / OTHERS — DISILLUSIONED MUSLIMS (3) ───────────────────────────
     # AIMIM-AJUP alliance contesting Muslim-majority seats in Murshidabad/Malda.
     # Fragments TMC's Muslim vote bank. ~5-8% peel in dense Muslim constituencies.
-    ("Abdul Karim",         55, "male",   "India", "West Bengal", "Murshidabad",     "tier2",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "self-employed", "neutral",        "muslim", "general"),   # Madrasa-educated, Murshidabad, AIMIM sympathiser, anti-TMC tokenism
-    ("Ruksana Parvin",      36, "female", "India", "West Bengal", "Malda",           "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "neutral",        "muslim", "general"),   # Educated Muslim woman, Malda, sceptical of TMC, open to AIMIM
-    ("Nurul Haque",         46, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "self-employed", "neutral",        "muslim", "obc"),       # Muslim trader, Berhampore, angry at TMC corruption, considering AIMIM
+    ("Abdul Karim",         55, "male",   "India", "West Bengal", "Murshidabad",     "tier2",  "joint",          6, "lower",        False, "mid-career",    "high-school",   "self-employed", "left_lean",      "muslim", "general"),   # Madrasa-educated, Murshidabad, AIMIM sympathiser, anti-TMC tokenism
+    ("Ruksana Parvin",      36, "female", "India", "West Bengal", "Malda",           "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "undergraduate", "full-time",     "left_lean",      "muslim", "general"),   # Educated Muslim woman, Malda, sceptical of TMC, open to AIMIM
+    ("Nurul Haque",         46, "male",   "India", "West Bengal", "Berhampore",      "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "self-employed", "left_lean",      "muslim", "obc"),       # Muslim trader, Berhampore, angry at TMC corruption, considering AIMIM
+
+    # ── B-WB-4 CALIBRATION (+9): BJP pool expansion ──────────────────────────
+    # BJP is under-represented vs real polls (~39%). Adding personas from three
+    # documented BJP-strong geographies: Koch-Rajbongshi (North Bengal), Jungle
+    # Mahal tribals (Jhargram/Purulia), Hindu consolidation belt (Bankura/Burdwan).
+    # Pool now 98 personas. BJP-lean: 31/98=32%, TMC-lean: 38/98=39%, left_lean: 9/98=9%, neutral: 20/98=20%.
+
+    # ── KOCH-RAJBONGSHI / NORTH BENGAL BJP (3) ────────────────────────────────
+    ("Uttam Barman",        48, "male",   "India", "West Bengal", "Cooch Behar",     "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "self-employed", "bjp_supporter",  "hindu",  "obc"),       # Koch-Rajbongshi, BJP-GJM base, Cooch Behar
+    ("Shefali Barman",      42, "female", "India", "West Bengal", "Cooch Behar",     "tier2",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "homemaker",     "bjp_lean",       "hindu",  "obc"),       # Koch-Rajbongshi woman, Hindu nationalist, BJP
+    ("Gobinda Roy",         55, "male",   "India", "West Bengal", "Alipurduar",      "tier3",  "nuclear",        4, "lower-middle", False, "late-career",   "high-school",   "self-employed", "bjp_lean",       "hindu",  "obc"),       # Tea garden community, Alipurduar, BJP lean
+
+    # ── JUNGLE MAHAL TRIBALS / JHARGRAM-PURULIA BJP (3) ──────────────────────
+    ("Mangal Murmu",        44, "male",   "India", "West Bengal", "Jhargram",        "tier3",  "nuclear",        4, "lower",        False, "mid-career",    "high-school",   "self-employed", "bjp_lean",       "hindu",  "st"),        # Santali tribal, Jhargram, BJP on tribal identity
+    ("Sushila Hansda",      38, "female", "India", "West Bengal", "Purulia",         "tier3",  "nuclear",        5, "lower",        False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "st"),        # Tribal woman, Purulia, BJP-NDA alignment
+    ("Ratan Tudu",          50, "male",   "India", "West Bengal", "Bankura",         "tier3",  "nuclear",        4, "lower",        False, "late-career",   "high-school",   "self-employed", "bjp_supporter",  "hindu",  "st"),        # Tribal farmer, Bankura, firm BJP voter since 2019
+
+    # ── HINDU CONSOLIDATION BELT / BURDWAN-BANKURA (3) ───────────────────────
+    ("Nikhil Ghosh",        52, "male",   "India", "West Bengal", "Asansol",         "tier2",  "nuclear",        3, "middle",       False, "late-career",   "undergraduate", "full-time",     "bjp_lean",       "hindu",  "general"),   # Hindu middle-class, Asansol, anti-TMC governance failure
+    ("Rekha Singh",         45, "female", "India", "West Bengal", "Bankura",         "tier2",  "nuclear",        4, "lower-middle", False, "mid-career",    "high-school",   "part-time",     "bjp_lean",       "hindu",  "obc"),       # Hindu OBC woman, Bankura, BJP on identity + welfare
+    ("Subal Pal",           58, "male",   "India", "West Bengal", "Burdwan",         "tier2",  "nuclear",        3, "lower-middle", False, "late-career",   "high-school",   "self-employed", "bjp_supporter",  "hindu",  "general"),   # Hindu trader, Burdwan, BJP consolidation voter
 ]
 
 # Religious salience for Bengal general pool.
@@ -787,6 +808,20 @@ _BENGAL_GENERAL_RELIGIOUS_SALIENCE: dict[str, float] = {
     "Abdul Karim":         0.92,   # Madrasa-educated, Murshidabad, very devout
     "Ruksana Parvin":      0.82,   # Educated Muslim woman, Malda, moderate devout
     "Nurul Haque":         0.86,   # Muslim trader, Berhampore, devout
+
+    # ── B-WB-4 calibration additions (9) ─────────────────────────────────────
+    # Koch-Rajbongshi / North Bengal BJP (3)
+    "Uttam Barman":        0.82,   # Koch-Rajbongshi, Hindu OBC, BJP communal identity
+    "Shefali Barman":      0.80,   # Koch-Rajbongshi woman, Hindu nationalist
+    "Gobinda Roy":         0.78,   # tea garden community, Alipurduar, Hindu OBC
+    # Jungle Mahal tribals (3) — syncretist Hindu + folk religion
+    "Mangal Murmu":        0.80,   # Santali tribal, Jhargram, syncretist
+    "Sushila Hansda":      0.78,   # tribal woman, Purulia, folk Hindu
+    "Ratan Tudu":          0.76,   # tribal farmer, Bankura, BJP voter
+    # Hindu consolidation belt (3)
+    "Nikhil Ghosh":        0.62,   # middle-class Asansol, moderate Hindu
+    "Rekha Singh":         0.72,   # Hindu OBC woman, Bankura, BJP identity
+    "Subal Pal":           0.75,   # Hindu trader, Burdwan, BJP consolidation
 }
 
 # ---------------------------------------------------------------------------

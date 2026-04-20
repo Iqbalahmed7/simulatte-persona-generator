@@ -431,7 +431,7 @@ _GOVERNANCE_STANCES: dict[str, str] = {
 # tendency_summary override, inc_stance, governance_stance, gender_norms_stance,
 # key_values policy stances) to silently return neutral/moderate values.
 _INDIA_ARCHETYPES = frozenset(
-    {"bjp_supporter", "bjp_lean", "neutral", "opposition_lean", "opposition"}
+    {"bjp_supporter", "bjp_lean", "neutral", "opposition_lean", "opposition", "left_lean"}
 )
 
 
