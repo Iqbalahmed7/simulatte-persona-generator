@@ -1925,63 +1925,55 @@ def sample_demographic_anchor(
         rng = random.Random(seed + index)
         age = max(18, min(65, age + rng.randint(-3, 3)))
 
-    # Build WorldviewAnchor for us_general domain.
+    # Build WorldviewAnchor for US and India general domains.
     # Other domains leave worldview as None — zero impact on existing behaviour.
     worldview = None
-    if is_us_general and political_lean is not None:
-        base = _WORLDVIEW_BASE_DIMS[political_lean]
-        inst_trust, change_pace, collectivism, econ_security = base
+    if political_lean is not None:
+        # Use region-specific worldview dimensions
+        if is_us_general:
+            base = _WORLDVIEW_BASE_DIMS.get(political_lean)
+        elif is_india_general:
+            base = _INDIA_WORLDVIEW_BASE_DIMS.get(political_lean)
+        else:
+            base = None
 
-        # Add small persona-level variation (±0.04) for realism.
-        # Seeded by persona name for reproducibility.
-        persona_seed = abs(hash(name)) % 10000
-        rng = random.Random(persona_seed)
-        jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
+        if base is not None:
+            inst_trust, change_pace, collectivism, econ_security = base
 
-        religious_salience = _US_GENERAL_RELIGIOUS_SALIENCE.get(name)
-        if religious_salience is not None:
-            # Add small persona-level jitter for realism (±0.03)
-            religious_salience = round(
-                max(0.0, min(1.0, religious_salience + rng.uniform(-0.03, 0.03))), 2
+            # Add small persona-level variation (±0.04) for realism.
+            # Seeded by persona name for reproducibility.
+            persona_seed = abs(hash(name)) % 10000
+            rng = random.Random(persona_seed)
+            jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
+
+            religious_salience = _US_GENERAL_RELIGIOUS_SALIENCE.get(name)
+            if religious_salience is not None:
+                # Add small persona-level jitter for realism (±0.03)
+                religious_salience = round(
+                    max(0.0, min(1.0, religious_salience + rng.uniform(-0.03, 0.03))), 2
+                )
+
+            # Brief-level override — allows slots with distinct religiosity levels
+            # (moderate, less-practicing, cultural Muslim) to be set precisely
+            # rather than inheriting the pool's default range.
+            rs_override = anchor_overrides.get("religious_salience_override")
+            if rs_override is not None:
+                religious_salience = float(rs_override)
+
+            worldview = WorldviewAnchor(
+                institutional_trust=jitter(inst_trust),
+                social_change_pace=jitter(change_pace),
+                collectivism_score=jitter(collectivism),
+                economic_security_priority=jitter(econ_security),
+                political_profile=PoliticalProfile(
+                    country="USA" if is_us_general else "India",
+                    archetype=political_lean,
+                    description=(_pol_registry.get_description("USA", political_lean) if is_us_general
+                                 else _pol_registry.get_description("India", political_lean)),
+                ),
+                political_era=_US_POLITICAL_ERA if is_us_general else None,
+                religious_salience=religious_salience,
             )
-
-        # Brief-level override — allows slots with distinct religiosity levels
-        # (moderate, less-practicing, cultural Muslim) to be set precisely
-        # rather than inheriting the pool's default range.
-        rs_override = anchor_overrides.get("religious_salience_override")
-        if rs_override is not None:
-            religious_salience = float(rs_override)
-
-        worldview = WorldviewAnchor(
-            institutional_trust=jitter(inst_trust),
-            social_change_pace=jitter(change_pace),
-            collectivism_score=jitter(collectivism),
-            economic_security_priority=jitter(econ_security),
-            political_profile=PoliticalProfile(
-                country="USA",
-                archetype=political_lean,
-                description=_pol_registry.get_description("USA", political_lean),
-            ),
-            political_era=_US_POLITICAL_ERA,
-            religious_salience=religious_salience,
-        )
-
-    elif is_india_general and political_lean is not None:
-        # Study 1B: India general population WorldviewAnchor.
-        # Uses India-calibrated base dimensions and BJP/opposition political leans.
-        base = _INDIA_WORLDVIEW_BASE_DIMS.get(political_lean, (0.55, 0.50, 0.60, 0.52))
-        inst_trust, change_pace, collectivism, econ_security = base
-
-        persona_seed = abs(hash(name)) % 10000
-        rng = random.Random(persona_seed)
-        jitter = lambda v: round(max(0.0, min(1.0, v + rng.uniform(-0.04, 0.04))), 2)  # noqa: E731
-
-        religious_salience = (
-            _INDIA_GENERAL_RELIGIOUS_SALIENCE.get(name)
-            or _BENGAL_GENERAL_RELIGIOUS_SALIENCE.get(name, 0.78)
-        )
-        religious_salience = round(
-            max(0.0, min(1.0, religious_salience + rng.uniform(-0.03, 0.03))), 2
         )
 
         worldview = WorldviewAnchor(
