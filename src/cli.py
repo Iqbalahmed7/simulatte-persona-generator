@@ -263,6 +263,16 @@ async def _run_generation(
     # Assemble full cohort: registry personas + newly generated
     personas = registry_personas + newly_generated_personas
 
+    # Defensive check: ensure we have personas before assembly
+    if not personas:
+        raise RuntimeError(
+            f"Generation pipeline produced 0 personas. "
+            f"Registry: {len(registry_personas)}, "
+            f"Generated: {len(newly_generated_personas)}, "
+            f"Generate count was: {generate_count}. "
+            f"This indicates a failure in persona generation or stratification."
+        )
+
     envelope_obj = assemble_cohort(
         personas=personas,
         domain=domain,
