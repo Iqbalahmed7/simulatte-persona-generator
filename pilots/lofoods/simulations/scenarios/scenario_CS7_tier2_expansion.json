@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS7",
+  "title": "Tier 2 City Expansion: Which Sub-brand Leads in Jaipur, Lucknow, Coimbatore?",
+  "cohorts": ["C1", "C9"],
+  "social_level": "low",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores — Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (₹120), Protein Chef Bread (₹99), DiabeSmart Biscuits (₹180). You've heard of 'keto diet' vaguely — maybe from a cousin in Bangalore or from Instagram — but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+    "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo — regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this — three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto — just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+    "Protein Chef bread is now available on Blinkit in your city at ₹99. Your regular bread (local bakery or Britannia) costs ₹40-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer — just a regular 35-year-old office worker. At ₹99 vs ₹45, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?"
+  ],
+  "decision_scenario": "Lo! Foods is expanding into your Tier 2 city. You have the option to try one product from their range: Lo! Keto Cookies (₹120), Protein Chef Bread (₹99), or DiabeSmart Biscuits (₹180). Which would you try first — and what price, claim, or channel would make you a regular buyer rather than a one-time trial customer?"
+}

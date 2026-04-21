@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS13",
+  "title": "Fresh vs Packaged: Which Channel Drives Long-Term Customer Value?",
+  "cohorts": ["C1", "C5", "C15"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You discovered Lo! Foods through Swiggy — you ordered a keto meal bowl (₹280) on a health kick three months ago. You loved it. Now you're on Amazon and you've just noticed Lo! Foods has packaged products — Protein Chef bread, keto cookies, low-GI biscuits. The brand you associated with 'fresh restaurant-quality keto meals' now also makes packaged snacks. Does this discovery make the packaged products feel more trustworthy (same brand, same values), or does it make the cloud kitchen feel less premium (they're just another packaged food brand)?",
+    "Reverse scenario: You discovered Lo! Foods through Amazon — you bought Protein Chef bread six weeks ago after seeing it in a health food article. It became a weekly staple. You've just seen a Swiggy ad for Lo! Foods cloud kitchen meals in your city — fresh keto bowls, wraps, and thalis at ₹180–320. The brand you associated with 'packaged functional food' now has a cloud kitchen. Does this make you more likely to order their fresh meals (you already trust the brand), or does it feel like brand overextension — too many things, losing focus?",
+    "Lo! Foods shares their data: 'Customers who try our cloud kitchen first spend 3x more on packaged products within 6 months. Customers who start with packaged products rarely try the cloud kitchen.' They want to use the cloud kitchen as a customer acquisition funnel — lose money on fresh meals to acquire customers for the higher-margin packaged business. As a customer, would you follow this journey — try fresh, migrate to packaged — or are these genuinely separate decisions for you with no natural bridge?"
+  ],
+  "decision_scenario": "Lo! Foods must decide where to invest their next ₹5 crore: double down on cloud kitchen expansion (more cities, more menu variety) or invest in packaged product distribution and marketing (offline retail, better Amazon presence). As a customer who might use either or both, which investment makes you more likely to become a loyal Lo! Foods buyer long-term — and does your answer change depending on which channel you discovered them through first?"
+}

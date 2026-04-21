@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS9",
+  "title": "Protein Bread Category Creation: Which Message Converts a Regular Bread Buyer?",
+  "cohorts": ["C3", "C4", "C6"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're a regular bread buyer — Britannia, Harvest Gold, or local bakery at ₹40-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef — 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs ₹60 and has roughly 36g protein. Protein Chef costs ₹99. Does the egg comparison make protein bread feel like a worthy upgrade — or does it feel like an expensive substitute for something you already have?",
+    "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef — real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price ₹99. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison — or less?",
+    "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread — 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price ₹99. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?"
+  ],
+  "decision_scenario": "You're at the grocery store or on Blinkit. Regular bread is ₹45 and familiar. Protein Chef is ₹99 and new. Which of the three messages you've encountered — protein vs egg, clean label, or children's nutrition — would most likely make you add Protein Chef to your cart for the first time? And what would make you buy it again the following week?"
+}

@@ -1,0 +1,918 @@
+{
+  "simulation_id": "sim-f2033b06",
+  "cohort_id": "merged-C3_C4_C6",
+  "rounds": 3,
+  "decision_scenario": "You're at the grocery store or on Blinkit. Regular bread is \u20b945 and familiar. Protein Chef is \u20b999 and new. Which of the three messages you've encountered \u2014 protein vs egg, clean label, or children's nutrition \u2014 would most likely make you add Protein Chef to your cart for the first time? And what would make you buy it again the following week?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd add Protein Chef to my cart \u2014 but only after two things: I physically flip the pack and verify the ingredient list matches what the clean label message claims, and I do a 30-second check on my phone to see if there's any brand presence or reviews that suggest this isn't a fly-by-night product. If both of those check out, I buy it. The clean label message is what gets me there \u2014 not protein math, not parent guilt. It's the only message that speaks to ingredient honesty and that resonates directly with my specific anxiety about unknown brands and hidden ingredients. For repeat purchase the following week: if the bread tastes decent, my family doesn't reject it, and I don't feel tricked by the ingredient list \u2014 I'm back. But honestly, what would really seal the repeat purchase is if Kavitha confirms she's tried it and likes it, or if I see it stocked prominently at my usual store rather than tucked in a corner. Familiarity builds trust. The first buy is clean label. The repeat buy is experience plus social proof.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: My instinct says: not today, but the clean label message makes me pause longer than the others. The protein comparison feels like a sales trick \u2014 eggs vs. bread, come on. The children"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart \u2014 but only once, as a trial. The clean label message is what gets me there. It's the only one that doesn't feel manipulative, gives me a rational story to justify the price gap, and aligns with what my mother's voice in my head keeps saying about quality ingredients. I'll buy it, try it for a week, compare honestly \u2014 taste, texture, whether my family actually likes it. If the bread is genuinely good and I feel the quality difference, I might keep it for specific days or occasions rather than replacing regular bread entirely. For the following week: I come back ONLY if the taste holds up AND someone I know validates it too. One or the other isn't enough \u2014 I need both quality experience and social confirmation to make this a habit.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that \u20b999 feels like a lot when regular bread is sitting right there for \u20b945. I feel that familiar pull \u2014 the same one I felt during those three days of baby s"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message would most likely get me to add Protein Chef to my cart for the first time. Here's why: it doesn't require me to believe a marketing claim \u2014 it asks me to read an ingredient list, which I was going to do anyway. No maida, no palm oil, recognizable whole ingredients \u2014 that's the exact checklist I already run on every bread loaf I pick up. At \u20b999, I'd buy it as a considered, intentional trial, probably instead of a snack purchase elsewhere that week to offset the cost. For the repeat purchase the following week: that depends almost entirely on what my family says. If Arjun eats it without complaint, if the texture is good, if I see them actually finishing the loaf \u2014 I'd buy it again. The repeat is earned by the product, not the marketing. But it would also help if I found a way to budget it in regularly \u2014 maybe I stop buying one processed snack item to absorb the cost difference. If the clean label holds up and the family accepts it, \u20b999 becomes 'worth it' rather than 'expensive.'",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: My immediate reaction is hesitation followed by a pull toward the clean label message. The egg comparison annoyed me \u2014 it felt like marketing sleight of hand. The children's nutrition"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart \u2014 this one time \u2014 primarily because of the clean label message. Not the protein claims, not the children's guilt. The 'no maida, no palm oil' angle makes me question what I've been buying without reading for years. I frame this to myself not as a luxury but as a one-time quality check. I will buy one loaf, read the actual ingredient list myself when it arrives, and watch how the family responds to it. For the SECOND week purchase \u2014 what would bring me back is simple: if the bread actually tastes good and my family eats it without complaints, AND if I've verified the ingredient list matches the promise. If I feel the quality difference in texture, in how long it keeps us full, in the fact that my children eat it without fuss \u2014 I'd buy it again. Maybe not every week, but I'd make it a planned monthly or biweekly purchase I budget for in advance. What would kill the repeat purchase: if my husband questions it strongly, if the children reject the taste, or if I discover the ingredient list has hidden things I don't recognize.",
+          "confidence": 41,
+          "reasoning": "1. GUT REACTION: My hand goes to the regular bread automatically. \u20b945 is familiar, \u20b999 feels like a jolt. But then I pause \u2014 because of all three messages I've seen, the clean label one stays with me "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Of the three messages, the clean label message would most likely make me add Protein Chef to my cart for the first time \u2014 not the children's nutrition message, even though that one hit hardest emotionally. Precisely because it hit so hard, I distrust it. It felt designed to make me feel like a bad mother. Clean label felt honest. If I were to try it, it would be once, carefully, as an experiment \u2014 maybe when there is a small extra in the month, or if I see it on offer at \u20b965-70. I would buy one loaf, I would read every ingredient on the back, and I would see if my family noticed or cared. For the second week repurchase \u2014 that would only happen if my children genuinely ate it better, if I saw real difference, AND if a neighbor or someone I trusted confirmed they also bought it. Without that social confirmation, I would quietly return to my regular bread and tell myself I tried. The price wall does not disappear after one trial.",
+          "confidence": 50,
+          "reasoning": "1. GUT REACTION: My stomach tightens at \u20b999. That is my first, honest reaction \u2014 before I even read what is inside the packet. But then... I remember reading about that clean label. No maida, no palm "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "First purchase: Clean label message is what gets me to research Protein Chef seriously. I'd spend 10-15 minutes on my phone right there \u2014 check the brand's website for the actual ingredient list, search Reddit for honest reviews, look at Blinkit or Amazon reviews sorted by most critical. If the community consensus confirms the clean label claim is legitimate and not just marketing language, I add it to cart. That's a first buy. Second purchase \u2014 what brings me back the following week \u2014 is entirely dependent on the actual eating experience combined with whether the ingredient list I verified holds up. If the bread performs \u2014 tastes good, keeps me full, genuinely has the ingredients listed \u2014 I'll buy it again without needing to re-research. The repeat purchase is about my personal experience validating the community consensus. That's the loop I trust: community first, personal verification second, habit third.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: Clean label. That's the one that gets me to pause at the shelf. The 'no maida, no palm oil, no compromise' framing doesn't feel like it's trying to manufacture a crisis or guilt me in"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-006",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart this week based on the clean label message \u2014 not the protein-vs-egg comparison, not the children's nutrition angle. Those messages felt like they were selling to my anxieties. The clean label message felt like it was respecting my intelligence. For repeat purchase the following week: that depends entirely on the experience. Did the bread taste noticeably better? Did my family actually eat it without complaints? Did I feel like I got genuine quality, or did I feel like I paid a premium for packaging? If the answer is yes, yes, and genuine quality \u2014 I come back, and I become loyal. Because my loyalty to brands is strong once trust is established. But that trust must be earned by the product, not bought by the marketing. If the bread is just average bread with a clever label, I return to \u20b945 and I don't look back. One week trial. Product decides everything after that.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that the clean label message is the one that gets me. 'No maida. No palm oil. No compromise.' \u2014 that lands. It's not trying to dazzle me with protein math or "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I buy one loaf of Protein Chef this week \u2014 driven by the clean label message. I read the full ingredient list in the aisle. I check if there is any certification mark, any FSSAI number, anything that tells me this brand is accountable. I do not buy it on faith; I buy it as a structured trial. I will pay attention to: how my family responds to the taste, whether the ingredient list matches what's actually on the packaging without fine-print exceptions, and whether the loaf lasts as long as regular bread. For the second week purchase \u2014 that only happens if the trial confirms quality. One bad experience and this brand loses me permanently, the same way that Jodhpur supplier did. But if the bread delivers what the label promises \u2014 real ingredients, real texture, real family approval \u2014 then \u20b999 becomes justified and I return. Not because of the ad. Because the product earned my trust.",
+          "confidence": 51,
+          "reasoning": "1. GUT REACTION: My hand goes to the regular bread automatically. \u20b945, familiar, done. But then I pause \u2014 because I remember what happened with that supplier who seemed 'good enough.' Good enough cost"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Amit Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what would make me add Protein Chef to my cart for the first time \u2014 and specifically because it converts a trust problem into a verification task I can perform myself. Standing at the shelf, I'd pick up the pack, read the ingredients, recognize each one, and feel the specific satisfaction of not needing to take anyone's word for it. The brand transparency is doing the work that marketing language cannot do for me. I'd buy it once. For the repeat purchase the following week: that first loaf has to deliver perceptible quality \u2014 texture, taste, how it holds up in toast or a sandwich. If it performs well, my pattern is to become loyal quickly, because I've already done the verification work and I don't want to repeat the audit process. One good experience collapses future due diligence into brand trust. But if the product underdelivers \u2014 if the texture is wrong, if it tastes engineered \u2014 I won't return regardless of what the label says. The ingredient transparency got me in the door; the product quality keeps me there.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that none of these three messages are slam-dunks for me, but the clean label message gets closest to breaking through. The protein-vs-egg comparison feels lik"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to my cart \u2014 but specifically because of the clean label message, and with one condition I impose on myself: I spend three minutes checking the ingredient panel and doing a quick search on the brand before checkout. If the ingredient list holds up \u2014 genuinely readable, no hidden additives, sourcing I can trace \u2014 I buy it. The clean label framing is what moved me because it gave me agency, not anxiety. For the repeat purchase the following week: that depends entirely on two things. First, whether the bread actually tastes and performs well enough that switching costs feel worth it. Second \u2014 and this is the more important one \u2014 whether the brand continues to feel transparent as I learn more about them. If I find a forum thread or review that contradicts the clean label claim, I won't be back. But if the ingredient integrity holds, and the eating experience is good, I'll quietly switch my default. I'm loyal when trust is earned. I drop brands fast when it isn't.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: My instinct goes to the clean label message \u2014 and that's actually surprising even to me, because bread isn't usually a category where I pause and think. But 'No maida. No palm oil.' s"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what would most likely make me add Protein Chef to my cart for the first time \u2014 specifically because it doesn't feel like marketing, it feels like disclosure. I'd pick up one loaf, not as a switch but as a trial. I'd read the ingredient panel in the store before putting it in the cart \u2014 if it matches what was advertised, I'd buy it. For the second week: I'd only come back if the bread actually behaved like quality bread \u2014 good texture, lasted the week, my family ate it without complaint, and I didn't feel like I'd been sold a premium on nothing. If it held up, the clean label story would become my justification to my wife and myself for the price. If it disappointed in any way \u2014 stale by day three, strange texture, family didn't like it \u2014 I'm back to \u20b945 and I don't return. The repeat purchase hinges entirely on the product delivering on the promise the ingredient list made.",
+          "confidence": 54,
+          "reasoning": "1. GUT REACTION: My instinct is to pick up the regular \u20b945 bread and keep moving. I know what I'm getting, it works, and \u20b999 feels steep when I'm already managing the household budget carefully. But t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The children's nutrition message is what would most likely get me to first purchase \u2014 but not the same day I see it. Here's how it actually plays out: I see the message, I feel the pull, I screenshot it, I ask Anjali and one other parent friend about protein intake for kids. If even one of them says 'oh yes we've been thinking about this too' or 'I've tried Protein Chef,' I buy it next time I'm on Blinkit or at the store. The clean label message actually reinforces the decision at the moment of purchase \u2014 I look at the ingredient list on the packaging, see whole wheat and flaxseed, and feel less like I'm being tricked. For the repeat purchase the following week: that depends entirely on whether my daughter ate it without complaint and whether I noticed anything \u2014 energy, fullness, she mentioned liking it. If it just slotted in as 'bread she ate,' I probably buy it again because the quality justification held. If she didn't like the taste, no message in the world keeps me buying it.",
+          "confidence": 47,
+          "reasoning": "1. GUT REACTION: Honestly, the children's nutrition message is the one that made me stop scrolling. That specific number \u2014 25g daily protein, kids getting less than half \u2014 lodged itself in my brain in"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to my cart for the first time because of the clean label message \u2014 not impulsively, but after spending about 3-4 minutes reading Blinkit reviews on my phone while still in the aisle or on the app. If the reviews cross a threshold (4+ stars, 50+ reviews, comments mentioning taste and texture positively), I buy it. I frame it mentally as a one-time trial: \u20b999 to answer the question properly, rather than wonder about it. For repeat purchase the following week: I only come back if two things are true \u2014 it toasted well and tasted good, and I didn't feel like I was forcing myself to finish the loaf. The quality-signals need to be felt, not just read. If it genuinely felt like an upgrade to my daily routine without extra effort, I'll quietly switch and never look back. That's how my decisions tend to go \u2014 slow to start, sticky once I'm convinced.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to reach for the regular \u20b945 bread out of habit and move on. \u20b999 feels like a premium I need to justify. But something about the clean label message specifica"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 5,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what gets me to add it to cart the first time. Specifically, seeing the actual ingredient list on the packaging and the 'No maida. No palm oil. No compromise' framing \u2014 because I can verify that myself in ten minutes at the store without needing anyone to tell me it's good. I'd pick up the pack, flip it over, read the label, and if it matches what the messaging claims, I'd probably buy it. For repeat purchase the following week: taste and actual satiety. If it tastes reasonably good, fills me up more than regular bread at breakfast, and I feel like I'm actually getting the quality I paid for \u2014 I'm coming back. But I'd also need to have seen at least one Reddit comment or WhatsApp message from someone I respect saying 'yeah this is actually solid.' The clean label creates the first purchase. Peer confirmation and real-world experience create the habit.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: Clean label wins. The moment I read 'whole wheat flour, whey protein, oats, flaxseed' on actual packaging \u2014 ingredients I can recognize and verify myself \u2014 something clicks. The egg c"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to add it to cart \u2014 but not impulsively. The clean label message is what nudges me over the line for a first purchase. I'll buy one loaf this week as a trial. Before I buy it again next week, I need to have a positive experience with the actual product: taste, texture, whether my family accepts it, and whether the ingredient quality holds up in real use. If it delivers on what the clean label promises \u2014 real ingredients, no compromise \u2014 and if I can find even two or three consistent positive reviews online in the next 48 hours, I'll commit to it as a regular rotation item. The repeat purchase happens when the product earns it, not when the marketing promises it.",
+          "confidence": 58,
+          "reasoning": "1. GUT REACTION: My instinct says the clean label message is the one that actually lands with me. The children's nutrition angle made me feel manipulated \u2014 like they were weaponizing my love for my ki"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message tips me toward a first purchase \u2014 but barely, and conditionally. Here's my logic: the ingredient list is verifiable and honest, which is the closest thing to expert validation I have at the shelf without a doctor's opinion. The guilt-marketing of children's nutrition actually pushed me away. The protein vs egg comparison I've already mentally debunked. But clean ingredients I can read and recognize? That's a purchasing argument I can actually defend to myself. I add it to my cart this one time as a trial \u2014 not as a habit. For repeat purchase the following week: that only happens if (a) Arjun actually eats it without fuss, (b) the loaf finishes before going stale meaning we genuinely consumed the value, and (c) I don't find a cheaper alternative with comparable clean ingredients. If all three hold, I'll buy it again. If I find a nutritionist or pediatrician endorsement \u2014 not sponsored, actual clinical backing \u2014 I'd move from 'reluctant trial' to 'regular purchase' much faster.",
+          "confidence": 59,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to put it back on the shelf. \u20b999 for bread when regular is \u20b945 \u2014 that's a \u20b954 premium every single week. My hand literally hesitates. But then I think about A"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what would make me add it to my cart for the first time. Not because it's the most emotionally compelling \u2014 the children's nutrition angle hit harder emotionally \u2014 but because it's the one I can verify. I can read the ingredient list on the pack, confirm it matches what the message promised, and make a rational decision. That's who I am now. I run the numbers twice, I check the source, and I don't trust claims I can't audit. So I add it, but I'm buying one loaf, not two. It's a trial, not a commitment. For repeat purchase the following week? Three things need to happen: the taste and texture have to be genuinely good \u2014 not just tolerable \u2014 because I'm paying double and I'll know if I'm settling. The satiety has to be noticeable, meaning I need to feel fuller longer or perform better at my desk, something I can actually observe. And ideally, one person I know needs to confirm they either buy this or something like it. If all three land, I'm back next week. If the bread tastes like cardboard with protein powder, I'm back to \u20b945 and eggs.",
+          "confidence": 52,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to put it back on the shelf. \u20b999 versus \u20b945 is a 120% premium, and I feel that immediately. But then I pause \u2014 because the clean label message actually got un"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart this one time, primarily because of the clean label messaging. Not because I'm convinced it's superior nutrition \u2014 I'm not there yet. But because the transparency argument is the only one that didn't feel like it was trying to manipulate me. I treat this as a quality audit, not a lifestyle conversion. I'm buying one loaf to read the label in person, taste it, check whether my family actually eats it or leaves it. For repeat purchase the following week: I only come back if two things are true \u2014 (1) the taste and texture are genuinely comparable to what we're used to, because healthy bread nobody eats is wasted money, and (2) I can verify that ingredient list matches what was advertised. If it does, I can justify the premium as a legitimate quality upgrade, not marketing hype. If the family rejects the taste or I find the label is less clean in person than advertised, I go back to regular bread and respect my budget constraint.",
+          "confidence": 59,
+          "reasoning": "1. GUT REACTION: My immediate instinct is skepticism. \u20b999 versus \u20b945 \u2014 that's more than double. I pause, hand hovering over the shelf or the app screen. But then I remember that clean label message. W"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to the cart \u2014 but because of the clean label message, not the protein comparison or the children's framing. The ingredient transparency resolves my control-versus-delegation tension: I don't need to delegate trust to a brand claim, I can verify it myself by reading the label. That's not delegation \u2014 that's informed evaluation. For the second purchase: if the bread holds quality on taste and texture, and if I don't discover some fine-print ingredient hidden in the 'natural flavours' category, I will buy it again. My repeat purchase is conditional on the product validating what the label promises. If the quality matches the claim, this becomes my default bread \u2014 I am loyal to brands that prove themselves and I don't shop around once trust is established.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to reach for the clean label message \u2014 'no maida, no palm oil, no compromise.' Those words land differently for me than protein comparisons or guilt about my "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is the one that would make me add Protein Chef to my cart for the first time \u2014 not the protein comparison, not the children's nutrition guilt. Here's why: it speaks to my deepest post-flood value, which is knowing exactly what I'm bringing into my home. The ingredients are honest and recognizable. The \u20b999 still feels heavy, but it doesn't feel like I'm being fooled, and that distinction matters to me enormously right now. I'd probably buy one loaf as a trial \u2014 not as a regular switch, but as a careful test. For the second week, what would make me buy again is if my family actually enjoyed eating it AND if I felt satisfied that nothing unexpected happened \u2014 no digestive issues, no feeling that the bread was somehow lesser than regular bread despite the premium. If those two things hold, the clean label trust converts into repeat purchase. What would definitely kill repeat purchase: any price increase, finding a similar ingredient profile in a \u20b965-70 bread, or my wife pointing out we're stretching the budget too thin that particular month.",
+          "confidence": 36,
+          "reasoning": "1. GUT REACTION: My first instinct is to put it back on the shelf. \u20b999 versus \u20b945 \u2014 that's a \u20b954 difference every single week. That's real money for us. But then I pause, because one of those three me"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message gets Protein Chef into my cart \u2014 but only if I can get at least one peer signal before checkout. In a realistic scenario, I text Meera while standing in the aisle, or I remember that someone in my building's WhatsApp group mentioned it. If I get a positive or even neutral-positive response, I add it. First purchase: clean label message did the work. For the second purchase the following week, it's about the actual experience \u2014 did the bread taste good? Did my family eat it without complaints? Did I feel like it was worth it? And honestly, if Meera confirms she liked it after I've tried it once, that repetition loop is sealed. I become loyal quite easily once a brand has earned trust \u2014 but they have to earn it. Protein Chef's best shot at a repeat purchase is the product delivering on what the clean label promised: real ingredients, no shortcuts. If it does that, I'm switching my regular bread permanently.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: Honestly, the clean label message is the one that stops me mid-scroll. 'No maida, no palm oil, no compromise' \u2014 that lands differently than the other two. The protein vs. egg comparis"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what gets Protein Chef into my cart \u2014 but only for a first trial. Here's exactly how it happens: I'm standing in the bread aisle, I see \u20b999 versus \u20b945, I'm about to reach for regular bread, and then I remember someone in my work group mentioning they're checking ingredient lists now. I flip the Protein Chef packet over. If the ingredient list is genuinely readable \u2014 actual grain names, no E-numbers, no palm oil listed \u2014 then the clean label claim checks out in real-time. That's the moment. I'm not buying a marketing promise, I'm verifying a transparency claim. I add it to cart. For the second week: that depends entirely on two things \u2014 taste and texture holding up through the week, and whether I actually feel any difference in how long I stay full. If it tastes like cardboard or goes stale fast, I'm back to \u20b945 bread. But if it's genuinely good and I can point to it in my weekly budget and say 'this was worth it' \u2014 the clean label + quality outcome combination keeps me coming back. The protein vs egg messaging would never close me. The children's nutrition angle might have worked if I were more anxious, but I'm analytical not emotional. Clean label wins because I can verify it myself without trusting anyone.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to put it back on the shelf. \u20b999 versus \u20b945 is more than double for bread \u2014 bread. That's not a trivial jump. But then I catch myself, because I've been burne"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The message that would most likely make me add Protein Chef to my cart for the first time is the clean label messaging \u2014 'no maida, no palm oil, no compromise.' Not because it immediately converts me, but because it's the only one that doesn't feel like it's hiding something. It gives me legible ingredients I can verify, positions quality honestly, and triggers my laptop regret instinct \u2014 the reminder that choosing 'good enough' has costs I feel later. But I would only actually add it to cart if I'd first found at least one or two positive peer references \u2014 a friend mentioning it, a community thread praising the texture, someone real saying 'actually it's worth it.' That social validation is the bridge between interest and action. For repeat purchase the following week: taste and texture have to deliver. If the bread is dry, dense, or doesn't hold up to a regular breakfast, I won't continue regardless of ingredients. But if it tastes genuinely good AND I feel better about what I'm eating daily, the \u20b954 premium starts to feel like the quality equation I actually believe in \u2014 not a budget compromise I'll regret.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that none of these three messages fully wins me over on instinct alone \u2014 but the clean label messaging comes closest to making me pause mid-scroll. The protei"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm buying one loaf \u2014 but only because of the clean label message, and only as a trial. Here's exactly what happens: I photograph the ingredient list before putting it in my cart and do a 30-second Google check. If nothing alarming comes up and the ingredients are genuinely what they claim \u2014 real wheat protein, no hidden palm oil derivatives, readable label \u2014 I buy it this once. I tell myself it's research, not a commitment. I eat it over the week, pay attention to whether it tastes like food or like cardboard with ambition. If it passes that test, I go online and look for community validation before the following week's shop. For repeat purchase: I need at least one person I trust to have said something positive, or a Reddit thread where non-sponsored users confirm it's worth the price. The children's nutrition message is noted but not enough \u2014 I'd want a pediatric nutritionist to actually back those claims before I make that the reason I pay the premium. The egg comparison is the weakest of the three for me. Clean label got me in the door. Taste and peer validation will decide if I stay.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: \u20b999 for bread? My instinct is to put it back. I'm already holding my usual \u20b945 loaf. This feels like a premium I haven't justified yet. But \u2014 and this is the honest part \u2014 the clean l"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message would most likely get me to add Protein Chef to my cart for the first time \u2014 but with a critical caveat. I'd add it only if I can do one quick check in the aisle or on the app: pull up the nutrition panel and confirm the protein numbers are real and the ingredient list matches the marketing. If that checks out, I buy it once. I'm not fully convinced, but I'm convinced enough to run an experiment on myself rather than on my kids. As for buying it again the following week \u2014 that depends entirely on the actual experience. Does it taste like real bread? Does it toast properly? Do I notice any difference in how I feel? Does the loaf last a reasonable amount of time without going stale or weird? If those boxes tick, the \u20b999 justifies itself and I become a repeat buyer. What would lock in the repeat purchase beyond taste is finding one credible external data point \u2014 a food scientist's breakdown, a detailed review from someone I'd respect, or my own tracking showing something measurable. That's when it goes from 'experiment' to 'switch.'",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: The clean label message is the one that gets closest to cracking my wall. When I see 'No maida. No palm oil. No compromise' and then an actual readable ingredient list \u2014 whole wheat f"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "The clean label message is what would most likely get me to pick up Protein Chef for the first time \u2014 but not impulsively. I'd probably photograph the ingredient panel in-store and do a quick cross-check on FSSAI certification and whey protein sourcing before I commit. If that checkout takes five minutes, fine. The message that would make me try it is the one that says 'no compromise, no fillers' \u2014 because that's the language of quality, not manipulation. What would make me buy it again the following week? Taste and actual performance. If the bread holds up \u2014 good texture, no artificial aftertaste, and I feel like the ingredient list matched the experience \u2014 I'd repurchase without hesitation. I don't need the marketing again after the first time. Once I've verified something myself, I'm actually quite loyal. But the brand has to earn that first crossing.",
+          "confidence": 56,
+          "reasoning": "1. GUT REACTION: My instinct is to stay with the \u20b945 bread I know. Not because of the price \u2014 \u20b999 is nothing \u2014 but because unfamiliar brands carrying premium claims trigger my internal audit process. "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart \u2014 but based on the clean label message, not the other two. The protein-vs-egg comparison didn't move me. The children's nutrition framing frustrated me. But the clean label message gave me a reason I can stand behind: I'm paying \u20b954 extra not for protein bragging rights, but for ingredient integrity. I'm choosing not to settle on something that goes into my family's food every single day. For the first purchase, that's enough. For repurchase the following week \u2014 that depends entirely on the actual experience. Does it taste good? Does my family eat it without complaint? Does my wife look at the label and say 'yes, this is what I've been wanting'? If yes to all three, I'm back. If the taste is mediocre or my daughter rejects it, the logic collapses and I go back to \u20b945 bread with some regret but no shock. The clean label argument only holds if the product actually delivers on the table.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My first instinct is to put it back. \u20b999 versus \u20b945 \u2014 that's more than double. My hand literally hesitates. But then I remember the clean label message. The one about whole wheat, whe"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to the cart \u2014 but with the clean label message as the deciding factor. Not guilt, not comparison charts. The first purchase happens because the ingredient list is honest and verifiable, \u20b999 is justifiable for genuinely better-quality bread, and I've been burned enough times by cheap shortcuts to know that \u20b954 extra is nothing compared to the cost of poor nutrition compounding over years. For the second purchase \u2014 the repeat buy \u2014 that depends almost entirely on my family actually eating it and on whether the taste and texture hold up. If my kids reject it, it's wasted money regardless of how clean the label is. If my wife confirms the ingredient list matches the packaging, and Arjun and she don't notice a huge difference in taste, I'm on auto-reorder. The trust in the brand gets built through that first loaf experience, not through advertising.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: Honestly? The clean label message is the one that sticks. When I read 'no maida, no palm oil, whole wheat flour, whey protein, oats, flaxseed' \u2014 I feel something shift. It's not a fla"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would add Protein Chef to my cart for the first time based on the clean label message \u2014 but not immediately, and not alone. I would photograph the ingredient list, look up the brand online before checkout, check if there are any reviews or reports from sources I consider credible, and then make the purchase. That's my pattern \u2014 I do the due diligence that the brand is hoping I won't bother doing. If what I find is consistent with what the packaging claims, I buy. For repeat purchase the following week: I would buy again only if the loaf delivered on texture and taste that my family actually accepted, and if I found no discrepancy between the ingredient list promise and what arrived. The clean label is what gets me in the door. The actual experience is what earns the second purchase. If both hold, I become exactly the kind of loyal, price-insensitive customer Protein Chef should want \u2014 because I don't switch easily once trust is established.",
+          "confidence": 53,
+          "reasoning": "1. GUT REACTION: My instinct pulls toward the clean label message \u2014 not because it's the cleverest marketing, but because it's the only one that gives me something I can independently verify. 'No maid"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're a regular bread buyer \u2014 Britannia, Harvest Gold, or local bakery at \u20b940-55 per loaf. You've just seen an ad for Protein Chef bread. The ad shows the message: 'More protein than an egg per serving. Protein Chef \u2014 38g protein per loaf. Switch your morning toast.' A pack of eggs (6 eggs) costs \u20b960 and has roughly 36g protein. Protein Chef costs \u20b999. Does the egg comparison make protein bread feel like a worthy upgrade \u2014 or does it feel like an expensive substitute for something you already have?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same Protein Chef product, different ad message. This time: 'No maida. No palm oil. No compromise. Protein Chef \u2014 real bread, real ingredients.' The packaging shows a clean ingredient list: whole wheat flour, whey protein concentrate, oats, flaxseed. No chemical names, no numbers. Price \u20b999. For someone who buys regular bread without much thought, does a 'clean label, honest ingredients' message feel more compelling than a protein comparison \u2014 or less?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Third message variant for Protein Chef: 'Your child needs 25g protein daily. Most kids get less than half. Protein Chef bread \u2014 6g protein per slice. Two slices at breakfast = almost half their daily need.' The ad shows a school-going child eating toast. Price \u20b999. For a parent who buys bread for the family, does the children's nutrition angle make Protein Chef feel like a necessary upgrade rather than a lifestyle choice? Or does it feel like guilt-marketing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add it to my cart \u2014 but only once, tentatively, because of the clean label message. Not the children's nutrition guilt trip, not the egg comparison math. Just the honest ingredient list. I tell myself this is a one-time trial. I will read the label again when it arrives. I will notice if my family actually eats it without complaints. I will compare how I feel about spending \u20b999 versus \u20b945 when I see the loaf actually being used in my kitchen. For the repeat purchase the following week: that depends entirely on two things \u2014 did my family eat it willingly, and can I find it slightly discounted on Blinkit or through some first-time offer? If both yes, I'm back. If they loved it, I'm back even at full price, because quality that solves a real problem is the one thing I've learned I can't afford to skimp on. But if it's just 'okay'? I go back to regular bread and adjust the rest of the diet for protein through cheaper sources.",
+          "confidence": 46,
+          "reasoning": "1. GUT REACTION: My first instinct is to put it back on the shelf. \u20b999 for bread when I can get regular bread for \u20b945? That's more than double, and my hand hesitates. But then I look at the ingredient"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 30
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

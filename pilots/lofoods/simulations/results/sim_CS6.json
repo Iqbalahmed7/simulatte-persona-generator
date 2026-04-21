@@ -1,0 +1,618 @@
+{
+  "simulation_id": "sim-214933e8",
+  "cohort_id": "merged-C7_C8",
+  "rounds": 3,
+  "decision_scenario": "You need safe snacking options for managing diabetes. Would you buy DiabeSmart \u2014 and if so, under what conditions? What would need to be true about the product, the brand, or the doctor's endorsement for you to make it a regular purchase and potentially recommend it to others managing diabetes?",
+  "results": [
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm not buying DiabeSmart today. But I'm not dismissing it either \u2014 I'm opening a proper investigation. Here's exactly what I'm going to do: I'm searching for the St. John's Medical College study directly, not through the brand's website. I'm verifying Dr. Anjali Mehta's credentials and whether her endorsement is paid or independent. I'm booking a follow-up with my own doctor specifically to ask why she advised against packaged diabetic snacks \u2014 is it a category concern or product-specific? I'm going into at least two more diabetes communities beyond the one I'm already in, to see what people are actually saying over months, not weeks. If, after all of that, the clinical evidence holds up, the doctor's reasoning is satisfied or updated, and two more communities show consistent positive experiences \u2014 then yes, I'll buy it, I'll try it consistently for 60 days tracking my own results, and if those hold, I'll recommend it. But that process takes weeks, not days. And that's not me being difficult \u2014 that's me being responsible with my own health the same way I am with my daughter's.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest \u2014 not a no, but definitely not a yes yet. The St. John's study and Dr. Anjali Mehta's name attached to it moved this from 'Instagram startup noi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm committing to a structured evaluation before purchase, not a yes or no today. Specifically: Step 1 \u2014 I'll search for the St. John's Medical College 2024 research paper. If it exists and is peer-reviewed, that's a major green light. Step 2 \u2014 I'll ask my doctor about DiabeSmart specifically at my next appointment, not packaged snacks as a category. Step 3 \u2014 I'll ask my cousin to mention it to their Apollo doctor and see if Dr. Anjali Mehta's name comes up organically. Step 4 \u2014 If steps 1-3 check out, I'll buy one pack to trial. If my blood sugar response data (or the family member's data) confirms the product works as claimed, I'll calculate monthly cost and look for bulk pricing or subscriptions to manage the \u20b9180 price point. I'd recommend it to others only after personal verification \u2014 not before. The conditions for regular purchase: verified published research exists, my own doctor or a trusted endocrinologist doesn't contraindicate it, and I see actual outcome data from someone I know. This is a 'serious yes pending verification' \u2014 not a no.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest, not dismissal. The clinical credentials \u2014 St. John's Medical College research, Dr. Anjali Mehta from Apollo, FSSAI certification \u2014 these aren't"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would not buy DiabeSmart today, but I'm moving from 'definitely no' to 'conditional yes pending verification.' Here's my specific action plan: One \u2014 I will locate the actual 2024 St. John's study and read at minimum the abstract and methodology. If I can't find it publicly, that itself is information. Two \u2014 at my next doctor's appointment, I will ask specifically about DiabeSmart by name and show them the credentials, not just ask about packaged snacks in general. Three \u2014 I'll ask the support group member for their specific glucose readings before and after, if they're willing to share. If all three return positive signals \u2014 study is real and peer-reviewed, my doctor doesn't object or endorses it, and the peer data is credible \u2014 I will buy one pack at \u20b9180 as a trial. That's not an experiment in the reckless sense; it's a bounded, informed test. I will not make it a regular purchase or recommend it to others until I've personally observed its effect over at least 4-6 weeks alongside consistent glucose monitoring. For recommendation to others managing diabetes, I'd additionally want to see: my doctor explicitly saying 'yes, this is a legitimate option for diabetic management' and the clinical study showing not just statistically significant but clinically meaningful blood sugar impact. Only then would I feel confident putting my credibility behind it \u2014 because if I recommend something that fails someone else, that's not a laptop crash. That's someone's health.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not dismissal, but not enthusiasm either. The version of DiabeSmart with the St. John's clinical study and Dr. Anjali Mehta from Apollo at"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy DiabeSmart today. But I'm not closing the door permanently \u2014 I'm putting it through a verification process first. Here's what needs to happen before I make it a regular purchase: Step one, I bring it up specifically with my endocrinologist at my next appointment \u2014 not a general question about packaged snacks, but 'have you reviewed DiabeSmart, what do you think of the clinical basis for its claims?' Step two, I independently verify the FSSAI certification and the St. John's Medical College study if it exists \u2014 I want to see the actual study, not a company's summary of it. Step three, I ask my support group contact for their actual blood sugar data from the 3-month period. Step four, if my doctor gives a credible endorsement AND the certifications check out, I'll try one pack as a trial \u2014 not a subscription, not a bulk order. I monitor my own response. If my readings support the claims, then the \u20b9180 price point becomes justifiable as a quality-over-corners investment, exactly like I should have done with my printer equipment. For recommending to others \u2014 I won't recommend anything I haven't verified through this process. My credibility with my support group matters. I won't be that person who pushes an unverified product on people managing a serious condition.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: My gut says: slow down. This is a health product making specific claims about diabetes management \u2014 that's not a casual purchase. Every instinct from the printer disaster is firing. B"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Nisha Agarwal",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not make DiabeSmart a regular purchase yet \u2014 but I'm committing to a defined next step rather than indefinite postponement. Here's what I'll actually do: I'll verify the St. John's study independently this week \u2014 look up the journal, the methodology, the sample size. I'll look up Dr. Mehta at Apollo. I'll bring the product information to my next doctor's appointment and ask directly. If my doctor gives even a neutral 'looks reasonable, no red flags' response, and I can verify the study is real and peer-reviewed, I will buy one pack to test my own blood sugar response using my glucometer. If that data is consistent with the claims, I make it a regular purchase. For recommending to others: I'd only recommend after I've personally validated it AND my doctor has seen it. I don't recommend health products based on other people's data alone \u2014 that's how you become someone else's HCL project.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest, not excitement. I've been through this arc before \u2014 initially skeptical about DiabeSmart, then genuinely moved when I saw the St. John's cl"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would not buy DiabeSmart today, but I'm conditionally open. Here's exactly what needs to happen first: One \u2014 I book a conversation with my doctor or nutritionist and show them the product label, ingredient list, and any clinical study citations. I want her read on whether this is clinically sound or just clever positioning. Two \u2014 I follow up with Priya directly: what's the cost, did she change anything else in her diet simultaneously, how long has she been using it, and are the spike improvements consistent? Three \u2014 if both my doctor gives a cautious green light AND Priya confirms sustained results over at least 6 weeks, I'd try a one-month supply as a test. I'd monitor my own blood sugar before and after meals rigorously. Four \u2014 only if I see measurable improvement would I make it a regular purchase. I would not recommend it to others until I've personally validated it over 2\u20133 months. The cutting-corners lesson from that laptop applies here \u2014 rushing into a cheap health product because it promises savings could cost me far more in health consequences than I'd ever save on snack money.",
+          "confidence": 57,
+          "reasoning": "1. GUT REACTION: Instinctively, I'm torn \u2014 and that tension is familiar. Diabetes isn't like choosing between two phone cases. This affects blood sugar, which means real health consequences if it fail"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Here's what I actually decide to do, step by step. Step one: Before any purchase, I verify the St. John's Medical College 2024 study \u2014 I'll search PubMed or Google Scholar for it. I'll Google Dr. Anjali Mehta's credentials at Apollo. I'll check the FSSAI registry for DiabeSmart's certification. This takes me one evening. Step two: I bring the product details \u2014 ingredient list, glycemic index claims, the clinical study if I find it \u2014 to my next doctor's appointment. I explain I've been considering it as a supplementary snack. I get their specific take. Step three: If both checks pass \u2014 study is real, doctor doesn't object \u2014 I buy ONE pack at \u20b9180. I track my blood glucose response over two weeks the way I track everything: in a spreadsheet. Step four: Only if the personal data shows no adverse spike AND the doctor is okay with it do I consider making it regular. Even then, I cap myself at a defined number of packs per month that fits my budget. For recommending to others managing diabetes: I would only do this if I have verified the clinical evidence, confirmed with my own doctor, and seen personal blood glucose data that supports the claim. I won't recommend based on reviews alone \u2014 especially for a health product. That's my line.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest. The words 'safe snacking for diabetes' immediately trigger my health-before-price filter \u2014 this isn't a discretionary purchase, it's a health d"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would buy DiabeSmart \u2014 but structured carefully. Step one: buy one trial pack at \u20b9180, monitor my own response for two to three weeks, note any changes in energy and blood sugar. Step two: at my next doctor's appointment, bring the product packaging, show the clinical study reference and Dr. Mehta's endorsement, and get a direct opinion on this specific product \u2014 not packaged snacks in general. Step three: if my doctor gives even a cautious green light, and my own trial experience is positive, I make it a regular purchase and recommend it to others in my situation, including Rajesh's group. The conditions for regular purchase are: my doctor's specific endorsement or at least non-objection after seeing the clinical evidence, my own blood sugar readings remaining stable during the trial, and the brand continuing to maintain transparent labelling and FSSAI compliance. I would not recommend it to others until I've completed my own trial \u2014 I will not become someone who passes on unverified health advice through a WhatsApp group.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest. Diabetes snacking is not a casual decision \u2014 it touches health in a very direct, measurable way. I feel the pull toward DiabeSmart because I've"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would buy exactly one trial box \u2014 not a subscription, not a bulk order \u2014 under specific conditions. First, I need to verify the clinical study independently, not just accept the brand's summary of it. Second, I want Dr. Anjali Mehta's name to check out at Apollo Hospitals \u2014 I'll actually call and confirm she works there and has published on this. Third, I'll test my own blood sugar response two hours after eating DiabeSmart on three separate occasions and log it myself, the same way Priya did. If my readings stay stable and the cost per serving doesn't exceed \u20b9120-130 on a regular basis, I'd consider it a genuine health investment and would likely mention it to others in my diabetes management group \u2014 but only with the caveat 'check the study yourself and track your own response.' I would never recommend it blindly. And I'd tell my doctor I'm trialing it and ask for their read on the ingredients. That conversation with my doctor has to happen before I go beyond one box.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My immediate reaction is cautious interest mixed with familiar anxiety. DiabeSmart sounds exactly like the kind of product I've been quietly hoping exists \u2014 something that makes diabe"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Here is what I will actually do: I will buy one small trial pack \u2014 not bulk \u2014 after my next doctor's appointment. If my doctor reviews the FSSAI certification, the St. John's study, and Dr. Mehta's endorsement and says 'this is reasonable as a snack option for someone managing your blood sugar levels,' I will purchase a single pack and monitor my blood sugar response for two to three weeks. If my readings are stable or better, and if the cost fits within my monthly discretionary health budget without straining the household, I will make it a regular purchase. For recommendation to others: I would only recommend it after my own doctor validates it AND after I have personal blood sugar data to point to. I will not recommend anything for diabetes management based on ratings and marketing alone \u2014 not when people's health is at stake. The conditions for regular purchase are clear: doctor approval, personal blood sugar validation, FSSAI certification confirmed on packaging, and a cost that doesn't require me to cut something else important.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest \u2014 not excitement, not dismissal. The diabetes angle makes this feel serious, not just another snack purchase. I've been thinking about this prod"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm not buying today. I'm entering a structured verification phase with a clear endpoint. Here's exactly what I'm doing: One \u2014 I'm searching PubMed and Google Scholar for the St. John's 2024 study on DiabeSmart or Lo! Foods. Two \u2014 I'm emailing DiabeSmart customer care requesting the full clinical study, FSSAI certification documentation, and disclosure of Dr. Mehta's relationship with the brand. Three \u2014 I'm bringing this up at my next doctor's appointment, specifically asking whether they've reviewed products in this category and what their view is. Four \u2014 I'm posting in three communities asking for unprompted experiences, preferably with glucose data. If all four of those come back positive within two to three weeks, I will buy one pack \u2014 not a subscription, not a bulk order \u2014 and treat it as a personal trial. If that trial shows no adverse blood sugar impact and I feel confident in the sourcing, then and only then does this potentially become regular. Recommendation to others would require sustained personal experience plus my doctor's acknowledgment that this category has merit.",
+          "confidence": 33,
+          "reasoning": "1. GUT REACTION: My immediate reaction is cautious interest, not excitement. The clinical validation pieces \u2014 St. John's Medical College, FSSAI certification, a named doctor from Apollo \u2014 these are ex"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to take a staged approach, not a binary yes or no. Stage one: I ask my doctor specifically about DiabeSmart \u2014 not as a hint, but as a direct question. 'Have you seen any clinical evidence for this product? Would it complement my current management plan?' Stage two: If my doctor is neutral or positive, I buy one trial pack. I log my blood sugar readings before and after consuming it, the same way I approached the gluten experiment \u2014 with actual data, not vibes. Stage three: If after two to three weeks I see measurable improvement or at minimum no negative effect, and the family member's three-month experience aligns, I consider making it a regular but budgeted purchase \u2014 not a daily staple, but a planned snacking option I rotate in. I will NOT make this a regular purchase based solely on marketing language, a 4.1-star rating, or one family member's anecdote alone. I need my doctor's sign-off and my own logged data. The clinical validation from St. John's and the FSSAI badge are strong signals, but I need to verify they apply to the specific product variant I'm buying, not just the brand broadly.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest, not enthusiasm. DiabeSmart sounds like it could be legitimate \u2014 but I've been down this road before with wellness products that promise a lot. "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy DiabeSmart today, but I am genuinely closer to buying it than I was before the clinical evidence emerged. Here is exactly what I will do: Step one \u2014 at my next doctor's appointment, I show Dr. [my endocrinologist] the 2024 St. John's study and ask for her professional read. Step two \u2014 I look up the study myself before that appointment. I want the journal name, the DOI, the methodology. Step three \u2014 I check whether Dr. Anjali Mehta's endorsement is disclosed as a paid partnership or independent recommendation. Step four \u2014 if my doctor says 'this looks credible and won't interfere with your plan,' I will buy one trial pack. Not a subscription. Not a bulk order. One pack. Step five \u2014 I track my own blood glucose response for two weeks with the same rigor I'd apply to a thesis data set. Only if the personal data confirms the clinical claims AND the product fits within my monthly budget will I make it a regular purchase and recommend it to others. Recommending something to another person managing diabetes is a serious responsibility. I will not do it on marketing alone.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest, not excitement. When I see a health product marketed toward diabetics, my immediate response is to reach for the skeptic's lens. I've been here"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will take a conditional trial step, not a full commitment. Here is exactly what I'll do: I'll purchase one pack of DiabeSmart \u2014 a single trial, not a subscription or bulk order \u2014 to evaluate it personally while I simultaneously do three things in parallel. One: I will bring the product, the FSSAI certification details, and the St. John's study citation to my next doctor's appointment and ask specifically whether this product is appropriate for my glycemic profile. Two: I will locate and read the actual 2024 published study myself \u2014 I will look it up on PubMed or the journal directly, not rely on DiabeSmart's summary of their own research. Three: I will verify Dr. Anjali Mehta's credentials and whether her endorsement is specifically clinical or general. If my doctor reviews the evidence and approves, and if the published study shows rigorous methodology with meaningful sample size and relevant outcomes, then I will make this a regular purchase and I would be willing to share it with others in my situation \u2014 with the caveat that they should also consult their own doctors. I will not recommend it carte blanche. I'll recommend the process: verify with your doctor, check the study, then decide.",
+          "confidence": 65,
+          "reasoning": "1. GUT REACTION: My gut is split, and I've learned to pay attention to that split. On one hand, I've seen enough of DiabeSmart now to know there's a version of this product that actually has substance"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Aakash Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy DiabeSmart \u2014 but on specific conditions and as a trial, not a permanent commitment. Condition one: I've reviewed the St. John's study directly, not just taken the brand's word that it exists. Condition two: I've had a direct conversation with my doctor where I show them the clinical evidence and get their assessment of whether this fits my specific management plan. Condition three: I track my own post-meal blood sugar readings for 4-6 weeks after incorporating it, maintaining my own data rather than trusting the product's claims blindly. If those three conditions are met and my own data confirms the benefit, this becomes a regular purchase. For recommending to others \u2014 I would recommend it, but only with the explicit instruction to consult their own doctor first, because diabetes is not a one-size-fits-all condition. The \u20b9180 price point doesn't factor into this; if it works, it's worth it. If it doesn't, no amount of cost savings on the cheaper alternative is worth compromised health management.",
+          "confidence": 80,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious optimism \u2014 but it's conditional. I've been burned before by trusting too quickly, whether it was that software project, the apartment deal, or any si"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy immediately, but I'm moving this from 'ignore' to 'actively investigate.' My action plan: One \u2014 Google Dr. Anjali Mehta's credentials and the 2024 St. John's Medical College clinical study directly. If that study exists and is peer-reviewed, that's significant. Two \u2014 At my next doctor's appointment, I bring up DiabeSmart specifically and ask for their assessment. Three \u2014 I ask the peer in my group exactly what they measured, what their baseline was, and whether anything else in their routine changed. Four \u2014 I verify the FSSAI certification number independently. If all four checks come back positive, I'd try one product as a trial. The \u20b9180 price point is manageable for a single trial purchase if I'm confident in the science. I'd evaluate my own blood glucose response over 4-6 weeks. If results are consistent and my doctor is on board, I'd make it a regular purchase and yes \u2014 I'd recommend it to others, but with the caveat that they verify with their own physician first. I would never recommend a health product casually. The spoiled batch taught me that quality due diligence isn't optional when the stakes are physiological.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: My instinct is cautious interest, not excitement. The spoiled reagent batch from my thesis still haunts me \u2014 I know viscerally what cutting corners on something scientific and health-"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Here's what I actually decide: I will not make an immediate purchase. Instead, I'll follow a structured trial protocol. Step one: Ask my doctor directly about DiabeSmart \u2014 show them the product, the clinical claims, Dr. Anjali Mehta's endorsement. If my doctor says 'the formulation is reasonable and won't interfere with your management plan,' I proceed. If they say 'stick to fresh food,' I stop. Step two: If I get doctor clearance, I buy ONE pack \u2014 not a subscription, not a bulk order. I track my blood sugar readings for 2-3 weeks with the same discipline I'd apply to a financial experiment. Step three: If readings are stable or improved, and I can verify the FSSAI diabetic claim certification on their actual product label (not just their website), and the price-per-serving math works out to be justifiable against alternatives, then I consider a regular purchase. For recommendation to others: I would only recommend DiabeSmart if I've personally completed this trial with measurable data AND my doctor hasn't flagged concerns. I would never recommend a health product to someone managing diabetes based on marketing alone \u2014 that's the kind of shortcut that creates \u20b940,000 problems later.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest, not enthusiasm. Diabetes management is not a category where I can afford to be wrong \u2014 this isn't a bad biscuit that tastes mediocre, this "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would buy DiabeSmart \u2014 but in a specific, controlled way. Here's my actual plan: I buy one pack to try personally, while simultaneously asking my own doctor directly about it at my next appointment. I'm not making it a household staple based on any single source, even a credible one. I bring the packaging, the FSSAI certification details, and the St. John's study reference to my doctor and ask: 'Is this legitimate? Is this safe for regular use?' If my doctor confirms the credentials check out and sees no concern \u2014 I make it a regular purchase. If they express doubt or suggest the study was minor or the claims are overstated, I walk away without regret. For recommending it to others managing diabetes: I would only do that after I've personally used it for at least 4-6 weeks with no adverse effects AND my doctor has validated it. The clinical backing and Apollo endorsement make this meaningfully different from a random Instagram startup product. The \u20b9180 price point, while higher, is justifiable if it's genuinely validated. What I will not do is skip the doctor verification step \u2014 that's where I've seen people get hurt, and my memories of that inverter, the ceiling fan, Suresh's father \u2014 they all tell me the same thing: don't skip due diligence on things that actually matter.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not the impulsive yes I'd have if this were a regular food product, and not an outright no either. I'm in that uncomfortable middle space "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd buy DiabeSmart, but conditionally and carefully. My immediate step is to ask my doctor specifically about this product and Dr. Mehta's research \u2014 not a general question about packaged snacks, but about this specific study and endorsement. If my doctor confirms the clinical basis is sound, I'm in. I'd start with one or two purchases to test both the glycemic response and whether it actually fits my routine and taste preferences. If blood sugar numbers look better after 4-6 weeks of 2-3 servings weekly, it becomes a regular line item in my budget. I'd cut back on something lower-priority to make room. For recommending to others managing diabetes: I'd share my own experience honestly after 2-3 months of data, mention the clinical validation and Dr. Mehta's credentials, and tell them to ask their own doctor first. I wouldn't hype it, but I'd give it a fair, evidence-based recommendation if it worked for me.",
+          "confidence": 80,
+          "reasoning": "1. GUT REACTION: There's something different here compared to that Lo! Foods Instagram product. When I see 'St. John's Medical College clinical validation' and Dr. Mehta from Apollo putting her name t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon \u2014 a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics \u2014 low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods \u2014 a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind \u2014 do you trust this enough to try?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated \u2014 GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is \u20b9180 for a pack of biscuits \u2014 higher than regular biscuits at \u20b940. How does this medical credentialing change your assessment?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart \u2014 they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy DiabeSmart today. Here's my actual plan: I'm going to call my doctor this week \u2014 not to dismiss DiabeSmart, but to show them Priya's results and ask specifically about this product's formulation. I'll also try to look up whatever clinical study or doctor endorsement is cited \u2014 if it's St. John's or Apollo-level backing with a 2024 publication, I'll take that seriously and cross-check it. If my doctor gives a conditional green light, I'll buy one small trial pack, check the batch number and FSSAI markings carefully, and monitor my own or a family member's response. If results match Priya's over 4-6 weeks, then yes \u2014 I'd make it a regular purchase and I'd share it in my small trusted circle. What I will NOT do is buy based on marketing language alone, no matter how good the reviews look. For a diabetic snack, the stakes are too high and my past experiences have taught me that detective work is my responsibility, not a burden I can outsource to star ratings.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious interest, not excitement. When I hear 'diabetic snack,' my mind immediately goes to: is this real or is this another product exploiting health anxiety? B"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 20
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

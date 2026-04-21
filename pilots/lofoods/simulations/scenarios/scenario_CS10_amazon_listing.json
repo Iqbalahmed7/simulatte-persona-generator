@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS10",
+  "title": "Amazon Listing Optimisation: Title, Keywords, and the Keto Liability",
+  "cohorts": ["C1", "C2", "C13"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack — 200g'. Listing B: 'Lo! Almond Cookies — Sugar Free, No Maida, No Palm Oil — Guilt-Free Snacking — 200g'. Listing C: 'Lo! High Protein Almond Cookies — 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients — 200g'. Listing D: 'Lo! Almond Cookies — Diabetic Friendly, Low GI, No Refined Sugar — For Mindful Snacking — 200g'. All ₹199, 4.1 stars, same product. Which listing do you click — and does the word 'keto' in Listing A attract or repel you?",
+    "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor — Yoga Bar Protein Bread — has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+    "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely — title becomes 'Protein Chef High Protein Bread — 38g Protein, No Maida, No Palm Oil — 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper — not on keto. Which version makes Protein Chef feel more relevant to you?"
+  ],
+  "decision_scenario": "You're on Amazon looking for a healthier bread or snack option. You haven't committed to any specific diet. Based on the listing formats you've seen — keto-led titles, benefit-led titles, clean ingredient-led titles — which approach makes Lo! Foods products feel most worth clicking on and buying? Does 'keto' in the title help, hurt, or have no effect on your perception of the product?"
+}

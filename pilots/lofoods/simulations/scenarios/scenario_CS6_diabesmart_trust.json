@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS6",
+  "title": "DiabeSmart: Trust, Medical Credibility, and the Doctor Barrier",
+  "cohorts": ["C7", "C8"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're managing Type 2 diabetes (or managing it for a family member). You see DiabeSmart on Amazon — a range of low-GI biscuits, breads and snacks by Lo! Foods. The listing says 'Specially formulated for diabetics — low glycemic index, no added sugar, high fibre.' It has 4.1 stars and 890 ratings. The brand is Lo! Foods — a startup you've seen advertised on Instagram. No doctor's name, no clinical study citation, no FSSAI diabetic-specific certification visible. What goes through your mind — do you trust this enough to try?",
+    "Same DiabeSmart product, but the listing now prominently features: (1) 'Clinically validated — GI tested at Bangalore's St. John's Medical College, published 2024', (2) a quote from Dr. Anjali Mehta, Senior Endocrinologist, Apollo Hospitals: 'I recommend DiabeSmart to my patients as a safe snacking alternative', (3) FSSAI diabetic food certification badge. The price is ₹180 for a pack of biscuits — higher than regular biscuits at ₹40. How does this medical credentialing change your assessment?",
+    "Your doctor (or the patient's doctor) has NOT mentioned DiabeSmart — they typically recommend avoiding packaged snacks entirely and sticking to fresh food. A family member in your diabetes WhatsApp support group says they've been using DiabeSmart for 3 months and their post-meal sugar spikes have reduced. Another group member says 'these startup health claims are marketing, not medicine.' You're deciding whether to add DiabeSmart to your next grocery order. What do you do?"
+  ],
+  "decision_scenario": "You need safe snacking options for managing diabetes. Would you buy DiabeSmart — and if so, under what conditions? What would need to be true about the product, the brand, or the doctor's endorsement for you to make it a regular purchase and potentially recommend it to others managing diabetes?"
+}

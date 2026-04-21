@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS15",
+  "title": "Gluten Smart: Real Medical Demand vs Lifestyle Trend — Sizing the Addressable Market",
+  "cohorts": ["C10", "C11", "C1"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "Lo! Foods has launched 'Gluten Smart' — a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread ₹149 (vs regular wheat bread ₹45). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease — mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand — is this product genuinely for you, and does ₹149 feel appropriate given your situation?",
+    "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten — either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay ₹149 for Gluten Smart bread?",
+    "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality — and does it change how you think about the product's value?"
+  ],
+  "decision_scenario": "Gluten Smart bread is ₹149, compared to ₹45 for regular bread and ₹99 for Protein Chef. Given your relationship with gluten — whether diagnosed, self-diagnosed, or simply curious — would you buy Gluten Smart regularly, occasionally, once to try, or not at all? What would make the ₹104 premium over regular bread feel justified — and what would Lo! Foods need to prove to keep you as a repeat buyer?"
+}

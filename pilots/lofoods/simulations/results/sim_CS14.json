@@ -1,0 +1,1218 @@
+{
+  "simulation_id": "sim-80a2ab20",
+  "cohort_id": "merged-C1_C2_C3_C12",
+  "rounds": 3,
+  "decision_scenario": "You've been exposed to Lo! Foods content across multiple creator types. Which influencer archetype \u2014 celebrity macro, credentialed expert, micro-authentic, relatable peer, or proof creator \u2014 would most reliably convert you from awareness to actual purchase? And does your answer change depending on which Lo! Foods sub-brand (keto vs protein vs diabetic vs gluten-free) is being promoted?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For most Lo! Foods sub-brands, my conversion archetype is the credentialed expert \u2014 but specifically one who appears unpaid or has low commercial signal, who explains the mechanism, and who is accountable to something beyond a brand deal. Dr. Ritu recommending to real patients is the gold standard for me. However, for the diabetic sub-brand specifically, the relatable proof creator like Suresh overtakes even the expert \u2014 because his lived experience with actual numbers, shared with genuine epistemic humility, feels more true to my reality than credentials on paper. For protein: credentialed expert wins. For keto: credentialed expert is the only one who could even get me interested, but my health situation means conversion is unlikely regardless. For gluten-free: credentialed expert explaining why I'd need it, because I'm skeptical this applies to me. For diabetic: relatable proof creator. Celebrity macro converts me to nothing \u2014 not even curiosity. Micro-authentic with gifted products gets discounted because free stuff creates bias. The proof creator and credentialed expert are the only two archetypes that can actually open my wallet \u2014 and price will always have the final vote.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: Credentialed expert \u2014 specifically the unpaid or low-commercial-signal kind like Dr. Ritu \u2014 is my instinctive answer. But then my stomach says: wait, actual proof from someone like me"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creators are my strongest converter, universally \u2014 but the sub-brand absolutely changes the emotional weight of that conversion. For DiabeSmart, Suresh's journey stops me cold because diabetes is present in my family and I understand what those numbers mean. For the gluten-free range, a mother documenting her child's reaction over weeks would do the same. For protein, I'm slightly more open to the credentialed expert \u2014 a nutritionist showing real patient data \u2014 because I'm less emotionally tied to that category and need a reason to justify the premium. For keto, honestly, a relatable peer \u2014 someone managing weight on a tight budget \u2014 would be more convincing than a celebrity. The through-line is always: is this person real, are they like me, do they have something to lose by lying, and have they used it long enough to know? The answer to all of those is yes only with proof creators. So that's my answer: proof creators as the anchor archetype, with credentialed experts as a secondary signal for health-specific sub-brands where I need clinical validation before I trust the story.",
+          "confidence": 89,
+          "reasoning": "1. GUT REACTION: Proof creators. Without hesitation. When I think of what actually makes me reach for my wallet, it's never a celebrity smiling at a camera \u2014 it's someone like Suresh, a real Type 2 di"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion archetype is credentialed expert \u2014 but with important sub-brand variations. For the diabetic sub-brand, it's non-negotiable: I need a diabetologist or endocrinologist, unpaid or at least clearly disclosing but explaining clinical rationale. No celebrity, no relatable peer \u2014 the health stakes are too high and my family history too real. For the keto sub-brand, a nutritionist or dietitian credentialed expert works, but a proof creator running a documented 3-month journey would genuinely compete for my attention because keto is lifestyle-oriented and community-validated. For the protein sub-brand, I'd respond to a nutritionist expert (like Dr. Ritu in my memory) who gives me the macro breakdown and price justification simultaneously \u2014 that combination is what actually moved me toward clicking. For the gluten-free sub-brand, I'd shift toward proof creator as the primary converter \u2014 gluten intolerance is often lived experience, not just clinical, and authentic peer testimonials with specific symptom relief details feel more trustworthy than an expert who may not be celiac themselves. In every case, celebrity macros would raise my skepticism, not lower my resistance.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: Credentialed expert, without question. That's my instinct and it's visceral \u2014 the moment I see a verified diabetologist or a registered nutritionist who isn't slapping a 'paid partner"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion answer, the archetype that most reliably moves me from awareness to actual purchase, is the credentialed expert \u2014 but with a crucial condition: they must appear editorially independent, not paid to promote. A diabetologist like Dr. Gadge citing clinical reasoning, or a registered dietitian explaining macro mechanisms to her patients, gives me the permission structure I need to justify spending more than I normally would. This is especially true for DiabeSmart and Gluten-Free sub-brands where medical stakes are high. However \u2014 and this matters \u2014 the credentialed expert gets me to research and consider. The proof creator is what closes the purchase. If I see a real person, four years of consistent use, showing me actual glucose readings or weight logs, that confirms the expert's claim is not theoretical. Together they are unstoppable for me. Alone, the credentialed expert edges out the proof creator because I will not risk my health budget on unverified testimonials, however authentic they feel. Sub-brand variation: For DiabeSmart \u2014 credentialed expert is non-negotiable first touch. For Protein Bread \u2014 I lean more toward proof creator because the health stakes are lower and I need to see real families eating it affordably. For Keto \u2014 I actually need the expert most here because I am most confused and skeptical about this category. For Gluten-Free \u2014 I need either a doctor or someone with a diagnosed condition, not a wellness choice person.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: My instinct goes straight to the credentialed expert \u2014 the doctor, the dietitian, the verified specialist. But then something pulls me back toward the proof creator \u2014 the real person "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "The proof creator and the relatable peer archetype will most reliably convert me \u2014 and they are essentially the same person in my mind: a real person, unsponsored or minimally sponsored, sharing an honest ongoing journey with specific measurable results. Suresh's diabetes diary is the clearest example. That is who moves me from awareness to actually picking up a packet. For the sub-brands: diabetic is where I am most convertible \u2014 health necessity is real, and a proof creator showing blood sugar numbers is evidence I can take to my husband. Protein is second \u2014 if a mother or a working person like me shows their child eating it and thriving, I believe that. Keto and gluten-free I resist strongly \u2014 they feel aspirational and expensive, and no influencer type fully overcomes my memory of that wasted flour money, unless the price is dramatically lower than I expect. Celebrity macro is the worst investment for converting me \u2014 I switch off immediately. Credentialed expert works only if unpaid and specific. Micro-authentic helps but I always wonder if the free product bias is inflating their enthusiasm. Proof creator with real numbers and no brand tag \u2014 that is my answer.",
+          "confidence": 83,
+          "reasoning": "1. GUT REACTION: Without even thinking hard \u2014 the relatable peer and the proof creator. Someone like Suresh with his diabetes diary. Someone like a real neighbor who had nothing to gain. That's who I "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator wins, consistently, across all sub-brands \u2014 but the degree to which it matters shifts by category. For DiabeSmart (diabetic), the proof creator is absolutely non-negotiable. Health stakes are high, consequences of buying a bad product are medical, and I need someone with my condition showing real glucose data over months. For Keto, proof creator still wins but I'm slightly more open to a credentialed expert like a nutritionist because keto has established science behind it \u2014 I'd want someone explaining the 'why' while a peer shows the 'what happened.' For Protein Chef, I'd actually give the credentialed expert (Dr. Ritu type) a stronger role because I'm evaluating value-per-gram-of-protein, which is a technical question \u2014 but I'd still need peer validation before purchasing. For gluten-free, the proof creator or relatable peer wins again because gluten intolerance is personal and variable \u2014 I need someone with the same sensitivity showing real digestive outcomes. In all cases: celebrity macro is rejected, relatable peer is useful but not sufficient alone, micro-authentic is decent support material. The proof creator is the primary conversion trigger. But no one converts me without a price check first.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: Proof creator. No question. Every time I've actually been moved to consider buying something \u2014 whether it was Suresh's blood sugar numbers or my brother's recommendation about what wo"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Credentialed expert archetype is the only reliable converter for me across all Lo! Foods sub-brands, but the specific credential must match the sub-brand category. For DiabeSmart: a verified diabetologist or endocrinologist. For Keto and Protein: a registered sports nutritionist or clinical dietitian. For Gluten-Free: a gastroenterologist or certified dietitian. The expert's content must include specific, falsifiable claims I can independently verify \u2014 not just positive framing. Even after expert exposure, I won't purchase immediately; I'll investigate further \u2014 look up the studies they cite, check the GI test results, compare to alternatives. The credentialed expert moves me from awareness to serious investigation, and serious investigation is what leads to my purchase. The proof creator is valuable as supplementary evidence \u2014 long-term real-world results that corroborate the expert's claims \u2014 but alone it's insufficient. No other archetype even gets me to investigation mode.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: Credentialed expert. That's my immediate answer, without hesitation. Every time I've been burned \u2014 the IT outsourcing disaster, the junior analyst with the quarterly report \u2014 it was b"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "The archetype that most reliably converts me is the credentialed expert \u2014 specifically a verified medical professional or registered clinical dietitian with institutional affiliation, no paid partnership label, making specific and testable product claims. This is true across all Lo! Foods sub-brands, but the weighting differs. For DiabeSmart, a verified diabetologist referencing GI testing is almost decisive \u2014 this is a health-critical category where clinical credibility is essential and getting it wrong has real consequences for family health. For the gluten-free sub-brand, a credentialed gastroenterologist or certified dietitian matters similarly. For keto and protein sub-brands, the bar is slightly different \u2014 here, I could be somewhat influenced by proof creators showing documented longitudinal results, because the stakes feel less medically acute and the evidence format is more practically verifiable. But even in those categories, a certified sports nutritionist or clinical dietitian outperforms a proof creator or micro-influencer. In summary: credentialed expert is my default conversion driver across all sub-brands. DiabeSmart and gluten-free demand it most urgently. Keto and protein allow slightly more flexibility toward proof creators if documentation is rigorous.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: credentialed expert, without question. When I see someone like Dr. Gadge or Dr. Ritu \u2014 verified professionals with institutional affiliations and clinical ex"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My primary converter is the proof creator archetype \u2014 real people documenting 3+ months of genuine use, showing honest results including limitations. This holds across all Lo! Foods sub-brands as the baseline. However, my answer does change by sub-brand in one specific way: for the Diabetic Care line, I need a credentialed expert (diabetologist or nutritionist with institutional credentials and no paid tag) working in combination with the proof creator. The health stakes are higher, the risk of a wrong product is real, and I need both scientific validation AND lived proof. For Keto and Protein sub-brands, proof creator alone converts me \u2014 documented body composition changes, honest struggle logs, real timelines. For Gluten-Free, a relatable peer with documented intolerance and consistent usage history is the proof creator variant that works. What would stop me from converting even with the right influencer? Price point. I will always check whether the quality premium is actually justified by my budget before purchasing, regardless of how convincing the proof is.",
+          "confidence": 89,
+          "reasoning": "1. GUT REACTION: Proof creator. No hesitation. When I think about what actually moves me from 'I've heard of this' to 'I'm buying this,' it's always been real evidence from real people with real skin "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My answer is that no single archetype converts me alone \u2014 but if I must rank by reliability: For the diabetic sub-brand, the credentialed expert is the only archetype that would reliably convert me, and only when paired with verifiable credentials and mechanism-level specificity. I would fact-check for 20 minutes minimum before purchasing. For the keto sub-brand, credentialed expert plus proof creator in combination \u2014 the expert provides intellectual permission, the longitudinal proof provides the emotional confidence that the product works in practice. For the protein sub-brand, the proof creator becomes the primary conversion driver, especially if paired with a credentialed expert in a supporting role. For the gluten-free sub-brand, a proof creator with genuine documented outcomes is most credible \u2014 this is an experiential category \u2014 though I'd still want some dietitian validation in the ecosystem. In all cases: celebrity macro is an absolute non-starter. Micro-authentic can contribute but only if credentials are verifiable. Relatable peer alone is insufficient \u2014 I need either institutional credentialing or deep longitudinal proof, not just relatability. The archetype that most reliably converts me across sub-brands as a consistent starting point is the credentialed expert \u2014 because it's the one where my instinct to verify and my desire to delegate can align simultaneously.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that the credentialed expert is the only archetype I genuinely trust at a foundational level \u2014 but I'm aware that's not the whole story. When I'm honest with "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For the diabetic sub-brand: The proof creator \u2014 someone like Suresh \u2014 wins my conversion, hands down. Real numbers over real months, no paid tag, a life that looks like mine. For the protein sub-brand: The credentialed expert like Dr. Ritu converts me, because I need someone with actual knowledge to validate nutrition claims I can't assess myself \u2014 and her no-paid-partnership signal matters enormously. For keto and gluten-free: Honestly, no influencer archetype reliably converts me right now. My resistance to trend-driven specialty products is too strong. Only a relatable peer from my own social circle \u2014 not an influencer, but someone I actually know \u2014 using it for three months or more would shift me. The micro-authentic archetype comes closest, but even then price must be acceptable first. Bottom line: yes, my answer changes significantly by sub-brand. Diabetic = proof creator. Protein = credentialed expert. Keto and gluten-free = I remain unconverted unless price is very low and a real-life peer vouches for it.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: When I think about who would actually make me open my purse for Lo! Foods, my heart goes straight to someone like Suresh \u2014 a real person, no brand tag, sharing actual numbers from his"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My answer is nuanced by sub-brand, which is the honest truth: For KETO \u2014 Relatable peer or proof creator. I'm skeptical of keto as a category, so celebrity and even credentialed experts feel like they're selling a trend. I need someone like me who tried it and is honest about whether it delivered. For PROTEIN \u2014 Credentialed expert (unpaid or minimally compensated) combined with proof creator. Dr. Ritu's archetype \u2014 academic credentials, recommends to patients, no partnership label \u2014 would make me research the product seriously. Then a proof creator showing the actual macro math seals the purchase. For DIABETIC \u2014 Credentialed expert is non-negotiable as the entry point. Dr. Gadge's clinical GI testing post is the most converting thing I've seen. But I'd then also look for peer/proof validation before buying because the stakes are too high to rely on one source. For GLUTEN-FREE \u2014 Honestly, hardest to convert me here because I find the category trendy and performative. Only a proof creator documenting genuine medical necessity (celiac diagnosis, documented intolerance) would move me \u2014 and even then I'd do extensive price comparison. Overall winner if I must pick one: Proof creator is the most reliably converting archetype across all sub-brands because their economics signal genuine belief. But for the diabetic sub-brand specifically, credentialed expert creates the initial trust bridge that proof creator then closes.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: Proof creators. Without hesitation. I've been burned enough times by glossy marketing that my gut immediately filters out anything that smells like paid performance. When I see a real"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator archetype is my conversion trigger across all sub-brands, but the intensity varies. For diabetic care, the proof creator is almost certainly paired with a credentialed expert signal \u2014 I need Suresh AND I need to know a doctor isn't contradicting what he's experiencing. So for diabetic, it's proof creator anchored by credentialed expert as validator. For keto, proof creator alone is sufficient \u2014 I want to see someone three months in, with honest struggles and real results, on a budget I can recognize. For protein, relatable peer or proof creator work equally \u2014 I'd want to see a working mother using it practically, not a fitness influencer with a six-pack. For gluten-free, if it's medically driven, proof creator with specific intolerance documentation; if lifestyle, a micro-authentic voice feels right. The celebrity macro is the weakest conversion trigger for me across all sub-brands \u2014 I simply don't believe they're living with the constraints I'm living with. And the micro-authentic without proof is good for awareness but not quite enough to convert \u2014 I need time dimension, I need to see someone actually committed over months, not just enthusiastic in a moment.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: Proof creator. Every time. That's my gut, immediate, no hesitation. When I think about what actually moves me from 'oh interesting' to 'let me put this in my cart' \u2014 it's never a cele"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "The proof creator archetype would most reliably convert me from awareness to purchase \u2014 consistently across all Lo! Foods sub-brands, but with some nuance. For KETO: proof creator showing sustained energy, weight changes, or food satisfaction over 2-3 months wins. For PROTEIN: proof creator is non-negotiable given my contamination trauma \u2014 I need to see someone using it safely over time with no adverse effects, possibly supported by a credentialed expert vouching for ingredient safety. For DIABESMART: proof creator with measurable glucose data (like Suresh's 112 vs 138) is the single most powerful conversion tool \u2014 celebrity or macro-influencer content here would actively repel me. For GLUTEN-FREE: proof creator plus credentialed expert combination works best, because gluten sensitivity has a medical dimension and I'd want some scientific backing alongside the lived experience. Across all sub-brands, my conversion is conditional: the proof creator must also address or imply cost-effectiveness. If they show me the results but the product turns out to cost 3x the conventional alternative with no justification, I'll appreciate the proof but still hesitate at checkout.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: proof creator, every single time. The moment I imagine a celebrity like Shilpa Shetty or some 5-million-follower fitness influencer telling me to buy a Lo! F"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For the diabetic sub-brand: the credentialed expert (Dr. Gadge archetype) is the one who would convert me, because health risk overrides my skepticism. I would not trust a celebrity or even a relatable peer alone to make medical claims I'd act on. For the protein sub-brand: I'd need the credentialed expert to establish legitimacy, but a proof creator \u2014 someone documenting three months of honest use \u2014 would be the final push that gets me to buy. For keto: honestly, I'd need a relatable peer or proof creator, because keto is aspirational for me and I'm not sure I'd ever justify the premium. The celebrity macro does nothing for me across all sub-brands \u2014 they don't know my budget, my fear, my reality. My actual purchase decision, when it happens, would follow this sequence: Expert credibility grants me permission to consider it \u2192 proof creator or peer testimonial gives me emotional conviction \u2192 price check determines whether I actually buy. If all three align, I buy. If the price fails the test, I walk away even if the first two were perfect.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: My gut says: I don't trust celebrities, I respect experts, but what actually moves me to open my purse is someone who has lived my life and still found this worth buying. The micro-au"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion answer is: credentialed expert as the entry point, proof creator as the closer. Neither alone converts me. The credentialed expert \u2014 specifically someone like Dr. Gadge, a named diabetologist with verifiable hospital affiliation and zero paid partnership label \u2014 gives me the intellectual framework to take Lo! Foods seriously. That's awareness to consideration. But what actually moves me to purchase is sustained proof-creator content: real people, 3-6 months of documented use, specific numbers I can evaluate, and critically, some honest acknowledgment that the product isn't perfect. That authenticity signal is what separates genuine evidence from manufactured marketing. On sub-brand differences: DiabeSmart requires the credentialed expert most \u2014 the health stakes are too high for me to rely on anyone without clinical credentials given what I watched my father go through. Protein requires credentialed expert plus proof. Keto requires credentialed expert plus scientific consensus \u2014 I'm skeptical of keto marketing generally and won't be moved by enthusiasm alone. Gluten-free is where a relatable peer or proof creator could actually work with less expert scaffolding, because the urgency is lower and the decision is less medically loaded. Celebrity macro-influencer converts me for none of these sub-brands. That's the one archetype I can state categorically is not my path to purchase.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: Credentialed expert, no question \u2014 but with a critical caveat. My instinct is that a verified doctor or nutritionist with clinical context is the only voice that can actually move me "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion archetype is unambiguously the credentialed expert \u2014 specifically one posting organically without a paid partnership label, with verifiable institutional affiliation. Dr. Pradeep Gadge's diabetologist post is the closest I've seen to what actually moves me toward purchase. However \u2014 and this is critical \u2014 the credentialed expert gets me to serious consideration, not immediate purchase. What closes the loop for me is proof creator content layered underneath: real users documenting 3+ months of outcomes honestly, including failures. The expert gives me the framework to understand why a product works; the proof creators give me real-world verification that it actually does. I need both. On sub-brand differentiation: Diabetic sub-brand requires credentialed expert most urgently \u2014 I would not trial based on anything less, and I'd additionally consult my own physician. Keto sub-brand: credentialed expert (nutritionist/sports dietitian) plus proof creators documenting body composition changes. Protein sub-brand: credentialed expert plus proof creators are equally weighted \u2014 I want both the science and the longitudinal data. Gluten-free sub-brand: here, and only here, do micro-authentic creators with documented intolerance history carry significant independent weight \u2014 their lived experience is the evidence \u2014 but I'd still want an expert to validate the product's actual gluten-free certification and manufacturing standards. So: credentialed expert as the primary conversion driver across all sub-brands, with proof creators as the essential closing mechanism, and sub-brand specificity adjusting the weighting between them.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: Credentialed expert. Full stop. When I see a verified diabetologist or a nutritionist with academic backing saying something without a paid partnership label, my attention sharpens im"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion archetype, in order of reliability: Proof Creator is my primary converter across all sub-brands. Real customers with documented, honest journeys \u2014 not polished ads \u2014 build the trust that moves me to purchase. Credentialed Expert without paid partnership is a close second, and becomes the primary anchor specifically for DiabeSmart given the medical stakes. Micro-authentic influencers can support but don't lead for me because the paid relationship introduces unavoidable skepticism even if I respect their expertise. Celebrity macro and relatable peer without credentials barely register.\n\nSub-brand specific: DiabeSmart \u2014 Credentialed Expert leads, Proof Creator reinforces. Keto \u2014 Proof Creator leads exclusively. Protein \u2014 Proof Creator or Credentialed Expert, with verified data. Gluten-Free \u2014 Proof Creator or relatable peer with lived experience.\n\nWhat I'd actually do: If I see Dr. Gadge's organic recommendation plus Suresh's sugar data for DiabeSmart, I'm clicking through to check the price. If the price-to-value ratio is defensible \u2014 and I mean I can justify it against the cost of health complications \u2014 I'm buying a trial pack. That's how I convert.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: My instinct is immediate and clear: proof creators first, credentialed experts second, everyone else is noise. When I see a real person documenting three months of actual results \u2014 bl"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For conversion from awareness to purchase, the credentialed expert archetype \u2014 specifically when operating without disclosed paid partnership \u2014 is the only one that meaningfully moves me toward a purchase. But I'd nuance this by sub-brand: For the diabetic range, I need a diabetologist or endocrinologist with verifiable clinical context, citing measurable outcomes like GI scores or glucose response data. An unpaid mention from a specialist like Dr. Gadge is genuinely compelling. For the keto range, a nutritionist or registered dietitian explaining the macro rationale in specific, verifiable terms could convert me \u2014 provided I can cross-check their claims. For the protein range, a credentialed sports nutritionist or RD works; a fitness influencer alone does not. For gluten-free, a gastroenterologist or allergist with relevant clinical credentials is ideal. In all cases, the micro-authentic proof creator serves a secondary validation function \u2014 not conversion, but reassurance after I've already done my research. The relatable peer and celebrity macro archetypes would not convert me under any sub-brand scenario. They are, at best, irrelevant and at worst, active trust-reducers.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that the credentialed expert is the only archetype that seriously moves me \u2014 but with an important caveat. I've seen enough paid partnerships to know that cre"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My primary conversion archetype across Lo! Foods generally is the proof creator \u2014 someone 3+ months in, documenting with specificity, no financial tag, lower production value functioning as credibility signal. However, my answer shifts meaningfully by sub-brand. Diabetic: credentialed expert (Dr. Gadge or Dr. Ritu type) with organic posting becomes co-equal with proof creator \u2014 I need medical contextualization for glucose data, not just Suresh's numbers alone. Keto: proof creator is sufficient; the mechanism is well-understood enough. Protein: relatable peer works here because results are legible in gym-culture terms. Gluten-free: proof creator with documented intolerance history, or credentialed expert \u2014 I'm skeptical of the lifestyle-gluten-free trend and need evidence of actual need. I would trial Lo! keto or protein products based on a sustained proof creator journey. For diabetic products, I'd probably DM a Dr. Ritu-type directly with specific questions before buying \u2014 not because I need their approval, but because I genuinely need more information to make the quality judgment I care about.",
+          "confidence": 80,
+          "reasoning": "1. GUT REACTION: Proof creator. Immediately, instinctively. Real people documenting actual journeys over months \u2014 that's the only format that doesn't trigger my bullshit detector. The celebrity macro "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My primary converter is the proof creator archetype \u2014 but with an important nuance. I need the credentialed expert to give me the trust floor first, then the proof creator closes the deal. One without the other feels incomplete. Celebrity macro does nothing for me \u2014 I've been burned by polished endorsements. Relatable peer is good but only if they've been using it long enough. Micro-authentic is somewhere between proof creator and relatable peer for me. Specifically by sub-brand: Keto \u2014 proof creator with 3+ months of documented results, ideally with before/after measurements not just photos. Protein \u2014 credentialed expert (sports nutritionist) plus one proof creator. Diabetic \u2014 proof creator with measurable blood glucose data, full stop. Gluten-free \u2014 credentialed expert primary, proof creator secondary. My actual purchase decision path: I'd see a proof creator post, click through, check ingredients myself, look for the price, then search for whether any credentialed expert has vouched for this brand. If both boxes are checked and the price is in range, I'd buy one pack to trial. Not a subscription, not a bundle \u2014 one pack. That's my risk tolerance.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: Proof creator. Without even thinking too hard \u2014 it's the real person with real results over time that stops my scroll. Celebrity macro feels like advertising. Credentialed expert is c"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator is my primary conversion archetype across all Lo! Foods sub-brands, with credentialed expert as a mandatory supporting layer for DiabeSmart specifically. Here's my actual behavior: I see a relatable peer or micro-authentic creator and I'm aware, maybe curious. I see a credentialed expert and I lean in, start taking notes on macros and clinical claims. But I do not open my wallet until I find a proof creator \u2014 someone 60-90 days in, showing real data, honest about what worked and what didn't, who clearly has nothing to gain by continuing to document if the product fails them. For DiabeSmart, Dr. Gadge's endorsement is my trust anchor \u2014 I won't even look at proof creators without it, because the health stakes are too high to start with peer experience alone. For Keto and Protein, I skip straight to proof creators and use the expert content to verify their claims post-hoc. For gluten-free, I'm most moved by relatable peer stories about family acceptance and practical cooking integration, but a proof creator showing consistent household use over months still converts me faster than any single testimonial. Final answer: Proof creator converts me. Credentialed expert is the prerequisite for DiabeSmart. And if a proof creator happens to be someone in my actual social circle \u2014 even a friend-of-a-friend \u2014 the conversion happens faster than any ad budget could manufacture.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: Proof creator. Without even thinking twice. Real people, real timelines, real numbers \u2014 that's the only content that makes me stop scrolling and actually read. A celebrity endorsement"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For conversion to actual purchase, the archetype combination that would work on me is: credentialed expert as the anchor of trust, reinforced by proof creators as the human validation. Neither alone is enough for me to spend money. The expert tells me it's safe and effective; the proof creator tells me it works in real life for someone like me. And this absolutely changes by sub-brand. For Lo! Foods Diabetic \u2014 I need the credentialed expert first, no compromise. Dr. Gadge's patient data and GI-tested claim is the only thing that would make me consider spending on a health-critical product. Proof creators then confirm it. For Lo! Foods Protein \u2014 a micro-authentic or relatable peer is actually sufficient to get me to trial, because the stakes are lower and the category is more familiar. For Lo! Foods Keto \u2014 I'm honestly most skeptical of this category overall; I'd need both expert explanation of why keto works for someone in my life situation AND proof from someone my age and lifestyle. For Lo! Foods Gluten-Free \u2014 a relatable peer mom like @MumbaiMomDiaries who got kids to eat it without noticing the switch is nearly enough on its own, because that's my daily lived challenge. So my ranked conversion priority: Diabetic = credentialed expert + proof creator. Keto = credentialed expert + relatable peer. Gluten-Free = relatable peer + micro-authentic. Protein = proof creator alone can convert me to trial.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: Immediately, I'm drawn to two archetypes \u2014 the credentialed expert and the proof creator \u2014 and I feel that pull almost simultaneously. Celebrity macro? I scroll past. I've learned tha"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My answer is: the credentialed expert COMBINED with the proof creator is the only pairing that would reliably convert me from awareness to actual purchase \u2014 and this does change by sub-brand. For Lo! Foods DiabeSmart: I need Dr. Gadge type credentialed expert first, to establish medical safety and scientific soundness, and then Suresh type proof creator to show me sustained real-world results with honest numbers. Without both, I remain stuck in hesitation. For Lo! Foods Keto or Protein sub-brands: a proof creator alone \u2014 someone who has used it for three months in a real Indian kitchen, with honest talk about taste, convenience, and value \u2014 is sufficient to convert me, provided the price clears my threshold. For Gluten-Free: I barely understand gluten sensitivity, so I need the expert to anchor my understanding before any peer testimony means anything to me. Celebrity macro? Never \u2014 they are paid to smile. Relatable peer alone? Warm, but not enough for health products. Credentialed expert alone? Convincing but cold \u2014 I still need to see it work for a real person. The credentialed expert-plus-proof-creator combination is the most reliable conversion path for me across all sub-brands, with the proof creator alone being sufficient only for keto and protein where health risk is lower.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My heart says the proof creator \u2014 someone like Suresh from DiabetesDiary, or a real customer who has used the product for three months and can show me actual numbers, actual results, "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "The proof creator archetype \u2014 real customers with documented, honest results, not polished influencers \u2014 converts me most reliably across all sub-brands. But there is one important exception: for the diabetic sub-brand, an unpaid credentialed medical expert (like Dr. Gadge with his small, genuine following) becomes equally powerful alongside proof creators, because my fear about health consequences demands both scientific credibility AND lived verification. I am not moved by celebrity macros for any sub-brand \u2014 Shilpa Shetty could personally hand me the product and I'd still check whether a real diabetic person found it worth the price. For keto: proof creators only \u2014 keto feels trendy and I'm skeptical, so I need regular people's real experiences. For protein: proof creators, but my conversion likelihood is lower because protein feels like a premium I can't easily justify. For diabetic: proof creators PLUS unpaid medical expert together \u2014 the health stakes demand dual validation. For gluten-free: proof creators, but I'd need explicit price-per-unit comparison shown.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My stomach says: proof creators and real customers, every time. Not celebrities, not even doctors first \u2014 people like me, who spent their own money, who had doubts like mine, and stil"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator is my primary conversion archetype across all Lo! Foods sub-brands, with one meaningful exception: for the diabetic sub-brand, I need proof creator *combined with* credentialed expert framing. The proof creator alone isn't sufficient when we're talking about glycemic management \u2014 I need the clinical anchor (GI testing, institutional affiliation, testable methodology) before I'll trust the individual glucose log as meaningful signal rather than noise. Here's my honest self-assessment: I know I'll still seek the credentialed expert post *first* as a credibility pre-screen, then use the proof creator content to actually make the decision. The expert tells me 'this is worth investigating.' The proof creator tells me 'this actually works for someone like me.' Neither alone converts me. Together, they do.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: Proof creator. Immediately, unambiguously. The pattern across my memories is consistent: I filter out celebrity noise reflexively, I'm intellectually drawn to credentialed experts but"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-006",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator converts me, full stop, across all sub-brands \u2014 but the weight of that proof needs to match what's at stake. For DiabeSmart (diabetic), I need Suresh-style documented health outcomes: actual numbers, actual timeline, relatable circumstance. For Keto, a proof creator showing sustainable weight loss over 3+ months with honest trade-offs acknowledged moves me \u2014 not someone who looks like they were already fit. For Protein, I actually bump up slightly toward the credentialed expert because I want to know the science is real before I start feeding it to my family, but I still need a peer user to confirm it's liveable. For Gluten-Free, the proof creator who shows their family actually eating it without complaints is most powerful \u2014 because the practical test is whether real people stick with it. Sub-brand shifts the supporting cast but never removes the proof creator from the top. What seals the deal every time is: real person, real duration, real numbers, no paid label.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: Proof creator. No hesitation. When I see someone like Suresh \u2014 four years into his diabetes journey, showing me actual blood sugar numbers \u2014 that's the only thing that cuts through. I"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Here's my sub-brand-specific breakdown, because a blanket answer feels intellectually lazy:\n\n**Diabetic sub-brand:** Credentialed expert is non-negotiable as the primary converter. Dr. Gadge staking his professional reputation on GI testing means something \u2014 he can't unsay it. Proof creator (Suresh-type, real data like 112 vs 138 readings) reinforces, but expert leads. Celebrity means nothing here.\n\n**Keto sub-brand:** Proof creator wins. Someone who's done keto for 3+ months and shows real weight, energy, and taste outcomes is exactly what I need. I'm skeptical of keto marketing broadly \u2014 'magical fat loss' claims are everywhere. A real person's sustained experience cuts through that.\n\n**Protein sub-brand:** Credentialed expert (nutritionist like Dr. Ritu with macros data) slightly edges out proof creator here. I want to know if the protein quality and bioavailability justifies the premium price. Expert gives me that analytical layer. Proof creator reinforces but doesn't lead.\n\n**Gluten-free sub-brand:** Relatable peer or proof creator. The pain point is social and practical \u2014 does it taste normal? Does it integrate into a real family's meals? A mom showing her family eating it without complaint is actually the right signal here. Clinical validation matters less than palatability and real-world usability.\n\nConclusion: No single archetype universally converts me. Proof creator is my highest-trust default, but credentialed expert is essential when health stakes are elevated. Celebrity macro consistently fails me regardless of sub-brand.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: proof creators for most sub-brands, but credentialed experts for the diabetic line. That's not a contradiction \u2014 it's precision. The supplier incident taught"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Amit Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My converting archetype, consistently and across sub-brands, is the credentialed expert \u2014 specifically one who posts without a paid partnership label and uses verifiable, domain-specific scientific language. But critically, they don't close the purchase for me alone. They open the credible investigation pathway. Dr. Gadge's post on the diabetic sub-brand is the clearest example: he gave me a framework to verify \u2014 GI testing, scientific criteria \u2014 and pointed me toward actual evidence I could then go check myself. That's the archetype I need. Celebrity macros are marketing. Relatable peers and proof creators are useful corroborating signals \u2014 I find the long-form documentation model genuinely compelling as secondary evidence \u2014 but they can't anchor the initial trust conversion. Micro-authentic creators help reinforce after I've already decided to investigate, not before. Sub-brand specificity matters significantly: for diabetic products, only a credentialed endocrinologist or diabetologist moves me to trial \u2014 this is a medical context, not a lifestyle one, and the stakes of a wrong claim are higher. For keto and protein, a sports nutritionist or registered dietitian with metabolic specialisation works. For gluten-free, a gastroenterologist or celiac-specialist dietitian. The archetype is constant; the credential domain must match the health territory. My final answer: credentialed expert, organically posted, domain-matched to sub-brand, with verifiable scientific language \u2014 and I'll still do my own fact-checking before completing the purchase.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: Credentialed expert, without question. Every time I've seen a paid partnership or celebrity name attached to a product, my guard goes up immediately. But when I see someone with actua"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My ranked archetype preference, which genuinely varies by sub-brand: For diabetic \u2014 credentialed expert (specifically medical professional) is the only archetype that converts me, and even then I need verifiable clinical specificity. For keto \u2014 proof creator first, credentialed expert to validate. For protein \u2014 micro-authentic creator with documented training credentials, cross-referenced with a sports nutritionist. For gluten-free \u2014 relatable peer with documented intolerance, supported by ingredient transparency from the brand. Celebrity macro never converts me to purchase, regardless of sub-brand \u2014 awareness, maybe, but not purchase. The through-line across all of this: I need information I can verify, from a source whose incentives I can assess, about a specific mechanism I can evaluate. The influencer archetype is ultimately a trust shortcut, and I don't take shortcuts lightly.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: credentialed expert, every time. When I see a qualified diabetologist or a verified nutritionist speaking with clinical specificity, something in me relaxes "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My final answer is: the proof creator is the most reliable single archetype to move me from awareness to purchase \u2014 but the weight I give it shifts meaningfully by sub-brand, and I almost always want a credentialed expert as a secondary validator before I actually convert. Here's the breakdown: For keto (Lo! Keto) \u2014 proof creator is primary. I want to see someone 3-6 months into a documented keto journey using the product, with actual markers (ketone readings, energy levels, not just weight). A relatable peer in my demographic would accelerate trust. For protein (Protein Chef) \u2014 credentialed expert like Dr. Ritu edges to near-equal weight with proof creator. I care about bioavailability and macro accuracy, and that requires a nutritionist's lens. The proof creator validates palatability and habit-formation; the expert validates the science. For diabetic (DiabeSmart) \u2014 credentialed expert is non-negotiable as the primary gate. I will not manage glycemic decisions based on social proof. But Suresh-type proof creators (no brand tag, documented real data, longitudinal tracking) are enormously compelling complements that push me past consideration into purchase. The combination of Dr. Gadge's clinical authority plus Suresh's 4-year transparent journey would be close to ideal for me. For gluten-free \u2014 proof creator with documented intolerance is primary (I need to know the real-world digestive outcomes), but I'd want at least one dietitian or gastroenterologist confirming formulation integrity. The celebrity macro archetype does essentially nothing for me across all sub-brands. Relatable peer works as warm signal but doesn't close the loop. Micro-authentic without credentials is better than celebrity but needs to come with enough transparency that I can do my own due diligence on their context and methodology.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: proof creator, almost always. Not because I'm lazy about research \u2014 quite the opposite \u2014 but because a proof creator gives me the raw material I actually nee"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator archetype converts me. Full stop \u2014 across all sub-brands, but the application changes. For DiabeSmart: a long-term user documenting real glucose readings unpaid, the way Suresh does, is near-perfect. This is the highest stakes product \u2014 managing my or a family member's diabetes \u2014 and I need months of real health data, not a 60-second reel. For Keto: proof creator still works, but I also want a micro-authentic peer who talks honestly about sustainability, cost over time, and whether they're still using it 6 months later \u2014 not just initial enthusiasm. For Protein: here I'd actually want proof creator combined with a credentialed expert's organic validation. Protein claims are easy to fake and I want both the science AND someone with my body type and budget showing results over time. For Gluten-Free: proof creator who has a genuine medical need \u2014 celiac or intolerance \u2014 not a lifestyle chooser. That specificity matters. Celebrity macros convert me on zero sub-brands. Credentialed experts alone almost convert me for Protein and DiabeSmart but I need the human proof alongside. What finally tips me to purchase: seeing the price included honestly in the proof creator's content, confirmation that others in my close community have heard of the brand positively, and being able to find independent community reviews that echo what the proof creator said.",
+          "confidence": 89,
+          "reasoning": "1. GUT REACTION: Proof creators. That's my gut, immediately, without thinking. Not celebrity macros \u2014 they're paid too much to be honest. Not even credentialed experts alone, though I respect them. Pr"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For converting me from awareness to actual purchase: micro-authentic peer creators win decisively, with the relatable peer archetype as a close second. But the sub-brand absolutely changes the exact formula. For DiabeSmart (diabetic), I need a Suresh-type real user PLUS some credentialed validation nearby \u2014 the stakes are too high for pure peer alone, blood sugar management isn't something I'll experiment casually with. For Keto, I'd want a credentialed expert (Dr. Ritu type) as the discovery hook, but micro-authentic peer content to seal the deal \u2014 the science needs to check out first. For Protein, a relatable peer showing gym progress over 6-8 weeks is more than enough \u2014 lower stakes, clearer results to observe. For Gluten-free, purely relatable peer content about digestion, energy, and taste is sufficient. The proof creator archetype \u2014 someone showing documented before/after evidence over time \u2014 actually overlaps significantly with what converts me. Suresh IS a proof creator. So my final answer: micro-authentic + proof creator hybrid, calibrated to sub-brand stakes, with price transparency as the non-negotiable gateway condition.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: Micro-authentic and relatable peer creators. Full stop. The moment I see a real person documenting their actual experience \u2014 not a polished transformation reel, not a paid partnership"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator archetype converts me, full stop. Three-plus months of honest usage documentation, with real metrics and acknowledged imperfections, is the only content format that bypasses my marketing defense system. The modifier by sub-brand: for DiabeSmart specifically, I need proof creator paired with a credentialed expert \u2014 the real person's lived experience validates the clinical claim, and the clinical claim legitimizes the real person's numbers. For keto and protein sub-brands, a proof creator with my kind of budget constraints and usage patterns is sufficient on their own. For gluten-free, same as keto \u2014 proof creator primary, expert mention as reassurance. I would not convert from a celebrity macro or relatable peer who's been using it for two weeks. I'd click through from a micro-authentic or credentialed expert, but I'd still be in research mode. Only the proof creator \u2014 someone whose daily routine I can actually track, whose disappointments I can see surface \u2014 gets me to the checkout page.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: Proof creator. No hesitation. The moment I think about which influencer type would actually make me open my wallet, it's the person who's been using the product for months and sharing"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Proof creator is my primary conversion archetype \u2014 universally, across all sub-brands. Someone who has been using the product for 3+ months, is not compensated, documents measurable outcomes (blood sugar, protein intake, digestive symptoms, actual weight/composition), and is honest about limitations will get me to trial. For DiabeSmart specifically, I'd want the proof creator's data backed by at least one credentialed expert confirming the mechanism is plausible \u2014 not as the primary trigger, but as a credibility floor. For keto/protein, proof creator plus expert macro breakdown together accelerates my decision. For gluten-free, an authentic peer with documented intolerance and honest digestive outcome reporting is nearly equivalent to a proof creator in my calculus. What I will never act on regardless of sub-brand: celebrity macros (paid, misaligned incentives), micro-influencers with obvious partnership tags, or one-time testimonials without duration. The proof creator's time investment in documenting real experience is the signal I actually trust.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: Proof creator. No hesitation. I've been through this enough times mentally to know that someone documenting real results over 3+ months moves me more than anything else. The minute I "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-016",
+      "persona_name": "Meghna Pillai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion archetype \u2014 the one that would reliably move me from awareness to purchase \u2014 is the credentialed expert, but specifically one who demonstrates transparent reasoning, not just credentials. A diabetologist citing GI-tested data in an organic post, a nutritionist who explains why she recommends it to patients over three months rather than simply endorsing it. That combination of verifiable authority plus honest process is what triggers my buying decision. However \u2014 and this is important \u2014 my answer does change meaningfully by sub-brand. For the diabetic sub-brand: credentialed expert is essential. Blood sugar management is high-stakes; I need Dr. Gadge-type authority plus Suresh-type real-world proof ideally combined. For the protein sub-brand: credentialed expert still wins (sports nutritionist, dietician), but a proof creator showing documented fitness outcomes over 3+ months would work as a strong secondary signal. For the keto sub-brand: honestly, credentialed expert is necessary but probably insufficient for me personally given my failed household trial. I'd need an expert who directly addresses cultural and practical adherence barriers \u2014 not just ketosis science. Without that, no archetype converts me. For the gluten-free sub-brand: this is the only category where a relatable peer or micro-authentic voice could do meaningful conversion work, because the stakes are lower for me and the relevant question is taste and texture, not clinical outcomes. I'd still verify, but the bar is lower.",
+          "confidence": 80,
+          "reasoning": "1. GUT REACTION: Credentialed expert, without question \u2014 but with a crucial caveat. My instinct fires immediately toward the nutritionist or doctor archetype. Not the celebrity, not the relatable peer"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My conversion archetype, ranked by reliability: Number one is the CREDENTIALED EXPERT combined with PROOF CREATOR \u2014 not one or the other, but the combination. This is non-negotiable for DiabeSmart. I need Dr. Gadge's clinical framing telling me the science is sound, AND Suresh's four-year journey showing me it works in a real body with real numbers. Together, they satisfy both my quality demand and my budget justification. For Keto products, the micro-authentic peer (proof creator documenting a genuine three-month journey with before/after specifics) can work as the primary converter, with credentialed expert as supporting signal \u2014 lower health stakes means the peer proof carries more weight. For Protein sub-brand, same logic \u2014 a real person showing measurable body composition changes, ideally with a nutritionist's occasional validation, converts me. Gluten-free needs to clarify whether it's medical (celiac) or lifestyle \u2014 if medical, expert-first; if lifestyle, peer-proof suffices. The relatable peer without proof metrics? Not enough. The celebrity macro? Never. The micro-authentic without specifics? Not enough either \u2014 I need numbers, timelines, honest caveats. What ultimately pulls me from awareness to purchase is this combination: expert credibility that tells me it's scientifically sound + humble, specific, transparent user documentation that tells me it actually works for someone like me. That combination respects both my intelligence and my wallet.",
+          "confidence": 97,
+          "reasoning": "1. GUT REACTION: Immediately, without thinking too hard \u2014 credentialed expert, but only when combined with real user proof. No single archetype alone convinces me. The celebrity? Absolute noise. The m"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "For the diabetic sub-brand (DiabeSmart), the proof creator like Suresh converts me most reliably \u2014 sustained, specific, unsponsored documentation. For the protein sub-brand, a credentialed expert (nutritionist or dietitian, small following, no paid tag) would move me, because I need scientific validation more than lifestyle aspiration. For keto, honestly, only a credentialed medical expert could overcome my deep skepticism \u2014 a celebrity or peer creator would actively repel me from that sub-brand. For gluten-free, I need a relatable peer who actually has the condition, not a wellness influencer jumping on a trend. My overall answer: proof creators and credentialed experts split the conversion work depending on the sub-brand. The archetype must match the category's trust burden. One-size-fits-all influencer strategy would fail me as a customer.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My immediate instinct is proof creators and credentialed experts \u2014 not celebrities, not polished macro-influencers. When I see a 'paid partnership' tag, something inside me switches o"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "Here's my honest answer, broken by sub-brand: For Lo! Foods Diabetic \u2014 the credentialed expert archetype converts me. Dr. Gadge type. Diabetologist, hospital affiliation, no paid tag, citing testable clinical data. The stakes on blood sugar management are too high for me to trust anyone without deep domain expertise and reputational skin in the game. I will independently verify the GI claims before purchasing, but that archetype gets me to the verification stage. For Lo! Foods Keto and Protein \u2014 I'm converted by the proof creator or micro-authentic peer. Someone like me \u2014 budget-conscious, three months of actual documented results, honest about struggles. I need to see the journey not the highlight reel. I won't be moved by a fitness celebrity on a paid contract. For Lo! Foods Gluten-Free \u2014 credentialed expert again edges out, but relatable peer works too if the content is honest about cost-benefit. Gluten intolerance is a medical reality and I need that treated seriously, not aesthetically. Celebrity macro converts me almost never across all sub-brands. The paid partnership tag kills it before the content even registers.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that no single archetype converts me universally \u2014 it depends entirely on what's at stake. For anything touching health outcomes, I need credentialed experts."
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background \u2014 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) \u2014 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) \u2014 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video \u2014 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) \u2014 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) \u2014 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods has \u20b950 lakh for influencer marketing this quarter. They're deciding between: Option A \u2014 one macro-influencer campaign (fitness celebrity, 5M followers, \u20b940L for a 3-post series). Option B \u2014 ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, \u20b95L each). Option C \u2014 five 'proof creators' \u2014 real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (\u20b92L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "My answer is proof creators as the primary conversion driver \u2014 but with one important nuance: the sub-brand determines whether I need expert backup alongside them. For diabetic Lo! Foods, I will not convert from awareness to purchase without credentialed expert validation first (a Dr. Gadge-type) and then proof creators confirming real-world outcomes. Expert gives me safety, peer gives me hope. I need both. For keto and gluten-free, proof creators alone can close the deal \u2014 show me someone like me using it consistently, sharing honest struggles and real results, and I'll trial it. For protein products, I lean expert-first because I'm skeptical of protein content claims and need a nutritionist to confirm the macros are real before I spend premium on it. But across all sub-brands, the one archetype that does NOT convert me is the celebrity macro. I skip those on instinct \u2014 paid partnership labels are the fastest way to lose my trust. The relatable peer and micro-authentic types are second-tier \u2014 they work if I already have some awareness and just need a light nudge, but they don't do the heavy lifting alone that proof creators do.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: Proof creators. That's my immediate answer, and it's not even close. When I think about what actually moves me from 'I've heard of this' to 'I'm putting this in my cart,' it's never t"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 40
+  },
+  "social_simulation": {
+    "social_level": "moderate",
+    "social_topology": "full_mesh"
+  }
+}

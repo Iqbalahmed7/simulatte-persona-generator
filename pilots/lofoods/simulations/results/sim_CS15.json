@@ -1,0 +1,918 @@
+{
+  "simulation_id": "sim-fa3134cb",
+  "cohort_id": "merged-C10_C11_C1",
+  "rounds": 3,
+  "decision_scenario": "Gluten Smart bread is \u20b9149, compared to \u20b945 for regular bread and \u20b999 for Protein Chef. Given your relationship with gluten \u2014 whether diagnosed, self-diagnosed, or simply curious \u2014 would you buy Gluten Smart regularly, occasionally, once to try, or not at all? What would make the \u20b9104 premium over regular bread feel justified \u2014 and what would Lo! Foods need to prove to keep you as a repeat buyer?",
+  "results": [
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to buy it once \u2014 but with a specific purpose, not casual curiosity. I'm buying it as a trial concurrent with booking an appointment to get properly tested for gluten sensitivity or celiac. The single purchase is information-gathering: texture, taste, how my body actually responds, whether I notice anything different. But I'm refusing to become a regular buyer until I have a medical answer. If the test comes back showing sensitivity or celiac, I become a committed repeat buyer immediately \u2014 the facility standards and the peer validation from the celiac community already satisfy my quality requirements. If the test comes back clean and I notice nothing different in how I feel eating it, I'll stop. I won't maintain a \u20b9149 habit that's built on narrative rather than need. I'm not buying it to signal anything. I'm buying it once to gather data on myself, and I'm buying the test to gather the rest.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: My immediate instinct is genuine interest mixed with sharp self-suspicion. The dedicated facility, the certified protocols \u2014 that pulls me in hard, the same way the formula scare made"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all \u2014 with one narrow exception. I'm not buying Gluten Smart regularly, and I'm not buying it occasionally. I will not buy it as a lifestyle choice. The \u20b9104 premium over regular bread is entirely unjustifiable for someone without a diagnosis. However \u2014 and this is the one concession I'll make to intellectual honesty \u2014 if I committed to a proper self-experiment: documented baseline symptoms, two-week elimination trial, blind reintroduction, actual data tracked on my spreadsheet? Then I might buy it once, systematically, to generate real personal evidence. Not as a 'try it and see' casual purchase, but as a controlled experiment. What Lo! Foods would need to prove to keep me as a repeat buyer: First, I'd need to confirm genuine sensitivity through either a medical test or a rigorous self-tracked elimination protocol. Second, Lo! Foods would need to demonstrate consistent taste and texture that doesn't punish me for choosing health \u2014 if the product tastes significantly worse, the premium becomes even harder to hold. Third, availability and freshness consistency \u2014 if I'm committing \u20b9149 regularly, I need the product to be reliably available and not varying in quality batch to batch. The \u20b9104 premium can only feel justified if I have proof it's solving a real problem for my body, not just a story I'm telling myself about being health-conscious.",
+          "confidence": 89,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread. My stomach drops before my brain even engages. That's three times what I pay for regular bread, and I've already been through this exact calculation before. The immedi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Once to try \u2014 but only if Lo! Foods offers a smaller trial pack or if I can find it available in a format that doesn't require committing to a full \u20b9149 loaf upfront. I'm not a regular buyer, not even occasional without evidence. I want to close this open loop \u2014 the question of whether I actually feel different \u2014 but I need to do it cheaply enough that if the answer is 'no difference,' I haven't punished my budget for an experiment. If a trial confirms I genuinely feel better, I'd consider occasional purchases, maybe once a month as a deliberate quality splurge. For Lo! Foods to keep me as a repeat buyer, they need to show me: one, transparent sourcing and dedicated facility credentials so I know the \u20b9149 is buying real safety, not just branding; two, at least two or three people I personally trust \u2014 not influencers, actual friends \u2014 telling me it made a measurable difference for them; and three, some kind of starter pack or smaller SKU so the trial cost doesn't sting. Right now, my decision is: once, cautiously, with low commitment.",
+          "confidence": 56,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My stomach drops a little. That's the first reaction \u2014 pure, visceral price shock. Three times the cost of regular bread for something I'm not even sure I need. The in"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'll buy it once to try \u2014 deliberately, not impulsively. That's the only intellectually honest move I can make right now. I'm going to treat this as a one-loaf experiment and actually pay attention: track how I feel over the week I'm eating it versus a week on regular bread. If I notice a genuine, repeatable difference in digestion or energy, I'll move to occasional purchase while I figure out whether to get a proper sensitivity test. If I feel nothing \u2014 which is the most likely outcome given that I don't have a confirmed diagnosis \u2014 I stop. What would make the \u20b9104 premium feel justified for regular purchase? Lo! Foods would need me to personally confirm digestive benefit \u2014 not community consensus, not expert opinion, not their own marketing. My body's actual response. That's the only proof that matters. Until then, once to try, with intention.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: My immediate reaction is skepticism \u2014 not of the product itself, but of my own motivation for wanting it. I've already been through this loop in my head. I don't have celiac disease. "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Nisha Agarwal",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy it once \u2014 a single trial purchase \u2014 not to validate the product, but to validate my own response to it as part of a more structured self-assessment. I'll treat it as a data point, not a commitment. I'll run it alongside keeping a symptom diary. But I will not buy it regularly until I have a gastroenterologist appointment where I can discuss my symptoms and ideally get tested. If the test comes back negative for celiac and sensitivity, I revisit whether the price premium serves any real purpose. If it confirms sensitivity, \u20b9149 immediately feels like value \u2014 I'd actually consider it cheap for what it's solving. What Lo! Foods would need to prove for repeat purchase: consistent texture and taste that doesn't make eating feel like a medical correction, transparent third-party certification I can verify, and \u2014 frankly \u2014 some educational content that helps me understand the difference between celiac, NCGS, and wheat intolerance without being patronizing about it. Treat me like a smart buyer, not a trend follower.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My first instinct is: not yet. Not because \u20b9149 feels too expensive \u2014 it doesn't, not for something that matters to my health. But because I keep running into the same wall every time"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not regularly. Not occasionally. Maybe once to try \u2014 but only if I've first gotten a proper sensitivity screening and the results suggest any gluten-related concern. Without that, I'm not buying it at all right now. Here's my actual decision: I'm going to schedule a celiac/gluten sensitivity test. That's the real next step. If results come back clean \u2014 nothing \u2014 then I'm buying Protein Chef at \u20b999 or regular bread at \u20b945, and I'm fine with that because it's the honest answer. If results show sensitivity, then \u20b9149 becomes non-negotiable, and Lo! Foods' certification and ingredient quality mean I'd actually trust this brand. For Lo! Foods to keep me as a repeat buyer, they'd need to do two things: (1) make the medical case clearer in their marketing \u2014 help people like me understand who genuinely benefits, not just 'feel better with less gluten' vagueness; (2) consistently deliver on quality so that every loaf reinforces that the premium is earned. But right now? No purchase. I need clarity before I spend.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: Pause. That's my first instinct \u2014 not rejection, not excitement, just pause. \u20b9149 versus \u20b945 is a number my body responds to before my brain even processes it. That internship-era ver"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'll buy it once to try \u2014 one loaf, one honest experiment. I'll eat it for a week alongside my regular routine and pay attention to how I actually feel, not how I'm supposed to feel. That's \u20b9149 for data I don't currently have, which is a one-time cost I can justify. What I will NOT do is subscribe or buy regularly without that data. To keep me as a repeat buyer, Lo! Foods needs to prove three things: (1) I personally feel a measurable, noticeable difference \u2014 less bloating, more energy, something I can point to, not imagine. (2) The taste and texture justify the premium relative to regular bread \u2014 I'm not paying extra to eat cardboard. (3) Ideally, some path to a formal sensitivity test or a cheaper entry-point SKU around \u20b989-99 that lets me build the habit without the financial anxiety. At \u20b9149 recurring, I'll always be second-guessing the spend. At \u20b999, I might actually commit.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My immediate instinct is to put it back on the shelf. That's more than three times the cost of regular bread, and I don't have a doctor's note telling me I need it. Bu"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy Gluten Smart regularly. I will not buy it occasionally either. I might buy it once to try \u2014 but honestly even that feels like I'm feeding the same unexamined health anxiety that had me spending money for two years on unverified assumptions. My actual decision: I'm getting a proper celiac and gluten sensitivity test done first. That's the right sequence. If the test comes back positive or shows sensitivity, Lo! Foods is already on my trust list \u2014 that dedicated facility matters to me, the brand has credibility. I'd become a regular buyer immediately. If it comes back negative, I'll move to regular bread and stop pretending. Right now, the answer is not at all \u2014 until I have medical evidence that changes the equation.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: My stomach tightens when I see \u20b9149. That's more than three times the regular bread price. My first instinct is resistance \u2014 not because I don't believe in quality, my Rajdoot taught "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'll buy it once to try \u2014 but only once, and with full awareness that I'm running a personal experiment, not committing to a lifestyle change. I want to see if I actually feel different. If within 3-4 weeks there's a noticeable, undeniable improvement that I can't attribute to placebo, I'll seriously consider getting formally tested for gluten sensitivity. If the test confirms an issue, I'd consider making Gluten Smart a regular purchase because then the \u20b9104 premium has a justified, evidence-based reason behind it. But regular purchases right now? No. The math doesn't work without the medical backing. For Lo! Foods to keep me as a repeat buyer, they'd need to make the diagnostic pathway easier \u2014 partner with labs, offer testing referrals, give me a reason beyond trend to stay loyal. Right now, without that, I'm a one-time trialist at best.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My immediate reaction is: absolutely not, not regularly. That's more than three times what I'd pay for regular bread. The number itself triggers something in me \u2014 I th"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy it once to try \u2014 but ONLY if I get a proper diagnosis first, or if I find a credible trial offer or smaller pack. I cannot commit to regular purchase without medical confirmation. 'Once to try' for \u20b9149 feels irresponsible given my budget unless I'm going in with purpose \u2014 to assess whether it genuinely resolves my symptoms while I pursue a proper test. If Lo! Foods offered a smaller trial pack at \u20b960-70, I'd do it tomorrow. At \u20b9149 for a full loaf, I'll buy it once if I decide to test my body's response seriously, but I will not make it a regular purchase until a doctor confirms I need to. And even then, I'd want to know if the benefit is real or perceived. To keep me as a repeat buyer, Lo! Foods needs to show me: clinical evidence it helps non-celiac gluten sensitivity, a doctor's endorsement I trust, and ideally some kind of loyalty pricing for regular buyers who need it medically.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread. My first thought is \u2014 that's more than three times what I pay now, and we go through bread regularly. The math alone makes my stomach tighten. But then I remember the "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to buy it once \u2014 just once \u2014 not as a health intervention but as a controlled personal test. Here's my logic: I want to experience the product itself so I can evaluate taste, texture, and how I feel, while I simultaneously do what I should have done weeks ago \u2014 schedule a consultation with a gastroenterologist and ask about celiac antibody testing. The one-time purchase gives me a data point. It is not a commitment. It is not me buying into the gluten-free lifestyle trend. It is me being methodical. If the test results come back showing sensitivity or celiac markers, then \u20b9149 becomes completely justified and I'd switch to Gluten Smart as my primary bread \u2014 and I'd trust this brand specifically because of their facility standards. If the tests come back clear and I feel no measurable difference, I return to \u20b945 regular bread with zero guilt. What I will not do is make it a regular purchase before I have that medical information. That would be the version of me that gets manipulated by good branding.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: this is not for me right now. Not because of the price \u2014 \u20b9149 doesn't scare me \u2014 but because I keep circling the same question I haven't answered yet: do I a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all \u2014 at least not regularly or occasionally, and even a one-time trial feels hard to justify right now. Here's my reasoning: I have no medical basis for this purchase, my peers wouldn't validate it, my budget doesn't have slack for experimental premium food, and I've already burned money on assumption-based health decisions. What Lo! Foods would need to prove to change this: first, I'd need to actually get tested and receive a gluten sensitivity diagnosis. Second, I'd need a real trial mechanism \u2014 maybe a smaller portion pack at \u20b940-50 \u2014 so the risk of testing isn't \u20b9149. Third, I'd want peer testimony from someone like me \u2014 budget-conscious, non-celiac \u2014 who felt a measurable difference. The \u20b9104 premium over regular bread will only feel justified the day a doctor tells me I genuinely need it. Until then, I'm staying with regular bread or Protein Chef, where I know exactly what value I'm buying.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My immediate reaction is: absolutely not, not right now. That's more than three times what regular bread costs, and I don't even have a confirmed reason to need it. My"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm buying it once \u2014 just once \u2014 to try. But I'm being brutally honest with myself about why: it's curiosity, not conviction. I'll eat the loaf, pay attention to how I actually feel, compare it to how I feel on regular bread, and treat it as a data-gathering exercise. If I notice zero real difference, I'm done. If I notice something genuine, I'll get properly tested before spending \u20b9149 regularly. I will not make this a repeat purchase without either a diagnosis or undeniable personal evidence. And I refuse to let peer trend-following override my own financial judgment. What would make the \u20b9104 premium feel justified long-term? Real test results confirming sensitivity, consistent measurable benefit I can't explain away as placebo, and ideally Lo! Foods proving the ingredients earn their price \u2014 not just the certification. Right now, buying once is the most honest thing I can do. Buying regularly without evidence would be exactly the kind of careless spending my younger self survived by avoiding.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My stomach tightens immediately. \u20b9149 for bread when I know regular bread is \u20b945? That's nearly four times the price, and my old internship brain \u2014 the one that calculated whether I c"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Once to try \u2014 but with conditions, and only after one specific trigger: I'm going to get properly tested for gluten sensitivity or celiac first. If I come back negative, I'm not buying Gluten Smart at all \u2014 I'll shift to Protein Chef at \u20b999 for the nutritional benefit, which I can at least measure. If I test positive or borderline, then \u20b9149 becomes a legitimate medical investment, and I'd buy it regularly and would actually care about Lo! Foods proving consistent quality, taste parity with regular bread, and reliable availability. For Lo! Foods to keep me as a repeat buyer in the confirmed-sensitivity scenario, they'd need to prove: texture and taste don't feel like a compromise, the product is available consistently in my area, and ideally share some data or user evidence beyond just the 'certified facility' angle \u2014 something I can put in my mental evidence column. Right now, without a diagnosis, my decision is: not at all, pending testing.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My spreadsheet reflex kicks in immediately. That's 3.3x regular bread, and my first instinct is to calculate what that adds up to annually if I buy it weekly \u2014 we're t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 2,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all \u2014 I will not buy Gluten Smart regularly, occasionally, or even once to try. This is a firm decision, not a hesitant one. I eat regular bread without issues. There is no diagnosed medical need. The \u20b9104 premium over regular bread \u2014 more than double \u2014 cannot be justified by 'I might feel lighter' or urban wellness signaling. Lo! Foods has built something genuinely valuable for those who need it, especially people with celiac disease. The dedicated facility, certified gluten-free, cross-contamination controls \u2014 all of that is real and worth paying for if you're Person 1. But I'm not Person 1. I'm Person 3, and Person 3's story ends with switching to something more relevant. If anything changes \u2014 a medical diagnosis for me or a family member \u2014 I would come back to this product with full trust in the brand. But that's not today.",
+          "confidence": 99,
+          "reasoning": "1. GUT REACTION: Not for me. \u20b9149 for bread when I'm eating \u20b945 bread without a single health complaint? My stomach doesn't hurt, I'm not bloated, I have no diagnosis \u2014 this is a solution looking for "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy Gluten Smart bread once \u2014 a single trial purchase \u2014 but only after I've scheduled a proper medical consultation and ideally had the relevant tests done. Not before. If testing confirms celiac disease or documented gluten sensitivity, I become a regular buyer immediately \u2014 the \u20b9149 price point is irrelevant when it's medically necessary, and Lo! Foods' certification makes their product genuinely trustworthy for that use case. If testing comes back negative but I want to run a controlled personal experiment \u2014 tracking symptoms rigorously over four to six weeks with and without gluten \u2014 I'd do one trial then. But I will not buy occasionally or casually without that data. For repeat purchase, Lo! Foods would need to consistently deliver on taste and texture (Person 3's feedback worries me slightly), maintain their certification standards, and \u2014 this matters \u2014 I'd want transparency on their testing protocols and supply chain, not just label claims.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to pause \u2014 not because \u20b9149 feels expensive, but because I haven't yet established that I need this product. That's the friction point. The price premium over"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy Gluten Smart \u2014 not regularly, not occasionally, not even once to try. My decision is clear: I don't have a diagnosed gluten condition, I haven't confirmed sensitivity through medical testing, and spending \u20b9149 on bread I don't medically need is precisely the kind of false economy I've trained myself to avoid. It's not the \u20b9149 alone \u2014 it's the principle. If Lo! Foods wants to keep me as a repeat buyer someday, they'd need: (1) my doctor to confirm genuine gluten sensitivity or intolerance, (2) clinical proof that their product delivers measurable health outcomes beyond placebo for non-celiac buyers, and (3) transparent pricing that doesn't feel like a markup on a trend. Until then, I'll stick with Protein Chef at \u20b999 if I want to invest slightly more in nutrition, or regular bread at \u20b945 when budget demands it. The \u20b9104 difference goes toward something that actually serves my family.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: My first instinct is discomfort \u2014 \u20b9149 for bread feels wrong on multiple levels. I've been going back and forth on this for a while now. Part of me wants to justify it as a health inv"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would buy Gluten Smart once to try \u2014 but only after getting a proper gluten sensitivity test, not before. Right now, without that diagnostic step, my decision is not at all for regular purchase. The 'once to try' is contingent on test results showing some sensitivity. If results are neutral/negative, I skip entirely and feel vindicated. If results show sensitivity or celiac markers, then the \u20b9149 becomes a genuine medical justification, the certified facility matters, and I'd become a repeat buyer with full confidence. What Lo! Foods would need to prove to keep me as a repeat buyer: consistent ingredient quality and no cross-contamination incidents, honest nutritional comparison versus regular bread for non-celiacs (if there's a genuine benefit beyond gluten-free), and pricing stability \u2014 I can't have this creep to \u20b9175 in six months and feel trapped. The \u20b9104 premium is only justified if I'm paying for safety I actually need, not a story I want to believe.",
+          "confidence": 93,
+          "reasoning": "1. GUT REACTION: My immediate response is skepticism bordering on refusal. \u20b9149 for bread when I'm not diagnosed celiac or gluten-sensitive? That's a 3.3x premium for a problem I haven't confirmed I h"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy Gluten Smart regularly, and I will not buy it even once to try \u2014 not at this moment. Here's why: trying it without a medical reason is exactly the kind of impulse spending that has strained my family's budget before. It's not a snack I'm curious about; it's a \u20b9149 staple that I'd be evaluating as a replacement. If I try it and like it, I risk getting emotionally committed to a product I can't justify financially. That's a trap I've fallen into before. My decision tree is clear: Step 1 \u2014 get properly tested for celiac and gluten sensitivity. Step 2 \u2014 if diagnosed, Gluten Smart becomes a necessary medical expense and I buy it without guilt. Step 3 \u2014 if not diagnosed, I stay with regular bread and redirect that \u20b9104 to protein, fresh vegetables, or my children's needs. What would make the \u20b9104 premium feel justified? Medical certification from my own doctor that I need it. Third-party clinical data showing benefit for non-celiacs \u2014 and right now that data doesn't support the premium. For Lo! Foods to keep me as a repeat buyer, they'd need to show me a certified test result confirming I have gluten sensitivity, or they'd need to dramatically lower the price point. Right now, the product is good \u2014 but it's not for me.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My first instinct is to put it back on the shelf. That's more than three times what regular bread costs. My hand literally hesitates. I've been through this before \u2014 I"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Once to try \u2014 but only as a diagnostic tool, not a lifestyle choice. Here is my exact reasoning: I will buy one loaf of Gluten Smart to establish a personal baseline. During the week I consume it, I will track specific, measurable markers \u2014 bloating, digestion, energy levels \u2014 in a structured way, not impressionistically. Simultaneously, I will schedule an appointment with a gastroenterologist to discuss whether formal testing for celiac disease or non-celiac gluten sensitivity is warranted. If the clinical evaluation returns a diagnosis or documented sensitivity, and if my self-tracked data shows genuine functional improvement, I will become a regular buyer without price hesitation. If the doctor says there's no indication and my self-tracked data shows no meaningful difference, I will not buy it again regardless of how refined it tastes. What Lo! Foods needs to prove for repeat purchase: third-party clinical evidence beyond facility certification, transparency on exactly what ingredients and processes justify the premium, and ideally a professional consultation program or partnership with nutritionists. Taste preference and 'feeling lighter' are insufficient. I need a measurable outcome tied to my specific biology.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My immediate reaction is: this is not my product right now. Not because \u20b9149 frightens me \u2014 it doesn't \u2014 but because I haven't earned the right to buy it yet. I don't have a diagnosis"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to buy it once to try \u2014 but with a specific condition I'm setting for myself. Before I buy the next loaf, I'm getting a basic food sensitivity test or at minimum having a frank conversation with my doctor about whether I have any markers that make gluten-free bread a genuine health choice for me. The single trial purchase is me being fair to the product and to myself \u2014 I won't dismiss it without data, but I also won't become a repeat buyer on faith alone. If the test comes back showing some sensitivity, or if my doctor says there's a reason to try this, then Lo! Foods needs to deliver on taste and texture that's actually comparable to regular bread \u2014 not a compromise I tolerate, but something I'd choose. If I feel no difference in digestion, energy, or anything measurable over two weeks, I'm going back to \u20b945 bread without guilt. The \u20b9104 premium needs to earn its place in my routine, not assume it.",
+          "confidence": 52,
+          "reasoning": "1. GUT REACTION: My immediate reaction is hesitation \u2014 not dismissal, but genuine pause. \u20b9149 for bread is jarring when I can see \u20b945 sitting right next to it. But I've been down the 'buy cheap, pay t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not buy Gluten Smart regularly, and I will not buy it to try either \u2014 not right now. My decision is: not at all, unless circumstances change. This isn't impulsive or uninformed. I've genuinely wrestled with this. The product may be excellent. The facility certification is real. But I am not the customer Lo! Foods needs me to be for this purchase to make sense. I don't have celiac. I'm not diagnosed with sensitivity. I'm not going to pay \u20b9149 for bread when \u20b945 feeds my family just as well nutritionally for my specific situation. If I had a diagnosis, this decision reverses completely \u2014 and I'd pay it without hesitation, the way I wouldn't compromise on medicine. But I don't. So I won't.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My hand stops at the shelf. That's the same price I'd pay for a decent packet of good quality atta that lasts my family a week. My gut says no \u2014 this isn't for me, not"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would buy it once to try \u2014 but only under very specific conditions: if someone I trust with a real diagnosis recommends it, or if I'm running a self-monitored experiment after consulting a doctor about persistent digestive issues. Not because I'm curious about the trend, but because I want baseline data. Even then, I'd buy one loaf, track how I feel over two weeks, compare honestly to regular bread, and make a clear-eyed decision. For regular purchase? No \u2014 not without medical justification. For Protein Chef at \u20b999? More likely if my family needed a higher-protein option. For Gluten Smart at \u20b9149 as a lifestyle choice? Absolutely not. What would make the \u20b9104 premium justified: a gastroenterologist's diagnosis of non-celiac gluten sensitivity or celiac disease, confirmed certifications from a credible Indian food safety authority, and visible, felt improvement in my health within a month. Lo! Foods would need to keep me as a repeat buyer through consistent quality, transparent sourcing, and proof their facility certifications are real \u2014 not just label claims.",
+          "confidence": 95,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My stomach tightens the same way it did in that hospital waiting room. My instinct is immediate and clear: this is not for me right now. I don't have a celiac diagnosi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all right now \u2014 but with a clear condition attached. I will not buy Gluten Smart bread in any regular, occasional, or trial capacity until I get properly tested for celiac disease or non-celiac gluten sensitivity. I am not willing to pay \u20b9149 for hope or trend-following. However \u2014 and this is important \u2014 if the test comes back showing I have a genuine sensitivity or celiac disease, then Lo! Foods moves immediately to the top of my list. The certified facility, the honest labeling, the clear medical positioning \u2014 all of that earns my loyalty. The \u20b9104 premium becomes medicine, and I understand medicine costs money. What Lo! Foods needs to prove to keep me as a repeat buyer: one, consistent availability so I can plan my budget; two, that the quality holds \u2014 I need to feel and see a real difference in my body; three, some kind of loyalty pricing or family pack because \u20b9149 per loaf every week will eventually break my budget even with a valid reason. Until I have a diagnosis, my answer is no \u2014 and I'm at peace with that answer.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My hand already pulls back from the shelf before my brain even finishes reading the price tag. That's the same reflex I've had since the hospital bill year \u2014 my body r"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all \u2014 not even once to try. I've made my decision clearly. I don't have a gluten diagnosis. I don't have confirmed sensitivity. A gastroenterologist has said products like this serve no benefit for the overwhelming majority of Indians. My peer data \u2014 Person 3's month-long experiment \u2014 confirms this isn't worth the spend for someone without genuine need. The \u20b9104 premium over regular bread is simply unjustifiable for my situation. I'll stay with my \u20b945 wheat bread. If Lo! Foods wants to earn my consideration, they need to either bring the price dramatically closer to regular bread, or I need to receive an actual medical recommendation from a doctor telling me I have a gluten issue. Until either of those things happens, this product is not for me. I'm not paying a lifestyle tax I can't afford for a problem I don't have.",
+          "confidence": 100,
+          "reasoning": "1. GUT REACTION: My stomach drops at \u20b9149. That's my immediate, honest reaction. I see that price and I think of the loan papers, the laptop that died, the catering debt from my sister's wedding. \u20b9149"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would try it once \u2014 just once \u2014 to form an honest opinion. But I would not buy it regularly, and I wouldn't even commit to occasional unless something changes. Here's my reasoning: I owe it to myself to not dismiss a product purely on price without ever tasting it. One loaf at \u20b9149 is a bounded experiment. But repeat purchase? No. Not until I get properly tested for gluten sensitivity. If the test comes back positive, the math changes completely \u2014 \u20b9149 becomes a medical necessity and I stop resisting it. If it comes back negative, I'm back to \u20b945 bread with zero guilt. What Lo! Foods needs to prove to keep me as a repeat buyer is not just taste or quality \u2014 it's clinical relevance to my specific body. A discount to \u20b999-109 would help bridge the psychological gap, but even then, without a diagnosis, I'd stay occasional at best. The \u20b9104 premium needs to be justified by necessity, not aspiration.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread. My first instinct is the same as it always is \u2014 that's 3.3x the price of regular bread. The engineer in me immediately converts that to monthly cost. If I eat bread fo"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Once to try \u2014 and I mean truly once, with a specific purpose. Before I do even that, I am scheduling a visit to a gastroenterologist and asking for a proper celiac and gluten sensitivity test. If the results come back showing sensitivity or celiac, then Gluten Smart moves immediately into 'necessary spend' and I will find a way to budget it. The certification and dedicated facility would then justify the premium fully. If the test is negative, I stop entirely \u2014 no 'wellness' spending without evidence. The trial, if I do it, is to understand the product before the test, not instead of the test. For Lo! Foods to earn regular purchase from me: publish the certification details prominently so I can verify independently, partner with gastroenterologists for testing camps or subsidized diagnosis, and offer a smaller trial pack at \u20b960-70 so the information cost of trying is lower. The \u20b9104 premium is justified only by medical necessity \u2014 not by marketing, not by trends, not by someone else's feeling of wellbeing.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: \u20b9149 for bread? My first instinct is to put it back on the shelf. That's more than three times what I pay for regular bread. But then I pause \u2014 because I've learned not to trust my fi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 4,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy Gluten Smart once \u2014 a single trial purchase \u2014 but not as a regular consumer yet. This is a deliberate, controlled information-gathering move, not a commitment. I want to taste it, evaluate the quality, and use it alongside a scheduled appointment with my doctor to get properly tested for gluten sensitivity or celiac markers. If testing confirms I have genuine gluten sensitivity, I become a committed repeat buyer and the \u20b9149 price point is fully justified \u2014 the dedicated facility and certification make it the obvious choice over generic gluten-free alternatives. If testing shows I'm not sensitive to gluten, I'll return to regular bread and accept that Gluten Smart, excellent as it may be, is not my product. I will not buy it regularly without that confirmation. That's not stubbornness \u2014 that's the way I've always operated. Quality over price, but quality has to match actual need.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My instinct is to pause. Not because \u20b9149 bothers me \u2014 it doesn't, really \u2014 but because I'm buying a product designed to solve a medical problem I haven't confirmed I have. That's the"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will buy it once to try \u2014 not as a lifestyle commitment, but as a controlled evaluation. Here's my reasoning: I owe it to myself to taste-test and experience the product before I can even have an intelligent conversation with my doctor about whether I notice any difference. But I will not purchase it again until I have either a medical recommendation or clear, undeniable personal evidence of benefit. I will not subscribe, bulk-buy, or make it a household staple until that gate is passed. One loaf, \u20b9149, as an informed data-gathering exercise \u2014 that's how I make decisions. Not on trend, not on marketing, not on others' testimonials. On my own evidence, properly gathered.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My first instinct is skepticism mixed with genuine curiosity. \u20b9149 for bread feels like a lot \u2014 that's more than three times what I pay for regular bread. But I've been here before, s"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "Lo! Foods has launched 'Gluten Smart' \u2014 a range of gluten-free bread, biscuits, and snacks made with rice flour, tapioca, and millets. Price: Gluten Smart Bread \u20b9149 (vs regular wheat bread \u20b945). The listing says 'Certified gluten-free. Made in a dedicated gluten-free facility. For celiac disease and gluten sensitivity.' India has an estimated 6-8 million people with celiac disease \u2014 mostly undiagnosed. Gluten-free as a lifestyle choice (without diagnosis) is growing in urban India. Where do you stand \u2014 is this product genuinely for you, and does \u20b9149 feel appropriate given your situation?",
+          "observation_importance": 3,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A gastroenterologist in a health magazine article says: 'In India, most people buying gluten-free products don't have celiac disease or genuine gluten intolerance. It's a Western diet import. For the vast majority, it offers no health benefit and is simply more expensive. For the 1% who are actually celiac, it's essential.' You've been avoiding gluten \u2014 either because of a diagnosis, or because you believe it improves how you feel. How does this medical scepticism land with you, and does it affect your willingness to pay \u20b9149 for Gluten Smart bread?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Three people in your social circle share their Gluten Smart experience. Person 1 (diagnosed celiac): 'Finally a brand that takes cross-contamination seriously. The dedicated facility matters. Worth every rupee.' Person 2 (self-diagnosed gluten-sensitive): 'I feel lighter since going gluten-free, and Gluten Smart tastes better than other GF breads I've tried. Not cheap but I don't care.' Person 3 (general health-conscious, no diagnosis): 'I tried it for a month. Honestly couldn't feel any difference from regular bread. Went back to Protein Chef instead.' Which of these three experiences reflects your likely reality \u2014 and does it change how you think about the product's value?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Not at all \u2014 for now, with a clear condition for revisiting. I will not buy Gluten Smart regularly, occasionally, or even once to try. Not because \u20b9149 is too much \u2014 it isn't. Not because I distrust the brand's manufacturing rigor \u2014 I actually respect the dedicated facility and certification claims. But because buying a medically-positioned product without a medical reason is intellectually dishonest, and intellectual honesty is non-negotiable for me. What would make the \u20b9104 premium feel justified: a proper diagnosis or professional recommendation after symptoms I don't currently have. What Lo! Foods would need to prove to keep me as a repeat buyer \u2014 assuming I ever had reason to start \u2014 is consistent third-party batch testing visible to consumers, clear contamination thresholds published on packaging, and ideally a gastroenterologist or dietitian partnership that provides clinical guidance rather than just product endorsement. The product seems well-made. I am simply not its customer yet.",
+          "confidence": 95,
+          "reasoning": "1. GUT REACTION: My first instinct is to say not at all \u2014 and that instinct feels clean, not defensive. I've done the testing. I don't have a diagnosed gluten issue. So spending \u20b9149 on bread engineer"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 30
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

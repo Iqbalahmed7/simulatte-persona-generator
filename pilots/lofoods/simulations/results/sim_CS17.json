@@ -1,0 +1,918 @@
+{
+  "simulation_id": "sim-37904934",
+  "cohort_id": "merged-P1_P2_P4",
+  "rounds": 3,
+  "decision_scenario": "Lo! Foods wants a 12-month institutional supply contract. For your role \u2014 hospital dietitian, corporate wellness manager, or cafeteria operator \u2014 what would it take to sign? What's the single biggest barrier (credibility, price, shelf life, minimum order, supply reliability), and what concession or evidence from Lo! Foods would resolve it? Would you recommend Lo! Foods products to the patients or employees you serve?",
+  "results": [
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. What I will do is this: I'm committing to a structured 60-day pilot on my terms, with specific KPIs \u2014 patient compliance data, waste percentage, delivery reliability, any quality complaints. During those 60 days, I'm verifying the Kokilaben reference independently, checking the journal publication myself, and consulting my peer network. I'm also asking Lo! Foods for three things before I sign anything: one, documented contingency supply protocols for the 12-month period; two, clarity on shelf life and whether any packaging or logistics modifications are possible; three, written liability terms if a batch fails safety standards. If all of that checks out \u2014 and I mean checks out through my own verification, not their assurances \u2014 I would be prepared to sign a 12-month contract with quarterly performance review clauses built in. Would I recommend Lo! Foods products to my patients? Conditionally, yes \u2014 but only after the pilot validates the GI index claims in my specific patient population, not because a clinical study elsewhere showed promising results. My patients aren't statistics in someone else's trial.",
+          "confidence": 51,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest, not enthusiasm. I've been here before \u2014 a supplier presenting compelling documentation, a promising clinical reference, a cost advantage th"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract at this stage. What I will do is commit to a structured conditional path forward. My specific terms: (1) I extend the pilot to a full 90 days \u2014 60 days wasn't enough to capture seasonal supply variation or test the cold chain under stress. (2) I personally verify the Kokilaben reference by calling their lead dietitian directly \u2014 not a Lo! Foods-brokered introduction, a cold call. (3) I request Lo! Foods provide at least 2 additional institutional references from hospitals or large cafeteria operations. (4) I negotiate the minimum order down to 40 loaves and a contractual quality consistency clause with defined SLAs for delivery reliability and batch testing. (5) I want actual patient health outcome data \u2014 HbA1c trends, post-operative recovery metrics \u2014 not just satisfaction scores, over the extended pilot. If all five of these conditions are satisfied within the 90-day window, I would be prepared to sign a 6-month contract first, with a renewal option at 12 months contingent on performance. I would not recommend Lo! Foods products to patients or leadership until that conditional path is complete \u2014 I can't stake patient safety or institutional credibility on incomplete validation. But if the evidence holds up, I would recommend them confidently because the quality signals are genuinely there.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious optimism, but nowhere near ready to sign a 12-month contract. Everything I've seen so far \u2014 the Amazon reviews, the DiabeSmart patient satisfaction s"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. What I will do is make a conditional counter-proposal. The single biggest barrier is supply reliability \u2014 specifically, Lo! Foods has no proven institutional track record at scale, and a 12-month contract with a startup that has never managed hospital-volume fulfillment is an institutional risk I cannot justify. The concession that would resolve this: a structured 90-day pilot at reduced minimums (negotiated down from their standard MOQ to match my actual usage within 20%), with documented delivery performance, temperature compliance logs, and two referenceable institutional clients I can independently verify. If they hit 95%+ fulfillment reliability in that pilot with zero cold-chain failures, and if the price holds at the agreed institutional rate, I'll come back to the table for the 12-month conversation. Would I recommend Lo! Foods products to patients or employees? Conditionally yes \u2014 the DiabeSmart and Protein Chef formulations have credible nutritional backing and the clinical study is a genuine differentiator. But 'I'd recommend the product' and 'I'd sign a year-long supply contract' are two very different statements. I'd recommend the product if the pilot proves operational reliability. I'd recommend the contract only after that proof exists.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My instinct says: interesting, but not yet. A 12-month contract is a serious commitment, and Lo! Foods is still proving itself as an institutional supplier. The clinical data and cert"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would not sign a 12-month contract today. But I would move forward with a structured engagement that could lead to one. Here's exactly what I'd do: I'd accept the 60-day pilot at 30 patients/employees and treat it as a formal evaluation with defined success metrics \u2014 supply consistency (zero missed deliveries), patient compliance rates, clinical outcome markers, and waste percentage. I'd simultaneously request two things in writing: the institutional reference contact at Kokilaben Hospital so I can verify the pilot independently, and a draft contract with a clear force majeure and supply-failure exit clause built in. If the pilot data holds up, if my Kokilaben contact confirms the claims, and if the contract terms include reasonable exit protections, I would sign the 12-month agreement. I would recommend Lo! Foods products to the patients or employees I serve \u2014 but only after the pilot validates what the credentials are promising. I'm not putting patients into a protocol built on marketing materials, even good ones. On recommendations: the DiabeSmart clinical data and the nurse observations are the kind of evidence I'd actually present to a clinical committee. That's how I'd internally advocate for this.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious but genuine interest \u2014 and I notice I'm *not* running away from this the way I would have a year ago. The fact that they've come back with real crede"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will NOT sign the 12-month contract today, but I will engage seriously and conditionally. Here is my specific position: I will accept the 60-day free trial immediately \u2014 this is smart and I have nothing to lose. During those 60 days, I will demand: (1) verified contact details of at least 2-3 institutional clients, ideally Kokilaben and one other hospital, whom I can call directly \u2014 not email introductions, actual phone conversations; (2) full FSSAI and ISO 22000 documentation reviewed by my team; (3) a written supply reliability protocol \u2014 what happens if they miss an order, what are the compensation terms, what is their backup production capacity; (4) a unit economics breakdown showing me the true cost-per-serving at my specific consumption volumes, factoring in shelf life and delivery frequency. If after 60 days the trial confirms patient or employee outcomes, if the references check out, and if the supply chain evidence holds up \u2014 I will negotiate and likely sign. But the contract terms must include: quarterly performance review clauses with exit provisions if they miss supply SLAs more than twice, minimum order quantities negotiated to match my actual consumption, and price lock for the full 12 months. Would I recommend Lo! Foods to patients or employees I serve? Conditionally yes \u2014 the clinical evidence is real and the certifications are legitimate. But I would only make that recommendation after the trial confirms the outcomes in my own setting. I don't recommend things I haven't personally verified. That's a principle I learned the hard way.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My instinct says: interesting, but not yet. A 12-month institutional supply contract is a serious commitment. I've been down this road before \u2014 a vendor looks promising, the numbers s"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. But I am actively moving toward a conditional yes, contingent on specific verification steps I will personally execute. Here's what I'm doing: One \u2014 I'm calling Kokilaben's dietetics head directly, number sourced independently, not through Lo! Foods. Two \u2014 I'm requesting the full clinical study document and having our institution's medical research team review the methodology. Three \u2014 I'm requesting a site visit to their Pune facility \u2014 I want to see the HACCP systems, not just read about them. Four \u2014 I'm negotiating the contract itself: I want a 60-day probationary clause, a supply disruption compensation clause, and a quality-triggered exit provision. Five \u2014 I want regulatory documentation specifically confirming suitability for diabetic therapeutic nutrition, not just general food safety certification. If all five checks clear, I will recommend Lo! Foods products to the patients and employees I serve \u2014 with proper monitoring protocols in place. If even two of them come back with red flags, I walk. As for recommendation: conditional yes, pending verification. The evidence they've assembled is the right architecture. But architecture isn't a building. I need to walk through the rooms myself.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My immediate instinct is caution bordering on skepticism. A 12-month institutional supply contract is not a trial run \u2014 it's a commitment that ties patient outcomes to a single vendor"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month institutional supply contract at this stage. What I will do: I'll table a structured counter-proposal. Here are my terms \u2014 (1) A 3-month paid pilot at agreed volumes, with a negotiated per-unit price that reflects the institutional scale, not the consumer D2C rate. (2) During the pilot, they must provide: FSSAI certification, ISO 22000/HACCP documentation, at least two institutional references I can speak to directly, and independent nutritional audit results. (3) The 12-month contract, if we get there, must include a supply reliability clause with defined remedies \u2014 e.g., if they miss more than two consecutive delivery cycles, I have the right to exit without penalty. (4) Minimum order thresholds must be aligned to my actual consumption volumes \u2014 I will not absorb waste to meet their logistics convenience. On recommending Lo! Foods to patients or employees: not yet. Not until the pilot demonstrates consistent product quality and the nutritional claims are independently verified against the actual batches I'm receiving, not the batch they sent for certification. If the pilot holds up \u2014 consistent delivery, verified nutrition, no quality variance, and institutional references that check out \u2014 then yes, I would recommend them, and I'd be prepared to sign the 12-month contract. But that trust has to be earned, not assumed.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: My instinct is cautious interest, not enthusiasm. A 12-month institutional supply contract is a serious commitment \u2014 it's not a grocery run. The pricing structure is attractive on pap"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would conditionally agree to move toward a 12-month contract, but with specific non-negotiable terms before signature. Here's my position: I'll accept the price premium on DiabeSmart biscuits and core SKUs \u2014 the clinical and regulatory evidence justifies it. But I need three things in writing before I sign. One: A shelf life guarantee of minimum 4-5 days for bread products, or removal of bread from the institutional contract until their formulation supports it. Two: Flexible minimum order quantities starting at 40 units per SKU with a 6-month ramp-up clause before hitting full volume commitments. Three: A supply reliability SLA \u2014 guaranteed fulfillment within 48 hours of order with a penalty clause or credit mechanism for stockouts. If Lo! Foods can deliver these, I sign. If they're rigid on any of these three, I continue the 60-day pilot on biscuits only and revisit bread in Q2. As for recommending to patients \u2014 yes, conditionally and selectively. For diabetic and metabolic patients, the DiabeSmart biscuits with the peer-reviewed GI data are defensible clinically. I would document the recommendation in patient files citing the clinical study. I would not recommend the bread until shelf life and supply consistency are proven in our setting.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: My instinct says this has moved past 'promising startup' territory into 'credible institutional supplier' territory \u2014 but I'm not ready to sign a 12-month contract without resolving t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would not sign a 12-month contract today. But I would actively pursue one \u2014 conditionally. Here's my actual decision: I accept the 60-day free trial for 30 patients or employees, establish measurable baseline metrics before we start (blood glucose readings, patient satisfaction scores, staff compliance rates), and build a structured evaluation framework. During the trial, I personally call the Kokilaben dietetics contact and ask three specific questions: Did supply ever fail? Did quality vary batch to batch? Would you renew? I negotiate the minimum order down to 40 units with a path to 50 at month 3 if trial results justify it \u2014 if they won't flex on this, that tells me something about how they'll behave in year 2 of a contract. On price, I don't expect \u20b965 to become \u20b928, but I'd push for a volume commitment discount structure \u2014 if I commit to 12 months and guaranteed volume, I should get better than street price. If trial outcomes show measurable compliance improvement and the Kokilaben reference checks out, I would recommend Lo! Foods products to the patients or employees I serve \u2014 with full confidence in the clinical basis. If the trial shows weak results or the reference call reveals supply issues, I walk away with no sunk cost and no institutional damage. That's the only responsible path given my track record of getting burned by skipping verification steps.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not excitement, not dismissal. I've been here before. Someone pitches something that sounds good on paper, and the real test is whether it"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today, but I am not saying no permanently. Here is my counter-position to Lo! Foods: I want a structured pilot \u2014 60 to 90 days, no long-term commitment, with a reduced minimum order aligned to our actual usage, and a delivery frequency that respects the shelf life constraints. During that pilot, I need them to provide: verified FSSAI and ISO documentation I can cross-check, direct contact with at least two hospital dietetics departments who have used them institutionally, a signed liability and adverse event clause, and a clear supply continuity protocol. If the pilot delivers on patient outcomes and supply reliability, and if they're willing to negotiate pricing for volume commitment, I will come back to the 12-month conversation with confidence. Right now, recommending Lo! Foods to my patients requires that I trust the product first. I'm not there yet \u2014 but I'm closer than I was, and I'm willing to do the work to get there. That's not a no. That's a 'prove it to me properly, and I'll be your strongest advocate.'",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My stomach tightens immediately. A 12-month institutional supply contract is not a grocery run \u2014 this is a commitment that affects real patients, people who are already vulnerable. My"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract at this stage \u2014 but I will actively pursue a structured 60-90 day pilot with specific, pre-agreed outcome metrics. Here's exactly what I'm requesting from Lo! Foods before pilot launch: (1) Physical copies of FSSAI licence, ISO 22000 certificate, and HACCP certification for their Pune bakery \u2014 I will verify these independently through the issuing bodies. (2) Contact details for at least two institutional clients \u2014 a hospital and a corporate campus \u2014 that I source independently from public records or my network, not from their referral list. (3) A documented cold chain protocol with temperature logging that I can audit against actual deliveries during the pilot. (4) A contract clause specifying their liability and recall protocol in the event of a contamination event. (5) A 60-day pilot structure where I track patient or employee outcome data myself \u2014 glycemic markers, reported energy levels, medication compliance if applicable \u2014 so I'm generating the evidence, not receiving it from them. If the pilot produces measurable positive outcomes AND their compliance documentation holds up to my verification, I will recommend signing a 12-month contract to my administration \u2014 and I will personally advocate for the budget reallocation to cover the premium, with the outcome data as my justification. Would I recommend Lo! Foods products to patients or employees I serve? Conditionally yes, after the pilot. Not before. The products have genuine promise \u2014 the formulation philosophy, the fresh-ingredient integrity signalled by the short shelf life, the clinical positioning. But institutional recommendation carries my professional credibility, and I will not extend that without verified proof.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not excitement, not dismissal. This feels like the pharmacy aisle moment again, but amplified tenfold because I'm not buying for my family"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract at this stage. What I will do is propose a structured conditional pathway: a 60-90 day no-commitment pilot with realistic volume for my facility, during which I independently verify every claim \u2014 journal citations, hospital references, certification documentation, supply consistency. I'll calculate the actual spoilage cost and minimum order fit for my specific context. If the pilot delivers consistent quality, verifiable credentials check out, and the unit economics hold after calculating real waste and logistics, then I revisit the 12-month contract \u2014 but with clauses protecting me: price lock for the full term, supply failure penalties, and a volume flexibility window of \u00b120%. I would recommend Lo! Foods products to patients or employees only after the pilot validates outcomes, not based on marketing claims alone. My recommendation carries institutional weight, and I won't stake that on unverified promises. The biggest single barrier is institutional credibility \u2014 not price, not shelf life. If Lo! Foods can give me two direct references I can personally call at hospital or corporate wellness buyers who have been on contract for 6+ months, that moves the needle more than any discount.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not excitement, not dismissal. The pricing gap between retail and institutional is significant enough to make me pause and ask hard questi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today, but I will actively negotiate toward signing one \u2014 with specific conditions. Here's what I'd tell Lo! Foods: I'm genuinely interested. The product quality evidence is stronger than most startups can provide. But I need five things before I can commit institutionally. One: reduce minimum weekly order to 35 units or offer bi-weekly delivery cycles to match actual consumption and eliminate waste risk. Two: provide bulk institutional pricing that narrows the gap with established suppliers \u2014 I need to justify this to a finance committee with numbers, not just clinical outcomes. Three: include a 90-day performance review clause in the contract with defined exit terms if supply reliability or product consistency falls below agreed standards. Four: allow me to personally call Kokilaben's dietetics team to hear their unfiltered experience. Five: the 60-day trial must run before the 12-month clock starts. If Lo! Foods meets these terms, I sign. If they won't flex on minimum order quantities or won't allow an exit clause, I walk \u2014 because a 12-month contract with a startup, no exit, and structural waste built in is exactly the kind of risk my entire decision-making history has taught me to avoid. As for recommending products to patients: yes, conditionally and after the trial validates real-world performance in my setting. The clinical backing is there. I just need to see it replicate outside the pilot.",
+          "confidence": 59,
+          "reasoning": "1. GUT REACTION: My stomach tightens. Twelve months is a long commitment, and every time I've rushed into something that looked good on the surface \u2014 that meal kit, that budget subscription \u2014 I've pai"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract yet. What I will do is structured and deliberate: Step one, I directly contact Kokilaben's dietetics department to verify the reference and ask specific operational questions \u2014 not just 'did it work' but 'what broke, what surprised you, how did Lo! Foods respond when something went wrong.' Step two, I request a modified pilot \u2014 not just the 60-day free trial they offered, but a paid reduced-volume pilot at negotiated minimums closer to my actual weekly usage. If they won't flex on minimum order quantities, that tells me something important about how this partnership will operate under pressure. Step three, I get the journal study independently reviewed \u2014 I need to know if the methodology was sound and if the patient profile matches mine. Step four, I put together a cost-benefit case for administration that shows patient outcome improvement against full cost including any wastage. If all four of those steps come back positive, I will recommend Lo! Foods products to my patients and sign a contract \u2014 but probably a 6-month initial term with a renewal clause, not 12 months upfront. The evidence is credible enough to keep moving forward. It is not yet complete enough to commit.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My instinct is cautious optimism \u2014 not blind enthusiasm, not reflexive rejection. The patient outcomes I'm seeing with the DiabeSmart biscuits are real, and that matters enormously to"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. What I will do is move to a structured pre-commitment phase. I'm requesting a formal meeting with Lo! Foods' institutional team \u2014 not their sales lead, their operations and quality leadership. In that meeting I want: one, access to their full clinical dossier with methodology; two, direct introductions to institutional clients I can contact independently; three, their supply chain continuity plan in writing; four, a proposed contract structure that begins with a 90-day pilot at reduced MOQ, with performance benchmarks explicitly tied to the 12-month commitment decision; five, their HACCP audit reports and batch testing protocols. If they push back on any of this as unreasonable, that itself is diagnostic \u2014 a serious institutional supplier doesn't resist due diligence. If the 90-day pilot demonstrates consistent supply, batch quality, and operational manageability within my institution's logistics, I'm genuinely open to the 12-month commitment. On recommending to patients or employees: not yet. I won't put my professional credibility behind a product I haven't independently validated at scale. If the pilot data supports it, and I can see consistent outcomes documentation, I would recommend \u2014 cautiously and with appropriate clinical framing.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My stomach tightens immediately. A 12-month institutional contract is exactly the kind of commitment that got me burned before \u2014 long enough that if they underdeliver, I'm trapped. Th"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month institutional supply contract today. What I will do is propose a structured 60-day paid pilot \u2014 approximately 30 patients or employees, defined metrics on compliance, glycemic outcomes where measurable, nurse/staff feedback, and operational data on shelf life management. I'm going back to Lo! Foods with three specific asks: one, a 40-loaf minimum order for the pilot phase, not 50; two, their volume pricing curve so I can model unit economics at full contract scale; three, access to the full clinical study \u2014 not the summary, the methodology. If the pilot validates what the Kokilaben study suggests, and if Lo! Foods demonstrates supply reliability and flexibility on minimums, I will recommend their products to the patients I serve and I will sign a contract \u2014 probably with a 6-month initial term with renewal option rather than a full 12 months on the first engagement. The reason I'd recommend to patients: the clinical credibility is building. The reason I won't do it unconditionally yet: I haven't run my own verification. That's the tension I always live with \u2014 I'm drawn to delegating when trust is being built, but I won't delegate the verification itself.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My immediate instinct is: not yet, but closer than before. The credentials package and Kokilaben pilot data moved me from skeptical to genuinely interested. But a 12-month institution"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would not sign a standard 12-month contract as presented. What I would do is counter-propose a structured path to a 12-month commitment: a mandatory 60-day paid pilot at reduced minimum order (I'd negotiate 38-40 loaves/week), with formal performance metrics defined upfront \u2014 delivery reliability percentage, spoilage rate, and a patient compliance score tracked by our nursing team. After 60 days, if all three metrics are met, we convert to a 12-month contract with a performance exit clause at month 6 review. The single biggest barrier is supply reliability over time \u2014 not their current capability, but their proven ability to sustain it. The concession I need from Lo! Foods: a written SLA with delivery reliability guarantees and a spoilage credit policy, plus one direct reference contact from a hospital or corporate wellness account I can verify independently. On whether I'd recommend their products: conditionally yes. The clinical evidence for DiabeSmart is real enough that I'd recommend a trial for diabetic patients. But I'd frame it to our medical team as 'evidence-supported pilot, pending our own 60-day institutional validation' \u2014 not a blanket endorsement. That's honest, and it protects patients and my professional credibility.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My instinct is: this is interesting enough to take seriously, but 12 months is a long commitment for a brand I haven't fully stress-tested at institutional scale. The clinical evidenc"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract at this stage. What I will do is this: I propose a structured 90-day institutional pilot \u2014 longer than their offered 60 days because my data standards require more \u2014 covering a defined patient or employee cohort with pre-agreed outcome metrics: adherence rates, clinical markers where applicable, logistics reliability, and no safety incidents. During this period, I will commission independent third-party nutritional analysis of the products we're using. I will personally contact Kokilaben's dietetics department \u2014 not through Lo! Foods \u2014 to get direct, unfiltered feedback on their experience. At the conclusion of the pilot, if outcomes match claims and logistics hold, I will negotiate a 12-month contract with specific clauses: supply reliability guarantees with penalty provisions, fixed institutional pricing with volume-based review, shelf life and delivery schedule commitments, and an explicit exclusion of any co-branding or institutional endorsement arrangement. On patient and employee recommendation: I will not recommend institutionally until the pilot concludes with positive verified data. I may refer individual patients to explore retail options with their own judgment, but I will not stake my institutional credibility on products that have not yet been validated under my scrutiny.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: My instinct is cautious but not dismissive. Twelve months is a long commitment, and my entire career has taught me that institutional contracts are not retail relationships \u2014 they car"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. But I am not walking away. Here is exactly what I'm doing: I'm going back to Lo! Foods with a conditional counter-proposal. I want a 3-month trial period with full documentation \u2014 every delivery logged, every quality check recorded \u2014 before we discuss converting to a 12-month contract. During those 3 months, I want flexible minimum orders aligned to our actual consumption pattern, not their production schedule. I want the price locked in writing for the full potential 12-month term so I'm not baited into a trial and then hit with a price hike. I want SLA penalties \u2014 specific, measurable, contractual \u2014 for late deliveries or quality failures. And I need to independently verify the Kokilaben reference before I sign anything. If they meet these conditions and the 3-month trial holds up, I convert to 12 months. If not, I exit cleanly. As for recommending Lo! Foods products to patients or employees \u2014 yes, conditionally. The clinical evidence is credible enough to recommend on a trial basis, with monitoring. I would not make it a blanket institutional endorsement until the supply chain proves it can sustain quality over time. My recommendation would be framed as 'we're piloting this as a clinically promising option' rather than 'this is now our standard.' That's the honest, defensible position.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My instinct is cautious interest \u2014 not excitement, not rejection. A 12-month institutional contract is exactly the kind of commitment that makes me nervous because I've been burned be"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today \u2014 but I am genuinely interested and I will enter serious negotiations with Lo! Foods. Here's what I need before signing: One \u2014 a pilot extension or structured trial for the first 3 months within the 12-month agreement, with a performance review clause that allows exit if quality or supply reliability falls below agreed benchmarks. Two \u2014 minimum order quantities adjusted to my actual consumption plus a 15% buffer maximum \u2014 not a fixed 50 units when I use 35. Three \u2014 twice-weekly delivery option to manage the 3-day shelf life practically. Four \u2014 written SLA covering quality incident response time, batch recall protocol, and compensation terms. Five \u2014 at least two additional institutional references beyond Kokilaben, ideally a hospital of similar size to ours. Six \u2014 a negotiated price that reflects 12-month volume commitment \u2014 I should not be paying retail-adjacent pricing on an institutional contract. If Lo! Foods meets these conditions, I would sign. And yes \u2014 I would recommend their products to the patients and employees I serve, specifically for diabetic and post-operative dietary plans, because the clinical evidence is real and I've seen the compliance improvements myself. But I recommend them as a dietitian, with protocols in place \u2014 not as a leap of faith.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My first instinct is cautious optimism \u2014 but with my hand firmly on my wallet. The quality evidence is genuinely compelling. FSSAI, ISO 22000, Kokilaben Hospital reference, peer-revie"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. What I will do is present Lo! Foods with a conditional counter-proposal: a structured 6-month contract with a formal review clause at month 4, tied to three specific concessions. One \u2014 they reduce minimum order for Protein Chef bread to 35 loaves or offer a bi-weekly delivery schedule that solves the shelf-life math. Two \u2014 they provide a direct reference contact at Kokilaben's dietetics department, not a curated testimonial, so I can do my own due diligence. Three \u2014 they provide outcome-linked pricing transparency: a written commitment that the \u20b912 DiabeSmart institutional rate holds for the contract duration with a defined escalation cap. On recommendations to patients: yes, conditionally. DiabeSmart biscuits I would recommend now \u2014 the clinical study holds up, the outcomes I've seen in six weeks are real, and the price is defensible. Protein Chef bread I would continue recommending but only once the shelf-life and minimum order issues are resolved operationally. I'm not abandoning this relationship. I'm protecting it from the logistics problems that kill good intentions.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: My instinct is cautious interest, not excitement. Six weeks in, I've seen real patient impact with the DiabeSmart biscuits \u2014 doctors are noticing, patients are complying better. That'"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign the 12-month contract today. But I am actively moving toward a conditional yes, contingent on four things. First: I personally call the dietetics department at Kokilaben \u2014 not email, call \u2014 and ask specific questions about operational reliability, shelf life management, and patient response. Second: Lo! Foods provides written supply reliability terms \u2014 minimum fill rates, what happens during a stockout, whether they can provide buffer stock or a freezing protocol to manage the 3-day shelf life at institutional scale. Third: I build an internal cost-benefit case \u2014 real numbers, not estimates \u2014 comparing the \u20b937/loaf premium against the clinical cost of poor diabetic compliance: longer hospital stays, more complication management, re-admissions. If the math works, I bring it to finance with confidence. Fourth: We run a structured 60-day trial with Lo! Foods' support, with our medical team involved and measurable outcomes tracked \u2014 not just 'patients like it' but actual glucose readings, compliance metrics. If all four conditions are met, I would recommend Lo! Foods to patients and sign the contract. My single biggest barrier is supply reliability at institutional scale given the 3-day shelf life. The concession I need from Lo! Foods is a contractual supply reliability clause \u2014 guaranteed delivery windows, a defined response protocol for delays, and clarity on whether freezing is operationally feasible without compromising the nutritional profile they're selling. Give me that in writing, backed by Kokilaben's verification, and we have a serious conversation.",
+          "confidence": 65,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest \u2014 not excitement, not rejection. A 12-month institutional contract is not a consumer purchase. It's a commitment that touches vulnerable pat"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign the 12-month contract today. But I will commit to a structured, conditional pathway toward signing. Here's what I'm doing: Step one \u2014 I'm requesting the 60-day no-cost trial explicitly. This is my proof window. Step two \u2014 during that trial, I'm independently verifying the Kokilaben reference by calling their dietetics department directly, confirming the journal publication, and auditing the FSSAI and ISO 22000 credentials. Step three \u2014 I'm negotiating three specific concessions before any contract discussion: minimum order reduced from 50 to 35 units to match my actual need, institutional pricing tier locked in writing for the contract duration with a price escalation cap, and a supply reliability clause with defined penalties for missed deliveries. Step four \u2014 I'm reaching out to my peer network across hospital dietetics groups to find anyone who has worked with Lo! Foods institutionally. That peer validation is not optional for me. If after 60 days the supply is consistent, the credentials verify cleanly, I have at least one peer reference, and Lo! Foods agrees to the three concessions \u2014 I sign. Would I recommend Lo! Foods products to patients? Conditionally yes \u2014 but only after the trial validates clinical outcomes in my own population, not solely on the basis of their provided data. I'm not willing to recommend products I haven't personally stress-tested in context.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: My instinct is cautious interest, not excitement. A 12-month institutional contract is serious \u2014 this isn't buying a laptop on a whim. When I see the Lo! Foods package, I feel that fa"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Nisha Agarwal",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today \u2014 but I will move forward with a structured conditional pathway. Here's what I'm proposing to Lo! Foods: A 60-day paid pilot at negotiated pilot pricing, with full transparency on batch testing data. During that period, I want three things from them: one institutional reference I can actually call, a revised minimum order quantity of 40 units instead of 50, and shelf life documentation that tells me whether batch-and-freeze is feasible within FSSAI guidelines. If the pilot data \u2014 my own data, not their marketing \u2014 shows less than 10% waste, measurable patient dietary compliance improvement, and zero supply disruptions, I will bring a 12-month contract recommendation to my procurement committee. On patient recommendation: yes, conditionally. I'm comfortable recommending Lo! Foods DiabeSmart products to diabetic patients based on the clinical evidence I've reviewed \u2014 but I'm being transparent with patients that this is an emerging product with promising but early-stage institutional validation. I will not oversell it. Would I recommend them to colleagues? Yes \u2014 with the caveat that they conduct their own pilot. That's my standard for any vendor, not a knock on Lo! Foods specifically.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My instinct is cautious optimism \u2014 and I've learned to trust that particular combination. I'm not dismissing Lo! Foods; the clinical data from Kokilaben, the FSSAI and ISO 22000 certi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. But I am willing to move toward one with specific conditions. Here's my counter-proposal to Lo! Foods: One, provide two verifiable institutional references \u2014 not Kokilaben's marketing contact, but the actual procurement or dietitian contact I can call independently. Two, share the current FSSAI certificate number so I can verify it directly with the FSSAI portal \u2014 takes me five minutes, and if they resist, I walk away. Three, propose a 90-day pilot purchase order, not a trial \u2014 meaning I actually pay, which keeps this a real business relationship, but with no long-term lock-in. Four, the 12-month contract must include a supply reliability SLA: if they miss delivery by more than 48 hours twice in any rolling 90-day window, I can exit with 30 days notice. Five, pricing locked for the full 12 months with the exact per-unit figures in writing, no ambiguity. If Lo! Foods meets these five conditions, I will recommend their products to patients \u2014 specifically their DiabeSmart biscuits for diabetic nutrition protocols \u2014 and I will sign. I'm not playing games; I genuinely want this to work. But I've learned that my job is to protect my patients first, my institution second, and my professional standing third. Aspiring to better is not the same as being reckless.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My stomach tightens the moment someone says '12-month institutional contract' before I've had time to properly vet them. Twelve months is not a pilot \u2014 it's a commitment that locks my"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Aakash Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. But I will not walk away either. Here is my counter-position to Lo! Foods: I want a structured 60-90 day paid pilot \u2014 not free, because free trials hide real operational costs \u2014 at a minimum order I can actually use (35 loaves or a flexible weekly delivery schedule). During that pilot, I will track compliance metrics systematically and present the data to my administration. My single biggest barrier is credibility in an institutional healthcare context. The concession that would resolve it: a direct conversation with the Kokilaben dietetics team, the full clinical study with methodology, and a revised minimum order. If the pilot data shows even one prevented complication per month attributable to improved compliance, I will build the full business case for the 12-month contract and advocate for it to administration. Would I recommend Lo! Foods products to patients right now? Conditionally \u2014 for patients where compliance is the documented gap and clinical evidence supports dietary intervention. Not as a blanket recommendation. I don't make blanket recommendations. I make evidence-based ones.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest, not enthusiasm. Lo! Foods is asking me to commit to a 12-month institutional contract \u2014 that's not a pilot, that's a relationship. And rela"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract today. But I am willing to negotiate a conditional pilot-to-contract pathway. Here's what I'd put on the table: a structured 90-day institutional pilot with a defined patient or employee cohort \u2014 not a free trial, a properly documented trial with measurable outcomes. If by day 90, supply has been 100% reliable, batch quality is consistent with QC documentation I can audit, and patient/employee uptake data shows meaningful compliance improvement, then I will commit to a 12-month contract \u2014 but with a performance exit clause at month 3 and month 6. My single biggest barrier is supply reliability and institutional credibility \u2014 not price. The price is actually workable if the rest holds. The concession or evidence I need from Lo! Foods: independent verification of the Kokilaben pilot results, three additional institutional references I can call directly, their cold chain SOP in writing, and their QC failure protocol with documented response times. On recommending to patients or employees: conditionally yes \u2014 after the pilot proves taste acceptability and nutritional consistency. Not before. I am not a marketing vehicle for their institutional ambitions.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My stomach tightens at the phrase '12-month institutional supply contract.' That's a long commitment. My instinct \u2014 honed from the Pune flat crisis, from Aryan's hospital bill, from 1"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract under current terms, but I am absolutely willing to move forward with a structured path toward one. Here's what I'm proposing to Lo! Foods: First, complete the 60-day pilot they've already offered, with our own patient outcomes tracked internally. Second, I need them to address three specific concessions \u2014 lower minimum order quantity to match our actual usage (35 units or close to it), improved delivery frequency to manage the 3-day shelf life without waste, and pricing transparency that shows me how unit costs scale with volume and contract tenure. Third, I need independent verification \u2014 I'm calling Kokilaben's dietetics team myself, and I want to see the actual published study, not a summary. If Lo! Foods can demonstrate supply reliability through the pilot, provide contractual SLAs with penalties for non-delivery, and bring the operational math to a place where I can defend it to the procurement committee, I would recommend their products to patients \u2014 specifically diabetic patients for whom glycemic control is clinically significant \u2014 and I would advocate for the full contract. The patient outcomes I've seen are real. The credibility markers are solid. But I've been burned by false economy before, and I've also learned that good intentions without operational soundness is just expensive disappointment. I need both.",
+          "confidence": 59,
+          "reasoning": "1. GUT REACTION: My immediate reaction is cautious interest with real hesitation. A 12-month institutional contract is not something I sign lightly \u2014 that's a commitment that goes on the spreadsheet i"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would engage Lo! Foods with a conditional framework \u2014 not a flat refusal, not an immediate sign-off. Here's my position: I will consider a 12-month institutional contract, but only after a structured 90-day paid trial at negotiated terms. My single biggest barrier is supply reliability combined with MOQ inflexibility \u2014 these are operationally non-negotiable. The concession I need is: first, MOQ adjusted to within 10-15% of my documented actual usage, with flexibility for seasonal demand variation. Second, verified cold chain performance data from existing institutional clients \u2014 not testimonials, actual delivery logs. Third, a written SLA with penalty clauses for missed deliveries or quality failures. Fourth, independent verification that the Journal of Clinical Nutrition India study was not Lo! Foods funded research. If they meet these terms, I would recommend Lo! Foods products to the patients and employees I serve \u2014 but only for specific categories where the clinical evidence is strongest (the diabetic-friendly range), and only after internal nutritional review validates their claims. I would not do a blanket endorsement. The co-branding offer stays off the table until they prove themselves through consistent institutional performance over at least two quarters. I want them to earn my name, not borrow it.",
+          "confidence": 57,
+          "reasoning": "1. GUT REACTION: My immediate reaction is cautious interest \u2014 not enthusiasm, not rejection. I've been here before. That inverter looked good on paper too. But unlike the inverter situation, Lo! Foods"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "A Lo! Foods sales representative visits your institution \u2014 a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (\u20b912/unit in bulk vs \u20b9180 retail), Protein Chef bread for post-operative nutrition protocols (\u20b965/loaf institutional vs \u20b999 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods \u2014 a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment \u2014 is this a credible institutional supplier?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost \u2014 free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients \u2014 nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (\u20b965/loaf) is higher than the generic whole wheat bread you currently use (\u20b928), and (3) Lo! Foods' minimum order is 50 loaves/week \u2014 your usage is ~35. How do you resolve these operational friction points \u2014 do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will not sign a 12-month contract as currently structured. What I will do: enter a structured conditional negotiation. My single biggest barrier is the operational mismatch \u2014 minimum order of 50 loaves against our usage of 35, combined with a 3-day shelf life. This creates unavoidable, recurring waste that makes the economics unworkable regardless of product quality. The concession that would resolve this: either a reduced minimum order of 35 loaves calibrated to our actual usage, or a waste buyback policy that credits us for spoilage within the shelf life window, or permission to pool orders with an adjacent ward to hit the 50-loaf threshold without absorbing the waste myself. Additionally, I require: full clinical study paper access for my own methodology review, documented outcome metrics from the Kokilaben pilot (not just that it happened), and a performance exit clause in the contract for supply disruptions. If Lo! Foods can meet these conditions, I would recommend their products to diabetic and metabolic-risk patients in our care \u2014 provisionally, with monitoring, and with a formal 90-day internal review checkpoint built into the 12-month term. I will not recommend them broadly until I've seen our own institutional data.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: My immediate instinct is cautious interest, not excitement. Lo! Foods has done more homework than most vendors who walk through my door \u2014 the peer-reviewed journal reference, the Koki"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 30
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS8",
+  "title": "Subscription Model Viability: Format, Frequency, and Churn Prevention",
+  "cohorts": ["C1", "C5", "C15"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "Lo! Foods has launched four subscription options. Option A: Daily fresh keto meal delivery via Swiggy (5 days/week, ₹2,500/month — saves 15% vs ordering individually). Option B: Weekly Protein Chef bread + snack kit delivered to your door (4 items/week curated by a nutritionist, ₹1,500/month). Option C: Monthly 'Lo! Essentials' box — 8 packaged products (bread, cookies, biscuits, protein powder) at ₹999/month, 20% off MRP. Option D: Flexible subscription — choose your own products and frequency, minimum ₹500/month, 12% off. Which format feels most aligned with how you actually eat and shop?",
+    "You've been on the Lo! Foods weekly bread + snack kit subscription for 6 weeks. Week 1-3 were great — you tried new products and liked the routine. Week 4 you went out of town for 5 days and the delivery piled up. Week 5 you paused the subscription (1-week pause allowed). Week 6 you're back but wondering if you really need this level of commitment — your regular Blinkit order already covers most of this. The cancellation button is right there. What happens — do you cancel, pause again, or stay subscribed?",
+    "Lo! Foods sends a retention intervention at the 8-week mark: a personalised message — 'Hi [Name], you've saved ₹340 with your subscription so far. Your most-reordered item: Protein Chef bread. We've added a new product to next week's kit based on your order history — try it free.' They also offer a 'pause anytime, skip any week' guarantee prominently. Does this intervention change your likelihood of staying subscribed for the next 3 months?"
+  ],
+  "decision_scenario": "Lo! Foods wants you on a subscription. Given your actual eating and shopping behaviour — how often you cook, how often you order in, how predictable your weekly routine is — which subscription format (if any) would you genuinely maintain for 3+ months? What's the single biggest reason health food subscriptions fail for people like you, and what would Lo! Foods need to do differently?"
+}

@@ -1971,24 +1971,9 @@ def sample_demographic_anchor(
                     description=(_pol_registry.get_description("USA", political_lean) if is_us_general
                                  else _pol_registry.get_description("India", political_lean)),
                 ),
-                political_era=_US_POLITICAL_ERA if is_us_general else None,
+                political_era=_US_POLITICAL_ERA if is_us_general else _INDIA_POLITICAL_ERA,
                 religious_salience=religious_salience,
             )
-        )
-
-        worldview = WorldviewAnchor(
-            institutional_trust=jitter(inst_trust),
-            social_change_pace=jitter(change_pace),
-            collectivism_score=jitter(collectivism),
-            economic_security_priority=jitter(econ_security),
-            political_profile=PoliticalProfile(
-                country="India",
-                archetype=political_lean,
-                description=_pol_registry.get_description("India", political_lean),
-            ),
-            political_era=_INDIA_POLITICAL_ERA,
-            religious_salience=religious_salience,
-        )
 
     elif is_europe_general and political_lean is not None:
         # Europe Benchmark v2: country-specific WorldviewAnchor.

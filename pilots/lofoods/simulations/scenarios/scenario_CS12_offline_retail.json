@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS12",
+  "title": "Offline Retail Entry: Which Shelf Position Preserves Premium Positioning?",
+  "cohorts": ["C1", "C3", "C4", "C13"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at ₹99 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel — does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+    "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle — directly next to Britannia (₹45), Harvest Gold (₹52), and English Oven (₹75). It's at eye level, but there's no 'protein bread' category signage — it just sits among regular breads with its ₹99 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand — and would you pick it up here?",
+    "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section — a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?"
+  ],
+  "decision_scenario": "Lo! Foods is choosing where to place Protein Chef bread in modern trade retail. Option A: health foods aisle alongside functional food brands. Option B: bread aisle next to mainstream breads. Option C: dedicated branded end-cap display. Which placement makes you most likely to pick up and buy Protein Chef — and which placement would you find it in 6 months later and still consider it a premium brand worth the price?"
+}

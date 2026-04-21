@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS18",
+  "title": "Customer Retention: Breaking the 90-Day Health Kick Decay Curve",
+  "cohorts": ["C1", "C3", "C14"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You tried Protein Chef bread for the first time 3 weeks ago — you bought it on a health kick after reading an article about protein intake. You used it for 10 days. Then you ran out, your regular bread was already at home, and you didn't reorder. It's now been 12 days since your last purchase. You're on Blinkit adding groceries. Protein Chef appears in your 'Previously Ordered' section at ₹99 next to Britannia at ₹45. Your health motivation is still there but slightly lower than 3 weeks ago. What do you do — reorder Protein Chef, or default to Britannia?",
+    "Lo! Foods sends you three different re-engagement messages 2 weeks after your lapse. Message A: '₹20 off your next Protein Chef order — valid 48 hours only.' Message B: 'You've been making great choices. Here's a 7-day high-protein meal plan using Protein Chef bread — your body will thank you.' Message C: '1,240 people in Mumbai reordered Protein Chef this week. Join them — same great bread, same results.' Which message, if any, brings you back to purchase — and which feels manipulative or irrelevant to you?",
+    "It's now 90 days since your first Protein Chef purchase. You've bought it 3 more times — but never consistently week-over-week. Lo! Foods invites you to join their 'Protein Tribe' WhatsApp community (2,400 members, daily recipe ideas, weekly challenges, occasional brand offers). A nutritionist moderates the group and answers questions. Two people from your office are already members. Do you join — and would being part of this community change your purchase frequency from occasional to regular?"
+  ],
+  "decision_scenario": "Lo! Foods has ₹200 per customer to spend on retention interventions for first-time buyers. Looking at your own buying psychology — how you form habits, what makes health products stick vs fade, how you respond to discounts vs content vs community — which retention investment would make you a genuinely loyal Lo! Foods buyer at 6 months? And what's the honest reason most health food first-timers like you don't come back?"
+}

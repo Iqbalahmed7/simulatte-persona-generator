@@ -1,0 +1,1218 @@
+{
+  "simulation_id": "sim-3b40ba62",
+  "cohort_id": "merged-C1_C3_C4_C13",
+  "rounds": 3,
+  "decision_scenario": "Lo! Foods is choosing where to place Protein Chef bread in modern trade retail. Option A: health foods aisle alongside functional food brands. Option B: bread aisle next to mainstream breads. Option C: dedicated branded end-cap display. Which placement makes you most likely to pick up and buy Protein Chef \u2014 and which placement would you find it in 6 months later and still consider it a premium brand worth the price?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 for both picking it up today AND maintaining premium brand perception in six months. Here's my reasoning: the end-cap is the only placement that allows Lo! Foods to control the complete value narrative. In the bread aisle, the brand gets defined by what it's next to \u2014 and it loses. In the health foods aisle, the brand gets defined by what it's next to \u2014 and it struggles. On its own end-cap, with the right visual communication, comparison data, and perhaps sampling, the brand defines itself. That's what I need. I need Lo! Foods to make the case to me directly. And six months from now, I'll still see it as premium because it's never been reduced to 'that expensive bread next to Britannia' \u2014 it has maintained its own identity and territory. Premium brand perception is about sustained distinctiveness, not just initial presentation. The end-cap protects that.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 pulls me in immediately. Something about a dedicated branded space signals to me that Lo! Foods isn't just another product hoping I'll notice it. It's"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 is where I'm most likely to actually pick up Protein Chef and buy it. And critically, it's also where I'd still consider it premium six months later, provided the display continues to do the educational work: price per gram of protein on the chart, the tasting station stays active occasionally, and the QR code links to real usage ideas I can share in my WhatsApp group. Here's why I can live with that \u20b999: the end-cap tells a story. It says Protein Chef knows it's different and is willing to explain why. That's what I needed in the bread aisle and didn't get. That's what got lost in the health foods aisle among five indistinguishable competitors. The end-cap gives me permission to spend more \u2014 not because it's flashy, but because it's honest about what I'm paying for. Six months from now, if that display has done its job, I'll have recommended it to at least two or three women in my group, which means I'm emotionally invested in it being a good brand. That loyalty is hard to break once it's built on real understanding.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 catches my attention first, instinctively. There's something about a dedicated space that signals the brand has something to say, something to prove. "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For immediate purchase: Option C \u2014 the dedicated end-cap display. It's the only placement that respects my need to understand what I'm paying for. The QR code, the comparison chart, the tasting \u2014 these are not gimmicks to me, they are trust signals. They say: 'We have nothing to hide. Here are the facts.' That's the language I respond to. I would pick it up, scan the QR code, verify the protein numbers, taste the sample, and if the math holds up \u2014 I'd buy it. For long-term brand equity \u2014 which placement would I still consider premium in 6 months? Still Option C, but only if Lo! Foods keeps the display fresh and informative. If the end-cap turns stale \u2014 same signage, no updates, no new claims \u2014 I'd start wondering if the brand is coasting. The health foods aisle is the second-best option for sustained premiumness because the peer context does the heavy lifting over time. The bread aisle would destroy the brand's premium perception for me within weeks. Once you sit next to Britannia with no explanation, you're just expensive bread.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: The end-cap display. That's what stops me in my tracks. When I walk past a well-designed end-cap with a comparison chart and a tasting station, something in me says \u2014 'this brand is t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For initial purchase: Option C, the dedicated end-cap display. This is the only placement that gives me the story I need before committing money. The comparison chart, the tasting opportunity, the QR code to nutritional information \u2014 these are not theater, they are transparency. They let me make an informed decision rather than an impulsive one, and I only spend confidently when I feel informed. For 6-month sustained premium perception: Also Option C, or Option A \u2014 the health foods aisle \u2014 if the brand has built enough credibility by then through consistent quality I have experienced myself. Option B, the bread aisle, will never sustain premium perception for me. Sitting silently next to cheaper breads without any value communication, it will always look overpriced rather than worth the price. A brand that does not explain itself loses my trust. Lo! Foods must keep telling me why \u2014 not just once, but every time I see that product.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: The end-cap display. That is what stops me. Not because it is fancy \u2014 I have lived too much life to be fooled by theater \u2014 but because it is the only placement that actually speaks to"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would pick it up at the end-cap display \u2014 not buy immediately, but pick it up, read the chart, scan the QR code if my phone cooperates. In six months, I would still consider it a premium brand worth the price IF \u2014 and this is critical \u2014 the brand has held that end-cap placement and kept the information honest and visible. The end-cap works because it justifies the price rather than hiding it next to cheaper alternatives or burying it in a section for aspirational shoppers. In the health foods aisle, Protein Chef loses me entirely within six months because I feel it is not for me. In the bread aisle, I lose respect for the brand because the price looks like an error. The end-cap, if maintained well, tells me this brand knows what it is selling and is not embarrassed to explain it. That is the only placement where I might, eventually, become a loyal buyer \u2014 especially if my family notices a difference.",
+          "confidence": 53,
+          "reasoning": "1. GUT REACTION: The end-cap display. That is what catches my attention first \u2014 not because it feels fancy, but because it has information. I see that comparison chart, the protein numbers laid out cl"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "For immediate purchase \u2014 Option C, the end-cap display. It gives me the information, the validation, and the trial opportunity I need to cross my price sensitivity threshold. The comparison chart does the rational justification work. The tasting station removes the risk of buyer's remorse. That's a rare combination that can actually move me. For long-term premium brand perception \u2014 also Option C, but only if it's executed consistently and honestly. If Lo! Foods keeps that end-cap updated, keeps the comparison data real, and the product delivers on its protein promise, I'll start to trust it as a brand. Six months later, if I see it on the end-cap again, I'll feel reassured \u2014 like the brand is invested. If it migrates to the bread aisle by then, I'll assume they couldn't sustain the premium and I'll stop seeing it as worth the price. The health foods aisle is my second choice for sustained premium perception, but not for the first purchase.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: Honestly, the end-cap display. That's where my eye goes first and where I'd actually stop walking. It's not because I'm dazzled by fancy branding \u2014 it's because it gives me something "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For immediate purchase likelihood: Option A \u2014 the health foods aisle \u2014 wins. The functional food context answers my first question ('why is this different?') before I even pick it up. The peer brands give me comparison anchors. The \u20b999 price reads as reasonable rather than inflated. I can gather enough information standing there to feel in control of my decision rather than manipulated into it. For sustained premium perception at 6 months: Also Option A. The end-cap is a temporary promotional mechanism \u2014 brands rotate, positions get sold to the next contender. The health aisle is a permanent category statement. If Protein Chef is still there in 6 months, surrounded by Yoga Bar and True Elements, that tells me the brand has earned its position. That durability reinforces premium perception far more reliably than a branded display that might be gone by quarter-end. Option C is my second choice \u2014 with heavy investment in information communication on the display, it could work. But it requires Lo! Foods to do something difficult: convey expert-validated, data-rich brand story in a small amount of retail real estate, without it looking like marketing theater. That's hard to execute. Option B I would actively avoid recommending \u2014 based on my own memory of seeing that shopper put the product back, and knowing I would do the same.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: My immediate instinct says Option C \u2014 the dedicated end-cap display. It signals that the brand has earned retail confidence and has something distinct to say. But I'm also immediately"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap display \u2014 for both the initial purchase decision AND the 6-month assessment. Here is my reasoning: First, for trial, the end-cap is the only placement that can deliver the information density I need: nutritional comparison, brand story, credentials, perhaps a QR code I can verify independently. I would pick it up there, scan the code, examine the nutritional panel carefully, and if the data holds up, I would buy. Second, for sustained premium perception at 6 months, the end-cap is the only placement that maintains brand control. Option A risks being commoditized by association with competitors. Option B actively destroys premium perception \u2014 sitting next to Britannia at double the price, with no differentiation story, erodes the premium signal every single day. The end-cap, refreshed with seasonal messaging or recipe content, can sustain the premium narrative. My one significant caveat: the end-cap must be executed with discipline \u2014 clean, data-rich, not overselling. If it feels like a carnival stall, I'll trust it less than the health foods aisle. But done well, it's the only option that respects my need for information and the brand's need for identity control.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: The end-cap. Option C \u2014 the dedicated branded end-cap display \u2014 is the one that makes me pause and actually engage. Not because it's flashy, but because it signals that someone made a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 both today and six months from now. Here's why it holds for the long term too: a brand that earns shelf space through a controlled, data-forward presentation builds a reputation it can defend. Six months later, if the display is still running the comparison chart and QR code, it signals operational seriousness. It means Lo! Foods isn't just launching \u2014 they're committed to the positioning. That's brand loyalty I can grow into. Option A risks becoming commodity-adjacent. Option B guarantees it. Option C is the only placement where Protein Chef can still be premium in half a year because it never stopped making its case. I'd buy it there today, and I'd return to that end-cap in six months specifically because the brand proved it knew its own value.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: Option C \u2014 the dedicated branded end-cap display \u2014 pulls me in immediately. My instinct goes straight there. That memory of the end-cap with the comparison chart, the QR code, the tas"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap \u2014 for both the initial purchase and as the placement that sustains premium perception at six months. Here's my reasoning: I would pick it up today because it is the only placement that offers me the information infrastructure I need to make a justified decision. The comparison chart, QR code, and tasting opportunity are not sufficient on their own, but they're directionally correct \u2014 they signal that Lo! Foods is willing to show their work. I'll use the QR code, I'll flip the pack, I'll compare the chart. If the data holds, I buy. At six months, I would still consider it premium *because* the end-cap creates a repeatable context for the brand. The health foods aisle would erode that perception over time \u2014 the price dissonance doesn't resolve, it compounds. The bread aisle would actively destroy the premium positioning \u2014 familiarity without differentiation just makes it look expensive. The end-cap maintains the brand's narrative ownership. My one firm condition: if at six months the comparison chart has disappeared, the QR code leads only to recipes, and the tasting is gone \u2014 I'd start questioning whether the premium is still justified. The display needs to keep earning my trust, not just establish it once.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: The end-cap. Immediately. When I walk past that dedicated branded display with the comparison chart and QR code, something clicks \u2014 not because I'm being seduced by shelf theater, but"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 is where I'd pick it up and where I'd still consider it premium six months later. Here's the distinction I care about: placement signals a brand's confidence in its own value proposition. A brand that invests in an end-cap display with transparent nutritional comparison and sampling is a brand that isn't hiding anything. That's the trust signal I respond to. I'd pick it up because I could taste it, verify the nutrition via the QR code, and understand the price differential before committing. I'd still consider it premium six months later because the display itself creates a category frame \u2014 Protein Chef isn't competing with Britannia, it's in its own lane, and Option C is the only placement that establishes that lane clearly. Options A and B both put it in comparison contexts that hurt it. The end-cap is where I decide and where I stay loyal.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: The end-cap display. That's where I'd stop. Not because it's flashy \u2014 I'm not drawn to spectacle \u2014 but because it's doing something the other two placements refuse to do: it's making "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 is where I'd most likely pick it up AND still consider it premium in six months. Here's my reasoning: Option B is a disaster for this brand with my mindset; the naked price comparison to cheaper breads kills any willingness to engage. Option A makes it invisible, just another functional food I'll walk past. But Option C gives the brand a controlled environment to justify itself. If that display includes a real nutritional comparison (especially price-per-gram-protein), a sample or trial offer, and visible expert credentialing \u2014 I will stop, I will scan that QR code, and I might try it. And if the product actually delivers \u2014 if I feel the difference in satiety, if Arjun eats it well, if my health-conscious friends confirm they use it \u2014 I will still see it as premium in six months. Premium isn't about where it's stocked long-term; it's about whether the product earns its price in my lived experience. But the end-cap is the only placement that gives it a real shot at getting into my home in the first place.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 catches my eye first and feels different from just stumbling upon it in an aisle. There's something about a dedicated display that signals 'this brand"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 is where I most likely pick it up and buy it, and where it stays premium in my mind six months later. Here's why, in practical terms: the display does the work I need the brand to do. It answers 'why twice the price?' without me having to ask. The tasting element is what clinches it \u2014 I don't invest in premium products on faith alone, I invest on evidence. That's true whether I'm choosing a daycare or a loaf of bread. The end-cap also signals that Lo! Foods is serious, invested, not just slapping a product on a shelf and hoping. That earns my loyalty, and loyalty is what keeps me buying at \u20b999 in month six when the novelty is gone. The bread aisle is a brand killer for Protein Chef \u2014 I've already lived that moment. The health aisle is just confusion. The end-cap is the only placement that respects my intelligence and my budget reality at the same time.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: The end-cap. Without even thinking too hard, it's the end-cap. There's something about a display that feels curated and intentional \u2014 like someone at the brand cared enough to explain"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated end-cap display \u2014 is where I would pick it up AND where I would still consider it a premium brand worth the price six months later. Here is my reasoning: The end-cap does the work that my budget requires the brand to do. It justifies the price before I even have to ask the question. The comparison chart, the tasting, the 'Protein Corner' branding \u2014 these tell me this is not a random expensive item, this is a deliberate choice by a brand that respects my need to make informed decisions. Six months later, if that end-cap is still there \u2014 organized, maintained, not looking tired and abandoned \u2014 it signals the brand has staying power. Premium is not just price, it is consistency and investment. The health aisle would lose me to confusion. The bread aisle would lose me to Britannia every single time. Only the end-cap earns my \u20b999 and my loyalty.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: The end-cap display. Immediately, without thinking too hard \u2014 that organized 'Protein Corner' with the comparison chart and the tasting \u2014 that's the one that made me pause and actuall"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the end-cap display \u2014 makes me most likely to pick it up initially, because the comparison chart and QR code give me the evidence I need to justify the cost. I'll scan that QR code, I'll look at the protein numbers myself, and if the math works out \u2014 if I'm truly getting more nutrition per rupee than I thought \u2014 I'll buy it once to test it. For six months later, Option A \u2014 the health foods aisle \u2014 is actually where I'd want to find it to still consider it premium. Here's why: after the initial discovery at the end-cap, if I become a regular buyer, I want to find it in a dedicated health space where it belongs with functional food brands, not back in the bread aisle looking confused about what it is. The health aisle placement says 'we know what we are.' But it needs to earn that aisle placement through clear differentiation \u2014 better labeling, certifications, maybe even a small sign explaining why it's different from its neighbors. The end-cap brings me in. The health aisle keeps my respect.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: The end-cap display catches my eye first \u2014 there's something about it that feels more intentional, like someone thought about what I need to know before I buy. But immediately after t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 is where I'm most likely to pick it up, and it's the only placement where I'd still consider it premium in six months. Here's my reasoning: the end-cap creates a self-contained narrative. It doesn't need to compete with Yoga Bar's brand equity or explain itself against Britannia's price point. It stands alone, which ironically is what allows it to justify the premium. The QR code and comparison data satisfy my need to run the numbers. If the community validation follows \u2014 and it will, if the product is genuinely good \u2014 then six months later I'm still seeing this as a premium SKU rather than a confused shelf-filler. Option A risks brand dilution by association with established players who have deeper community roots. Option B is a slow death \u2014 the premium positioning erodes every time a shopper compares it to a \u20b945 loaf and puts it back. The end-cap is the only placement that gives this product a fighting chance to build its own story instead of borrowing \u2014 or worse, losing \u2014 someone else's.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 immediately feels right. Not because it's flashy, but because it actually does the work of communicating why this product exists at a premium price po"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-006",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 for both immediate purchase and long-term premium perception. For the first purchase: the tasting station removes my biggest barrier, which is risk of paying premium price for ordinary quality. The protein comparison data lets me do my own analysis rather than trusting marketing claims blindly. For 6 months later: this is actually the more important question, and here's my honest answer. The end-cap needs to stay consistent in messaging and quality delivery. If the bread I take home matches what I tasted at the display, and if even one or two people I trust confirm they've tried it, then yes \u2014 Protein Chef maintains premium status in my mind. The end-cap created the first impression correctly. What sustains the premium perception is the product itself delivering on that promise, which is ultimately what everything in my decision-making comes back to: quality that justifies the cost, verified before commitment.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: The end-cap display. No question. The moment I walked past that branded unit with the comparison chart and the tasting station, something clicked. It didn't feel like a brand hiding a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 both for the immediate purchase and for sustained premium perception six months later. Here is my reasoning: The end-cap is the only placement that respects my decision-making process. It gives me data, not just shelf presence. The comparison chart, the QR code for nutritional verification, the tasting demonstration \u2014 these are the tools of a brand that is confident in its quality and willing to prove it. That's exactly what I look for before I pay a premium. In six months, the end-cap can evolve \u2014 new content, new recipes, seasonal campaigns \u2014 which keeps the brand feeling dynamic and invested rather than stagnant. Option A makes Protein Chef invisible. Option B makes it look overpriced without justification. Option C makes it look like what it claims to be: a premium product with a legitimate reason to cost more. My thirty years in business taught me that quality communicates itself \u2014 but only when the brand creates the conditions for that communication. The end-cap creates those conditions. I would pick it up. I would pay \u20b999. And I would come back.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 catches my eye first and holds it. That's where I stop walking. The bread aisle placement (Option B) feels like Protein Chef is apologizing for its pr"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Amit Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap. For initial purchase and for sustained premium perception six months later. Here's why it wins on both dimensions: First, for pickup \u2014 it provides context, verification tools, and signals brand confidence without requiring me to do the brand's positioning work for it. That QR code matters enormously. Second, for sustained premium perception \u2014 an end-cap is a commitment. Brands that secure and maintain end-cap placement have invested in their retail relationship, which tells me something about their conviction in the product. If I walk into the same store in six months and Protein Chef is still at that end-cap with updated seasonal recipes or refreshed nutritional callouts, that continuity is itself a trust signal. If it's migrated to the bread aisle by then, I'd reconsider. But right now, Option C is the only placement that earns the right to a premium price by actually communicating premium value.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 is the one that makes me pause and actually engage. Not because it's flashy, but because it signals that someone at Lo! Foods has made a deliberate co"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C: dedicated branded end-cap display, unambiguously. For the initial purchase decision, it's the only format that gives me the information architecture I need \u2014 comparison data, clear nutritional narrative, brand confidence signaled through investment in space. And critically, for the six-month sustainability question: the end-cap preserves premium positioning. A brand that occupies dedicated space doesn't erode into commodity perception the way a product sitting beside Britannia does. Option B is where premium brands go to have their pricing quietly resented and their differentiation slowly forgotten. The end-cap maintains the premium signal over time because it never concedes to comparison-by-adjacency. If six months later I walk in and it's moved to the bread aisle, I'd assume the brand had ceded ground \u2014 which would make me question whether the premium was ever justified. The end-cap is both the entry point and the long-term premium anchor.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: End-cap. Immediately and without much deliberation. When I walk into a modern trade store, I'm moving with purpose \u2014 I have a list, I have limited patience for discovery, and I respon"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 is where I'm most likely to pick up Protein Chef, and it's also where the brand survives as premium in my mind six months later. Here's why: the end-cap solves my core problem, which is justifying the price. The comparison chart removes ambiguity. The 'Protein Corner' branding creates a category anchor \u2014 I'm not just buying expensive bread, I'm buying protein-functional bread, and now I understand what that means. I'd buy one loaf to test it. If quality matches what the display promises \u2014 real protein density, good taste, holds up over time \u2014 I become a repeat buyer. And the brand stays premium because the display never put it in an apples-to-apples comparison with cheap bread or an apples-to-oranges comparison with established functional brands. It carved its own space. That's how trust gets built with someone like me.",
+          "confidence": 89,
+          "reasoning": "1. GUT REACTION: The end-cap display. No hesitation. When I walked past that 'Protein Corner' setup, something clicked \u2014 it didn't feel like another product fighting for shelf space, it felt like a br"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 both for first purchase AND for sustaining premium perception at 6 months. Here's my reasoning: For first purchase, the end-cap does the work of a knowledgeable friend standing next to me. It gives me the information I need without requiring me to ask someone first. It reduces my friction dramatically. For sustained premium perception at 6 months, this is actually more important. If Protein Chef stays in the bread aisle, the price comparison erodes its premium story every single day. Someone like me will see it repeatedly next to Britannia and start wondering if the premium is really justified. But if it holds the end-cap \u2014 or rotates to health foods with better category signage \u2014 the brand maintains its story. The health foods aisle is a decent second option for long-term perception IF the brand adds clearer differentiation markers, but without that, it still gets lost. End-cap wins on both dimensions for me.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: Honestly, my immediate instinct goes to Option C \u2014 the dedicated branded end-cap. Something about it just feels intentional. It's not hiding among competitors or getting lost in the n"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd pick up Protein Chef \u2014 and most likely buy it \u2014 from the end-cap display. Not just because it's visually distinctive, but because it's the only placement that does the justification work I need done before I open my wallet. The comparison chart, the tasting, the recipe QR code \u2014 these convert my skepticism into a calculated yes. Six months later, I'd still see it as a premium brand worth the price IF the product delivered on protein value and IF I'd heard others mention it positively. The end-cap creates the conditions for that outcome. The health aisle leaves me confused. The bread aisle makes me feel like the brand doesn't understand its own customer.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: The end-cap display. No question. The moment I picture myself walking past a tasting station with a comparison chart showing actual protein numbers versus regular bread, something in "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 is where I'm most likely to pick it up and still consider it premium six months later. Here's why: it's the only placement that solves my core problem, which is needing more information before committing to a premium price. The end-cap earns the price point by showing me the data and letting me verify it myself. It doesn't ask me to trust the brand blindly \u2014 it gives me tools to reach my own conclusion, which is exactly how I bought that ThinkPad. Six months later, I'll remember that Protein Chef was confident enough to invest in education rather than hiding in a shelf. That's what premium means to me \u2014 not the packaging, but the brand's willingness to be transparent and specific. The bread aisle kills premium perception. The health aisle makes it average. Only the end-cap preserves and builds it.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: The end-cap display (Option C) catches my eye first \u2014 it feels intentional and confident in a way the other two don't. The bread aisle placement actually makes me trust Protein Chef l"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display. And this is also the placement where, six months later, I'd still consider it a premium brand. Here's why: the end-cap is the only option that respects both my need for information AND my sense of brand integrity. The comparison chart does the analytical heavy lifting I require. The tasting reduces my risk before committing. The professional presentation signals that Lo! Foods believes in this product enough to invest in telling its story properly. Six months later, if I still see that end-cap maintained well \u2014 stocked, staffed occasionally, kept clean \u2014 it tells me the brand has staying power and isn't just another SKU filling shelf space. If it gets relegated to the bread aisle by month three, I'd honestly feel validated in my skepticism. Premium brands protect their positioning. I'll watch for that.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: The end-cap display. Without thinking too hard about it, that's the one that stops me. It's doing the work of explaining itself \u2014 comparison chart, QR code, someone there to talk thro"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 is where I pick it up, and it's the only placement where I'd still consider it premium six months later. Here's my reasoning: thirty years of watching quality get lost in poor positioning has taught me that context is everything. The bread aisle is a death sentence for this product \u2014 no story, no justification, just sticker shock. The health foods aisle is better but too crowded with competitors for Protein Chef to differentiate. The end-cap is where the brand controls the entire conversation: the comparison data, the protein story, the value justification. If that end-cap has a tasting station, I'm almost certainly trying it. If the taste confirms the promise, I'm probably buying. And six months later, when I see it in that same dedicated space, I remember it as a brand that respected my intelligence enough to explain itself. That builds the kind of loyalty I reserve for brands I genuinely trust. The inverter lesson stays with me \u2014 cheap and unexplained is a trap. But premium with evidence? That's a different calculation entirely.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: The end-cap display. Immediately. I've walked those factory floors, I've seen what happens when a product is just thrown on a shelf without context \u2014 it disappears. The end-cap feels "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated end-cap display \u2014 for both the initial purchase and the six-month brand perception question. For initial purchase: it's the only placement that hands me the information I need to verify value before I commit. The comparison chart and QR code are exactly what 'runs the numbers twice' Arjun requires. I'm not picking something up off a shelf and hoping it's worth it \u2014 that's how I ended up with a throttling laptop. For long-term premium perception: placement in the bread aisle will erode brand equity because the price comparison is brutal without context. Health aisle positioning is better but feels crowded and undifferentiated. The end-cap creates a distinct mental category for Protein Chef \u2014 it becomes 'that brand I researched and chose deliberately' rather than 'that expensive bread I once noticed.' That deliberate choice memory is what keeps me loyal. And I do stay loyal once I've verified something works.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: Option C \u2014 the dedicated end-cap display \u2014 pulls me in first. That's my instinct. There's something about the focused presentation that feels intentional rather than accidental. But I"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap display \u2014 as the placement most likely to make me pick up Protein Chef today AND still respect it as a premium brand six months later. Here's my reasoning: the bread aisle is a price war I already know Protein Chef loses. The health foods aisle is too cluttered and too ambiguous \u2014 \u20b999 feels neither premium nor value there, just uncertain. The end-cap creates its own context. It gives the brand permission to explain itself. The comparison chart showing protein content against regular bread and eggs is exactly the kind of functional, family-nutrition argument that speaks to me. If that display stays consistent, keeps communicating the nutritional story clearly, and earns word-of-mouth from people I trust, this is where I'd keep returning. In six months, I'd walk past the bread aisle and ignore it. But I'd still stop at the end-cap \u2014 because it's the only placement that treats me like someone who needs a reason, not just a reminder.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that the end-cap display \u2014 Option C \u2014 is the only one where I'd actually pause long enough to consider picking up Protein Chef. The bread aisle placement genu"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap display \u2014 for both the initial purchase and the six-month brand integrity test. For my first purchase: the end-cap is the only placement that gives me the information architecture I need to justify the premium. The comparison chart, the QR code, the tasting opportunity \u2014 these are the elements that convert my skepticism into a considered decision. I will scan that QR code, I will read the nutritional breakdown myself, and if the data holds, I will buy it. For six months later: the end-cap maintains brand premium because it never allowed Protein Chef to be compared as a commodity. It set the terms of evaluation. If I find it in the bread aisle six months later, I will assume something went wrong \u2014 the brand lost its footing, it's struggling, it compromised on positioning. That would concern me the same way a builder who starts cutting corners mid-project concerns me. The health foods aisle is acceptable but not optimal \u2014 I'd still consider it premium, but with less certainty. The end-cap is the only placement that tells me this brand knows what it is and is willing to prove it.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: The end-cap display. Immediately, instinctively \u2014 that's where I'd stop and actually look. The bread aisle placement made me uncomfortable the moment I read it; I've already lived thr"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For immediate purchase likelihood: Option C \u2014 the dedicated end-cap display \u2014 wins, but only conditionally. The comparison chart with actual nutritional data is what matters, not the 'Protein Corner' branding theater. If that chart included price-per-gram of protein and there was a credible expert endorsement visible, I would pick it up. The tasting element also reduces my risk perception. For long-term brand equity \u2014 still considering it premium in 6 months \u2014 Option A, the health foods aisle, is actually the stronger play. Here's why: in 6 months, end-caps disappear or get reassigned. If I find Protein Chef back in the bread aisle with no explanation, I'll assume it got demoted and lost faith. But if it's sitting consistently alongside Yoga Bar and True Elements, it maintains the 'I belong in this category' signal. The health aisle placement sustains the premium narrative over time, even if it forces harder comparison at point of purchase. So: Option C for trial conversion, Option A for brand retention. If I had to pick one answer: Option C for purchase, Option A for long-term premium perception.",
+          "confidence": 56,
+          "reasoning": "1. GUT REACTION: The end-cap display catches my eye first, but I'm immediately suspicious of the theater around it. The health foods aisle feels credible but makes me compare aggressively. The bread a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 is where I'm most likely to pick it up on first encounter AND still consider it premium six months later. Here's my reasoning: it gives me information to make a controlled, informed decision, which is what I need. The comparison chart is evidence I can evaluate independently, not just marketing I have to take on faith. It signals brand confidence and investment. Critically, if that display is still there six months later \u2014 still stocked, still maintained, still explaining itself \u2014 that consistency is itself a quality signal. Option A would be my second choice for long-term premium perception because the category association is right, but it risks blending in. Option B is actively harmful to the brand in my eyes and would prevent me from picking it up at all on first encounter. My one reservation about Option C is that end-caps are often temporary promotional placements \u2014 if it disappears after six weeks, the brand loses the very credibility it built. That would shake my confidence in the premium positioning.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 pulls me in immediately. It feels deliberate and invested, not just shelf-filling. When I see a brand that's made the effort to create a dedicated 'Pr"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 for immediate purchase likelihood, and ideally transitioning to Option A (health foods aisle with strong category signage) for long-term premium brand perception. Here's my reasoning: The end-cap is what gets me to pick it up the first time, because it gives me the comparison data, the QR code for self-verification, and the brand confidence signal. That first purchase is the hardest to earn from someone like me. But for sustained premium perception over six months, I'd need it to eventually live in the health foods aisle with proper differentiation signage \u2014 because end-caps are temporary by nature. If Protein Chef is only ever on end-caps, I'll eventually assume they can't hold shelf space, which undermines the premium story. The ideal trajectory: end-cap to build awareness and justify the price once, then a well-branded health foods aisle position for sustained credibility. Option B is a hard no \u2014 that placement actively works against my trust.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: Option C \u2014 the dedicated branded end-cap display \u2014 is the only placement that actually makes me stop and engage. My immediate reaction to Option B (bread aisle) is suspicion and confu"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap. For initial purchase: the tasting removes the risk of regret, the comparison chart gives me the 'why' I need to justify \u20b999, and the employee interaction gives me the closest thing to peer validation available in-store. For 6-month premium perception: this is the only placement that builds brand memory. I won't remember seeing Protein Chef on a shelf in 6 months. I will remember tasting it, reading that comparison, and making an informed choice. That memory anchors the brand as premium-but-justified in my mind \u2014 not expensive-for-no-reason. Option A is invisible at \u20b999 among premium brands; Option B actively destroys the brand's premium case. The end-cap is the only placement that respects both my budget constraints AND my desire for quality outcomes \u2014 it makes me feel like a smart buyer, not a guilty one.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: Option C \u2014 the dedicated end-cap display \u2014 pulls me in first. There's something about a brand that takes the trouble to explain itself, to show me why it's worth the price. The tastin"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap display \u2014 is where I pick it up today, and it's also where I'd consider it a premium brand worth the price six months later. Here's why the time dimension matters: if Protein Chef earns a permanent or semi-permanent end-cap, it's signaling retail confidence in the product. That reinforces premium positioning every single time I walk past it. The health foods aisle risks brand dilution as the category gets more crowded. The bread aisle is a slow death \u2014 you can't hold a premium price point when you're shelved as a direct swap for Britannia. The end-cap creates a purchase experience that justifies the \u20b999 in the moment, and a brand narrative that holds up on repeat visits. I'd buy it there. I'd trust it there. And I'd recommend it to someone by saying 'look for it at that display, scan the QR code, the numbers are actually solid.'",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: The end-cap display. Immediately. When I walked past that QR code and comparison chart setup, something clicked \u2014 it felt like the brand was actually trying to earn my trust rather th"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up Protein Chef from the end-cap display \u2014 Option C \u2014 both today and in six months. Here's why it survives as a premium brand for me: the end-cap does the work of justifying the price every single time I pass it. It's not buried in the bread aisle where I feel tricked into paying double, and it's not lost among functional food competitors where I can't tell it apart at a glance. The dedicated display communicates brand confidence, which is the one thing the bread aisle placement completely lacked. And in six months, if that display is still curated \u2014 still has the QR code, the comparison chart, maybe seasonal recipe cards \u2014 I'll have formed a habit of trusting it. I'll have tried it once, told a colleague, gotten positive feedback, and the premium price will feel earned rather than suspicious. My biggest fear is that the end-cap is a temporary promotional fixture. If in six months it's been removed and Protein Chef lands in the bread aisle with no context, I'll immediately start questioning whether the premium is still justified \u2014 and I'll likely drift back to what's familiar or on offer.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 pulls me in immediately. It's the one that makes me stop and actually look. I've walked past health food aisles feeling overwhelmed by five identical-"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-016",
+      "persona_name": "Meghna Pillai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap display \u2014 as the placement most likely to make me pick up Protein Chef and still consider it a premium brand six months later. Here's my reasoning: Option A dilutes the brand's identity through undifferentiated proximity to competitors making identical claims. Option B abandons premium positioning entirely \u2014 the price-to-context mismatch actively destroys credibility. Option C does the opposite: it creates a controlled information environment where Protein Chef can present its case on its own terms. The QR code, the comparison chart, the tasting opportunity \u2014 these are the tools that match how I actually evaluate products. More importantly, six months later, if I pass that end-cap and it still has the same rigorous information architecture, I will still perceive it as premium. Brands that invest in education rather than impulse retain my loyalty. My one caveat: I would need to verify the comparison chart methodology independently before my first purchase. But Option C is the only placement that made me want to do that research at all.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 is the only placement that made me stop and actually consider this brand seriously. My memories of the health foods aisle left me underwhelmed by the "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "Option C \u2014 the dedicated branded end-cap \u2014 both for first purchase and for sustained premium perception at six months. Here's my reasoning: First encounter, it's the only placement where I'd actually pick up the product, because it gives me enough data infrastructure to begin verification on the spot. I'd scan the QR code, evaluate the sample honestly, note the specific protein claims, and then go home and independently cross-reference their nutritional data against third-party sources before buying in volume. Six months later, if their claims hold up to scrutiny \u2014 and that's the real test \u2014 the end-cap placement would actually reinforce premium perception because it signals confidence in transparency. A brand that invites scrutiny is a brand I can build trust with over time. The health aisle loses premium credibility because the price-positioning gap becomes more obvious with familiarity. The bread aisle never builds it at all. The end-cap at least creates the conditions for earned trust \u2014 which is the only kind of trust I give.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: The end-cap. Without hesitation. When I walked past that branded display with the comparison chart and the tasting station, something clicked that the other two placements never achie"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up Protein Chef from the end-cap display \u2014 Option C \u2014 and I believe I'd still find it premium-worthy six months later, precisely because of how it was introduced to me. The end-cap did the hard work of building a rational justification alongside the emotional one. Six months from now, if the quality holds, I'm not going back to question the price. I already did that work at the display. What worries me about long-term premium perception with Options A or B is that every subsequent purchase becomes a fresh price battle in my head. The end-cap gave me a framework \u2014 protein per rupee, comparison to eggs \u2014 that I carry with me. That framework survives the shelf move. The mere placement never would.",
+          "confidence": 87,
+          "reasoning": "1. GUT REACTION: The end-cap display. No question. When I walked past that 'Protein Corner' setup with the comparison chart and the tasting station, something clicked. It didn't feel like I was being "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For initial trial, Option C \u2014 the dedicated end-cap \u2014 is most likely to make me pick up Protein Chef. It's the only placement that gives me enough information architecture to potentially justify the \u20b999 price in the moment. The comparison chart and QR code align with how I make decisions: I need to verify, not just trust. For sustained premium perception over 6 months, Option C also wins \u2014 but only if Lo! Foods maintains that display quality and keeps the credibility markers sharp. If the end-cap degrades into a cluttered promotion shelf, the premium halo disappears. Option A keeps it safe but forgettable. Option B is where premium brands go to be price-shamed. The end-cap is the only placement that treats the purchase decision with the same seriousness I bring to it.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that the end-cap display \u2014 Option C \u2014 feels most compelling. When I walk into a store and see a dedicated branded space, it signals that someone has invested "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in a DMart or Spencer's. Scenario A: You're in the 'Health Foods' aisle alongside Yoga Bar, True Elements, Millet Amma, and RiteBite Max Protein. You spot Protein Chef bread at \u20b999 on the shelf. The aisle has a 'Functional Foods' signboard. How does this placement feel \u2014 does it reinforce the brand's premium health positioning, or does it make it invisible among too many similar options?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Same store, different placement. Scenario B: Protein Chef bread is in the main Bread & Bakery aisle \u2014 directly next to Britannia (\u20b945), Harvest Gold (\u20b952), and English Oven (\u20b975). It's at eye level, but there's no 'protein bread' category signage \u2014 it just sits among regular breads with its \u20b999 price tag sticking out. A regular shopper next to you picks up Protein Chef, looks at the price, puts it back and takes Britannia instead. What does this placement communicate about the brand \u2014 and would you pick it up here?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Scenario C: Lo! Foods has negotiated an end-cap display at the front of the health foods section \u2014 a standalone 'Protein Corner' branded unit showing all Lo! Foods products together with a QR code linking to recipes and nutritional information. A store employee is doing a 'protein bread tasting' nearby. The display includes a comparison chart: Protein Chef vs regular bread vs eggs for protein content. Does this branded in-store experience change your perception of Lo! Foods as a premium brand versus seeing it on a regular shelf?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose Option C \u2014 the dedicated branded end-cap display \u2014 for both the initial purchase and for long-term brand perception. For the initial pickup: the comparison chart and tasting demonstration give me the substantiated quality evidence I require before spending money. The QR code tells me the brand isn't hiding anything, which is exactly the transparency I need from a health-claim product after watching health trends commoditise empty promises. For six months later: the end-cap maintains Protein Chef's premium positioning because it has never allowed the brand to be defined by proximity to cheaper alternatives. It's always been 'the Protein Corner brand,' not 'the expensive bread next to Britannia.' That separation is what preserves the premium perception over time. The health foods aisle might keep it in a relevant category, but within six months, the noise of functional food competitors will have diluted Protein Chef's distinctiveness. The end-cap owns the story. That's where I find a premium brand worth returning to.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: The end-cap display \u2014 Option C \u2014 stops me in my tracks. Not because it's flashy, but because it's doing the work of justifying itself. That comparison chart, the QR code, the tasting "
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 40
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

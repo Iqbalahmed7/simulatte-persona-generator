@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS16",
+  "title": "Packaging & Shelf Life: Fresh vs Clean Preservatives vs Frozen",
+  "cohorts": ["C1", "C3", "C5"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives — freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+    "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef — same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at ₹99.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change — does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+    "Lo! Foods launches 'Protein Chef Frozen' — identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at ₹109 (delivered in a cold pack) and as a monthly subscription at ₹89/loaf. The campaign says: 'The freshest bread you've ever had — locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?"
+  ],
+  "decision_scenario": "Lo! Foods gives you three choices for Protein Chef going forward: (a) Fresh, no preservatives, 3-day shelf life, ₹99; (b) Clean-preserved with rosemary extract, 7-day shelf life, ₹99; (c) Frozen at source, no preservatives, 30-day freezer life, ₹109. Which do you choose for your regular weekly purchase — and which format, if any, would make you buy Protein Chef more frequently than you currently do?"
+}

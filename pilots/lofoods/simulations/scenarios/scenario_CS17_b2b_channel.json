@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS17",
+  "title": "B2B Channel: Hospitals, Corporate Cafeterias, and Institutional Buyers",
+  "cohorts": ["P1", "P2", "P4"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "A Lo! Foods sales representative visits your institution — a hospital dietetics department, a corporate HR/wellness team, or a cafeteria operation. They present: DiabeSmart low-GI biscuits for diabetic patient meal trays (₹12/unit in bulk vs ₹180 retail), Protein Chef bread for post-operative nutrition protocols (₹65/loaf institutional vs ₹99 retail), and a branded 'Healthy Cafeteria' programme with co-branding rights. The brand is Lo! Foods — a funded D2C startup with strong Amazon reviews but no institutional track record in India. What's your immediate professional assessment — is this a credible institutional supplier?",
+    "Lo! Foods provides their institutional credentials package: FSSAI licence, ISO 22000 food safety certification, a clinical study on DiabeSmart's GI impact (published in Journal of Clinical Nutrition India, 2024), a reference from Kokilaben Hospital's dietetics department (pilot programme, 200 patients, 3 months), and their supply chain details (bakery in Pune, HACCP certified, cold chain for fresh products). They're offering a 60-day trial at no cost — free samples for 30 patients or employees. Does this evidence package change your institutional confidence in Lo! Foods as a vendor?",
+    "Six weeks into the trial. DiabeSmart biscuits are popular with diabetic patients — nurses report fewer complaints about snack options and one patient mentioned their doctor noticed improved compliance. But: (1) the 3-day shelf life for fresh Protein Chef bread creates supply chain complexity for your inventory system, (2) the per-unit institutional price (₹65/loaf) is higher than the generic whole wheat bread you currently use (₹28), and (3) Lo! Foods' minimum order is 50 loaves/week — your usage is ~35. How do you resolve these operational friction points — do you adapt your processes, ask Lo! Foods for flexibility, or conclude this isn't the right fit?"
+  ],
+  "decision_scenario": "Lo! Foods wants a 12-month institutional supply contract. For your role — hospital dietitian, corporate wellness manager, or cafeteria operator — what would it take to sign? What's the single biggest barrier (credibility, price, shelf life, minimum order, supply reliability), and what concession or evidence from Lo! Foods would resolve it? Would you recommend Lo! Foods products to the patients or employees you serve?"
+}

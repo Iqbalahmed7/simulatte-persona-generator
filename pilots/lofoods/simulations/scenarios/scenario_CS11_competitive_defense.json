@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS11",
+  "title": "Competitive Defense: Britannia Protein Bread Launch at Rs 65",
+  "cohorts": ["C1", "C2", "C3"],
+  "social_level": "moderate",
+  "social_topology": "full_mesh",
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "Britannia has launched 'NutriProtein Bread' at ₹65 — available at every kirana store, BigBazaar, Blinkit, and Amazon. Full-page ad in Times of India: 'Now India gets protein bread at an honest price.' It claims 18g protein per loaf, whole wheat, no maida. You've been buying Protein Chef at ₹99 for the past 2-3 months. What's your immediate gut reaction to Britannia's entry into this space?",
+    "A comparison article is circulating: 'Britannia NutriProtein vs Protein Chef — India's protein bread war.' Key findings: Protein Chef wins on protein density (38g vs 18g), ingredient quality, and clean label; Britannia wins on price (35% cheaper), availability (offline + online), and brand trust. The article's verdict: 'For casual health seekers, Britannia is the smarter buy. For serious protein trackers, Protein Chef justifies the premium.' Where do you see yourself in this framing?",
+    "In your health/fitness WhatsApp group, three friends say they've switched to Britannia NutriProtein: 'It's basically the same thing at ₹65 — why pay ₹99?' One friend — a gym-goer who tracks macros — pushes back: 'If you're serious about protein, 18g vs 38g per loaf is not the same thing.' Someone else adds: 'Lo! Foods is a startup that actually cares about ingredients — Britannia just wants market share.' You're watching this debate. What side do you land on, and does it change your next purchase?"
+  ],
+  "decision_scenario": "Britannia NutriProtein Bread is now widely available at ₹65. Protein Chef is ₹99. Both are on your Blinkit next time you order. What is your actual decision — do you stay with Protein Chef, switch to Britannia, buy both depending on occasion, or leave the category entirely? What is the single most important reason for your choice, and what would Lo! Foods need to do to ensure you never switch?"
+}

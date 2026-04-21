@@ -1,0 +1,618 @@
+{
+  "simulation_id": "sim-24912430",
+  "cohort_id": "merged-C1_C9",
+  "rounds": 3,
+  "decision_scenario": "Lo! Foods is expanding into your Tier 2 city. You have the option to try one product from their range: Lo! Keto Cookies (\u20b9120), Protein Chef Bread (\u20b999), or DiabeSmart Biscuits (\u20b9180). Which would you try first \u2014 and what price, claim, or channel would make you a regular buyer rather than a one-time trial customer?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm buying the Protein Chef Bread at \u20b999 \u2014 one loaf, just one, as a trial. It fits into something I already do: buy bread. The price is uncomfortable but not shocking. The channel reassures me that it's not some fly-by-night product. And peer evidence from Rajesh, even if just one person, carries real weight with me. I will not commit to buying it weekly until I've tested it myself and checked the nutrition label carefully. I want to see the protein numbers and compare them to what a boiled egg costs. If my family actually notices they feel less hungry or more energetic, and if the price doesn't change, I'd consider making it a regular purchase. For the DiabeSmart Biscuits \u2014 I want to try them eventually, but I need to see WhatsApp reviews, ideally from someone managing pre-diabetes or a family history similar to mine. If Lo! Foods offered a small trial pack of DiabeSmart at \u20b960-70 for a smaller portion, I would buy that immediately alongside the bread. As for becoming a regular buyer of any Lo! Foods product: I need consistent stocking in my kirana shop, no sudden price hikes, and honest before/after testimonials from people who look like me \u2014 not influencers.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My eyes go straight to the DiabeSmart Biscuits \u2014 diabetes runs in my family and that fear is always quietly sitting in the back of my mind. But \u20b9180 for biscuits? I physically put it "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going with the Protein Chef Bread at \u20b999 for my first trial. It's the most justifiable choice \u2014 it replaces something I already buy, the price is high but not shocking, and I have a real peer reference in Rajesh. I'll buy one loaf, use it for my daughter's school sandwiches and my own breakfast for a week, and honestly assess whether my energy feels different or whether my family notices anything. To become a regular buyer \u2014 not just a one-time trial customer \u2014 Lo! Foods would need to: price it at \u20b979-85 for a 'regular buyer' loyalty tier or subscription, get it stocked at my neighbourhood kirana so I don't have to make a special trip, have consistent positive word-of-mouth from the WhatsApp mothers' group, and ideally run one diabetic-health story alongside the protein story so it connects to my deeper family anxiety. The DiabeSmart Biscuits remain in the back of my mind \u2014 if they ever run a trial pack at \u20b980-90 for half the quantity, I'd pick it up immediately. That's the product that speaks to my real fear. But I won't pay \u20b9180 to find out if it actually works.",
+          "confidence": 56,
+          "reasoning": "1. GUT REACTION: My hand goes straight to the DiabeSmart Biscuits \u2014 I can't help it. Diabetes runs in my family, my mother struggles with it every day, and that name feels like it was written for me. "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up the DiabeSmart Biscuits first \u2014 \u20b9180, one pack, one trial. The diabetes risk in my family makes this the most personally urgent product. But I'm doing this with conditions: I'm reading the label carefully before I pay, looking for glycemic index information, ingredient transparency, and any certification markings. I'll also ask the store staff \u2014 or check their website \u2014 if any certified diabetologist or clinical nutritionist has reviewed the product. This is a one-time trial purchase.\n\nTo become a regular buyer, here's exactly what Lo! Foods would need to do: (1) Make a diabetologist or FSSAI-endorsed nutritionist's recommendation visible and verifiable \u2014 not just printed claims, but a name I can look up. (2) Drop the price to \u20b9130-140 for regular buyers, or offer a subscription/loyalty program \u2014 \u20b9180 every week is not sustainable for my household. (3) Show me a glycemic index comparison vs. regular biscuits \u2014 specific numbers. If the GI is genuinely significantly lower and a credentialed expert backs it, I will switch from regular biscuits completely. That's my honest answer.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. The moment I see that word 'Diabetes,' my stomach tightens a little. It's not abstract \u2014 it's my father's morning pills, my uncle's insulin, the conversation we h"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will try the Protein Chef Bread at \u20b999 for my first purchase \u2014 not DiabeSmart, even though my heart pulled me there. Here is my reasoning: \u20b999 is painful but survivable as a one-time trial. \u20b9180 is too steep without any doctor's recommendation or community word-of-mouth to justify it yet. The local nutritionist on YouTube mentioned the protein claim specifically, and that expert signal \u2014 imperfect as it is \u2014 tips the scale. I will buy one pack of Protein Chef Bread, compare it honestly to my regular bread over one week, and watch whether my family actually feels different. If the bread tastes decent and my family accepts it, I will ask my family doctor at the next visit whether the DiabeSmart Biscuits are worth considering for my husband's borderline sugar. That medical validation is what would convert me to DiabeSmart. To become a regular buyer of any of these products, Lo! Foods would need to: price Protein Chef Bread at \u20b975-80, get a local government hospital dietitian or credentialed diabetes association to endorse DiabeSmart, and make the product available at my local medical store or kirana \u2014 not just at a modern trade outlet. A sachets trial pack at \u20b930-35 would also remove the risk entirely and get me in the door.",
+          "confidence": 54,
+          "reasoning": "1. GUT REACTION: My hand reaches for DiabeSmart Biscuits first \u2014 that word 'diabetes' hooks me before I even read the rest of the shelf. My mother-in-law, my uncle, now my husband's blood sugar is bor"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up DiabeSmart Biscuits. Just one packet, \u20b9180. This is a one-time trial \u2014 I tell myself this clearly. The reason: my brother's diagnosis has made health spending feel justifiable in a way that 'protein for energy' or 'keto cookies' simply does not. This is not indulgence, this is fear management, and fear management I can defend to my husband and to myself. But I will NOT become a regular buyer at \u20b9180. For that to change: the price needs to come down to \u20b9130-140 \u2014 even a small-size pack at \u20b999 would help me trial more comfortably. I need to hear from someone in my mohalla, someone like me, that they felt a real difference \u2014 blood sugar numbers, less fatigue, something measurable. A doctor or ANM at the local health centre endorsing it would be gold. And if Lo! Foods offered a 'family health combo' or a subscription discount, my husband would see it as responsible spending, not a luxury splurge. Without these things, I try once, I watch my family's reaction, and I return to my regular brand.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits \u2014 that name stops me cold. My brother was just diagnosed, my mother suffered for years, and I carry this fear about my own health every single day. The word 'Diabe"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up the DiabeSmart Biscuits first \u2014 I check the label thoroughly. If the glycemic index numbers are clearly printed and the claims are specific, I note the brand. But I do not buy it today at \u20b9180. Instead, I buy the Protein Chef Bread at \u20b999 as my actual trial purchase \u2014 my colleague has tried it, that's a real endorsement I trust, and the price is within painful-but-possible range. I'll try one loaf. If I feel an energy difference over a week, I might make it a regular switch. For DiabeSmart \u2014 I go home, look it up, check if there are reviews from people like me (not fitness influencers), and if my wife's cousin or someone from my actual circle has tried it. If I find that social proof and the price drops to around \u20b9130-140 through a combo offer or loyalty scheme, I'd become a regular. What would make me a repeat buyer of either product: consistent quality I can feel, peer confirmation from people in my life, and a price that doesn't make me feel like I'm gambling.",
+          "confidence": 51,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits grab me first \u2014 not because of the packaging or branding, but because of my father. Diabetes runs in my family and that fear sits with me every day. The name speak"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'll buy one box of DiabeSmart Biscuits at \u20b9180 as a trial. But before I even open it, I'll scan the packaging for FSSAI certification, glycemic index claims, nutritional breakdown, and any clinical or expert backing. Then I'll spend 20-30 minutes online verifying the brand's legitimacy \u2014 are they listed on credible health platforms, do they have certified nutritionist partnerships, are there independent reviews from health professionals rather than just influencers? If those checks pass, I'll actually consume the product and monitor how I feel over two weeks. To become a REGULAR buyer, three things must happen: (1) A qualified, verifiable expert \u2014 registered dietitian or diabetologist \u2014 explicitly endorses this product; (2) The glycemic index data is clear and favorable; (3) The price stays around \u20b9180 or comes with a multi-pack value option that makes regular buying sustainable. If Lo! Foods runs a doctor-verified claim campaign or partners with a diabetes association, that would accelerate my trust significantly.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. Without hesitation. Diabetes runs in my family \u2014 my father had it, my uncle has it, and I'm at moderate risk myself. The moment I see a product that directly addr"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up the DiabeSmart Biscuits as my trial product. At \u20b9180 it's the most expensive option, but it's also the one that addresses a documented family health concern \u2014 not a lifestyle trend or a vague energy claim. I buy one pack, read the full ingredient list at home, research the brand online, look for clinical studies or any tie-up with diabetes associations, and check whether their GI claims have been independently tested. I consume it for two weeks and pay attention to how it fits into my diet alongside advice from my physician, whom I'll mention it to at my next visit. To become a regular buyer, the brand needs to do three things: show me independent clinical validation or a credible medical advisory board endorsement, maintain complete ingredient transparency with no ambiguous additives, and ideally have a nutritionist helpline or consultation resource I can actually access. If those conditions are met, price sensitivity disappears entirely \u2014 I will pay \u20b9180 per pack without hesitation if the evidence is solid.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. Immediately. Not because of the price or the packaging \u2014 because diabetes runs in my family and this speaks to something real and personal. But I'm already flippi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm picking up the DiabeSmart Biscuits first \u2014 one packet, one trial. The diabetes angle is too personal and too important to ignore. But I'm going in as an analyst, not a believer. I will read every line on that label. Sugar content must be genuinely low. Ingredients must make sense to me. If the biscuits taste like cardboard or the quality feels like a compromise, I'm done \u2014 one packet and we're finished. For me to become a regular buyer, Lo! Foods needs to do three things: One, show me clinical or FSSAI-backed data on blood sugar impact \u2014 not testimonials, real numbers. Two, bring the price to \u20b9140-150 or offer a subscription model that makes repeat purchase feel financially sensible. Three, make it available at my local pharmacy or health store, not just online \u2014 that's where I trust health products. If they do these three things and the product genuinely performs, I become loyal. I don't switch brands constantly. But they have to earn that loyalty through proof, not promises.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: My eyes go straight to DiabeSmart Biscuits \u2014 not because of marketing, but because diabetes runs in my family and I've watched it take a toll. That's personal. But \u20b9180 hits hard imme"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I buy the DiabeSmart Biscuits \u2014 one pack, today, from a verified modern-format retail outlet. I read the full ingredient list before I leave the store. I will not open them until I've spent 20 minutes that evening cross-checking the claims: glycemic index data, sweetener type, fiber source, any third-party endorsement. If what I find matches what the packaging promises, I try them. I share one with my mother and note any blood sugar response if she's willing to test. To become a regular buyer \u2014 not a one-time trial \u2014 three things would need to happen: first, the nutritional panel needs to be precise and clean, not padded with marketing language; second, I'd need to find at least one credentialed endorsement from a diabetes-specific medical or nutrition professional, not a general wellness influencer; third, I'd want consistent availability through auditable retail, ideally with a subscription or direct-brand channel so I control the supply chain. What would make me evangelical about this brand? If they published clinical outcome data \u2014 even small-scale \u2014 showing glycemic response in diabetic or pre-diabetic users. That would be extraordinary and, in this category, almost unheard of. That would be the thing that turns me from a verified buyer into someone who tells others.",
+          "confidence": 84,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. No hesitation. My mother's numbers, my own preventive instincts, the family history \u2014 this isn't abstract wellness aspiration, it's a concrete, proximate risk I'm"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to trial the Protein Chef Bread first \u2014 \u20b999, and here's why: I have the strongest peer signal on it right now. My colleague tried it and noticed a genuine difference. The nutritionist endorsement, while I'm not fully delegating my judgment to it, pushed it from 'curious' to 'worth investigating.' The claim \u2014 more protein, no maida \u2014 is verifiable against the label in a way I can actually check. And importantly, bread is a daily consumption item, which means if it works, I will become a repeat buyer naturally. The DiabeSmart Biscuits remain my *emotional* first choice, but I won't buy a medically-positioned product without better data or peer confirmation first \u2014 that's non-negotiable given what's at stake for my family. So my plan: buy one Protein Chef Bread loaf on my next Blinkit order, photograph the full nutritional label, run my comparison against Britannia in my spreadsheet, track for two weeks. Simultaneously, I'm posting in my NCB group specifically asking if anyone's tried the DiabeSmart range \u2014 if I get one genuine response from someone I trust, that's my next purchase. To become a *regular* buyer of any Lo! Foods product, I need: (1) at least one person from my close circle who's stuck with it for a month and can report specifically what changed, (2) transparent third-party certifications I can verify online, not just front-label claims, and (3) consistent quality across purchases \u2014 I'm loyal once trust is earned, but the first sign of quality inconsistency and I'm out.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. Immediately, without even thinking. Diabetes runs in my family \u2014 my father was diagnosed five years ago, my uncle even earlier \u2014 and anything that speaks directly"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to buy the DiabeSmart Biscuits \u2014 but only after spending 20-30 minutes doing due diligence first. I'll search for real user reviews on Amazon India, check the nutritional label on the product page, look for any community threads about the brand, and see if there's any credible third-party mention of its glycemic impact. If that review landscape is thin or mixed, I might pivot and trial the Protein Chef Bread at \u20b999 as a lower-risk entry point to understand if this brand actually delivers on nutritional claims before committing to their most expensive SKU. To become a regular buyer rather than a one-time trial: the brand needs to price DiabeSmart at \u20b9150-160 with a multi-pack option, demonstrate real user testimonials with specificity (not 'I feel great' but 'my post-meal glucose reading dropped from X to Y'), and be available on Blinkit or Amazon for frictionless reordering. A subscription discount model would also signal the brand believes in retention, not just acquisition. That's what trust-building looks like to me.",
+          "confidence": 56,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. That's the one that stops me. Not because it's the cheapest \u2014 it's actually the most expensive at \u20b9180 \u2014 but because it feels like it was built for a real problem"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I try the Protein Chef Bread at \u20b999 first. Here's my reasoning: it's a daily-use item so I can actually evaluate it against something I buy every week; the health claim is specific and relatable; I have a real-life peer signal from my colleague; and \u20b999 is painful but survivable as a one-time trial. I buy one loaf, use it for a week, and pay close attention to whether I actually feel different. I do NOT switch fully yet. To become a regular buyer, Lo! Foods would need to do three things: offer a transparent per-serving cost breakdown so I can justify it to myself in rupees per meal; give me a starter pack or introductory discount of around 20-25% for first-time buyers in my city; and I'd need at least two people in my actual social circle to confirm they felt a real difference. If those things happen, I could see myself doing Protein Chef Bread twice a week mixed with regular bread. For DiabeSmart \u2014 that one stays on my list, but at \u20b9180 I need either a smaller trial size under \u20b9100 or a clear clinical claim with peer validation before I touch it. My family's health stakes are too real to experiment casually AND too real to ignore forever.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: My hand goes to the DiabeSmart Biscuits first \u2014 that word 'DiabeSmart' hits somewhere personal, given what my mother and uncle go through. But then I see \u20b9180 and I physically set it "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to pick up the DiabeSmart Biscuits \u2014 one pack, \u20b9180, trial mode only. I'll check the ingredients thoroughly before paying, look up the brand quickly on my phone while in the store, and probably share the pack with my dad and see what he thinks. If he feels okay with them \u2014 no sugar spikes, tastes decent, his doctor doesn't raise red flags \u2014 then I'm a returning customer. For me to become a regular buyer, three things need to happen: the price either stays at \u20b9180 or drops slightly with a loyalty offer, someone in my trusted circle independently validates the product, and I see consistent quality across packs. Lo! Foods should be running awareness in local medical stores or through diabetes-focused communities, not just Instagram \u2014 that's where they'd find people like me and my family. A referral discount or a 'buy 2 get 1' offer would push me from trial to habit faster than any influencer post.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. No question. My dad's been managing diabetes for years and if there's something that could actually help him \u2014 or prevent me from going down that same road \u2014 that"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I am choosing the DiabeSmart Biscuits at \u20b9180 for my first trial \u2014 but this is a research purchase, not a commitment. The personal relevance is too strong to ignore. My father's diabetes is a real, ongoing concern and if this product genuinely helps manage blood sugar, \u20b9180 is not expensive relative to that benefit. I'll buy one pack, read every ingredient carefully, and if possible, show it to my father's doctor before he consumes it. For me to become a regular buyer \u2014 not just a one-time trial customer \u2014 I need three specific things: One, a certified diabetologist or FSSAI-recognized nutritionist explicitly endorsing this product or at least this category. Two, third-party lab verification of the glycemic index claims, not just the company's own marketing. Three, the price needs to either come down to \u20b9130-\u20b9140 range, or I need to see a family pack that brings per-unit cost down significantly. What would make me switch from trial to loyal? A subscription model at 15-20% discount, combined with a doctor recommendation. That combination \u2014 expert validation plus price relief \u2014 would lock me in.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My eyes go straight to the DiabeSmart Biscuits. Diabetes runs in my family \u2014 my father struggles with it daily \u2014 so that name hits me personally. But then I immediately notice \u20b9180 an"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I buy the DiabeSmart Biscuits \u2014 one pack, trial basis only. I take it home, read every line on the packaging, and look up Lo! Foods independently. I check whether there's clinical backing, whether any diabetes-focused physicians or credible nutritionists have reviewed it, and I read actual user comments \u2014 not brand-curated testimonials. I'll test it myself for two to three weeks if the ingredients pass my check. To become a regular buyer, I need three things: the ingredient list to be genuinely clean with no hidden glycemic traps, one trusted peer or healthcare professional in my network to validate the experience independently, and consistent results I can observe myself. What would make me a truly loyal repeat buyer is if Lo! Foods invested in transparent communication \u2014 a detailed FAQ, GI data published openly, maybe a partnership with an endocrinologist. That's the kind of evidence that earns my trust and my \u20b9180 every month.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. No hesitation. My father's diabetes isn't an abstraction \u2014 it's something I've watched up close, and when I see a product that speaks directly to that, it cuts th"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I try the DiabeSmart Biscuits \u2014 but not today, and not at \u20b9180 full price. Here's my actual plan: I message my cousin in Bangalore tonight asking if she's heard of Lo! Foods or DiabeSmart. I check for the brand on Reddit health forums or any Indian diabetes community group online. If I get even one credible positive signal within a week \u2014 a real person, not an influencer \u2014 I buy one pack at \u20b9180 as a trial. I split it over two weeks so I can actually assess whether my energy or my mother's biscuit routine feels different. To become a regular buyer, Lo! would need to meet me on at least two of these: (1) a local nutritionist or doctor in my city publicly endorsing it, (2) a smaller trial pack at \u20b980-90 so the first purchase isn't a \u20b9180 leap of faith, (3) three or more people in my actual network vouching for it, or (4) a subscription price that brings it closer to \u20b9140-150 per pack. The Protein Chef Bread is actually more interesting to me for daily use \u2014 the colleague Rajesh data point is real, and bread is a weekly purchase anyway. But DiabeSmart speaks to something deeper. That's what I want to try first, because if it works, the value calculation changes entirely.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My hand goes to the DiabeSmart Biscuits first \u2014 no question. Diabetes runs in my family, my mother lives with it every day, and when I see a product that speaks directly to that fear,"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I pick up ONE box of DiabeSmart Biscuits at \u20b9180 as a trial purchase. I take it home, read every word on the packaging, research the brand briefly online, and \u2014 critically \u2014 share it with my mother to see if she notices any difference over 2-3 weeks. I am NOT committing to regular purchase yet. To become a regular buyer, three things need to happen: One \u2014 the taste must be acceptable, because health food my family won't eat is wasted money. Two \u2014 I need to see or feel a tangible difference, ideally confirmed by a doctor or lab report over time. Three \u2014 the price needs to either come down to around \u20b9130-150 per box, or Lo! Foods needs to offer a subscription/loyalty discount that makes it sustainable on my monthly budget. A smaller trial pack at \u20b980-90 would have made this an instant yes. At \u20b9180, it's a cautious one-time experiment.",
+          "confidence": 53,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. Instantly. Diabetes runs in my family \u2014 my mother, my uncle \u2014 and this product speaks directly to that fear. \u20b9180 makes me wince, but fear is a stronger motivator"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I buy one pack of DiabeSmart Biscuits as a trial \u2014 \u20b9180 as a research investment, not a commitment. Before I open it, I do my own homework: check Lo! Foods' website for ingredient sourcing, look for any peer-reviewed or clinical backing for their formulation, search for reviews from diabetologists or registered dietitians specifically. If I can find a credible expert endorsement \u2014 not celebrity, not influencer, specifically a medical or nutrition professional \u2014 and the ingredient list holds up under scrutiny, I'll introduce it cautiously to my parents and observe over 2-3 weeks. To become a regular buyer: I need a subscription or bulk pricing that brings the cost down, I need a diabetologist-level endorsement I can verify, and I need to see a measurable outcome \u2014 blood sugar stability, better satiety, something I can track. If those three things align, I'll be loyal. Lo! Foods hasn't earned that yet, but the DiabeSmart category gives them the right opening to try.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: DiabeSmart Biscuits. No hesitation. My mother was diagnosed last year, my father has been managing diabetes for over a decade \u2014 this isn't a lifestyle choice, it's a family health nee"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're in Jaipur (or Lucknow, or Coimbatore). A new health food brand called Lo! Foods has just arrived in your city's modern trade stores \u2014 Big Bazaar and a few premium kirana shops. The shelf shows: Lo! Keto Almond Cookies (\u20b9120), Protein Chef Bread (\u20b999), DiabeSmart Biscuits (\u20b9180). You've heard of 'keto diet' vaguely \u2014 maybe from a cousin in Bangalore or from Instagram \u2014 but you've never tried keto products. Diabetes is common in your family. What do you pick up to examine, and what do you think the brand stands for?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "A local nutritionist in your city has started recommending 'protein-rich breakfast options' on her popular YouTube channel (280,000 subscribers, mostly Tier 2 India). She holds up Protein Chef bread and says: 'Isko try karo \u2014 regular bread se teen guna zyada protein hai, aur maida bilkul nahi.' (Try this \u2014 three times more protein than regular bread, and absolutely no maida.) She doesn't mention Lo! Foods or keto \u2014 just the protein benefit. The video has 45,000 views. Does this change your interest in trying Protein Chef?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Protein Chef bread is now available on Blinkit in your city at \u20b999. Your regular bread (local bakery or Britannia) costs \u20b940-50. A colleague at your office says he's been eating Protein Chef for a month and feels more energetic at work. He's not a gym-goer \u2014 just a regular 35-year-old office worker. At \u20b999 vs \u20b945, and with a local peer endorsement rather than a fitness influencer, does the protein story resonate enough for you to switch or trial?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to try the Protein Chef Bread at \u20b999 first. Here's my reasoning: The DiabeSmart Biscuits emotionally pull me hardest \u2014 my father's health is not a small thing \u2014 but \u20b9180 without verified clinical backing is a leap I'm not ready to take today. I need a diabetologist or a certified diabetes educator to confirm those claims before I put that in front of my father. I'll research that separately. The Keto Cookies are irrelevant to my actual life problem. The Protein Chef Bread at \u20b999 sits in a sweet spot: there's credentialed nutritionist backing (one verified YouTube source with 280K subscribers making specific, measurable claims), a peer endorsement from a colleague I trust who had real, reported results, the price is manageable for a one-week trial, and the core claim \u2014 more protein, no maida \u2014 is something I can independently verify on the label. To become a regular buyer: Lo! Foods needs to give me a comparison nutrition label showing protein per gram versus standard bread, stock it in stores near me with consistent availability, keep the price under \u20b9110 or offer a multi-pack deal that improves per-unit cost, and ideally get one more credentialed source \u2014 ideally a registered dietitian or a doctor's quote \u2014 on their packaging or website. For DiabeSmart: I'll buy that the day I can show my father's doctor the ingredient list and get a thumbs up. That's the only gate that matters.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My eyes go straight to the DiabeSmart Biscuits \u2014 not for me personally, but because my father's face flashes in my mind. Five years of watching him check his blood sugar, ration his f"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 20
+  },
+  "social_simulation": {
+    "social_level": "low",
+    "social_topology": "random_encounter"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS4",
+  "title": "Quick Commerce Discoverability: Thumbnail, Name, Price in 10 Seconds",
+  "cohorts": ["C5", "C12"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' — thumbnail shows a dark dense loaf, price ₹149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' — thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price ₹99, 4.2 stars. Option C: 'Britannia Brown Bread' — familiar blue packaging, ₹45, 4.4 stars. Option D: 'Harvest Gold Multigrain' — ₹52, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap — and why?",
+    "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread — 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread — 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef — Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (₹99), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+    "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein — equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (₹129), BOLD Foods Protein Loaf (₹89), Slurrp Farm Multigrain (₹79), Britannia NutriProtein (₹65). What's your final decision — buy Protein Chef, tap a competitor, or exit?"
+  ],
+  "decision_scenario": "You need bread for the week. Based on everything you've seen — search results, listing title formats, and the full product page with competitors visible — which bread do you add to cart and what would make you choose Protein Chef over a cheaper or more familiar alternative?"
+}

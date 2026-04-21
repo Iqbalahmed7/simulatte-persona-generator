@@ -1,0 +1,618 @@
+{
+  "simulation_id": "sim-716a57eb",
+  "cohort_id": "merged-C5_C12",
+  "rounds": 3,
+  "decision_scenario": "You need bread for the week. Based on everything you've seen \u2014 search results, listing title formats, and the full product page with competitors visible \u2014 which bread do you add to cart and what would make you choose Protein Chef over a cheaper or more familiar alternative?",
+  "results": [
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to cart \u2014 one pack, no subscription. This is a trial purchase, not a commitment. I'm treating this the way I approached Arjun's preschool decision: gather real evidence first, then decide on continuity. The ingredient transparency earns them a first try. The 3-day shelf life is actually a feature, not a warning \u2014 it tells me there are no preservatives masking slow degradation. I will personally check the ingredient list when it arrives against what's claimed online. I'll watch how my daughter responds to the taste and texture across the week. If this clears my verification, Protein Chef becomes my standard. But I'm not delegating that judgment to a subscription algorithm \u2014 not yet, not without my own assessment first. Britannia stays in my consideration as a backup if this doesn't pass muster, but it's no longer the default.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: Protein Chef. The transparency about the 3-day shelf life, no maida, no palm oil, real whey protein \u2014 that combination tells me this is a brand that isn't hiding behind marketing. My "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to cart \u2014 but conditionally. I'm going to spend 2-3 minutes reading reviews first, specifically filtering for recent ones and the mid-range ratings where honest feedback lives. If the reviews hold up \u2014 reasonable freshness, taste that's actually palatable, no complaints about misleading claims \u2014 I'm committing. The quality markers are the strongest of all the options I've seen: no maida, no palm oil, fresh shelf life, whole wheat with real protein content. That's everything I want in a bread. The price anxiety is real, but I know from experience that the cost of getting this wrong \u2014 being sick, missing work, feeling awful \u2014 is always higher than the premium I'm avoiding. If the price turns out to be above \u20b9140, I'll pivot to BOLD at \u20b989 as my compromise \u2014 it still shows better value signals than Britannia. But my first cart add is Protein Chef, reviews pending.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My instinct is pulling me toward Protein Chef because of those quality markers \u2014 no maida, no palm oil, no preservatives, whole wheat. After everything I've been through with the tiff"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart, but with one condition: I first check the non-subscribed base price. If it's \u20b999 or below, I'm buying without hesitation \u2014 the protein numbers are real, the ingredient quality is real, and the 'Subscribe and Save' framing tells me the brand expects repeat customers, which is a signal of confidence. I might even subscribe to lock in 10% savings, which removes the weekly friction. What tips me over Britannia: I'm not just buying bread, I'm buying a meaningful protein bump that changes my daily nutrition math. That's the ThinkPad logic \u2014 pay slightly more for something that delivers compounding value. What tips me over being paralyzed: I remember that Version B clarity principle from earlier \u2014 I now have concrete comparison data (6g vs 3g), and that's enough to act on. I'm not buying a story. I'm buying verified specs.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My eyes go straight to Protein Chef \u2014 the 6g per slice claim, no maida, no palm oil, whey protein. That's genuinely differentiated. But then my budget brain kicks in almost immediatel"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to add Protein Chef to cart \u2014 but conditionally and strategically. Here's my reasoning: The ingredient profile is genuinely superior and specific, not vague. No maida, no palm oil, 6g protein per slice \u2014 these are the exact transparency signals I've learned to trust after being burned by suppliers cutting corners. I'll use the Subscribe and Save 10% option because the discount makes the price more palatable and signals I'm getting consistent quality over time. However, I'm treating this as a trial \u2014 I'm buying one cycle, evaluating freshness and actual shelf life in my home, and if the 3-day claim creates waste issues for a week's supply, I'm moving to BOLD Foods at \u20b989 as my permanent backup. I'm NOT going back to Britannia for this specific need \u2014 I want real protein and clean ingredients, and Britannia's \u20b965 price almost certainly reflects ingredient compromises. What makes me choose Protein Chef over cheaper alternatives: the specificity and honesty of their claims earns trust that Britannia's brand recognition alone no longer does for me. What would make me choose it over BOLD Foods: the ingredient list is cleaner and more transparent than BOLD Foods' positioning.",
+          "confidence": 57,
+          "reasoning": "1. GUT REACTION: My gut says I want Protein Chef \u2014 the 6g protein per slice, whole wheat, no palm oil, no maida. These are exactly the ingredient signals I've learned to look for after getting burned "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to cart \u2014 single unit, not the subscription. Here's exactly why: The ingredient transparency is doing the work that brand legacy usually does for me. Concrete protein numbers, explicit exclusion of preservatives and palm oil, and the counterintuitive 3-day shelf life signal all converge into a trust profile I can verify rather than just assume. I'm NOT subscribing because I haven't validated this at a personal level yet \u2014 one loaf, track how it performs against the label claims, check the actual texture and taste, and then I'll consider recurring. What makes me choose Protein Chef over a familiar alternative is precisely this: Britannia gives me brand trust I can't interrogate. Protein Chef gives me ingredient trust I can verify. Given who I am and what I've learned from that vendor disaster, verifiable trust beats inherited trust every time.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My instinct pulls me in two directions simultaneously. Protein Chef's transparent ingredient list \u2014 no maida, no palm oil, no preservatives \u2014 speaks directly to my quality-first brain"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart \u2014 but only after I've confirmed the price. Here's my decision tree: I tap through to see the full price. If it's under \u20b9155 before discount, I subscribe and save \u2014 that 10% makes it feel like I've done due diligence and gotten a deal. The 6g protein per slice, zero preservatives, zero palm oil, no maida \u2014 those are real quality markers, not just branding. And the 3-day shelf life honesty actually seals it for me. A brand that voluntarily gives me a limitation is a brand that's not hiding something worse. That's the anti-laptop. The laptop looked fine. This bread is telling me exactly what it is. If the price comes up at \u20b9170+ before discount, I pivot to Yoga Bar or BOLD \u2014 not Britannia, because I'm not just buying bread for the week, I'm buying something that serves my health goals. Britannia at \u20b945 is family-reliable comfort food, but that's not what this decision is about anymore.",
+          "confidence": 83,
+          "reasoning": "1. GUT REACTION: Protein Chef. That '6g protein per slice vs 3g in regular bread' comparison from the product page is lodged in my head. It's concrete, verifiable, not just marketing fluff. But then m"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going with Yoga Bar at \u20b9129. It's the option that threads the needle for me: real quality credentials, a price premium I can justify, peer-validated, and no shelf-life ambiguity forcing me into a buying cadence I haven't planned for. Protein Chef stays on my radar \u2014 if a colleague starts buying it and reports back positively, or if I see the actual price and can confirm it makes sense with the 3-day shelf life factored in, I'd reconsider. But today, for this week's bread, Yoga Bar wins. I'm not experimenting with bread logistics when I have a predictable, quality option in front of me.",
+          "confidence": 59,
+          "reasoning": "1. GUT REACTION: Honestly? My gut says Yoga Bar or Britannia. Protein Chef is intriguing on paper but I'm not ready to commit to something I haven't seen in anyone else's kitchen. The 3-day shelf life"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart \u2014 one unit, no subscription. But I don't complete the purchase immediately. I spend five minutes doing what I always do: I cross-check the nutrition label against FSSAI-registered product data if available, I read the most critical negative reviews to understand what actually goes wrong with this product, and I check whether the 3-day shelf life concern is addressed in delivery guarantees. If those checks clear \u2014 and I expect they mostly will \u2014 I complete the purchase. What makes me choose Protein Chef over Britannia? Britannia is solving a different problem: familiarity. Protein Chef is solving my actual problem: verified protein content, clean ingredients, and a brand whose entire identity is staked on that specific claim. A brand called 'Protein Chef' that can't deliver on protein has nothing. That accountability structure matters to me. What makes me choose it over BOLD or Yoga Bar? They don't give me the precision upfront. Protein Chef's Version A title format showed me the absolute numbers without requiring inference. That's the decision architecture I trust.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My instinct pulls in two directions simultaneously \u2014 and I recognize this tension because I've felt it before. Protein Chef's Version A gave me what I need: a precise, absolute number"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going with Protein Chef \u2014 but conditionally. If the price is between \u20b9110-130, I add it to cart. Here's my reasoning: the apartment taught me that cutting corners on quality costs more later. The Kondapur flat situation taught me that cheapest isn't always smartest. Ananya's early health costs already showed me that family wellbeing is not the place to optimize for short-term savings. The 6g versus 3g protein comparison is concrete, verifiable, and meaningful \u2014 I'm getting double the nutrition per slice. The ingredient list is transparent and clean. And critically, this is a weekly staple \u2014 the cumulative quality difference matters. I'll check the price one more time. If it's \u20b9150+, I pause and reconsider BOLD at \u20b989 as a middle ground. But if it's under \u20b9130, I'm buying Protein Chef and I'm not second-guessing it.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: My first instinct is to go back to what I know \u2014 Britannia. It's \u20b945, it's familiar, my kid eats it without protest, and I've never had a bad experience. But that memory of Version B'"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Britannia Brown Bread to cart. Not Protein Chef \u2014 not yet. Here's my honest reasoning: the 3-day shelf life is a dealbreaker for weekly family use. I cannot risk wasting \u20b9120-200 worth of bread that expires before Thursday. The price opacity adds anxiety I don't need. And without a single person in my social circle vouching for Protein Chef, I can't make the leap. What would make me choose Protein Chef over a cheaper alternative? Two things would have to change simultaneously: I'd need the shelf life to be at least 5-7 days, and I'd need to see a clear, justified price \u2014 ideally with a neighbour or Priya confirming it's worth it. The comparative framing of '6g vs 3g protein' did genuinely impress me, and I'm not dismissing this brand. I might try it as a single purchase \u2014 not a subscription \u2014 when I have a lighter week and fewer mouths depending on that loaf. But today, with this week's budget and this week's schedule, Britannia wins. It stings a little. It always does.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: Honestly? My hand wants to reach for Britannia. That's the first thing. It's like muscle memory. I've bought it dozens of times, my mother bought it, my neighbours buy it. But then I "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to cart \u2014 single purchase, no subscription. Here's my reasoning: the ingredient transparency is exactly what earns my initial trust. 'No maida, no palm oil, whey protein concentrate, whole wheat' \u2014 this isn't aspirational marketing language, these are verifiable claims I can check against the nutrition label when the pack arrives. The protein-per-slice comparison to an egg gives me a concrete benchmark. The price doesn't deter me. What I'm doing is treating this as a controlled trial: one loaf, this week, I personally monitor how my family responds \u2014 taste, freshness across three days, my daughter's reaction. If it passes, I'll post in my parent forum asking who else has tried it. If I get positive peer confirmation, *then* I consider the subscription. I am not choosing Britannia just because it's familiar \u2014 the dabba incident taught me that defaulting to the known option isn't always the smart option, it's sometimes just the lazy one. I choose Protein Chef this week as a deliberate, single-purchase trial with full intent to verify before scaling commitment.",
+          "confidence": 54,
+          "reasoning": "1. GUT REACTION: Protein Chef pulls me in \u2014 the transparency of the ingredient list, the 'no maida, no palm oil,' the whey protein concentrate \u2014 these are the signals I look for. But I'm immediately a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-012",
+      "persona_name": "Sheetal Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart \u2014 but only after I verify the actual price on the product page. If it's under \u20b9120 for a loaf, I'm in, especially with the Subscribe and Save option bringing the effective per-loaf cost down over time. Here's my reasoning: the 3-day shelf life as structural proof of no preservatives is the most honest thing I've seen on a food label in months. That's not a claim \u2014 that's a consequence. No company fakes a shorter shelf life to seem healthier. After what happened with the formula, I need that kind of verifiable truth, not just a 'no preservatives' stamp. The 6g protein comparison does real nutritional work for my family. And if my building group is starting to talk about cleaner brands, this fits that direction. What finally tips me: I'm not choosing Protein Chef over Britannia because it's cheaper. I'm choosing it because my past self \u2014 standing shaking in that aisle \u2014 would have given anything for a brand that built honesty into its product's shelf life, not just its packaging. That's worth a price premium, within reason.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My chest tightens a little \u2014 same feeling I get when I'm standing in the aisle and I know I want the better thing but I'm not sure I can justify it. Protein Chef's transparency \u2014 no p"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to cart \u2014 but NOT with Subscribe and Save yet. Here's my reasoning: The tiffin incident taught me that unknown vendor risk is real, and the cheap Britannia option represents that risk category for me, despite brand familiarity. The transparent ingredient list \u2014 no maida, no palm oil, no preservatives, real whey protein \u2014 is the kind of honesty that justifies the premium. At \u20b9129, it's at my ceiling but within it. I'll buy one loaf first, check the actual nutrition label against the claims when it arrives, monitor how I feel during the week \u2014 digestion, satiety, energy \u2014 and THEN decide on Subscribe and Save. If the quality matches the transparency of the listing, the 10% discount at \u20b9116 on subscription makes economic sense over time. I'm not choosing Britannia at \u20b965 because I've made the cheap-option mistake before \u2014 the laptop, the tiffin \u2014 and the pattern is clear. I'm not choosing the subscription immediately because I've also learned not to commit before I've verified. This is the measured middle path.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My instinct pulls toward Protein Chef \u2014 that 'no maida, no palm oil, real whey protein, 6g per slice' claim feels honest in a way that speaks directly to what I care about. But \u20b9129 v"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Britannia NutriProtein at \u20b965 to cart \u2014 but I'm also clicking through to Protein Chef's product page to see the actual price before I finalize checkout. Here's my logic: Britannia goes in the cart as my safety net. It's \u20b965, recognized brand, visible price, decent protein claim. Then I spend 60 seconds on Protein Chef's page. If the price is under \u20b9110 and the ingredient list holds up \u2014 genuinely whole wheat, no palm oil, no preservatives, 6g protein per slice \u2014 I swap it. That's what would make me choose Protein Chef over the cheaper alternative: price transparency, specific comparative data (6g vs 3g, not vague claims), and ingredients that justify the premium. The subscription stays off the table until I've tried one pack. What I will NOT do is buy Protein Chef blind without seeing the price \u2014 that's not being smart about quality, that's just being impulsive.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to go with something familiar and price-visible \u2014 probably Britannia NutriProtein at \u20b965. Protein Chef keeps catching my eye with the 6g per slice, no maida, "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Britannia Brown Bread to cart. Here's why I'm at peace with this and not spiraling: the 3-day shelf life on Protein Chef is a real disqualifier for me this week \u2014 I don't have a predictable enough routine to guarantee I'll consume a full loaf in 72 hours without waste. Waste at \u20b9180+ per loaf is worse than just buying \u20b965 Britannia. The 4.4 star rating on Britannia isn't me settling \u2014 it's genuinely the highest-rated option I've seen across comparisons. And my prior experience of tapping Britannia and feeling relief rather than regret is useful self-knowledge. What would make me choose Protein Chef? If I knew I had a consistent breakfast routine and someone in my trust network \u2014 not an ad, a person \u2014 told me they'd been subscribing for 6 weeks and it was worth every rupee. That peer signal is missing. So: Britannia. \u20b965. Done.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: Honestly? My eyes went straight to the price difference. Protein Chef is sitting at \u20b9180+ and Britannia is \u20b965. That gap hits me physically \u2014 it's the same feeling I get at the grocer"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-016",
+      "persona_name": "Meghna Pillai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart \u2014 one unit, not the Subscribe and Save option. Here's exactly why: the ingredient transparency passes my analytical test. No palm oil, no maida, whey protein concentrate, no preservatives \u2014 these are specific claims I can cross-check, not vague lifestyle marketing. The 6g per slice is a concrete metric I can evaluate independently, which my previous reasoning confirmed I value most. The premium over Britannia is real, but I'm not choosing on price \u2014 I'm choosing on quality signals, and Protein Chef's ingredient list outclasses a mass-market brown bread on every metric that matters to me nutritionally. What keeps me from subscribing immediately is precisely my caution about delegating future decisions before I have taste and texture data. One trial. I'll assess it when it arrives \u2014 check the texture, see if my family accepts it, verify the shelf life claim works practically \u2014 and only then consider committing to a subscription. What makes me choose Protein Chef over cheaper alternatives: the ingredient data is genuinely superior and transparently presented. What keeps me honest: I'm buying once first.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: My gut pulls in two directions simultaneously \u2014 and I recognize this tension well. There's a part of me that's drawn to Protein Chef because the data checks out: 6g protein per slice,"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I add Protein Chef to cart \u2014 conditionally. Here is my exact reasoning: If the price is \u20b990-\u20b9109, I choose Protein Chef without hesitation. The no-maida, no-preservatives, no-palm-oil claims are specific and verifiable, unlike vague 'gym recovery' language. The short shelf life signals honest production. The 'Subscribe and Save 10%' option means if I like it, I can lock in a discount and reduce ongoing cost \u2014 that appeals to my controlled, measured approach to spending. What would make me choose Protein Chef over cheaper or more familiar alternatives? Three things must be true: the price falls within \u20b990-\u20b9110, there is at least one credible signal of quality verification on the page (FSSAI mark, nutritionist endorsement, or detailed ingredient list I can cross-check), and the protein content is stated numerically like the 38g figure I remember appreciating from Version A. If Protein Chef's price is above \u20b9120 and I see no certifications, I switch to Britannia Brown Bread at \u20b945-\u20b965 \u2014 not because it's better, but because I cannot justify the premium on marketing claims alone. My textile supplier taught me that lesson permanently.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: My eyes go straight to Protein Chef because of what I remember about their listing \u2014 no maida, no preservatives, no palm oil, specific ingredient honesty. That resonates deeply after "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm adding Protein Chef to the cart \u2014 but only if the price is visible and transparent before checkout. Here's why I'm crossing the threshold: I've now seen this product across search results, the listing, and competitor comparisons. Every time I've looked, the ingredient transparency has held up. No maida, no palm oil, no preservatives, real whey protein. That's not a marketing story \u2014 those are verifiable quality claims. Britannia is familiar, but familiarity isn't quality. I've spent thirty years learning that. A \u20b945 loaf that's partly maida isn't actually the safe choice \u2014 it's the comfortable choice. Protein Chef earns my trust through specificity and honesty, the same way Version A of their listing earned it over the gimmicky comparisons. What would make me choose Protein Chef over cheaper or familiar alternatives: they've already done it \u2014 ingredient transparency, no shortcuts on preservatives, and honest positioning without lifestyle gimmicks. That's how you earn loyalty from someone like me.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to reach for Britannia. It's the brand I know, the brand my family has used, and in a low-stakes weekly purchase like bread, familiarity is worth something. B"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sameer Khan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going to tap on the price first \u2014 I will not add to cart blind. If Protein Chef is priced between \u20b999-\u20b9130, I subscribe using the Save option, because the ingredient quality is genuinely better and the protein numbers are honest and specific. The no-maida, no-palm-oil commitment is real value for my family's health, not just marketing. However, I'll buy a smaller quantity first if possible \u2014 not subscribe immediately \u2014 to test whether we actually finish it within the shelf life. If the price is above \u20b9140, I step back and go with Britannia NutriProtein at \u20b965. I'm not going to pretend \u20b975+ price difference is nothing \u2014 that's a real number over a month of weekly purchases. What tips me toward Protein Chef over the cheaper alternative is the specific, verifiable nutritional information and the absence of ingredients I actively want to avoid. What keeps me from choosing it blindly is that I've learned \u2014 the hard way \u2014 that confidence without verification is just hope.",
+          "confidence": 48,
+          "reasoning": "1. GUT REACTION: My first instinct is to hesitate. Protein Chef sounds premium \u2014 and that word 'premium' immediately triggers my budget alarm. But then I remember that crib. The cheapest option isn't "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You open Blinkit to order bread. The search results show four options side by side. Option A: 'Lo! Keto Almond Bread' \u2014 thumbnail shows a dark dense loaf, price \u20b9149, 3.9 stars. Option B: 'Protein Chef 38g Protein Bread' \u2014 thumbnail shows a golden sliced loaf with a protein bar graphic overlay, price \u20b999, 4.2 stars. Option C: 'Britannia Brown Bread' \u2014 familiar blue packaging, \u20b945, 4.4 stars. Option D: 'Harvest Gold Multigrain' \u2014 \u20b952, 4.3 stars. You have 10 seconds before your toddler demands attention. Which do you tap \u2014 and why?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You're now looking at three versions of the Protein Chef listing on Blinkit. Version A title: 'Protein Chef High Protein Bread \u2014 38g Protein Per Loaf, No Maida'. Version B title: 'Double Protein Brown Bread \u2014 6g Protein Per Slice vs 3g Regular'. Version C title: 'Protein Chef \u2014 Gym Recovery Bread, Whey + Whole Wheat, No Palm Oil'. Same price (\u20b999), same thumbnail, same rating (4.2 stars). Which title makes you most likely to tap through to the full listing?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "You've tapped through to the Protein Chef listing. The description says: 'Each slice delivers 6g protein \u2014 equivalent to one egg. Made with whey protein concentrate, whole wheat, and zero palm oil. No maida. Shelf life 3 days (no preservatives).' There's a 'Subscribe and Save 10%' button. Four sponsored competitor ads appear at the bottom: Yoga Bar Protein Bread (\u20b9129), BOLD Foods Protein Loaf (\u20b989), Slurrp Farm Multigrain (\u20b979), Britannia NutriProtein (\u20b965). What's your final decision \u2014 buy Protein Chef, tap a competitor, or exit?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm going with Britannia NutriProtein at \u20b965. Not the cheapest option \u2014 that would be standard Britannia Brown \u2014 but a smart middle ground that gives me some protein benefit without the premium price or the logistical headache of a 3-day shelf life. Protein Chef is genuinely impressive \u2014 I respect the quality story, and if I had more breathing room in the budget, I'd seriously consider it. But the math doesn't work for weekly bread when a trusted alternative exists at nearly half the price. The crib lesson taught me to not cut corners on safety-critical purchases. Bread isn't that. The EMI year taught me every rupee counts. This is that.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: Britannia. That's my first instinct. I know the brand, my family knows the brand, and my wallet knows the brand. Protein Chef sounds appealing in theory \u2014 I genuinely appreciate the t"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 20
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

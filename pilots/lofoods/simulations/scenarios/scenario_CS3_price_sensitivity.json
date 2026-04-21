@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS3",
+  "title": "Price Sensitivity: What Premium Does 'Protein' Justify Across Channels?",
+  "cohorts": ["C3", "C4"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're on Blinkit doing a weekly grocery run. In the bread section you see: Britannia Brown Bread ₹45 (400g), Harvest Gold Multigrain ₹52 (400g), and Protein Chef High Protein Bread ₹69 (400g, '38g protein per loaf, no maida, no palm oil'). You've heard of high-protein bread but haven't tried it. Your regular spend on bread is ₹45-55 per week. What do you do — and what's going through your mind about the ₹69 price point?",
+    "Same Blinkit run, but today Protein Chef is priced at ₹99. The regular breads are ₹45-55 unchanged. A 'Buy 2 Get 10% off' banner sits above the Protein Chef listing. The product has 4.1 stars and 2,340 ratings. The top review says: 'Worth every rupee — I stopped buying eggs separately.' At ₹99, does the protein claim change your calculus, or does the price gap feel too wide?",
+    "You're comparing options for your monthly grocery budget. Protein Chef at ₹139 is listed alongside a 500g sourdough loaf at ₹135 and a local whole wheat bread at ₹48. At ₹139, the Protein Chef listing now prominently shows: '6g protein per slice vs 2.5g in regular bread — equivalent to one egg per two slices.' You're a regular gym-goer or health-conscious shopper. Does this protein density argument justify ₹139, or is there a price ceiling beyond which no claim wins you over?"
+  ],
+  "decision_scenario": "You're setting your weekly grocery budget for bread. Walk me through your honest decision: at what price point does Protein Chef bread become a genuine consideration, at what price does it feel like fair value for what it offers, and at what price does it become something you'd only buy occasionally or not at all? What single claim or product change would make you pay ₹99 or more without hesitation?"
+}

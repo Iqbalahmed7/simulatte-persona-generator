@@ -1,0 +1,918 @@
+{
+  "simulation_id": "sim-28f1dbea",
+  "cohort_id": "merged-C1_C2_C13",
+  "rounds": 3,
+  "decision_scenario": "You're on Amazon looking for a healthier bread or snack option. You haven't committed to any specific diet. Based on the listing formats you've seen \u2014 keto-led titles, benefit-led titles, clean ingredient-led titles \u2014 which approach makes Lo! Foods products feel most worth clicking on and buying? Does 'keto' in the title help, hurt, or have no effect on your perception of the product?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 5,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on a benefit-led or clean ingredient-led title \u2014 specifically something that leads with concrete, verifiable information like protein quantity or specific ingredient exclusions like no maida or no palm oil. I would not click on the keto-titled listing first, and if I'm being honest, I'd probably skip it entirely unless the reviews were dramatically better. The keto framing doesn't add trust \u2014 it subtracts it. It makes me feel like I'm being sold a diet ideology rather than a quality product. Lo! Foods, if they're leading with keto in the title, is talking past me. If they lead with what's actually in the product and what real benefit I get, I'll give them a fair chance \u2014 and if the price-to-value ratio holds up, I'll probably buy and come back.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, I feel like I'm being sorted into a diet tribe I don't belong to. My health screening came back clean \u2014 I'm not diabetic, not on a medically restri"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on a benefit-led or clean ingredient-led listing from Lo! Foods over a keto-led one, every single time. If I'm comparing Lo! Foods listings, I want to see protein content front and center, specific numbers, and honest ingredient claims like no maida or no palm oil. That's what makes me feel the price is justified. 'Keto' in the title actively hurts Lo! Foods for me \u2014 it makes me suspicious, it signals trend-chasing, and it makes me wonder if the product is being dressed up for a niche audience rather than made well for everyone. I'd rather see '8g Protein | No Maida | No Palm Oil' than any keto claim. That's what I'd click. That's what I'd buy \u2014 assuming reviews from mothers like me confirm it actually tastes decent.",
+          "confidence": 92,
+          "reasoning": "1. GUT REACTION: When I see 'keto' in a title, my first instinct is to scroll past. It signals a diet trend, not real food for my family. What stops me scrolling is when I see something concrete \u2014 pro"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm clicking on Lo! Foods only if their listing leads with clean ingredient transparency and specific nutritional benefits \u2014 not keto. Something like 'High Protein Bread | No Maida | No Palm Oil | X grams protein per slice' earns my click and likely my purchase. That format respects my intelligence, answers my real questions, and doesn't require me to subscribe to a diet philosophy I'm not following. The keto-led title actively hurts my perception \u2014 it creates distance, signals trend-chasing, and makes me wonder whether the product's actual nutrition is genuinely strong or just optimized for a low-carb macro profile that doesn't serve my specific needs. My final decision: I click the benefit-led or clean ingredient-led listing. I add to cart if the price-per-nutrition math works out and if the reviews are substantive, not just 'great taste!' fluff. I skip any listing where 'keto' is the primary hook.",
+          "confidence": 76,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to scroll past anything with 'keto' dominating the title. It feels like a flag for a product that's chasing a trend rather than genuinely nourishing me. I'm n"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely purchase Lo! Foods if the listing uses a benefit-led or clean ingredient-led title \u2014 something like 'High Protein, No Maida, No Palm Oil' with specific numbers. That format respects my intelligence and my budget reality. 'Keto' in the title actively hurts my perception \u2014 it makes me suspicious of the price, makes me feel excluded from the intended customer, and makes me distrust the sincerity of the health claims. If the price is visible and reasonable, around \u20b9150-200 for a usable quantity, and if I see specific protein numbers plus a reassurance that it replaces my regular bread rather than requiring a whole new diet, I will buy it. The 'keto' version I might not even click on.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: When I see 'keto' in the title, my first instinct is to scroll past. That word feels like it belongs to a different kind of person \u2014 someone with disposable income who is following a "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on the benefit-led or clean ingredient-led title \u2014 specifically whichever one leads with something like 'No Maida. High Protein. Real Ingredients.' and shows me the protein content upfront. I would NOT click on the keto-led title. The word 'keto' actively hurts Lo! Foods' chances with me \u2014 it signals this product is for someone else, it suggests a price premium I'm suspicious of, and it reminds me of diet fads that waste money. Clean ingredient-led titles feel honest. Benefit-led titles feel practical. Between those two, I'd go with whichever has cleaner, fewer bullet points \u2014 because I've learned that too many words means someone is trying too hard to justify a weak product. My trust goes to the listing that respects my intelligence and my time. I would then check ratings and reviews from other mothers before adding to cart \u2014 not gym people's reviews, family people's reviews.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me switches off. It's not for me. It's for those people on Instagram who photograph their food. I don't have a special diet, I'm not f"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely buy Lo! Foods if the listing leads with clean, specific benefits \u2014 protein content per serving, absence of maida or palm oil, real ingredient transparency. That approach tells me the brand understands people like me: not on a specific diet, watching health, watching budget, needing real justification for every rupee spent. The 'keto' title actively hurts my perception. It signals niche, it signals premium pricing I may not get value from, and it signals the brand doesn't know who I actually am. If Lo! Foods ran a benefit-led title \u2014 say '6g Protein Per Slice, No Maida, No Palm Oil' \u2014 I would click confidently and my purchase decision would come down purely to price. If priced under \u20b9250, I'm buying. Keto in the title? I'd scroll past without a second look, unless I was desperate or it was drastically cheaper than alternatives.",
+          "confidence": 90,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me immediately pulls back. It's not rational, it's visceral \u2014 like seeing a price tag that's \u20b9200 more than you expected. My brain goe"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on the benefit-led or clean ingredient-led listing \u2014 whichever most prominently features specific, measurable nutritional claims and transparent ingredient declarations. 'Keto' in the title has a mildly negative effect on my perception \u2014 it doesn't make the product feel irrelevant, but it does make me feel like I'm not the primary audience, which increases friction. If Lo! Foods ran two identical listings \u2014 one with 'keto' leading and one with 'High Protein, No Maida Bread' leading \u2014 I would click the second one first, without hesitation. After clicking, I'd immediately go to the nutritional table, ingredient list, and customer reviews filtered by 'most critical' before deciding to add to cart. I would likely hold off on purchasing until I've found at least one credible third-party source \u2014 a food blogger with nutritional credentials, or a published review \u2014 that validates the protein claims.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that 'keto' in the title makes me pause \u2014 and not in a good way. I'm not on a keto diet, and seeing that word prominently placed makes me feel like I'm lookin"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most seriously consider a Lo! Foods product that leads with a clean-ingredient or measurable-benefit title \u2014 something like 'High Protein Bread | No Maida, No Palm Oil | 8g Protein per slice.' That approach earns my click because it speaks directly to my actual concerns rather than assuming I'm on a keto diet. The 'keto' label in the title neither helps nor actively repels me, but it does reduce relevance \u2014 it shifts the product's apparent audience away from me. If keto appears as a secondary descriptor within the listing, I can accept it as useful context. But as the headline positioning? It slightly hurts Lo! Foods' chances with me because it introduces a filter I don't identify with, and makes me wonder what they're compensating for by leaning so heavily on a trend label. I would still open the listing if nothing better was available, but I'd go in more skeptically and would need the ingredient list and certifications to do significant repair work. Bottom line: benefit-led and clean-ingredient-led titles earn my trust faster. Keto-led titles make me work harder to convince myself.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: My immediate instinct when I see 'keto' in the title is mild skepticism. I'm not following a ketogenic diet, and when a product leads with that label, it feels like it's talking to so"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely buy the benefit-led or clean ingredient-led Lo! Foods listing. Specifically: if the title reads something like 'High Protein Bread \u2014 6g Protein Per Slice | No Maida, No Palm Oil' \u2014 that earns my click immediately. The 'keto' label in the title either has no effect or slightly hurts my perception, depending on how prominently it's used. If keto is the primary hook and protein/ingredients are secondary, I'm less inclined to click. If keto appears alongside concrete nutritional claims, I can tolerate it but still wish it wasn't there. Lo! Foods is a brand I recognize and have some baseline trust in \u2014 that matters \u2014 but the listing format determines whether that trust converts into a purchase. The benefit-led approach seals the deal.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My immediate instinct when I see 'keto' in a title is mild skepticism \u2014 almost a reflexive wariness. It signals trend-chasing to me, not genuine quality. I've been burned by suppliers"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on Lo! Foods if the title is benefit-led with specific, verifiable claims \u2014 something like 'High Protein Multigrain Bread, 8g Protein Per Slice, No Maida, No Palm Oil.' That framing respects my intelligence, gives me data I can cross-reference, and doesn't ask me to adopt a dietary identity to justify the purchase. Keto in the title actively hurts my perception \u2014 not because I'm anti-keto, but because it signals the product is optimised for search conversion rather than genuine nutritional communication. It raises my scepticism. A clean ingredient-led title does the most work for me: it implies the brand has confidence in what's actually in the product rather than needing a trend word to justify it. I would still verify by reading the full listing, checking for FSSAI details, and probably cross-referencing one nutritionist review before adding to cart.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that 'keto' in the title makes me want to scroll past. It feels like a trend label being used as a shortcut \u2014 it signals the product is designed for a specifi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and consider buying a Lo! Foods product if \u2014 and only if \u2014 the title is benefit-led or clean ingredient-led. Something like 'High Protein Bread \u2014 No Maida, No Palm Oil, No Refined Sugar' would make me stop and read. That title speaks my language. It tells me what's NOT in it, which I trust more than what IS in it, because companies can exaggerate benefits but avoiding specific harmful ingredients is something I can verify or at least believe more easily. If the keto angle is the main headline, I scroll past. Not because keto bread is necessarily bad, but because that title tells me the product was designed for a customer with different priorities and different spending capacity than me. A clean ingredient title with honest numbers makes the product feel accessible. Keto in the title makes it feel like I'd be paying extra for a diet brand identity I don't want or need. My final decision: benefit-led or clean ingredient-led title gets my click and serious consideration. Keto-led title gets a scroll-past.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in any title, something in me closes. It's not anger exactly \u2014 it's more like that familiar feeling when someone at a market is trying to sell you something yo"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd click on a benefit-led or clean ingredient-led Lo! Foods listing. Something like 'High Protein Bread \u2014 No Maida, No Palm Oil, 8g Protein Per Slice' would earn my click and very likely my purchase, assuming the price is reasonable. 'Keto Bread' in the title actively hurts my perception \u2014 it signals that the product is designed for a specific diet tribe I'm not part of, and it makes me suspicious that the marketing is doing work the ingredients can't. I want Lo! Foods to sell me the nutritional reality, not a lifestyle aspiration. If the bread is genuinely good, the facts will make the case. I don't need the keto label \u2014 and frankly, it makes me trust the product less, not more.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: When I see 'keto' in a title, something in me immediately switches off. It's like those labels that colleagues slap on perfectly good food \u2014 'gluten-free,' 'keto' \u2014 when the food itse"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and buy the benefit-led or clean ingredient-led listing \u2014 specifically one that leads with something like '38g Protein, No Maida, No Palm Oil' rather than 'Keto Bread' or 'Keto Cookies.' The 'keto' label in the title actually hurts my perception \u2014 it makes the product feel niche, temporary, and not designed for someone like me who just wants honest, nutritious food. Clean ingredient titles feel trustworthy and respectful of my intelligence. Protein-led benefit titles feel functionally valuable \u2014 they tell me what I'm getting for my money, which is exactly the kind of value calculation I need to make. Lo! Foods, if they want my click and my purchase, should lead with what the product does for me universally, not what diet philosophy it supports.",
+          "confidence": 86,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, I mentally step back. It's not that I think keto is bad \u2014 I've seen friends on WhatsApp groups swear by it \u2014 but it immediately signals 'this is no"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For Lo! Foods products, the approach that makes me most likely to click and buy is either a benefit-led title \u2014 something with a specific, verifiable claim like protein content \u2014 or a clean ingredient-led title that tells me what's NOT in it (no maida, no palm oil, no artificial additives). These approaches treat me like an informed adult making a nutritional choice. The keto label, by contrast, hurts my perception. It doesn't actively offend me, but it creates distance: I assume the product was designed for a specific community I'm not part of, possibly priced at a premium I'm not willing to pay for a trend, and likely overselling itself. My actual decision: if I see two Lo! Foods listings side by side \u2014 one saying 'Keto Bread' and one saying 'High Protein Bread | No Maida | 8g Protein per Slice' \u2014 I'm clicking the second one without hesitation. The keto title makes me scroll past. The benefit title makes me stop and read.",
+          "confidence": 87,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me pulls back. It's not that I'm against keto \u2014 I just don't follow that diet, and immediately the product feels like it's not for me."
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on a Lo! Foods listing that leads with benefit-led or clean ingredient-led language \u2014 something like 'High Protein, No Maida, Low GI Bread' with a specific protein number in the title. That tells me exactly what I'm getting and why it's worth the price. I would not click on a keto-led title as my first choice. If the keto listing happened to show the same price and the description then clearly showed the nutritional numbers I care about \u2014 protein per slice, specific ingredients \u2014 I might read further. But the title alone would not draw me in. 'Keto' hurts Lo! Foods' chances with me. It signals exclusion, not value. Benefit-led titles win because they respect my intelligence and my budget equally.",
+          "confidence": 83,
+          "reasoning": "1. GUT REACTION: When I see 'keto' in the title, my hand slows on the scroll. It feels like a word for someone else \u2014 someone with a gym membership and extra rupees to spend on specialty eating. My in"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on a Lo! Foods listing that leads with clean ingredients and specific nutritional facts \u2014 something like 'High Protein Bread \u2014 8g Protein Per Slice | No Maida, No Palm Oil' would earn my attention and probably my click. A keto-led title actively hurts my perception \u2014 it signals the product is designed for a specific dietary tribe I'm not part of, and it makes me wonder if the formulation choices were made for ketosis rather than general nutritional quality. A benefit-led title is middle ground \u2014 acceptable but vague. Clean ingredient-led with specific numbers is the clear winner for me. I'd click, read the full listing carefully, look for certifications, cross-check reviews from verified buyers, and only then decide whether to add to cart. I would not buy on the first click alone.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me pulls back. I'm not on keto. I've never been on keto. And honestly, after watching how 'keto' has become a marketing shorthand plas"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click most readily on a benefit-led or clean ingredient-led title \u2014 something like 'High Protein Bread | No Maida | No Palm Oil' \u2014 over a keto-led title. That's the listing I'd engage with first. 'Keto' in the title doesn't actively repel me, but it has no positive pull either \u2014 it's neutral at best, slightly suspicious at worst, because it suggests the product's identity depends on a diet trend rather than its own quality. Once I click, I'd look for: a clear nutrition table, ingredient list I can actually read, any third-party certifications, and genuine customer reviews from people who aren't exclusively keto dieters. If Lo! Foods led with clean ingredient claims and had a nutritionist-validated formulation visible somewhere in the listing, that's when I'd seriously consider buying. Without that verification layer, I'm clicking and researching \u2014 not buying immediately.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: My immediate pull is toward the clean ingredient-led title. When I see 'keto' plastered in a title, something in me resists \u2014 not because I'm anti-keto, but because it signals the pro"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and seriously consider buying a Lo! Foods product if it leads with clean ingredient transparency or concrete nutritional benefits \u2014 things like protein content, absence of harmful ingredients, real food sourcing. A benefit-led or clean ingredient-led title earns my click. 'Keto' in the title hurts my perception \u2014 not because keto is inherently bad, but because it signals the brand is speaking to a different customer, using trend language to position rather than quality language to inform. It creates distance between me and the product before I've even read the description. If Lo! Foods led with '38g Protein, No Maida, Real Ingredients' the way Yoga Bar does, I'd trust them far more and be willing to pay a fair price. The keto angle actually makes me less likely to buy \u2014 it feels like the brand is renting its credibility from a trend rather than earning it through product substance.",
+          "confidence": 93,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' plastered in a title, something in me pulls back. I'm not following any specific diet \u2014 so why is this product already telling me it's not for me? It feels lik"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and buy the benefit-led or clean-ingredient-led listing over the keto-led one. If Lo! Foods has a listing that leads with something like protein per serving, specific ingredient exclusions, or a clean factual summary, that's what earns my click. 'Keto' in the title has a net negative effect on my perception \u2014 not because keto is bad, but because it tells me the brand is prioritizing search visibility over communicating with me as an informed buyer. That said, the click is not the purchase. I'd still open the full listing, read the nutritional panel carefully, cross-check the ingredient list against the claims, and scan reviews for anything about digestibility or taste. My confidence in the *click* decision is high. My confidence in the *purchase* depends on what I find when I dig deeper.",
+          "confidence": 73,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me pulls back slightly. Not because I have anything against the science \u2014 I don't \u2014 but because it signals to me that the brand is ori"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd click on Lo! Foods if their title is benefit-led or clean ingredient-led \u2014 something like 'High Protein Bread | No Maida | Whole Wheat | 8g Protein Per Slice.' That signals the brand is confident in its actual product. I would not prioritize a keto-led title; it doesn't help my perception and marginally hurts it \u2014 it makes me wonder if the rest of the listing will be substance or noise. If I click through and the bullet points are precise and limited, the nutritional panel is clean, and peer reviews mention taste and actual ingredient quality (not just 'great keto snack!'), I'd buy. 'Keto' in the title is net-neutral at best, mildly negative at worst for me specifically. It's not a dealbreaker, but it's not a draw.",
+          "confidence": 83,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' leading a title, something in me recoils slightly. It's not a rational response exactly \u2014 it's more like a pattern recognition trigger. 'Keto' has become a lif"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on a clean-ingredient-led or benefit-led title over a keto-led title. If Lo! Foods has a listing that opens with something like 'High Protein | No Maida | No Palm Oil' with a specific gram count visible, that's where I'm going. That listing earns my click because it gives me verifiable data points I can actually research. Keto in the title has a slightly negative effect on my perception \u2014 not dealbreaking, but it makes me more skeptical going in and means the product listing body has to work harder to recover my trust. After clicking, I'd still dig into the ingredient panel, check for any third-party certifications, and look for detailed reviews from people who seem to have bought it for nutrition reasons rather than diet trend reasons. But the clean-ingredient framing gets me through the door.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' prominently in a title, something in me pulls back. It's not that I think low-carb eating is wrong \u2014 it's that the word itself has become noise. It signals tre"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd click on the benefit-led or clean-ingredient-led Lo! Foods listing, not the keto-led one. Specifically: if the title leads with something like 'High Protein | No Maida | No Palm Oil,' I'm clicking that. It tells me what I'm actually getting without asking me to buy into a dietary identity I don't have. The keto title doesn't help \u2014 it actually slightly hurts, because it narrows the perceived audience and makes me feel like I'm borrowing a product meant for someone else. It also sets off my 'trend-label premium' alarm \u2014 I assume the price reflects the keto branding as much as the actual product quality. Clean ingredient-led titles feel honest. They feel like the makers know their product is genuinely good and don't need to hide behind a diet buzzword. That's the kind of product I want to spend my money on \u2014 something that proves its value through what it actually contains, not what diet camp it claims to belong to.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: Keto in the title immediately makes me feel like I'm not the target customer. I'm not doing keto. I'm just trying to eat better. The moment I see 'keto-led' titles, something in me sw"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm clicking on and most likely buying the benefit-led or clean ingredient-led listing, not the keto-led one. For Lo! Foods specifically, if they lead with something like 'No Maida, High Protein, No Palm Oil' or 'Diabetic Friendly, Low GI,' I feel like they understand me. If they lead with 'Keto Bread,' I feel like they're talking past me to someone else, and I have to work harder to determine if it's actually relevant to my needs \u2014 and I probably won't bother because there are other options on the same page. 'Keto' in the title actively hurts my perception. It doesn't make the product feel premium or scientific \u2014 it makes it feel trend-chasing. The benefit-led or clean-ingredient approach resolves my core tension: quality I can verify against a price I can justify.",
+          "confidence": 88,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me pulls back slightly. It's not hostility \u2014 it's just... that word isn't speaking to me. I'm not on a keto diet. I'm not planning to "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely buy the benefit-led or clean ingredient-led listing over the keto-led one. Specifically, a title that leads with protein content and calls out 'no maida, no palm oil' feels designed for someone like me. 'Keto' in the title has a mild negative effect \u2014 it doesn't make me angry, but it creates a psychological distance, like the product was made for a different customer. That said, I wouldn't complete the purchase purely from the listing alone. I'd scroll to reviews, look for influencer validation, and check the actual price before committing. But the benefit-led framing is what gets me to click in the first place \u2014 and that first click is everything on Amazon.",
+          "confidence": 66,
+          "reasoning": "1. GUT REACTION: Honestly, the moment I see 'keto' in a title, something in me disconnects slightly \u2014 not a hard repel, but a kind of 'this isn't made for me' feeling. I'm not keto. I'm not following "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely buy the benefit-led or clean ingredient-led listing over the keto-led one. If Lo! Foods wants my attention, putting 'keto' prominently in the title actually hurts their chances with me \u2014 it creates immediate psychological distance because I don't identify as a keto person, and it signals I might be overpaying for a trend label. What works: lead with protein numbers, call out the specific bad ingredients you've removed (Maida, Palm Oil), keep it short and direct. That feels honest, it respects my intelligence, and it makes the value calculation easy. I'd even pay a modest premium \u2014 maybe 10-15% more than a generic brand \u2014 if the benefit-led listing gave me that clarity. Keto in the title? I'd need a compelling reason not to scroll past.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me just... switches off. It's not even a conscious decision \u2014 it's almost like an allergy. I'm not on keto. I've never been on keto. S"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-016",
+      "persona_name": "Meghna Pillai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on and most likely purchase a Lo! Foods product if the listing leads with a clean ingredient claim \u2014 'No Maida, No Palm Oil' \u2014 or a quantified protein claim like '8g Protein Per Slice.' These give me enough verifiable information to begin my evaluation. I would not be swayed by keto-led titles; they actually reduce my confidence in the product because they suggest the brand is prioritising trend-alignment over nutritional transparency. Benefit-led titles like 'guilt-free' fall somewhere in the middle \u2014 they're not actively repellent, but they don't give me enough to work with. My purchase would still be conditional on reviewing the full nutritional label, checking for third-party verification where available, and reading structured user reviews \u2014 not star averages, but detailed ones.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My immediate reaction is that 'keto' in a title actively puts me off \u2014 not because I have anything against the diet itself, but because it signals the product is positioning itself ar"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-007",
+      "persona_name": "Venkat Subramaniam",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'd click on and most likely buy Lo! Foods if the listing leads with clean, specific ingredient claims \u2014 'no maida,' 'whole grain,' 'no palm oil,' 'no preservatives' \u2014 or concrete nutritional benefits like protein per serving. These titles give me a rational starting point and make my own verification process efficient. 'Keto' in the title actively hurts my perception \u2014 not fatally, but measurably. It reads as trend-chasing, it targets an identity I don't hold, and it substitutes a diet label for actual nutritional transparency. I'd still click through if the price and reviews suggested substance underneath, but I'd arrive with more skepticism. Clean ingredient-led titles win decisively for me. Benefit-led titles work only if the benefit is concrete and measurable, not vague ('guilt-free,' 'mindful') \u2014 those feel like marketing narratives I've learned not to trust.",
+          "confidence": 87,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in the title, something in me deflates slightly. It's not that I have anything against ketogenic eating \u2014 it's that 'keto' has become a marketing shorthand, a "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Raghav Pandey",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 9,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I will click on a Lo! Foods listing that leads with benefits or clean ingredients \u2014 something like 'High Protein Bread, No Maida, No Palm Oil' rather than 'Keto Bread.' The 'keto' title actively hurts my perception of the product for three reasons: it signals the product isn't meant for me, it suggests trend-chasing over genuine quality, and it makes me suspicious about whether I'm paying a premium for a diet label rather than for real nutritional value. A benefit-led approach \u2014 specific protein numbers, clear ingredient claims \u2014 feels trustworthy and respects my intelligence. That's what gets my click and, if priced fairly, my purchase.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: When I see 'keto' in a title, my hand slows on the scroll. It's not my world \u2014 I'm not on keto, my family isn't on keto, and honestly the word signals to me that this product is chasi"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on the clean ingredient-led or benefit-led listing \u2014 specifically one that leads with measurable nutrition like protein content or concrete claims like 'no maida, no palm oil.' The keto title actively hurts my perception of Lo! Foods because it signals the brand is chasing a segment I'm not part of, which makes me wonder if the product is genuinely healthy for a mainstream buyer like me or just optimised for a niche. I'd be most likely to click and potentially buy from a listing that gives me one or two specific, verifiable nutritional facts upfront, without wrapping it in lifestyle-identity language. Before completing the purchase, I'd check the full ingredient list, read 15-20 recent reviews looking for mentions of actual taste and ingredient quality \u2014 not just packaging praise \u2014 and compare the price per serving against Yoga Bar or another trusted brand I've researched before.",
+          "confidence": 55,
+          "reasoning": "1. GUT REACTION: My immediate instinct is that 'keto' in the title actually pushes me away. I'm not on a keto diet, I'm not planning to be, and when I see that word, I feel like this product isn't rea"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're searching 'healthy cookies' on Amazon India. Four results appear. Listing A: 'Lo! Foods Keto Almond Cookies Sugar Free Biscuit No Maida Low Carb Diet Snack \u2014 200g'. Listing B: 'Lo! Almond Cookies \u2014 Sugar Free, No Maida, No Palm Oil \u2014 Guilt-Free Snacking \u2014 200g'. Listing C: 'Lo! High Protein Almond Cookies \u2014 8g Protein Per Pack, Zero Added Sugar, Whole Ingredients \u2014 200g'. Listing D: 'Lo! Almond Cookies \u2014 Diabetic Friendly, Low GI, No Refined Sugar \u2014 For Mindful Snacking \u2014 200g'. All \u20b9199, 4.1 stars, same product. Which listing do you click \u2014 and does the word 'keto' in Listing A attract or repel you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "You've clicked through to the Protein Chef bread listing. The current title is: 'Lo! Foods Keto Friendly Protein Chef High Protein Bread Loaf No Maida Whole Wheat 400g'. The description is 400 words long, starts with 'Are you tired of regular bread that offers no nutritional value?' and mentions keto 7 times in the first paragraph. There are 23 bullet points. The top competitor \u2014 Yoga Bar Protein Bread \u2014 has a cleaner listing: '38g Protein. No Maida. Real Ingredients.' and 6 bullet points. Compare your reaction to both listings: which feels more trustworthy and purchase-ready?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods is A/B testing a new Protein Chef listing. Version A keeps 'keto' in the title for search visibility (keto gets 180K monthly searches). Version B removes keto entirely \u2014 title becomes 'Protein Chef High Protein Bread \u2014 38g Protein, No Maida, No Palm Oil \u2014 400g' (targeting 'protein bread' at 95K searches and 'no maida bread' at 210K). Version B also updates bullets to lead with protein-per-slice comparison rather than diet type. You're a mainstream health-conscious shopper \u2014 not on keto. Which version makes Protein Chef feel more relevant to you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I would click on \u2014 and most likely buy \u2014 a Lo! Foods listing that leads with concrete nutritional benefits: specific protein per serving, whole or clean ingredient language, and no reliance on the word 'keto' as its primary hook. The benefit-led title ('38g Protein, No Maida, No Palm Oil') or the high-protein clean-ingredient format ('8g Protein Per Pack, Whole Ingredients') both earn my click. The keto-led title actively hurts my perception \u2014 not because keto ingredients are inherently bad, but because leading with that word signals the brand is positioning for a trend rather than earning my trust through substance. Lo! Foods has my baseline trust, so they're not starting from zero \u2014 but a keto-led title makes me do extra work to justify the purchase, whereas a benefit-led title makes the decision easy. I buy based on what a product *delivers*, not what diet club it belongs to.",
+          "confidence": 91,
+          "reasoning": "1. GUT REACTION: The moment I see 'keto' in a title, something in me pulls back. It's not a hard rejection \u2014 it's more like a quiet suspicion. That word belongs to a trend, and trends cut corners. I'v"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 30
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}

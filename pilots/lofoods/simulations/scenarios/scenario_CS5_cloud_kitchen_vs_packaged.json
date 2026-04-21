@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS5",
+  "title": "Cloud Kitchen vs Packaged: Cannibalization or Complementarity?",
+  "cohorts": ["C1", "C2", "C15"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "Lo! Foods operates cloud kitchens in your city (Bangalore, Delhi, Hyderabad) delivering fresh keto meals via Swiggy and Zomato — thali meals, wraps, and bowls priced ₹180–350 per meal. They also sell packaged products on Amazon and Blinkit — keto cookies, protein bread, low-GI biscuits at ₹99–450. You've just discovered both exist under the same brand. Do you see these as the same product ecosystem serving the same need, or two completely different things you'd use in different situations?",
+    "You've now tried both: a Lo! Foods cloud kitchen keto meal on Swiggy (₹250, fresh, warm, delivered in 30 min) and a pack of Lo! Keto Almond Cookies from Blinkit (₹199, shelf-stable, eat anytime). The fresh meal felt indulgent and satisfying; the packaged cookies felt like a convenient daily snack. A month later, you're ordering groceries. The Blinkit app shows Protein Chef bread and a Lo! Keto cookie pack. Your Swiggy history shows 3 Lo! cloud kitchen orders last month. Do you buy the packaged products — or do you feel the cloud kitchen already covers your Lo! Foods needs?",
+    "Lo! Foods sends you an email: 'You've ordered from our cloud kitchen 3 times this month — did you know our packaged range is perfect for the meals you're not ordering from us? Protein Chef bread for weekday breakfasts, keto cookies for office snacking.' They offer a 15% discount on your first Amazon order. Does this cross-sell feel natural — do you see yourself as a 'Lo! Foods household' across both channels — or do you treat the cloud kitchen and packaged products as unrelated?"
+  ],
+  "decision_scenario": "You're planning your weekly food budget. Lo! Foods cloud kitchen meals are ₹250/meal; their packaged products are ₹99–200 per item. Do you use both regularly, one primarily, or neither? What would make you become a genuine Lo! Foods household — someone who orders their food AND stocks their packaged products?"
+}

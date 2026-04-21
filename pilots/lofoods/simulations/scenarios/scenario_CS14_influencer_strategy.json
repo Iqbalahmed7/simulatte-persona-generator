@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS14",
+  "title": "Influencer Strategy: Which Archetype Drives Credible Trial for Each Sub-brand?",
+  "cohorts": ["C1", "C2", "C3", "C12"],
+  "social_level": "moderate",
+  "social_topology": "full_mesh",
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're scrolling Instagram. You see three separate posts about Protein Chef bread. Post 1: Fitness trainer @IronShailesh (650K followers), ripped physique, gym background — 'This is my post-workout breakfast. 38g protein in a loaf. No maida. I've been eating this for 6 months.' [Paid partnership label]. Post 2: Nutritionist @DrRituDietician (45K followers, academic credentials in bio) — 'I've been recommending Protein Chef to my patients for 3 months. The macros are genuinely good for weight management. Here's why.' [No paid label]. Post 3: Mom blogger @MumbaiMomDiaries (120K followers) — 'Switched my kids' school toast to this and they didn't even notice. My 8-year-old actually prefers it now.' [Gifted label]. Which post makes you most likely to click through or consider buying?",
+    "Now for DiabeSmart. Three endorsements: Post 1: Celebrity @ShilpaShetty (30M followers) in a wellness video — 'I keep DiabeSmart at home for my father-in-law who has diabetes. Clean ingredients, he loves it.' [Paid partnership]. Post 2: Dr. Pradeep Gadge, Diabetologist, Hinduja Hospital (8K followers, verified) — 'For my patients who struggle with snacking, DiabeSmart offers a scientifically sound alternative. GI tested.' [Organic post]. Post 3: @DiabetesDiary_Suresh (22K followers, a Type 2 diabetic sharing his journey for 4 years) — 'Month 2 with DiabeSmart biscuits. My fasting sugar was 112 this morning vs 138 two months ago. Not claiming it's the only reason but these have replaced my Marie biscuits.' [No brand tag]. Which moves the needle most for you on DiabeSmart's credibility?",
+    "Lo! Foods has ₹50 lakh for influencer marketing this quarter. They're deciding between: Option A — one macro-influencer campaign (fitness celebrity, 5M followers, ₹40L for a 3-post series). Option B — ten micro-influencers (nutritionists, fitness coaches, 20K-80K followers each, ₹5L each). Option C — five 'proof creators' — real customers who've been using the product for 3+ months, given a small stipend to document their honest journey (₹2L each + products). Which approach would make you most likely to genuinely trust and trial a Lo! Foods product you haven't tried before?"
+  ],
+  "decision_scenario": "You've been exposed to Lo! Foods content across multiple creator types. Which influencer archetype — celebrity macro, credentialed expert, micro-authentic, relatable peer, or proof creator — would most reliably convert you from awareness to actual purchase? And does your answer change depending on which Lo! Foods sub-brand (keto vs protein vs diabetic vs gluten-free) is being promoted?"
+}

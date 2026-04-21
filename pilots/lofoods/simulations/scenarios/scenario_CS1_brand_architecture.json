@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS1",
+  "title": "Brand Architecture: Separate Sub-brands vs Unified Lo! Foods Family",
+  "cohorts": ["C1", "C2", "C3"],
+  "social_level": "isolated",
+  "social_topology": null,
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "You're browsing Amazon for healthy snacks and bread. You notice four separate listings: 'Lo! Keto Almond Cookies' by one seller, 'Protein Chef High Protein Bread' by another, 'DiabeSmart Low GI Biscuits' and 'Gluten Smart Multigrain Bread' — each appearing to be a completely independent brand with no visible connection. Which, if any, catches your attention and why?",
+    "You're on Blinkit and see a homepage banner: 'Lo! Foods — India's Functional Food Family. Keto. Protein. Diabetic-friendly. Gluten-free.' All four product lines are displayed together under one parent brand identity with a unified logo. The messaging is: 'One brand. Four health missions.' How does this feel compared to encountering them as separate brands?",
+    "You're searching for 'protein bread' on Amazon. Protein Chef appears at the top. You click through — the listing has a small 'by Bajo Foods' note but no mention of Lo! Foods or the other sub-brands. There's a 'See all products from this seller' link showing all four product lines. No unified brand story is present. What goes through your mind about the brand as you decide whether to buy?"
+  ],
+  "decision_scenario": "You need to buy a health food product this week. Based on how Lo! Foods has presented itself across these three experiences — as separate independent brands, as a unified 'Lo! Foods family', or with minimal parent brand visibility — which presentation makes you most confident in the brand and most likely to buy? What would make you explore more than one of their product lines?"
+}

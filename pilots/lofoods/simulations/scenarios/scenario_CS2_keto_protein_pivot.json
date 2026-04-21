@@ -1,0 +1,15 @@
+{
+  "case_study_id": "CS2",
+  "title": "Keto to Protein Pivot: Repositioning Without Losing the Base",
+  "cohorts": ["C2", "C3"],
+  "social_level": "moderate",
+  "social_topology": "full_mesh",
+  "rounds": 3,
+  "tier": "deep",
+  "stimuli": [
+    "Lo! Foods — India's #1 Keto Brand — has launched Protein Chef: a high-protein bread with 38g protein per loaf. Their communication leads with keto heritage: 'From the makers of India's best keto products, now bringing high-protein bread to Indian kitchens.' Their Amazon storefront still prominently features keto as the lead identity. How do you respond to this brand extension?",
+    "Lo! Foods has updated its brand identity. They now describe themselves as 'India's leading functional foods company' — keto is presented as one of four verticals alongside protein, diabetic-friendly, and gluten-free. Their tagline has changed from 'India's #1 Keto Brand' to 'Food engineered for your health goals.' The keto products are still fully available. How does this repositioning land with you?",
+    "Protein Chef has launched an entirely standalone campaign — no keto mention anywhere. The campaign leads: 'India's first 38g protein bread. Real protein. Real food. No maida.' Lo! Foods branding appears only in small print. The keto products exist on a separate page. A friend who is a fitness trainer has shared the Protein Chef Instagram post in a health group you're in. What's your reaction to this protein-first, keto-invisible positioning?"
+  ],
+  "decision_scenario": "Lo! Foods needs to grow beyond its keto niche into mainstream protein-conscious India. Given the three approaches you've seen — keto-led brand extension, broad functional foods identity, and protein-first standalone — which positioning would make you most likely to (a) try Protein Chef for the first time if you haven't, or (b) continue buying Lo! products if you're already a customer? What would make you feel the brand has lost its identity?"
+}

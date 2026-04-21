@@ -1,0 +1,918 @@
+{
+  "simulation_id": "sim-f27ab580",
+  "cohort_id": "merged-C1_C3_C5",
+  "rounds": 3,
+  "decision_scenario": "Lo! Foods gives you three choices for Protein Chef going forward: (a) Fresh, no preservatives, 3-day shelf life, \u20b999; (b) Clean-preserved with rosemary extract, 7-day shelf life, \u20b999; (c) Frozen at source, no preservatives, 30-day freezer life, \u20b9109. Which do you choose for your regular weekly purchase \u2014 and which format, if any, would make you buy Protein Chef more frequently than you currently do?",
+  "results": [
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. It fits my actual shopping pattern, it's the same price as the fresh option, and Lo! Foods has been transparent about what they're using (rosemary extract \u2014 not some vague 'natural flavor' claim). I'm buying from a brand I already trust, and this format doesn't require me to change how I cook, how I store food, or how I plan my week. As for what would make me buy Protein Chef MORE frequently: honestly, the frozen format at \u20b9109 has that potential \u2014 but only if I see real peer reviews confirming the texture and taste hold up after thawing. If my neighbors or an online community I trust validated the frozen experience, I'd switch to that and potentially stock up \u2014 buying twice a month instead of weekly, which would actually reduce my per-trip effort. The subscription angle at \u20b989 I recall being mentioned is compelling if it applies to frozen, because that's where the math starts working in my favor. But I need evidence before I commit to a format change.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: My immediate instinct pulls me toward option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. Here's why: I buy bread once a week, and a 3-day shelf life is genuinely incompati"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. Seven days covers my cycle without anxiety, the price doesn't change, and 'rosemary extract' is something I can stand behind when my daughter asks what's in it. As for what would make me buy Protein Chef more frequently: honestly, option (c) with a subscription discount \u2014 something like \u20b989 the way Lo! Foods has structured their bread subscription \u2014 would do it. At \u20b989 with 30-day freezer life, I could buy two at once without fear of waste, and that convenience would pull me toward bi-weekly or even bulk purchasing. Right now with (b), I buy once a week and feel fine. But a frozen subscription at \u20b989-\u20b995 would change my buying pattern entirely.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to go with option (b) \u2014 the clean-preserved at \u20b999. The rosemary extract doesn't scare me the way artificial preservatives do, and seven days feels like real "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 Clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. It aligns precisely with how I shop (once a week), uses ingredients I can verify as genuinely clean, and doesn't ask me to pay a premium I haven't fully tested the need for. I'd want to research rosemary extract as a preservative and maybe check if any certified nutritionist or food scientist has commented on it, just to satisfy my expert-verification instinct. As for what would make me buy MORE frequently: the frozen option at \u20b9109 could shift my behavior \u2014 but only if I try it first through Blinkit and confirm the quality holds after microwaving. If the texture is good and I find myself actually using the 30-day window (maybe stocking two at once), I might move to a subscription and actually increase purchase frequency. Right now, (b) keeps my weekly cadence. Option (c) with a subscription could make it bi-weekly or monthly-bulk, which might be even better value in the long run.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: Option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. It feels like the middle path that actually solves my real problem. The moment I saw '7-day shelf life at \u20b999,' somethin"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 as my regular weekly purchase, but with important conditions in my mind. Here is my reasoning: The price matches my budget exactly. The 7-day shelf life solves my waste anxiety without requiring me to change how I shop. I already shop weekly, so 7 days covers my full cycle comfortably. The \u20b910 premium for option (c) adds up over a month and I cannot justify it unless I find myself wasting bread regularly \u2014 which a 7-day window should prevent. My hesitation about rosemary extract is real, but I acknowledge that my previous reflection also noted that transparent labeling is itself a trust signal. Lo! Foods is telling me what they added and why. That is more than most brands do. If I see a nutritionist or a food authority endorsement on the packaging or their website, my confidence goes up significantly. As for what would make me buy MORE frequently: Option (c) frozen would actually make me buy in bulk less often and keep a steady stock \u2014 that would change my purchasing pattern. But at current prices, I stay with (b) weekly.",
+          "confidence": 61,
+          "reasoning": "1. GUT REACTION: My immediate instinct goes to option (b) \u2014 same price as (a), longer shelf life, and they're being transparent about what they've added. But then that hospital experience flashes in m"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 Clean-preserved with rosemary extract, 7-day shelf life, \u20b999. It fits my weekly buying rhythm, the price stays where I'm comfortable, Lo! Foods has earned my trust in being honest about ingredients, and 7 days gives me enough buffer if our schedule shifts mid-week. As for buying more frequently \u2014 honestly, the frozen option (c) is the one that would make me buy Protein Chef more often, not because of the format itself, but because 30-day freezer life means I could stock up during a sale or buy double when budget allows. If that frozen option ever came down to \u20b999 on a promotional price or I could find peer reviews confirming quality after thawing, I might switch. But right now, for my regular weekly purchase, (b) wins on value.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: My eyes went straight to the prices. \u20b999, \u20b999, \u20b9109. That \u20b910 difference is the first thing I noticed, and my instinct said \u2014 stay at \u20b999. Then I looked at the shelf lives and I felt "
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Rohit Gupta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. It solves the waste problem that genuinely bothers me, it's priced where I've already accepted, and the natural preservation method doesn't trigger my quality alarm. I've already done the mental work on this option and arrived at trust, cautiously. As for what would make me buy more frequently: option (c)'s frozen format actually has that potential. A 30-day freezer life means I could buy two or three at once when I have a bit extra, without anxiety. But not at \u20b9109 per unit. If the frozen option came with a subscription at something like \u20b989, I'd seriously consider buying 2\u20133 units monthly instead of weekly, which would actually increase my overall spend but feel safer per purchase. At current pricing, option (b) weekly is my answer.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: My eyes go straight to option (b) \u2014 \u20b999, clean preservatives, 7-day shelf life. That feels right. I've already spent mental energy thinking about this and I remember being genuinely r"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (c): frozen at source, no preservatives, 30-day freezer life, \u20b9109. This is my regular weekly \u2014 actually more accurately monthly \u2014 purchase format. Here is my reasoning: It solves the control problem directly. I can order once every few weeks, store it, and thaw portions as needed without being anxious about a 3-day window. It maintains ingredient integrity \u2014 no preservatives, same recipe as fresh. The \u20b910 premium is justified by the functional gain. On the second part of the question \u2014 what would make me buy more frequently \u2014 the frozen format actually does change my behavior. Because I can stock it, I'm more likely to buy a larger quantity less often rather than scrambling weekly. In terms of purchase frequency, the frozen option could actually shift me to a bi-weekly or monthly bulk order, which increases my total volume purchased even if individual order frequency drops. That said, before I commit to any subscription or recurring order, I want to personally test one frozen loaf: measure the texture post-thaw, compare it against my memory of the fresh version, and look for any third-party nutritional comparison data. I will not delegate that verification step to anyone.",
+          "confidence": 68,
+          "reasoning": "1. GUT REACTION: The frozen option at \u20b9109 is the one that immediately makes sense to me. Thirty days of freezer life means I'm back in control of my consumption timeline. That's not a small thing \u2014 t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-020",
+      "persona_name": "Suresh Patel",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 frozen at source, no preservatives, 30-day freezer life, \u20b9109 \u2014 as my regular weekly purchase. Here is my reasoning: it is the only format where 'no preservatives' is structurally true, not dependent on any additive, natural or otherwise. The 30-day freezer window gives me genuine control over consumption timing, which solves the core anxiety I had with option (a). The \u20b910 premium is meaningless against that peace of mind. However \u2014 and this is important \u2014 I won't commit to a subscription or large order immediately. I'll buy one unit, test the texture and taste against my own benchmarks, and if possible verify with someone who understands food science whether the freeze-thaw cycle actually preserves nutritional integrity. On the question of frequency: yes, the frozen format would likely make me buy more often, precisely because I'm not constrained by a narrow consumption window. If the quality holds up under my verification, I could see myself ordering bi-weekly or even setting up a subscription \u2014 but only after the evidence justifies it.",
+          "confidence": 72,
+          "reasoning": "1. GUT REACTION: My instinct pulls toward option (b) \u2014 the clean-preserved with rosemary extract. Seven days maps neatly onto my weekly buying rhythm, the price hasn't changed, and 'no artificial pres"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For my regular weekly purchase, I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999. It's proven to me already, the price is right, and the rosemary extract is a preservative I understand and accept. I'm not going to overthink what's already working. However \u2014 and this is important \u2014 option (c) is the format that would make me buy Protein Chef more frequently. The 30-day freezer life removes the timing pressure completely. If the subscription at \u20b989 is available, I'd switch to (c) on subscription for that reason alone. At \u20b989 on subscription, option (c) is actually cheaper than options (a) or (b) while delivering superior shelf control. That's the rare case where quality, convenience, and price all align. I'd stock two at a time, reduce my per-trip cognitive load, and probably consume more Protein Chef overall because friction is gone. So: (b) for now, (c) on subscription if available \u2014 and yes, (c) is what changes my frequency.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My immediate instinct pulls me toward option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. I've already thought through this one, and it resolved something real for me. Natu"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (c) \u2014 frozen at source, no preservatives, \u20b9109 \u2014 for my regular weekly purchase. But I would buy it as a trial first, not a subscription. I'd order one, compare it directly against what I remember of the fresh version, and specifically test the microwave thaw versus counter-thaw methods for crust quality. If it holds up \u2014 and I mean actually holds up, not 'good enough for frozen' \u2014 then (c) becomes my default. On frequency: this format would genuinely make me buy more often. The 3-day window of option (a) creates friction that makes me hesitate before ordering. A 30-day freezer window removes that friction entirely. I'd likely move from reactive purchasing to stocking two units at a time, which effectively doubles my purchase frequency. Option (b) would not change my frequency \u2014 I'm not convinced enough by the clean-preservation framing to feel more confident about it.",
+          "confidence": 60,
+          "reasoning": "1. GUT REACTION: My immediate pull is toward option (c) \u2014 the frozen format. Not because it's what I'd have chosen instinctively a year ago, but because I've already done some of this thinking. I reme"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Meena Krishnan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. It solves my actual problem: I need bread that lasts a full week, and 3 days at the same price is not a better deal \u2014 it's a worse one dressed up in 'freshly baked' language. The price is unchanged, the value is meaningfully higher, and Lo! Foods has earned enough trust from me that I'm willing to take the rosemary extract claim at face value while I verify through actual use. On the question of what would make me buy more frequently: the frozen option (c) is genuinely intriguing for that \u2014 if I could buy a month's supply at \u20b9109 and know it's good, that removes the friction of weekly ordering. But I'd need to test one frozen loaf first before changing my behavior. So: (b) for my regular weekly purchase, and I'd trial (c) once as a single purchase to see if the texture is acceptable \u2014 if it is, I'd consider switching to monthly frozen and buying more overall.",
+          "confidence": 75,
+          "reasoning": "1. GUT REACTION: Option (b) \u2014 the clean-preserved with rosemary extract at \u20b999 \u2014 feels right immediately. My memories are literally telling me this: I already worked through this decision and landed t"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (c) \u2014 frozen at source, no preservatives, 30-day freezer life, \u20b9109 \u2014 for my regular weekly purchase. Here's my reasoning laid out clearly: the 3-day shelf life of option (a) is incompatible with my actual life; I've already made peace with that in a previous decision. Option (b) is tempting because \u20b999 feels safer and the rosemary extract is probably fine, but I've not verified the science yet and 7 days is still tighter than I'd like. Option (c) at \u20b9109 solves the waste problem completely, maintains the no-preservatives standard my mother instilled in me, and the flash-freezing process is food science I can trust if Lo! Foods is being honest about the 2-hour window. The \u20b910 premium is worth it when I frame it as insurance against waste and against compromising on clean ingredients. As for what would make me buy MORE frequently: honestly, if Lo! Foods offered a subscription for option (c) at \u20b995-99/month with guaranteed delivery, I'd probably buy fortnightly instead of weekly, because the 30-day window gives me that buffer. The subscription angle makes the math even cleaner \u2014 no impulse spending, predictable budget, cleaner eating.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: Option (c) \u2014 the frozen one \u2014 immediately catches my eye. No preservatives AND 30 days? That's the combination I've been looking for. The \u20b910 difference honestly doesn't scare me as m"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-017",
+      "persona_name": "Deepa Nair",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 as my regular weekly purchase. It fits my rhythm without friction: one order Sunday evening, lasts through the week, no waste, no extra deliveries, no price increase. Rosemary extract and vitamin E are ingredients I've seen on clean-label products I already trust. The fact that Lo! Foods held the price at \u20b999 despite the formulation change tells me something \u2014 it doesn't feel like a cash grab. As for what would make me buy more frequently: honestly, the frozen option (c) at \u20b989 on subscription. If they offered a subscription price that brought it to \u20b989 like I remember seeing mentioned, the calculus changes. The 30-day freezer life would mean I could buy two or three at once, freeze them, and pull one out each week. That would actually save me delivery fees in the long run. But at \u20b9109 per purchase, I'd need to taste it \u2014 and have someone I trust confirm the quality \u2014 before I commit to buying it more often.",
+          "confidence": 64,
+          "reasoning": "1. GUT REACTION: My first instinct is option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. Same price as fresh, but 7 days instead of 3. That solves my biggest anxiety about waste. The froze"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999. Same price as option (a), but the extra four days of shelf life gives me the flexibility my schedule sometimes demands without any additional cost or risk. The rosemary extract preservation feels honest to me \u2014 natural, plant-based, the kind of ingredient I can explain to my daughter and feel good about. I'm not paying a premium for marketing words. As for buying more frequently: honestly, no format changes my frequency right now. I buy weekly because that's my rhythm and my budget. The frozen option at \u20b9109 might make me buy less frequently \u2014 stockpiling sounds good until I'm worrying about cold chain and freezer space. Option (b) at \u20b999 keeps me as a steady, loyal weekly customer. That's the best outcome for both of us.",
+          "confidence": 78,
+          "reasoning": "1. GUT REACTION: My eyes went straight to the prices. Two options at \u20b999, one at \u20b9109. That \u20b910 difference immediately makes me pause \u2014 not because \u20b910 is a fortune, but because I've learned that smal"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-015",
+      "persona_name": "Sunita Devi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. Here is my reasoning: It costs the same as the fresh option but gives me double or more the usable time. That directly addresses my biggest practical problem \u2014 food waste. The price is within my comfort zone. My hesitation about 'natural preservatives' is real, but I've processed this before and concluded that if the shelf life extension is genuine and backed by something credible, the practical value outweighs my caution about the marketing language. On the frozen option: I don't have the freezer capacity to take full advantage of 30 days, and the \u20b910 premium is a small but real barrier. If I ever have a larger freezer or want to stock up before a difficult month, option (c) becomes interesting \u2014 but not for my regular weekly rhythm. As for what would make me buy Protein Chef more frequently: option (b) already does it. A 7-day shelf life means I can commit to a weekly purchase without fear of waste. That's the change that converts me from occasional to regular.",
+          "confidence": 79,
+          "reasoning": "1. GUT REACTION: My immediate reaction is to go with option (b) \u2014 the clean-preserved one at \u20b999. Same price as the fresh option but seven days instead of three? That solves my biggest fear with food:"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-014",
+      "persona_name": "Rahul Verma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 Frozen at source, no preservatives, 30-day freezer life, \u20b9109. Here's my reasoning: It aligns with my core value of ingredient integrity \u2014 no preservatives, period. The 30-day window solves my waste problem definitively, not partially. Flash-freezing at peak freshness is scientifically sound and I've already validated that logic in my thinking about similar products. The \u20b910 premium means nothing to me. However \u2014 and this matters \u2014 I'm not committing to making it my permanent default yet. I'm treating this as a hypothesis to test. I'll order once, evaluate the thaw quality rigorously across multiple uses, and check community reviews actively while I trial it. On your second question: yes, option (c) would make me buy more frequently. A 30-day freezer life means I can buy two or three units in a single order without anxiety about waste. That reduces friction and decision fatigue \u2014 I'd probably shift from weekly purchases to bi-weekly bulk orders. Options (a) and (b) don't change my purchase frequency because the shelf life still creates a constraint. Option (c) removes that constraint entirely.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My first instinct is to go with option (c) \u2014 the frozen at source. No preservatives, 30-day freezer life, and only \u20b910 more. That combination immediately reads as the highest-value op"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-006",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. It solves the core tension I've faced: quality without artificial preservatives, a shelf life that actually aligns with weekly shopping, and honest pricing that doesn't penalize me for the improvement. I've already thought hard about this and the substance checks out. On the frequency question: option (b) actually allows me to maintain my current weekly rhythm without anxiety about waste, so it might subtly normalize more consistent purchasing. Option (c) \u2014 frozen \u2014 is the format that could genuinely make me buy more frequently, because 30-day freezer life means I could stock up when I have budget flexibility rather than buying just-in-time. But I'd want to hear from trusted peers about their actual experience with the frozen format before I change my habits around it. Right now, (b) is my choice \u2014 principled, practical, and priced right.",
+          "confidence": 82,
+          "reasoning": "1. GUT REACTION: My immediate instinct is option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. It feels like the smartest middle path. I've already worked through this mentally and the natur"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Vikram Singh",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 Frozen at source, no preservatives, 30-day freezer life at \u20b9109. Here's my structured reasoning: Option (a) is eliminated immediately \u2014 3-day shelf life against a weekly purchase cycle is a waste trap, and no amount of 'no preservatives' purity justifies losing the product before I use it. Option (b) is genuinely good and I nearly land there \u2014 \u20b999, 7 days works mathematically. But the frozen option at \u20b9109 solves the problem I didn't know I was still carrying: anxiety. With 30 days of freezer life, I'm not planning around consumption windows. I stock up, I use it when I need it, I waste nothing. The \u20b910 premium buys me convenience, zero waste risk, and actually better freshness preservation \u2014 flash-frozen at source is more honest than sitting in transit and on a shelf. As for what would make me buy Protein Chef *more frequently* \u2014 honestly, option (c) is already the trigger. If I can bulk-buy two or three packs at \u20b9109 knowing they last 30 days in my freezer, I'll increase my purchase volume per transaction even if purchase frequency stays weekly. A subscription model at \u20b999 for the frozen format would almost certainly convert me to a locked-in regular buyer.",
+          "confidence": 81,
+          "reasoning": "1. GUT REACTION: My first instinct goes straight to option (b) \u2014 same price as (a), longer shelf life, and Lo! Foods has already earned enough trust from me that I believe their rosemary extract solut"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-004",
+      "persona_name": "Amit Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (c) \u2014 frozen at source, no preservatives, \u20b9109 \u2014 for a single trial purchase, not as a committed regular format yet. Here's my reasoning: It is the only format that structurally fits a weekly purchase cycle without creating waste or asking me to trust an unverified additive. The \u20b910 premium is immaterial. Flash-freezing is a scientifically sound method, and Lo! Foods' brand reputation is on the line if the claim fails. However, I will not commit to this as my 'regular weekly purchase' format until I've actually thawed and eaten the product and assessed texture, taste, and satiety against what I expect from fresh-baked bread. If the frozen format delivers on the quality claim after my trial \u2014 confirmed by my own experience and ideally corroborated by user reviews I'll research before ordering \u2014 then yes, frozen becomes my regular format and would likely increase my purchase frequency because the 30-day shelf life removes the friction that's been limiting me. What would make me buy MORE frequently: successful trial of frozen (c), subscription pricing confirmed around \u20b989, and a cold-chain delivery guarantee. That combination solves the control, quality, and logistics problem simultaneously. For now: one box of (c), eyes open.",
+          "confidence": 67,
+          "reasoning": "1. GUT REACTION: My immediate instinct is toward option (c) \u2014 the frozen format. It solves the constraint I've been most bothered by: the mismatch between a 3-day shelf life and my weekly purchase cyc"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-011",
+      "persona_name": "Kavita Joshi",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (c) \u2014 frozen at source, no preservatives, 30-day freezer life, \u20b9109 \u2014 for my regular weekly purchase. Here's my reasoning: the scientific mechanism is the most verifiable of the three, which means my control-orientation is actually satisfied rather than bypassed. I'm not delegating trust to Lo! Foods when I choose frozen \u2014 I'm choosing a method I can independently validate. The 30-day window removes the logistics anxiety that has genuinely plagued my fresh purchases. The \u20b910 difference is noise. On the second question \u2014 what would make me buy more frequently: option (c) actually does this. The 30-day freezer life means I could buy two or three units in one order, removing the weekly trip entirely. That's the format that increases purchase frequency because it removes friction rather than adding the anxiety of freshness management. I would trial one unit first, verify the thaw texture against my expectations, check whether the product against their 'identical recipe' claim is actually credible. Only then would I commit to a regular frozen purchase pattern. I am deliberately not choosing option (b) even though it feels safer \u2014 'feels safer' is exactly the cognitive trap I've been burned by before.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My immediate instinct goes to option (b) \u2014 the clean-preserved with rosemary extract. It feels like the most practical middle ground. But I catch myself and pause, because I've learne"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-002",
+      "persona_name": "Priya Sharma",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For my regular weekly purchase right now, I'm choosing option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999. Here's why: it solves my real operational problem (weekly buying cadence, meal planning flexibility), the price is the same as fresh, and the transparency about what 'clean-preserved' means \u2014 if I can verify it by reading the actual ingredient panel \u2014 aligns with my quality standard more than option (a)'s tight 3-day window does. However, I'm not comfortable finalizing this without doing two things first: reading the ingredient list myself (not the marketing copy, the actual label) and asking Priya Reddy and at least two other trusted parents what their experience has been. If those checks come back clean, (b) is my regular choice. On what would make me buy MORE frequently: the frozen format, option (c), is actually the one with the highest potential to change my purchase frequency. A 30-day freezer life means I could stock strategically, reduce decision fatigue, and have genuine backup for busy weeks. If the cold chain is reliably handled by Blinkit and I get peer confirmation that the texture post-thaw is genuinely good, I'd consider stocking 3-4 units at once every few weeks instead of buying weekly. That's a behavior change. Option (b) maintains my current frequency. Option (c) could increase it.",
+          "confidence": 58,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to go with option (b) \u2014 the clean-preserved with rosemary extract, 7-day shelf life at \u20b999. The price parity with option (a) feels respectful, and the extende"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-010",
+      "persona_name": "Divya Krishnaswamy",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. Here's my reasoning: It solves my actual problem, which is waste anxiety, without introducing new uncertainties. The price is held at \u20b999, which tells me the brand isn't using quality improvements as a price hike excuse. The preservatives are natural and nameable \u2014 that matters to me and to my peer group. Seven days covers my full weekly cycle with buffer for unpredictable schedules. I don't need freezer logistics or texture anxiety. As for what would make me buy more frequently: option (c) could do that \u2014 but only after I've tasted it and had two people I trust confirm the post-thaw quality is genuinely good. The 30-day freezer life would mean I could buy in bulk during good-income months and not worry. But right now, that conversion needs peer validation I don't yet have. Option (b) is my steady, reliable weekly choice. Option (c) is my potential 'upgrade once validated' path.",
+          "confidence": 77,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to reach for option (b) \u2014 the clean-preserved at \u20b999. It hits that sweet spot I'm always looking for: same price as the fresh option, but without the waste an"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-013",
+      "persona_name": "Nikhil Bhat",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "For my regular weekly purchase, I'm going with option (b) \u2014 the clean-preserved, \u20b999, 7-day shelf life version. Here's my honest reasoning: the 7-day shelf life maps perfectly onto my actual purchase cadence. Option (c) is theoretically superior, but I know myself \u2014 I don't always use my freezer efficiently, and I'd need to remember to thaw in advance, which adds friction. Option (b) removes the waste problem without adding behavioral complexity. The rosemary extract isn't a concern for me \u2014 it's real food science. And staying at \u20b999 instead of \u20b9109 means I can sustain this as a habit without even a micro-budget justification needed. On buying more frequently: option (c) \u2014 the frozen format \u2014 is actually the one that would make me buy MORE of Protein Chef, not for regular weekly rhythm, but for stocking up. If I trusted the quality after thawing (which I'd verify from peers first), I'd buy two or three at once and freeze them, which means higher volume per purchase occasion. That's how it would change my behavior.",
+          "confidence": 71,
+          "reasoning": "1. GUT REACTION: My immediate instinct goes to option (c) \u2014 the frozen one. I know that sounds counterintuitive because 'frozen' still triggers that 'compromise' feeling in my head, but the logic is a"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-019",
+      "persona_name": "Deepak Jain",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For my regular weekly purchase right now, I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999. Here's why: Same price as fresh, longer shelf life that actually fits a weekly buying pattern, and Lo! Foods' transparency about what they're adding builds enough trust for me to try it. The 7-day window eliminates my waste risk without costing me extra. I'm skeptical of 'clean-preserved' as marketing language, but the practical outcome \u2014 no waste, same price \u2014 is exactly what I need as a budget-conscious quality seeker.\n\nHowever \u2014 and this is important \u2014 option (c), the frozen format, is what would make me buy Protein Chef MORE frequently. If I trial one frozen loaf and the texture genuinely delivers, the 30-day shelf life completely changes my buying behaviour. I could buy two or three loaves at a time, reduce delivery fees through consolidated ordering, and have reliable protein bread without weekly scheduling pressure. The subscription at \u20b989 for the frozen format would be a serious consideration. But I'm buying option (b) first, not (c), because I need to verify before I invest in frozen infrastructure for a new product.",
+          "confidence": 85,
+          "reasoning": "1. GUT REACTION: Honestly, option (c) \u2014 the frozen one at \u20b9109 \u2014 catches my attention immediately. Flash-frozen at source, no preservatives, 30-day shelf life. That's not a compromise, that's smart sc"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-009",
+      "persona_name": "Rohan Mehta",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 6,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (b) \u2014 clean-preserved with rosemary extract, \u20b999, 7-day shelf life \u2014 as my regular weekly purchase. Here's my reasoning: it fits my actual consumption rhythm without waste risk, the price is unchanged from (a), and Lo! Foods has earned enough of my trust through their no-maida consistency that I'm willing to accept 'rosemary extract' as a clean-label preservative \u2014 but I'm watching. On the second question \u2014 what would make me buy more frequently? Option (c), the frozen format, is the most compelling candidate for that, but only *after* I try it once via Blinkit or a single purchase. If the frozen product genuinely tastes as good as fresh, the 30-day freezer life paradoxically removes my weekly anxiety entirely. I could stock two at once, have flexibility, and reduce the friction of reordering. That would increase my purchase frequency because I'd buy in pairs rather than singles. But I won't commit to that until I've personally verified the taste. Option (b) is my reliable weekly default. Option (c) is my trial candidate for potentially becoming a bi-weekly bulk purchase format.",
+          "confidence": 69,
+          "reasoning": "1. GUT REACTION: Option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. My instinct says this is the sensible middle ground. Seven days means I can buy once a week without anxiety about waste,"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-001",
+      "persona_name": "Arjun Menon",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 frozen at source, no preservatives, 30-day freezer life, \u20b9109. Here's my reasoning: The \u20b910 premium is irrelevant at this scale. The 30-day shelf life completely removes the anxiety and waste risk that plagues options (a) and (b) for someone like me with irregular schedules. No preservatives means I'm not compromising on the quality dimension I care about. And crucially \u2014 this changes my buying behavior. I would buy more frequently and in slightly larger quantities because I'm not racing against a 3 or 7-day clock. Option (b) was tempting at \u20b999, but the rosemary extract, while probably fine, introduces a small quality question mark that disappears with (c). On what would make me buy MORE frequently: format (c) does it. If I can stock two or three units and pull them from the freezer as needed, I stop rationing my consumption and start using it as a genuine meal staple. That's actually what Lo! Foods should want \u2014 frozen unlocks habitual purchase behavior for people like me.",
+          "confidence": 74,
+          "reasoning": "1. GUT REACTION: Honestly, my eyes went straight to option (b) \u2014 same \u20b999, but 7 days instead of 3. That's the clean, obvious win. But then I caught myself looking at (c) and thinking about that lapto"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-003",
+      "persona_name": "Karthik Rajan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "For my regular weekly purchase, I choose option (b): clean-preserved with rosemary extract, 7-day shelf life, \u20b999. Here's my reasoning: it maps exactly to my weekly buying rhythm with zero wastage risk, the natural preservative is specific and pronounceable, and the price hasn't changed \u2014 which I read as honest rather than manipulative. Option (a) is too risky for my lifestyle; 3 days gives me no buffer for unpredictable weeks. Option (c) is interesting and worth a trial, but it requires me to change a habit (freezer management, thawing routine) and pay slightly more. I'm not opposed to change, but I don't switch without reason. As for what would make me buy MORE FREQUENTLY than I currently do: option (c), the frozen format, actually holds that potential. If I knew I had a 30-day supply in my freezer, I'd likely stock up ahead of busy months \u2014 weddings, festivals, work crunches \u2014 rather than buying reactively. The frozen format reduces decision load and wastage anxiety simultaneously. I'd be willing to trial (c) once to see if the quality holds post-thaw. If it does, I could see myself buying every 3-4 weeks in bulk, which means more units per purchase occasion even if less frequent. That's a different kind of 'more' \u2014 higher basket size per trip.",
+          "confidence": 65,
+          "reasoning": "1. GUT REACTION: My immediate instinct lands on option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. Same price, longer shelf life, natural preservative I can actually pronounce. It feels li"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-018",
+      "persona_name": "Usha Srinivasan",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 8,
+          "reflected": false,
+          "decided": true,
+          "decision": "I choose option (b) \u2014 clean-preserved with rosemary extract, 7-day shelf life, \u20b999 \u2014 for my regular weekly purchase. The logic is clean: same price as option (a), double the shelf life using ingredients I trust, maps perfectly to a weekly buying rhythm without creating waste anxiety. As for what would make me buy Protein Chef MORE frequently: option (c) \u2014 the frozen format \u2014 has real potential to shift me from weekly to bi-weekly or even monthly stocking if it passes my taste test. The 30-day freezer life fundamentally changes the convenience equation. I would try option (c) as a one-time test purchase alongside my regular option (b) order. If the thawed bread is genuinely as good as fresh \u2014 same texture, same taste \u2014 I would move to frozen as my primary format, possibly on a subscription basis. That would make me buy significantly more. But I won't make that switch on faith alone. I need evidence.",
+          "confidence": 62,
+          "reasoning": "1. GUT REACTION: My immediate instinct is to go with option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. It's the same price as fresh, but it buys me seven days instead of three. And rosema"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-005",
+      "persona_name": "Siddharth Iyer",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 Frozen at source, no preservatives, 30-day freezer life, \u20b9109 \u2014 for my regular weekly purchase. Here's my reasoning: The \u20b910 premium is justified because it eliminates the shelf-life anxiety that options (a) and (b) create for my specific household pattern. I'm not throwing away half-finished bread \u2014 that waste is real money. The no-preservatives position aligns with my core food philosophy post-hospital. And 30 days means I can stock up when convenient, not scramble to consume before it turns. On frequency: the frozen format would actually make me buy MORE frequently \u2014 or rather, in larger quantities less often. If Lo! Foods offered a subscription at a slight discount (say \u20b999/loaf for 2-unit monthly packs), I'd commit immediately. That subscription structure \u2014 knowing my exact monthly spend \u2014 is what my budget brain responds to. It converts an anxiety-purchase into a planned expense.",
+          "confidence": 70,
+          "reasoning": "1. GUT REACTION: My instinct goes straight to option (c) \u2014 the frozen one. Something about 'no preservatives, 30-day shelf life' clicks with what I already know about flash-freezing from my earlier re"
+        }
+      ]
+    },
+    {
+      "persona_id": "pg-pg-008",
+      "persona_name": "Anita Desai",
+      "rounds": [
+        {
+          "round": 1,
+          "stimulus": "You're ordering Protein Chef on Blinkit. The listing now clearly states: 'No preservatives \u2014 freshly baked, 3-day shelf life. For best taste, consume within 72 hours of delivery.' You buy bread roughly once a week. Your Blinkit delivery usually arrives within the hour. Does the 3-day shelf life feel like a selling point (fresh, clean), a limitation (you might waste it), or something that doesn't affect your decision?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 2,
+          "stimulus": "Lo! Foods sends an email: 'We've listened to your feedback. Introducing the new Protein Chef \u2014 same recipe, same protein, same no-maida promise, but now with rosemary extract and vitamin E (both from natural sources) to extend shelf life to 7 days. No artificial preservatives. Price unchanged at \u20b999.' The packaging will now say 'Clean-preserved for freshness.' How do you feel about this change \u2014 does 'natural preservatives' change your perception of the product's cleanliness, or does it solve a real problem for you?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": false
+        },
+        {
+          "round": 3,
+          "stimulus": "Lo! Foods launches 'Protein Chef Frozen' \u2014 identical recipe to the fresh version, no preservatives at all, flash-frozen at the bakery within 2 hours of baking. Shelf life: 30 days in freezer. Thaw overnight in fridge, or 2 minutes in microwave. Available on Blinkit at \u20b9109 (delivered in a cold pack) and as a monthly subscription at \u20b989/loaf. The campaign says: 'The freshest bread you've ever had \u2014 locked at peak freshness.' Does frozen solve the shelf life problem without compromising your sense of 'clean food'?",
+          "observation_importance": 7,
+          "reflected": false,
+          "decided": true,
+          "decision": "I'm choosing option (c) \u2014 the frozen at \u20b9109 \u2014 but NOT on subscription. I'll buy one single loaf from Blinkit to test it first. Here's my reasoning: the \u20b910 premium is genuinely small relative to the value it delivers \u2014 30 days of freezer life means I control the timing entirely. No preservatives means the ingredient story is actually cleaner than option (b), which has rosemary extract. And my prior memory already flagged that I was 'intrigued, not convinced' by frozen \u2014 so the right move is a low-risk trial, not a subscription commitment. For frequency: if the frozen format delivers on taste and texture after I've tested it, this is the format that would make me buy MORE frequently \u2014 precisely because I can stock up without waste anxiety. Right now I buy cautiously because of the 3-day window tension. A 30-day freezer life removes that barrier entirely. But I need one verified trial first, ideally with feedback from someone in my social circle who has tried it.",
+          "confidence": 63,
+          "reasoning": "1. GUT REACTION: My instinct pulls me toward option (b) \u2014 the clean-preserved with rosemary extract at \u20b999. It's the same price as fresh, but I get double the shelf life. That flexibility matters to m"
+        }
+      ]
+    }
+  ],
+  "calibration_state": {
+    "status": "benchmark_calibrated",
+    "method_applied": "decision_consistency",
+    "consistency_score": 1.0,
+    "N": 30
+  },
+  "social_simulation": {
+    "social_level": "isolated",
+    "social_topology": null
+  }
+}
