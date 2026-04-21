@@ -1892,22 +1892,29 @@ def sample_demographic_anchor(
         or any(_original_pool is p for p in _EU_LOCATION_POOLS)
     ) and not is_uae_muslim and not is_uk_south_asian_muslim
 
-    if is_us_general:
-        (name, age, gender, country, region, city, urban_tier,
-         structure, size, income_bracket, dual_income,
-         life_stage, education, employment, political_lean) = entry
-    elif is_india_general:
+    # Defensive unpacking: determine field count from actual entry, not just domain.
+    # This guards against domain detection bugs and pool structure changes.
+    entry_len = len(entry)
+
+    if entry_len >= 17:
+        # 17+ fields: India/Bengal pool (includes religion, caste, or other extra fields)
         (name, age, gender, country, region, city, urban_tier,
          structure, size, income_bracket, dual_income,
          life_stage, education, employment, political_lean,
-         _religion, _caste) = entry
-    elif is_europe_general or is_uk_south_asian_muslim:
+         _religion, _caste, *_extras) = entry
+    elif entry_len == 16:
+        # 16 fields: Europe or UK South Asian Muslim pool
         (name, age, gender, country, region, city, urban_tier,
          structure, size, income_bracket, dual_income,
          life_stage, education, employment, political_lean,
          _religious_salience_base) = entry
+    elif entry_len == 15:
+        # 15 fields: US General pool
+        (name, age, gender, country, region, city, urban_tier,
+         structure, size, income_bracket, dual_income,
+         life_stage, education, employment, political_lean) = entry
     else:
-        # UAE/Gulf or any 14-field pool (no political_lean)
+        # 14 or fewer fields: UAE/Gulf or legacy pool (no political_lean)
         (name, age, gender, country, region, city, urban_tier,
          structure, size, income_bracket, dual_income,
          life_stage, education, employment) = entry
