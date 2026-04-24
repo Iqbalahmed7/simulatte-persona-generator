@@ -3,10 +3,16 @@ import asyncio
 import json
 import random
 import time
+from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional, Literal
 
 from src.observability.cost_tracer import CostTracer, make_record, usage_to_token_counts
-from src.schema.persona import DemographicAnchor, Attribute
+from src.schema.persona import (
+    Attribute,
+    AttributeProvenance,
+    DemographicAnchor,
+    GenerationStage,
+)
 from src.schema.worldview import WorldviewAnchor
 from src.taxonomy.base_taxonomy import (
     AttributeDefinition,
@@ -52,9 +58,18 @@ class AttributeFiller:
             if attr_def.name in effective_overrides and attr_def.anchor_order is not None and attr_def.anchor_order >= 9:
                 value = effective_overrides[attr_def.name]
                 label = self._get_label(attr_def, value)
-                attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="anchored")
+                provenance = AttributeProvenance(
+                    source_class="empirical",
+                    source_detail="worldview_anchor",
+                    confidence=1.0,
+                    conditioned_by=[],
+                    reasoning=None,
+                    generation_stage="anchor",
+                    filled_at=datetime.now(timezone.utc),
+                )
+                attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="anchored", provenance=provenance)
             else:
-                attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor)
+                attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor, generation_stage="anchor")
             self._add_to_attributes(attributes, attr_def.category, attr_def.name, attr)
             profile_so_far[attr_def.name] = attr.value
             self._apply_correlation_check(attr_def.name, attr.value, profile_so_far)
@@ -65,7 +80,16 @@ class AttributeFiller:
                 if name in TAXONOMY_BY_NAME:
                     attr_def = TAXONOMY_BY_NAME[name]
                     label = self._get_label(attr_def, value)
-                    attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="anchored")
+                    provenance = AttributeProvenance(
+                        source_class="empirical",
+                        source_detail="demographic_anchor",
+                        confidence=1.0,
+                        conditioned_by=[],
+                        reasoning=None,
+                        generation_stage="anchor",
+                        filled_at=datetime.now(timezone.utc),
+                    )
+                    attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="anchored", provenance=provenance)
                     self._add_to_attributes(attributes, attr_def.category, name, attr)
                     profile_so_far[name] = value
                     self._apply_correlation_check(name, value, profile_so_far)
@@ -77,7 +101,7 @@ class AttributeFiller:
         # Step 4: Fill domain-specific sequentially (caller-provided)
         if domain_attrs:
             for attr_def in domain_attrs:
-                attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor)
+                attr = await self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor, generation_stage="domain_specific")
                 self._add_to_attributes(attributes, attr_def.category, attr_def.name, attr)
                 profile_so_far[attr_def.name] = attr.value
                 self._apply_correlation_check(attr_def.name, attr.value, profile_so_far)
@@ -95,7 +119,7 @@ class AttributeFiller:
         for i in range(0, len(batch_defs), batch_size):
             batch = batch_defs[i : i + batch_size]
             tasks = [
-                self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor)
+                self._fill_single_attribute(attr_def, profile_so_far, demographic_anchor, generation_stage="extended")
                 for attr_def in batch
             ]
             batch_attrs = await asyncio.gather(*tasks)
@@ -109,6 +133,7 @@ class AttributeFiller:
         attr_def: AttributeDefinition,
         profile_so_far: Dict[str, Any],
         demographic_anchor: DemographicAnchor,
+        generation_stage: GenerationStage = "extended",
     ) -> Attribute:
         CostTracer.set_phase("attribute_fill")
         # Sparsity prior (DeepPersona §2): prevent rare trait combinations from
@@ -138,6 +163,7 @@ class AttributeFiller:
         )
 
         recent_attrs = list(profile_so_far.items())[-15:]
+        context_attr_names = [k for k, _ in recent_attrs]
         attrs_str = "\n".join(f"- {k}: {v}" for k, v in recent_attrs)
 
         demogs = {
@@ -159,6 +185,8 @@ class AttributeFiller:
         if attr_def.population_prior is not None:
             prior_info = f"\nPopulation prior: {attr_def.population_prior}"
 
+        available_ctx = ", ".join(context_attr_names) if context_attr_names else "none"
+
         user_prompt = f"""Persona so far:
 - Demographics: {demogs_str}
 - Attributes assigned so far: {attrs_str}
@@ -169,17 +197,28 @@ Category: {attr_def.category}
 Description: {attr_def.description}
 Type: {type_info}{prior_info}
 
-Return JSON only: {{"value": ..., "label": "..."}}"""
+Available context attributes: [{available_ctx}]
+
+Return JSON only:
+{{
+  "value": ...,
+  "label": "...",
+  "confidence": <float 0.0-1.0 reflecting certainty of this assignment>,
+  "reasoning": "<1-2 sentence explanation of why this value fits this persona>",
+  "key_influences": ["<attr_name>", ...]  // 2-5 attributes from context that most shaped this value; empty list if none
+}}"""
 
         started = time.monotonic()
         status: Literal["ok", "retry", "fail"] = "ok"
         input_tokens = 0
         output_tokens = 0
+        model_name = str(getattr(self.llm_client, "model_name", None) or self.model)
+        filled_at = datetime.now(timezone.utc)
         try:
             response = await api_call_with_retry(
                 self.llm_client.messages.create,
                 model=self.model,
-                max_tokens=128,
+                max_tokens=300,
                 system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}],
             )
@@ -193,12 +232,33 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
             parsed = json.loads(raw_text)
             value = parsed["value"]
             label = parsed.get("label", "medium")
-            attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="sampled")
+
+            # Build provenance from LLM-reported fields (all optional with safe defaults)
+            raw_confidence = parsed.get("confidence", 0.7)
+            confidence = float(raw_confidence) if isinstance(raw_confidence, (int, float)) else 0.7
+            confidence = max(0.0, min(1.0, confidence))
+
+            raw_influences = parsed.get("key_influences", [])
+            # Validate reported influences are actually in context (prevent hallucination)
+            valid_influences = [
+                k for k in (raw_influences if isinstance(raw_influences, list) else [])
+                if k in context_attr_names
+            ]
+
+            provenance = AttributeProvenance(
+                source_class="inferred",
+                source_detail=f"llm_inference_{model_name}",
+                confidence=confidence,
+                conditioned_by=valid_influences,
+                reasoning=parsed.get("reasoning") or None,
+                generation_stage=generation_stage,
+                filled_at=filled_at,
+            )
+            attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="sampled", provenance=provenance)
             return attr
         except Exception:
             status = "fail"
         finally:
-            model_name = str(getattr(self.llm_client, "model_name", None) or self.model)
             CostTracer.record(
                 make_record(
                     sub_step=attr_def.name,
@@ -210,7 +270,16 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
                 )
             )
 
-        # Fallback to prior
+        # Fallback to prior — provenance records this as a degraded fill
+        fallback_provenance = AttributeProvenance(
+            source_class="inferred",
+            source_detail=f"fallback_prior_{model_name}",
+            confidence=0.1,
+            conditioned_by=[],
+            reasoning="LLM call failed; value derived from population prior.",
+            generation_stage=generation_stage,
+            filled_at=datetime.now(timezone.utc),
+        )
         if attr_def.attr_type == "categorical":
             # Categorical fallback: pick first option or "unknown"
             fallback_value = attr_def.options[0] if attr_def.options else "unknown"
@@ -225,7 +294,7 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
             else:
                 fallback_value = float(raw_prior) if raw_prior is not None else 0.5
                 fallback_label = "medium"
-        return Attribute(value=fallback_value, type=attr_def.attr_type, label=fallback_label, source="sampled")
+        return Attribute(value=fallback_value, type=attr_def.attr_type, label=fallback_label, source="sampled", provenance=fallback_provenance)
 
     def _get_fill_order(
         self, taxonomy: List[AttributeDefinition], anchor_overrides: Dict[str, Any]
