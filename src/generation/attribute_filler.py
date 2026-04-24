@@ -2,8 +2,10 @@ from __future__ import annotations
 import asyncio
 import json
 import random
-from typing import Dict, Any, List, Optional
+import time
+from typing import Dict, Any, List, Optional, Literal
 
+from src.observability.cost_tracer import CostTracer, make_record, usage_to_token_counts
 from src.schema.persona import DemographicAnchor, Attribute
 from src.schema.worldview import WorldviewAnchor
 from src.taxonomy.base_taxonomy import (
@@ -108,6 +110,7 @@ class AttributeFiller:
         profile_so_far: Dict[str, Any],
         demographic_anchor: DemographicAnchor,
     ) -> Attribute:
+        CostTracer.set_phase("attribute_fill")
         # Sparsity prior (DeepPersona §2): prevent rare trait combinations from
         # being zero-probability. 20% of the time, inject a prompt nudge that
         # encourages non-modal (surprising but plausible) attribute values.
@@ -168,6 +171,10 @@ Type: {type_info}{prior_info}
 
 Return JSON only: {{"value": ..., "label": "..."}}"""
 
+        started = time.monotonic()
+        status: Literal["ok", "retry", "fail"] = "ok"
+        input_tokens = 0
+        output_tokens = 0
         try:
             response = await api_call_with_retry(
                 self.llm_client.messages.create,
@@ -175,6 +182,9 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
                 max_tokens=128,
                 system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
                 messages=[{"role": "user", "content": user_prompt}],
+            )
+            input_tokens, output_tokens = usage_to_token_counts(
+                getattr(response, "usage", None)
             )
             raw_text = response.content[0].text.strip()
             # Strip markdown code fences if present
@@ -186,7 +196,19 @@ Return JSON only: {{"value": ..., "label": "..."}}"""
             attr = Attribute(value=value, type=attr_def.attr_type, label=label, source="sampled")
             return attr
         except Exception:
-            pass  # fall through to fallback
+            status = "fail"
+        finally:
+            model_name = str(getattr(self.llm_client, "model_name", None) or self.model)
+            CostTracer.record(
+                make_record(
+                    sub_step=attr_def.name,
+                    model=model_name,
+                    started_monotonic=started,
+                    status=status,
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                )
+            )
 
         # Fallback to prior
         if attr_def.attr_type == "categorical":

@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from src.schema.persona import Mode, PersonaRecord, TendencySource
 
@@ -91,4 +91,5 @@ class CohortEnvelope(BaseModel):
     cohort_summary: CohortSummary
     grounding_summary: GroundingSummary
     calibration_state: CalibrationState
-
+    gate_waivers: list[dict] = Field(default_factory=list)
+    confidence_penalty: float = 0.0
