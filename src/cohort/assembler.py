@@ -8,7 +8,10 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timezone
+import logging
+import os
 from uuid import uuid4
+from typing import Callable
 
 from src.schema.cohort import (
     CalibrationState,
@@ -17,6 +20,7 @@ from src.schema.cohort import (
     GroundingSummary,
     TaxonomyMeta,
 )
+from src.generation.gate_waiver import GateWaiver, build_gate_waiver, cumulative_penalty
 from src.schema.persona import PersonaRecord
 
 # Integration contract: CohortGateRunner provided by Antigravity (validators.py)
@@ -31,6 +35,8 @@ try:
 except ImportError:
     classify_persona_type = None  # type: ignore[assignment]
 
+logger = logging.getLogger(__name__)
+MAX_GATE_RETRIES = int(os.getenv("SIMULATTE_MAX_GATE_RETRIES", "3"))
 
 # ---------------------------------------------------------------------------
 # Age bracket helper
@@ -156,6 +162,7 @@ def assemble_cohort(
     business_problem: str = "",
     client: str = "",
     skip_gates: bool = False,
+    regenerate_failing: Callable[[list[PersonaRecord], list["ValidationResult"], int], list[PersonaRecord]] | None = None,
 ) -> CohortEnvelope:
     """
     Assemble N personas into a validated CohortEnvelope.
@@ -181,17 +188,50 @@ def assemble_cohort(
 
     # Step 2: Cohort-level gates G6, G7, G8, G9, G11
     failed_gates: list[str] = []
+    waivers: list[GateWaiver] = []
+    attempts = 0
+    gate_results = []
 
     if CohortGateRunner is not None:
         runner = CohortGateRunner()
-        gate_results = runner.run_all(personas)
-        for result in gate_results:
-            if not result.passed:
+        while True:
+            failed_gates = []
+            gate_results = runner.run_all(personas)
+            failing_results = [result for result in gate_results if not result.passed]
+
+            if not failing_results:
+                break
+
+            for result in failing_results:
                 failed_detail = "; ".join(result.failures) if result.failures else "no details"
                 failed_gates.append(f"{result.gate}: {failed_detail}")
+
+            attempts += 1
+
+            if attempts >= MAX_GATE_RETRIES:
+                for result in failing_results:
+                    if result.gate not in {"G6", "G7", "G8", "G9", "G10", "G11"}:
+                        continue
+                    reason = "; ".join(result.failures) if result.failures else "gate failed"
+                    waiver = build_gate_waiver(
+                        result.gate,  # type: ignore[arg-type]
+                        attempts_made=attempts,
+                        final_failure_reason=reason,
+                    )
+                    waivers.append(waiver)
+                    logger.warning(
+                        "Gate waiver emitted: %s after %d attempts — %s",
+                        waiver.gate_id,
+                        attempts,
+                        reason,
+                    )
+                break
+
+            if regenerate_failing is not None:
+                personas = regenerate_failing(personas, failing_results, attempts)
     # If CohortGateRunner is not yet available (parallel sprint build), skip silently.
 
-    if failed_gates:
+    if failed_gates and not waivers:
         if skip_gates:
             import warnings
             warnings.warn(
@@ -302,6 +342,8 @@ def assemble_cohort(
         cohort_summary=cohort_summary,
         grounding_summary=grounding_summary,
         calibration_state=calibration_state,
+        gate_waivers=[w.to_dict() for w in waivers],
+        confidence_penalty=cumulative_penalty(waivers),
     )
 
     return envelope

@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Any
+import time
+from typing import Any, Literal
 
+from src.observability.cost_tracer import CostTracer, make_record, usage_to_token_counts
 from src.schema.persona import Attribute, DemographicAnchor, LifeStory
 from src.taxonomy.base_taxonomy import BASE_TAXONOMY, TAXONOMY_BY_NAME
 from src.utils.retry import api_call_with_retry
@@ -269,6 +271,7 @@ class LifeStoryGenerator:
         llm_client: Any = None,
     ) -> list[LifeStory]:
         """Calls the LLM, parses the response, and returns whatever valid stories it produced."""
+        CostTracer.set_phase("life_story")
         extra_note = (
             f"\n\nIMPORTANT: You must return exactly {n_stories} stories. "
             "Previous attempt returned too few."
@@ -277,23 +280,56 @@ class LifeStoryGenerator:
         )
 
         full_user_prompt = user_prompt + extra_note
+        started = time.monotonic()
+        status: Literal["ok", "retry", "fail"] = "ok"
+        input_tokens = 0
+        output_tokens = 0
 
-        if llm_client is not None and hasattr(llm_client, 'complete'):
-            raw_text = await llm_client.complete(
-                system=_SYSTEM_PROMPT,
-                messages=[{"role": "user", "content": full_user_prompt}],
-                max_tokens=1024,
-                model=self.model,
+        try:
+            if llm_client is not None and hasattr(llm_client, "complete"):
+                raw_text = await llm_client.complete(
+                    system=_SYSTEM_PROMPT,
+                    messages=[{"role": "user", "content": full_user_prompt}],
+                    max_tokens=1024,
+                    model=self.model,
+                )
+            else:
+                response = await api_call_with_retry(
+                    self.llm.messages.create,
+                    model=self.model,
+                    max_tokens=1024,
+                    system=[
+                        {
+                            "type": "text",
+                            "text": _SYSTEM_PROMPT,
+                            "cache_control": {"type": "ephemeral"},
+                        }
+                    ],
+                    messages=[{"role": "user", "content": full_user_prompt}],
+                )
+                input_tokens, output_tokens = usage_to_token_counts(
+                    getattr(response, "usage", None)
+                )
+                raw_text = response.content[0].text
+        except Exception:
+            status = "fail"
+            raise
+        finally:
+            model_name = str(
+                getattr(llm_client, "model_name", None)
+                or getattr(self.llm, "model_name", None)
+                or self.model
             )
-        else:
-            response = await api_call_with_retry(
-                self.llm.messages.create,
-                model=self.model,
-                max_tokens=1024,
-                system=[{"type": "text", "text": _SYSTEM_PROMPT, "cache_control": {"type": "ephemeral"}}],
-                messages=[{"role": "user", "content": full_user_prompt}],
+            CostTracer.record(
+                make_record(
+                    sub_step="generate",
+                    model=model_name,
+                    started_monotonic=started,
+                    status=status,
+                    input_tokens=input_tokens,
+                    output_tokens=output_tokens,
+                )
             )
-            raw_text = response.content[0].text
         parsed = _parse_stories(raw_text)
 
         if parsed is None:

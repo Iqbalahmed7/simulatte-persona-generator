@@ -455,7 +455,7 @@ async def decide(
 ) -> DecisionOutput:
     """Run the 5-step reasoning chain for a decision.
 
-    Makes one Sonnet call with max_tokens=2048.
+    Makes one Sonnet call with max_tokens=4096.
     tendency_summary is ALWAYS in context, injected as natural language (P4).
     Core memory is ALWAYS in context.
     The 5-step structure is always in the prompt — never shortened or combined.
@@ -481,14 +481,14 @@ async def decide(
         raw_text = await llm_client.complete(
             system=system_str,
             messages=messages,
-            max_tokens=2048,
+            max_tokens=4096,
             model=_model,
         )
     else:
         response = await api_call_with_retry(
             client.messages.create,
             model=_model,
-            max_tokens=2048,
+            max_tokens=4096,
             system=system_blocks,
             messages=messages,
         )
@@ -503,14 +503,14 @@ async def decide(
             raw_text = await llm_client.complete(
                 system=system_str,
                 messages=messages,
-                max_tokens=2048,
+                max_tokens=4096,
                 model=_model,
             )
         else:
             response = await api_call_with_retry(
                 client.messages.create,
                 model=_model,
-                max_tokens=2048,
+                max_tokens=4096,
                 system=system_blocks,
                 messages=messages,
             )

@@ -31,6 +31,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import TYPE_CHECKING, Any
 
+from src.observability.cost_tracer import CostTracer
 from src.schema.persona import (
     CoreMemory,
     DemographicAnchor,
@@ -195,10 +196,13 @@ class IdentityConstructor:
         with domain_data — which upgrades tendencies via the grounding pipeline.
         """
         self._assert_components_available()
+        persona_id = self._make_persona_id(icp_spec)
+        CostTracer.start_persona(persona_id)
 
         # ---------------------------------------------------------------
         # Step 1 — Fill all attributes
         # ---------------------------------------------------------------
+        CostTracer.set_phase("attribute_fill")
         taxonomy = load_taxonomy(icp_spec.domain)
         domain_attrs = get_domain_attributes(icp_spec.domain)
 
@@ -225,6 +229,7 @@ class IdentityConstructor:
         # ---------------------------------------------------------------
         # Step 2 — Compute derived insights
         # ---------------------------------------------------------------
+        CostTracer.set_phase("identity_core")
         derived_insights = self.insights_computer.compute(
             attributes=attributes,
             demographic_anchor=demographic_anchor,
@@ -233,6 +238,7 @@ class IdentityConstructor:
         # ---------------------------------------------------------------
         # Step 3 — Generate life stories
         # ---------------------------------------------------------------
+        CostTracer.set_phase("life_story")
         life_stories = await self.story_generator.generate(
             demographic_anchor=demographic_anchor,
             attributes=attributes,
@@ -244,6 +250,7 @@ class IdentityConstructor:
         # Step 4 — Estimate tendencies
         # (must follow Step 2 — tendencies reference derived_insights)
         # ---------------------------------------------------------------
+        CostTracer.set_phase("identity_behavior")
         behavioural_tendencies = self.tendency_estimator.estimate(
             attributes=attributes,
             derived_insights=derived_insights,
@@ -253,6 +260,7 @@ class IdentityConstructor:
         # Step 5 — Generate narrative
         # (must follow Step 3 — narrative references life story events)
         # ---------------------------------------------------------------
+        CostTracer.set_phase("identity_behavior")
         narrative = await self.narrative_generator.generate(
             demographic_anchor=demographic_anchor,
             attributes=attributes,
@@ -304,7 +312,7 @@ class IdentityConstructor:
         # Assemble PersonaRecord
         # ---------------------------------------------------------------
         persona = PersonaRecord(
-            persona_id=self._make_persona_id(icp_spec),
+            persona_id=persona_id,
             generated_at=datetime.now(tz=timezone.utc),
             generator_version=GENERATOR_VERSION,
             domain=icp_spec.domain,

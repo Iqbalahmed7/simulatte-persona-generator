@@ -205,14 +205,14 @@ async def perceive(
         raw_text = await llm_client.complete(
             system=system_str,
             messages=messages,
-            max_tokens=512,
+            max_tokens=2048,
             model=_HAIKU_MODEL,
         )
     else:
         response = await api_call_with_retry(
             client.messages.create,
             model=_HAIKU_MODEL,
-            max_tokens=512,
+            max_tokens=2048,
             system=system_blocks,
             messages=messages,
         )
@@ -228,14 +228,14 @@ async def perceive(
             raw_text = await llm_client.complete(
                 system=system_str,
                 messages=messages,
-                max_tokens=512,
+                max_tokens=2048,
                 model=_HAIKU_MODEL,
             )
         else:
             response = await api_call_with_retry(
                 client.messages.create,
                 model=_HAIKU_MODEL,
-                max_tokens=512,
+                max_tokens=2048,
                 system=system_blocks,
                 messages=messages,
             )

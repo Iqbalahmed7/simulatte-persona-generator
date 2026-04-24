@@ -28,6 +28,31 @@ Mode = Literal["quick", "deep", "simulation-ready", "grounded"]
 AttributeType = Literal["continuous", "categorical"]
 AttributeSource = Literal["sampled", "inferred", "anchored", "domain_data"]
 
+GenerationStage = Literal["anchor", "extended", "domain_specific"]
+
+
+class AttributeProvenance(BaseModel):
+    """Per-attribute provenance record emitted during generation.
+
+    Nullable for backward compatibility — existing PersonaRecords without
+    provenance will validate correctly (provenance=None).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    source_class: Literal["empirical", "inferred"]
+    # e.g. "demographic_anchor", "worldview_anchor", "llm_inference_claude-haiku-4-5"
+    source_detail: str
+    # 0.0–1.0, model self-reported (1.0 for empirical/anchored)
+    confidence: float
+    # attribute names that most influenced this value (LLM-reported for inferred,
+    # empty list for empirical anchors)
+    conditioned_by: list[str]
+    # brief explanation for inferred attributes; None for empirical
+    reasoning: str | None
+    generation_stage: GenerationStage
+    filled_at: datetime
+
 DecisionStyle = Literal["emotional", "analytical", "habitual", "social"]
 TrustAnchor = Literal["self", "peer", "authority", "family"]
 RiskAppetite = Literal["low", "medium", "high"]
@@ -115,6 +140,9 @@ class Attribute(BaseModel):
     type: AttributeType
     label: str
     source: AttributeSource
+    # Nullable for backward compatibility — existing records without provenance
+    # validate correctly. Set on all new attributes produced by AttributeFiller.
+    provenance: AttributeProvenance | None = None
 
     @model_validator(mode="after")
     def _validate_value_matches_type(self) -> "Attribute":
