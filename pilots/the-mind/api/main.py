@@ -129,6 +129,13 @@ class HealthResponse(BaseModel):
     version: str
 
 
+# `from __future__ import annotations` defers all annotations as strings.
+# Pydantic v2 needs an explicit rebuild for any model that references another
+# model via Optional/forward ref, otherwise instantiation raises
+# "not fully defined" at runtime.
+ChatResponse.model_rebuild()
+
+
 # ── app ───────────────────────────────────────────────────────────────────
 
 @asynccontextmanager
