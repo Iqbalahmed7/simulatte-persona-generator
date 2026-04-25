@@ -1,0 +1,44 @@
+{
+  "version": "exemplar_set_v1_2026_04",
+  "generated_at": "2026-04-25T03:50:25.446380+00:00",
+  "model": "claude-haiku-4-5-20251001",
+  "provenance_instrumented": true,
+  "personas": [
+    {
+      "slug": "priya",
+      "persona_id": "pg-mind-priya-001",
+      "path": "/Users/admin/Documents/Simulatte Projects/Persona Generator/pilots/the-mind/exemplar_set_v1/persona_priya.json",
+      "status": "ok",
+      "description": "Indian metro mother, 32, Mumbai \u2014 marketing manager, health-conscious, premium-curious"
+    },
+    {
+      "slug": "madison",
+      "persona_id": "pg-mind-madison-001",
+      "path": "/Users/admin/Documents/Simulatte Projects/Persona Generator/pilots/the-mind/exemplar_set_v1/persona_madison.json",
+      "status": "ok",
+      "description": "US premium wellness seeker, 36, San Francisco \u2014 SaaS PM, clinical-backing required"
+    },
+    {
+      "slug": "linnea",
+      "persona_id": "pg-mind-linnea-001",
+      "path": "/Users/admin/Documents/Simulatte Projects/Persona Generator/pilots/the-mind/exemplar_set_v1/persona_linnea.json",
+      "status": "ok",
+      "description": "European minimalist, 28, Stockholm \u2014 UX designer, climate-anxious, anti-maximalist"
+    },
+    {
+      "slug": "arun",
+      "persona_id": "pg-mind-arun-001",
+      "path": "/Users/admin/Documents/Simulatte Projects/Persona Generator/pilots/the-mind/exemplar_set_v1/persona_arun.json",
+      "status": "ok",
+      "description": "Tier-2 Indian male, 42, Indore \u2014 small-business owner, value-seeker, YouTube-native"
+    },
+    {
+      "slug": "david",
+      "persona_id": "pg-mind-david-001",
+      "path": "/Users/admin/Documents/Simulatte Projects/Persona Generator/pilots/the-mind/exemplar_set_v1/persona_david.json",
+      "status": "ok",
+      "description": "US senior, 64, Phoenix \u2014 retired teacher, managing hypertension, skeptical of marketing"
+    }
+  ],
+  "notes": "Frozen exemplar set for The Mind (mind.simulatte.io) demo. Do not edit individual persona files. Re-run generate_exemplars.py with a new version tag if regeneration is required."
+}
