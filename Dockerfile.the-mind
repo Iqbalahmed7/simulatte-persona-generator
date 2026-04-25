@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only what The Mind API needs
 COPY src/ ./src/
+COPY pilots/__init__.py ./pilots/__init__.py
 COPY pilots/the_mind_api.py ./pilots/the_mind_api.py
 COPY pilots/the-mind/ ./pilots/the-mind/
 
