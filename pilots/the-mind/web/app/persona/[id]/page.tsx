@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { fetchGeneratedPersona, generatePortrait, GeneratedPersona } from "@/lib/api";
+import GenuinenessChip from "@/components/GenuinenessChip";
 
 // ── helpers ───────────────────────────────────────────────────────────────
 
@@ -219,6 +220,23 @@ export default function PersonaProfilePage() {
             <p className="text-static text-base mb-5">
               {da.age} · {da.location.city}, {da.location.country}
             </p>
+
+            {/* Genuineness + chat CTA */}
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              {persona.quality_assessment && (
+                <GenuinenessChip assessment={persona.quality_assessment} />
+              )}
+              <Link
+                href={`/persona/${persona.persona_id}/chat`}
+                className="inline-flex items-center gap-2 bg-signal text-void font-condensed font-bold px-4 py-2 hover:bg-signal/90 transition-colors"
+              >
+                <span className="text-[11px] tracking-widest uppercase">
+                  Talk to {persona.narrative.display_name || da.name.split(" ")[0]}
+                </span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+
             <p className="text-parchment/80 text-sm leading-relaxed mb-6">
               {persona.narrative.third_person}
             </p>

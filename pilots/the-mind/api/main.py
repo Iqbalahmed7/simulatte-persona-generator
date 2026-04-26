@@ -673,7 +673,7 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "display_name": narrative_raw.get("display_name") or name.split()[0] if name else "",
     }
 
-    return {
+    persona_dict = {
         "persona_id": persona_id,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "generator_version": "web-direct-v1",
@@ -705,6 +705,8 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "memory": memory,
         "life_stories": data_b.get("life_stories") or [],
     }
+    persona_dict["quality_assessment"] = _compute_quality_assessment(persona_dict)
+    return persona_dict
 
 
 async def _call_fal_portrait(prompt: str, fal_key: str) -> str:
@@ -931,6 +933,72 @@ async def list_generated_personas():
     return sorted(summaries, key=lambda x: x["persona_id"], reverse=True)
 
 
+def _compute_quality_assessment(persona: dict) -> dict:
+    """Compute a 0-10 'genuineness' score from populated persona fields.
+
+    Generated personas have empty attributes:{} so we score from narrative,
+    insights, behavioural tendencies, and memory only.
+    """
+    da = persona.get("demographic_anchor") or {}
+    di = persona.get("derived_insights") or {}
+    bt = persona.get("behavioural_tendencies") or {}
+    mem = ((persona.get("memory") or {}).get("core")) or {}
+
+    demo_fields = [
+        da.get("name"), da.get("age"),
+        (da.get("location") or {}).get("city"),
+        (da.get("location") or {}).get("country"),
+        (da.get("employment") or {}).get("occupation"),
+        da.get("education"),
+        (da.get("household") or {}).get("composition"),
+    ]
+    demo_score = sum(1 for f in demo_fields if f) / len(demo_fields)
+
+    raw_consistency = di.get("consistency_score") or 0
+    try:
+        cv = float(raw_consistency)
+    except (TypeError, ValueError):
+        cv = 0.0
+    # consistency_score is 60-95 integer in generator; normalise to 0-1
+    consistency = cv / 100.0 if cv > 1.0 else cv
+
+    stories = len(persona.get("life_stories") or [])
+    bullets = len(persona.get("decision_bullets") or [])
+    events = len(mem.get("life_defining_events") or [])
+    depth_raw = (min(stories, 3) / 3 + min(bullets, 5) / 5 + min(events, 3) / 3) / 3
+
+    psych_fields = [
+        di.get("decision_style"), di.get("trust_anchor"),
+        di.get("risk_appetite"), di.get("primary_value_orientation"),
+        bt.get("trust_orientation"), bt.get("price_sensitivity"),
+    ]
+    psych_score = sum(1 for f in psych_fields if f) / len(psych_fields)
+
+    score_01 = 0.40 * demo_score + 0.30 * consistency + 0.15 * depth_raw + 0.15 * psych_score
+
+    return {
+        "score": round(score_01 * 10, 1),
+        "components": [
+            {"key": "demographic_grounding", "label": "Demographic grounding", "value": round(demo_score, 2),
+             "description": "Anchor fields populated (age, city, country, occupation, education, household)"},
+            {"key": "behavioural_consistency", "label": "Behavioural consistency", "value": round(consistency, 2),
+             "description": "Cross-attribute coherence (decision style ↔ values ↔ trust)"},
+            {"key": "narrative_depth", "label": "Narrative depth", "value": round(depth_raw, 2),
+             "description": "Life stories, decision bullets, defining memory events"},
+            {"key": "psychological_completeness", "label": "Psychological completeness", "value": round(psych_score, 2),
+             "description": "Decision style, trust, risk, values, behavioural tendencies"},
+        ],
+        "sources": [
+            {"name": "Demographic Anchor", "weight": "primary",
+             "description": "Census-aligned demographic frame: age, location, employment, education, household composition"},
+            {"name": "Behavioural Coherence Model", "weight": "primary",
+             "description": "Internal consistency check across decision psychology, values, and trust orientation"},
+            {"name": "LLM Inference (Anthropic Claude)", "weight": "secondary",
+             "description": "Narrative, life stories, decision bullets, value extrapolation from the brief"},
+        ],
+    }
+
+
 @app.get("/generated/{persona_id}")
 async def get_generated_persona(persona_id: str):
     """Return a previously generated persona by ID.
@@ -956,7 +1024,153 @@ async def get_generated_persona(persona_id: str):
         )
     data = dict(_GENERATED[persona_id])
     data["portrait_url"] = _GENERATED_PORTRAITS.get(persona_id)
+    # Backfill quality_assessment for personas persisted before this field existed.
+    if "quality_assessment" not in data or not data.get("quality_assessment"):
+        data["quality_assessment"] = _compute_quality_assessment(data)
     return data
+
+
+def _build_generated_system_prompt(persona: dict) -> str:
+    """Build a system prompt for a generated persona's chat handler.
+
+    Pulls together narrative, insights, memory, and decision bullets so the
+    LLM can role-play with consistent voice and decision logic.
+    """
+    da = persona.get("demographic_anchor") or {}
+    location = da.get("location") or {}
+    employment = da.get("employment") or {}
+    household = da.get("household") or {}
+    narrative = persona.get("narrative") or {}
+    di = persona.get("derived_insights") or {}
+    bt = persona.get("behavioural_tendencies") or {}
+    mem = (persona.get("memory") or {}).get("core") or {}
+    bullets = persona.get("decision_bullets") or []
+    stories = persona.get("life_stories") or []
+
+    name = da.get("name") or "the persona"
+    age = da.get("age") or ""
+    city = location.get("city") or ""
+    country = location.get("country") or ""
+    occupation = employment.get("occupation") or ""
+    life_stage = (da.get("life_stage") or "").replace("_", " ")
+
+    parts: list[str] = []
+    parts.append(
+        f"You ARE {name}, a {age}-year-old {occupation or 'person'} in {city}, {country}. "
+        f"Life stage: {life_stage}. Household: {household.get('composition') or 'unspecified'}. "
+        f"Education: {da.get('education') or 'unspecified'}."
+    )
+
+    if narrative.get("third_person"):
+        parts.append(f"Background: {narrative['third_person']}")
+    if narrative.get("first_person"):
+        parts.append(f"How you describe yourself: \"{narrative['first_person']}\"")
+
+    if mem.get("identity_statement"):
+        parts.append(f"Core identity: {mem['identity_statement']}")
+    if mem.get("key_values"):
+        parts.append("Your core values: " + ", ".join(mem["key_values"]))
+    if mem.get("life_defining_events"):
+        parts.append("Defining events that shaped you: " + "; ".join(mem["life_defining_events"]))
+    if mem.get("immutable_constraints"):
+        parts.append("Hard constraints on your behaviour: " + "; ".join(mem["immutable_constraints"]))
+    if mem.get("tendency_summary"):
+        parts.append(f"Behavioural tendency: {mem['tendency_summary']}")
+
+    psych_bits = []
+    if di.get("decision_style"):
+        psych_bits.append(f"decision style is {di['decision_style']}")
+    if di.get("trust_anchor"):
+        psych_bits.append(f"you trust {di['trust_anchor']} most")
+    if di.get("risk_appetite"):
+        psych_bits.append(f"risk appetite {di['risk_appetite']}")
+    if di.get("primary_value_orientation"):
+        psych_bits.append(f"primary value orientation {di['primary_value_orientation']}")
+    if psych_bits:
+        parts.append("Decision psychology: " + "; ".join(psych_bits) + ".")
+
+    if di.get("key_tensions"):
+        parts.append("Internal tensions you live with: " + "; ".join(di["key_tensions"]))
+
+    ps = bt.get("price_sensitivity") or {}
+    if ps.get("band") or ps.get("description"):
+        parts.append(f"Price sensitivity ({ps.get('band', 'mid')}): {ps.get('description', '')}")
+    if bt.get("reasoning_prompt"):
+        parts.append(f"How you reason: {bt['reasoning_prompt']}")
+
+    if bullets:
+        parts.append("How you approach decisions:\n- " + "\n- ".join(str(b) for b in bullets))
+
+    if stories:
+        story_lines = []
+        for s in stories[:3]:
+            title = s.get("title", "")
+            narr = s.get("narrative", "")
+            if title or narr:
+                story_lines.append(f"  • {title}: {narr}")
+        if story_lines:
+            parts.append("Life stories that shaped you:\n" + "\n".join(story_lines))
+
+    parts.append(
+        "Speak in first person as this person. Be specific, grounded in your context "
+        "(city, occupation, household, values). Stay in character — never mention being "
+        "an AI, a model, or a simulation. Keep replies to 2–5 sentences unless the "
+        "question genuinely calls for more. Bring your tensions, biases, and rough edges; "
+        "real people aren't tidy."
+    )
+    return "\n\n".join(parts)
+
+
+@app.post("/generated/{persona_id}/chat", response_model=ChatResponse)
+async def chat_generated(persona_id: str, request: ChatRequest):
+    """Chat with a generated (web-created) persona.
+
+    Self-contained handler: builds a system prompt from the generated persona's
+    narrative + insights + memory + decision_bullets and calls Sonnet directly.
+    Decision trace is None — generated personas don't carry a PersonaRecord, so
+    the 5-step decide/respond pipeline isn't reused here. (Reusing it would
+    require schema-coercing the dict into PersonaRecord, which is invasive given
+    the empty attributes map and shape differences.)
+    """
+    # Load: cache → disk fallback (mirror GET /generated/{id})
+    if persona_id not in _GENERATED:
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    _GENERATED[persona_id] = json.load(f)
+                logger.info("[chat_generated] loaded %s from disk", persona_id)
+            except Exception as exc:
+                logger.warning("[chat_generated] disk load failed for %s: %s", persona_id, exc)
+
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found")
+
+    persona = _GENERATED[persona_id]
+    name = (persona.get("demographic_anchor") or {}).get("name") or "Persona"
+    system_prompt = _build_generated_system_prompt(persona)
+
+    client = _client()
+    chat_model = os.environ.get("CHAT_MODEL", "claude-sonnet-4-5")
+
+    try:
+        msg = await client.messages.create(
+            model=chat_model,
+            max_tokens=600,
+            system=system_prompt,
+            messages=[{"role": "user", "content": request.message}],
+        )
+        reply = msg.content[0].text if msg.content else ""
+    except Exception as e:
+        logger.exception("[chat_generated] %s chat error", persona_id)
+        raise HTTPException(status_code=500, detail=f"Simulation error: {e}")
+
+    return ChatResponse(
+        reply=reply,
+        decision_trace=None,
+        persona_id=persona_id,
+        persona_name=name,
+    )
 
 
 async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:

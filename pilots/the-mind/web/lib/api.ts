@@ -65,9 +65,16 @@ export interface GenerationEvent {
   name?: string;
 }
 
+export interface QualityAssessment {
+  score: number; // 0-10
+  components: Array<{ key: string; label: string; value: number; description: string }>;
+  sources: Array<{ name: string; weight: string; description: string }>;
+}
+
 export interface GeneratedPersona {
   persona_id: string;
   portrait_url?: string | null;
+  quality_assessment?: QualityAssessment;
   demographic_anchor: {
     name: string;
     age: number;
@@ -182,6 +189,23 @@ export async function generateExemplarPortrait(slug: string): Promise<string> {
 export async function fetchPersonaFull(slug: string): Promise<Record<string, any>> {
   const res = await fetch(`${API}/personas/${slug}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Persona not found");
+  return res.json();
+}
+
+export async function chatWithGeneratedPersona(
+  personaId: string,
+  message: string,
+  includeReasoning = true
+): Promise<ChatResponse> {
+  const res = await fetch(`${API}/generated/${personaId}/chat`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message, include_reasoning: includeReasoning }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail ?? "Chat request failed");
+  }
   return res.json();
 }
 
