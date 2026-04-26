@@ -1,4 +1,4 @@
-export const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+export const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001").trim();
 
 export interface PersonaCard {
   slug: string;
