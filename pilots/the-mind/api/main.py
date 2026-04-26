@@ -1173,6 +1173,482 @@ async def chat_generated(persona_id: str, request: ChatRequest):
     )
 
 
+# ── Probe models ─────────────────────────────────────────────────────────
+
+class ProbeRequest(BaseModel):
+    product_name: str
+    category: str
+    description: str
+    claims: list[str] = []  # max 5
+    price: str
+    image_url: str | None = None
+
+
+class ClaimVerdict(BaseModel):
+    claim: str
+    score: int  # 1-10
+    comment: str
+
+
+class ProbeResult(BaseModel):
+    probe_id: str
+    persona_id: str
+    persona_name: str
+    persona_portrait_url: str | None
+    product_name: str
+    category: str
+
+    # REACTION
+    purchase_intent: dict  # {"score": int, "rationale": str}
+    first_impression: dict  # {"adjectives": list[str], "feeling": str}
+
+    # BELIEF
+    claim_believability: list[ClaimVerdict]
+    differentiation: dict  # {"score": int, "comment": str}
+
+    # FRICTION
+    top_objection: str
+    trust_signals_needed: list[str]
+
+    # COMMITMENT
+    price_willingness: dict  # {"wtp_low": str, "wtp_high": str, "reaction": str}
+    word_of_mouth: dict  # {"likelihood": int, "what_theyd_say": str}
+
+    created_at: str
+
+
+# ── Probe directories ─────────────────────────────────────────────────────
+
+_PROBES_DIR = _HERE.parent / "probes"
+
+
+# ── Category memory generation ────────────────────────────────────────────
+
+async def _generate_category_memory(
+    persona: dict,
+    product_brief: dict,
+    client: anthropic.AsyncAnthropic,
+) -> dict:
+    """One Haiku call returning category memories. Cached by (persona_id, brief_hash)."""
+    import hashlib
+
+    persona_id = persona.get("persona_id", "")
+    cache_key = hashlib.sha256(
+        (product_brief["product_name"] + product_brief["description"] + product_brief["price"]).encode()
+    ).hexdigest()[:12]
+
+    cache_path = _PROBES_DIR / persona_id / f"memory_{cache_key}.json"
+    if cache_path.exists():
+        try:
+            with open(cache_path, encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+
+    da = persona.get("demographic_anchor") or {}
+    name = da.get("name") or "this person"
+    age = da.get("age") or ""
+    location = da.get("location") or {}
+    city = location.get("city") or ""
+    country = location.get("country") or ""
+    occupation = (da.get("employment") or {}).get("occupation") or ""
+    income = da.get("income_level") or "middle"
+    narrative = (persona.get("narrative") or {}).get("third_person") or ""
+    ps = (persona.get("behavioural_tendencies") or {}).get("price_sensitivity") or {}
+
+    prompt = f"""You are generating first-person category memories for {name}, {age}, {occupation}, {city}, {country}. Income: {income}. {narrative}
+
+Product being evaluated: {product_brief['product_name']} ({product_brief['category']}) at {product_brief['price']}.
+
+Generate 10-12 rich first-person memories for each of these 6 keys. These are real memories this person would have. Be specific about brands, prices, and experiences.
+
+Return ONLY valid JSON with these exact keys:
+{{
+  "purchase_history": ["<I bought X for Y because Z>", ...],
+  "competitor_awareness": ["<I know about X brand because...>", ...],
+  "channel_preferences": ["<I usually buy X from Y because...>", ...],
+  "budget_anchors": ["<At Y price point I feel Z>", ...],
+  "trust_signals": ["<I trust X when they show/say Y>", ...],
+  "category_attitudes": ["<My general view on this category is...>", ...]
+}}
+
+Each list should have 2-3 entries. Be specific to the {product_brief['category']} category and to this person's context ({city}, {country}, {income} income, {ps.get('band', 'mid')} price sensitivity)."""
+
+    memory_model = os.environ.get("MEMORY_MODEL", "claude-haiku-4-5")
+    msg = await client.messages.create(
+        model=memory_model,
+        max_tokens=1200,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    raw = msg.content[0].text
+
+    try:
+        memory = json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+\}", raw)
+        memory = json.loads(m.group(0)) if m else {}
+
+    # Ensure all keys exist
+    for key in ("purchase_history", "competitor_awareness", "channel_preferences",
+                "budget_anchors", "trust_signals", "category_attitudes"):
+        memory.setdefault(key, [])
+
+    # Persist
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(cache_path, "w", encoding="utf-8") as f:
+        json.dump(memory, f, ensure_ascii=False)
+
+    return memory
+
+
+# ── Probe system prompt builder ───────────────────────────────────────────
+
+def _build_probe_system_prompt(persona: dict, memory: dict, product_brief: dict) -> str:
+    """Build the shared system prompt for all 8 probe questions."""
+    base = _build_generated_system_prompt(persona)
+
+    memory_parts = []
+    if memory.get("purchase_history"):
+        memory_parts.append("Purchase history in this category:\n" + "\n".join(f"- {m}" for m in memory["purchase_history"]))
+    if memory.get("competitor_awareness"):
+        memory_parts.append("Competitor awareness:\n" + "\n".join(f"- {m}" for m in memory["competitor_awareness"]))
+    if memory.get("channel_preferences"):
+        memory_parts.append("How you prefer to buy:\n" + "\n".join(f"- {m}" for m in memory["channel_preferences"]))
+    if memory.get("budget_anchors"):
+        memory_parts.append("Your price anchors for this category:\n" + "\n".join(f"- {m}" for m in memory["budget_anchors"]))
+    if memory.get("trust_signals"):
+        memory_parts.append("What builds trust for you in this category:\n" + "\n".join(f"- {m}" for m in memory["trust_signals"]))
+    if memory.get("category_attitudes"):
+        memory_parts.append("Your general attitudes about this category:\n" + "\n".join(f"- {m}" for m in memory["category_attitudes"]))
+
+    claims_text = ""
+    if product_brief.get("claims"):
+        claims_text = "\nProduct claims:\n" + "\n".join(f"- {c}" for c in product_brief["claims"])
+
+    product_section = f"""---
+PRODUCT BEING EVALUATED
+
+Product: {product_brief['product_name']}
+Category: {product_brief['category']}
+Price: {product_brief['price']}
+Description: {product_brief['description']}{claims_text}
+---
+
+YOUR CATEGORY MEMORIES
+
+{chr(10).join(memory_parts)}
+---
+
+You are being asked to evaluate this product as yourself. Answer in JSON only. Be honest, specific, and consistent with your character, values, and context. Do not break character."""
+
+    return base + "\n\n" + product_section
+
+
+# ── Individual probe question handlers ───────────────────────────────────
+
+async def _probe_purchase_intent(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> dict:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"On a scale of 1-10, how likely are you to buy {product_brief['product_name']}? Give a score (integer 1-10) and a 1-2 sentence honest rationale. Return ONLY JSON: {{\"score\": <int>, \"rationale\": \"<string>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        return json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+?\}", raw)
+        return json.loads(m.group(0)) if m else {"score": 5, "rationale": raw[:200]}
+
+
+async def _probe_first_impression(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> dict:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"What is your immediate gut reaction to {product_brief['product_name']}? Give 3-5 single-word adjectives and a 1-sentence feeling. Return ONLY JSON: {{\"adjectives\": [\"<word>\", ...], \"feeling\": \"<sentence>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        return json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+?\}", raw)
+        return json.loads(m.group(0)) if m else {"adjectives": [], "feeling": raw[:200]}
+
+
+async def _probe_claim_believability(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> list:
+    claims = product_brief.get("claims") or []
+    if not claims:
+        return []
+    claims_text = "\n".join(f"{i+1}. {c}" for i, c in enumerate(claims))
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=600,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"Rate each product claim for believability (1-10) and give a short comment. Claims:\n{claims_text}\n\nReturn ONLY JSON array: [{{\"claim\": \"<claim>\", \"score\": <int>, \"comment\": \"<1 sentence>\"}}]"}],
+    )
+    raw = msg.content[0].text
+    try:
+        data = json.loads(raw)
+        return data if isinstance(data, list) else []
+    except Exception:
+        import re as _re
+        m = _re.search(r"\[[\s\S]+\]", raw)
+        if m:
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                pass
+        return [{"claim": c, "score": 5, "comment": "Unable to parse response"} for c in claims]
+
+
+async def _probe_differentiation(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> dict:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"Does {product_brief['product_name']} feel meaningfully different from alternatives you know in the {product_brief['category']} space? Rate 1-10 and give a 1-2 sentence comment. Return ONLY JSON: {{\"score\": <int>, \"comment\": \"<string>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        return json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+?\}", raw)
+        return json.loads(m.group(0)) if m else {"score": 5, "comment": raw[:200]}
+
+
+async def _probe_top_objection(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> str:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=200,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"What is your single strongest reason NOT to buy {product_brief['product_name']}? Answer in 1-2 sentences as yourself. Return ONLY JSON: {{\"objection\": \"<string>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        data = json.loads(raw)
+        return data.get("objection", raw[:300])
+    except Exception:
+        import re as _re
+        m = _re.search(r'"objection"\s*:\s*"([^"]+)"', raw)
+        return m.group(1) if m else raw[:300]
+
+
+async def _probe_trust_signals(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> list:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"What 3-5 specific things would make you confident enough to buy {product_brief['product_name']}? Be specific (not generic). Return ONLY JSON: {{\"signals\": [\"<bullet>\", ...]}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        data = json.loads(raw)
+        return data.get("signals", [])
+    except Exception:
+        import re as _re
+        m = _re.search(r"\[[\s\S]+?\]", raw)
+        if m:
+            try:
+                return json.loads(m.group(0))
+            except Exception:
+                pass
+        return []
+
+
+async def _probe_price_willingness(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> dict:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"The listed price for {product_brief['product_name']} is {product_brief['price']}. What price range would you consider fair (low and high)? What is your honest reaction to the listed price? Return ONLY JSON: {{\"wtp_low\": \"<price>\", \"wtp_high\": \"<price>\", \"reaction\": \"<1-2 sentences>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        return json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+?\}", raw)
+        return json.loads(m.group(0)) if m else {"wtp_low": "", "wtp_high": "", "reaction": raw[:200]}
+
+
+async def _probe_word_of_mouth(system: str, product_brief: dict, client: anthropic.AsyncAnthropic) -> dict:
+    msg = await client.messages.create(
+        model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+        max_tokens=300,
+        system=[{"type": "text", "text": system, "cache_control": {"type": "ephemeral"}}],
+        messages=[{"role": "user", "content": f"How likely are you (1-10) to recommend {product_brief['product_name']} to a friend? What would you actually say to them about it? Return ONLY JSON: {{\"likelihood\": <int>, \"what_theyd_say\": \"<1-2 sentence casual quote>\"}}"}],
+    )
+    raw = msg.content[0].text
+    try:
+        return json.loads(raw)
+    except Exception:
+        import re as _re
+        m = _re.search(r"\{[\s\S]+?\}", raw)
+        return json.loads(m.group(0)) if m else {"likelihood": 5, "what_theyd_say": raw[:200]}
+
+
+# ── Probe endpoints ───────────────────────────────────────────────────────
+
+def _load_persona_for_probe(persona_id: str) -> dict:
+    """Load persona from cache or disk; raise 404 if not found."""
+    if persona_id not in _GENERATED:
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    _GENERATED[persona_id] = json.load(f)
+            except Exception as exc:
+                logger.warning("[probe] disk load failed for %s: %s", persona_id, exc)
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found")
+    return _GENERATED[persona_id]
+
+
+@app.post("/generated/{persona_id}/probe", response_model=ProbeResult)
+async def run_probe(persona_id: str, request: ProbeRequest):
+    """Run an 8-question Litmus probe against a generated persona.
+
+    Pipeline:
+      1. Load persona (cache or disk)
+      2. Generate or load category memory (Haiku, cached by brief hash)
+      3. Build shared system prompt
+      4. Run 8 Sonnet probe calls in parallel (prompt-cached system prompt)
+      5. Assemble ProbeResult
+      6. Persist to pilots/the-mind/probes/{persona_id}/{probe_id}.json
+    """
+    import hashlib
+    from datetime import datetime, timezone
+
+    persona = _load_persona_for_probe(persona_id)
+    da = persona.get("demographic_anchor") or {}
+    name = da.get("name") or "Persona"
+    portrait_url = _GENERATED_PORTRAITS.get(persona_id)
+
+    product_brief = {
+        "product_name": request.product_name,
+        "category": request.category,
+        "description": request.description,
+        "claims": request.claims[:5],
+        "price": request.price,
+    }
+
+    client = _client()
+
+    # Step 1: generate or load category memory
+    memory = await _generate_category_memory(persona, product_brief, client)
+
+    # Step 2: build shared system prompt (will be prompt-cached across all 8 calls)
+    system_prompt = _build_probe_system_prompt(persona, memory, product_brief)
+
+    # Step 3: run 8 probe questions in parallel
+    (
+        purchase_intent,
+        first_impression,
+        claim_believability_raw,
+        differentiation,
+        top_objection,
+        trust_signals_raw,
+        price_willingness,
+        word_of_mouth,
+    ) = await asyncio.gather(
+        _probe_purchase_intent(system_prompt, product_brief, client),
+        _probe_first_impression(system_prompt, product_brief, client),
+        _probe_claim_believability(system_prompt, product_brief, client),
+        _probe_differentiation(system_prompt, product_brief, client),
+        _probe_top_objection(system_prompt, product_brief, client),
+        _probe_trust_signals(system_prompt, product_brief, client),
+        _probe_price_willingness(system_prompt, product_brief, client),
+        _probe_word_of_mouth(system_prompt, product_brief, client),
+    )
+
+    # Normalise claim_believability into ClaimVerdict list
+    claim_verdicts: list[ClaimVerdict] = []
+    for item in (claim_believability_raw or []):
+        try:
+            claim_verdicts.append(ClaimVerdict(
+                claim=item.get("claim", ""),
+                score=int(item.get("score", 5)),
+                comment=item.get("comment", ""),
+            ))
+        except Exception:
+            pass
+
+    created_at = datetime.now(timezone.utc).isoformat()
+    ts_bytes = (persona_id + created_at).encode()
+    probe_id = "pr-" + hashlib.sha256(ts_bytes).hexdigest()[:8]
+
+    result = ProbeResult(
+        probe_id=probe_id,
+        persona_id=persona_id,
+        persona_name=name,
+        persona_portrait_url=portrait_url,
+        product_name=request.product_name,
+        category=request.category,
+        purchase_intent=purchase_intent,
+        first_impression=first_impression,
+        claim_believability=claim_verdicts,
+        differentiation=differentiation,
+        top_objection=top_objection if isinstance(top_objection, str) else str(top_objection),
+        trust_signals_needed=trust_signals_raw if isinstance(trust_signals_raw, list) else [],
+        price_willingness=price_willingness,
+        word_of_mouth=word_of_mouth,
+        created_at=created_at,
+    )
+
+    # Persist probe result
+    probe_dir = _PROBES_DIR / persona_id
+    probe_dir.mkdir(parents=True, exist_ok=True)
+    with open(probe_dir / f"{probe_id}.json", "w", encoding="utf-8") as f:
+        json.dump(result.model_dump(), f, ensure_ascii=False)
+
+    logger.info("[probe] %s for persona %s saved", probe_id, persona_id)
+    return result
+
+
+@app.get("/probes/{probe_id}", response_model=ProbeResult)
+async def get_probe(probe_id: str):
+    """Fetch a probe result by ID — public, no auth, used by share page."""
+    if not _PROBES_DIR.exists():
+        raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found")
+    for probe_path in _PROBES_DIR.glob(f"*/{probe_id}.json"):
+        try:
+            with open(probe_path, encoding="utf-8") as f:
+                data = json.load(f)
+            return ProbeResult(**data)
+        except Exception as exc:
+            logger.warning("[get_probe] failed to load %s: %s", probe_path, exc)
+            raise HTTPException(status_code=500, detail="Failed to load probe")
+    raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found")
+
+
+@app.get("/generated/{persona_id}/probes")
+async def list_probes_for_persona(persona_id: str):
+    """List probe summaries for a persona (probe_id, product_name, purchase_intent score, created_at)."""
+    probe_dir = _PROBES_DIR / persona_id
+    if not probe_dir.exists():
+        return []
+    summaries = []
+    for p in sorted(probe_dir.glob("pr-*.json"), reverse=True):
+        try:
+            with open(p, encoding="utf-8") as f:
+                data = json.load(f)
+            pi = data.get("purchase_intent") or {}
+            summaries.append({
+                "probe_id": data["probe_id"],
+                "product_name": data.get("product_name", ""),
+                "purchase_intent": pi.get("score", 0),
+                "created_at": data.get("created_at", ""),
+            })
+        except Exception:
+            pass
+    return summaries
+
+
 async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
     """Background task: silently generate portrait after persona creation."""
     try:

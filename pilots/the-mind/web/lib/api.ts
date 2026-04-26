@@ -209,6 +209,78 @@ export async function chatWithGeneratedPersona(
   return res.json();
 }
 
+// ── Probe types ───────────────────────────────────────────────────────────
+
+export interface ClaimVerdict {
+  claim: string;
+  score: number;
+  comment: string;
+}
+
+export interface ProbeResult {
+  probe_id: string;
+  persona_id: string;
+  persona_name: string;
+  persona_portrait_url: string | null;
+  product_name: string;
+  category: string;
+  purchase_intent: { score: number; rationale: string };
+  first_impression: { adjectives: string[]; feeling: string };
+  claim_believability: ClaimVerdict[];
+  differentiation: { score: number; comment: string };
+  top_objection: string;
+  trust_signals_needed: string[];
+  price_willingness: { wtp_low: string; wtp_high: string; reaction: string };
+  word_of_mouth: { likelihood: number; what_theyd_say: string };
+  created_at: string;
+}
+
+export interface ProbeSummary {
+  probe_id: string;
+  product_name: string;
+  purchase_intent: number;
+  created_at: string;
+}
+
+export async function runProbe(
+  personaId: string,
+  brief: {
+    product_name: string;
+    category: string;
+    description: string;
+    claims: string[];
+    price: string;
+    image_url?: string;
+  }
+): Promise<ProbeResult> {
+  const res = await fetch(`${API}/generated/${personaId}/probe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(brief),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as { detail?: string }).detail ?? "Probe failed");
+  }
+  return res.json();
+}
+
+export async function fetchProbe(probeId: string): Promise<ProbeResult> {
+  const res = await fetch(`${API}/probes/${probeId}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Probe not found");
+  return res.json();
+}
+
+export async function fetchProbesForPersona(personaId: string): Promise<ProbeSummary[]> {
+  try {
+    const res = await fetch(`${API}/generated/${personaId}/probes`, { cache: "no-store" });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export async function chatWithPersona(
   slug: string,
   message: string,

@@ -235,6 +235,15 @@ export default function PersonaProfilePage() {
                 </span>
                 <span aria-hidden>→</span>
               </Link>
+              <Link
+                href={`/persona/${persona.persona_id}/probe`}
+                className="inline-flex items-center gap-2 border border-signal text-signal font-condensed font-bold px-4 py-2 hover:bg-signal/10 transition-colors"
+              >
+                <span className="text-[11px] tracking-widest uppercase">
+                  Test a product with {persona.narrative.display_name || da.name.split(" ")[0]}
+                </span>
+                <span aria-hidden>→</span>
+              </Link>
             </div>
 
             <p className="text-parchment/80 text-sm leading-relaxed mb-6">
