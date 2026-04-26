@@ -10,5 +10,7 @@
  *   GET  /api/auth/signout
  *   GET  /api/auth/session
  *   GET  /api/auth/csrf
+ *   GET  /api/auth/providers
  */
-export { handlers as GET, handlers as POST } from "@/auth";
+import { handlers } from "@/auth";
+export const { GET, POST } = handlers;
