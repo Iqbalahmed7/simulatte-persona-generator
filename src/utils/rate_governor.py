@@ -20,6 +20,10 @@ class RateGovernorState:
     throttle_active: bool
 
 
+class GovernorTimeout(RuntimeError):
+    """Raised when RateGovernor.acquire() cannot obtain budget within wait_budget_seconds."""
+
+
 class RateGovernor:
     """Token-bucket governor that tracks RPM and TPM over sliding 60s windows.
 
@@ -52,41 +56,73 @@ class RateGovernor:
         # Lock for concurrent safety
         self._lock = asyncio.Lock()
 
-    async def acquire(self, estimated_tokens: int) -> None:
+    async def acquire(
+        self,
+        estimated_tokens: int,
+        wait_budget_seconds: float | None = None,
+    ) -> None:
         """Block until budget is available for estimated_tokens.
 
         Whichever is more constrained (RPM or TPM) gates the acquire.
+
+        Args:
+            estimated_tokens: token cost of the upcoming call.
+            wait_budget_seconds: if provided, raise GovernorTimeout after this
+                many seconds of queue blocking. If None, blocks indefinitely
+                (existing behavior — backward compatible).
+
+        Raises:
+            GovernorTimeout: budget couldn't be acquired within wait_budget_seconds.
         """
-        while True:
-            async with self._lock:
-                now = time.monotonic()
+        deadline = (
+            time.monotonic() + wait_budget_seconds
+            if wait_budget_seconds is not None
+            else None
+        )
 
-                # Check if throttle period (60s) has expired
-                if self._throttle_start is not None:
-                    if now - self._throttle_start >= self.WINDOW_SECONDS:
-                        self._throttle_start = None
-                        self._effective_target_pct = self.target_pct
+        async def _acquire_body() -> None:
+            while True:
+                async with self._lock:
+                    now = time.monotonic()
 
-                # Evict stale entries
-                self._evict_old_entries(now)
+                    # Check if throttle period (60s) has expired
+                    if self._throttle_start is not None:
+                        if now - self._throttle_start >= self.WINDOW_SECONDS:
+                            self._throttle_start = None
+                            self._effective_target_pct = self.target_pct
 
-                # Calculate current usage
-                rpm_used = len(self._rpm_window)
-                tpm_used = sum(tokens for _, tokens in self._tpm_window)
+                    # Evict stale entries
+                    self._evict_old_entries(now)
 
-                # Calculate thresholds
-                rpm_threshold = int(self.rpm_limit * self._effective_target_pct)
-                tpm_threshold = int(self.tpm_limit * self._effective_target_pct)
+                    # Calculate current usage
+                    rpm_used = len(self._rpm_window)
+                    tpm_used = sum(tokens for _, tokens in self._tpm_window)
 
-                # Check if we can proceed
-                if rpm_used < rpm_threshold and tpm_used + estimated_tokens <= tpm_threshold:
-                    # Record this request (estimate)
-                    self._rpm_window.append((now, 1))
-                    self._tpm_window.append((now, estimated_tokens))
-                    return
+                    # Calculate thresholds
+                    rpm_threshold = int(self.rpm_limit * self._effective_target_pct)
+                    tpm_threshold = int(self.tpm_limit * self._effective_target_pct)
 
-            # Release lock and wait before retrying
-            await asyncio.sleep(0.01)  # 10ms wait before retry
+                    # Check if we can proceed
+                    if rpm_used < rpm_threshold and tpm_used + estimated_tokens <= tpm_threshold:
+                        # Record this request (estimate)
+                        self._rpm_window.append((now, 1))
+                        self._tpm_window.append((now, estimated_tokens))
+                        return
+
+                # Release lock and wait before retrying
+                await asyncio.sleep(0.01)  # 10ms wait before retry
+
+        if deadline is None:
+            await _acquire_body()
+        else:
+            remaining = deadline - time.monotonic()
+            try:
+                await asyncio.wait_for(_acquire_body(), timeout=max(0.0, remaining))
+            except asyncio.TimeoutError:
+                raise GovernorTimeout(
+                    f"RateGovernor could not acquire {estimated_tokens} tokens "
+                    f"within {wait_budget_seconds:.1f}s budget"
+                )
 
     def record_response(self, actual_tokens: int) -> None:
         """Reconcile estimated vs actual tokens after the API call.
