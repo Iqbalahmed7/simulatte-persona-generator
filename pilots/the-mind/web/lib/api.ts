@@ -13,6 +13,7 @@ export interface PersonaCard {
   decision_style: string;
   trust_anchor: string;
   primary_value_orientation: string;
+  portrait_url?: string;
 }
 
 export interface DecisionTrace {
@@ -164,6 +165,22 @@ export async function fetchGeneratedList(): Promise<GeneratedPersonaSummary[]> {
   } catch {
     return [];
   }
+}
+
+export async function generateExemplarPortrait(slug: string): Promise<string> {
+  const res = await fetch(`${API}/personas/${slug}/portrait`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail ?? "Portrait generation failed");
+  }
+  const data = await res.json();
+  return data.url as string;
+}
+
+export async function fetchPersonaFull(slug: string): Promise<Record<string, unknown>> {
+  const res = await fetch(`${API}/personas/${slug}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Persona not found");
+  return res.json();
 }
 
 export async function chatWithPersona(

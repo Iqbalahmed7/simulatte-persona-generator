@@ -67,6 +67,8 @@ _PERSONAS: dict[str, PersonaRecord] = {}
 _GENERATED: dict[str, PersonaRecord] = {}
 _GENERATED_DIR = _HERE.parent / "generated_personas"
 
+_EXEMPLAR_PORTRAITS: dict[str, str] = {}  # slug → fal.io URL
+
 
 def _persist_generated(persona: PersonaRecord) -> None:
     """Write persona to disk so it survives server restarts."""
@@ -128,6 +130,7 @@ class PersonaCard(BaseModel):
     decision_style: str
     trust_anchor: str
     primary_value_orientation: str
+    portrait_url: str | None = None
 
 
 class ChatRequest(BaseModel):
@@ -318,6 +321,7 @@ async def list_personas():
             decision_style=di.decision_style,
             trust_anchor=di.trust_anchor,
             primary_value_orientation=di.primary_value_orientation,
+            portrait_url=_EXEMPLAR_PORTRAITS.get(slug),
         ))
     return cards
 
@@ -375,6 +379,57 @@ async def get_attributes(slug: str):
         "provenance_coverage": f"{with_prov}/{total}",
         "attributes": result,
     }
+
+
+@app.post("/personas/{slug}/portrait")
+async def generate_exemplar_portrait(slug: str):
+    """Generate a portrait for an exemplar persona via fal.io."""
+    try:
+        persona = _load_one(slug)
+    except KeyError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    if slug in _EXEMPLAR_PORTRAITS:
+        return {"url": _EXEMPLAR_PORTRAITS[slug], "persona_id": persona.persona_id}
+
+    fal_key = os.environ.get("FAL_KEY", "")
+    if not fal_key:
+        raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
+
+    da = persona.demographic_anchor
+    gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
+    city = getattr(da.location, "city", "") if da.location else ""
+    country = getattr(da.location, "country", "") if da.location else ""
+
+    prompt = (
+        f"Photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}. "
+        "Natural soft indoor lighting, looking slightly past camera, confident relaxed expression. "
+        "High-resolution, sharp face detail, neutral background, documentary photography style. "
+        "Not illustrated, not AI-looking, no text."
+    )
+
+    try:
+        async with httpx.AsyncClient(timeout=60) as client:
+            resp = await client.post(
+                "https://fal.run/fal-ai/flux/schnell",
+                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
+                json={"prompt": prompt, "image_size": "portrait_4_3",
+                      "num_inference_steps": 4, "num_images": 1},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise HTTPException(status_code=502, detail=f"fal.io error: {exc.response.text}")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
+
+    images = data.get("images", [])
+    if not images:
+        raise HTTPException(status_code=500, detail="fal.io returned no images")
+
+    url = images[0]["url"]
+    _EXEMPLAR_PORTRAITS[slug] = url
+    return {"url": url, "persona_id": persona.persona_id}
 
 
 @app.post("/personas/{slug}/chat", response_model=ChatResponse)
