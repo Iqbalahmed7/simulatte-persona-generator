@@ -69,19 +69,19 @@ _PERSONAS: dict[str, PersonaRecord] = {}
 
 # ── generated persona cache + disk persistence ────────────────────────────
 
-_GENERATED: dict[str, PersonaRecord] = {}
+_GENERATED: dict[str, dict] = {}
 _GENERATED_DIR = _HERE.parent / "generated_personas"
 
 _EXEMPLAR_PORTRAITS: dict[str, str] = {}   # slug → fal.io URL (exemplar personas)
 _GENERATED_PORTRAITS: dict[str, str] = {}  # persona_id → fal.io URL (generated personas)
 
 
-def _persist_generated(persona: PersonaRecord) -> None:
-    """Write persona to disk so it survives server restarts."""
+def _persist_generated_dict(persona_dict: dict) -> None:
+    """Write persona dict to disk so it survives server restarts."""
     _GENERATED_DIR.mkdir(parents=True, exist_ok=True)
-    path = _GENERATED_DIR / f"{persona.persona_id}.json"
+    path = _GENERATED_DIR / f"{persona_dict['persona_id']}.json"
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(persona.model_dump(mode="json"), f, ensure_ascii=False)
+        json.dump(persona_dict, f, ensure_ascii=False)
 
 
 def _load_generated_from_disk() -> None:
@@ -91,8 +91,10 @@ def _load_generated_from_disk() -> None:
     for p in sorted(_GENERATED_DIR.glob("*.json")):
         try:
             with open(p, encoding="utf-8") as f:
-                rec = PersonaRecord.model_validate(json.load(f))
-            _GENERATED[rec.persona_id] = rec
+                data = json.load(f)
+            persona_id = data.get("persona_id")
+            if persona_id:
+                _GENERATED[persona_id] = data
         except Exception as exc:  # noqa: BLE001
             logger.warning("Could not load generated persona %s: %s", p.name, exc)
 
@@ -388,7 +390,7 @@ async def get_attributes(slug: str):
 
 
 def _build_portrait_prompt(da) -> str:
-    """Build a rich, realistic portrait prompt from demographic anchor data."""
+    """Build a rich, realistic portrait prompt from demographic anchor data (Pydantic model)."""
     gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
     city = getattr(da.location, "city", "") if da.location else ""
     country = getattr(da.location, "country", "") if da.location else ""
@@ -412,6 +414,275 @@ def _build_portrait_prompt(da) -> str:
         "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
         "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark."
     )
+
+
+def _build_portrait_prompt_dict(da: dict) -> str:
+    """Build a portrait prompt from a plain-dict demographic anchor (web-generated personas)."""
+    gender = da.get("gender", "")
+    gender_word = "woman" if gender == "female" else "man" if gender == "male" else "person"
+    location = da.get("location") or {}
+    city = location.get("city", "")
+    country = location.get("country", "")
+    employment = da.get("employment") or {}
+    occupation = employment.get("occupation", "") or ""
+    life_stage = (da.get("life_stage") or "").replace("_", " ")
+    age = da.get("age", 30)
+
+    context_parts = []
+    if occupation:
+        context_parts.append(occupation)
+    if life_stage:
+        context_parts.append(life_stage)
+    context = f", {', '.join(context_parts)}" if context_parts else ""
+
+    return (
+        f"Candid photorealistic portrait of a {age}-year-old {gender_word} from {city}, {country}{context}. "
+        "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
+        "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
+        "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
+        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark."
+    )
+
+
+async def _generate_persona_direct(
+    brief: str,
+    anchor: dict,
+    domain: str,
+    client: anthropic.AsyncAnthropic,
+) -> dict:
+    """Generate a persona via two parallel Haiku calls — ~30s vs 3+ min for the full pipeline.
+
+    Call A: identity, narrative, decision psychology, behaviour (max_tokens=2000)
+    Call B: memory, life stories, demographics detail (max_tokens=1500)
+    """
+    import re
+    import uuid
+    from datetime import datetime, timezone
+
+    age = anchor.get("age", 30)
+    gender = anchor.get("gender", "")
+    location = anchor.get("location") or {}
+    city = location.get("city", "")
+    country = location.get("country", "")
+    employment_occupation = anchor.get("occupation", "") or (anchor.get("employment") or {}).get("occupation", "")
+    life_stage = anchor.get("life_stage", "established_adult")
+    household = anchor.get("household") or {}
+    income_level = anchor.get("income_level", "middle")
+
+    context = (
+        f"Person: {age}-year-old {gender} {employment_occupation or 'professional'}\n"
+        f"Location: {city}, {country}\n"
+        f"Life stage: {life_stage.replace('_', ' ')}\n"
+        f"Income: {income_level}\n"
+        f"Household: {household.get('composition', '')}\n"
+        f"Domain: {domain}\n"
+        f"Brief: {brief}"
+    )
+
+    prompt_a = f"""{context}
+
+Generate a realistic persona. Return ONLY valid JSON with no markdown:
+{{
+  "name": "<realistic full name matching culture/location>",
+  "description": "<2-sentence vivid description>",
+  "narrative": {{
+    "third_person": "<3-4 sentence rich narrative about who they are, daily life, values>",
+    "first_person": "<2-3 sentence first-person voice — how they'd describe themselves>",
+    "display_name": "<first name or nickname>"
+  }},
+  "derived_insights": {{
+    "decision_style": "<analytical|emotional|habitual|social>",
+    "primary_value_orientation": "<price|quality|brand|convenience|features>",
+    "trust_anchor": "<self|peer|authority|family>",
+    "risk_appetite": "<low|moderate|high>",
+    "consistency_score": <integer 60-95>,
+    "key_tensions": ["<internal tension 1>", "<tension 2>", "<tension 3>"],
+    "coping_mechanism": {{"type": "<avoidance|rationalisation|socialising|routine>", "description": "<one sentence>"}}
+  }},
+  "behavioural_tendencies": {{
+    "trust_orientation": {{
+      "brands": <0.0-1.0>,
+      "peers": <0.0-1.0>,
+      "experts": <0.0-1.0>,
+      "institutions": <0.0-1.0>
+    }},
+    "price_sensitivity": {{
+      "band": "<budget|value|mid|premium|luxury>",
+      "description": "<one sentence on how price factors into their decisions>"
+    }},
+    "switching_propensity": {{
+      "likelihood": "<low|moderate|high>",
+      "triggers": ["<trigger 1>", "<trigger 2>"]
+    }},
+    "objection_profile": [
+      {{"type": "<price|trust|complexity|social|timing>", "likelihood": "<low|moderate|high>", "severity": "<low|moderate|high>", "description": "<one sentence>"}},
+      {{"type": "<price|trust|complexity|social|timing>", "likelihood": "<low|moderate|high>", "severity": "<low|moderate|high>", "description": "<one sentence>"}},
+      {{"type": "<price|trust|complexity|social|timing>", "likelihood": "<low|moderate|high>", "severity": "<low|moderate|high>", "description": "<one sentence>"}}
+    ],
+    "reasoning_prompt": "<one sentence describing how this persona reasons through decisions>"
+  }},
+  "decision_bullets": [
+    "<how they approach decisions — 5 specific, domain-relevant bullets>",
+    "<bullet 2>", "<bullet 3>", "<bullet 4>", "<bullet 5>"
+  ]
+}}"""
+
+    prompt_b = f"""{context}
+
+Generate inner life, defining stories, and demographic detail. Return ONLY valid JSON with no markdown:
+{{
+  "education": "<highest qualification, e.g. Bachelor's in Engineering>",
+  "employment_detail": {{
+    "industry": "<industry sector>",
+    "seniority": "<junior|mid|senior|lead|executive|owner>"
+  }},
+  "household_detail": {{
+    "size": <integer 1-8>,
+    "composition": "<e.g. married with two children>"
+  }},
+  "memory": {{
+    "core": {{
+      "identity_statement": "<2-sentence first-person statement — who they are at their core>",
+      "key_values": ["<core value 1>", "<value 2>", "<value 3>", "<value 4>"],
+      "life_defining_events": ["<event that shaped them>", "<event 2>", "<event 3>"],
+      "relationship_map": {{"partner": "<description or empty>", "family": "<description>", "community": "<description>"}},
+      "immutable_constraints": ["<hard constraint on their behaviour>", "<constraint 2>"],
+      "tendency_summary": "<one sentence summary of their dominant behavioural tendency>"
+    }}
+  }},
+  "life_stories": [
+    {{
+      "title": "<short evocative title>",
+      "narrative": "<3-4 sentence defining moment that shaped their values or behaviour>",
+      "age_at_event": <integer or null>,
+      "emotional_weight": "<formative|pivotal|minor|traumatic|joyful>"
+    }},
+    {{
+      "title": "<title>",
+      "narrative": "<narrative>",
+      "age_at_event": <integer or null>,
+      "emotional_weight": "<formative|pivotal|minor|traumatic|joyful>"
+    }},
+    {{
+      "title": "<title>",
+      "narrative": "<narrative>",
+      "age_at_event": <integer or null>,
+      "emotional_weight": "<formative|pivotal|minor|traumatic|joyful>"
+    }}
+  ]
+}}"""
+
+    # Fire both calls in parallel
+    resp_a, resp_b = await asyncio.gather(
+        client.messages.create(
+            model="claude-haiku-4-5",
+            max_tokens=2000,
+            messages=[{"role": "user", "content": prompt_a}],
+        ),
+        client.messages.create(
+            model="claude-haiku-4-5",
+            max_tokens=1500,
+            messages=[{"role": "user", "content": prompt_b}],
+        ),
+    )
+
+    def _parse_json(text: str) -> dict:
+        try:
+            return json.loads(text)
+        except Exception:
+            m = re.search(r"```(?:json)?\s*([\s\S]+?)```", text)
+            if m:
+                return json.loads(m.group(1))
+            # Last resort: find outermost { }
+            start = text.find("{")
+            end = text.rfind("}") + 1
+            if start >= 0 and end > start:
+                return json.loads(text[start:end])
+            return {}
+
+    data_a = _parse_json(resp_a.content[0].text)
+    data_b = _parse_json(resp_b.content[0].text)
+
+    name = data_a.get("name", "Unknown")
+    name_slug = re.sub(r"[^a-z0-9-]", "", name.lower().replace(" ", "-"))[:16]
+    persona_id = f"pg-web-{name_slug}-{uuid.uuid4().hex[:4]}"
+
+    di = data_a.get("derived_insights") or {}
+    bt_raw = data_a.get("behavioural_tendencies") or {}
+    emp_detail = data_b.get("employment_detail") or {}
+    hh_detail = data_b.get("household_detail") or {}
+
+    # Ensure page-critical nested fields always exist (page doesn't use optional chaining)
+    bt = {
+        "trust_orientation": bt_raw.get("trust_orientation") or {},
+        "price_sensitivity": bt_raw.get("price_sensitivity") or {"band": "mid", "description": ""},
+        "switching_propensity": bt_raw.get("switching_propensity") or {"likelihood": "moderate", "triggers": []},
+        "objection_profile": bt_raw.get("objection_profile") or [],
+        "reasoning_prompt": bt_raw.get("reasoning_prompt") or "",
+    }
+
+    memory_raw = data_b.get("memory") or {}
+    core_raw = memory_raw.get("core") or {}
+    memory = {
+        "core": {
+            "identity_statement": core_raw.get("identity_statement") or "",
+            "key_values": core_raw.get("key_values") or [],
+            "life_defining_events": core_raw.get("life_defining_events") or [],
+            "relationship_map": core_raw.get("relationship_map") or {},
+            "immutable_constraints": core_raw.get("immutable_constraints") or [],
+            "tendency_summary": core_raw.get("tendency_summary") or "",
+        }
+    }
+
+    di_safe = {
+        "decision_style": di.get("decision_style") or "analytical",
+        "primary_value_orientation": di.get("primary_value_orientation") or "quality",
+        "trust_anchor": di.get("trust_anchor") or "self",
+        "risk_appetite": di.get("risk_appetite") or "moderate",
+        "consistency_score": di.get("consistency_score") or 75,
+        "key_tensions": di.get("key_tensions") or [],
+        "coping_mechanism": di.get("coping_mechanism") or {"type": "routine", "description": ""},
+    }
+
+    narrative_raw = data_a.get("narrative") or {}
+    narrative = {
+        "third_person": narrative_raw.get("third_person") or "",
+        "first_person": narrative_raw.get("first_person") or "",
+        "display_name": narrative_raw.get("display_name") or name.split()[0] if name else "",
+    }
+
+    return {
+        "persona_id": persona_id,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generator_version": "web-direct-v1",
+        "domain": domain,
+        "description": data_a.get("description", ""),
+        "attributes": {},  # no deep attribute fill in fast path
+        "demographic_anchor": {
+            "name": name,
+            "age": age,
+            "gender": gender,
+            "life_stage": life_stage,
+            "location": {"city": city, "country": country},
+            "education": data_b.get("education") or "",
+            "employment": {
+                "occupation": employment_occupation,
+                "industry": emp_detail.get("industry") or "",
+                "seniority": emp_detail.get("seniority") or "",
+            },
+            "household": {
+                "size": hh_detail.get("size") or household.get("size") or 1,
+                "composition": hh_detail.get("composition") or household.get("composition") or "",
+            },
+            "income_level": income_level,
+        },
+        "narrative": narrative,
+        "derived_insights": di_safe,
+        "behavioural_tendencies": bt,
+        "decision_bullets": data_a.get("decision_bullets") or [],
+        "memory": memory,
+        "life_stories": data_b.get("life_stories") or [],
+    }
 
 
 async def _call_fal_portrait(prompt: str, fal_key: str) -> str:
@@ -545,69 +816,42 @@ async def generate_persona_stream(request: ICPRequest):
         {"type": "result",  "persona_id": "...", "name": "..."}
         {"type": "error",   "message": "..."}
     """
-    from src.orchestrator.brief import PersonaGenerationBrief
-    from src.orchestrator.invoke import invoke_persona_generator
-
     async def stream():
         yield _sse({"type": "status", "message": "Reading your brief..."})
 
         # Parse natural-language brief into structured demographics
-        anchor, domain, biz_problem = await _extract_from_brief(
+        anchor, domain, _biz_problem = await _extract_from_brief(
             request.brief, request.pdf_content, _client()
         )
 
         yield _sse({"type": "status", "message": "Anchoring demographics..."})
-
-        brief = PersonaGenerationBrief(
-            client="Demo",
-            domain=request.domain or domain,
-            business_problem=biz_problem,
-            count=1,
-            run_intent="calibrate",
-            skip_gates=True,
-            auto_confirm=True,
-            anchor_overrides=anchor,
-        )
-
-        task = asyncio.create_task(invoke_persona_generator(brief))
-        step = 0
-        start_ts = time.monotonic()
-        while not task.done():
-            await asyncio.sleep(5)
-            if task.done():
-                break
-            if time.monotonic() - start_ts > 270:  # 4.5 min hard ceiling
-                task.cancel()
-                yield _sse({"type": "error", "message": "Generation timed out. Please try again."})
-                return
-            if step < len(_GENERATION_STEPS):
-                yield _sse({"type": "status", "message": _GENERATION_STEPS[step]})
-                step += 1
-            else:
-                # Keep the SSE connection alive — Railway proxy drops silent streams
-                yield ": heartbeat\n\n"
+        yield _sse({"type": "status", "message": "Building attributes and decision psychology..."})
 
         try:
-            result = task.result()
-            if not result.personas:
-                yield _sse({"type": "error", "message": "No persona returned from generator"})
-                return
-            p = PersonaRecord.model_validate(result.personas[0])
-            _GENERATED[p.persona_id] = p
-            _persist_generated(p)
-            logger.info("[generate] stored %s (%s)", p.persona_id, p.demographic_anchor.name)
-            # Auto-generate portrait in background — done by the time user browses
-            fal_key = os.environ.get("FAL_KEY", "")
-            if fal_key:
-                asyncio.create_task(_auto_generate_portrait(p.persona_id, fal_key))
-            yield _sse({
-                "type": "result",
-                "persona_id": p.persona_id,
-                "name": p.demographic_anchor.name,
-            })
+            persona_dict = await _generate_persona_direct(
+                brief=request.brief,
+                anchor=anchor,
+                domain=request.domain or domain,
+                client=_client(),
+            )
         except Exception as exc:
-            logger.exception("[generate] failed")
-            yield _sse({"type": "error", "message": str(exc)})
+            logger.exception("[generate] _generate_persona_direct failed")
+            yield _sse({"type": "error", "message": f"Generation failed: {exc}"})
+            return
+
+        persona_id = persona_dict["persona_id"]
+        name = persona_dict["demographic_anchor"]["name"]
+        _GENERATED[persona_id] = persona_dict
+        _persist_generated_dict(persona_dict)
+        logger.info("[generate] stored %s (%s)", persona_id, name)
+
+        # Auto-generate portrait in background
+        fal_key = os.environ.get("FAL_KEY", "")
+        if fal_key:
+            asyncio.create_task(_auto_generate_portrait(persona_id, fal_key))
+
+        yield _sse({"type": "status", "message": "Finalising persona..."})
+        yield _sse({"type": "result", "persona_id": persona_id, "name": name})
 
     return StreamingResponse(
         stream(),
@@ -621,19 +865,17 @@ async def list_generated_personas():
     """Return compact summaries of all generated personas, newest first."""
     summaries = []
     for p in _GENERATED.values():
-        da = p.demographic_anchor
-        city = getattr(da.location, "city", "") if da.location else ""
-        country = getattr(da.location, "country", "") if da.location else ""
-        snippet = ""
-        if p.narrative and p.narrative.third_person:
-            snippet = p.narrative.third_person[:120]
+        da = p.get("demographic_anchor") or {}
+        location = da.get("location") or {}
+        narrative = p.get("narrative") or {}
+        snippet = (narrative.get("third_person") or "")[:120]
         summaries.append({
-            "persona_id": p.persona_id,
-            "name": da.name,
-            "age": da.age,
-            "city": city,
-            "country": country,
-            "life_stage": da.life_stage,
+            "persona_id": p["persona_id"],
+            "name": da.get("name", ""),
+            "age": da.get("age", 0),
+            "city": location.get("city", ""),
+            "country": location.get("country", ""),
+            "life_stage": da.get("life_stage", ""),
             "brief_snippet": snippet,
         })
     return sorted(summaries, key=lambda x: x["persona_id"], reverse=True)
@@ -645,7 +887,7 @@ async def get_generated_persona(persona_id: str):
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found. "
                             "Personas are held in memory — they reset on server restart.")
-    data = _GENERATED[persona_id].model_dump(mode="json")
+    data = dict(_GENERATED[persona_id])
     data["portrait_url"] = _GENERATED_PORTRAITS.get(persona_id)
     return data
 
@@ -653,7 +895,8 @@ async def get_generated_persona(persona_id: str):
 async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
     """Background task: silently generate portrait after persona creation."""
     try:
-        prompt = _build_portrait_prompt(_GENERATED[persona_id].demographic_anchor)
+        da = (_GENERATED.get(persona_id) or {}).get("demographic_anchor") or {}
+        prompt = _build_portrait_prompt_dict(da)
         url = await _call_fal_portrait(prompt, fal_key)
         _GENERATED_PORTRAITS[persona_id] = url
         logger.info("[portrait:auto] %s done", persona_id)
@@ -675,7 +918,8 @@ async def generate_portrait(persona_id: str):
     if not fal_key:
         raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
 
-    prompt = _build_portrait_prompt(_GENERATED[persona_id].demographic_anchor)
+    da = _GENERATED[persona_id].get("demographic_anchor") or {}
+    prompt = _build_portrait_prompt_dict(da)
     url = await _call_fal_portrait(prompt, fal_key)
     _GENERATED_PORTRAITS[persona_id] = url
     return {"url": url, "persona_id": persona_id, "prompt": prompt}
