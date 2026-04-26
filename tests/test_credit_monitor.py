@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 
+import httpx
 import pytest
 
 from src.utils.credit_monitor import CreditExhaustedError, CreditMonitor, is_credit_exhaustion_error
@@ -92,3 +93,68 @@ def test_credit_detection_helper():
     non_credit = Exception("400 bad request: invalid schema")
     non_credit.status_code = 400
     assert is_credit_exhaustion_error(non_credit) is False
+
+
+def test_degrades_gracefully_when_no_api_key(caplog):
+    monitor = CreditMonitor(buffer_usd=10.0, poll_every_calls=5, api_key=None)
+
+    with caplog.at_level("WARNING"):
+        balance = asyncio.run(monitor.preflight_check(run_id="run-no-key"))
+
+    assert balance == 10.0
+    assert monitor.proactive_monitoring_active is False
+    assert monitor.is_halt_requested() is False
+    assert "balance polling unavailable (no API key in env)" in caplog.text
+    assert "relying on 400-credit-retry detection only" in caplog.text
+
+
+def test_degrades_gracefully_on_403_from_balance_endpoint(monkeypatch, caplog):
+    monitor = CreditMonitor(buffer_usd=10.0, poll_every_calls=5, api_key="regular-key")
+
+    class _FakeResponse:
+        status_code = 403
+
+        def raise_for_status(self) -> None:
+            raise httpx.HTTPStatusError("forbidden", request=None, response=None)
+
+    class _FakeClient:
+        def __init__(self, *args, **kwargs) -> None:
+            _ = args
+            _ = kwargs
+
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, exc_type, exc, tb) -> None:
+            _ = exc_type
+            _ = exc
+            _ = tb
+
+        async def get(self, *args, **kwargs):
+            _ = args
+            _ = kwargs
+            return _FakeResponse()
+
+    monkeypatch.setattr(credit_monitor_mod.httpx, "AsyncClient", _FakeClient)
+
+    with caplog.at_level("WARNING"):
+        balance = asyncio.run(monitor.preflight_check(run_id="run-403"))
+
+    assert balance == 10.0
+    assert monitor.proactive_monitoring_active is False
+    assert monitor.is_halt_requested() is False
+    assert "balance polling unavailable (403 from balance endpoint — admin key required)" in caplog.text
+
+
+def test_force_credit_low_env_triggers_halt(monkeypatch, caplog):
+    monkeypatch.setenv("SIMULATTE_TEST_FORCE_CREDIT_LOW", "true")
+    monitor = CreditMonitor(buffer_usd=10.0, poll_every_calls=5, api_key="test")
+
+    with caplog.at_level("INFO"):
+        with pytest.raises(CreditExhaustedError):
+            asyncio.run(monitor.preflight_check(run_id="run-force-low"))
+
+    snap = monitor.halt_snapshot()
+    assert snap["requested"] is True
+    assert snap["balance_usd"] == 0.0
+    assert "test_force_credit_low active — credit-low path simulated for testing" in caplog.text

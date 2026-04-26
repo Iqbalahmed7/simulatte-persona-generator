@@ -17,6 +17,14 @@ class CreditExhaustedError(Exception):
     """Raised when Anthropic credit balance is too low to safely continue."""
 
 
+class BalancePollingUnavailableError(Exception):
+    """Raised when proactive balance polling cannot be used in this environment."""
+
+    def __init__(self, reason: str) -> None:
+        super().__init__(reason)
+        self.reason = reason
+
+
 @dataclass
 class HaltSignal:
     requested: bool = False
@@ -54,6 +62,13 @@ class CreditMonitor:
         self._last_polled_calls = 0
         self._monitor_task: asyncio.Task[None] | None = None
         self._lock = asyncio.Lock()
+        self._polling_available = True
+        self._polling_unavailable_reason: str | None = None
+        self._polling_warning_emitted = False
+        self._force_credit_low = os.getenv("SIMULATTE_TEST_FORCE_CREDIT_LOW", "").strip().lower() == "true"
+
+        if not self.api_key:
+            self._set_polling_unavailable("no API key in env")
 
     @classmethod
     def from_env(cls) -> "CreditMonitor":
@@ -94,6 +109,10 @@ class CreditMonitor:
     def is_halt_requested(self) -> bool:
         return bool(self._halt.requested)
 
+    @property
+    def proactive_monitoring_active(self) -> bool:
+        return self._polling_available
+
     def halt_snapshot(self) -> dict[str, Any]:
         return {
             "requested": self._halt.requested,
@@ -129,7 +148,23 @@ class CreditMonitor:
     async def preflight_check(self, *, run_id: str | None = None) -> float:
         if run_id:
             self._halt.run_id = run_id
-        balance = await self.fetch_balance_usd()
+        if self._force_credit_low:
+            logger.info("test_force_credit_low active — credit-low path simulated for testing")
+            self.request_halt(
+                reason="SIMULATTE_TEST_FORCE_CREDIT_LOW enabled — simulated low credit state",
+                balance_usd=0.0,
+            )
+            raise CreditExhaustedError(self._halt.reason)
+        if not self._polling_available:
+            self._warn_polling_unavailable_once()
+            return self.buffer_usd
+
+        try:
+            balance = await self.fetch_balance_usd()
+        except BalancePollingUnavailableError as exc:
+            self._set_polling_unavailable(exc.reason)
+            self._warn_polling_unavailable_once()
+            return self.buffer_usd
         if balance < self.buffer_usd:
             self.request_halt(
                 reason=(
@@ -142,6 +177,16 @@ class CreditMonitor:
         return balance
 
     async def start_background_monitor(self) -> None:
+        if self._force_credit_low:
+            logger.info("test_force_credit_low active — credit-low path simulated for testing")
+            self.request_halt(
+                reason="SIMULATTE_TEST_FORCE_CREDIT_LOW enabled — simulated low credit state",
+                balance_usd=0.0,
+            )
+            return
+        if not self._polling_available:
+            self._warn_polling_unavailable_once()
+            return
         if self._monitor_task and not self._monitor_task.done():
             return
         self._monitor_task = asyncio.create_task(self._monitor_loop())
@@ -177,30 +222,57 @@ class CreditMonitor:
                 await asyncio.sleep(0.2)
             except asyncio.CancelledError:
                 raise
+            except BalancePollingUnavailableError as exc:
+                self._set_polling_unavailable(exc.reason)
+                self._warn_polling_unavailable_once()
+                return
             except Exception as exc:
                 logger.warning("credit monitor poll failed: %s", exc)
                 await asyncio.sleep(1.0)
 
     async def fetch_balance_usd(self) -> float:
         if not self.api_key:
-            raise RuntimeError(
-                "Anthropic API key missing for credit monitor "
-                "(set ANTHROPIC_ADMIN_API_KEY or ANTHROPIC_API_KEY)."
-            )
+            raise BalancePollingUnavailableError("no API key in env")
 
         headers = {
             "x-api-key": self.api_key,
             "anthropic-version": "2023-06-01",
         }
         timeout = httpx.Timeout(10.0)
-        async with httpx.AsyncClient(timeout=timeout) as client:
-            response = await client.get(self.usage_endpoint, headers=headers)
-            response.raise_for_status()
-            data = response.json()
+        try:
+            async with httpx.AsyncClient(timeout=timeout) as client:
+                response = await client.get(self.usage_endpoint, headers=headers)
+        except httpx.RequestError as exc:
+            raise BalancePollingUnavailableError(f"network error: {exc}") from exc
+
+        if response.status_code in (401, 403, 404):
+            if response.status_code == 403:
+                reason = "403 from balance endpoint — admin key required"
+            else:
+                reason = f"{response.status_code} from balance endpoint"
+            raise BalancePollingUnavailableError(reason)
+
+        response.raise_for_status()
+        data = response.json()
         balance = _extract_balance_usd(data)
         if balance is None:
-            raise RuntimeError("Unable to parse Anthropic balance from usage response")
+            raise BalancePollingUnavailableError("unparseable balance endpoint response")
         return float(balance)
+
+    def _set_polling_unavailable(self, reason: str) -> None:
+        self._polling_available = False
+        self._polling_unavailable_reason = reason
+
+    def _warn_polling_unavailable_once(self) -> None:
+        if self._polling_warning_emitted:
+            return
+        self._polling_warning_emitted = True
+        reason = self._polling_unavailable_reason or "unknown"
+        logger.warning(
+            "balance polling unavailable (%s) — relying on 400-credit-retry detection only. "
+            "Set ANTHROPIC_ADMIN_API_KEY for proactive balance monitoring.",
+            reason,
+        )
 
     async def _send_notification(self) -> None:
         if not self.ntfy_topic:
