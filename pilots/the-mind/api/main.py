@@ -62,9 +62,31 @@ _ICP_DESCRIPTIONS: dict[str, str] = {
 
 _PERSONAS: dict[str, PersonaRecord] = {}
 
-# ── generated persona cache (runtime, not persisted) ─────────────────────
+# ── generated persona cache + disk persistence ────────────────────────────
 
 _GENERATED: dict[str, PersonaRecord] = {}
+_GENERATED_DIR = _HERE.parent / "generated_personas"
+
+
+def _persist_generated(persona: PersonaRecord) -> None:
+    """Write persona to disk so it survives server restarts."""
+    _GENERATED_DIR.mkdir(parents=True, exist_ok=True)
+    path = _GENERATED_DIR / f"{persona.persona_id}.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(persona.model_dump(mode="json"), f, ensure_ascii=False)
+
+
+def _load_generated_from_disk() -> None:
+    """Populate _GENERATED from any previously persisted JSON files."""
+    if not _GENERATED_DIR.exists():
+        return
+    for p in sorted(_GENERATED_DIR.glob("*.json")):
+        try:
+            with open(p, encoding="utf-8") as f:
+                rec = PersonaRecord.model_validate(json.load(f))
+            _GENERATED[rec.persona_id] = rec
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("Could not load generated persona %s: %s", p.name, exc)
 
 
 def _load_all() -> dict[str, PersonaRecord]:
@@ -138,14 +160,9 @@ class HealthResponse(BaseModel):
 
 
 class ICPRequest(BaseModel):
-    brand_name: str = ""
-    product_category: str = ""
-    business_problem: str
-    country: str = "India"
-    age_range: str = "25-40"
-    gender: str = "any"
-    income_level: str = "middle"
-    domain: str = "cpg"
+    brief: str                         # natural-language persona description
+    domain: str = "general"
+    pdf_content: str | None = None     # base64-encoded PDF bytes (optional)
 
 
 class PortraitRequest(BaseModel):
@@ -164,12 +181,84 @@ class PortraitRequest(BaseModel):
 ChatResponse.model_rebuild()
 
 
+async def _extract_from_brief(
+    brief: str,
+    pdf_b64: str | None,
+    client: anthropic.AsyncAnthropic,
+) -> tuple[dict, str, str]:
+    """Parse a natural-language persona description into anchor_overrides, domain, and context.
+
+    Returns: (anchor_overrides, domain, business_problem)
+    """
+    content: list = []
+
+    if pdf_b64:
+        content.append({
+            "type": "document",
+            "source": {"type": "base64", "media_type": "application/pdf", "data": pdf_b64},
+        })
+        if brief.strip():
+            content.append({"type": "text", "text": f"User description: {brief}"})
+        else:
+            content.append({"type": "text", "text": "Extract persona parameters from this document."})
+    else:
+        content.append({"type": "text", "text": brief})
+
+    system = """Extract persona generation parameters from a natural-language description or research document.
+Return ONLY valid JSON with this shape (omit fields not explicitly stated or clearly implied — never guess):
+{
+  "anchor": {
+    "age": <int>,
+    "gender": "<male|female>",
+    "location": {"country": "<string>", "city": "<string>"},
+    "occupation": "<string>",
+    "life_stage": "<young_adult|early_career|mid_career|established|pre_retirement|retirement>",
+    "household": {"size": <int>, "composition": "<e.g. married with 3 children>"},
+    "income_level": "<lower_middle|middle|upper_middle|affluent>"
+  },
+  "domain": "<cpg|saas|health|general>",
+  "business_problem": "<brief summary of what this persona is meant to help understand>"
+}"""
+
+    try:
+        if pdf_b64:
+            msg = await client.beta.messages.create(
+                model="claude-haiku-4-5",
+                max_tokens=600,
+                system=system,
+                messages=[{"role": "user", "content": content}],
+                betas=["pdfs-2024-09-25"],
+            )
+        else:
+            msg = await client.messages.create(
+                model="claude-haiku-4-5",
+                max_tokens=600,
+                system=system,
+                messages=[{"role": "user", "content": content}],
+            )
+        data = json.loads(msg.content[0].text)
+        anchor = data.get("anchor", {})
+        # Strip empty nested dicts
+        if isinstance(anchor.get("location"), dict):
+            anchor["location"] = {k: v for k, v in anchor["location"].items() if v}
+        if isinstance(anchor.get("household"), dict):
+            anchor["household"] = {k: v for k, v in anchor["household"].items() if v}
+        domain = data.get("domain", "general")
+        biz = data.get("business_problem", brief[:400] or "General persona simulation")
+        return anchor, domain, biz
+    except Exception as exc:
+        logger.warning("[extract_brief] failed: %s", exc)
+        return {}, "general", brief[:400] or "General persona simulation"
+
+
 # ── app ───────────────────────────────────────────────────────────────────
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     personas = _load_all()
     logger.info("[the-mind] %d exemplar personas loaded", len(personas))
+    _load_generated_from_disk()
+    logger.info("[the-mind] %d generated personas loaded from disk", len(_GENERATED))
     yield
 
 
@@ -365,39 +454,33 @@ async def generate_persona_stream(request: ICPRequest):
     """Stream persona generation via SSE.
 
     Events:
-        {"type": "status",  "message": "..."}          — progress update
-        {"type": "result",  "persona_id": "...",
-                            "name": "..."}             — done, persona stored
-        {"type": "error",   "message": "..."}          — generation failed
+        {"type": "status",  "message": "..."}
+        {"type": "result",  "persona_id": "...", "name": "..."}
+        {"type": "error",   "message": "..."}
     """
     from src.orchestrator.brief import PersonaGenerationBrief
     from src.orchestrator.invoke import invoke_persona_generator
 
-    anchor: dict = {}
-    if request.country:
-        anchor["location"] = {"country": request.country}
-    if request.gender and request.gender != "any":
-        anchor["gender"] = request.gender
-
-    problem = request.business_problem
-    if request.brand_name:
-        problem = f"{request.brand_name} — {problem}"
-    if request.product_category:
-        problem = f"{problem} (product: {request.product_category})"
-
-    brief = PersonaGenerationBrief(
-        client=request.brand_name or "Demo",
-        domain=request.domain,
-        business_problem=problem,
-        count=1,
-        run_intent="calibrate",
-        skip_gates=True,
-        auto_confirm=True,
-        anchor_overrides=anchor,
-    )
-
     async def stream():
+        yield _sse({"type": "status", "message": "Reading your brief..."})
+
+        # Parse natural-language brief into structured demographics
+        anchor, domain, biz_problem = await _extract_from_brief(
+            request.brief, request.pdf_content, _client()
+        )
+
         yield _sse({"type": "status", "message": "Anchoring demographics..."})
+
+        brief = PersonaGenerationBrief(
+            client="Demo",
+            domain=request.domain or domain,
+            business_problem=biz_problem,
+            count=1,
+            run_intent="calibrate",
+            skip_gates=True,
+            auto_confirm=True,
+            anchor_overrides=anchor,
+        )
 
         task = asyncio.create_task(invoke_persona_generator(brief))
         step = 0
@@ -414,6 +497,7 @@ async def generate_persona_stream(request: ICPRequest):
                 return
             p = PersonaRecord.model_validate(result.personas[0])
             _GENERATED[p.persona_id] = p
+            _persist_generated(p)
             logger.info("[generate] stored %s (%s)", p.persona_id, p.demographic_anchor.name)
             yield _sse({
                 "type": "result",
@@ -429,6 +513,29 @@ async def generate_persona_stream(request: ICPRequest):
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
+
+
+@app.get("/generated")
+async def list_generated_personas():
+    """Return compact summaries of all generated personas, newest first."""
+    summaries = []
+    for p in _GENERATED.values():
+        da = p.demographic_anchor
+        city = getattr(da.location, "city", "") if da.location else ""
+        country = getattr(da.location, "country", "") if da.location else ""
+        snippet = ""
+        if p.narrative and p.narrative.third_person:
+            snippet = p.narrative.third_person[:120]
+        summaries.append({
+            "persona_id": p.persona_id,
+            "name": da.name,
+            "age": da.age,
+            "city": city,
+            "country": country,
+            "life_stage": da.life_stage,
+            "brief_snippet": snippet,
+        })
+    return sorted(summaries, key=lambda x: x["persona_id"], reverse=True)
 
 
 @app.get("/generated/{persona_id}")

@@ -1,81 +1,79 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
 
-const COUNTRIES = [
-  "India", "United States", "United Kingdom", "Germany",
-  "Brazil", "Singapore", "UAE", "Australia",
-];
-
 const DOMAINS = [
-  { value: "cpg", label: "Consumer Goods / FMCG" },
-  { value: "saas", label: "SaaS / Technology" },
-  { value: "health", label: "Health & Wellness" },
-  { value: "general", label: "General" },
+  { value: "general",  label: "General" },
+  { value: "cpg",      label: "Consumer Goods" },
+  { value: "saas",     label: "SaaS / Tech" },
+  { value: "health",   label: "Health & Wellness" },
 ];
 
-const GENDERS = [
-  { value: "any", label: "Any" },
-  { value: "female", label: "Female" },
-  { value: "male", label: "Male" },
+const PLACEHOLDERS = [
+  "A 44-year-old mother of three in suburban Chicago. Upper-middle income, works part-time as an occupational therapist. Health-conscious, reads labels, distrusts influencers.",
+  "Ravi, 29, software engineer in Bangalore. Single, rents with flatmates. Spends heavily on gadgets, eats out often, subscribes to 6 streaming platforms.",
+  "Margaret, 67, retired school principal in rural Devon. Fixed pension, grows her own vegetables, fiercely brand-loyal, skeptical of anything online.",
 ];
 
-const INCOME_LEVELS = [
-  { value: "lower_middle", label: "Lower middle class" },
-  { value: "middle", label: "Middle class" },
-  { value: "upper_middle", label: "Upper middle class" },
-  { value: "affluent", label: "Affluent" },
-];
-
-const EMPTY_FORM: ICPForm = {
-  brand_name: "",
-  product_category: "",
-  business_problem: "",
-  country: "India",
-  age_range: "25-40",
-  gender: "any",
-  income_level: "middle",
-  domain: "cpg",
-};
-
-function Field({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
-        {label}
-      </label>
-      {hint && <p className="text-xs text-parchment/40 mb-2">{hint}</p>}
-      {children}
-    </div>
-  );
+function toBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(",")[1]); // strip data: prefix
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
-
-const inputCls =
-  "w-full bg-transparent border border-parchment/15 px-4 py-3 text-sm text-parchment " +
-  "placeholder-parchment/25 focus:outline-none focus:border-parchment/40 transition-colors";
-
-const selectCls =
-  "w-full bg-void border border-parchment/15 px-4 py-3 text-sm text-parchment " +
-  "focus:outline-none focus:border-parchment/40 transition-colors appearance-none cursor-pointer";
 
 export default function GeneratePage() {
   const router = useRouter();
-  const [form, setForm] = useState<ICPForm>(EMPTY_FORM);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [brief, setBrief] = useState("");
+  const [domain, setDomain] = useState("general");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [running, setRunning] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [error, setError] = useState("");
+  const [dragging, setDragging] = useState(false);
 
-  const set = (k: keyof ICPForm, v: string) => setForm((f) => ({ ...f, [k]: v }));
+  const placeholder = PLACEHOLDERS[0];
+
+  function handleFileDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file?.type === "application/pdf") setPdfFile(file);
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file?.type === "application/pdf") setPdfFile(file);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.business_problem.trim()) return;
+    if (!brief.trim() && !pdfFile) return;
     setRunning(true);
     setSteps([]);
     setError("");
+
+    let pdf_content: string | undefined;
+    if (pdfFile) {
+      try {
+        pdf_content = await toBase64(pdfFile);
+      } catch {
+        setError("Failed to read PDF");
+        setRunning(false);
+        return;
+      }
+    }
+
+    const form: ICPForm = { brief: brief.trim(), domain, pdf_content };
 
     try {
       await generatePersona(form, (event: GenerationEvent) => {
@@ -97,7 +95,7 @@ export default function GeneratePage() {
   }
 
   return (
-    <main className="min-h-screen px-6 py-12 max-w-3xl mx-auto">
+    <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
       {/* Header */}
       <div className="mb-10">
         <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
@@ -106,93 +104,93 @@ export default function GeneratePage() {
         <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mt-6 mb-3">
           Simulatte / Generate
         </p>
-        <h1
-          className="font-condensed font-bold text-parchment leading-none mb-3"
-          style={{ fontSize: "clamp(36px,5vw,60px)" }}
-        >
-          Build a <span className="text-signal">persona.</span>
+        <h1 className="font-condensed font-bold text-parchment leading-none mb-3"
+            style={{ fontSize: "clamp(36px,5vw,60px)" }}>
+          Simulate a <span className="text-signal">person.</span>
         </h1>
         <p className="text-parchment/60 text-base">
-          Describe your ICP and we&apos;ll synthesise a behaviourally coherent person — complete with
-          backstory, 120+ attributes, and decision psychology.
+          Describe who you want to simulate — in plain language.
+          The system will build a behaviourally coherent person with 120+ attributes and full decision psychology.
         </p>
       </div>
 
       {!running ? (
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Row 1 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <Field label="Brand / Client name" hint="Optional">
-              <input
-                className={inputCls}
-                placeholder="e.g. Himalaya, Notion, Zepto"
-                value={form.brand_name}
-                onChange={(e) => set("brand_name", e.target.value)}
-              />
-            </Field>
-            <Field label="Product / Service category">
-              <input
-                className={inputCls}
-                placeholder="e.g. herbal supplements, B2B SaaS"
-                value={form.product_category}
-                onChange={(e) => set("product_category", e.target.value)}
-              />
-            </Field>
+          {/* Natural language brief */}
+          <div>
+            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+              Who do you want to simulate?
+            </label>
+            <p className="text-xs text-parchment/40 mb-3">
+              Be as specific or broad as you like — age, family, job, city, personality, values, habits.
+            </p>
+            <textarea
+              className="w-full bg-transparent border border-parchment/15 px-4 py-3 text-sm text-parchment
+                         placeholder-parchment/20 focus:outline-none focus:border-parchment/40 transition-colors resize-none"
+              rows={6}
+              placeholder={placeholder}
+              value={brief}
+              onChange={(e) => setBrief(e.target.value)}
+            />
           </div>
 
-          {/* Business problem */}
-          <Field
-            label="Research question / business problem"
-            hint="The core question this persona should help answer"
-          >
-            <textarea
-              className={inputCls + " resize-none"}
-              rows={3}
-              placeholder="e.g. Will urban mothers aged 28-38 pay a premium for an immunity supplement with clinical backing?"
-              value={form.business_problem}
-              onChange={(e) => set("business_problem", e.target.value)}
-              required
+          {/* PDF upload */}
+          <div>
+            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+              Upload a brief <span className="text-parchment/30 normal-case font-normal">— optional</span>
+            </label>
+            <p className="text-xs text-parchment/40 mb-3">
+              Segmentation report, brand brief, or research document. We&apos;ll extract the persona requirements.
+            </p>
+            <div
+              onClick={() => fileRef.current?.click()}
+              onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+              onDragLeave={() => setDragging(false)}
+              onDrop={handleFileDrop}
+              className={`border border-dashed px-6 py-8 text-center cursor-pointer transition-colors
+                ${dragging ? "border-parchment/40 bg-parchment/5" : "border-parchment/15 hover:border-parchment/30"}`}
+            >
+              {pdfFile ? (
+                <div className="flex items-center justify-center gap-3">
+                  <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
+                    className="text-[10px] font-mono text-static hover:text-parchment/50"
+                  >
+                    remove
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p className="text-parchment/40 text-sm">Drop a PDF here, or click to browse</p>
+                  <p className="text-[11px] font-mono text-static mt-1">PDF only · max 10 MB</p>
+                </>
+              )}
+            </div>
+            <input
+              ref={fileRef}
+              type="file"
+              accept="application/pdf"
+              className="hidden"
+              onChange={handleFileChange}
             />
-          </Field>
-
-          {/* Row 2 — market */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <Field label="Country">
-              <select className={selectCls} value={form.country} onChange={(e) => set("country", e.target.value)}>
-                {COUNTRIES.map((c) => <option key={c}>{c}</option>)}
-              </select>
-            </Field>
-            <Field label="Age range">
-              <input
-                className={inputCls}
-                placeholder="25-40"
-                value={form.age_range}
-                onChange={(e) => set("age_range", e.target.value)}
-              />
-            </Field>
-            <Field label="Gender">
-              <select className={selectCls} value={form.gender} onChange={(e) => set("gender", e.target.value)}>
-                {GENDERS.map((g) => <option key={g.value} value={g.value}>{g.label}</option>)}
-              </select>
-            </Field>
-            <Field label="Income">
-              <select className={selectCls} value={form.income_level} onChange={(e) => set("income_level", e.target.value)}>
-                {INCOME_LEVELS.map((l) => <option key={l.value} value={l.value}>{l.label}</option>)}
-              </select>
-            </Field>
           </div>
 
           {/* Domain */}
-          <Field label="Domain">
-            <div className="flex gap-3 flex-wrap">
+          <div>
+            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+              Domain context <span className="text-parchment/30 normal-case font-normal">— optional</span>
+            </label>
+            <div className="flex gap-2 flex-wrap">
               {DOMAINS.map((d) => (
                 <button
                   key={d.value}
                   type="button"
-                  onClick={() => set("domain", d.value)}
+                  onClick={() => setDomain(d.value)}
                   className={
                     "px-4 py-2 text-xs font-mono border transition-colors " +
-                    (form.domain === d.value
+                    (domain === d.value
                       ? "border-signal text-signal"
                       : "border-parchment/15 text-static hover:border-parchment/30")
                   }
@@ -201,7 +199,7 @@ export default function GeneratePage() {
                 </button>
               ))}
             </div>
-          </Field>
+          </div>
 
           {error && (
             <div className="border border-parchment/15 p-4">
@@ -211,15 +209,14 @@ export default function GeneratePage() {
 
           <button
             type="submit"
-            disabled={!form.business_problem.trim()}
+            disabled={!brief.trim() && !pdfFile}
             className="w-full py-4 font-condensed font-bold text-void bg-signal text-lg tracking-wide
                        disabled:opacity-30 disabled:cursor-not-allowed hover:bg-parchment transition-colors"
           >
-            Generate persona →
+            Simulate this person →
           </button>
         </form>
       ) : (
-        /* Generation progress */
         <div className="space-y-8">
           <div className="space-y-4">
             {steps.map((s, i) => (
@@ -228,17 +225,12 @@ export default function GeneratePage() {
                 <span className="text-parchment/75 text-sm">{s}</span>
               </div>
             ))}
-
-            {/* Animated current step */}
             {!error && (
               <div className="flex items-center gap-3">
                 <span className="inline-flex gap-0.5 shrink-0">
                   {[0, 1, 2].map((i) => (
-                    <span
-                      key={i}
-                      className="w-1 h-1 bg-signal"
-                      style={{ animation: `pulse 1.2s ${i * 0.2}s ease-in-out infinite` }}
-                    />
+                    <span key={i} className="w-1 h-1 bg-signal"
+                      style={{ animation: `pulse 1.2s ${i * 0.2}s ease-in-out infinite` }} />
                   ))}
                 </span>
                 <span className="text-parchment/50 text-sm">Working…</span>
@@ -269,7 +261,7 @@ export default function GeneratePage() {
       <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 0.2; transform: scaleY(1); }
-          50% { opacity: 1; transform: scaleY(1.5); }
+          50%       { opacity: 1;   transform: scaleY(1.5); }
         }
       `}</style>
     </main>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import PersonaSidebar from "@/components/PersonaSidebar";
 
 export const metadata: Metadata = {
   title: "The Mind — Simulatte",
@@ -9,7 +10,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-void text-parchment">{children}</body>
+      <body className="h-screen bg-void text-parchment flex overflow-hidden">
+        <PersonaSidebar />
+        <div className="flex-1 overflow-y-auto">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

@@ -42,14 +42,19 @@ export async function fetchPersonas(): Promise<PersonaCard[]> {
 // ── Generation types ─────────────────────────────────────────────────────
 
 export interface ICPForm {
-  brand_name: string;
-  product_category: string;
-  business_problem: string;
-  country: string;
-  age_range: string;
-  gender: string;
-  income_level: string;
+  brief: string;          // natural-language persona description
   domain: string;
+  pdf_content?: string;   // base64-encoded PDF (optional)
+}
+
+export interface GeneratedPersonaSummary {
+  persona_id: string;
+  name: string;
+  age: number;
+  city: string;
+  country: string;
+  life_stage: string;
+  brief_snippet: string;
 }
 
 export interface GenerationEvent {
@@ -149,6 +154,16 @@ export async function generatePortrait(personaId: string): Promise<string> {
   }
   const data = await res.json();
   return data.url as string;
+}
+
+export async function fetchGeneratedList(): Promise<GeneratedPersonaSummary[]> {
+  try {
+    const res = await fetch(`${API}/generated`, { cache: "no-store" });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
 }
 
 export async function chatWithPersona(
