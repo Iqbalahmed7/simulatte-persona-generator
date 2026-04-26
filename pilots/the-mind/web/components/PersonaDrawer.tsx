@@ -24,7 +24,8 @@ function TrustBar({ label, value }: { label: string; value: number }) {
 }
 
 export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
-  const [full, setFull] = useState<Record<string, unknown> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [full, setFull] = useState<Record<string, any> | null>(null);
   const [portraitUrl, setPortraitUrl] = useState<string | null>(initialCard?.portrait_url ?? null);
   const [portraitLoading, setPortraitLoading] = useState(false);
   const [portraitError, setPortraitError] = useState("");
@@ -68,11 +69,16 @@ export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
   }
 
   // Extract data safely
-  const da = full ? (full.demographic_anchor as Record<string, unknown>) : null;
-  const narrative = full ? (full.narrative as Record<string, unknown>) : null;
-  const di = full ? (full.derived_insights as Record<string, unknown>) : null;
-  const bt = full ? (full.behavioural_tendencies as Record<string, unknown>) : null;
-  const memory = full ? ((full.memory as Record<string, unknown>)?.core as Record<string, unknown>) : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const da = full ? (full.demographic_anchor as Record<string, any>) : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const narrative = full ? (full.narrative as Record<string, any>) : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const di = full ? (full.derived_insights as Record<string, any>) : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const bt = full ? (full.behavioural_tendencies as Record<string, any>) : null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const memory = full ? ((full.memory as Record<string, any>)?.core as Record<string, any>) : null;
   const decisionBullets = full ? (full.decision_bullets as string[]) : null;
   const lifeStories = full ? (full.life_stories as Array<Record<string, unknown>>) : null;
 
@@ -169,9 +175,9 @@ export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
                   ["Trust", (di.trust_anchor as string)?.replace(/_/g, " ")],
                   ["Risk", (di.risk_appetite as string)?.replace(/_/g, " ")],
                 ].map(([label, value]) => value && (
-                  <div key={label} className="border border-parchment/10 px-3 py-2">
-                    <p className="text-[10px] font-mono text-static uppercase tracking-widest mb-1">{label}</p>
-                    <p className="text-xs text-parchment capitalize">{value}</p>
+                  <div key={label as string} className="border border-parchment/10 px-3 py-2">
+                    <p className="text-[10px] font-mono text-static uppercase tracking-widest mb-1">{label as string}</p>
+                    <p className="text-xs text-parchment capitalize">{value as string}</p>
                   </div>
                 ))}
               </div>

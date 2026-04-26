@@ -177,7 +177,8 @@ export async function generateExemplarPortrait(slug: string): Promise<string> {
   return data.url as string;
 }
 
-export async function fetchPersonaFull(slug: string): Promise<Record<string, unknown>> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function fetchPersonaFull(slug: string): Promise<Record<string, any>> {
   const res = await fetch(`${API}/personas/${slug}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Persona not found");
   return res.json();
