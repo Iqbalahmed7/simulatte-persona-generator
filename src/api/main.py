@@ -245,7 +245,8 @@ async def orchestrate(req: OrchestrateRequest) -> OrchestrateResponse:
     from src.orchestrator.invoke import invoke_persona_generator
 
     try:
-        brief = PersonaGenerationBrief(**req.brief, auto_confirm=True)
+        brief_data = {**req.brief, "auto_confirm": True}
+        brief = PersonaGenerationBrief(**brief_data)
         result = await invoke_persona_generator(brief)
         return OrchestrateResponse(
             run_id=result.run_id,
