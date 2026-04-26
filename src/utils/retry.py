@@ -16,8 +16,8 @@ from src.utils.rate_governor import GovernorTimeout, get_governor
 
 logger = logging.getLogger(__name__)
 
-_RETRYABLE_STATUS = {429, 529}
-_DEFAULT_DELAYS = (1.0, 2.0, 4.0)  # seconds between retries
+_RETRYABLE_STATUS = {429, 503, 529}
+_DEFAULT_DELAYS = (1.0, 2.0, 4.0)  # seconds between retries (exponential: 1s/2s/4s)
 
 # Sentinel: read SIMULATTE_GOVERNOR_TIMEOUT_S env var as the default governor timeout.
 # calibrated_generator sets this env var before invoking PG so the governor
@@ -113,6 +113,22 @@ async def api_call_with_retry(
                             delays_list[_attempt] = max(delays_list[_attempt], delay)
                     except (ValueError, TypeError):
                         pass
+
+            # Handle 503 (service unavailable) — transient infrastructure error
+            elif status == 503:
+                logger.warning(
+                    "Service unavailable (503) — exponential backoff retry %d/%d.",
+                    _attempt,
+                    len(delays),
+                )
+
+            # Handle 529 (Anthropic overloaded) — distinct from rate-limit 429
+            elif status == 529:
+                logger.warning(
+                    "Anthropic overloaded (529) — exponential backoff retry %d/%d.",
+                    _attempt,
+                    len(delays),
+                )
 
             # retryable — continue to next attempt
     raise last_exc  # type: ignore[misc]
