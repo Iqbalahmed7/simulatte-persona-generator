@@ -19,13 +19,26 @@ import anthropic
 from src.cognition.errors import DecideError
 from src.memory.cache import _GLOBAL_CACHE
 from src.memory.core_memory import _get_political_lean
+from src.schema.cognition_outputs import DecideOutput as DecideOutputSchema
 from src.schema.persona import Observation, PersonaRecord, Reflection
 from src.utils.retry import api_call_with_retry
+from src.utils.structured import extract_tool_input, get_text_from_response
 
 logger = logging.getLogger(__name__)
 
 _SONNET_MODEL = "claude-sonnet-4-6"
 _MAX_MEMORIES = 10
+
+# ---------------------------------------------------------------------------
+# Tool-use definition (module-level singleton — constructed once, not per call)
+# ---------------------------------------------------------------------------
+
+_DECIDE_TOOL = {
+    "name": "emit_decision",
+    "description": "Emit a structured decision output from the 5-step reasoning chain.",
+    "input_schema": DecideOutputSchema.model_json_schema(),
+}
+_DECIDE_TOOL_CHOICE = {"type": "tool", "name": "emit_decision"}
 
 # ---------------------------------------------------------------------------
 # Contextual noise — situational variability for realistic human behavior
@@ -516,6 +529,7 @@ async def decide(
             max_tokens=4096,
             model=_model,
         )
+        parsed = _parse_decide_response(raw_text)
     else:
         response = await api_call_with_retry(
             client.messages.create,
@@ -523,9 +537,15 @@ async def decide(
             max_tokens=4096,
             system=system_blocks,
             messages=messages,
+            tools=[_DECIDE_TOOL],
+            tool_choice=_DECIDE_TOOL_CHOICE,
         )
-        raw_text = response.content[0].text
-    parsed = _parse_decide_response(raw_text)
+        # Primary path: tool_use block → already a dict, no JSON parsing
+        parsed = extract_tool_input(response)
+        if parsed is None:
+            # Fallback: API returned text instead of tool_use (rare)
+            raw_text = get_text_from_response(response)
+            parsed = _parse_decide_response(raw_text)
 
     if parsed is None:
         logger.warning("decide(): JSON parse failed on attempt 1 — retrying")
@@ -538,6 +558,7 @@ async def decide(
                 max_tokens=4096,
                 model=_model,
             )
+            parsed = _parse_decide_response(raw_text)
         else:
             response = await api_call_with_retry(
                 client.messages.create,
@@ -545,9 +566,13 @@ async def decide(
                 max_tokens=4096,
                 system=system_blocks,
                 messages=messages,
+                tools=[_DECIDE_TOOL],
+                tool_choice=_DECIDE_TOOL_CHOICE,
             )
-            raw_text = response.content[0].text
-        parsed = _parse_decide_response(raw_text)
+            parsed = extract_tool_input(response)
+            if parsed is None:
+                raw_text = get_text_from_response(response)
+                parsed = _parse_decide_response(raw_text)
 
         if parsed is None:
             raise DecideError(
