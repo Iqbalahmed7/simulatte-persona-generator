@@ -251,7 +251,7 @@ export default function GeneratePage() {
 
           <div className="border-t border-parchment/10 pt-6">
             <p className="font-mono text-[10px] text-static">
-              Generation typically takes 45–90 seconds · powered by claude-sonnet
+              Generation typically takes 45–90 seconds · powered by Simulatte's Mind — Deep Persona Generator
             </p>
           </div>
         </div>
