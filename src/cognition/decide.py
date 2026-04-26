@@ -239,18 +239,23 @@ def _build_decide_messages(
     scenario: str,
     memories: list[Observation | Reflection],
     persona: PersonaRecord,
+    manifesto_context: str | None = None,
+    domain_framing: str | None = None,
 ) -> tuple[list[dict], list[dict]]:
     """Return (system_blocks, messages_list) for the decide call.
 
-    System is split into three blocks to maximise prompt cache hits:
+    System is split into multiple blocks to maximise prompt cache hits:
 
-    1. cultural_preamble (optional, India personas only) — not cached; it is
+    1. cultural_preamble (optional, India only) — not cached; it is
        placed *before* the cached block so the cache key matches perceive's.
     2. Persona identity block ("You are {name}. {core_memory}.") — cached with
        cache_control. For personas without a cultural preamble (US/UK/EU), this
        block is identical to perceive's cached block → cross-stage cache hit.
-    3. Tendency + situational suffix — not cached; changes per persona × scenario
-       (situational modifier is deterministic but stimulus-specific).
+    3. Manifesto context (optional, PopScale sensitivity) — cached as separate block
+       when provided. This is reused across all 60 personas in a cluster.
+    4. Domain framing (optional, PopScale domain language) — cached as separate block
+       when provided. This is reused across personas.
+    5. Tendency + situational suffix — not cached (changes per persona × scenario)
     """
     core_memory = _decide_core_memory_block(persona)
     # tendency_summary injected as natural language paragraph (P4)
@@ -304,7 +309,25 @@ def _build_decide_messages(
         "cache_control": {"type": "ephemeral"},
     })
 
-    # Block 3: tendency + situational suffix — not cached (changes per scenario)
+    # Block 3: manifesto context (optional) — cached as separate block
+    # Reused across all personas in same cluster → high cache hit rate
+    if manifesto_context:
+        system_blocks.append({
+            "type": "text",
+            "text": manifesto_context,
+            "cache_control": {"type": "ephemeral"},
+        })
+
+    # Block 4: domain framing (optional) — cached as separate block
+    # Reused across personas in same domain/scenario
+    if domain_framing:
+        system_blocks.append({
+            "type": "text",
+            "text": domain_framing,
+            "cache_control": {"type": "ephemeral"},
+        })
+
+    # Block 5: tendency + situational suffix — not cached (changes per scenario)
     suffix = f"\n\n{tendency_summary}{situational_context}"
     system_blocks.append({"type": "text", "text": suffix})
 
@@ -452,6 +475,8 @@ async def decide(
     llm_client: Any = None,
     apply_noise: bool = True,
     model: str | None = None,
+    manifesto_context: str | None = None,
+    domain_framing: str | None = None,
 ) -> DecisionOutput:
     """Run the 5-step reasoning chain for a decision.
 
@@ -460,6 +485,9 @@ async def decide(
     Core memory is ALWAYS in context.
     The 5-step structure is always in the prompt — never shortened or combined.
     primary_decision_partner is injected into step 4 from core.relationship_map.
+
+    manifesto_context: optional cached system block for manifesto sensitivity injection
+    domain_framing: optional cached system block for domain-specific persona framing
 
     apply_noise: if True (default), injects calibrated confidence perturbation
       based on persona.derived_insights.consistency_score. Set False for tests.
@@ -472,7 +500,11 @@ async def decide(
     _model = model or _SONNET_MODEL
     client = anthropic.AsyncAnthropic()
 
-    system_blocks, messages = _build_decide_messages(scenario, memories, persona)
+    system_blocks, messages = _build_decide_messages(
+        scenario, memories, persona,
+        manifesto_context=manifesto_context,
+        domain_framing=domain_framing,
+    )
 
     # Attempt 1
     if llm_client is not None and hasattr(llm_client, 'complete'):

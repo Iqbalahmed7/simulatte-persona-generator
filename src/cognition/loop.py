@@ -49,6 +49,8 @@ async def run_loop(
     decision_scenario: str | None = None,
     llm_client: Any = None,
     tier: SimulationTier = SimulationTier.DEEP,
+    manifesto_context: str | None = None,
+    domain_framing: str | None = None,
 ) -> tuple[PersonaRecord, LoopResult]:
     """
     Run one full cognitive cycle for a persona encountering a stimulus.
@@ -65,6 +67,9 @@ async def run_loop(
        a. Retrieve top-10 memories relevant to decision_scenario
        b. decide(decision_scenario, memories, persona) → DecisionOutput
     6. Return (updated_persona, LoopResult)
+
+    manifesto_context: optional cached system block for manifesto sensitivity injection
+    domain_framing: optional cached system block for domain-specific persona framing
 
     Returns a new PersonaRecord (immutable update via model_copy) with the
     updated working memory state.  The input PersonaRecord is never mutated.
@@ -170,6 +175,8 @@ async def run_loop(
             decision_scenario, top_10, persona,
             llm_client=llm_client,
             model=_models["decide"],
+            manifesto_context=manifesto_context,
+            domain_framing=domain_framing,
         )
         decided = True
 
