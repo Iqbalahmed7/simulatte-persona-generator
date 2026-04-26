@@ -568,9 +568,14 @@ async def generate_persona_stream(request: ICPRequest):
         step = 0
         while not task.done():
             await asyncio.sleep(5)
-            if not task.done() and step < len(_GENERATION_STEPS):
+            if task.done():
+                break
+            if step < len(_GENERATION_STEPS):
                 yield _sse({"type": "status", "message": _GENERATION_STEPS[step]})
                 step += 1
+            else:
+                # Keep the SSE connection alive — Railway proxy drops silent streams
+                yield ": heartbeat\n\n"
 
         try:
             result = task.result()
