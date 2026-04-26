@@ -817,41 +817,69 @@ async def generate_persona_stream(request: ICPRequest):
         {"type": "error",   "message": "..."}
     """
     async def stream():
+        logger.info("[generate] stream started, brief length=%d", len(request.brief))
+
         yield _sse({"type": "status", "message": "Reading your brief..."})
 
         # Parse natural-language brief into structured demographics
         anchor, domain, _biz_problem = await _extract_from_brief(
             request.brief, request.pdf_content, _client()
         )
+        logger.info("[generate] brief parsed, domain=%s, anchor_keys=%s", domain, list(anchor.keys()))
 
         yield _sse({"type": "status", "message": "Anchoring demographics..."})
-        yield _sse({"type": "status", "message": "Building attributes and decision psychology..."})
+        yield _sse({"type": "status", "message": "Building persona..."})
 
-        try:
-            persona_dict = await _generate_persona_direct(
-                brief=request.brief,
-                anchor=anchor,
-                domain=request.domain or domain,
-                client=_client(),
-            )
-        except Exception as exc:
-            logger.exception("[generate] _generate_persona_direct failed")
+        # Run generation as a background task so we can interleave heartbeats.
+        # Heartbeats prevent Railway's reverse proxy from closing the idle connection
+        # during the 20–30s generation window.
+        gen_task = asyncio.create_task(_generate_persona_direct(
+            brief=request.brief,
+            anchor=anchor,
+            domain=request.domain or domain,
+            client=_client(),
+        ))
+
+        while not gen_task.done():
+            # asyncio.wait returns immediately when gen_task completes or after 8s
+            done_set, _ = await asyncio.wait({gen_task}, timeout=8.0)
+            if not done_set:
+                yield ": heartbeat\n\n"  # keep proxy alive
+
+        if gen_task.cancelled():
+            yield _sse({"type": "error", "message": "Generation was cancelled."})
+            return
+
+        exc = gen_task.exception()
+        if exc is not None:
+            logger.exception("[generate] _generate_persona_direct raised: %s", exc)
             yield _sse({"type": "error", "message": f"Generation failed: {exc}"})
             return
 
-        persona_id = persona_dict["persona_id"]
-        name = persona_dict["demographic_anchor"]["name"]
-        _GENERATED[persona_id] = persona_dict
-        _persist_generated_dict(persona_dict)
-        logger.info("[generate] stored %s (%s)", persona_id, name)
+        persona_dict = gen_task.result()
+        logger.info("[generate] persona_dict built, persona_id=%s", persona_dict.get("persona_id"))
+
+        # All post-generation work inside a try/except — an uncaught exception here
+        # previously killed the generator before the result event was sent (Bug #3 in RCA).
+        try:
+            persona_id = persona_dict["persona_id"]
+            name = persona_dict["demographic_anchor"]["name"]
+            _GENERATED[persona_id] = persona_dict
+            _persist_generated_dict(persona_dict)
+            logger.info("[generate] stored %s (%s)", persona_id, name)
+        except Exception as exc:
+            logger.exception("[generate] storage step failed")
+            yield _sse({"type": "error", "message": f"Failed to store persona: {exc}"})
+            return
 
         # Auto-generate portrait in background
         fal_key = os.environ.get("FAL_KEY", "")
         if fal_key:
             asyncio.create_task(_auto_generate_portrait(persona_id, fal_key))
 
-        yield _sse({"type": "status", "message": "Finalising persona..."})
+        yield _sse({"type": "status", "message": "Persona ready!"})
         yield _sse({"type": "result", "persona_id": persona_id, "name": name})
+        logger.info("[generate] result event sent for %s", persona_id)
 
     return StreamingResponse(
         stream(),
@@ -883,10 +911,27 @@ async def list_generated_personas():
 
 @app.get("/generated/{persona_id}")
 async def get_generated_persona(persona_id: str):
-    """Return a previously generated persona by ID."""
+    """Return a previously generated persona by ID.
+
+    Falls back to disk if the persona isn't in the in-memory cache — this handles
+    Railway multi-instance routing and post-restart access (Failure 5 in RCA).
+    """
     if persona_id not in _GENERATED:
-        raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found. "
-                            "Personas are held in memory — they reset on server restart.")
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    _GENERATED[persona_id] = json.load(f)
+                logger.info("[get_generated] loaded %s from disk", persona_id)
+            except Exception as exc:
+                logger.warning("[get_generated] disk load failed for %s: %s", persona_id, exc)
+
+    if persona_id not in _GENERATED:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Generated persona '{persona_id}' not found. "
+                   "It may have been lost on a server restart before it could be persisted.",
+        )
     data = dict(_GENERATED[persona_id])
     data["portrait_url"] = _GENERATED_PORTRAITS.get(persona_id)
     return data

@@ -74,22 +74,40 @@ export default function GeneratePage() {
 
     const form: ICPForm = { brief: brief.trim(), domain, pdf_content };
 
+    // Track whether we successfully navigated away (result received).
+    // The finally block uses this to avoid resetting running state after navigation.
+    let navigated = false;
+
+    // Client-side safety net: if the stream ends without a result or error event
+    // (e.g. proxy drops the connection silently), stop the spinner after 3 minutes.
+    const timeoutId = setTimeout(() => {
+      if (!navigated) {
+        setError("Generation timed out — the server took too long. Please try again.");
+        setRunning(false);
+      }
+    }, 180_000);
+
     try {
       await generatePersona(form, (event: GenerationEvent) => {
         if (event.type === "status" && event.message) {
           setSteps((prev) => [...prev, event.message!]);
         }
         if (event.type === "result" && event.persona_id) {
+          navigated = true;
+          clearTimeout(timeoutId);
           router.push(`/persona/${event.persona_id}`);
         }
         if (event.type === "error" && event.message) {
           setError(event.message);
-          setRunning(false);
         }
       });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Unknown error");
-      setRunning(false);
+    } finally {
+      clearTimeout(timeoutId);
+      // Only reset running if we didn't navigate — avoids a brief flash back to
+      // the form while Next.js is mid-navigation after a successful generation.
+      if (!navigated) setRunning(false);
     }
   }
 
