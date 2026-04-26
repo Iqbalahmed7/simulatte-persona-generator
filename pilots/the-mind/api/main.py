@@ -37,10 +37,14 @@ sys.path.insert(0, str(_REPO_ROOT))
 
 import anthropic                                      # noqa: E402
 import httpx                                          # noqa: E402
-from fastapi import FastAPI, HTTPException            # noqa: E402
+from fastapi import Depends, FastAPI, HTTPException   # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware    # noqa: E402
 from fastapi.responses import StreamingResponse       # noqa: E402
 from pydantic import BaseModel                        # noqa: E402
+from sqlalchemy.ext.asyncio import AsyncSession       # noqa: E402
+
+from auth import build_me_response, check_and_increment_allowance, get_current_user  # noqa: E402
+from db import User, get_db                           # noqa: E402
 
 from src.cognition.decide import decide              # noqa: E402
 from src.cognition.respond import respond            # noqa: E402
@@ -901,8 +905,21 @@ def _sse(payload: dict) -> str:
     return f"data: {json.dumps(payload)}\n\n"
 
 
+@app.get("/me")
+async def get_me(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the authenticated user + their current week's allowance state."""
+    return await build_me_response(user, db)
+
+
 @app.post("/generate-persona")
-async def generate_persona_stream(request: ICPRequest):
+async def generate_persona_stream(
+    request: ICPRequest,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Stream persona generation via SSE.
 
     Events:
@@ -910,6 +927,10 @@ async def generate_persona_stream(request: ICPRequest):
         {"type": "result",  "persona_id": "...", "name": "..."}
         {"type": "error",   "message": "..."}
     """
+    # Auth: check allowance BEFORE starting the SSE stream.
+    # Must happen here (not inside the generator) so a 402 is a normal HTTP response.
+    await check_and_increment_allowance(user, "persona", db)
+
     async def stream():
         logger.info("[generate] stream started, brief length=%d", len(request.brief))
 
@@ -1192,7 +1213,12 @@ def _build_generated_system_prompt(persona: dict) -> str:
 
 
 @app.post("/generated/{persona_id}/chat", response_model=ChatResponse)
-async def chat_generated(persona_id: str, request: ChatRequest):
+async def chat_generated(
+    persona_id: str,
+    request: ChatRequest,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Chat with a generated (web-created) persona.
 
     Self-contained handler: builds a system prompt from the generated persona's
@@ -1202,6 +1228,8 @@ async def chat_generated(persona_id: str, request: ChatRequest):
     require schema-coercing the dict into PersonaRecord, which is invasive given
     the empty attributes map and shape differences.)
     """
+    await check_and_increment_allowance(user, "chat", db)
+
     # Load: cache → disk fallback (mirror GET /generated/{id})
     if persona_id not in _GENERATED:
         path = _GENERATED_DIR / f"{persona_id}.json"
@@ -1580,7 +1608,12 @@ def _load_persona_for_probe(persona_id: str) -> dict:
 
 
 @app.post("/generated/{persona_id}/probe", response_model=ProbeResult)
-async def run_probe(persona_id: str, request: ProbeRequest):
+async def run_probe(
+    persona_id: str,
+    request: ProbeRequest,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Run an 8-question Litmus probe against a generated persona.
 
     Pipeline:
@@ -1593,6 +1626,8 @@ async def run_probe(persona_id: str, request: ProbeRequest):
     """
     import hashlib
     from datetime import datetime, timezone
+
+    await check_and_increment_allowance(user, "probe", db)
 
     persona = _load_persona_for_probe(persona_id)
     da = persona.get("demographic_anchor") or {}

@@ -1,5 +1,35 @@
 export const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001").trim();
 
+// ── Auth helpers ──────────────────────────────────────────────────────────
+
+/**
+ * Build fetch headers that include the Auth.js JWT for backend auth.
+ * Must be called client-side (reads the cookie from document.cookie).
+ * Falls back gracefully if no session cookie found.
+ */
+function _authHeaders(): HeadersInit {
+  // Auth.js v5 stores the JWT in one of these cookie names
+  const cookieNames = [
+    "authjs.session-token",
+    "__Secure-authjs.session-token",
+    "next-auth.session-token",
+    "__Secure-next-auth.session-token",
+  ];
+  if (typeof document === "undefined") return {};
+  const cookies = Object.fromEntries(
+    document.cookie.split("; ").map(c => {
+      const [k, ...v] = c.split("=");
+      return [k, v.join("=")];
+    })
+  );
+  const token = cookieNames.map(n => cookies[n]).find(Boolean);
+  if (!token) return {};
+  return { Authorization: `Bearer ${token}` };
+}
+
+// Re-export AllowanceError so callers can catch it
+export { AllowanceError, handleApiResponse } from "@/components/AllowanceProvider";
+
 export interface PersonaCard {
   slug: string;
   persona_id: string;
@@ -123,9 +153,14 @@ export async function generatePersona(
 ): Promise<void> {
   const res = await fetch(`${API}/generate-persona`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ..._authHeaders() },
     body: JSON.stringify(form),
   });
+  if (res.status === 402) {
+    const body = await res.json().catch(() => ({}));
+    const { AllowanceError: AE } = await import("@/components/AllowanceProvider");
+    throw new AE(body.detail ?? body);
+  }
   if (!res.ok || !res.body) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail ?? "Generation request failed");
@@ -199,9 +234,14 @@ export async function chatWithGeneratedPersona(
 ): Promise<ChatResponse> {
   const res = await fetch(`${API}/generated/${personaId}/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ..._authHeaders() },
     body: JSON.stringify({ message, include_reasoning: includeReasoning }),
   });
+  if (res.status === 402) {
+    const body = await res.json().catch(() => ({}));
+    const { AllowanceError: AE } = await import("@/components/AllowanceProvider");
+    throw new AE(body.detail ?? body);
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error(err.detail ?? "Chat request failed");
@@ -255,9 +295,14 @@ export async function runProbe(
 ): Promise<ProbeResult> {
   const res = await fetch(`${API}/generated/${personaId}/probe`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ..._authHeaders() },
     body: JSON.stringify(brief),
   });
+  if (res.status === 402) {
+    const body = await res.json().catch(() => ({}));
+    const { AllowanceError: AE } = await import("@/components/AllowanceProvider");
+    throw new AE(body.detail ?? body);
+  }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error((err as { detail?: string }).detail ?? "Probe failed");
