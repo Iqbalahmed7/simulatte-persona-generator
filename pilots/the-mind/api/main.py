@@ -24,6 +24,7 @@ import json
 import logging
 import os
 import sys
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
@@ -47,6 +48,10 @@ from src.schema.persona import PersonaRecord         # noqa: E402
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
+# Web API uses Haiku by default — 3-4× faster than Sonnet, sufficient for demo generation.
+# Override with GENERATION_MODEL env var on Railway if you want Sonnet quality.
+os.environ.setdefault("GENERATION_MODEL", "claude-haiku-4-5-20251001")
 
 # ── ICP descriptions (mirrors generate_exemplars.py) ─────────────────────
 
@@ -566,10 +571,15 @@ async def generate_persona_stream(request: ICPRequest):
 
         task = asyncio.create_task(invoke_persona_generator(brief))
         step = 0
+        start_ts = time.monotonic()
         while not task.done():
             await asyncio.sleep(5)
             if task.done():
                 break
+            if time.monotonic() - start_ts > 270:  # 4.5 min hard ceiling
+                task.cancel()
+                yield _sse({"type": "error", "message": "Generation timed out. Please try again."})
+                return
             if step < len(_GENERATION_STEPS):
                 yield _sse({"type": "status", "message": _GENERATION_STEPS[step]})
                 step += 1
