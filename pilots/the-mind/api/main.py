@@ -247,7 +247,18 @@ Return ONLY valid JSON with this shape (omit fields not explicitly stated or cle
                 system=system,
                 messages=[{"role": "user", "content": content}],
             )
-        data = json.loads(msg.content[0].text)
+        raw = msg.content[0].text
+        # Tolerate markdown fences or leading text before the JSON object
+        try:
+            data = json.loads(raw)
+        except Exception:
+            import re as _re
+            m = _re.search(r"```(?:json)?\s*([\s\S]+?)```", raw)
+            if m:
+                data = json.loads(m.group(1))
+            else:
+                start, end = raw.find("{"), raw.rfind("}") + 1
+                data = json.loads(raw[start:end]) if start >= 0 and end > start else {}
         anchor = data.get("anchor", {})
         # Strip empty nested dicts
         if isinstance(anchor.get("location"), dict):
@@ -533,8 +544,13 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
 {{
   "education": "<highest qualification, e.g. Bachelor's in Engineering>",
   "employment_detail": {{
+    "occupation": "<job title, e.g. Software Engineer>",
     "industry": "<industry sector>",
     "seniority": "<junior|mid|senior|lead|executive|owner>"
+  }},
+  "location": {{
+    "city": "<city name>",
+    "country": "<country name>"
   }},
   "household_detail": {{
     "size": <integer 1-8>,
@@ -611,6 +627,12 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
     bt_raw = data_a.get("behavioural_tendencies") or {}
     emp_detail = data_b.get("employment_detail") or {}
     hh_detail = data_b.get("household_detail") or {}
+    loc_b = data_b.get("location") or {}
+
+    # Fall back to Prompt B values when anchor (from _extract_from_brief) was empty
+    city = city or loc_b.get("city", "")
+    country = country or loc_b.get("country", "")
+    employment_occupation = employment_occupation or emp_detail.get("occupation", "")
 
     # Ensure page-critical nested fields always exist (page doesn't use optional chaining)
     bt = {
