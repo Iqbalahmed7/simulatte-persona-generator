@@ -83,6 +83,49 @@ _GENERATED_DIR = _DATA_ROOT / "generated_personas"
 _EXEMPLAR_PORTRAITS: dict[str, str] = {}   # slug → fal.io URL (exemplar personas)
 _GENERATED_PORTRAITS: dict[str, str] = {}  # persona_id → fal.io URL (generated personas)
 
+_PORTRAITS_FILE = _DATA_ROOT / "portraits.json"
+
+
+def _load_portraits_from_disk() -> None:
+    """Populate _EXEMPLAR_PORTRAITS and _GENERATED_PORTRAITS from portraits.json on disk.
+
+    Keys starting with 'pg-' are generated persona portraits; all others are exemplar slugs.
+    """
+    if not _PORTRAITS_FILE.exists():
+        return
+    try:
+        with open(_PORTRAITS_FILE, encoding="utf-8") as f:
+            combined: dict[str, str] = json.load(f)
+        for key, url in combined.items():
+            if key.startswith("pg-"):
+                _GENERATED_PORTRAITS[key] = url
+            else:
+                _EXEMPLAR_PORTRAITS[key] = url
+        logger.info("[portraits] loaded %d entries from disk", len(combined))
+    except Exception:
+        logger.exception("[portraits] failed to load from disk")
+
+
+def _save_portraits_to_disk() -> None:
+    """Atomically write both portrait dicts back to portraits.json.
+
+    Uses a .tmp file + os.replace() to avoid partial-write corruption.
+    TODO: future improvement — download each JPG to the volume and serve it ourselves,
+          since fal.media URLs expire after ~30 days.
+    """
+    try:
+        combined = {**_EXEMPLAR_PORTRAITS, **_GENERATED_PORTRAITS}
+        tmp_path = _PORTRAITS_FILE.with_suffix(".json.tmp")
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(combined, f, ensure_ascii=False)
+        os.replace(tmp_path, _PORTRAITS_FILE)
+    except Exception:
+        logger.exception("[portraits] failed to save to disk")
+
+
+# Populate at module load time so portraits survive Railway redeploys.
+_load_portraits_from_disk()
+
 
 def _persist_generated_dict(persona_dict: dict) -> None:
     """Write persona dict to disk so it survives server restarts."""
@@ -431,7 +474,10 @@ def _build_portrait_prompt(da) -> str:
         "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
         "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
         "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
-        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark."
+        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark. "
+        "photo-realistic DSLR portrait, 85mm f/1.4 lens, natural skin texture with visible pores and subtle imperfections, "
+        "candid expression with soft natural lighting, environmental context appropriate to their occupation and location, "
+        "color-accurate, neutral grading, not stylized, not AI-rendered, looks like a real person photographed on a Tuesday afternoon"
     )
 
 
@@ -459,7 +505,10 @@ def _build_portrait_prompt_dict(da: dict) -> str:
         "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
         "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
         "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
-        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark."
+        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark. "
+        "photo-realistic DSLR portrait, 85mm f/1.4 lens, natural skin texture with visible pores and subtle imperfections, "
+        "candid expression with soft natural lighting, environmental context appropriate to their occupation and location, "
+        "color-accurate, neutral grading, not stylized, not AI-rendered, looks like a real person photographed on a Tuesday afternoon"
     )
 
 
@@ -718,19 +767,28 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
 
 
 async def _call_fal_portrait(prompt: str, fal_key: str) -> str:
-    """Call fal.io flux-realism and return the image URL."""
+    """Call fal.io flux-pro/v1.1-ultra and return the image URL.
+
+    Upgraded from flux-realism (~$0.04) to flux-pro/v1.1-ultra (~$0.06) for the 5 hero
+    exemplar faces. The new model accepts a negative_prompt field which we use to block
+    cartoon/3d/glamour styles.
+    """
+    negative_prompt = (
+        "cartoon, illustration, anime, 3d render, plastic skin, oversaturated, "
+        "instagram filter, beauty filter, glamour shot, model agency portrait, perfect symmetry"
+    )
     try:
-        async with httpx.AsyncClient(timeout=90) as client:
+        async with httpx.AsyncClient(timeout=120) as client:
             resp = await client.post(
-                "https://fal.run/fal-ai/flux-realism",
+                "https://fal.run/fal-ai/flux-pro/v1.1-ultra",
                 headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
                 json={
                     "prompt": prompt,
-                    "image_size": "portrait_4_3",
-                    "num_inference_steps": 28,
-                    "guidance_scale": 3.5,
+                    "negative_prompt": negative_prompt,
+                    "aspect_ratio": "3:4",
                     "num_images": 1,
                     "enable_safety_checker": True,
+                    "output_format": "jpeg",
                 },
             )
             resp.raise_for_status()
@@ -747,14 +805,17 @@ async def _call_fal_portrait(prompt: str, fal_key: str) -> str:
 
 
 @app.post("/personas/{slug}/portrait")
-async def generate_exemplar_portrait(slug: str):
-    """Generate a portrait for an exemplar persona via fal.io flux-realism."""
+async def generate_exemplar_portrait(slug: str, force: bool = False):
+    """Generate a portrait for an exemplar persona via fal.io flux-pro/v1.1-ultra.
+
+    Pass ?force=true to bypass the in-memory/disk cache and regenerate with the current model.
+    """
     try:
         persona = _load_one(slug)
     except KeyError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
-    if slug in _EXEMPLAR_PORTRAITS:
+    if not force and slug in _EXEMPLAR_PORTRAITS:
         return {"url": _EXEMPLAR_PORTRAITS[slug], "persona_id": persona.persona_id}
 
     fal_key = os.environ.get("FAL_KEY", "")
@@ -764,6 +825,7 @@ async def generate_exemplar_portrait(slug: str):
     prompt = _build_portrait_prompt(persona.demographic_anchor)
     url = await _call_fal_portrait(prompt, fal_key)
     _EXEMPLAR_PORTRAITS[slug] = url
+    _save_portraits_to_disk()
     return {"url": url, "persona_id": persona.persona_id}
 
 
@@ -1664,19 +1726,23 @@ async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
         prompt = _build_portrait_prompt_dict(da)
         url = await _call_fal_portrait(prompt, fal_key)
         _GENERATED_PORTRAITS[persona_id] = url
+        _save_portraits_to_disk()
         logger.info("[portrait:auto] %s done", persona_id)
     except Exception:
         logger.exception("[portrait:auto] failed for %s", persona_id)
 
 
 @app.post("/generated/{persona_id}/portrait")
-async def generate_portrait(persona_id: str):
-    """Generate (or return cached) portrait for a generated persona."""
+async def generate_portrait(persona_id: str, force: bool = False):
+    """Generate (or return cached) portrait for a generated persona.
+
+    Pass ?force=true to bypass the cache and regenerate with the current model.
+    """
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
 
     # Return cached URL if already generated
-    if persona_id in _GENERATED_PORTRAITS:
+    if not force and persona_id in _GENERATED_PORTRAITS:
         return {"url": _GENERATED_PORTRAITS[persona_id], "persona_id": persona_id}
 
     fal_key = os.environ.get("FAL_KEY", "")
@@ -1687,4 +1753,5 @@ async def generate_portrait(persona_id: str):
     prompt = _build_portrait_prompt_dict(da)
     url = await _call_fal_portrait(prompt, fal_key)
     _GENERATED_PORTRAITS[persona_id] = url
+    _save_portraits_to_disk()
     return {"url": url, "persona_id": persona_id, "prompt": prompt}

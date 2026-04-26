@@ -39,3 +39,7 @@ pilots/the-mind/generated_personas/*.json
 !pilots/the-mind/generated_personas/.gitkeep
 pilots/the-mind/probes/
 pilots/the-mind/og_cache/
+
+# Portrait URL cache — lives on Railway volume, never commit
+pilots/the-mind/data/portraits.json
+pilots/the-mind/data/portraits.json.tmp
