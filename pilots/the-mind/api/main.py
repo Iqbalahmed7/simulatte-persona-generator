@@ -67,7 +67,8 @@ _PERSONAS: dict[str, PersonaRecord] = {}
 _GENERATED: dict[str, PersonaRecord] = {}
 _GENERATED_DIR = _HERE.parent / "generated_personas"
 
-_EXEMPLAR_PORTRAITS: dict[str, str] = {}  # slug → fal.io URL
+_EXEMPLAR_PORTRAITS: dict[str, str] = {}   # slug → fal.io URL (exemplar personas)
+_GENERATED_PORTRAITS: dict[str, str] = {}  # persona_id → fal.io URL (generated personas)
 
 
 def _persist_generated(persona: PersonaRecord) -> None:
@@ -580,6 +581,10 @@ async def generate_persona_stream(request: ICPRequest):
             _GENERATED[p.persona_id] = p
             _persist_generated(p)
             logger.info("[generate] stored %s (%s)", p.persona_id, p.demographic_anchor.name)
+            # Auto-generate portrait in background — done by the time user browses
+            fal_key = os.environ.get("FAL_KEY", "")
+            if fal_key:
+                asyncio.create_task(_auto_generate_portrait(p.persona_id, fal_key))
             yield _sse({
                 "type": "result",
                 "persona_id": p.persona_id,
@@ -625,14 +630,31 @@ async def get_generated_persona(persona_id: str):
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found. "
                             "Personas are held in memory — they reset on server restart.")
-    return _GENERATED[persona_id].model_dump(mode="json")
+    data = _GENERATED[persona_id].model_dump(mode="json")
+    data["portrait_url"] = _GENERATED_PORTRAITS.get(persona_id)
+    return data
+
+
+async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
+    """Background task: silently generate portrait after persona creation."""
+    try:
+        prompt = _build_portrait_prompt(_GENERATED[persona_id].demographic_anchor)
+        url = await _call_fal_portrait(prompt, fal_key)
+        _GENERATED_PORTRAITS[persona_id] = url
+        logger.info("[portrait:auto] %s done", persona_id)
+    except Exception:
+        logger.exception("[portrait:auto] failed for %s", persona_id)
 
 
 @app.post("/generated/{persona_id}/portrait")
 async def generate_portrait(persona_id: str):
-    """Generate a photorealistic portrait for a generated persona via fal.io flux-realism."""
+    """Generate (or return cached) portrait for a generated persona."""
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
+
+    # Return cached URL if already generated
+    if persona_id in _GENERATED_PORTRAITS:
+        return {"url": _GENERATED_PORTRAITS[persona_id], "persona_id": persona_id}
 
     fal_key = os.environ.get("FAL_KEY", "")
     if not fal_key:
@@ -640,4 +662,5 @@ async def generate_portrait(persona_id: str):
 
     prompt = _build_portrait_prompt(_GENERATED[persona_id].demographic_anchor)
     url = await _call_fal_portrait(prompt, fal_key)
+    _GENERATED_PORTRAITS[persona_id] = url
     return {"url": url, "persona_id": persona_id, "prompt": prompt}

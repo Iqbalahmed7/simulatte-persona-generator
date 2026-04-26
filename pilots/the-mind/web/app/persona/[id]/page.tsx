@@ -42,23 +42,29 @@ function TrustBar({ label, value }: { label: string; value: number }) {
 
 // ── portrait component ────────────────────────────────────────────────────
 
-function PortraitPanel({ personaId, name }: { personaId: string; name: string }) {
-  const [url, setUrl] = useState<string | null>(null);
+function PortraitPanel({
+  personaId,
+  name,
+  initialUrl,
+}: {
+  personaId: string;
+  name: string;
+  initialUrl?: string | null;
+}) {
+  const [url, setUrl] = useState<string | null>(initialUrl ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function generate() {
+  // Auto-generate on mount if no portrait yet
+  useEffect(() => {
+    if (url) return;
     setLoading(true);
-    setError("");
-    try {
-      const imgUrl = await generatePortrait(personaId);
-      setUrl(imgUrl);
-    } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Portrait generation failed");
-    } finally {
-      setLoading(false);
-    }
-  }
+    generatePortrait(personaId)
+      .then(setUrl)
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "Portrait generation failed"))
+      .finally(() => setLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [personaId]);
 
   if (url) {
     return (
@@ -84,23 +90,11 @@ function PortraitPanel({ personaId, name }: { personaId: string; name: string })
               />
             ))}
           </div>
-          <p className="font-mono text-[10px] text-static">Generating portrait…</p>
+          <p className="font-mono text-[10px] text-static">Rendering portrait…</p>
         </>
-      ) : (
-        <>
-          <div className="w-12 h-12 border border-parchment/15 flex items-center justify-center">
-            <span className="text-parchment/20 text-2xl">◻</span>
-          </div>
-          <button
-            onClick={generate}
-            className="px-5 py-2.5 text-xs font-mono border border-parchment/20 text-parchment/60
-                       hover:border-signal hover:text-signal transition-colors"
-          >
-            Generate portrait
-          </button>
-          {error && <p className="font-mono text-[10px] text-static text-center px-4">{error}</p>}
-        </>
-      )}
+      ) : error ? (
+        <p className="font-mono text-[10px] text-static text-center px-4">{error}</p>
+      ) : null}
       <style>{`
         @keyframes dot-pulse {
           0%, 100% { opacity: 0.2; transform: scaleY(1); }
@@ -209,7 +203,7 @@ export default function PersonaProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 mb-2">
         {/* Portrait */}
         <div className="shrink-0">
-          <PortraitPanel personaId={persona.persona_id} name={da.name} />
+          <PortraitPanel personaId={persona.persona_id} name={da.name} initialUrl={persona.portrait_url} />
         </div>
 
         {/* Identity */}

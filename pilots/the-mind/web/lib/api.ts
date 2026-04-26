@@ -67,6 +67,7 @@ export interface GenerationEvent {
 
 export interface GeneratedPersona {
   persona_id: string;
+  portrait_url?: string | null;
   demographic_anchor: {
     name: string;
     age: number;
