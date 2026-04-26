@@ -381,9 +381,65 @@ async def get_attributes(slug: str):
     }
 
 
+def _build_portrait_prompt(da) -> str:
+    """Build a rich, realistic portrait prompt from demographic anchor data."""
+    gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
+    city = getattr(da.location, "city", "") if da.location else ""
+    country = getattr(da.location, "country", "") if da.location else ""
+    occupation = ""
+    if da.employment:
+        occupation = getattr(da.employment, "occupation", "") or ""
+    life_stage = (da.life_stage or "").replace("_", " ")
+
+    # Build contextual descriptor
+    context_parts = []
+    if occupation:
+        context_parts.append(occupation)
+    if life_stage:
+        context_parts.append(life_stage)
+    context = f", {', '.join(context_parts)}" if context_parts else ""
+
+    return (
+        f"Candid photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}{context}. "
+        "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
+        "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
+        "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
+        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark."
+    )
+
+
+async def _call_fal_portrait(prompt: str, fal_key: str) -> str:
+    """Call fal.io flux-realism and return the image URL."""
+    try:
+        async with httpx.AsyncClient(timeout=90) as client:
+            resp = await client.post(
+                "https://fal.run/fal-ai/flux-realism",
+                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
+                json={
+                    "prompt": prompt,
+                    "image_size": "portrait_4_3",
+                    "num_inference_steps": 28,
+                    "guidance_scale": 3.5,
+                    "num_images": 1,
+                    "enable_safety_checker": True,
+                },
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise HTTPException(status_code=502, detail=f"fal.io error: {exc.response.text}")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
+
+    images = data.get("images", [])
+    if not images:
+        raise HTTPException(status_code=500, detail="fal.io returned no images")
+    return images[0]["url"]
+
+
 @app.post("/personas/{slug}/portrait")
 async def generate_exemplar_portrait(slug: str):
-    """Generate a portrait for an exemplar persona via fal.io."""
+    """Generate a portrait for an exemplar persona via fal.io flux-realism."""
     try:
         persona = _load_one(slug)
     except KeyError as e:
@@ -396,38 +452,8 @@ async def generate_exemplar_portrait(slug: str):
     if not fal_key:
         raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
 
-    da = persona.demographic_anchor
-    gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
-    city = getattr(da.location, "city", "") if da.location else ""
-    country = getattr(da.location, "country", "") if da.location else ""
-
-    prompt = (
-        f"Photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}. "
-        "Natural soft indoor lighting, looking slightly past camera, confident relaxed expression. "
-        "High-resolution, sharp face detail, neutral background, documentary photography style. "
-        "Not illustrated, not AI-looking, no text."
-    )
-
-    try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(
-                "https://fal.run/fal-ai/flux/schnell",
-                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
-                json={"prompt": prompt, "image_size": "portrait_4_3",
-                      "num_inference_steps": 4, "num_images": 1},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-    except httpx.HTTPStatusError as exc:
-        raise HTTPException(status_code=502, detail=f"fal.io error: {exc.response.text}")
-    except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
-
-    images = data.get("images", [])
-    if not images:
-        raise HTTPException(status_code=500, detail="fal.io returned no images")
-
-    url = images[0]["url"]
+    prompt = _build_portrait_prompt(persona.demographic_anchor)
+    url = await _call_fal_portrait(prompt, fal_key)
     _EXEMPLAR_PORTRAITS[slug] = url
     return {"url": url, "persona_id": persona.persona_id}
 
@@ -604,7 +630,7 @@ async def get_generated_persona(persona_id: str):
 
 @app.post("/generated/{persona_id}/portrait")
 async def generate_portrait(persona_id: str):
-    """Generate a photorealistic portrait for a persona via fal.io flux/schnell."""
+    """Generate a photorealistic portrait for a generated persona via fal.io flux-realism."""
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
 
@@ -612,36 +638,6 @@ async def generate_portrait(persona_id: str):
     if not fal_key:
         raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
 
-    p = _GENERATED[persona_id]
-    da = p.demographic_anchor
-    gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
-    city = getattr(da.location, "city", "") if da.location else ""
-    country = getattr(da.location, "country", "") if da.location else ""
-
-    prompt = (
-        f"Photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}. "
-        "Natural soft indoor lighting, looking slightly past camera, confident relaxed expression. "
-        "High-resolution, sharp face detail, neutral background, documentary photography style. "
-        "Not illustrated, not AI-looking, no text."
-    )
-
-    try:
-        async with httpx.AsyncClient(timeout=60) as client:
-            resp = await client.post(
-                "https://fal.run/fal-ai/flux/schnell",
-                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
-                json={"prompt": prompt, "image_size": "portrait_4_3",
-                      "num_inference_steps": 4, "num_images": 1},
-            )
-            resp.raise_for_status()
-            data = resp.json()
-    except httpx.HTTPStatusError as exc:
-        raise HTTPException(status_code=502, detail=f"fal.io error: {exc.response.text}")
-    except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
-
-    images = data.get("images", [])
-    if not images:
-        raise HTTPException(status_code=500, detail="fal.io returned no images")
-
-    return {"url": images[0]["url"], "persona_id": persona_id, "prompt": prompt}
+    prompt = _build_portrait_prompt(_GENERATED[persona_id].demographic_anchor)
+    url = await _call_fal_portrait(prompt, fal_key)
+    return {"url": url, "persona_id": persona_id, "prompt": prompt}
