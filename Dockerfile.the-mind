@@ -17,5 +17,7 @@ COPY pilots/the-mind/ ./pilots/the-mind/
 
 EXPOSE 8000
 
-# Shell form so $PORT expands at runtime
-CMD uvicorn pilots.the_mind_api:app --host 0.0.0.0 --port ${PORT:-8000}
+# Run Alembic migrations on every boot, then start uvicorn.
+# Migrations are idempotent — alembic only applies new revisions.
+# If DATABASE_URL is unset (local dev without Postgres), skip migrations.
+CMD bash -c 'if [ -n "$DATABASE_URL" ]; then cd /app/pilots/the-mind/api && alembic upgrade head; fi && cd /app && uvicorn pilots.the_mind_api:app --host 0.0.0.0 --port ${PORT:-8000}'
