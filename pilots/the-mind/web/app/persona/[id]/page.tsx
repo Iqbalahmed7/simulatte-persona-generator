@@ -72,7 +72,7 @@ function PortraitPanel({
       <img
         src={url}
         alt={`Portrait of ${name}`}
-        className="w-full aspect-[3/4] object-cover border border-parchment/10"
+        className="w-full aspect-[4/3] md:aspect-[3/4] object-cover border border-parchment/10"
       />
     );
   }
@@ -190,7 +190,7 @@ export default function PersonaProfilePage() {
   const { demographic_anchor: da, derived_insights: di, behavioural_tendencies: bt } = persona;
 
   return (
-    <main className="min-h-screen px-6 py-12 max-w-5xl mx-auto">
+    <main className="min-h-screen px-4 py-6 md:px-6 md:py-12 max-w-5xl mx-auto">
       {/* Nav */}
       <div className="flex items-center justify-between mb-10">
         <Link href="/generate" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">

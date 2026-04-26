@@ -95,7 +95,7 @@ export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
       {/* Drawer */}
       <div
         ref={drawerRef}
-        className={`fixed top-0 right-0 z-50 h-full w-full max-w-xl bg-void border-l border-parchment/10
+        className={`fixed top-0 right-0 z-50 h-full w-full sm:max-w-xl bg-void border-l border-parchment/10
           overflow-y-auto transition-transform duration-300 ease-out
           ${open ? "translate-x-0" : "translate-x-full"}`}
       >
@@ -107,7 +107,7 @@ export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
           <button onClick={onClose} className="text-static hover:text-parchment transition-colors font-mono text-sm">✕</button>
         </div>
 
-        <div className="px-6 py-8 space-y-8">
+        <div className="px-4 py-6 md:px-6 md:py-8 space-y-8">
           {/* Portrait */}
           <div>
             {portraitUrl ? (

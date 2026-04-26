@@ -94,7 +94,7 @@ export default function GeneratePage() {
   }
 
   return (
-    <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
+    <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-2xl mx-auto">
       {/* Header */}
       <div className="mb-10">
         <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">

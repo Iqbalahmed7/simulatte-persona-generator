@@ -56,7 +56,7 @@ function PersonaCardUI({ p, onClick }: { p: PersonaCard; onClick: () => void }) 
         </div>
       )}
 
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
             <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mb-1">

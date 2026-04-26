@@ -13,7 +13,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="min-h-screen px-6 py-12 max-w-6xl mx-auto">
+    <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-12">
         <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mb-3">
