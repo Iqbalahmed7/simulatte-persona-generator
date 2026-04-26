@@ -6,10 +6,9 @@ import Link from "next/link";
 import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
 
 const DOMAINS = [
-  { value: "general",  label: "General" },
-  { value: "cpg",      label: "Consumer Goods" },
-  { value: "saas",     label: "SaaS / Tech" },
-  { value: "health",   label: "Health & Wellness" },
+  { value: "cpg",            label: "Consumer Goods" },
+  { value: "saas",           label: "SaaS / Tech" },
+  { value: "health_wellness", label: "Health & Wellness" },
 ];
 
 const PLACEHOLDERS = [
@@ -34,7 +33,7 @@ export default function GeneratePage() {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const [brief, setBrief] = useState("");
-  const [domain, setDomain] = useState("general");
+  const [domain, setDomain] = useState("cpg");
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [running, setRunning] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
@@ -110,7 +109,7 @@ export default function GeneratePage() {
         </h1>
         <p className="text-parchment/60 text-base">
           Describe who you want to simulate — in plain language.
-          The system will build a behaviourally coherent person with 120+ attributes and full decision psychology.
+          The system will build a behaviourally coherent person with 200+ attributes and full decision psychology.
         </p>
       </div>
 

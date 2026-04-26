@@ -99,7 +99,7 @@ export default async function Home() {
         </h1>
         <p className="text-parchment/75 text-lg max-w-xl">
           Five synthetic personas. Each one thinks, decides, and reacts like a real person.
-          Ask them anything about a product, price, or purchase.
+          200+ attributes. Full decision psychology. Ask them anything.
         </p>
         <div className="mt-6">
           <Link
