@@ -1,4 +1,4 @@
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
+export const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001";
 
 export interface PersonaCard {
   slug: string;
@@ -37,6 +37,118 @@ export async function fetchPersonas(): Promise<PersonaCard[]> {
   const res = await fetch(`${API}/personas`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load personas");
   return res.json();
+}
+
+// ── Generation types ─────────────────────────────────────────────────────
+
+export interface ICPForm {
+  brand_name: string;
+  product_category: string;
+  business_problem: string;
+  country: string;
+  age_range: string;
+  gender: string;
+  income_level: string;
+  domain: string;
+}
+
+export interface GenerationEvent {
+  type: "status" | "result" | "error";
+  message?: string;
+  persona_id?: string;
+  name?: string;
+}
+
+export interface GeneratedPersona {
+  persona_id: string;
+  demographic_anchor: {
+    name: string;
+    age: number;
+    gender: string;
+    life_stage: string;
+    location: { city: string; country: string; tier?: string };
+    education: string;
+    employment: { occupation: string; industry: string; seniority: string };
+    household: { size: number; composition: string; monthly_income_inr?: number };
+  };
+  narrative: { first_person: string; third_person: string; display_name: string };
+  derived_insights: {
+    decision_style: string;
+    trust_anchor: string;
+    risk_appetite: string;
+    primary_value_orientation: string;
+    consistency_score: number;
+    key_tensions: string[];
+    coping_mechanism: { type: string; description: string };
+  };
+  behavioural_tendencies: {
+    price_sensitivity: { band: string; description: string };
+    trust_orientation: Record<string, number>;
+    switching_propensity: { likelihood: string; triggers: string[] };
+    objection_profile: Array<{ type: string; likelihood: string; severity: string; description: string }>;
+    reasoning_prompt: string;
+  };
+  decision_bullets: string[];
+  life_stories: Array<{ title: string; narrative: string; age_at_event?: number; emotional_weight: string }>;
+  attributes: Record<string, Record<string, { value: unknown; label: string; type: string; source: string }>>;
+  memory: {
+    core: {
+      identity_statement: string;
+      key_values: string[];
+      life_defining_events: string[];
+      relationship_map: Record<string, string>;
+      immutable_constraints: string[];
+      tendency_summary: string;
+    };
+  };
+}
+
+export async function generatePersona(
+  form: ICPForm,
+  onEvent: (e: GenerationEvent) => void,
+): Promise<void> {
+  const res = await fetch(`${API}/generate-persona`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  });
+  if (!res.ok || !res.body) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail ?? "Generation request failed");
+  }
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    const lines = buf.split("\n");
+    buf = lines.pop() ?? "";
+    for (const line of lines) {
+      if (line.startsWith("data: ")) {
+        try {
+          onEvent(JSON.parse(line.slice(6)));
+        } catch { /* ignore malformed */ }
+      }
+    }
+  }
+}
+
+export async function fetchGeneratedPersona(id: string): Promise<GeneratedPersona> {
+  const res = await fetch(`${API}/generated/${id}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Persona not found");
+  return res.json();
+}
+
+export async function generatePortrait(personaId: string): Promise<string> {
+  const res = await fetch(`${API}/generated/${personaId}/portrait`, { method: "POST" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail ?? "Portrait generation failed");
+  }
+  const data = await res.json();
+  return data.url as string;
 }
 
 export async function chatWithPersona(

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchPersonas, PersonaCard } from "@/lib/api";
 
+
 const STYLE_LABELS: Record<string, string> = {
   analytical: "Analytical", emotional: "Emotional",
   habitual: "Habitual", social: "Social",
@@ -100,6 +101,15 @@ export default async function Home() {
           Five synthetic personas. Each one thinks, decides, and reacts like a real person.
           Ask them anything about a product, price, or purchase.
         </p>
+        <div className="mt-6">
+          <Link
+            href="/generate"
+            className="inline-block px-6 py-3 bg-signal text-void font-condensed font-bold text-base
+                       tracking-wide hover:bg-parchment transition-colors"
+          >
+            Generate a new persona →
+          </Link>
+        </div>
       </div>
 
       {/* Error state */}

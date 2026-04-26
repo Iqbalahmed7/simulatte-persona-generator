@@ -19,8 +19,10 @@ Version: exemplar_set_v1_2026_04
 """
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
+import os
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -33,8 +35,10 @@ _REPO_ROOT = _HERE.parent.parent.parent              # repo root
 sys.path.insert(0, str(_REPO_ROOT))
 
 import anthropic                                      # noqa: E402
+import httpx                                          # noqa: E402
 from fastapi import FastAPI, HTTPException            # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware    # noqa: E402
+from fastapi.responses import StreamingResponse       # noqa: E402
 from pydantic import BaseModel                        # noqa: E402
 
 from src.cognition.decide import decide              # noqa: E402
@@ -57,6 +61,10 @@ _ICP_DESCRIPTIONS: dict[str, str] = {
 # ── exemplar cache ────────────────────────────────────────────────────────
 
 _PERSONAS: dict[str, PersonaRecord] = {}
+
+# ── generated persona cache (runtime, not persisted) ─────────────────────
+
+_GENERATED: dict[str, PersonaRecord] = {}
 
 
 def _load_all() -> dict[str, PersonaRecord]:
@@ -127,6 +135,26 @@ class HealthResponse(BaseModel):
     status: str
     exemplars_loaded: int
     version: str
+
+
+class ICPRequest(BaseModel):
+    brand_name: str = ""
+    product_category: str = ""
+    business_problem: str
+    country: str = "India"
+    age_range: str = "25-40"
+    gender: str = "any"
+    income_level: str = "middle"
+    domain: str = "cpg"
+
+
+class PortraitRequest(BaseModel):
+    persona_id: str
+    name: str
+    age: int
+    gender: str
+    city: str
+    country: str
 
 
 # `from __future__ import annotations` defers all annotations as strings.
@@ -314,3 +342,144 @@ async def chat(slug: str, request: ChatRequest):
         persona_id=persona.persona_id,
         persona_name=persona.demographic_anchor.name,
     )
+
+
+# ── generation endpoints ──────────────────────────────────────────────────
+
+_GENERATION_STEPS = [
+    "Selecting demographic anchor...",
+    "Calibrating cultural context...",
+    "Building 120+ attributes...",
+    "Writing life stories...",
+    "Generating decision psychology...",
+    "Validating behavioural coherence...",
+]
+
+
+def _sse(payload: dict) -> str:
+    return f"data: {json.dumps(payload)}\n\n"
+
+
+@app.post("/generate-persona")
+async def generate_persona_stream(request: ICPRequest):
+    """Stream persona generation via SSE.
+
+    Events:
+        {"type": "status",  "message": "..."}          — progress update
+        {"type": "result",  "persona_id": "...",
+                            "name": "..."}             — done, persona stored
+        {"type": "error",   "message": "..."}          — generation failed
+    """
+    from src.orchestrator.brief import PersonaGenerationBrief
+    from src.orchestrator.invoke import invoke_persona_generator
+
+    anchor: dict = {}
+    if request.country:
+        anchor["location"] = {"country": request.country}
+    if request.gender and request.gender != "any":
+        anchor["gender"] = request.gender
+
+    problem = request.business_problem
+    if request.brand_name:
+        problem = f"{request.brand_name} — {problem}"
+    if request.product_category:
+        problem = f"{problem} (product: {request.product_category})"
+
+    brief = PersonaGenerationBrief(
+        client=request.brand_name or "Demo",
+        domain=request.domain,
+        business_problem=problem,
+        count=1,
+        run_intent="calibrate",
+        skip_gates=True,
+        auto_confirm=True,
+        anchor_overrides=anchor,
+    )
+
+    async def stream():
+        yield _sse({"type": "status", "message": "Anchoring demographics..."})
+
+        task = asyncio.create_task(invoke_persona_generator(brief))
+        step = 0
+        while not task.done():
+            await asyncio.sleep(5)
+            if not task.done() and step < len(_GENERATION_STEPS):
+                yield _sse({"type": "status", "message": _GENERATION_STEPS[step]})
+                step += 1
+
+        try:
+            result = task.result()
+            if not result.personas:
+                yield _sse({"type": "error", "message": "No persona returned from generator"})
+                return
+            p = PersonaRecord.model_validate(result.personas[0])
+            _GENERATED[p.persona_id] = p
+            logger.info("[generate] stored %s (%s)", p.persona_id, p.demographic_anchor.name)
+            yield _sse({
+                "type": "result",
+                "persona_id": p.persona_id,
+                "name": p.demographic_anchor.name,
+            })
+        except Exception as exc:
+            logger.exception("[generate] failed")
+            yield _sse({"type": "error", "message": str(exc)})
+
+    return StreamingResponse(
+        stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
+@app.get("/generated/{persona_id}")
+async def get_generated_persona(persona_id: str):
+    """Return a previously generated persona by ID."""
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Generated persona '{persona_id}' not found. "
+                            "Personas are held in memory — they reset on server restart.")
+    return _GENERATED[persona_id].model_dump(mode="json")
+
+
+@app.post("/generated/{persona_id}/portrait")
+async def generate_portrait(persona_id: str):
+    """Generate a photorealistic portrait for a persona via fal.io flux/schnell."""
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
+
+    fal_key = os.environ.get("FAL_KEY", "")
+    if not fal_key:
+        raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
+
+    p = _GENERATED[persona_id]
+    da = p.demographic_anchor
+    gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
+    city = getattr(da.location, "city", "") if da.location else ""
+    country = getattr(da.location, "country", "") if da.location else ""
+
+    prompt = (
+        f"Photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}. "
+        "Natural soft indoor lighting, looking slightly past camera, confident relaxed expression. "
+        "High-resolution, sharp face detail, neutral background, documentary photography style. "
+        "Not illustrated, not AI-looking, no text."
+    )
+
+    try:
+        async with httpx.AsyncClient(timeout=60) as client:
+            resp = await client.post(
+                "https://fal.run/fal-ai/flux/schnell",
+                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
+                json={"prompt": prompt, "image_size": "portrait_4_3",
+                      "num_inference_steps": 4, "num_images": 1},
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise HTTPException(status_code=502, detail=f"fal.io error: {exc.response.text}")
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
+
+    images = data.get("images", [])
+    if not images:
+        raise HTTPException(status_code=500, detail="fal.io returned no images")
+
+    return {"url": images[0]["url"], "persona_id": persona_id, "prompt": prompt}
