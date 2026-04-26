@@ -68,9 +68,17 @@ _ICP_DESCRIPTIONS: dict[str, str] = {
 _PERSONAS: dict[str, PersonaRecord] = {}
 
 # ── generated persona cache + disk persistence ────────────────────────────
+#
+# Storage root resolution:
+#   1. MIND_DATA_DIR env var if set (Railway: /app/pilots/the-mind/data, mounted volume)
+#   2. Falls back to repo-local pilots/the-mind/ for dev (so UAT keeps working)
+#
+# This makes user-generated personas + probes survive Railway redeploys.
+_DATA_ROOT = Path(os.environ.get("MIND_DATA_DIR", str(_HERE.parent))).resolve()
+_DATA_ROOT.mkdir(parents=True, exist_ok=True)
 
 _GENERATED: dict[str, dict] = {}
-_GENERATED_DIR = _HERE.parent / "generated_personas"
+_GENERATED_DIR = _DATA_ROOT / "generated_personas"
 
 _EXEMPLAR_PORTRAITS: dict[str, str] = {}   # slug → fal.io URL (exemplar personas)
 _GENERATED_PORTRAITS: dict[str, str] = {}  # persona_id → fal.io URL (generated personas)
@@ -1219,7 +1227,7 @@ class ProbeResult(BaseModel):
 
 # ── Probe directories ─────────────────────────────────────────────────────
 
-_PROBES_DIR = _HERE.parent / "probes"
+_PROBES_DIR = _DATA_ROOT / "probes"
 
 
 # ── Category memory generation ────────────────────────────────────────────
