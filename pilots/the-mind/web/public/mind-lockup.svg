@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" width="240" height="80" fill="none">
+  <!-- Background: transparent (void handled by parent) -->
+
+  <!-- Symbol group, centred vertically at y=40 in 80px height, 32×32 mark in ~80px left zone -->
+  <g transform="translate(24, 24)">
+    <!-- Outer arc: radius 12, 240° opening right -->
+    <path d="M 10,26.392 A 12,12 0 1 0 10,5.608" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Inner arc: radius 7, 240° opening right -->
+    <path d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Signal synapse dot -->
+    <circle cx="16" cy="16" r="3" fill="#A8FF3E"/>
+  </g>
+
+  <!-- Wordmark group, right of symbol -->
+  <!-- "Mind" — Barlow Condensed 800, large -->
+  <text
+    x="76"
+    y="48"
+    font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif"
+    font-weight="800"
+    font-size="34"
+    fill="#E9E6DF"
+    letter-spacing="-0.01em"
+    dominant-baseline="auto"
+  >Mind</text>
+
+  <!-- "by Simulatte" — small, letterspaced, parchment 72% -->
+  <text
+    x="77"
+    y="64"
+    font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif"
+    font-weight="600"
+    font-size="9"
+    fill="rgba(233,230,223,0.72)"
+    letter-spacing="0.16em"
+    text-transform="uppercase"
+    dominant-baseline="auto"
+  >BY SIMULATTE</text>
+</svg>

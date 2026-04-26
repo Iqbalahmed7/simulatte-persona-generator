@@ -1,55 +1,603 @@
-import { fetchPersonas, PersonaCard } from "@/lib/api";
-import PersonaGrid from "@/components/PersonaGrid";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { fetchPersonas, PersonaCard } from "@/lib/api";
+import PersonaDrawer from "@/components/PersonaDrawer";
 
-export default async function Home() {
-  let personas: PersonaCard[] = [];
-  let error = "";
+// ─── Mind mark inline SVG ────────────────────────────────────────────────────
+function MindMark({ size = 32, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path d="M 10,26.392 A 12,12 0 1 0 10,5.608" stroke="#E9E6DF" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938" stroke="#E9E6DF" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="16" cy="16" r="3" fill="#A8FF3E" />
+    </svg>
+  );
+}
 
-  try {
-    personas = await fetchPersonas();
-  } catch {
-    error = "API offline — start the backend with: PYTHONPATH=. uvicorn pilots.the_mind_api:app --port 8001";
+// ─── Pulsing mind mark for hero decoration ───────────────────────────────────
+function PulsingMindMark() {
+  return (
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M 10,26.392 A 12,12 0 1 0 10,5.608"
+        stroke="rgba(233,230,223,0.20)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        style={{ animation: "arcPulseOuter 3.6s ease-in-out infinite" }}
+      />
+      <path
+        d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938"
+        stroke="rgba(233,230,223,0.35)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        style={{ animation: "arcPulseInner 3.6s ease-in-out 0.6s infinite" }}
+      />
+      <circle
+        cx="16"
+        cy="16"
+        r="3"
+        fill="#A8FF3E"
+        style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
+      />
+    </svg>
+  );
+}
+
+// ─── Exemplar strip — client side so drawer state works ─────────────────────
+function ExemplarStrip({ personas }: { personas: PersonaCard[] }) {
+  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeCard, setActiveCard] = useState<PersonaCard | null>(null);
+
+  function open(p: PersonaCard) {
+    setActiveCard(p);
+    setActiveSlug(p.slug);
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="mb-12">
-        <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mb-3">
-          Simulatte / The Mind
-        </p>
-        <h1 className="font-condensed font-bold text-parchment leading-none mb-4" style={{ fontSize: "clamp(40px,6vw,72px)" }}>
-          Simulate <span className="text-signal">reality.</span>
-        </h1>
-        <p className="text-parchment/75 text-lg max-w-xl">
-          Five synthetic personas. Each one thinks, decides, and reacts like a real person.
-          200+ attributes. Full decision psychology. Ask them anything.
-        </p>
-        <div className="mt-6">
-          <Link
-            href="/generate"
-            className="inline-block px-6 py-3 bg-signal text-void font-condensed font-bold text-base
-                       tracking-wide hover:bg-parchment transition-colors"
+    <>
+      <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+        {personas.map((p) => (
+          <button
+            key={p.slug}
+            onClick={() => open(p)}
+            className="snap-start flex-shrink-0 w-48 border border-parchment/10 bg-void p-4 text-left hover:border-parchment/30 transition-colors"
           >
-            Generate a new persona →
-          </Link>
+            {p.portrait_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={p.portrait_url}
+                alt={p.name}
+                className="w-full aspect-square object-cover mb-3"
+                style={{ filter: "grayscale(0.15)" }}
+              />
+            ) : (
+              <div className="w-full aspect-square bg-parchment/5 mb-3 flex items-center justify-center">
+                <MindMark size={24} />
+              </div>
+            )}
+            <div className="font-condensed font-bold text-parchment text-base leading-tight mb-1">{p.name}</div>
+            <div className="font-sans text-[11px] text-static leading-snug">{p.age} · {p.city}</div>
+            <div className="mt-2 font-sans text-[11px] text-parchment/72 leading-snug line-clamp-2">{p.description}</div>
+          </button>
+        ))}
+      </div>
+
+      <PersonaDrawer
+        slug={activeSlug}
+        initialCard={activeCard}
+        onClose={() => { setActiveSlug(null); setActiveCard(null); }}
+      />
+    </>
+  );
+}
+
+// ─── Litmus demo mock ────────────────────────────────────────────────────────
+function LitmusDemo() {
+  const questions = [
+    { label: "Purchase Intent", value: "7.2 / 10", note: "Would consider buying at the right moment." },
+    { label: "First Impression", value: "Curious, lean", note: "Clean aesthetic reads as premium without trying." },
+    { label: "Claim Believability", value: "8.1 / 10", note: "\"High-protein, natural\" claims land well." },
+    { label: "Top Objection", value: "Price anchor", note: "₹120/bar feels steep vs. a full meal." },
+  ];
+
+  const [revealed, setRevealed] = useState(0);
+
+  useEffect(() => {
+    if (revealed >= questions.length) return;
+    const t = setTimeout(() => setRevealed((r) => r + 1), 900);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [revealed]);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-parchment/10">
+      {/* Brief side */}
+      <div className="border-b md:border-b-0 md:border-r border-parchment/10 p-6 md:p-8">
+        <div className="font-sans text-[11px] font-semibold tracking-widest uppercase text-signal mb-4">Product brief</div>
+        <div className="font-condensed font-bold text-parchment text-xl mb-3">HelloDay Energy Bar</div>
+        <div className="font-sans text-[13px] text-parchment/80 leading-relaxed mb-4">
+          A 200-calorie natural energy bar targeting urban professionals aged 25–35.
+          High-protein (12g), no refined sugar. Positioned as the mid-morning alternative
+          to a second coffee.
+        </div>
+        <div className="space-y-2">
+          {["High-protein, naturally sweetened", "Clean-label, 6 ingredients", "₹120 per bar"].map((claim) => (
+            <div key={claim} className="flex items-center gap-2">
+              <div className="w-1 h-1 bg-signal flex-shrink-0" />
+              <span className="font-sans text-[12px] text-parchment/72">{claim}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 pt-4 border-t border-parchment/10">
+          <div className="font-mono text-[10px] text-static tracking-widest uppercase">Tested on: Arun, 29, Bangalore</div>
         </div>
       </div>
 
-      {error && (
-        <div className="border border-parchment/15 p-4 mb-8">
-          <p className="font-mono text-sm text-static">{error}</p>
+      {/* Results side */}
+      <div className="p-6 md:p-8">
+        <div className="flex items-center justify-between mb-4">
+          <div className="font-sans text-[11px] font-semibold tracking-widest uppercase text-signal">Probe results</div>
+          <div className="font-mono text-[9px] text-static tracking-widest uppercase border border-parchment/10 px-2 py-1">preview</div>
         </div>
-      )}
-
-      {personas.length > 0 && <PersonaGrid personas={personas} />}
-
-      {/* Footer */}
-      <div className="mt-16 pt-6 border-t border-parchment/10 flex items-center justify-between">
-        <span className="font-mono text-[10px] text-static">exemplar_set_v1_2026_04</span>
-        <span className="font-mono text-[10px] text-static">mind.simulatte.io</span>
+        <div className="space-y-3">
+          {questions.map((q, i) => (
+            <div
+              key={q.label}
+              className="border border-parchment/10 p-3 transition-all"
+              style={{
+                opacity: i < revealed ? 1 : 0,
+                transform: i < revealed ? "translateY(0)" : "translateY(6px)",
+                transition: "opacity 0.4s ease, transform 0.4s ease",
+              }}
+            >
+              <div className="flex items-start justify-between gap-2 mb-1">
+                <span className="font-sans text-[11px] font-semibold text-static tracking-wide uppercase">{q.label}</span>
+                <span className="font-condensed font-bold text-signal text-sm flex-shrink-0">{q.value}</span>
+              </div>
+              <p className="font-sans text-[12px] text-parchment/72 leading-snug">{q.note}</p>
+            </div>
+          ))}
+        </div>
+        {revealed >= questions.length && (
+          <div className="mt-4 pt-4 border-t border-parchment/10 flex items-center gap-2">
+            <div className="w-2 h-2 bg-signal" style={{ animation: "dotPulse 2.2s ease-in-out infinite" }} />
+            <span className="font-mono text-[10px] text-signal tracking-widest uppercase">8 questions · ~20s</span>
+          </div>
+        )}
       </div>
-    </main>
+    </div>
+  );
+}
+
+// ─── How it works step ───────────────────────────────────────────────────────
+function Step({ n, title, body, diagram }: { n: string; title: string; body: string; diagram: React.ReactNode }) {
+  return (
+    <div className="border border-parchment/10 p-6 md:p-8">
+      <div className="font-mono text-[11px] text-static tracking-widest uppercase mb-4">{n}</div>
+      <div className="mb-4">{diagram}</div>
+      <h3 className="font-condensed font-bold text-parchment text-xl leading-tight mb-2">{title}</h3>
+      <p className="font-sans text-[14px] text-parchment/80 leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+// ─── Genuineness component row ───────────────────────────────────────────────
+function GenuinenessRow({ label, value, note }: { label: string; value: number; note: string }) {
+  const pct = Math.round(value * 100);
+  return (
+    <div className="border border-parchment/10 p-5">
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-sans text-[13px] font-semibold text-parchment">{label}</span>
+        <span className="font-condensed font-bold text-signal text-base">{pct}%</span>
+      </div>
+      <div className="h-px bg-parchment/10 mb-3">
+        <div className="h-px bg-signal" style={{ width: `${pct}%` }} />
+      </div>
+      <p className="font-sans text-[12px] text-parchment/72 leading-snug">{note}</p>
+    </div>
+  );
+}
+
+// ─── Main page ───────────────────────────────────────────────────────────────
+export default function HomePage() {
+  const [personas, setPersonas] = useState<PersonaCard[]>([]);
+
+  useEffect(() => {
+    fetchPersonas()
+      .then(setPersonas)
+      .catch(() => {/* silent on error */});
+  }, []);
+
+  return (
+    <>
+      {/* ── Keyframe animations ── */}
+      <style>{`
+        @keyframes dotPulse {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.3; transform: scale(0.85); }
+        }
+        @keyframes arcPulseOuter {
+          0%, 100% { opacity: 0.20; }
+          50% { opacity: 0.55; }
+        }
+        @keyframes arcPulseInner {
+          0%, 100% { opacity: 0.35; }
+          50% { opacity: 0.75; }
+        }
+      `}</style>
+
+      <main className="bg-void text-parchment">
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 1 — HERO
+        ══════════════════════════════════════════════════════ */}
+        <section
+          className="relative min-h-screen flex flex-col justify-end px-6 md:px-14 pb-16 pt-24 overflow-hidden"
+          style={{ maxWidth: "none" }}
+        >
+          {/* Grid background */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(233,230,223,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(233,230,223,0.022) 1px, transparent 1px)",
+              backgroundSize: "72px 72px",
+              maskImage: "radial-gradient(ellipse 80% 100% at 10% 100%, black 40%, transparent 100%)",
+            }}
+          />
+
+          {/* Pulsing mark — bottom right decoration */}
+          <div
+            aria-hidden="true"
+            className="absolute bottom-12 right-12 md:bottom-16 md:right-16 opacity-60"
+          >
+            <PulsingMindMark />
+          </div>
+
+          <div className="relative z-10 max-w-5xl">
+            {/* Lockup */}
+            <div className="flex items-center gap-3 mb-10">
+              <MindMark size={28} />
+              <span className="font-condensed font-bold text-parchment text-base tracking-wide">Mind</span>
+              <span className="font-sans text-[11px] text-static tracking-widest uppercase">by Simulatte</span>
+            </div>
+
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-5">
+              <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">Synthetic cognition</span>
+              <span className="w-6 h-px bg-signal/30" />
+            </div>
+
+            {/* Hero heading */}
+            <h1
+              className="font-condensed font-extrabold text-parchment mb-6"
+              style={{
+                fontSize: "clamp(48px, 6.5vw, 84px)",
+                lineHeight: 0.96,
+                letterSpacing: "-0.008em",
+              }}
+            >
+              Talk to a person who<br />
+              <span className="text-signal">doesn&apos;t exist.</span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="font-sans text-base text-parchment/80 leading-relaxed max-w-xl mb-10" style={{ lineHeight: 1.78 }}>
+              The Mind generates a behaviourally coherent synthetic person from a brief paragraph,
+              then lets you simulate any decision they&apos;d make.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/generate"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-signal text-signal hover:bg-signal/10 transition-colors"
+              >
+                Try it free →
+              </Link>
+              <a
+                href="#exemplars"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-parchment/20 text-parchment/72 hover:border-parchment/40 hover:text-parchment transition-colors"
+              >
+                See exemplar personas
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 2 — LIVE EXEMPLARS
+        ══════════════════════════════════════════════════════ */}
+        <section id="exemplars" className="px-6 md:px-14 py-20 max-w-screen-xl mx-auto">
+          {/* Divider */}
+          <div className="h-px bg-parchment/8 mb-16" />
+
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">Live personas</span>
+            <span className="w-6 h-px bg-signal/30" />
+          </div>
+          <h2
+            className="font-condensed font-extrabold text-parchment mb-3"
+            style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.0, letterSpacing: "-0.01em" }}
+          >
+            Five people we&apos;ve already built.
+          </h2>
+          <p className="font-sans text-base text-parchment/80 mb-10 max-w-xl" style={{ lineHeight: 1.78 }}>
+            Each has 200+ attributes, a decision psychology, life stories, and an opinion on your product.
+            Click any card to talk to them.
+          </p>
+
+          {personas.length > 0 ? (
+            <ExemplarStrip personas={personas} />
+          ) : (
+            <div className="border border-parchment/10 p-6">
+              <p className="font-mono text-[11px] text-static tracking-widest uppercase">Loading personas…</p>
+            </div>
+          )}
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 3 — LITMUS PROBE DEMO
+        ══════════════════════════════════════════════════════ */}
+        <section className="px-6 md:px-14 py-20 max-w-screen-xl mx-auto">
+          <div className="h-px bg-parchment/8 mb-16" />
+
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">Litmus probe</span>
+            <span className="w-6 h-px bg-signal/30" />
+          </div>
+          <h2
+            className="font-condensed font-extrabold text-parchment mb-3"
+            style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.0, letterSpacing: "-0.01em" }}
+          >
+            Test any product against any{" "}
+            <span className="text-signal">person,</span>
+            <br />in 30 seconds.
+          </h2>
+          <p className="font-sans text-base text-parchment/80 mb-10 max-w-xl" style={{ lineHeight: 1.78 }}>
+            Drop in a product brief. The probe runs 8 structured questions in parallel —
+            purchase intent, objections, price willingness, word-of-mouth likelihood.
+          </p>
+
+          <LitmusDemo />
+
+          <div className="mt-8">
+            <Link
+              href="/generate"
+              className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-signal text-signal hover:bg-signal/10 transition-colors"
+            >
+              Run your own probe →
+            </Link>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 4 — HOW IT WORKS
+        ══════════════════════════════════════════════════════ */}
+        <section className="px-6 md:px-14 py-20 max-w-screen-xl mx-auto">
+          <div className="h-px bg-parchment/8 mb-16" />
+
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">How it works</span>
+            <span className="w-6 h-px bg-signal/30" />
+          </div>
+          <h2
+            className="font-condensed font-extrabold text-parchment mb-10"
+            style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.0, letterSpacing: "-0.01em" }}
+          >
+            Three steps from brief to verdict.
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Step
+              n="01"
+              title="Describe the person"
+              body="Write a paragraph. Age, city, job, what keeps them up at night. That&apos;s enough to anchor a full psychology."
+              diagram={
+                <div className="border border-parchment/10 p-3 bg-parchment/[0.02]">
+                  <div className="font-mono text-[10px] text-static mb-2 tracking-widest uppercase">persona brief</div>
+                  <div className="space-y-1">
+                    {["Arun, 29, Bangalore", "Software engineer at a Series B startup", "Spends ₹3–4k/mo on fitness"].map((l) => (
+                      <div key={l} className="h-2 bg-parchment/10" style={{ width: l.length * 5 + "px", maxWidth: "100%" }} />
+                    ))}
+                  </div>
+                </div>
+              }
+            />
+            <Step
+              n="02"
+              title="We anchor them in real data"
+              body="The engine grounds every attribute in census-derived population statistics. No hallucination — every value has a source."
+              diagram={
+                <div className="border border-parchment/10 p-3 bg-parchment/[0.02]">
+                  <div className="font-mono text-[10px] text-static mb-3 tracking-widest uppercase">demographic anchor</div>
+                  <div className="space-y-2">
+                    {[
+                      { label: "Income band", pct: 68 },
+                      { label: "Trust index", pct: 82 },
+                      { label: "Risk appetite", pct: 44 },
+                    ].map((row) => (
+                      <div key={row.label} className="flex items-center gap-2">
+                        <span className="font-sans text-[10px] text-static w-20 flex-shrink-0">{row.label}</span>
+                        <div className="flex-1 h-px bg-parchment/10">
+                          <div className="h-px bg-signal" style={{ width: `${row.pct}%` }} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              }
+            />
+            <Step
+              n="03"
+              title="Probe their decisions"
+              body="Run a Litmus probe or start a chat. Every response is consistent with who this person is — not a generic average."
+              diagram={
+                <div className="border border-parchment/10 p-3 bg-parchment/[0.02]">
+                  <div className="font-mono text-[10px] text-static mb-3 tracking-widest uppercase">litmus verdict</div>
+                  <div className="space-y-2">
+                    {[
+                      { label: "Purchase intent", value: "7.2" },
+                      { label: "WTP", value: "₹95" },
+                    ].map((row) => (
+                      <div key={row.label} className="flex items-center justify-between">
+                        <span className="font-sans text-[10px] text-static">{row.label}</span>
+                        <span className="font-condensed font-bold text-signal text-sm">{row.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              }
+            />
+          </div>
+
+          <div className="mt-10 border border-parchment/10 p-5">
+            <p className="font-sans text-[13px] text-parchment/72 leading-relaxed">
+              Built on the same engine that powers Simulatte&apos;s 5,000-agent population simulations.
+              Every persona shares the same grounding methodology — just focused on a single individual.
+            </p>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 5 — GENUINENESS TRUST STRIP
+        ══════════════════════════════════════════════════════ */}
+        <section className="px-6 md:px-14 py-20 max-w-screen-xl mx-auto">
+          <div className="h-px bg-parchment/8 mb-16" />
+
+          <div className="flex items-center gap-3 mb-4">
+            <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">Genuineness</span>
+            <span className="w-6 h-px bg-signal/30" />
+          </div>
+          <h2
+            className="font-condensed font-extrabold text-parchment mb-3"
+            style={{ fontSize: "clamp(36px, 5vw, 56px)", lineHeight: 1.0, letterSpacing: "-0.01em" }}
+          >
+            Every persona is graded.
+          </h2>
+          <p className="font-sans text-base text-parchment/80 mb-10 max-w-xl" style={{ lineHeight: 1.78 }}>
+            We compute a Genuineness score across four components on every generation.
+            We tell you when our confidence is low — so you know how much to trust the output.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <GenuinenessRow
+              label="Demographic grounding"
+              value={0.87}
+              note="Age, location, income, and life-stage anchored to verified population data."
+            />
+            <GenuinenessRow
+              label="Behavioural consistency"
+              value={0.81}
+              note="Decision style, trust orientation, and objections are internally coherent."
+            />
+            <GenuinenessRow
+              label="Narrative depth"
+              value={0.74}
+              note="Life stories and memories feel specific to this person, not generic archetypes."
+            />
+            <GenuinenessRow
+              label="Psychological completeness"
+              value={0.79}
+              note="Core identity, key tensions, and coping mechanisms are all present and consistent."
+            />
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 6 — SOCIAL PROOF (hidden until populated)
+        ══════════════════════════════════════════════════════ */}
+        {/* Intentionally empty — will surface when shares table has entries */}
+
+        {/* ══════════════════════════════════════════════════════
+            SECTION 7 — CLOSING CTA
+        ══════════════════════════════════════════════════════ */}
+        <section
+          className="relative px-6 md:px-14 py-28 overflow-hidden"
+          style={{ background: "#050505", maxWidth: "none" }}
+        >
+          {/* Grid fade */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(233,230,223,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(233,230,223,0.018) 1px, transparent 1px)",
+              backgroundSize: "72px 72px",
+            }}
+          />
+
+          <div className="relative z-10 max-w-3xl mx-auto text-center">
+            <h2
+              className="font-condensed font-extrabold text-parchment mb-4"
+              style={{ fontSize: "clamp(40px, 5.5vw, 72px)", lineHeight: 0.96, letterSpacing: "-0.008em" }}
+            >
+              Stop guessing what your<br />customers think.
+            </h2>
+            <h2
+              className="font-condensed font-extrabold text-signal mb-10"
+              style={{ fontSize: "clamp(40px, 5.5vw, 72px)", lineHeight: 0.96, letterSpacing: "-0.008em" }}
+            >
+              Simulate them.
+            </h2>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+              <Link
+                href="/generate"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-8 py-4 border border-signal text-signal hover:bg-signal/10 transition-colors"
+              >
+                Try The Mind free →
+              </Link>
+            </div>
+
+            <p className="font-sans text-[14px] text-parchment/72" style={{ lineHeight: 1.78 }}>
+              Or{" "}
+              <a
+                href="https://calendly.com/iqbal-simulatte"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-parchment underline underline-offset-4 decoration-parchment/30 hover:decoration-parchment/70 transition-all"
+              >
+                book a call
+              </a>
+              {" "}to test against 5,000 personas.
+            </p>
+          </div>
+        </section>
+
+        {/* ── Footer ── */}
+        <footer className="border-t border-parchment/8 px-6 md:px-14 py-8">
+          <div className="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <MindMark size={20} />
+              <span className="font-mono text-[10px] text-static tracking-widest uppercase">
+                Simulatte / The Mind / Confidential
+              </span>
+            </div>
+            <span className="font-mono text-[10px] text-static tracking-widest uppercase">
+              mind.simulatte.io
+            </span>
+          </div>
+        </footer>
+
+      </main>
+    </>
   );
 }

@@ -3,8 +3,34 @@ import "./globals.css";
 import PersonaSidebar from "@/components/PersonaSidebar";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mind.simulatte.io"),
   title: "The Mind — Simulatte",
-  description: "Simulate how real people think, decide, and react.",
+  description: "Talk to a person who doesn't exist. The Mind generates a behaviourally coherent synthetic person from a brief paragraph, then lets you simulate any decision they'd make.",
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/apple-touch-icon.svg",
+  },
+  openGraph: {
+    title: "The Mind — Simulatte",
+    description: "Talk to a person who doesn't exist. Simulate how real people think, decide, and react.",
+    url: "https://mind.simulatte.io",
+    siteName: "The Mind",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "The Mind by Simulatte",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Mind — Simulatte",
+    description: "Talk to a person who doesn't exist. Simulate decisions.",
+    images: ["/og-image.svg"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

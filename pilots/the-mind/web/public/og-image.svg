@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" fill="none">
+  <!-- Void background -->
+  <rect width="1200" height="630" fill="#050505"/>
+
+  <!-- Subtle grid lines -->
+  <defs>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M 72 0 L 0 0 0 72" fill="none" stroke="rgba(233,230,223,0.022)" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="fade" cx="10%" cy="100%" r="80%">
+      <stop offset="40%" stop-color="black" stop-opacity="0"/>
+      <stop offset="100%" stop-color="black" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+
+  <!-- Mind mark centred, ~120px mark -->
+  <!-- Scale: 120/32 = 3.75, centred at 600, 240 -->
+  <g transform="translate(600,240) scale(3.75) translate(-16,-16)">
+    <path d="M 10,26.392 A 12,12 0 1 0 10,5.608" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="16" cy="16" r="3" fill="#A8FF3E"/>
+  </g>
+
+  <!-- "Mind" wordmark below mark -->
+  <text
+    x="600"
+    y="380"
+    font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif"
+    font-weight="800"
+    font-size="96"
+    fill="#E9E6DF"
+    letter-spacing="-0.01em"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >Mind</text>
+
+  <!-- "by Simulatte" subtext -->
+  <text
+    x="600"
+    y="430"
+    font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif"
+    font-weight="600"
+    font-size="18"
+    fill="rgba(233,230,223,0.72)"
+    letter-spacing="0.20em"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >BY SIMULATTE</text>
+
+  <!-- Tagline -->
+  <text
+    x="600"
+    y="510"
+    font-family="Barlow Condensed, Arial Narrow, Arial, sans-serif"
+    font-weight="400"
+    font-size="22"
+    fill="rgba(233,230,223,0.68)"
+    letter-spacing="0.04em"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >Talk to a person who doesn't exist.</text>
+
+  <!-- URL footer -->
+  <text
+    x="600"
+    y="590"
+    font-family="monospace"
+    font-weight="500"
+    font-size="14"
+    fill="rgba(233,230,223,0.40)"
+    letter-spacing="0.12em"
+    text-anchor="middle"
+    dominant-baseline="auto"
+  >mind.simulatte.io</text>
+</svg>

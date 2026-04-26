@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180" fill="none">
+  <!-- Void background -->
+  <rect width="180" height="180" fill="#050505"/>
+  <!-- Mark centred in 180×180, scaled up (32px mark → 100px) -->
+  <!-- Scale factor: ~3.1x, centred at 90,90 -->
+  <g transform="translate(90,90) scale(3.125) translate(-16,-16)">
+    <path d="M 10,26.392 A 12,12 0 1 0 10,5.608" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938" stroke="#E9E6DF" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="16" cy="16" r="3" fill="#A8FF3E"/>
+  </g>
+</svg>
