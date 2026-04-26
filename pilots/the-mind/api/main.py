@@ -41,10 +41,68 @@ from fastapi import Depends, FastAPI, HTTPException   # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware    # noqa: E402
 from fastapi.responses import StreamingResponse       # noqa: E402
 from pydantic import BaseModel                        # noqa: E402
-from sqlalchemy.ext.asyncio import AsyncSession       # noqa: E402
+# ── Auth + DB module load (fault-tolerant) ─────────────────────────────────
+# If anything in auth.py / db.py / sqlalchemy raises at import time (missing
+# env var, asyncpg unable to reach Postgres at startup, missing dep, etc.)
+# we MUST keep the API up. Auth-gated endpoints will degrade to HTTP 503 but
+# the rest of the API (exemplars, generation, probes without allowance) keeps
+# serving traffic. The error is logged loudly so we can fix it.
+import logging as _early_logging
+_early_logger = _early_logging.getLogger("auth_bootstrap")
 
-from auth import build_me_response, check_and_increment_allowance, get_current_user  # noqa: E402
-from db import User, get_db                           # noqa: E402
+AUTH_ENABLED = False
+AUTH_LOAD_ERROR: str | None = None
+
+try:
+    from sqlalchemy.ext.asyncio import AsyncSession       # noqa: E402
+    from auth import (                                     # noqa: E402
+        build_me_response,
+        check_and_increment_allowance,
+        get_current_user,
+    )
+    from db import User, get_db                            # noqa: E402
+    AUTH_ENABLED = True
+    _early_logger.info("[auth] auth+db modules loaded; auth gating ENABLED")
+except Exception as _auth_exc:
+    AUTH_LOAD_ERROR = f"{type(_auth_exc).__name__}: {_auth_exc}"
+    _early_logger.error(
+        "[auth] FAILED to load auth/db modules — running without auth. "
+        "Auth-gated endpoints will return HTTP 503. Reason: %s",
+        AUTH_LOAD_ERROR,
+        exc_info=True,
+    )
+
+    # Stub types and functions so the rest of main.py loads cleanly.
+    # FastAPI evaluates Depends(get_current_user) at REQUEST time, so as long
+    # as these names exist at import time the routes load fine.
+    class AsyncSession:                                    # type: ignore[no-redef]
+        pass
+
+    class User:                                            # type: ignore[no-redef]
+        id: str = ""
+        email: str = ""
+
+    async def get_db():                                    # type: ignore[no-redef]
+        raise HTTPException(503, detail={
+            "error": "auth_unavailable",
+            "reason": AUTH_LOAD_ERROR,
+        })
+
+    async def get_current_user(*args, **kwargs):           # type: ignore[no-redef]
+        raise HTTPException(503, detail={
+            "error": "auth_unavailable",
+            "reason": AUTH_LOAD_ERROR,
+        })
+
+    async def check_and_increment_allowance(*args, **kwargs):  # type: ignore[no-redef]
+        # No-op so endpoints don't crash if user somehow reaches them.
+        return None
+
+    async def build_me_response(*args, **kwargs):          # type: ignore[no-redef]
+        raise HTTPException(503, detail={
+            "error": "auth_unavailable",
+            "reason": AUTH_LOAD_ERROR,
+        })
 
 from src.cognition.decide import decide              # noqa: E402
 from src.cognition.respond import respond            # noqa: E402
