@@ -5,7 +5,7 @@ import asyncio
 
 import pytest
 
-from src.utils.rate_governor import RateGovernor, get_governor, reset_governor_for_tests
+from src.utils.rate_governor import GovernorTimeout, RateGovernor, get_governor, reset_governor_for_tests
 
 
 class TestAcquireBlocksWhenRpmAtTarget:
@@ -162,6 +162,35 @@ class TestConcurrentAcquireSerializes:
         state = governor.state()
         assert state.rpm_used == 100, "All 100 requests should be in window"
         assert state.tpm_used == 10000, "All 10000 tokens should be in window"
+
+
+class TestWaitBudgetSeconds:
+    """Test acquire() with wait_budget_seconds timeout parameter."""
+
+    @pytest.mark.asyncio
+    async def test_acquire_raises_timeout_when_budget_exceeded(self):
+        """Filling the bucket then calling acquire with a short budget raises GovernorTimeout."""
+        governor = RateGovernor(rpm_limit=100, tpm_limit=10000, target_pct=0.80)
+
+        # Fill to RPM threshold (80% of 100 = 80 requests)
+        for _ in range(80):
+            await governor.acquire(1)
+
+        # Next acquire should time out quickly
+        with pytest.raises(GovernorTimeout):
+            await governor.acquire(1, wait_budget_seconds=0.1)
+
+    @pytest.mark.asyncio
+    async def test_acquire_succeeds_within_budget(self):
+        """acquire() with wait_budget_seconds completes normally when budget is available."""
+        governor = RateGovernor(rpm_limit=100, tpm_limit=10000, target_pct=0.80)
+
+        # Should complete well within the budget — bucket is empty
+        await governor.acquire(100, wait_budget_seconds=2.0)
+
+        state = governor.state()
+        assert state.rpm_used == 1
+        assert state.tpm_used == 100
 
 
 class TestSingletonGovernor:

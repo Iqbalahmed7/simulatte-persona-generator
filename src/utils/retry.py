@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from typing import Any, Callable
 
 from src.utils.credit_monitor import (
@@ -11,18 +12,33 @@ from src.utils.credit_monitor import (
     note_api_call,
     request_halt,
 )
-from src.utils.rate_governor import get_governor
+from src.utils.rate_governor import GovernorTimeout, get_governor
 
 logger = logging.getLogger(__name__)
 
 _RETRYABLE_STATUS = {429, 529}
 _DEFAULT_DELAYS = (1.0, 2.0, 4.0)  # seconds between retries
 
+# Sentinel: read SIMULATTE_GOVERNOR_TIMEOUT_S env var as the default governor timeout.
+# calibrated_generator sets this env var before invoking PG so the governor
+# timeout propagates through the full call chain without threading the parameter.
+# Set to "0" or "" to disable (blocks indefinitely — original behavior).
+_ENV_GOVERNOR_TIMEOUT: float | None = None
+_raw = os.getenv("SIMULATTE_GOVERNOR_TIMEOUT_S", "600")
+if _raw:
+    try:
+        _v = float(_raw)
+        if _v > 0:
+            _ENV_GOVERNOR_TIMEOUT = _v
+    except ValueError:
+        pass
+
 
 async def api_call_with_retry(
     coro_fn: Callable,
     *args: Any,
     delays: tuple[float, ...] = _DEFAULT_DELAYS,
+    governor_timeout: float | None = _ENV_GOVERNOR_TIMEOUT,
     **kwargs: Any,
 ) -> Any:
     """Call an async API function with exponential backoff on 429/529 errors.
@@ -35,12 +51,16 @@ async def api_call_with_retry(
         coro_fn: Async callable (e.g. client.messages.create)
         *args: Positional args to pass to coro_fn
         delays: Sequence of wait times between retries (default: 1s, 2s, 4s)
+        governor_timeout: if provided, passed to RateGovernor.acquire() as
+            wait_budget_seconds. Raises GovernorTimeout if budget can't be
+            acquired in time. If None, blocks indefinitely (existing behavior).
         **kwargs: Keyword args to pass to coro_fn
 
     Returns:
         The result of coro_fn(*args, **kwargs)
 
     Raises:
+        GovernorTimeout: if governor_timeout is set and budget can't be acquired.
         The last exception if all retries are exhausted.
     """
     governor = get_governor()
@@ -51,8 +71,8 @@ async def api_call_with_retry(
         if delay > 0:
             await asyncio.sleep(delay)
         try:
-            # Acquire budget from rate governor
-            await governor.acquire(estimated_tokens)
+            # Acquire budget from rate governor (raises GovernorTimeout if timed out)
+            await governor.acquire(estimated_tokens, wait_budget_seconds=governor_timeout)
 
             note_api_call()
             response = await coro_fn(*args, **kwargs)
@@ -63,6 +83,8 @@ async def api_call_with_retry(
                 governor.record_response(actual_tokens)
 
             return response
+        except GovernorTimeout:
+            raise  # Not a response error — propagate immediately, no record_response
         except Exception as exc:
             last_exc = exc
             if is_credit_exhaustion_error(exc):
