@@ -19,8 +19,13 @@ from pathlib import Path
 _REPO_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(_REPO_ROOT))
 
+# Also put the api/ dir on sys.path so main.py can do `from auth import ...`
+# and `from db import ...` (siblings of main.py).
+_API_DIR = Path(__file__).parent / "the-mind" / "api"
+sys.path.insert(0, str(_API_DIR))
+
 # Load pilots/the-mind/api/main.py via importlib (bypasses hyphen)
-_main_path = Path(__file__).parent / "the-mind" / "api" / "main.py"
+_main_path = _API_DIR / "main.py"
 _spec = importlib.util.spec_from_file_location("the_mind_main", _main_path)
 _mod = importlib.util.module_from_spec(_spec)          # type: ignore[arg-type]
 _spec.loader.exec_module(_mod)                          # type: ignore[union-attr]
