@@ -1,31 +1,26 @@
 /**
- * auth.ts — Auth.js v5 configuration for The Mind.
+ * auth.ts — Auth.js v5 Node-runtime entry point.
  *
- * Providers:
- *   - Google OAuth (one-tap sign-in)
- *   - Resend magic link (email)
- *
- * Adapter: @auth/pg-adapter with the same Postgres instance the backend uses.
- * Session strategy: JWT so the token can be forwarded to the FastAPI backend.
+ * Imports Edge-safe config from auth.config.ts, then adds the pg adapter
+ * and the custom Resend magic-link email. This file must NEVER be imported
+ * from middleware.ts — Edge runtime cannot load pg (net/tls/crypto/dns).
  *
  * Required env vars (Vercel):
  *   NEXTAUTH_URL            https://mind.simulatte.io
- *   NEXTAUTH_SECRET         32+ char random string (share with Railway)
+ *   NEXTAUTH_SECRET         32+ char random string
  *   GOOGLE_CLIENT_ID        from Google Cloud Console
  *   GOOGLE_CLIENT_SECRET    from Google Cloud Console
  *   AUTH_RESEND_KEY         Resend API key
  *   EMAIL_FROM              noreply@mind.simulatte.io
- *   DATABASE_URL            postgresql://... (same as Railway)
+ *   DATABASE_URL            postgresql://...
  */
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "pg";
+import { authConfig } from "./auth.config";
 
 // ── Postgres pool ─────────────────────────────────────────────────────────
-// Uses the same DATABASE_URL as the Railway backend.
-// Pool is module-level so it's reused across requests in Vercel serverless.
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === "production"
@@ -89,14 +84,17 @@ function magicLinkHtml({ url }: { url: string }): string {
 </html>`;
 }
 
-// ── Auth.js config ────────────────────────────────────────────────────────
+// ── Auth.js config (Node runtime, with adapter + custom email) ────────────
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   adapter: PostgresAdapter(pool),
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
+    // Override Resend provider here to add custom sendVerificationRequest.
+    // Google stays as-is from authConfig.providers; we spread authConfig
+    // but replace providers entirely so we get both with the override.
+    ...(authConfig.providers as []).filter(
+      (p: { id?: string }) => p.id !== "resend"
+    ),
     Resend({
       apiKey: process.env.AUTH_RESEND_KEY!,
       from: process.env.EMAIL_FROM ?? "noreply@mind.simulatte.io",
@@ -113,31 +111,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  session: {
-    // JWT strategy: the token is forwarded to FastAPI via Authorization header
-    strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      // Persist user.id into the JWT as `sub` so FastAPI can look it up
-      if (user) {
-        token.sub = user.id;
-        token.email = user.email ?? token.email;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Expose user.id in the session so the frontend can read it
-      if (token.sub && session.user) {
-        (session.user as typeof session.user & { id: string }).id = token.sub;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: "/sign-in",
-    verifyRequest: "/sign-in?verify=1",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
 });
