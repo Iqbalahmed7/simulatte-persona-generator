@@ -33,3 +33,9 @@ benchmarks/
 
 # Random scratch docs
 "Random Docs"/
+
+# Runtime persona artifacts — never commit
+pilots/the-mind/generated_personas/*.json
+!pilots/the-mind/generated_personas/.gitkeep
+pilots/the-mind/probes/
+pilots/the-mind/og_cache/
