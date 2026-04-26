@@ -18,12 +18,25 @@ import anthropic
 
 from src.cognition.errors import PerceiveError
 from src.memory.cache import _GLOBAL_CACHE
+from src.schema.cognition_outputs import PerceiveOutput
 from src.schema.persona import Observation, PersonaRecord
 from src.utils.retry import api_call_with_retry
+from src.utils.structured import extract_tool_input, get_text_from_response
 
 logger = logging.getLogger(__name__)
 
 _HAIKU_MODEL = "claude-haiku-4-5-20251001"
+
+# ---------------------------------------------------------------------------
+# Tool-use definition (module-level singleton — constructed once, not per call)
+# ---------------------------------------------------------------------------
+
+_PERCEIVE_TOOL = {
+    "name": "emit_perception",
+    "description": "Emit a structured perception of the stimulus.",
+    "input_schema": PerceiveOutput.model_json_schema(),
+}
+_PERCEIVE_TOOL_CHOICE = {"type": "tool", "name": "emit_perception"}
 
 
 # ---------------------------------------------------------------------------
@@ -208,6 +221,7 @@ async def perceive(
             max_tokens=2048,
             model=_HAIKU_MODEL,
         )
+        parsed = _parse_perceive_response(raw_text)
     else:
         response = await api_call_with_retry(
             client.messages.create,
@@ -215,9 +229,15 @@ async def perceive(
             max_tokens=2048,
             system=system_blocks,
             messages=messages,
+            tools=[_PERCEIVE_TOOL],
+            tool_choice=_PERCEIVE_TOOL_CHOICE,
         )
-        raw_text = response.content[0].text
-    parsed = _parse_perceive_response(raw_text)
+        # Primary path: tool_use block → already a dict, no JSON parsing
+        parsed = extract_tool_input(response)
+        if parsed is None:
+            # Fallback: API returned text instead of tool_use (rare)
+            raw_text = get_text_from_response(response)
+            parsed = _parse_perceive_response(raw_text)
 
     if parsed is None:
         logger.warning("perceive(): JSON parse failed on attempt 1 — retrying with stricter prompt")
@@ -231,6 +251,7 @@ async def perceive(
                 max_tokens=2048,
                 model=_HAIKU_MODEL,
             )
+            parsed = _parse_perceive_response(raw_text)
         else:
             response = await api_call_with_retry(
                 client.messages.create,
@@ -238,9 +259,13 @@ async def perceive(
                 max_tokens=2048,
                 system=system_blocks,
                 messages=messages,
+                tools=[_PERCEIVE_TOOL],
+                tool_choice=_PERCEIVE_TOOL_CHOICE,
             )
-            raw_text = response.content[0].text
-        parsed = _parse_perceive_response(raw_text)
+            parsed = extract_tool_input(response)
+            if parsed is None:
+                raw_text = get_text_from_response(response)
+                parsed = _parse_perceive_response(raw_text)
 
         if parsed is None:
             raise PerceiveError(

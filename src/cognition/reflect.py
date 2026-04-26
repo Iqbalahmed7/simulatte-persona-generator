@@ -18,8 +18,10 @@ import anthropic
 
 from src.cognition.errors import ReflectError
 from src.memory.cache import _GLOBAL_CACHE
+from src.schema.cognition_outputs import ReflectOutput
 from src.schema.persona import Observation, PersonaRecord, Reflection
 from src.utils.retry import api_call_with_retry
+from src.utils.structured import extract_tool_input, get_text_from_response
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +30,17 @@ _HAIKU_MODEL = "claude-haiku-4-5-20251001"
 
 _MIN_OBSERVATIONS = 5
 _MAX_OBSERVATIONS = 20
+
+# ---------------------------------------------------------------------------
+# Tool-use definition (module-level singleton — constructed once, not per call)
+# ---------------------------------------------------------------------------
+
+_REFLECT_TOOL = {
+    "name": "emit_reflections",
+    "description": "Emit a list of structured reflections synthesised from recent observations.",
+    "input_schema": ReflectOutput.model_json_schema(),
+}
+_REFLECT_TOOL_CHOICE = {"type": "tool", "name": "emit_reflections"}
 
 
 # ---------------------------------------------------------------------------
@@ -257,21 +270,35 @@ async def reflect(
             max_tokens=1024,
             model=_model,
         )
+        parsed = _parse_reflect_response(raw_text)
     else:
         response = await api_call_with_retry(
             client.messages.create,
             model=_model,
-            max_tokens=1024,
+            max_tokens=2048,
             system=system_blocks,
             messages=messages,
+            tools=[_REFLECT_TOOL],
+            tool_choice=_REFLECT_TOOL_CHOICE,
         )
-        raw_text = response.content[0].text
-    parsed = _parse_reflect_response(raw_text)
+        # Primary path: tool_use block → extract items list
+        tool_input = extract_tool_input(response)
+        if tool_input is not None:
+            # Unwrap the wrapper: {"items": [...]} → list of dicts
+            parsed = tool_input.get("items")
+            if not isinstance(parsed, list):
+                logger.warning(
+                    "reflect(): tool_use block missing 'items' list — falling back to text parser"
+                )
+                parsed = None
+        else:
+            # Fallback: API returned text instead of tool_use (rare)
+            raw_text = get_text_from_response(response)
+            parsed = _parse_reflect_response(raw_text)
 
     if parsed is None:
         raise ReflectError(
-            f"reflect() failed to parse a valid JSON list from LLM response. "
-            f"Raw response: {raw_text!r}"
+            f"reflect() failed to parse a valid JSON list from LLM response."
         )
 
     reflections: list[Reflection] = []
