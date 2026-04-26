@@ -17,7 +17,8 @@ COPY pilots/the-mind/ ./pilots/the-mind/
 
 EXPOSE 8000
 
-# Run Alembic migrations on every boot, then start uvicorn.
-# Migrations are idempotent — alembic only applies new revisions.
-# If DATABASE_URL is unset (local dev without Postgres), skip migrations.
-CMD bash -c 'if [ -n "$DATABASE_URL" ]; then cd /app/pilots/the-mind/api && alembic upgrade head; fi && cd /app && uvicorn pilots.the_mind_api:app --host 0.0.0.0 --port ${PORT:-8000}'
+# Run Alembic migrations on boot (non-blocking).
+# - 30s timeout so a slow/unreachable Postgres can't keep the container hostage
+# - Failure does NOT block uvicorn — API boots regardless; we'll see the error in logs
+# - If DATABASE_URL is unset (local dev), skip migrations entirely
+CMD bash -c 'if [ -n "$DATABASE_URL" ]; then (cd /app/pilots/the-mind/api && timeout 30 alembic upgrade head 2>&1 || echo "[migrate] FAILED or TIMED OUT — continuing"); fi; cd /app && exec uvicorn pilots.the_mind_api:app --host 0.0.0.0 --port ${PORT:-8000}'
