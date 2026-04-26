@@ -1,7 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "cd pilots/the-mind/web && npm install && npm run build",
-  "outputDirectory": "pilots/the-mind/web/.next",
-  "installCommand": "echo 'install handled by buildCommand'",
-  "framework": "nextjs"
-}
