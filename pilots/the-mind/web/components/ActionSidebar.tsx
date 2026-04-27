@@ -35,39 +35,36 @@ export default function ActionSidebar({
 
   return (
     <>
-      {/* Desktop: sticky vertical column. Mobile: horizontal scroll strip. */}
-      <aside className="lg:sticky lg:top-6">
-        <p className="hidden lg:block text-[10px] font-mono text-static uppercase tracking-[0.18em] mb-4 px-1">
-          ACTIONS
-        </p>
-        <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0">
-          <ActionButton
-            label="Generate persona"
-            sub={personasLeft > 0 ? `${personasLeft} left this week` : "Resets Monday"}
-            disabled={personasLeft === 0}
-            href="/generate"
-            icon={<IconUserPlus />}
-          />
-          <ActionButton
-            label="Ask a question"
-            sub="Chat with a persona"
-            onClick={() => setPickerMode("chat")}
-            icon={<IconChat />}
-          />
-          <ActionButton
-            label="Run a probe"
-            sub="Test product against persona"
-            onClick={() => setPickerMode("probe")}
-            icon={<IconProbe />}
-          />
-          <ActionButton
-            label="Browse the wall"
-            sub="Community personas"
-            href="/community"
-            icon={<IconWall />}
-          />
-        </div>
-      </aside>
+      <p className="text-[10px] font-mono text-static uppercase tracking-[0.18em] mb-3">
+        ACTIONS
+      </p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <ActionButton
+          label="Generate persona"
+          sub={personasLeft > 0 ? `${personasLeft} left this week` : "Resets Monday"}
+          disabled={personasLeft === 0}
+          href="/generate"
+          icon={<IconUserPlus />}
+        />
+        <ActionButton
+          label="Ask a question"
+          sub="Chat with a persona"
+          onClick={() => setPickerMode("chat")}
+          icon={<IconChat />}
+        />
+        <ActionButton
+          label="Run a probe"
+          sub="Test product against persona"
+          onClick={() => setPickerMode("probe")}
+          icon={<IconProbe />}
+        />
+        <ActionButton
+          label="Browse the wall"
+          sub="Community personas"
+          href="/community"
+          icon={<IconWall />}
+        />
+      </div>
 
       {pickerMode && (
         <PersonaPicker
@@ -91,11 +88,11 @@ interface ActionButtonProps {
 
 function ActionButton(p: ActionButtonProps) {
   const cls =
-    "flex-shrink-0 lg:flex-shrink w-[220px] lg:w-full text-left border border-parchment/10 hover:border-signal/40 hover:bg-parchment/[0.02] transition-colors p-4 group " +
+    "block w-full text-left border border-parchment/10 hover:border-signal/40 hover:bg-parchment/[0.02] transition-colors p-4 group " +
     (p.disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : "");
   const inner = (
-    <div className="flex items-start gap-3">
-      <span className="text-parchment/60 group-hover:text-signal transition-colors flex-shrink-0 mt-0.5">
+    <div className="flex flex-col gap-3">
+      <span className="text-parchment/60 group-hover:text-signal transition-colors">
         {p.icon}
       </span>
       <div className="min-w-0">
