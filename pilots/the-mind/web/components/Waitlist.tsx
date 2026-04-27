@@ -10,8 +10,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { signOut } from "next-auth/react";
 import { API } from "@/lib/api";
+
+/** Sign out via Auth.js's CSRF-protected POST endpoint. We avoid
+ *  next-auth/react's signOut helper because it depends on
+ *  SessionProvider, which isn't wired in the root layout. */
+async function doSignOut() {
+  try {
+    const csrfRes = await fetch("/api/auth/csrf", { cache: "no-store" });
+    const { csrfToken } = await csrfRes.json();
+    const form = new FormData();
+    form.append("csrfToken", csrfToken);
+    form.append("callbackUrl", "/welcome");
+    await fetch("/api/auth/signout", { method: "POST", body: form });
+  } finally {
+    window.location.href = "/welcome";
+  }
+}
 
 interface ExistingRequest {
   exists: boolean;
@@ -123,7 +138,7 @@ export default function Waitlist({
             </span>
           </span>
           <button
-            onClick={() => signOut({ callbackUrl: "/welcome" })}
+            onClick={() => doSignOut()}
             className="text-[10px] font-mono text-parchment/60 hover:text-signal tracking-[0.18em] uppercase"
           >
             Sign out
@@ -131,32 +146,38 @@ export default function Waitlist({
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="max-w-2xl w-full text-center">
+      <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16">
+        <div className="w-full text-center" style={{ maxWidth: "560px" }}>
+          {/* Eyebrow + heading + subtitle — all centred */}
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-4">
             WAITLIST
           </p>
-          <h1 className="font-condensed font-black text-5xl leading-[0.96] mb-6 mx-auto" style={{ maxWidth: "16ch" }}>
+          <h1
+            className="font-condensed font-black leading-[0.96] mb-5 mx-auto"
+            style={{ fontSize: "clamp(34px, 6vw, 52px)", maxWidth: "14ch" }}
+          >
             {first ? `${first}, you're on the list.` : "You're on the list."}
           </h1>
-          <p className="text-parchment/72 text-lg leading-[1.78] mb-10 mx-auto" style={{ maxWidth: "560px" }}>
-            The Mind is in private launch. Two ways in: paste the invite
-            code a friend shared with you, or tell us what you&#x2019;d
-            like to test and we&#x2019;ll get back to you.
+          <p
+            className="text-parchment/72 leading-[1.78] mb-10 mx-auto"
+            style={{ fontSize: "16px", maxWidth: "440px" }}
+          >
+            The Mind is in private launch. Paste an invite code from a friend,
+            or tell us what you&#x2019;d like to test.
           </p>
 
-          {/* — Redeem code — */}
-          <div className="border border-parchment/10 p-6 mb-6">
-            <p className="text-[11px] font-mono text-signal uppercase tracking-[0.18em] mb-4">
+          {/* — Redeem code (compact card, content left-aligned within) — */}
+          <div className="border border-parchment/10 p-5 sm:p-6 mb-4 text-left">
+            <p className="text-[11px] font-mono text-signal uppercase tracking-[0.18em] mb-3 text-center">
               I HAVE AN INVITE CODE
             </p>
-            <form onSubmit={onRedeem} className="flex gap-3">
+            <form onSubmit={onRedeem} className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <input
                 type="text"
                 value={code}
                 onChange={(e) => setCode(e.target.value.toUpperCase())}
                 placeholder="INVITE CODE"
-                className="flex-1 bg-transparent border border-parchment/20 px-4 py-3 font-mono text-sm tracking-widest focus:border-signal focus:outline-none"
+                className="flex-1 bg-transparent border border-parchment/20 px-4 py-3 font-mono text-sm tracking-widest focus:border-signal focus:outline-none text-center sm:text-left"
                 autoComplete="off"
                 spellCheck={false}
               />
@@ -171,12 +192,12 @@ export default function Waitlist({
           </div>
 
           {/* — Request access — */}
-          <div className="border border-parchment/10 p-6">
-            <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-4">
+          <div className="border border-parchment/10 p-5 sm:p-6 text-left">
+            <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3 text-center">
               OR TELL US WHY YOU&#x2019;D LIKE ACCESS
             </p>
             {existing?.exists ? (
-              <div>
+              <div className="text-center">
                 <p className="text-parchment/80 mb-2">
                   We received your request
                   {existing.created_at
@@ -188,13 +209,13 @@ export default function Waitlist({
                   meantime, an invite link from a friend gets you in immediately.
                 </p>
                 {existing.reason && (
-                  <blockquote className="mt-4 pl-4 border-l-2 border-parchment/20 text-parchment/60 text-sm italic">
+                  <blockquote className="mt-4 pl-4 border-l-2 border-parchment/20 text-parchment/60 text-sm italic text-left">
                     {existing.reason}
                   </blockquote>
                 )}
               </div>
             ) : (
-              <form onSubmit={onRequest}>
+              <form onSubmit={onRequest} className="flex flex-col items-center gap-3">
                 <textarea
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
@@ -206,7 +227,7 @@ export default function Waitlist({
                 <button
                   type="submit"
                   disabled={busy}
-                  className="mt-3 border border-parchment/30 text-parchment font-condensed font-bold uppercase tracking-wider px-6 py-3 disabled:opacity-50 hover:bg-parchment/5"
+                  className="border border-parchment/30 text-parchment font-condensed font-bold uppercase tracking-wider px-6 py-3 disabled:opacity-50 hover:bg-parchment/5"
                 >
                   {busy ? "Sending…" : "Request access"}
                 </button>

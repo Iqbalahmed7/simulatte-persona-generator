@@ -8,7 +8,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
 
 function MindMark({ size = 26 }: { size?: number }) {
   return (
@@ -20,10 +19,30 @@ function MindMark({ size = 26 }: { size?: number }) {
   );
 }
 
-export default function TopNav({ isAdmin = false }: { isAdmin?: boolean }) {
-  const { data: session } = useSession();
+/** Sign out via Auth.js's CSRF-protected POST endpoint. We avoid the
+ *  next-auth/react `signOut` helper because it depends on SessionProvider,
+ *  which isn't wired in the root layout. */
+async function doSignOut() {
+  try {
+    const csrfRes = await fetch("/api/auth/csrf", { cache: "no-store" });
+    const { csrfToken } = await csrfRes.json();
+    const form = new FormData();
+    form.append("csrfToken", csrfToken);
+    form.append("callbackUrl", "/welcome");
+    await fetch("/api/auth/signout", { method: "POST", body: form });
+  } finally {
+    window.location.href = "/welcome";
+  }
+}
+
+export default function TopNav({
+  isAdmin = false,
+  email = "",
+}: {
+  isAdmin?: boolean;
+  email?: string;
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const email = session?.user?.email ?? "";
 
   const links = (
     <>
@@ -78,7 +97,7 @@ export default function TopNav({ isAdmin = false }: { isAdmin?: boolean }) {
             </span>
             <button
               type="button"
-              onClick={() => signOut({ callbackUrl: "/welcome" })}
+              onClick={() => doSignOut()}
               className="text-[10px] font-mono uppercase tracking-widest text-parchment/60 hover:text-signal"
             >
               Sign out
@@ -95,7 +114,7 @@ export default function TopNav({ isAdmin = false }: { isAdmin?: boolean }) {
             <p className="font-mono text-[11px] text-parchment/50 truncate mb-2">{email}</p>
             <button
               type="button"
-              onClick={() => signOut({ callbackUrl: "/welcome" })}
+              onClick={() => doSignOut()}
               className="text-[10px] font-mono uppercase tracking-widest text-parchment/60 hover:text-signal"
             >
               Sign out

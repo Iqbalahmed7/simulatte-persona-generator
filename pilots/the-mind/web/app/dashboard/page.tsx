@@ -41,7 +41,7 @@ export default async function DashboardPage() {
 
   return (
     <AccessGate>
-      <TopNav isAdmin={isAdmin} />
+      <TopNav isAdmin={isAdmin} email={user.email ?? ""} />
       <DashboardHome authToken={token} />
     </AccessGate>
   );
