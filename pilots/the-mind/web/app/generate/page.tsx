@@ -1,85 +1,34 @@
 "use client";
 
+/**
+ * /generate — Persona generation page.
+ *
+ * Two modes:
+ *   1. Wizard (default) — chip-only steps, max 1 line of optional typing.
+ *      Composes a coherent brief from selections; non-intrusive.
+ *   2. Free brief — original textarea + PDF upload (power users).
+ *
+ * Both routes call the same `generatePersona` SSE endpoint.
+ */
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
-
-const DOMAINS = [
-  { value: "cpg",            label: "Consumer Goods" },
-  { value: "saas",           label: "SaaS / Tech" },
-  { value: "health_wellness", label: "Health & Wellness" },
-];
-
-const PLACEHOLDERS = [
-  "A 44-year-old mother of three in suburban Chicago. Upper-middle income, works part-time as an occupational therapist. Health-conscious, reads labels, distrusts influencers.",
-  "Ravi, 29, software engineer in Bangalore. Single, rents with flatmates. Spends heavily on gadgets, eats out often, subscribes to 6 streaming platforms.",
-  "Margaret, 67, retired school principal in rural Devon. Fixed pension, grows her own vegetables, fiercely brand-loyal, skeptical of anything online.",
-];
-
-function toBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      resolve(result.split(",")[1]); // strip data: prefix
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
+import PersonaWizard from "@/components/PersonaWizard";
 
 export default function GeneratePage() {
   const router = useRouter();
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [brief, setBrief] = useState("");
-  const [domain, setDomain] = useState("cpg");
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [mode, setMode] = useState<"wizard" | "free">("wizard");
   const [running, setRunning] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [error, setError] = useState("");
-  const [dragging, setDragging] = useState(false);
 
-  const placeholder = PLACEHOLDERS[0];
-
-  function handleFileDrop(e: React.DragEvent) {
-    e.preventDefault();
-    setDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file?.type === "application/pdf") setPdfFile(file);
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (file?.type === "application/pdf") setPdfFile(file);
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!brief.trim() && !pdfFile) return;
+  async function runGeneration(form: ICPForm) {
     setRunning(true);
     setSteps([]);
     setError("");
 
-    let pdf_content: string | undefined;
-    if (pdfFile) {
-      try {
-        pdf_content = await toBase64(pdfFile);
-      } catch {
-        setError("Failed to read PDF");
-        setRunning(false);
-        return;
-      }
-    }
-
-    const form: ICPForm = { brief: brief.trim(), domain, pdf_content };
-
-    // Track whether we successfully navigated away (result received).
-    // The finally block uses this to avoid resetting running state after navigation.
     let navigated = false;
-
-    // Client-side safety net: if the stream ends without a result or error event
-    // (e.g. proxy drops the connection silently), stop the spinner after 3 minutes.
     const timeoutId = setTimeout(() => {
       if (!navigated) {
         setError("Generation timed out — the server took too long. Please try again.");
@@ -105,8 +54,6 @@ export default function GeneratePage() {
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       clearTimeout(timeoutId);
-      // Only reset running if we didn't navigate — avoids a brief flash back to
-      // the form while Next.js is mid-navigation after a successful generation.
       if (!navigated) setRunning(false);
     }
   }
@@ -126,113 +73,26 @@ export default function GeneratePage() {
           Simulate a <span className="text-signal">person.</span>
         </h1>
         <p className="text-parchment/60 text-base">
-          Describe who you want to simulate — in plain language.
-          The system will build a behaviourally coherent person with 200+ attributes and full decision psychology.
+          Pick a few traits — we&apos;ll build a behaviourally coherent person with 200+ attributes and full decision psychology.
         </p>
       </div>
 
       {!running ? (
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Natural language brief */}
-          <div>
-            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
-              Who do you want to simulate?
-            </label>
-            <p className="text-xs text-parchment/40 mb-3">
-              Be as specific or broad as you like — age, family, job, city, personality, values, habits.
-            </p>
-            <textarea
-              className="w-full bg-transparent border border-parchment/15 px-4 py-3 text-sm text-parchment
-                         placeholder-parchment/20 focus:outline-none focus:border-parchment/40 transition-colors resize-none"
-              rows={6}
-              placeholder={placeholder}
-              value={brief}
-              onChange={(e) => setBrief(e.target.value)}
+        <>
+          {mode === "wizard" ? (
+            <PersonaWizard
+              onSubmit={runGeneration}
+              onSwitchToFree={() => setMode("free")}
+              error={error}
             />
-          </div>
-
-          {/* PDF upload */}
-          <div>
-            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
-              Upload a brief <span className="text-parchment/30 normal-case font-normal">— optional</span>
-            </label>
-            <p className="text-xs text-parchment/40 mb-3">
-              Segmentation report, brand brief, or research document. We&apos;ll extract the persona requirements.
-            </p>
-            <div
-              onClick={() => fileRef.current?.click()}
-              onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
-              onDragLeave={() => setDragging(false)}
-              onDrop={handleFileDrop}
-              className={`border border-dashed px-6 py-8 text-center cursor-pointer transition-colors
-                ${dragging ? "border-parchment/40 bg-parchment/5" : "border-parchment/15 hover:border-parchment/30"}`}
-            >
-              {pdfFile ? (
-                <div className="flex items-center justify-center gap-3">
-                  <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
-                  <button
-                    type="button"
-                    onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
-                    className="text-[10px] font-mono text-static hover:text-parchment/50"
-                  >
-                    remove
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <p className="text-parchment/40 text-sm">Drop a PDF here, or click to browse</p>
-                  <p className="text-[11px] font-mono text-static mt-1">PDF only · max 10 MB</p>
-                </>
-              )}
-            </div>
-            <input
-              ref={fileRef}
-              type="file"
-              accept="application/pdf"
-              className="hidden"
-              onChange={handleFileChange}
+          ) : (
+            <FreeBriefForm
+              onSubmit={runGeneration}
+              onSwitchToWizard={() => setMode("wizard")}
+              error={error}
             />
-          </div>
-
-          {/* Domain */}
-          <div>
-            <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
-              Domain context <span className="text-parchment/30 normal-case font-normal">— optional</span>
-            </label>
-            <div className="flex gap-2 flex-wrap">
-              {DOMAINS.map((d) => (
-                <button
-                  key={d.value}
-                  type="button"
-                  onClick={() => setDomain(d.value)}
-                  className={
-                    "px-4 py-2 text-xs font-mono border transition-colors " +
-                    (domain === d.value
-                      ? "border-signal text-signal"
-                      : "border-parchment/15 text-static hover:border-parchment/30")
-                  }
-                >
-                  {d.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {error && (
-            <div className="border border-parchment/15 p-4">
-              <p className="font-mono text-xs text-static">{error}</p>
-            </div>
           )}
-
-          <button
-            type="submit"
-            disabled={!brief.trim() && !pdfFile}
-            className="w-full py-4 font-condensed font-bold text-void bg-signal text-lg tracking-wide
-                       disabled:opacity-30 disabled:cursor-not-allowed hover:bg-parchment transition-colors"
-          >
-            Simulate this person →
-          </button>
-        </form>
+        </>
       ) : (
         <div className="space-y-8">
           <div className="space-y-4">
@@ -269,7 +129,7 @@ export default function GeneratePage() {
 
           <div className="border-t border-parchment/10 pt-6">
             <p className="font-mono text-[10px] text-static">
-              Generation typically takes 45–90 seconds · powered by Simulatte's Mind — Deep Persona Generator
+              Generation typically takes 45–90 seconds · powered by Simulatte&apos;s Mind — Deep Persona Generator
             </p>
           </div>
         </div>
@@ -282,5 +142,184 @@ export default function GeneratePage() {
         }
       `}</style>
     </main>
+  );
+}
+
+/* ─────────────────── Free-brief fallback (original form) ─────────────────── */
+
+const DOMAINS = [
+  { value: "cpg", label: "Consumer Goods" },
+  { value: "saas", label: "SaaS / Tech" },
+  { value: "health_wellness", label: "Health & Wellness" },
+];
+
+const PLACEHOLDER =
+  "A 44-year-old mother of three in suburban Chicago. Upper-middle income, works part-time as an occupational therapist. Health-conscious, reads labels, distrusts influencers.";
+
+function toBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(",")[1]);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function FreeBriefForm({
+  onSubmit,
+  onSwitchToWizard,
+  error,
+}: {
+  onSubmit: (form: ICPForm) => void;
+  onSwitchToWizard: () => void;
+  error: string;
+}) {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [brief, setBrief] = useState("");
+  const [domain, setDomain] = useState("cpg");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  function handleFileDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file?.type === "application/pdf") setPdfFile(file);
+  }
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file?.type === "application/pdf") setPdfFile(file);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!brief.trim() && !pdfFile) return;
+    setSubmitting(true);
+    let pdf_content: string | undefined;
+    if (pdfFile) {
+      try {
+        pdf_content = await toBase64(pdfFile);
+      } catch {
+        setSubmitting(false);
+        return;
+      }
+    }
+    onSubmit({ brief: brief.trim(), domain, pdf_content });
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex items-center justify-between">
+        <p className="text-[11px] font-mono text-static uppercase tracking-widest">
+          Free brief
+        </p>
+        <button
+          type="button"
+          onClick={onSwitchToWizard}
+          className="text-[11px] font-mono text-parchment/50 hover:text-signal transition-colors"
+        >
+          ← Use the wizard
+        </button>
+      </div>
+
+      <div>
+        <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+          Who do you want to simulate?
+        </label>
+        <p className="text-xs text-parchment/40 mb-3">
+          Be as specific or broad as you like — age, family, job, city, personality, values, habits.
+        </p>
+        <textarea
+          className="w-full bg-transparent border border-parchment/15 px-4 py-3 text-sm text-parchment
+                     placeholder-parchment/20 focus:outline-none focus:border-parchment/40 transition-colors resize-none"
+          rows={6}
+          placeholder={PLACEHOLDER}
+          value={brief}
+          onChange={(e) => setBrief(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+          Upload a brief <span className="text-parchment/30 normal-case font-normal">— optional</span>
+        </label>
+        <div
+          onClick={() => fileRef.current?.click()}
+          onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+          onDragLeave={() => setDragging(false)}
+          onDrop={handleFileDrop}
+          className={`border border-dashed px-6 py-8 text-center cursor-pointer transition-colors
+            ${dragging ? "border-parchment/40 bg-parchment/5" : "border-parchment/15 hover:border-parchment/30"}`}
+        >
+          {pdfFile ? (
+            <div className="flex items-center justify-center gap-3">
+              <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
+                className="text-[10px] font-mono text-static hover:text-parchment/50"
+              >
+                remove
+              </button>
+            </div>
+          ) : (
+            <>
+              <p className="text-parchment/40 text-sm">Drop a PDF here, or click to browse</p>
+              <p className="text-[11px] font-mono text-static mt-1">PDF only · max 10 MB</p>
+            </>
+          )}
+        </div>
+        <input
+          ref={fileRef}
+          type="file"
+          accept="application/pdf"
+          className="hidden"
+          onChange={handleFileChange}
+        />
+      </div>
+
+      <div>
+        <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
+          Domain context
+        </label>
+        <div className="flex gap-2 flex-wrap">
+          {DOMAINS.map((d) => (
+            <button
+              key={d.value}
+              type="button"
+              onClick={() => setDomain(d.value)}
+              className={
+                "px-4 py-2 text-xs font-mono border transition-colors " +
+                (domain === d.value
+                  ? "border-signal text-signal"
+                  : "border-parchment/15 text-static hover:border-parchment/30")
+              }
+            >
+              {d.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {error && (
+        <div className="border border-parchment/15 p-4">
+          <p className="font-mono text-xs text-static">{error}</p>
+        </div>
+      )}
+
+      <button
+        type="submit"
+        disabled={(!brief.trim() && !pdfFile) || submitting}
+        className="w-full py-4 font-condensed font-bold text-void bg-signal text-lg tracking-wide
+                   disabled:opacity-30 disabled:cursor-not-allowed hover:bg-parchment transition-colors"
+      >
+        Simulate this person →
+      </button>
+    </form>
   );
 }
