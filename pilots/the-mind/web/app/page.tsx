@@ -6,6 +6,7 @@ import { fetchPersonas, PersonaCard } from "@/lib/api";
 import PersonaDrawer from "@/components/PersonaDrawer";
 import WallOfVoices from "@/components/WallOfVoices";
 import ProbeTicker from "@/components/ProbeTicker";
+import LivePersonaWall from "@/components/LivePersonaWall";
 
 // ─── Mind mark inline SVG ────────────────────────────────────────────────────
 function MindMark({ size = 32, className = "" }: { size?: number; className?: string }) {
@@ -21,42 +22,6 @@ function MindMark({ size = 32, className = "" }: { size?: number; className?: st
       <path d="M 10,26.392 A 12,12 0 1 0 10,5.608" stroke="#E9E6DF" strokeWidth="1.5" strokeLinecap="round" />
       <path d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938" stroke="#E9E6DF" strokeWidth="1.5" strokeLinecap="round" />
       <circle cx="16" cy="16" r="3" fill="#A8FF3E" />
-    </svg>
-  );
-}
-
-// ─── Pulsing mind mark for hero decoration ───────────────────────────────────
-function PulsingMindMark() {
-  return (
-    <svg
-      width="80"
-      height="80"
-      viewBox="0 0 32 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M 10,26.392 A 12,12 0 1 0 10,5.608"
-        stroke="rgba(233,230,223,0.20)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        style={{ animation: "arcPulseOuter 3.6s ease-in-out infinite" }}
-      />
-      <path
-        d="M 12.5,22.062 A 7,7 0 1 0 12.5,9.938"
-        stroke="rgba(233,230,223,0.35)"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        style={{ animation: "arcPulseInner 3.6s ease-in-out 0.6s infinite" }}
-      />
-      <circle
-        cx="16"
-        cy="16"
-        r="3"
-        fill="#A8FF3E"
-        style={{ animation: "dotPulse 2.2s ease-in-out infinite" }}
-      />
     </svg>
   );
 }
@@ -234,92 +199,79 @@ export default function HomePage() {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.3; transform: scale(0.85); }
         }
-        @keyframes arcPulseOuter {
-          0%, 100% { opacity: 0.20; }
-          50% { opacity: 0.55; }
-        }
-        @keyframes arcPulseInner {
-          0%, 100% { opacity: 0.35; }
-          50% { opacity: 0.75; }
-        }
       `}</style>
 
       <main className="bg-void text-parchment">
 
         {/* ══════════════════════════════════════════════════════
-            SECTION 1 — HERO
+            SECTION 1 — HERO  (live persona wall + headline)
         ══════════════════════════════════════════════════════ */}
         <section
-          className="relative min-h-screen flex flex-col justify-end px-6 md:px-14 pb-16 pt-24 overflow-hidden"
+          className="relative min-h-screen flex flex-col justify-end overflow-hidden"
           style={{ maxWidth: "none" }}
         >
-          {/* Grid background */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(233,230,223,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(233,230,223,0.022) 1px, transparent 1px)",
-              backgroundSize: "72px 72px",
-              maskImage: "radial-gradient(ellipse 80% 100% at 10% 100%, black 40%, transparent 100%)",
-            }}
-          />
+          {/* Drifting persona wall, real portraits from /community/personas */}
+          <LivePersonaWall />
 
-          {/* Pulsing mark — bottom right decoration */}
-          <div
-            aria-hidden="true"
-            className="absolute bottom-12 right-12 md:bottom-16 md:right-16 opacity-60"
-          >
-            <PulsingMindMark />
-          </div>
+          {/* Foreground content */}
+          <div className="relative z-10 px-6 md:px-14 pt-24 pb-20">
+            <div className="max-w-5xl">
+              {/* Lockup */}
+              <div className="flex items-center gap-3 mb-10">
+                <MindMark size={28} />
+                <span className="font-condensed font-bold text-parchment text-base tracking-wide">Mind</span>
+                <span className="font-sans text-[11px] text-static tracking-widest uppercase">by Simulatte</span>
+              </div>
 
-          <div className="relative z-10 max-w-5xl">
-            {/* Lockup */}
-            <div className="flex items-center gap-3 mb-10">
-              <MindMark size={28} />
-              <span className="font-condensed font-bold text-parchment text-base tracking-wide">Mind</span>
-              <span className="font-sans text-[11px] text-static tracking-widest uppercase">by Simulatte</span>
-            </div>
+              {/* Eyebrow */}
+              <div className="flex items-center gap-3 mb-5">
+                <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-static">
+                  Decision infrastructure
+                </span>
+                <span className="w-6 h-px bg-parchment/20" />
+              </div>
 
-            {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-5">
-              <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-signal">Synthetic cognition</span>
-              <span className="w-6 h-px bg-signal/30" />
-            </div>
-
-            {/* Hero heading */}
-            <h1
-              className="font-condensed font-extrabold text-parchment mb-6"
-              style={{
-                fontSize: "clamp(48px, 6.5vw, 84px)",
-                lineHeight: 0.96,
-                letterSpacing: "-0.008em",
-              }}
-            >
-              Talk to a person who<br />
-              <span className="text-signal">doesn&apos;t exist.</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="font-sans text-base text-parchment/80 leading-relaxed max-w-xl mb-10" style={{ lineHeight: 1.78 }}>
-              The Mind generates a behaviourally coherent synthetic person from a brief paragraph,
-              then lets you simulate any decision they&apos;d make.
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/generate"
-                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-signal text-signal hover:bg-signal/10 transition-colors"
+              {/* Hero heading — split lettering, single green word */}
+              <h1
+                className="font-condensed font-extrabold text-parchment mb-6"
+                style={{
+                  fontSize: "clamp(48px, 6.5vw, 92px)",
+                  lineHeight: 0.96,
+                  letterSpacing: "-0.008em",
+                  textShadow: "0 2px 24px rgba(5,5,5,0.85)",
+                }}
               >
-                Try it free →
-              </Link>
-              <a
-                href="#exemplars"
-                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-parchment/20 text-parchment/72 hover:border-parchment/40 hover:text-parchment transition-colors"
+                Before you ship it,<br />
+                <span className="text-signal">talk</span>{" "}to the person<br />
+                you built it for.
+              </h1>
+
+              {/* Subtitle */}
+              <p
+                className="font-sans text-parchment/88 leading-relaxed max-w-xl mb-10"
+                style={{ fontSize: "16px", lineHeight: 1.78, textShadow: "0 1px 16px rgba(5,5,5,0.85)" }}
               >
-                See exemplar personas
-              </a>
+                The Mind generates a behaviourally coherent human from a paragraph —
+                anchored in real population data, not a generic average. Every face
+                drifting behind this text is a real person someone built this week.
+                Click any of them.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/generate"
+                  className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 bg-signal text-void hover:opacity-90 transition-opacity"
+                >
+                  Build a person →
+                </Link>
+                <Link
+                  href="/community"
+                  className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-parchment/30 text-parchment hover:border-parchment hover:bg-parchment/5 transition-colors backdrop-blur-sm"
+                >
+                  Browse the wall
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -558,38 +510,42 @@ export default function HomePage() {
 
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             <h2
-              className="font-condensed font-extrabold text-parchment mb-4"
+              className="font-condensed font-extrabold text-parchment mb-10"
               style={{ fontSize: "clamp(40px, 5.5vw, 72px)", lineHeight: 0.96, letterSpacing: "-0.008em" }}
             >
-              Stop guessing what your<br />customers think.
+              The cheapest user research<br />
+              you&apos;ll ever <span className="text-signal">run</span>.
             </h2>
-            <h2
-              className="font-condensed font-extrabold text-signal mb-10"
-              style={{ fontSize: "clamp(40px, 5.5vw, 72px)", lineHeight: 0.96, letterSpacing: "-0.008em" }}
+
+            <p
+              className="font-sans text-parchment/80 mb-10 max-w-xl mx-auto"
+              style={{ fontSize: "16px", lineHeight: 1.78 }}
             >
-              Simulate them.
-            </h2>
+              One paragraph in. A coherent human out. Probe their decisions, surface
+              their objections, find out what they&apos;d say to a friend — in seconds,
+              not weeks.
+            </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
               <Link
                 href="/generate"
-                className="font-mono text-[11px] font-medium tracking-widest uppercase px-8 py-4 border border-signal text-signal hover:bg-signal/10 transition-colors"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-8 py-4 bg-signal text-void hover:opacity-90 transition-opacity"
               >
-                Try The Mind free →
+                Build your first person →
               </Link>
             </div>
 
             <p className="font-sans text-[14px] text-parchment/72" style={{ lineHeight: 1.78 }}>
-              Or{" "}
+              Need to test against thousands?{" "}
               <a
                 href="https://calendly.com/iqbal-simulatte"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-parchment underline underline-offset-4 decoration-parchment/30 hover:decoration-parchment/70 transition-all"
               >
-                book a call
-              </a>
-              {" "}to test against 5,000 personas.
+                Book a call
+              </a>{" "}
+              about Simulatte&apos;s 5,000-agent population engine.
             </p>
           </div>
         </section>
