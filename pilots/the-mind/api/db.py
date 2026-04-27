@@ -212,6 +212,37 @@ class Allowance(Base):
     )
 
 
+class InviteCode(Base):
+    """Invite-only access codes during private launch.
+
+    A single code can be shared across many people (e.g. EARLYACCESS) —
+    `used_count` increments every time someone redeems it. `max_uses`
+    is optional; null means unlimited. `label` is admin-only metadata
+    ("Twitter post Apr 27", "Sarah from Pepsi") so we can see which
+    distribution channels are spreading.
+
+    Code itself is the primary key (URL-safe, ~10 chars). Created via
+    POST /admin/invites; validated via GET /invites/{code}/check.
+    """
+    __tablename__ = "invite_codes"
+
+    code = Column(String, primary_key=True, nullable=False)
+    label = Column(String, nullable=True)
+    max_uses = Column(Integer, nullable=True)  # null = unlimited
+    used_count = Column(Integer, nullable=False, default=0, server_default="0")
+    active = Column(Boolean, nullable=False, default=True, server_default="true")
+    created_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    created_by_email = Column(String, nullable=True)
+
+    __table_args__ = (
+        Index("ix_invite_codes_active", "active"),
+    )
+
+
 class EventType(str, enum.Enum):
     persona_generated = "persona_generated"
     probe_run = "probe_run"

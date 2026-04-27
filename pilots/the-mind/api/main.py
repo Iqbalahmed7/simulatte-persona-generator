@@ -60,7 +60,7 @@ try:
         check_and_increment_allowance,
         get_current_user,
     )
-    from db import User, Event, EventType, get_db          # noqa: E402
+    from db import User, Event, EventType, InviteCode, get_db  # noqa: E402
     AUTH_ENABLED = True
     _early_logger.info("[auth] auth+db modules loaded; auth gating ENABLED")
 except Exception as _auth_exc:
@@ -94,6 +94,15 @@ except Exception as _auth_exc:
         probe_run = "probe_run"
         chat_message = "chat_message"
         persona_shared = "persona_shared"
+
+    class InviteCode:                                      # type: ignore[no-redef]
+        code: str = ""
+        label: str | None = None
+        max_uses: int | None = None
+        used_count: int = 0
+        active: bool = True
+        created_at = None
+        created_by_email: str | None = None
 
     async def get_db():                                    # type: ignore[no-redef]
         raise HTTPException(503, detail={
@@ -469,6 +478,37 @@ async def _ensure_moderation_columns():
         logger.warning("[startup] moderation column migration skipped: %s", exc)
 
 
+async def _ensure_invite_codes_table():
+    """Create invite_codes table + invite_code_used column on users if missing."""
+    if not AUTH_ENABLED:
+        return
+    try:
+        from db import get_engine                          # noqa: PLC0415
+        from sqlalchemy import text as _sql                # noqa: PLC0415
+        engine = get_engine()
+        async with engine.begin() as conn:
+            await conn.execute(_sql("""
+                CREATE TABLE IF NOT EXISTS invite_codes (
+                    code VARCHAR PRIMARY KEY,
+                    label VARCHAR,
+                    max_uses INTEGER,
+                    used_count INTEGER NOT NULL DEFAULT 0,
+                    active BOOLEAN NOT NULL DEFAULT true,
+                    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+                    created_by_email VARCHAR
+                )
+            """))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_invite_codes_active ON invite_codes (active)"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS invite_code_used VARCHAR"
+            ))
+        logger.info("[startup] invite_codes table + users.invite_code_used ensured")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[startup] invite_codes migration skipped: %s", exc)
+
+
 def _purge_old_generated(ttl_days: int = 30) -> int:
     """Delete generated-persona JSON files older than ttl_days. Idempotent.
 
@@ -504,6 +544,7 @@ async def lifespan(app: FastAPI):
     _load_generated_from_disk()
     logger.info("[the-mind] %d generated personas loaded from disk", len(_GENERATED))
     await _ensure_moderation_columns()
+    await _ensure_invite_codes_table()
     _purge_old_generated()
     yield
 
@@ -2572,6 +2613,140 @@ async def admin_flagged(
         }
         for ev, usr in rows
     ]
+
+
+# ── Invite codes (private-launch gate) ───────────────────────────────────
+# Shared codes (e.g. EARLYACCESS) — many people redeem the same code, we
+# track usage count per code so distribution channels are visible.
+
+class InviteCheckResponse(BaseModel):
+    code: str
+    valid: bool
+    label: str | None = None
+    used_count: int = 0
+    max_uses: int | None = None
+    reason: str | None = None
+
+
+@app.get("/invites/{code}/check", response_model=InviteCheckResponse)
+async def invites_check(
+    code: str,
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Public endpoint — validates an invite code. No auth required.
+
+    Used by the /invite/[code] landing page to decide whether to set the
+    `invite_ok` cookie and forward the user to /sign-in.
+    """
+    from sqlalchemy import select as sa_select
+    norm = (code or "").strip().upper()
+    if not norm:
+        return InviteCheckResponse(code=code, valid=False, reason="empty")
+    row = (
+        await db.execute(sa_select(InviteCode).where(InviteCode.code == norm))  # type: ignore
+    ).scalar_one_or_none()
+    if row is None:
+        return InviteCheckResponse(code=norm, valid=False, reason="not_found")
+    if not bool(getattr(row, "active", True)):
+        return InviteCheckResponse(code=norm, valid=False, reason="inactive",
+                                   label=row.label, used_count=row.used_count or 0,
+                                   max_uses=row.max_uses)
+    if row.max_uses is not None and (row.used_count or 0) >= row.max_uses:
+        return InviteCheckResponse(code=norm, valid=False, reason="exhausted",
+                                   label=row.label, used_count=row.used_count or 0,
+                                   max_uses=row.max_uses)
+    return InviteCheckResponse(
+        code=norm, valid=True, label=row.label,
+        used_count=row.used_count or 0, max_uses=row.max_uses,
+    )
+
+
+class InviteCreateRequest(BaseModel):
+    code: str
+    label: str | None = None
+    max_uses: int | None = None
+
+
+@app.post("/admin/invites")
+async def admin_create_invite(
+    req: InviteCreateRequest,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Admin: create or upsert an invite code."""
+    from sqlalchemy import select as sa_select
+    norm = (req.code or "").strip().upper()
+    if not norm or len(norm) > 64:
+        raise HTTPException(400, detail="code must be 1–64 chars")
+    existing = (
+        await db.execute(sa_select(InviteCode).where(InviteCode.code == norm))  # type: ignore
+    ).scalar_one_or_none()
+    if existing is not None:
+        existing.label = req.label or existing.label
+        existing.max_uses = req.max_uses if req.max_uses is not None else existing.max_uses
+        existing.active = True
+    else:
+        db.add(InviteCode(  # type: ignore
+            code=norm,
+            label=req.label,
+            max_uses=req.max_uses,
+            used_count=0,
+            active=True,
+            created_by_email=_admin.email,
+        ))
+    await db.commit()
+    logger.info("[admin] invite upsert code=%s by=%s", norm, _admin.email)
+    return {"code": norm, "ok": True}
+
+
+@app.get("/admin/invites")
+async def admin_list_invites(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Admin: list all invite codes with usage counts + recent redeemers."""
+    from sqlalchemy import select as sa_select, func as sa_func
+    rows = (
+        await db.execute(
+            sa_select(InviteCode).order_by(InviteCode.created_at.desc())  # type: ignore
+        )
+    ).scalars().all()
+    out = []
+    for c in rows:
+        # Count actual users who redeemed this code (more accurate than used_count
+        # if the column ever drifts).
+        actual = (
+            await db.execute(
+                sa_select(sa_func.count()).select_from(User)  # type: ignore
+                .where(User.invite_code_used == c.code)  # type: ignore
+            )
+        ).scalar() or 0
+        out.append({
+            "code": c.code,
+            "label": c.label,
+            "max_uses": c.max_uses,
+            "used_count": c.used_count or 0,
+            "actual_redemptions": int(actual),
+            "active": bool(c.active),
+            "created_at": c.created_at.isoformat() if c.created_at else None,
+            "created_by_email": c.created_by_email,
+        })
+    return out
+
+
+@app.post("/admin/invites/{code}/deactivate")
+async def admin_deactivate_invite(
+    code: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    from sqlalchemy import update as sa_update
+    norm = (code or "").strip().upper()
+    await db.execute(
+        sa_update(InviteCode).where(InviteCode.code == norm).values(active=False)  # type: ignore
+    )
+    await db.commit()
+    return {"code": norm, "active": False}
 
 
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────

@@ -27,7 +27,7 @@ from fastapi import Cookie, Depends, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import Allowance, Event, EventType, LIMITS, User, get_db
+from db import Allowance, Event, EventType, InviteCode, LIMITS, User, get_db
 
 # ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -152,6 +152,31 @@ async def get_current_user(
             status_code=401,
             detail="User not found — your session may be stale, please sign in again",
         )
+
+    # Backfill invite_code_used from the `invite_ok` cookie on first authed
+    # call. Atomically increments the matching InviteCode.used_count so
+    # admins can see redemption velocity per channel.
+    if not getattr(user, "invite_code_used", None):
+        invite_cookie = request.cookies.get("invite_ok") or ""
+        norm = invite_cookie.strip().upper()
+        if norm:
+            try:
+                from sqlalchemy import update as _upd
+                ic = (await db.execute(
+                    select(InviteCode).where(InviteCode.code == norm)
+                )).scalar_one_or_none()
+                if ic is not None and bool(getattr(ic, "active", True)):
+                    user.invite_code_used = norm
+                    await db.execute(
+                        _upd(InviteCode)
+                        .where(InviteCode.code == norm)
+                        .values(used_count=(InviteCode.used_count + 1))
+                    )
+                    await db.commit()
+            except Exception:
+                # Never block auth on backfill — schema may not yet exist
+                # in some environments.
+                await db.rollback()
 
     # Banned users: refuse all gated actions. 403 (not 401) so the client
     # doesn't try to re-auth — the ban will follow them. Admins (by env var)

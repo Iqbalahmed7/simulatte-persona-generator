@@ -1,59 +1,104 @@
 /**
- * middleware.ts — Next.js Edge middleware protecting authenticated routes.
+ * middleware.ts — Next.js Edge middleware.
  *
- * Strategy: simple cookie-presence check. We don't verify the JWT here
- * because Auth.js v5 + Edge runtime + custom domain has been flaky with
- * crypto. The route handlers and server components do the real session
- * verification (via auth() from ./auth on the Node runtime), so a stolen
- * cookie can't actually do anything — middleware just keeps unauthenticated
- * users out of the protected page shells.
+ * Two layers of access control:
  *
- * Gated routes (redirect to /sign-in if no session cookie):
- *   /generate       — persona generation form
- *   /probe/*        — probe form (the public /probe/[probeId] share view
- *                     is a leaf URL not matched by /probe/ + path; new
- *                     probes are created from the persona page)
+ *   1. Invite gate (private launch): every public route is gated by either
+ *      an `invite_ok` cookie OR a logged-in session. Unauthenticated, un-
+ *      invited visitors are redirected to /welcome. Whitelisted paths
+ *      (/welcome, /invite/*, /sign-in, /api/auth/*, public assets) are
+ *      always accessible.
  *
- * Public read-only routes (no middleware gate):
- *   /persona/[id]   — Community Wall makes all generated personas public.
- *                     Chat / "Run a probe" buttons trigger sign-in only on
- *                     interaction; the page itself is browseable by anyone.
+ *   2. Session gate (existing): authed-only routes (/generate, /admin,
+ *      /persona/[id]/probe) require an Auth.js session cookie. Without one
+ *      the user is sent to /sign-in.
+ *
+ * We don't verify JWTs at the Edge — Auth.js v5 + Edge crypto is flaky on
+ * custom domains. Server components / route handlers do the real auth.
  */
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PREFIXES = ["/generate"];
+const PROTECTED_PREFIXES = ["/generate", "/admin"];
 
-/** Returns true if the path needs an auth gate. */
 function isPathProtected(pathname: string): boolean {
   if (PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) return true;
   // /persona/[id]/probe — probe form (consumes allowance, must be authed).
-  // The bare /persona/[id] view is public for community-wall browsing.
   if (/^\/persona\/[^/]+\/probe(?:\/.*)?$/.test(pathname)) return true;
   return false;
 }
 
-// Auth.js v5 cookie names. On HTTPS the prefix is __Secure-; on HTTP it isn't.
+// Paths that are always reachable without invite or session.
+const PUBLIC_WHITELIST_PREFIXES = [
+  "/welcome",
+  "/invite/",
+  "/sign-in",
+  "/api/auth/",
+  "/api/token",
+  "/api/invite/",
+  "/_next/",
+  "/probe/",            // public probe-share leaf URLs
+  "/community",
+];
+const PUBLIC_WHITELIST_EXACT = new Set([
+  "/favicon.ico",
+  "/robots.txt",
+  "/sitemap.xml",
+]);
+
+function isPublicWhitelisted(pathname: string): boolean {
+  if (PUBLIC_WHITELIST_EXACT.has(pathname)) return true;
+  if (PUBLIC_WHITELIST_PREFIXES.some((p) => pathname.startsWith(p))) return true;
+  // any static asset
+  if (/\.(svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|woff2?)$/i.test(pathname)) {
+    return true;
+  }
+  return false;
+}
+
 const SESSION_COOKIE_NAMES = [
   "__Secure-authjs.session-token",
   "authjs.session-token",
 ];
 
+function hasSession(request: NextRequest): boolean {
+  return SESSION_COOKIE_NAMES.some((n) => !!request.cookies.get(n)?.value);
+}
+
+function hasInvite(request: NextRequest): boolean {
+  return !!request.cookies.get("invite_ok")?.value;
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (!isPathProtected(pathname)) return NextResponse.next();
 
-  const hasSession = SESSION_COOKIE_NAMES.some(
-    (name) => !!request.cookies.get(name)?.value
-  );
-  if (hasSession) return NextResponse.next();
+  // Always-allowed paths
+  if (isPublicWhitelisted(pathname)) return NextResponse.next();
 
-  const signInUrl = new URL("/sign-in", request.url);
-  signInUrl.searchParams.set("callbackUrl", pathname);
-  return NextResponse.redirect(signInUrl);
+  // Invite gate (private-launch). Disabled if NEXT_PUBLIC_INVITE_GATE=off.
+  const inviteGateEnabled =
+    (process.env.NEXT_PUBLIC_INVITE_GATE ?? "on").toLowerCase() !== "off";
+
+  if (inviteGateEnabled && !hasInvite(request) && !hasSession(request)) {
+    const welcomeUrl = new URL("/welcome", request.url);
+    if (pathname !== "/") {
+      welcomeUrl.searchParams.set("from", pathname);
+    }
+    return NextResponse.redirect(welcomeUrl);
+  }
+
+  // Session gate (auth-required pages)
+  if (isPathProtected(pathname)) {
+    if (hasSession(request)) return NextResponse.next();
+    const signInUrl = new URL("/sign-in", request.url);
+    signInUrl.searchParams.set("callbackUrl", pathname);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.svg).*)",
+    "/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.svg).*)",
   ],
 };
