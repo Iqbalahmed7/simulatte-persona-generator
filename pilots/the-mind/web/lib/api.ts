@@ -326,6 +326,8 @@ export async function runProbe(
     claims: string[];
     price: string;
     image_url?: string;
+    pdf_content?: string;     // base64, no data: prefix
+    pdf_filename?: string;
   }
 ): Promise<ProbeResult> {
   const res = await fetch(`${API}/generated/${personaId}/probe`, {
@@ -340,7 +342,18 @@ export async function runProbe(
   }
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error((err as { detail?: string }).detail ?? "Probe failed");
+    // Surface moderation-friendly message
+    const detail = (err as { detail?: unknown }).detail;
+    if (
+      res.status === 422 &&
+      detail && typeof detail === "object" &&
+      (detail as { error?: string }).error === "moderation_blocked"
+    ) {
+      throw new Error((detail as { message?: string }).message ?? "Content was blocked.");
+    }
+    throw new Error(
+      typeof detail === "string" ? detail : "Probe failed"
+    );
   }
   return res.json();
 }

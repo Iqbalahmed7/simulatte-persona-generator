@@ -1568,6 +1568,11 @@ class ProbeRequest(BaseModel):
     claims: list[str] = []  # max 5
     price: str
     image_url: str | None = None
+    # Optional product brief uploaded as a PDF — base64-encoded, no data:
+    # prefix. When present, treated as additional context appended to the
+    # description. Same convention as ICPRequest.pdf_content on /generate.
+    pdf_content: str | None = None
+    pdf_filename: str | None = None
 
 
 class ClaimVerdict(BaseModel):
@@ -1614,6 +1619,64 @@ _PROBES_DIR = _DATA_ROOT / "probes"
 
 
 # ── Category memory generation ────────────────────────────────────────────
+
+async def _summarize_probe_pdf(
+    pdf_b64: str,
+    filename: str | None,
+    client: anthropic.AsyncAnthropic,
+) -> str:
+    """Extract a compact summary of an uploaded product brief PDF.
+
+    Sends the PDF as a `document` content block to Haiku and asks for the
+    consumer-facing details that matter for a Litmus probe: what the
+    product is, who it's for, key value props / claims, price hints,
+    distribution. Output is plain text, capped ~600 words, suitable to
+    splice into the probe's `description` field.
+    """
+    if not pdf_b64:
+        return ""
+    try:
+        msg = await client.messages.create(
+            model=os.environ.get("PDF_SUMMARY_MODEL", "claude-haiku-4-5-20251001"),
+            max_tokens=900,
+            messages=[{
+                "role": "user",
+                "content": [
+                    {
+                        "type": "document",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "application/pdf",
+                            "data": pdf_b64,
+                        },
+                        # Some Anthropic SDK versions accept `title`, harmless if dropped.
+                        **({"title": filename} if filename else {}),
+                    },
+                    {
+                        "type": "text",
+                        "text": (
+                            "This is a product brief uploaded by a user who is about to "
+                            "run a consumer-perception probe on it. Extract the consumer-"
+                            "facing facts a sceptical buyer would want to know:\n"
+                            "• What the product is (in one line)\n"
+                            "• Who it's for / target use case\n"
+                            "• 3-6 key claims or value propositions\n"
+                            "• Price or pricing model if mentioned\n"
+                            "• Distribution / how to buy if mentioned\n"
+                            "• Anything notable a buyer might be sceptical about\n\n"
+                            "Plain text, ~400-600 words. No marketing fluff. No headings "
+                            "the user didn't write. No commentary about the document itself."
+                        ),
+                    },
+                ],
+            }],
+        )
+        text = msg.content[0].text if msg.content else ""
+        return (text or "").strip()[:6000]
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[probe_pdf] summary call failed: %s", exc)
+        return ""
+
 
 async def _generate_category_memory(
     persona: dict,
@@ -1936,10 +1999,36 @@ async def run_probe(
     name = da.get("name") or "Persona"
     portrait_url = _GENERATED_PORTRAITS.get(persona_id)
 
+    # If the user uploaded a product brief PDF, extract a compact summary
+    # via Haiku and append it to the description. The summary lives inside
+    # the cached system prompt across all 8 probe calls, so this is a
+    # one-time cost. We also re-run moderation on the extracted text.
+    description = request.description or ""
+    if request.pdf_content:
+        try:
+            pdf_summary = await _summarize_probe_pdf(
+                request.pdf_content, request.pdf_filename, _client()
+            )
+            if pdf_summary:
+                # Moderate the summary (uses the same wordlist as user briefs)
+                await _enforce_and_log_moderation(
+                    pdf_summary, user, db, surface="probe_pdf",
+                )
+                description = (
+                    description.strip()
+                    + ("\n\n" if description.strip() else "")
+                    + "From the uploaded brief:\n"
+                    + pdf_summary
+                )[:6000]  # hard cap so prompt cache stays sane
+        except HTTPException:
+            raise  # moderation block — surface as 422
+        except Exception as exc:
+            logger.warning("[probe] pdf summary skipped: %s", exc)
+
     product_brief = {
         "product_name": request.product_name,
         "category": request.category,
-        "description": request.description,
+        "description": description,
         "claims": request.claims[:5],
         "price": request.price,
     }

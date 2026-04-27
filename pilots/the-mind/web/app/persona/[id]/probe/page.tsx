@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchGeneratedPersona, runProbe, GeneratedPersona } from "@/lib/api";
@@ -41,6 +41,9 @@ export default function ProbePage() {
   const [claims, setClaims] = useState<string[]>([""]);
   const [price, setPrice] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [pdfDragging, setPdfDragging] = useState(false);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
@@ -58,11 +61,36 @@ export default function ProbePage() {
   const firstName = persona?.narrative?.display_name || persona?.demographic_anchor?.name?.split(" ")[0] || "them";
   const steps = STATUS_STEPS(firstName, category);
 
+  function handlePdfDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setPdfDragging(false);
+    const f = e.dataTransfer.files[0];
+    if (f?.type === "application/pdf") setPdfFile(f);
+  }
+  function handlePdfPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (f?.type === "application/pdf") setPdfFile(f);
+  }
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(((r.result as string).split(",")[1] || ""));
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!productName.trim() || !description.trim()) return;
-    if (description.length < 50) {
-      setSubmitError("Description must be at least 50 characters.");
+    if (!productName.trim()) return;
+    // If a PDF is attached, treat it as the description source — relax the
+    // 50-char minimum on the typed description in that case.
+    if (!pdfFile && !description.trim()) {
+      setSubmitError("Add a description or attach a product brief PDF.");
+      return;
+    }
+    if (!pdfFile && description.length < 50) {
+      setSubmitError("Description must be at least 50 characters (or attach a PDF).");
       return;
     }
     setSubmitError("");
@@ -80,6 +108,20 @@ export default function ProbePage() {
     }, 6000);
 
     try {
+      let pdf_content: string | undefined;
+      let pdf_filename: string | undefined;
+      if (pdfFile) {
+        try {
+          pdf_content = await fileToBase64(pdfFile);
+          pdf_filename = pdfFile.name;
+        } catch {
+          clearInterval(interval);
+          setSubmitError("Couldn't read the PDF. Try a different file.");
+          setSubmitting(false);
+          setStatusMsg("");
+          return;
+        }
+      }
       const result = await runProbe(id, {
         product_name: productName.trim(),
         category,
@@ -87,6 +129,8 @@ export default function ProbePage() {
         claims: claims.filter((c) => c.trim()).slice(0, 5),
         price: price.trim(),
         image_url: imageUrl.trim() || undefined,
+        pdf_content,
+        pdf_filename,
       });
       clearInterval(interval);
       router.push(`/persona/${id}/probe/${result.probe_id}`);
@@ -226,20 +270,69 @@ export default function ProbePage() {
           </select>
         </div>
 
+        {/* PDF brief upload — optional alternative to typing the description */}
+        <div>
+          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+            Product brief PDF <span className="ml-2 text-static/50 normal-case tracking-normal">— optional, replaces description</span>
+          </label>
+          <div
+            onClick={() => pdfInputRef.current?.click()}
+            onDragOver={(e) => { e.preventDefault(); setPdfDragging(true); }}
+            onDragLeave={() => setPdfDragging(false)}
+            onDrop={handlePdfDrop}
+            className={`border border-dashed px-6 py-6 text-center cursor-pointer transition-colors
+              ${pdfDragging
+                ? "border-parchment/40 bg-parchment/5"
+                : "border-parchment/15 hover:border-parchment/30"}`}
+          >
+            {pdfFile ? (
+              <div className="flex items-center justify-center gap-3">
+                <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
+                <span className="font-mono text-[10px] text-static">
+                  ({(pdfFile.size / 1024).toFixed(0)} KB)
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
+                  className="text-[10px] font-mono text-static hover:text-parchment/50"
+                >
+                  remove
+                </button>
+              </div>
+            ) : (
+              <>
+                <p className="text-parchment/45 text-sm">Drop a product brief PDF here, or click to browse</p>
+                <p className="text-[10px] font-mono text-static mt-1">PDF only · max 10 MB</p>
+              </>
+            )}
+          </div>
+          <input
+            ref={pdfInputRef}
+            type="file"
+            accept="application/pdf"
+            className="hidden"
+            onChange={handlePdfPick}
+          />
+        </div>
+
         {/* Description */}
         <div>
           <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
-            Description <span className="text-signal">*</span>
-            <span className="ml-2 text-static/50 normal-case tracking-normal">50–2000 chars</span>
+            Description {!pdfFile && <span className="text-signal">*</span>}
+            <span className="ml-2 text-static/50 normal-case tracking-normal">
+              {pdfFile ? "optional — your PDF will provide context" : "50–2000 chars"}
+            </span>
           </label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
-            minLength={50}
+            required={!pdfFile}
+            minLength={pdfFile ? 0 : 50}
             maxLength={2000}
             rows={5}
-            placeholder="Describe the product: what it does, who it's for, key benefits, how it works..."
+            placeholder={pdfFile
+              ? "Optional: anything from the PDF you want to highlight or override."
+              : "Describe the product: what it does, who it's for, key benefits, how it works..."}
             className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors resize-none"
           />
           <p className="text-[10px] font-mono text-static mt-1 text-right">{description.length}/2000</p>
