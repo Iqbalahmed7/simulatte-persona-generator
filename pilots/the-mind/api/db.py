@@ -99,25 +99,19 @@ class Base(DeclarativeBase):
 # ── Auth.js standard tables ───────────────────────────────────────────────
 
 class User(Base):
-    """Auth.js users table. Auth.js creates/updates this; FastAPI reads it."""
+    """Auth.js users table. Auth.js creates/updates this; FastAPI reads it.
+
+    NOTE: column names use camelCase quoted identifiers (Auth.js convention).
+    SQLAlchemy attribute names stay snake_case for Pythonic access; the
+    Column("camelCase", ...) form maps them to the actual DB columns.
+    """
     __tablename__ = "users"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
     email = Column(String, unique=True, nullable=False)
     name = Column(String, nullable=True)
     image = Column(Text, nullable=True)
-    email_verified = Column(DateTime(timezone=True), nullable=True)
-    created_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(timezone.utc),
-    )
-    updated_at = Column(
-        DateTime(timezone=True),
-        nullable=False,
-        default=lambda: datetime.now(timezone.utc),
-        onupdate=lambda: datetime.now(timezone.utc),
-    )
+    email_verified = Column("emailVerified", DateTime(timezone=True), nullable=True)
 
     allowance = relationship("Allowance", back_populates="user", uselist=False)
     events = relationship("Event", back_populates="user")
@@ -132,10 +126,10 @@ class Account(Base):
     __tablename__ = "accounts"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    user_id = Column("userId", String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     type = Column(String, nullable=False)
     provider = Column(String, nullable=False)
-    provider_account_id = Column(String, nullable=False)
+    provider_account_id = Column("providerAccountId", String, nullable=False)
     refresh_token = Column(Text, nullable=True)
     access_token = Column(Text, nullable=True)
     expires_at = Column(BigInteger, nullable=True)
@@ -144,30 +138,20 @@ class Account(Base):
     id_token = Column(Text, nullable=True)
     session_state = Column(String, nullable=True)
 
-    __table_args__ = (
-        UniqueConstraint("provider", "provider_account_id", name="uq_accounts_provider"),
-        Index("ix_accounts_user_id", "user_id"),
-    )
-
 
 class Session(Base):
     """Auth.js sessions table."""
     __tablename__ = "sessions"
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    session_token = Column(String, unique=True, nullable=False)
-    user_id = Column(String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    session_token = Column("sessionToken", String, unique=True, nullable=False)
+    user_id = Column("userId", String, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     expires = Column(DateTime(timezone=True), nullable=False)
-
-    __table_args__ = (
-        Index("ix_sessions_user_id", "user_id"),
-        Index("ix_sessions_session_token", "session_token"),
-    )
 
 
 class VerificationToken(Base):
     """Auth.js verification_tokens table (magic link tokens)."""
-    __tablename__ = "verification_tokens"
+    __tablename__ = "verification_token"
 
     identifier = Column(String, primary_key=True, nullable=False)
     token = Column(String, primary_key=True, nullable=False)
