@@ -35,8 +35,12 @@ const PUBLIC_WHITELIST_PREFIXES = [
   "/api/auth/",
   "/api/token",
   "/api/invite/",
+  "/api/og/",           // open-graph image endpoints — must be public so
+                        //   LinkedIn/Twitter/WhatsApp can scrape unfurls
   "/_next/",
   "/probe/",            // public probe-share leaf URLs
+  "/persona/",          // persona detail pages are public (Community Wall
+                        //   policy) AND need to be reachable by OG scrapers
   "/community",
 ];
 const PUBLIC_WHITELIST_EXACT = new Set([
