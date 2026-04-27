@@ -313,13 +313,28 @@ async def check_and_increment_allowance(
       payload so the frontend can show the hard-wall modal.
     - Otherwise increments the counter and logs an event.
     """
-    # Admin bypass — admins still get the event logged but no quota check.
+    # Admin bypass — admins skip allowance entirely (no quota check, no
+    # counter increment, no event log). They can dogfood without using
+    # their own limits. Their generations are still discoverable via
+    # /me/personas because that endpoint also looks at Event rows with
+    # null ref_id (see _log_persona_event below).
     admin_emails = {
         e.strip().lower()
         for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
         if e.strip()
     }
     is_admin = (user.email or "").lower() in admin_emails
+    if is_admin:
+        # Still log the event so admins show up in audit reports — but
+        # no allowance row, no quota check.
+        db.add(Event(
+            user_id=user.id,
+            type=ACTION_EVENT_TYPE[action],
+            ref_id=None,
+            created_at=datetime.now(timezone.utc),
+        ))
+        await db.commit()
+        return
 
     now = datetime.now(timezone.utc)
     week_start = _iso_week_monday(now)

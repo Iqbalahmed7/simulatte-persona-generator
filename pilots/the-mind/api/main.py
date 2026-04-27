@@ -1336,6 +1336,30 @@ async def generate_persona_stream(
             _GENERATED[persona_id] = persona_dict
             _persist_generated_dict(persona_dict)
             logger.info("[generate] stored %s (%s)", persona_id, name)
+            # Backfill ref_id on the most recent persona_generated event for
+            # this user so /me/personas can resolve "who built this".
+            # check_and_increment_allowance creates the event with null
+            # ref_id; this writes the persona_id back. Best-effort — if
+            # the DB write fails the persona is still saved.
+            try:
+                from sqlalchemy import select as _sel, update as _upd
+                latest = (await db.execute(
+                    _sel(Event)
+                    .where(Event.user_id == user.id)
+                    .where(Event.type == EventType.persona_generated)
+                    .where(Event.ref_id.is_(None))
+                    .order_by(Event.created_at.desc())
+                    .limit(1)
+                )).scalar_one_or_none()
+                if latest is not None:
+                    await db.execute(
+                        _upd(Event).where(Event.id == latest.id)
+                        .values(ref_id=persona_id)
+                    )
+                    await db.commit()
+            except Exception as e_evt:
+                logger.warning("[generate] event ref_id backfill failed: %s", e_evt)
+                await db.rollback()
         except Exception as exc:
             logger.exception("[generate] storage step failed")
             yield _sse({"type": "error", "message": f"Failed to store persona: {exc}"})
