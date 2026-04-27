@@ -19,14 +19,14 @@ interface Persona {
   demographic_anchor?: {
     name?: string;
     age?: number;
-    city?: string;
-    country?: string;
+    location?: { city?: string; country?: string };
     employment?: { occupation?: string; industry?: string };
   };
   derived_insights?: {
     decision_style?: string;
     primary_value_orientation?: string;
     trust_anchor?: string;
+    risk_appetite?: string;
   };
   portrait_url?: string;
 }
@@ -50,16 +50,20 @@ export async function GET(
   const di = p.derived_insights ?? {};
   const name = da.name ?? "Persona";
 
-  // Subtitle: age + city, country
-  const place = [da.city, da.country].filter(Boolean).join(", ");
-  const ageLine = [da.age && `${da.age}`, place].filter(Boolean).join(" · ");
+  // Subtitle: just the age (location now has its own highlight row)
+  const ageLine = da.age ? `${da.age}` : "";
 
-  // Up to 3 highlight rows (icon glyph + label + value)
+  // Up to 5 highlight rows
   const highlights: { label: string; value: string }[] = [];
+  const place = [da.location?.city, da.location?.country].filter(Boolean).join(", ");
+  if (place) highlights.push({ label: "LIVES IN", value: place.slice(0, 42) });
   const occ = da.employment?.occupation;
   if (occ) highlights.push({ label: "WORKS AS", value: titleCase(occ).slice(0, 42) });
   if (di.decision_style) {
     highlights.push({ label: "DECIDES", value: titleCase(di.decision_style).slice(0, 42) });
+  }
+  if (di.trust_anchor) {
+    highlights.push({ label: "TRUSTS", value: titleCase(di.trust_anchor).slice(0, 42) });
   }
   if (di.primary_value_orientation) {
     highlights.push({ label: "VALUES", value: titleCase(di.primary_value_orientation).slice(0, 42) });
@@ -107,34 +111,34 @@ export async function GET(
 
             {/* Big name */}
             <div style={{
-              fontSize: 84, fontWeight: 800, lineHeight: 0.96, marginBottom: 12,
+              fontSize: 76, fontWeight: 800, lineHeight: 0.96, marginBottom: 6,
               letterSpacing: "-0.02em",
             }}>
               {name}
             </div>
 
-            {/* Age · city, country */}
+            {/* Age */}
             {ageLine && (
               <div style={{
-                fontSize: 26, color: "rgba(233,230,223,0.65)", marginBottom: 28,
+                fontSize: 24, color: "rgba(233,230,223,0.55)", marginBottom: 22,
               }}>
                 {ageLine}
               </div>
             )}
 
             {/* Highlight rows */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {highlights.map((h) => (
                 <div key={h.label} style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
                   <div style={{
-                    fontSize: 13, color: "rgba(233,230,223,0.45)",
+                    fontSize: 12, color: "rgba(233,230,223,0.45)",
                     letterSpacing: 2, textTransform: "uppercase",
-                    fontWeight: 600, width: 90, flexShrink: 0,
+                    fontWeight: 600, width: 88, flexShrink: 0,
                   }}>
                     {h.label}
                   </div>
                   <div style={{
-                    fontSize: 22, color: "#E9E6DF", fontWeight: 500,
+                    fontSize: 20, color: "#E9E6DF", fontWeight: 500,
                   }}>
                     {h.value}
                   </div>

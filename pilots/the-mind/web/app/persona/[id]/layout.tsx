@@ -20,12 +20,13 @@ export async function generateMetadata(
   try {
     const p = await fetchGeneratedPersona(id);
     const da = p.demographic_anchor as {
-      name?: string; age?: number; city?: string; country?: string;
+      name?: string; age?: number;
+      location?: { city?: string; country?: string };
       employment?: { occupation?: string };
     } | undefined;
-    const di = (p as { derived_insights?: { decision_style?: string; primary_value_orientation?: string } }).derived_insights;
+    const di = (p as { derived_insights?: { decision_style?: string; primary_value_orientation?: string; trust_anchor?: string } }).derived_insights;
     const name = da?.name ?? "Persona";
-    const place = [da?.city, da?.country].filter(Boolean).join(", ");
+    const place = [da?.location?.city, da?.location?.country].filter(Boolean).join(", ");
     const ageLine = [da?.age && `${da.age}`, place].filter(Boolean).join(" · ");
     const title = `${name} — Simulatte / The Mind`;
     // Pack 2-3 highlights into the description so platforms that show
