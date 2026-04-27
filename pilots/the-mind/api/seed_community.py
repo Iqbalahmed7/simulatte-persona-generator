@@ -212,35 +212,52 @@ BRIEFS: list[tuple[str, str]] = [
 
 
 async def main(admin_email: str) -> None:
-    # Lazy imports — these need DATABASE_URL etc. set
-    import importlib
+    # The repo root has its own ./main.py that shadows our target.
+    # Load pilots/the-mind/api/main.py by file path to be unambiguous.
     import sys as _sys
-    mod_dir = str(_HERE)
-    if mod_dir not in _sys.path:
-        _sys.path.insert(0, mod_dir)
-    main_mod = importlib.import_module("main")
+    repo_root = str(_HERE.parent.parent.parent)
+    if repo_root not in _sys.path:
+        _sys.path.insert(0, repo_root)
+    api_dir = str(_HERE)
+    if api_dir not in _sys.path:
+        _sys.path.insert(0, api_dir)
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("the_mind_main", _HERE / "main.py")
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Could not load main.py from {_HERE}")
+    main_mod = importlib.util.module_from_spec(spec)
+    _sys.modules["the_mind_main"] = main_mod
+    spec.loader.exec_module(main_mod)
 
-    # Wait for the lifespan-equivalent setup
-    main_mod._load_all()
+    # Hydrate the in-memory persona dict from the volume so we can skip
+    # any briefs we've already generated. Exemplars aren't needed for
+    # the seed, so we don't call _load_all().
     main_mod._load_generated_from_disk()
+    main_mod._load_portraits_from_disk()
 
-    # Look up the admin user once
     from sqlalchemy import select
-    from db import User, Event, EventType, get_db  # noqa: PLC0415
+    from db import User, Event, EventType  # noqa: PLC0415
 
-    async with main_mod.get_session_factory()() if False else (await _open_db(main_mod)) as db:
-        admin = (await db.execute(select(User).where(User.email == admin_email))).scalar_one_or_none()
+    factory = main_mod.get_session_factory()
+    async with factory() as db:
+        admin = (await db.execute(
+            select(User).where(User.email == admin_email)
+        )).scalar_one_or_none()
         if admin is None:
-            log.error("admin email %s not found in DB; aborting", admin_email)
+            log.error("admin email %s not found in users table; aborting", admin_email)
             return
-        log.info("seeding 20 personas attributed to admin user_id=%s (%s)", admin.id, admin.email)
+        log.info("seeding %d briefs attributed to user_id=%s (%s)",
+                 len(BRIEFS), admin.id, admin.email)
 
         client = main_mod._client()
+        fal_key = os.environ.get("FAL_KEY", "")
 
-        for label, brief in BRIEFS:
-            log.info("→ %s", label)
+        for i, (label, brief) in enumerate(BRIEFS, 1):
+            log.info("[%d/%d] %s", i, len(BRIEFS), label)
             try:
-                anchor, domain, _ = await main_mod._extract_from_brief(brief, None, client)
+                anchor, domain, _ = await main_mod._extract_from_brief(
+                    brief, None, client,
+                )
                 persona = await main_mod._generate_persona_direct(
                     brief=brief, anchor=anchor, domain=domain, client=client,
                 )
@@ -250,33 +267,32 @@ async def main(admin_email: str) -> None:
                     continue
                 main_mod._GENERATED[pid] = persona
                 main_mod._persist_generated_dict(persona)
-                # Event row so /me/personas surfaces it
-                db.add(Event(user_id=admin.id, type=EventType.persona_generated, ref_id=pid))
+                db.add(Event(
+                    user_id=admin.id,
+                    type=EventType.persona_generated,
+                    ref_id=pid,
+                ))
                 await db.commit()
-                # Portrait — fire and wait so the wall has it immediately
-                fal_key = os.environ.get("FAL_KEY", "")
+                log.info("   stored ✓ %s", pid)
+
+                # Portrait synthesis (fire-and-wait so wall populates fast)
                 if fal_key:
                     try:
-                        prompt = main_mod._build_portrait_prompt_dict(persona.get("demographic_anchor") or {})
+                        prompt = main_mod._build_portrait_prompt_dict(
+                            persona.get("demographic_anchor") or {}
+                        )
                         url = await main_mod._call_fal_portrait(prompt, fal_key)
                         main_mod._GENERATED_PORTRAITS[pid] = url
                         main_mod._save_portraits_to_disk()
                         log.info("   portrait ✓ %s", pid)
                     except Exception:
                         log.exception("   portrait failed for %s", pid)
-                log.info("   stored ✓ %s", pid)
             except Exception:
                 log.exception("   FAILED: %s", label)
-                # rollback any open transaction so we can keep going
                 try:
                     await db.rollback()
                 except Exception:
                     pass
-
-
-async def _open_db(main_mod):
-    factory = main_mod.get_session_factory()
-    return factory()
 
 
 if __name__ == "__main__":

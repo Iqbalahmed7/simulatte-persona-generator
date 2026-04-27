@@ -3349,6 +3349,165 @@ async def admin_deactivate_invite(
     return {"code": norm, "active": False}
 
 
+# ── Admin: seed community wall ─────────────────────────────────────────
+# One-shot bulk seeding. Runs the full generation pipeline for a fixed
+# set of briefs as a background task so the HTTP request returns quickly
+# and the actual generations happen on the server (with MIND_DATA_DIR
+# pointing at the Railway volume). Idempotent — skips persona_ids that
+# already exist in _GENERATED.
+
+_SEED_BRIEFS: list[tuple[str, str]] = [
+    ("Marcus Reyes, 32, Brooklyn",
+     "Marcus Reyes, 32, lives in Crown Heights Brooklyn. Senior backend engineer "
+     "at a Series-B fintech in the Flatiron, $185K base + RSUs. Dating someone "
+     "from Bumble for 8 months. Spends $200/mo on a Peloton he uses twice a "
+     "week. Reads The Verge daily, suspicious of crypto since FTX."),
+    ("Sarah Chen, 28, San Francisco",
+     "Sarah Chen, 28, lives in the Mission with two roommates. Product manager "
+     "at an AI infra startup (Series A, ~$140K). Runs the SF marathon. "
+     "Vegetarian since college. Trusts Wirecutter more than influencers."),
+    ("Diego Martinez, 41, Austin",
+     "Diego Martinez, 41, owns a small farm-to-table restaurant in East Austin. "
+     "Married to a high-school teacher, two kids. $95K personal draw. "
+     "Trusts other restaurant owners' word-of-mouth."),
+    ("Jasmine Williams, 24, Atlanta",
+     "Jasmine Williams, 24, dance educator and TikTok creator (220K followers). "
+     "Lives with her mom in East Point Atlanta. Earns $3-6K/mo from brand deals. "
+     "Trusts her three best friends' group chat over any creator."),
+    ("Robert Kowalski, 58, Chicago",
+     "Robert Kowalski, 58, retired union electrician (IBEW Local 134). "
+     "Pension + social security ~$72K/yr. Drives a 2014 F-150. "
+     "Distrusts most marketing. Won't touch subscriptions."),
+    ("Emily Nakamura, 36, Seattle",
+     "Emily Nakamura, 36, UX researcher at Microsoft, $165K + bonus. "
+     "Vegan for 7 years. Trusts long-form reviews and academic papers. "
+     "Tracks every purchase in a spreadsheet."),
+    ("Tyler Brooks, 22, Nashville",
+     "Tyler Brooks, 22, sophomore at Belmont University studying songwriting. "
+     "Works 30 hrs/wk at a Music Row coffee shop. $14K/yr after expenses. "
+     "Cash-poor, time-rich. Decides on gear after 10 YouTube reviews."),
+    ("Maria Castillo, 45, Phoenix",
+     "Maria Castillo, 45, ICU nurse at Banner Health. Single mom of two "
+     "teenagers. $98K/yr but $1,400/mo on her ex's debt. Evangelical "
+     "Christian. Trusts her sister and her pastor."),
+    ("Aiden O'Brien, 29, Boston",
+     "Aiden O'Brien, 29, biotech research associate at a Cambridge startup. "
+     "MIT bioengineering BS, part-time MBA at Sloan. $115K base. "
+     "Trusts peer-reviewed studies. Agonises 3 weeks before any non-essential "
+     "purchase over $200."),
+    ("Chloe Anderson, 38, Denver",
+     "Chloe Anderson, 38, marketing director at an outdoor-gear DTC brand. "
+     "Divorced 2 years ago, owns a rescue lab. Skis 30+ days a year. "
+     "$185K + equity. Trusts athletes and gear-testers."),
+    ("Sophie Dubois, 27, Paris",
+     "Sophie Dubois, 27, buyer for a Parisian luxury department store. "
+     "Sciences Po grad. Lives in the 11th arrondissement. €52K + bonus. "
+     "Sceptical of crypto, NFTs. Trusts her grandmother's taste."),
+    ("Liam Sorensen, 34, Copenhagen",
+     "Liam Sorensen, 34, architect specialising in sustainable housing. "
+     "DKK 480K/yr (~€64K). Lives in Vesterbro with his partner and toddler. "
+     "Trusts the Danish design canon — anything pre-1980s Scandinavian."),
+    ("Anna Kowalska, 31, Warsaw",
+     "Anna Kowalska, 31, senior software developer at a Polish neobank. "
+     "PLN 26K/mo (~€6K) gross. Lives alone in Praga district. Powerlifts 5x/wk. "
+     "Trusts Reddit and her lifting coach. Saves aggressively."),
+    ("Hannah Schmidt, 26, Berlin",
+     "Hannah Schmidt, 26, freelance illustrator and visual artist. "
+     "Iranian-German parents emigrated in the 90s. Lives in Neukölln. "
+     "€28-40K/yr depending on commissions. Trusts her artist collective."),
+    ("Oliver Whitfield, 52, London",
+     "Oliver Whitfield, 52, ex-investment banker (Goldman, 18 yrs) now "
+     "independent ESG consultant. £280K/yr. Divorced. Lives in Chelsea. "
+     "Won't touch anything that smells of greenwashing."),
+    ("Isabella Romano, 23, Milan",
+     "Isabella Romano, 23, second-year design student at Politecnico Milano. "
+     "Lives at home with parents. €600/mo from Instagram fashion micro-"
+     "influencing. Studies industrial design, hates fast fashion. "
+     "Trusts her best friend and her aunt who works at Marni."),
+    ("Lukas Becker, 39, Munich",
+     "Lukas Becker, 39, automotive engineer at BMW, EV transition team. "
+     "€92K/yr. Married to a paediatrician, two kids. Bayern Munich season-"
+     "ticket holder. Sceptical of Tesla. Trusts ADAC and Stiftung Warentest."),
+    ("Freya Lindberg, 30, Stockholm",
+     "Freya Lindberg, 30, senior product designer at Spotify HQ. "
+     "SEK 58K/mo (~€5K). Runs a sourdough side-hustle. Vegetarian. "
+     "Politically green-left. Trusts her ex-Klarna mentor."),
+    ("Mateo Garcia, 47, Madrid",
+     "Mateo Garcia, 47, chef-owner of a tapas bar in Lavapiés. €60K personal "
+     "draw. Real Madrid season-ticket holder. Trusts other restaurant owners "
+     "and his supplier of jamón ibérico (40 years)."),
+    ("Catarina Almeida, 35, Lisbon",
+     "Catarina Almeida, 35, remote ops manager for a Berlin-based fintech, "
+     "earns €68K/yr in Lisbon. Returned from London 4 years ago. "
+     "Surfs in Costa da Caparica every weekend. Trusts ex-Revolut colleagues."),
+]
+
+
+_SEED_LOCK = asyncio.Lock()
+_SEED_STATUS: dict = {"running": False, "done": 0, "total": 0, "errors": []}
+
+
+async def _run_seed(admin_id: str):
+    """Background task: generate all 20 personas + portraits + events."""
+    global _SEED_STATUS
+    fal_key = os.environ.get("FAL_KEY", "")
+    client = _client()
+    factory = get_session_factory()
+    _SEED_STATUS = {"running": True, "done": 0, "total": len(_SEED_BRIEFS), "errors": []}
+    for label, brief in _SEED_BRIEFS:
+        try:
+            anchor, domain, _ = await _extract_from_brief(brief, None, client)
+            persona = await _generate_persona_direct(
+                brief=brief, anchor=anchor, domain=domain, client=client,
+            )
+            pid = persona["persona_id"]
+            if pid not in _GENERATED:
+                _GENERATED[pid] = persona
+                _persist_generated_dict(persona)
+                async with factory() as db:
+                    db.add(Event(  # type: ignore
+                        user_id=admin_id,
+                        type=EventType.persona_generated,
+                        ref_id=pid,
+                    ))
+                    await db.commit()
+                if fal_key:
+                    try:
+                        prompt = _build_portrait_prompt_dict(persona.get("demographic_anchor") or {})
+                        url = await _call_fal_portrait(prompt, fal_key)
+                        _GENERATED_PORTRAITS[pid] = url
+                        _save_portraits_to_disk()
+                    except Exception:
+                        logger.exception("[seed] portrait failed for %s", pid)
+            _SEED_STATUS["done"] += 1
+            logger.info("[seed] %d/%d ✓ %s", _SEED_STATUS["done"], len(_SEED_BRIEFS), label)
+        except Exception as exc:
+            logger.exception("[seed] FAILED: %s", label)
+            _SEED_STATUS["errors"].append(f"{label}: {exc}")
+    _SEED_STATUS["running"] = False
+    logger.info("[seed] complete: %d/%d done, %d errors",
+                _SEED_STATUS["done"], len(_SEED_BRIEFS), len(_SEED_STATUS["errors"]))
+
+
+@app.post("/admin/seed-community")
+async def admin_seed_community(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Kick off bulk-seeding of 20 diverse US/Europe personas. Runs as a
+    background task. Idempotent — skips persona_ids that already exist."""
+    if _SEED_STATUS.get("running"):
+        return {"running": True, "done": _SEED_STATUS["done"], "total": _SEED_STATUS["total"]}
+    asyncio.create_task(_run_seed(_admin.id))
+    return {"started": True, "total": len(_SEED_BRIEFS)}
+
+
+@app.get("/admin/seed-community/status")
+async def admin_seed_community_status(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    return _SEED_STATUS
+
+
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────
 
 import time as _rl_time
