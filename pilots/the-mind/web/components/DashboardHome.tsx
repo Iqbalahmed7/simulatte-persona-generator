@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { API } from "@/lib/api";
 import LivePersonaWall from "./LivePersonaWall";
+import ActionSidebar from "./ActionSidebar";
 
 interface MyPersona {
   persona_id: string;
@@ -77,79 +78,67 @@ export default function DashboardHome({
 
   return (
     <div className="bg-void text-parchment min-h-screen">
-      {/* ── 1. GREETING + ALLOWANCE ───────────────────────────── */}
-      <section className="px-4 sm:px-6 lg:px-14 pt-10 sm:pt-14 pb-10">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
-            YOUR MIND
-          </p>
-          <h1
-            className="font-condensed font-black text-parchment leading-[0.96] mb-4"
-            style={{ fontSize: "clamp(34px, 5.5vw, 56px)", letterSpacing: "-0.008em" }}
-          >
-            {hasPersonas
-              ? (first ? `Welcome back, ${first}.` : "Welcome back.")
-              : (first ? `Welcome, ${first}.` : "Welcome to The Mind.")}
-          </h1>
-          <p className="text-parchment/72 text-base sm:text-lg leading-[1.78] max-w-xl mb-8">
-            {hasPersonas
-              ? buildCopy(personasLeft)
-              : `You have ${personasLimit} builds this week. Use one to bring your first person to life.`}
-          </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8">
+        {/* Two-column on lg+; mobile stacks (sidebar above, then main) */}
+        <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 lg:gap-10">
+          {/* ── LEFT: ACTION SIDEBAR ───────────────────────────── */}
+          <ActionSidebar personas={personas} personasLeft={personasLeft} />
 
-          {/* Allowance card + CTA — stacks on mobile */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-10 items-start">
-            <AllowanceCard allowance={allowance} loaded={loaded} />
-            <div className="flex flex-col gap-3 lg:items-end">
-              <Link
-                href="/generate"
-                className={
-                  "block text-center font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 transition-opacity " +
-                  (personasLeft > 0
-                    ? "bg-signal text-void hover:opacity-90"
-                    : "bg-parchment/10 text-parchment/40 cursor-not-allowed pointer-events-none")
-                }
+          {/* ── RIGHT: MAIN CONTENT ───────────────────────────── */}
+          <main className="min-w-0">
+            {/* Greeting */}
+            <section className="pb-8">
+              <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
+                YOUR MIND
+              </p>
+              <h1
+                className="font-condensed font-black text-parchment leading-[0.96] mb-3"
+                style={{ fontSize: "clamp(30px, 4.5vw, 48px)", letterSpacing: "-0.008em" }}
               >
-                {personasLeft > 0 ? "Build a new person →" : "Reset Monday"}
-              </Link>
-              {personasLeft === 0 && allowance?.resets_at && (
-                <p className="text-[10px] font-mono text-parchment/40 tracking-widest uppercase text-center lg:text-right">
-                  Allowance resets {formatResets(allowance.resets_at)}
-                </p>
-              )}
-            </div>
-          </div>
+                {hasPersonas
+                  ? (first ? `Welcome back, ${first}.` : "Welcome back.")
+                  : (first ? `Welcome, ${first}.` : "Welcome to The Mind.")}
+              </h1>
+              <p className="text-parchment/72 text-base leading-[1.78] max-w-xl">
+                {hasPersonas
+                  ? buildCopy(personasLeft)
+                  : `You have ${personasLimit} builds this week. Use one to bring your first person to life.`}
+              </p>
+            </section>
+
+            {/* Allowance card */}
+            <section className="pb-10">
+              <AllowanceCard allowance={allowance} loaded={loaded} />
+            </section>
+
+            {/* Your personas */}
+            {hasPersonas && (
+              <section className="pb-10">
+                <div className="flex items-baseline justify-between gap-4 mb-5">
+                  <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-lg sm:text-xl">
+                    Your personas
+                  </h2>
+                  <span className="font-mono text-[10px] text-static tracking-widest uppercase">
+                    {personas.length} active
+                  </span>
+                </div>
+                {/* Mobile: horizontal scroll; sm+: 2 cols; lg+: 3 cols */}
+                <div className="flex gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+                  {personas.map((p) => (
+                    <PersonaCard key={p.persona_id} p={p} />
+                  ))}
+                </div>
+              </section>
+            )}
+          </main>
         </div>
-      </section>
+      </div>
 
-      {/* ── 2. YOUR PERSONAS ──────────────────────────────────── */}
-      {hasPersonas && (
-        <section className="px-4 sm:px-6 lg:px-14 py-8 sm:py-12 border-t border-parchment/10">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-baseline justify-between gap-4 mb-6">
-              <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-xl sm:text-2xl">
-                Your personas
-              </h2>
-              <span className="font-mono text-[10px] text-static tracking-widest uppercase">
-                {personas.length} active
-              </span>
-            </div>
-
-            {/* Mobile: horizontal scroll; lg+: grid */}
-            <div className="flex gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-4 lg:overflow-visible snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
-              {personas.map((p) => (
-                <PersonaCard key={p.persona_id} p={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ── 3. COMMUNITY WALL ─────────────────────────────────── */}
-      <section className="border-t border-parchment/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-14 pt-8 sm:pt-12 pb-4">
-          <div className="flex items-baseline justify-between gap-4 mb-6">
-            <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-xl sm:text-2xl">
+      {/* ── COMMUNITY WALL — full bleed below the columns ────── */}
+      <section className="border-t border-parchment/10 mt-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 pb-4">
+          <div className="flex items-baseline justify-between gap-4 mb-5">
+            <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-lg sm:text-xl">
               The wall
             </h2>
             <Link href="/community" className="font-mono text-[10px] text-parchment/60 hover:text-signal tracking-widest uppercase">
@@ -157,7 +146,7 @@ export default function DashboardHome({
             </Link>
           </div>
         </div>
-        <div className="relative h-[40vh] sm:h-[50vh] overflow-hidden border-y border-parchment/5">
+        <div className="relative h-[40vh] sm:h-[45vh] overflow-hidden border-y border-parchment/5">
           <LivePersonaWall />
         </div>
       </section>
