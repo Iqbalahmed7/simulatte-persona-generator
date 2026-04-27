@@ -3450,6 +3450,7 @@ _SEED_STATUS: dict = {"running": False, "done": 0, "total": 0, "errors": []}
 async def _run_seed(admin_id: str):
     """Background task: generate all 20 personas + portraits + events."""
     global _SEED_STATUS
+    from db import get_session_factory  # noqa: PLC0415
     fal_key = os.environ.get("FAL_KEY", "")
     client = _client()
     factory = get_session_factory()
