@@ -191,11 +191,26 @@ export async function generatePersona(
     for (const line of lines) {
       if (line.startsWith("data: ")) {
         try {
-          onEvent(JSON.parse(line.slice(6)));
+          const evt = JSON.parse(line.slice(6));
+          onEvent(evt);
+          // Fire-and-forget summary email after a successful generation.
+          if (evt.type === "result" && evt.persona_id) {
+            void notifyPersonaGenerated(evt.persona_id);
+          }
         } catch { /* ignore malformed */ }
       }
     }
   }
+}
+
+/** Fire-and-forget notify hook so the backend can send a summary email. */
+async function notifyPersonaGenerated(personaId: string): Promise<void> {
+  try {
+    await fetch(`${API}/notify/persona-generated/${personaId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
+    });
+  } catch { /* best-effort, ignore failures */ }
 }
 
 export async function fetchGeneratedPersona(id: string): Promise<GeneratedPersona> {

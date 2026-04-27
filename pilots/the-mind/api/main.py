@@ -2268,3 +2268,97 @@ async def verify_turnstile(payload: dict):
             return {"ok": bool(data.get("success")), "raw": data}
     except Exception as exc:
         return {"ok": False, "reason": f"verify_failed: {exc}"}
+
+
+# ── Session summary email (Phase 3b) ──────────────────────────────────────
+# After a successful persona generation, the frontend POSTs here. We send
+# the user a recap email via Resend with portrait + name + CTAs to probe / chat.
+# No-op in dev (AUTH_RESEND_KEY unset). Idempotency: keyed by (user_id, persona_id);
+# duplicate calls within process lifetime are silently dropped.
+
+_SUMMARY_EMAIL_SENT: set[tuple[str, str]] = set()
+
+
+def _summary_html(name: str, city: str | None, age: int | None, persona_id: str, portrait_url: str | None) -> str:
+    sub = ", ".join(filter(None, [str(age) if age else None, city]))
+    portrait_block = (
+        f'<img src="{portrait_url}" width="120" height="120" style="border-radius:4px;display:block;margin:0 auto 24px;" alt="" />'
+        if portrait_url else ""
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" />
+<style>
+  body {{ margin:0; padding:0; background:#0a0a0a; font-family:'Helvetica Neue',Arial,sans-serif; }}
+  .wrap {{ max-width:480px; margin:40px auto; background:#0a0a0a; border:1px solid rgba(240,230,210,0.12); border-radius:4px; overflow:hidden; }}
+  .header {{ padding:32px 40px 24px; border-bottom:1px solid rgba(240,230,210,0.08); }}
+  .logo {{ font-size:18px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#f0e6d2; }}
+  .body {{ padding:32px 40px; color:#f0e6d2; }}
+  .h1 {{ font-size:22px; font-weight:700; margin:0 0 12px; }}
+  .sub {{ font-size:14px; color:rgba(240,230,210,0.6); margin:0 0 24px; line-height:1.6; }}
+  .btn {{ display:inline-block; background:#A8FF3E; color:#0a0a0a; text-decoration:none; font-weight:700; font-size:14px; letter-spacing:0.06em; padding:12px 24px; border-radius:2px; margin-right:8px; }}
+  .btn-ghost {{ display:inline-block; background:transparent; color:#f0e6d2; text-decoration:none; font-weight:600; font-size:14px; padding:12px 16px; border:1px solid rgba(240,230,210,0.2); border-radius:2px; }}
+  .footer {{ padding:20px 40px; border-top:1px solid rgba(240,230,210,0.08); font-size:11px; color:rgba(240,230,210,0.3); line-height:1.6; }}
+</style></head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="logo">The Mind</div>
+    </div>
+    <div class="body">
+      {portrait_block}
+      <h1 class="h1">You created {name}.</h1>
+      <p class="sub">{sub or 'A new synthetic person, ready to evaluate.'}</p>
+      <p class="sub">Test how they react to a product, or have a conversation. They'll stay in character.</p>
+      <a class="btn" href="https://mind.simulatte.io/persona/{persona_id}/probe">Run a probe</a>
+      <a class="btn-ghost" href="https://mind.simulatte.io/persona/{persona_id}/chat">Chat with them</a>
+    </div>
+    <div class="footer">
+      Simulatte / The Mind — sent because you generated a persona at mind.simulatte.io.
+    </div>
+  </div>
+</body></html>"""
+
+
+async def _send_summary_email(to_email: str, persona: dict, persona_id: str) -> None:
+    api_key = os.environ.get("AUTH_RESEND_KEY", "")
+    if not api_key or not to_email:
+        return
+    da = persona.get("demographic_anchor") or {}
+    name = da.get("name") or "Persona"
+    portrait = _GENERATED_PORTRAITS.get(persona_id)
+    html = _summary_html(name, da.get("city"), da.get("age"), persona_id, portrait)
+    from_email = os.environ.get("EMAIL_FROM", "noreply@mind.simulatte.io")
+    try:
+        import httpx
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            await client.post(
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json={
+                    "from": from_email,
+                    "to": [to_email],
+                    "subject": f"You created {name} — The Mind",
+                    "html": html,
+                },
+            )
+    except Exception:
+        logger.exception("[summary-email] failed for %s", to_email)
+
+
+@app.post("/notify/persona-generated/{persona_id}")
+async def notify_persona_generated(
+    persona_id: str,
+    user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+):
+    """Fire a session-summary email. Frontend calls fire-and-forget after success."""
+    key = (user.id, persona_id)
+    if key in _SUMMARY_EMAIL_SENT:
+        return {"ok": True, "skipped": "already_sent"}
+    persona = _GENERATED.get(persona_id)
+    if not persona:
+        return {"ok": False, "reason": "persona_not_found"}
+    if not user.email:
+        return {"ok": False, "reason": "no_email"}
+    _SUMMARY_EMAIL_SENT.add(key)
+    await _send_summary_email(user.email, persona, persona_id)
+    return {"ok": True}
