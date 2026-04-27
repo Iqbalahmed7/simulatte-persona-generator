@@ -42,7 +42,6 @@ export default function ActionSidebar({
         <ActionButton
           label="Generate persona"
           sub={personasLeft > 0 ? `${personasLeft} left this week` : "Resets Monday"}
-          disabled={personasLeft === 0}
           href="/generate"
           icon={<IconUserPlus />}
         />
