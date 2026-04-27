@@ -121,6 +121,10 @@ class User(Base):
     banned_reason = Column(String, nullable=True)
     # Auto-incremented every time a request from this user is moderation-blocked.
     flagged_count = Column(Integer, nullable=False, default=0, server_default="0")
+    # Invite code used to enter the platform during invite-only phase. Null
+    # for admin-created users / bypass paths. Backfilled on first authed
+    # request from the `invite_ok` cookie (see auth.get_current_user).
+    invite_code_used = Column(String, nullable=True)
 
     allowance = relationship("Allowance", back_populates="user", uselist=False)
     events = relationship("Event", back_populates="user")

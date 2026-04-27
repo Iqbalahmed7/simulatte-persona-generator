@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { fetchGeneratedPersona, generatePortrait, GeneratedPersona } from "@/lib/api";
 import GenuinenessChip from "@/components/GenuinenessChip";
+import PersonaShare from "@/components/PersonaShare";
 
 // ── helpers ───────────────────────────────────────────────────────────────
 
@@ -55,10 +56,17 @@ function PortraitPanel({
   const [url, setUrl] = useState<string | null>(initialUrl ?? null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  // Strict-mode double-fire guard: ensure we only kick off ONE
+  // generatePortrait() call per persona per mount lifecycle. Without
+  // this, dev StrictMode + remounts have produced "the portrait
+  // changed by itself" — two parallel fal.ai calls, last-write-wins.
+  const triggeredRef = useRef<string | null>(null);
 
   // Auto-generate on mount if no portrait yet
   useEffect(() => {
     if (url) return;
+    if (triggeredRef.current === personaId) return; // already kicked off in this mount
+    triggeredRef.current = personaId;
     setLoading(true);
     generatePortrait(personaId)
       .then(setUrl)
@@ -248,6 +256,16 @@ export default function PersonaProfilePage() {
             <p className="text-parchment/80 text-sm leading-relaxed mb-6">
               {persona.narrative.third_person}
             </p>
+
+            {/* Share row */}
+            <div className="mb-6">
+              <PersonaShare
+                personaId={persona.persona_id}
+                name={da.name}
+                age={da.age}
+                city={da.location.city}
+              />
+            </div>
 
             {/* Quick stats */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">

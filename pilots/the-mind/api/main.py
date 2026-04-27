@@ -2069,6 +2069,15 @@ async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
         logger.exception("[portrait:auto] failed for %s", persona_id)
 
 
+# Per-persona asyncio locks so concurrent generate-portrait calls for the
+# SAME persona share one fal.ai render instead of producing different faces.
+# Without this, two parallel client requests (React Strict Mode double-fire,
+# tab refresh during pending request, etc.) both miss the cache check, both
+# hit fal.ai, and the page would flicker between two portraits — leading to
+# the "portrait of persona changed by itself" report.
+_PORTRAIT_LOCKS: dict[str, asyncio.Lock] = {}
+
+
 @app.post("/generated/{persona_id}/portrait")
 async def generate_portrait(persona_id: str, force: bool = False):
     """Generate (or return cached) portrait for a generated persona.
@@ -2078,20 +2087,28 @@ async def generate_portrait(persona_id: str, force: bool = False):
     if persona_id not in _GENERATED:
         raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
 
-    # Return cached URL if already generated
+    # Fast path: already cached.
     if not force and persona_id in _GENERATED_PORTRAITS:
         return {"url": _GENERATED_PORTRAITS[persona_id], "persona_id": persona_id}
 
-    fal_key = os.environ.get("FAL_KEY", "")
-    if not fal_key:
-        raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
+    # Single-flight: only one fal.ai call per persona at a time. Concurrent
+    # callers wait for the lock; once acquired they re-check the cache (the
+    # winner of the race will have populated it).
+    lock = _PORTRAIT_LOCKS.setdefault(persona_id, asyncio.Lock())
+    async with lock:
+        if not force and persona_id in _GENERATED_PORTRAITS:
+            return {"url": _GENERATED_PORTRAITS[persona_id], "persona_id": persona_id}
 
-    da = _GENERATED[persona_id].get("demographic_anchor") or {}
-    prompt = _build_portrait_prompt_dict(da)
-    url = await _call_fal_portrait(prompt, fal_key)
-    _GENERATED_PORTRAITS[persona_id] = url
-    _save_portraits_to_disk()
-    return {"url": url, "persona_id": persona_id, "prompt": prompt}
+        fal_key = os.environ.get("FAL_KEY", "")
+        if not fal_key:
+            raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
+
+        da = _GENERATED[persona_id].get("demographic_anchor") or {}
+        prompt = _build_portrait_prompt_dict(da)
+        url = await _call_fal_portrait(prompt, fal_key)
+        _GENERATED_PORTRAITS[persona_id] = url
+        _save_portraits_to_disk()
+        return {"url": url, "persona_id": persona_id, "prompt": prompt}
 
 
 # ── Admin endpoints ───────────────────────────────────────────────────────
