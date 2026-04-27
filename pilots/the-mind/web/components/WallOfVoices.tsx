@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 /**
  * WallOfVoices.tsx — three vertical columns of drifting persona-quote cards.
  *
@@ -128,6 +130,21 @@ export default function WallOfVoices() {
         <p className="text-center text-parchment/40 text-xs font-mono pt-2">
           + 15 more
         </p>
+      </div>
+
+      {/* CTA — explore the full Community Wall */}
+      <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-parchment/8 pt-8">
+        <p className="text-parchment/55 text-sm leading-relaxed max-w-xl">
+          Above is a curated handful. The Wall is the live, public archive of every
+          persona simulated through The Mind&apos;s free tier — anonymous, browseable,
+          all yours to learn from.
+        </p>
+        <Link
+          href="/community"
+          className="shrink-0 inline-flex items-center gap-2 border border-signal text-signal font-condensed font-bold px-5 py-2.5 hover:bg-signal/10 transition-colors text-sm tracking-widest uppercase"
+        >
+          Explore The Wall →
+        </Link>
       </div>
 
       <style>{`

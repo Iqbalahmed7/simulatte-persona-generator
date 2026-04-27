@@ -469,6 +469,34 @@ async def _ensure_moderation_columns():
         logger.warning("[startup] moderation column migration skipped: %s", exc)
 
 
+def _purge_old_generated(ttl_days: int = 30) -> int:
+    """Delete generated-persona JSON files older than ttl_days. Idempotent.
+
+    Free-tier persona retention is intentionally bounded: 30 days on disk,
+    then auto-purged so the volume doesn't grow forever. Probes pointing to
+    the persona will 404 after purge — the persona page handles that.
+    Returns count of files removed.
+    """
+    if not _GENERATED_DIR.exists():
+        return 0
+    import time as _t
+    cutoff = _t.time() - (ttl_days * 86400)
+    removed = 0
+    for path in _GENERATED_DIR.glob("*.json"):
+        try:
+            if path.stat().st_mtime < cutoff:
+                pid = path.stem
+                path.unlink()
+                _GENERATED.pop(pid, None)
+                _GENERATED_PORTRAITS.pop(pid, None)
+                removed += 1
+        except Exception as exc:  # pragma: no cover
+            logger.warning("[ttl] purge failed for %s: %s", path, exc)
+    if removed:
+        logger.info("[ttl] purged %d generated personas older than %dd", removed, ttl_days)
+    return removed
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     personas = _load_all()
@@ -476,6 +504,7 @@ async def lifespan(app: FastAPI):
     _load_generated_from_disk()
     logger.info("[the-mind] %d generated personas loaded from disk", len(_GENERATED))
     await _ensure_moderation_columns()
+    _purge_old_generated()
     yield
 
 
@@ -1245,6 +1274,40 @@ async def list_generated_personas():
             "brief_snippet": snippet,
         })
     return sorted(summaries, key=lambda x: x["persona_id"], reverse=True)
+
+
+@app.get("/community/personas")
+async def list_community_personas(limit: int = 60):
+    """Public, anonymized list of generated personas for the Community Wall.
+
+    Free-tier generations are property of Simulatte (per ToS) and surfaced
+    here. NO user information attached — name/age/city/country/portrait
+    only. Sorted by created_at on disk (newest first).
+    """
+    items: list[dict] = []
+    for pid, p in _GENERATED.items():
+        da = p.get("demographic_anchor") or {}
+        location = da.get("location") or {}
+        narrative = p.get("narrative") or {}
+        # Take a short third-person hook line — already public on persona page.
+        snippet = (narrative.get("third_person") or "")[:140]
+        path = _GENERATED_DIR / f"{pid}.json"
+        try:
+            mtime = path.stat().st_mtime if path.exists() else 0.0
+        except Exception:
+            mtime = 0.0
+        items.append({
+            "persona_id": pid,
+            "name": da.get("name", ""),
+            "age": da.get("age", 0),
+            "city": location.get("city", ""),
+            "country": location.get("country", ""),
+            "portrait_url": _GENERATED_PORTRAITS.get(pid),
+            "snippet": snippet,
+            "_sort": mtime,
+        })
+    items.sort(key=lambda x: x["_sort"], reverse=True)
+    return [{k: v for k, v in it.items() if k != "_sort"} for it in items[:limit]]
 
 
 def _compute_quality_assessment(persona: dict) -> dict:

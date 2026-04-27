@@ -603,7 +603,13 @@ export default function HomePage() {
                 Simulatte / The Mind / Confidential
               </span>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 flex-wrap">
+              <Link
+                href="/community"
+                className="font-mono text-[10px] text-parchment/60 tracking-widest uppercase hover:text-signal transition-colors"
+              >
+                The Wall
+              </Link>
               <a
                 href="mailto:mind@simulatte.io?subject=The%20Mind%20%E2%80%94%20feedback"
                 className="font-mono text-[10px] text-parchment/60 tracking-widest uppercase hover:text-signal transition-colors"

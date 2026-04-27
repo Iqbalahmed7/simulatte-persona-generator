@@ -10,12 +10,27 @@
  *
  * Gated routes (redirect to /sign-in if no session cookie):
  *   /generate       — persona generation form
- *   /persona/*      — individual persona pages
- *   /probe/*        — probe form and results
+ *   /probe/*        — probe form (the public /probe/[probeId] share view
+ *                     is a leaf URL not matched by /probe/ + path; new
+ *                     probes are created from the persona page)
+ *
+ * Public read-only routes (no middleware gate):
+ *   /persona/[id]   — Community Wall makes all generated personas public.
+ *                     Chat / "Run a probe" buttons trigger sign-in only on
+ *                     interaction; the page itself is browseable by anyone.
  */
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PREFIXES = ["/generate", "/persona/", "/probe/"];
+const PROTECTED_PREFIXES = ["/generate"];
+
+/** Returns true if the path needs an auth gate. */
+function isPathProtected(pathname: string): boolean {
+  if (PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) return true;
+  // /persona/[id]/probe — probe form (consumes allowance, must be authed).
+  // The bare /persona/[id] view is public for community-wall browsing.
+  if (/^\/persona\/[^/]+\/probe(?:\/.*)?$/.test(pathname)) return true;
+  return false;
+}
 
 // Auth.js v5 cookie names. On HTTPS the prefix is __Secure-; on HTTP it isn't.
 const SESSION_COOKIE_NAMES = [
@@ -25,8 +40,7 @@ const SESSION_COOKIE_NAMES = [
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
-  if (!isProtected) return NextResponse.next();
+  if (!isPathProtected(pathname)) return NextResponse.next();
 
   const hasSession = SESSION_COOKIE_NAMES.some(
     (name) => !!request.cookies.get(name)?.value
