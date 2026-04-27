@@ -3582,14 +3582,26 @@ async def rate_limit_middleware(request: Request, call_next):
 
     # Identify caller (Bearer subject if present, else IP)
     identity = request.client.host if request.client else "unknown"
+    is_admin_caller = False
     auth_header = request.headers.get("Authorization", "")
-    if auth_header.startswith("Bearer "):
+    bearer_token = auth_header[7:] if auth_header.startswith("Bearer ") else None
+    if not bearer_token:
+        # Fall back to Auth.js session cookie so browser-driven
+        # admin requests (which use cookies, not Authorization) also
+        # benefit from the bypass.
+        for ck in ("authjs.session-token", "__Secure-authjs.session-token",
+                   "next-auth.session-token", "__Secure-next-auth.session-token"):
+            v = request.cookies.get(ck)
+            if v:
+                bearer_token = v
+                break
+    if bearer_token:
         try:
             import jwt as _rl_jwt
             secret = os.environ.get("NEXTAUTH_SECRET", "")
             if secret:
                 payload = _rl_jwt.decode(
-                    auth_header[7:],
+                    bearer_token,
                     secret,
                     algorithms=["HS256"],
                     options={"verify_aud": False},
@@ -3597,8 +3609,22 @@ async def rate_limit_middleware(request: Request, call_next):
                 sub = payload.get("sub")
                 if sub:
                     identity = f"user:{sub}"
+                # Admin email bypass — operator never gets rate-limited
+                # on their own infra. Mirrors the bypass already applied
+                # to allowance / access_status checks elsewhere.
+                email = (payload.get("email") or "").lower()
+                admin_emails = {
+                    e.strip().lower()
+                    for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+                    if e.strip()
+                }
+                if email and email in admin_emails:
+                    is_admin_caller = True
         except Exception:
             pass  # fall back to IP
+
+    if is_admin_caller:
+        return await call_next(request)
 
     # Classify route
     if path == "/generate-persona" or "/probe" in path:
