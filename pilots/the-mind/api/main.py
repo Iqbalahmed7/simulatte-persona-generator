@@ -3447,20 +3447,19 @@ _SEED_LOCK = asyncio.Lock()
 _SEED_STATUS: dict = {"running": False, "done": 0, "total": 0, "errors": []}
 
 
-async def _run_seed(admin_id: str):
-    """Background task: generate all 20 personas + portraits + events."""
-    global _SEED_STATUS
-    from db import get_session_factory  # noqa: PLC0415
-    fal_key = os.environ.get("FAL_KEY", "")
-    client = _client()
-    factory = get_session_factory()
-    _SEED_STATUS = {"running": True, "done": 0, "total": len(_SEED_BRIEFS), "errors": []}
-    for label, brief in _SEED_BRIEFS:
+async def _seed_one(label: str, brief: str, admin_id: str, client, factory, fal_key: str, sem: asyncio.Semaphore):
+    """Generate a single seed persona, with per-step timing and semaphore-bounded concurrency."""
+    async with sem:
+        import time as _t
+        t0 = _t.time()
         try:
+            logger.info("[seed] start %s", label)
             anchor, domain, _ = await _extract_from_brief(brief, None, client)
+            t1 = _t.time()
             persona = await _generate_persona_direct(
                 brief=brief, anchor=anchor, domain=domain, client=client,
             )
+            t2 = _t.time()
             pid = persona["persona_id"]
             if pid not in _GENERATED:
                 _GENERATED[pid] = persona
@@ -3480,13 +3479,36 @@ async def _run_seed(admin_id: str):
                         _save_portraits_to_disk()
                     except Exception:
                         logger.exception("[seed] portrait failed for %s", pid)
+            t3 = _t.time()
             _SEED_STATUS["done"] += 1
-            logger.info("[seed] %d/%d ✓ %s", _SEED_STATUS["done"], len(_SEED_BRIEFS), label)
+            logger.info("[seed] %d/%d ✓ %s (extract=%.1fs gen=%.1fs portrait=%.1fs total=%.1fs)",
+                        _SEED_STATUS["done"], len(_SEED_BRIEFS), label,
+                        t1 - t0, t2 - t1, t3 - t2, t3 - t0)
         except Exception as exc:
-            logger.exception("[seed] FAILED: %s", label)
+            logger.exception("[seed] FAILED: %s after %.1fs", label, _t.time() - t0)
             _SEED_STATUS["errors"].append(f"{label}: {exc}")
+
+
+async def _run_seed(admin_id: str):
+    """Background task: generate all personas + portraits + events in parallel
+    (bounded concurrency = 5 to avoid hammering Anthropic/fal rate limits)."""
+    global _SEED_STATUS
+    from db import get_session_factory  # noqa: PLC0415
+    fal_key = os.environ.get("FAL_KEY", "")
+    client = _client()
+    factory = get_session_factory()
+    _SEED_STATUS = {"running": True, "done": 0, "total": len(_SEED_BRIEFS), "errors": []}
+    sem = asyncio.Semaphore(5)
+    logger.info("[seed] starting parallel run of %d briefs (concurrency=5)", len(_SEED_BRIEFS))
+    import time as _t
+    t0 = _t.time()
+    await asyncio.gather(*(
+        _seed_one(label, brief, admin_id, client, factory, fal_key, sem)
+        for label, brief in _SEED_BRIEFS
+    ))
     _SEED_STATUS["running"] = False
-    logger.info("[seed] complete: %d/%d done, %d errors",
+    logger.info("[seed] complete in %.1fs: %d/%d done, %d errors",
+                _t.time() - t0,
                 _SEED_STATUS["done"], len(_SEED_BRIEFS), len(_SEED_STATUS["errors"]))
 
 
