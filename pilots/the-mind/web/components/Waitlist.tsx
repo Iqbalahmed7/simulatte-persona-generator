@@ -132,14 +132,14 @@ export default function Waitlist({
       </header>
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="max-w-2xl w-full">
+        <div className="max-w-2xl w-full text-center">
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-4">
             WAITLIST
           </p>
-          <h1 className="font-condensed font-black text-5xl leading-[0.96] mb-6">
+          <h1 className="font-condensed font-black text-5xl leading-[0.96] mb-6 mx-auto" style={{ maxWidth: "16ch" }}>
             {first ? `${first}, you're on the list.` : "You're on the list."}
           </h1>
-          <p className="text-parchment/72 text-lg leading-[1.78] mb-10">
+          <p className="text-parchment/72 text-lg leading-[1.78] mb-10 mx-auto" style={{ maxWidth: "560px" }}>
             The Mind is in private launch. Two ways in: paste the invite
             code a friend shared with you, or tell us what you&#x2019;d
             like to test and we&#x2019;ll get back to you.

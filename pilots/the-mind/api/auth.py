@@ -194,6 +194,26 @@ async def get_current_user(
             detail="User not found — your session may be stale, please sign in again",
         )
 
+    # Admin auto-bypass: admins are always treated as active. They got
+    # `pending` only because the column default tagged them retroactively
+    # — flip them to active on first authed call so they never see the
+    # waitlist screen and can never be locked out of their own admin tools.
+    admin_emails_set = {
+        e.strip().lower()
+        for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+        if e.strip()
+    }
+    if (user.email or "").lower() in admin_emails_set:
+        if (getattr(user, "access_status", "active") or "active") != "active":
+            user.access_status = "active"
+            user.approved_at = datetime.now(timezone.utc)
+            try:
+                if not getattr(user, "personal_invite_code", None):
+                    user.personal_invite_code = await _create_personal_invite_code(db, user)
+                await db.commit()
+            except Exception:
+                await db.rollback()
+
     # Activation pipeline. Two responsibilities, run together so the
     # commit is atomic:
     #   1. Backfill invite_code_used from the `invite_ok` cookie if it's
