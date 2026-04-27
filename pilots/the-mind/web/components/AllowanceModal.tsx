@@ -93,7 +93,7 @@ export default function AllowanceModal({ payload, onClose }: Props) {
         {/* Allowance summary */}
         <ul className="space-y-1.5 mb-6">
           {[
-            { label: "1 persona generated", key: "persona" },
+            { label: "2 personas generated", key: "persona" },
             { label: "3 probes used", key: "probe" },
             { label: "5 chats sent", key: "chat" },
           ].map(item => (

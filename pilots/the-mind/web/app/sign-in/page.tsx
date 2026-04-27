@@ -115,7 +115,7 @@ function SignInContent() {
           <>
             <p className="text-parchment/60 text-sm leading-relaxed mb-6">
               Sign in to generate your own persona and run probes.
-              Free — 1 persona, 3 probes, 5 chats per week.
+              Free — 2 personas, 3 probes, 5 chats per week.
             </p>
 
             {/* Bot challenge — only renders if NEXT_PUBLIC_TURNSTILE_SITE_KEY set */}

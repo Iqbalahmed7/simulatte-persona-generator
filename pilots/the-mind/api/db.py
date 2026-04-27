@@ -235,7 +235,7 @@ class Event(Base):
 # ── Allowance limits (hard-coded, can be per-user later) ─────────────────
 
 LIMITS = {
-    "persona": 1,
+    "persona": 2,
     "probe": 3,
     "chat": 5,
 }
