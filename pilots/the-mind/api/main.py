@@ -772,16 +772,52 @@ def _build_portrait_prompt(da) -> str:
     )
 
 
-def _build_portrait_prompt_dict(da: dict) -> str:
-    """Build a portrait prompt from a plain-dict demographic anchor (web-generated personas).
+_INCOME_WARDROBE = {
+    "low": "modest, well-worn but cared-for clothing — basics, no flashy logos",
+    "lower_middle": "practical, slightly dated wardrobe — chain-store basics in good condition",
+    "middle": "unremarkable contemporary clothing appropriate to their occupation",
+    "upper_middle": "tasteful, current-season clothing — quiet quality, no logos",
+    "high": "well-tailored, considered wardrobe — premium fabrics, restrained palette",
+    "ultra_high": "exquisitely tailored, understated luxury — bespoke fit, no visible branding",
+}
 
-    Includes the persona's full name (strong implicit ethnicity signal —
-    "Chen", "Sharma", "Kowalski", "Schmidt", "Garcia" all encode heritage)
-    plus any explicit ethnicity / heritage hint surfaced by Claude during
-    persona generation. Without the name, fal.ai (Flux) defaults to the
-    statistical mode for the city, which over-represents white phenotypes
-    for places like San Francisco or London.
+_DECISION_DEMEANOUR = {
+    "deliberative": "thoughtful, slightly furrowed brow, the look of someone mid-thought",
+    "analytical": "alert and focused, faintly appraising expression",
+    "intuitive": "warm, open, present in the moment",
+    "impulsive": "animated, slightly forward-leaning energy",
+    "consensus_seeking": "approachable, attentive expression as if listening",
+    "values_driven": "calm and grounded, gaze steady",
+    "risk_averse": "reserved, contained body language",
+    "experimental": "curious, faintly amused half-smile",
+}
+
+
+def _build_portrait_prompt_dict(persona_or_anchor: dict) -> str:
+    """Build a topical portrait prompt that surfaces character + background.
+
+    Accepts either the full persona dict OR just the demographic_anchor
+    (sniffs for the `demographic_anchor` key). Pulls in:
+      • Name + heritage  → phenotype signal (else Flux defaults to white
+        in cosmopolitan cities)
+      • Occupation + industry  → wardrobe and setting
+      • Life stage + household  → age cues, accessories (e.g. wedding ring)
+      • Income level  → quality/cut of clothing
+      • Decision style  → posture and facial demeanour
+      • Primary value orientation  → environmental cues
+      • Narrative / bio snippet (if present)  → atmospheric detail
+    Capped at ~120 words of meaningful content so Flux doesn't truncate.
     """
+    # Sniff: full persona vs raw anchor
+    if "demographic_anchor" in persona_or_anchor:
+        persona = persona_or_anchor
+        da = persona.get("demographic_anchor") or {}
+    else:
+        persona = {}
+        da = persona_or_anchor
+
+    di = persona.get("derived_insights") or {}
+
     name = (da.get("name") or "").strip()
     gender = da.get("gender", "")
     gender_word = "woman" if gender == "female" else "man" if gender == "male" else "person"
@@ -790,11 +826,14 @@ def _build_portrait_prompt_dict(da: dict) -> str:
     country = location.get("country", "")
     employment = da.get("employment") or {}
     occupation = employment.get("occupation", "") or ""
+    industry = employment.get("industry", "") or ""
     life_stage = (da.get("life_stage") or "").replace("_", " ")
     age = da.get("age", 30)
+    income_level = (da.get("income_level") or "").lower()
+    household = da.get("household") or {}
+    household_type = (household.get("type") or "").lower()
 
-    # Heritage / ethnicity hints — Claude sometimes tags these in the
-    # anchor under various keys; pick up whichever is present.
+    # Heritage / ethnicity
     heritage = (
         da.get("ethnicity") or da.get("heritage") or da.get("ancestry")
         or da.get("cultural_background") or ""
@@ -803,7 +842,7 @@ def _build_portrait_prompt_dict(da: dict) -> str:
         heritage = ", ".join(str(h) for h in heritage)
     heritage = str(heritage).strip()
 
-    # Subject phrase — name first (strongest signal), heritage if available.
+    # Subject line — name carries phenotype signal
     subject_bits = [f"{age}-year-old"]
     if heritage:
         subject_bits.append(heritage)
@@ -811,23 +850,81 @@ def _build_portrait_prompt_dict(da: dict) -> str:
     subject = " ".join(subject_bits)
     name_clause = f" named {name}" if name else ""
 
-    context_parts = []
+    # Wardrobe — occupation × income level
+    wardrobe = _INCOME_WARDROBE.get(income_level, _INCOME_WARDROBE["middle"])
+
+    # Demeanour from decision style
+    decision_style = (di.get("decision_style") or "").lower()
+    demeanour = _DECISION_DEMEANOUR.get(decision_style, "natural relaxed expression, soft eyes")
+
+    # Setting — derived from occupation, value orientation, life stage
+    value_orientation = (di.get("primary_value_orientation") or "").replace("_", " ")
+    setting_bits: list[str] = []
     if occupation:
-        context_parts.append(occupation)
-    if life_stage:
-        context_parts.append(life_stage)
-    context = f", {', '.join(context_parts)}" if context_parts else ""
+        # Light environmental hint based on occupation keywords
+        occ_l = occupation.lower()
+        if any(k in occ_l for k in ("engineer", "developer", "designer", "researcher", "analyst")):
+            setting_bits.append("a working environment with monitors slightly out of focus behind them")
+        elif any(k in occ_l for k in ("chef", "restaurant", "barista", "baker")):
+            setting_bits.append("a warm kitchen or service space, soft ambient sounds implied")
+        elif any(k in occ_l for k in ("teacher", "professor", "educator")):
+            setting_bits.append("an unfussy classroom or study, books visible behind them")
+        elif any(k in occ_l for k in ("nurse", "doctor", "medical", "clinician")):
+            setting_bits.append("a clinical but humane setting, scrubs or muted uniform")
+        elif any(k in occ_l for k in ("electrician", "carpenter", "mechanic", "tradesperson")):
+            setting_bits.append("a workshop or job site, hands showing honest use")
+        elif any(k in occ_l for k in ("artist", "musician", "writer", "creative", "illustrator")):
+            setting_bits.append("their studio or creative space, lived-in and personal")
+        elif any(k in occ_l for k in ("manager", "consultant", "banker", "executive", "director")):
+            setting_bits.append("a quiet office or co-working space, softly out of focus")
+        else:
+            setting_bits.append(f"a setting consistent with their work as a {occupation}")
+
+    # Life stage / household cues
+    if "parent" in household_type or any(k in life_stage for k in ("kids", "children", "parent")):
+        setting_bits.append("subtle signs of family life nearby (a child's drawing pinned, a stroller corner)")
+    if "married" in household_type or "couple" in household_type:
+        setting_bits.append("a wedding band visible on the ring finger")
+
+    # Values cue — only if obvious
+    if value_orientation:
+        if "sustainability" in value_orientation or "environment" in value_orientation:
+            setting_bits.append("natural materials and plants in the background")
+        elif "tradition" in value_orientation or "family" in value_orientation:
+            setting_bits.append("framed family photos or heirlooms suggested in the background")
+        elif "achievement" in value_orientation or "status" in value_orientation:
+            setting_bits.append("polished surfaces, organised desk, considered objects")
+
+    # Narrative / bio fragment — Claude sometimes generates these
+    bio = (
+        persona.get("bio")
+        or persona.get("narrative_summary")
+        or persona.get("summary")
+        or ""
+    )
+    if isinstance(bio, dict):
+        bio = bio.get("summary") or bio.get("text") or ""
+    bio = str(bio).strip()
+    # Take only the first ~140 chars so we keep the prompt focused
+    if bio:
+        bio = bio.split("\n")[0][:140].rstrip(",.; ")
+
+    setting = ". ".join(setting_bits) if setting_bits else "a neutral indoor environment"
 
     return (
-        f"Candid photorealistic portrait of a {subject}{name_clause} from {city}, {country}{context}. "
-        "Phenotype, skin tone, hair texture, and facial features should match the cultural and ethnic background implied by the name and heritage above. "
-        "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
-        "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
-        "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
-        "Hyper-realistic photograph, not a painting, not illustrated, no filters, no text, no watermark. "
-        "photo-realistic DSLR portrait, 85mm f/1.4 lens, natural skin texture with visible pores and subtle imperfections, "
-        "candid expression with soft natural lighting, environmental context appropriate to their occupation and location, "
-        "color-accurate, neutral grading, not stylized, not AI-rendered, looks like a real person photographed on a Tuesday afternoon"
+        f"Candid editorial portrait of a {subject}{name_clause} from {city}, {country}"
+        f"{', ' + occupation if occupation else ''}"
+        f"{' (' + industry + ')' if industry else ''}"
+        f"{', ' + life_stage if life_stage else ''}. "
+        f"{('Background: ' + bio + '. ') if bio else ''}"
+        "Phenotype, skin tone, hair texture, and facial features must match the cultural and ethnic background implied by the name and heritage above. "
+        f"Wardrobe: {wardrobe}. "
+        f"Setting: {setting}. "
+        f"Demeanour: {demeanour}. "
+        "Shot on Sony A7 III, 85mm f/1.4 lens, natural window light, shallow depth of field. "
+        "Upper body framing, slightly off-axis gaze, authentic skin texture with visible pores and subtle imperfections. "
+        "Hyper-realistic documentary photograph — not a painting, not illustrated, no filters, no text, no watermark. "
+        "Color-accurate neutral grading, looks like a real person photographed on a Tuesday afternoon for a magazine feature."
     )
 
 
@@ -2387,8 +2484,10 @@ async def list_probes_for_persona(persona_id: str):
 async def _auto_generate_portrait(persona_id: str, fal_key: str) -> None:
     """Background task: silently generate portrait after persona creation."""
     try:
-        da = (_GENERATED.get(persona_id) or {}).get("demographic_anchor") or {}
-        prompt = _build_portrait_prompt_dict(da)
+        # Pass full persona so the prompt builder can pull derived_insights,
+        # bio, household, etc. for richer setting/wardrobe/demeanour cues.
+        persona = _GENERATED.get(persona_id) or {}
+        prompt = _build_portrait_prompt_dict(persona)
         url = await _call_fal_portrait(prompt, fal_key)
         _GENERATED_PORTRAITS[persona_id] = url
         _save_portraits_to_disk()
@@ -2431,8 +2530,9 @@ async def generate_portrait(persona_id: str, force: bool = False):
         if not fal_key:
             raise HTTPException(status_code=503, detail="FAL_KEY environment variable not set")
 
-        da = _GENERATED[persona_id].get("demographic_anchor") or {}
-        prompt = _build_portrait_prompt_dict(da)
+        # Pass full persona so the prompt builder can pull derived_insights,
+        # bio, household, etc. for richer setting/wardrobe/demeanour cues.
+        prompt = _build_portrait_prompt_dict(_GENERATED[persona_id])
         url = await _call_fal_portrait(prompt, fal_key)
         _GENERATED_PORTRAITS[persona_id] = url
         _save_portraits_to_disk()
@@ -3514,7 +3614,8 @@ async def _seed_one(label: str, brief: str, admin_id: str, client, factory, fal_
                     await db.commit()
                 if fal_key:
                     try:
-                        prompt = _build_portrait_prompt_dict(persona.get("demographic_anchor") or {})
+                        # Pass full persona for richer character/background cues.
+                        prompt = _build_portrait_prompt_dict(persona)
                         url = await _call_fal_portrait(prompt, fal_key)
                         _GENERATED_PORTRAITS[pid] = url
                         _save_portraits_to_disk()
@@ -3570,6 +3671,57 @@ async def admin_seed_community_status(
     _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
 ):
     return _SEED_STATUS
+
+
+@app.delete("/admin/generated/{persona_id}")
+async def admin_delete_generated(
+    persona_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Remove a generated persona — JSON, in-memory entry, portrait URL.
+
+    Useful for cleaning up duplicates from a retry after a transient
+    error, or pulling a low-quality result off the community wall.
+    """
+    existed = persona_id in _GENERATED
+    _GENERATED.pop(persona_id, None)
+    _GENERATED_PORTRAITS.pop(persona_id, None)
+    try:
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            path.unlink()
+    except Exception:
+        logger.exception("[admin-delete] failed to unlink %s", persona_id)
+    try:
+        _save_portraits_to_disk()
+    except Exception:
+        logger.exception("[admin-delete] failed to persist portraits.json")
+    return {"deleted": existed, "persona_id": persona_id}
+
+
+@app.get("/admin/duplicates")
+async def admin_duplicates(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """List generated personas grouped by name so the operator can spot
+    accidental duplicates from retried generations."""
+    from collections import defaultdict
+    groups: dict[str, list[dict]] = defaultdict(list)
+    for pid, p in _GENERATED.items():
+        da = p.get("demographic_anchor") or {}
+        name = (da.get("name") or "").strip().lower()
+        if not name:
+            continue
+        groups[name].append({
+            "persona_id": pid,
+            "name": da.get("name"),
+            "age": da.get("age"),
+            "city": (da.get("location") or {}).get("city"),
+            "created_at": p.get("created_at") or p.get("generated_at"),
+            "portrait_url": _GENERATED_PORTRAITS.get(pid),
+        })
+    duplicates = {name: rows for name, rows in groups.items() if len(rows) > 1}
+    return {"count": len(duplicates), "groups": duplicates}
 
 
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────
