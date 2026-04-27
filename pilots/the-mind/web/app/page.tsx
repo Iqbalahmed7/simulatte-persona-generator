@@ -591,9 +591,17 @@ export default function HomePage() {
                 Simulatte / The Mind / Confidential
               </span>
             </div>
-            <span className="font-mono text-[10px] text-static tracking-widest uppercase">
-              mind.simulatte.io
-            </span>
+            <div className="flex items-center gap-6">
+              <a
+                href="mailto:mind@simulatte.io?subject=The%20Mind%20%E2%80%94%20feedback"
+                className="font-mono text-[10px] text-parchment/60 tracking-widest uppercase hover:text-signal transition-colors"
+              >
+                Questions? mind@simulatte.io
+              </a>
+              <span className="font-mono text-[10px] text-static tracking-widest uppercase">
+                mind.simulatte.io
+              </span>
+            </div>
           </div>
         </footer>
 

@@ -132,6 +132,17 @@ export default function AllowanceModal({ payload, onClose }: Props) {
             Wait for reset
           </button>
         </div>
+
+        {/* Contact line */}
+        <p className="text-parchment/35 text-[11px] text-center mt-5 font-mono">
+          Questions or feedback?{" "}
+          <a
+            href="mailto:mind@simulatte.io?subject=The%20Mind%20%E2%80%94%20feedback"
+            className="text-parchment/55 hover:text-signal underline underline-offset-2"
+          >
+            mind@simulatte.io
+          </a>
+        </p>
       </div>
     </div>
   );
