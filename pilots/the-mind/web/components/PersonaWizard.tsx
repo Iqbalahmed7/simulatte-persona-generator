@@ -11,7 +11,7 @@
  * back-navigable, brand-consistent (signal green for selection, parchment
  * neutral elsewhere).
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ICPForm } from "@/lib/api";
 
 interface Chip {
@@ -93,6 +93,24 @@ export default function PersonaWizard({ onSubmit, onSwitchToFree, error }: Props
     return parts.join(" ");
   }, [domain, region, age, archetype, extra]);
 
+  // Editable brief draft — auto-syncs from `composedBrief` until the user
+  // types in the textarea. Once dirty, chip changes stop overwriting it.
+  // The "↺ Reset" control flips it back to chip-derived.
+  const [briefDraft, setBriefDraft] = useState<string>("");
+  const briefDirtyRef = useRef(false);
+  useEffect(() => {
+    if (!briefDirtyRef.current) setBriefDraft(composedBrief);
+  }, [composedBrief]);
+
+  function editDraft(v: string) {
+    briefDirtyRef.current = true;
+    setBriefDraft(v);
+  }
+  function resetDraft() {
+    briefDirtyRef.current = false;
+    setBriefDraft(composedBrief);
+  }
+
   function next() {
     setStep((s) => Math.min(s + 1, totalSteps - 1));
   }
@@ -102,8 +120,9 @@ export default function PersonaWizard({ onSubmit, onSwitchToFree, error }: Props
   }
 
   function handleSubmit() {
+    const finalBrief = (briefDraft.trim() || composedBrief).slice(0, 2000);
     onSubmit({
-      brief: composedBrief,
+      brief: finalBrief,
       domain: domain || "cpg",
     });
   }
@@ -118,16 +137,10 @@ export default function PersonaWizard({ onSubmit, onSwitchToFree, error }: Props
     <div className="space-y-8">
       {/* Progress + step indicator */}
       <div>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center mb-3">
           <p className="text-[11px] font-mono text-static uppercase tracking-widest">
             Step {step + 1} / {totalSteps}
           </p>
-          <button
-            onClick={onSwitchToFree}
-            className="text-[11px] font-mono text-parchment/40 hover:text-signal transition-colors"
-          >
-            Write your own brief →
-          </button>
         </div>
         <div className="h-px bg-parchment/10 relative">
           <div
@@ -177,6 +190,10 @@ export default function PersonaWizard({ onSubmit, onSwitchToFree, error }: Props
       {step === 4 && (
         <ReviewStep
           composedBrief={composedBrief}
+          briefDraft={briefDraft}
+          briefDirty={briefDirtyRef.current && briefDraft !== composedBrief}
+          onEditDraft={editDraft}
+          onResetDraft={resetDraft}
           extra={extra}
           setExtra={setExtra}
           error={error}
@@ -260,18 +277,27 @@ function Step({
 
 function ReviewStep({
   composedBrief,
+  briefDraft,
+  briefDirty,
+  onEditDraft,
+  onResetDraft,
   extra,
   setExtra,
   error,
   onSubmit,
 }: {
   composedBrief: string;
+  briefDraft: string;
+  briefDirty: boolean;
+  onEditDraft: (v: string) => void;
+  onResetDraft: () => void;
   extra: string;
   setExtra: (v: string) => void;
   error: string;
   onSubmit: () => void;
 }) {
   const MAX = 100;
+  const BRIEF_MAX = 2000;
   return (
     <div className="space-y-6">
       <div>
@@ -297,12 +323,37 @@ function ReviewStep({
         </div>
       </div>
 
-      <div className="border border-parchment/10 bg-parchment/[0.02] p-4">
-        <p className="text-[10px] font-mono text-static uppercase tracking-widest mb-2">
-          Brief preview
-        </p>
-        <p className="text-parchment/80 text-sm leading-relaxed">
-          {composedBrief || "—"}
+      {/* Editable brief preview — auto-syncs from chips until edited */}
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-[10px] font-mono text-static uppercase tracking-widest">
+            Brief — edit before submitting
+          </p>
+          {briefDirty && (
+            <button
+              type="button"
+              onClick={onResetDraft}
+              className="text-[10px] font-mono text-parchment/40 hover:text-signal transition-colors"
+              title="Discard your edits and rebuild from the chip selections"
+            >
+              ↺ Reset to selections
+            </button>
+          )}
+        </div>
+        <textarea
+          value={briefDraft}
+          onChange={(e) => onEditDraft(e.target.value.slice(0, BRIEF_MAX))}
+          rows={5}
+          maxLength={BRIEF_MAX}
+          placeholder={composedBrief || "Pick chips above and your brief will appear here…"}
+          className="w-full bg-parchment/[0.02] border border-parchment/15 focus:border-parchment/40
+                     px-4 py-3 text-sm text-parchment/85 leading-relaxed placeholder-parchment/25
+                     focus:outline-none transition-colors resize-none"
+        />
+        <p className="text-[10px] font-mono text-static mt-1.5">
+          {briefDirty
+            ? "Your edits will be used as-is. Reset to rebuild from chips."
+            : "Auto-built from your selections. Edit freely — the wizard will stop overwriting it."}
         </p>
       </div>
 

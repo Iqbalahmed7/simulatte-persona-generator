@@ -3,12 +3,11 @@
 /**
  * /generate — Persona generation page.
  *
- * Two modes:
- *   1. Wizard (default) — chip-only steps, max 1 line of optional typing.
- *      Composes a coherent brief from selections; non-intrusive.
- *   2. Free brief — original textarea + PDF upload (power users).
- *
- * Both routes call the same `generatePersona` SSE endpoint.
+ * Two modes (tabbed, free-brief is primary):
+ *   1. Free brief (default) — natural-language textarea + optional PDF.
+ *      The expressive surface; what most people will use.
+ *   2. Wizard — chip-only stepper for users who'd rather pick than type.
+ *      Same SSE endpoint, just a different way to build the brief.
  */
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,7 +17,7 @@ import PersonaWizard from "@/components/PersonaWizard";
 
 export default function GeneratePage() {
   const router = useRouter();
-  const [mode, setMode] = useState<"wizard" | "free">("wizard");
+  const [mode, setMode] = useState<"wizard" | "free">("free");
   const [running, setRunning] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [error, setError] = useState("");
@@ -73,12 +72,34 @@ export default function GeneratePage() {
           Simulate a <span className="text-signal">person.</span>
         </h1>
         <p className="text-parchment/60 text-base">
-          Pick a few traits — we&apos;ll build a behaviourally coherent person with 200+ attributes and full decision psychology.
+          Describe the person you want to simulate, in your own words. Or use the wizard if you&apos;d rather pick than type.
         </p>
       </div>
 
       {!running ? (
         <>
+          {/* Mode tab strip — free brief is primary, wizard is secondary */}
+          <div className="flex gap-2 mb-8 border-b border-parchment/10">
+            <button
+              onClick={() => setMode("free")}
+              className={`px-5 py-3 text-sm font-medium tracking-wide transition-colors border-b-2 -mb-px
+                ${mode === "free"
+                  ? "border-signal text-parchment"
+                  : "border-transparent text-parchment/45 hover:text-parchment/70"}`}
+            >
+              Write your own
+            </button>
+            <button
+              onClick={() => setMode("wizard")}
+              className={`px-5 py-3 text-sm font-medium tracking-wide transition-colors border-b-2 -mb-px
+                ${mode === "wizard"
+                  ? "border-signal text-parchment"
+                  : "border-transparent text-parchment/45 hover:text-parchment/70"}`}
+            >
+              Use the wizard
+            </button>
+          </div>
+
           {mode === "wizard" ? (
             <PersonaWizard
               onSubmit={runGeneration}
@@ -214,19 +235,6 @@ function FreeBriefForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="flex items-center justify-between">
-        <p className="text-[11px] font-mono text-static uppercase tracking-widest">
-          Free brief
-        </p>
-        <button
-          type="button"
-          onClick={onSwitchToWizard}
-          className="text-[11px] font-mono text-parchment/50 hover:text-signal transition-colors"
-        >
-          ← Use the wizard
-        </button>
-      </div>
-
       <div>
         <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
           Who do you want to simulate?
