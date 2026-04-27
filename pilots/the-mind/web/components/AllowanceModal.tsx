@@ -82,11 +82,12 @@ export default function AllowanceModal({ payload, onClose }: Props) {
         <div className="w-2 h-2 bg-amber-400/80 rounded-full mb-6" />
 
         <h2 className="text-parchment font-condensed font-black text-2xl tracking-wide mb-2 leading-tight">
-          Weekly {actionLabel} allowance used.
+          You&apos;ve used this week&apos;s {actionLabel}.
         </h2>
 
         <p className="text-parchment/55 text-sm leading-relaxed mb-6">
-          The free tier includes one run of each per week so you can experience the simulation.
+          The free tier resets every Monday so you can try The Mind without a credit card.
+          Need more — or want to bring this to your team? Book a 20-min call.
         </p>
 
         {/* Allowance summary */}

@@ -166,10 +166,20 @@ async def check_and_increment_allowance(
     """Check the user's ISO-week allowance for action.
 
     - Creates the allowances row if it doesn't exist for the current week.
+    - Admin emails (in ADMIN_EMAILS env var) bypass the limit entirely
+      so the operator can dogfood without hitting their own paywall.
     - If the user is at or over the limit, raises HTTP 402 with a structured
       payload so the frontend can show the hard-wall modal.
     - Otherwise increments the counter and logs an event.
     """
+    # Admin bypass — admins still get the event logged but no quota check.
+    admin_emails = {
+        e.strip().lower()
+        for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+        if e.strip()
+    }
+    is_admin = (user.email or "").lower() in admin_emails
+
     now = datetime.now(timezone.utc)
     week_start = _iso_week_monday(now)
     limit = ACTION_LIMIT[action]
@@ -197,7 +207,7 @@ async def check_and_increment_allowance(
 
     used: int = getattr(allowance, field)
 
-    if used >= limit:
+    if used >= limit and not is_admin:
         resets_at = _next_monday(week_start)
         raise HTTPException(
             status_code=402,
