@@ -3,12 +3,16 @@
 Revision ID: 0001
 Revises:
 Create Date: 2026-04-26
+
+IMPORTANT: @auth/pg-adapter expects EXACT camelCase column names with quoted
+identifiers (e.g. "userId", "providerAccountId", "sessionToken",
+"emailVerified"). Do NOT change to snake_case — the adapter's SQL queries
+hard-code these names.
 """
 from __future__ import annotations
 
 from typing import Sequence, Union
 
-import sqlalchemy as sa
 from alembic import op
 
 revision: str = "0001"
@@ -18,131 +22,113 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    # ── users ─────────────────────────────────────────────────────────────
-    op.create_table(
-        "users",
-        sa.Column("id", sa.String(), nullable=False),
-        sa.Column("email", sa.String(), nullable=False),
-        sa.Column("name", sa.String(), nullable=True),
-        sa.Column("image", sa.Text(), nullable=True),
-        sa.Column("email_verified", sa.DateTime(timezone=True), nullable=True),
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            nullable=False,
-            server_default=sa.text("NOW()"),
-        ),
-        sa.Column(
-            "updated_at",
-            sa.DateTime(timezone=True),
-            nullable=False,
-            server_default=sa.text("NOW()"),
-        ),
-        sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("email"),
+    # Use raw SQL so we get the exact quoted camelCase identifiers the
+    # @auth/pg-adapter expects. SQLAlchemy lowercases unquoted identifiers,
+    # which breaks the adapter.
+    op.execute(
+        """
+        CREATE TABLE users (
+            id TEXT NOT NULL PRIMARY KEY DEFAULT gen_random_uuid()::text,
+            name TEXT,
+            email TEXT UNIQUE,
+            "emailVerified" TIMESTAMPTZ,
+            image TEXT
+        );
+        """
     )
-    op.create_index("ix_users_email", "users", ["email"])
+    op.execute('CREATE INDEX ix_users_email ON users (email);')
 
-    # ── accounts ──────────────────────────────────────────────────────────
-    op.create_table(
-        "accounts",
-        sa.Column("id", sa.String(), nullable=False),
-        sa.Column("user_id", sa.String(), nullable=False),
-        sa.Column("type", sa.String(), nullable=False),
-        sa.Column("provider", sa.String(), nullable=False),
-        sa.Column("provider_account_id", sa.String(), nullable=False),
-        sa.Column("refresh_token", sa.Text(), nullable=True),
-        sa.Column("access_token", sa.Text(), nullable=True),
-        sa.Column("expires_at", sa.BigInteger(), nullable=True),
-        sa.Column("token_type", sa.String(), nullable=True),
-        sa.Column("scope", sa.String(), nullable=True),
-        sa.Column("id_token", sa.Text(), nullable=True),
-        sa.Column("session_state", sa.String(), nullable=True),
-        sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
-        sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("provider", "provider_account_id", name="uq_accounts_provider"),
+    op.execute(
+        """
+        CREATE TABLE accounts (
+            id TEXT NOT NULL PRIMARY KEY DEFAULT gen_random_uuid()::text,
+            "userId" TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            type TEXT NOT NULL,
+            provider TEXT NOT NULL,
+            "providerAccountId" TEXT NOT NULL,
+            refresh_token TEXT,
+            access_token TEXT,
+            expires_at BIGINT,
+            token_type TEXT,
+            scope TEXT,
+            id_token TEXT,
+            session_state TEXT,
+            UNIQUE (provider, "providerAccountId")
+        );
+        """
     )
-    op.create_index("ix_accounts_user_id", "accounts", ["user_id"])
+    op.execute('CREATE INDEX "ix_accounts_userId" ON accounts ("userId");')
 
-    # ── sessions ──────────────────────────────────────────────────────────
-    op.create_table(
-        "sessions",
-        sa.Column("id", sa.String(), nullable=False),
-        sa.Column("session_token", sa.String(), nullable=False),
-        sa.Column("user_id", sa.String(), nullable=False),
-        sa.Column("expires", sa.DateTime(timezone=True), nullable=False),
-        sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
-        sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("session_token"),
+    op.execute(
+        """
+        CREATE TABLE sessions (
+            id TEXT NOT NULL PRIMARY KEY DEFAULT gen_random_uuid()::text,
+            "sessionToken" TEXT NOT NULL UNIQUE,
+            "userId" TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            expires TIMESTAMPTZ NOT NULL
+        );
+        """
     )
-    op.create_index("ix_sessions_user_id", "sessions", ["user_id"])
-    op.create_index("ix_sessions_session_token", "sessions", ["session_token"])
+    op.execute('CREATE INDEX "ix_sessions_userId" ON sessions ("userId");')
+    op.execute('CREATE INDEX "ix_sessions_sessionToken" ON sessions ("sessionToken");')
 
-    # ── verification_tokens ───────────────────────────────────────────────
-    op.create_table(
-        "verification_tokens",
-        sa.Column("identifier", sa.String(), nullable=False),
-        sa.Column("token", sa.String(), nullable=False),
-        sa.Column("expires", sa.DateTime(timezone=True), nullable=False),
-        sa.PrimaryKeyConstraint("identifier", "token"),
+    op.execute(
+        """
+        CREATE TABLE verification_token (
+            identifier TEXT NOT NULL,
+            expires TIMESTAMPTZ NOT NULL,
+            token TEXT NOT NULL,
+            PRIMARY KEY (identifier, token)
+        );
+        """
     )
-    op.create_index("ix_verification_tokens_token", "verification_tokens", ["token"])
+    op.execute('CREATE INDEX ix_verification_token_token ON verification_token (token);')
 
-    # ── allowances ────────────────────────────────────────────────────────
-    op.create_table(
-        "allowances",
-        sa.Column("user_id", sa.String(), nullable=False),
-        sa.Column("week_starting", sa.Date(), nullable=False),
-        sa.Column("personas_used", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column("probes_used", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column("chats_used", sa.Integer(), nullable=False, server_default="0"),
-        sa.Column(
-            "updated_at",
-            sa.DateTime(timezone=True),
-            nullable=False,
-            server_default=sa.text("NOW()"),
-        ),
-        sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
-        sa.PrimaryKeyConstraint("user_id", "week_starting"),
+    # ── allowances (our table — snake_case is fine) ───────────────────────
+    op.execute(
+        """
+        CREATE TABLE allowances (
+            user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            week_starting DATE NOT NULL,
+            personas_used INTEGER NOT NULL DEFAULT 0,
+            probes_used INTEGER NOT NULL DEFAULT 0,
+            chats_used INTEGER NOT NULL DEFAULT 0,
+            updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+            PRIMARY KEY (user_id, week_starting)
+        );
+        """
     )
-    op.create_index("ix_allowances_user_id", "allowances", ["user_id"])
-    op.create_index("ix_allowances_week_starting", "allowances", ["week_starting"])
+    op.execute('CREATE INDEX ix_allowances_user_id ON allowances (user_id);')
+    op.execute('CREATE INDEX ix_allowances_week_starting ON allowances (week_starting);')
 
-    # ── events ────────────────────────────────────────────────────────────
-    op.create_table(
-        "events",
-        sa.Column("id", sa.String(), nullable=False),
-        sa.Column("user_id", sa.String(), nullable=False),
-        sa.Column(
-            "type",
-            sa.Enum(
-                "persona_generated",
-                "probe_run",
-                "chat_message",
-                "persona_shared",
-                name="eventtype",
-            ),
-            nullable=False,
-        ),
-        sa.Column("ref_id", sa.String(), nullable=True),
-        sa.Column(
-            "created_at",
-            sa.DateTime(timezone=True),
-            nullable=False,
-            server_default=sa.text("NOW()"),
-        ),
-        sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
-        sa.PrimaryKeyConstraint("id"),
+    # ── events (our table — snake_case is fine) ───────────────────────────
+    op.execute(
+        """
+        CREATE TYPE eventtype AS ENUM (
+            'persona_generated', 'probe_run', 'chat_message', 'persona_shared'
+        );
+        """
     )
-    op.create_index("ix_events_user_id", "events", ["user_id"])
-    op.create_index("ix_events_created_at", "events", ["created_at"])
+    op.execute(
+        """
+        CREATE TABLE events (
+            id TEXT NOT NULL PRIMARY KEY,
+            user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+            type eventtype NOT NULL,
+            ref_id TEXT,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        );
+        """
+    )
+    op.execute('CREATE INDEX ix_events_user_id ON events (user_id);')
+    op.execute('CREATE INDEX ix_events_created_at ON events (created_at);')
 
 
 def downgrade() -> None:
-    op.drop_table("events")
-    op.drop_table("allowances")
-    op.drop_table("verification_tokens")
-    op.drop_table("sessions")
-    op.drop_table("accounts")
-    op.drop_table("users")
-    op.execute("DROP TYPE IF EXISTS eventtype")
+    op.execute("DROP TABLE IF EXISTS events;")
+    op.execute("DROP TYPE IF EXISTS eventtype;")
+    op.execute("DROP TABLE IF EXISTS allowances;")
+    op.execute("DROP TABLE IF EXISTS verification_token;")
+    op.execute("DROP TABLE IF EXISTS sessions;")
+    op.execute("DROP TABLE IF EXISTS accounts;")
+    op.execute("DROP TABLE IF EXISTS users;")

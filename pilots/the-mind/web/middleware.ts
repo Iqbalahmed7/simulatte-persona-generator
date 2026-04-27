@@ -1,28 +1,45 @@
 /**
  * middleware.ts — Next.js Edge middleware protecting authenticated routes.
  *
- * IMPORTANT: imports ONLY from ./auth.config (Edge-safe, no pg/Node APIs).
- * Never import from ./auth here — pg (net/tls) will break the Edge build.
+ * Strategy: simple cookie-presence check. We don't verify the JWT here
+ * because Auth.js v5 + Edge runtime + custom domain has been flaky with
+ * crypto. The route handlers and server components do the real session
+ * verification (via auth() from ./auth on the Node runtime), so a stolen
+ * cookie can't actually do anything — middleware just keeps unauthenticated
+ * users out of the protected page shells.
  *
- * Gated routes (redirect to /sign-in if no session):
+ * Gated routes (redirect to /sign-in if no session cookie):
  *   /generate       — persona generation form
  *   /persona/*      — individual persona pages
  *   /probe/*        — probe form and results
- *
- * Public routes (no auth needed):
- *   /               — landing + exemplar personas
- *   /sign-in        — sign-in page
- *   /api/auth/*     — Auth.js handlers (excluded by matcher)
  */
-import NextAuth from "next-auth";
-import { authConfig } from "./auth.config";
+import { NextRequest, NextResponse } from "next/server";
 
-export const { auth: middleware } = NextAuth(authConfig);
+const PROTECTED_PREFIXES = ["/generate", "/persona/", "/probe/"];
+
+// Auth.js v5 cookie names. On HTTPS the prefix is __Secure-; on HTTP it isn't.
+const SESSION_COOKIE_NAMES = [
+  "__Secure-authjs.session-token",
+  "authjs.session-token",
+];
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
+  if (!isProtected) return NextResponse.next();
+
+  const hasSession = SESSION_COOKIE_NAMES.some(
+    (name) => !!request.cookies.get(name)?.value
+  );
+  if (hasSession) return NextResponse.next();
+
+  const signInUrl = new URL("/sign-in", request.url);
+  signInUrl.searchParams.set("callbackUrl", pathname);
+  return NextResponse.redirect(signInUrl);
+}
 
 export const config = {
   matcher: [
-    // Skip Next.js internals, static files, and auth API routes.
-    // Run on all other paths so the authorized() callback can gate them.
     "/((?!api|_next/static|_next/image|favicon.ico|.*\\.svg).*)",
   ],
 };
