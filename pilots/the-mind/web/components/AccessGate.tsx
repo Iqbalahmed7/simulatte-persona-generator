@@ -27,8 +27,36 @@ interface MeResponse {
 
 type Phase = "loading" | "active" | "pending" | "anon" | "error";
 
+// sessionStorage key — survives refreshes within a tab but not across
+// browser restarts, so a stale "active" verdict can't leak indefinitely
+// if the operator bans someone. Server still enforces on every request.
+const CACHE_KEY = "mind:access:v1";
+const CACHE_TTL_MS = 5 * 60 * 1000; // revalidate every 5 min in background
+
+function readCache(): "active" | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { status: string; ts: number };
+    if (parsed.status !== "active") return null;
+    if (Date.now() - parsed.ts > CACHE_TTL_MS) return null;
+    return "active";
+  } catch { return null; }
+}
+
+function writeCache(status: "active" | "pending") {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ status, ts: Date.now() }));
+  } catch { /* ignore quota errors */ }
+}
+
 export default function AccessGate({ children }: { children: React.ReactNode }) {
-  const [phase, setPhase] = useState<Phase>("loading");
+  // Optimistic: if we've seen "active" within the TTL, render children
+  // immediately and revalidate in the background. Eliminates the
+  // "Checking access…" flicker on every refresh for the common case.
+  const [phase, setPhase] = useState<Phase>(() => readCache() ? "active" : "loading");
   const [me, setMe] = useState<MeResponse | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const lastChecked = useRef<number>(0);
@@ -59,6 +87,7 @@ export default function AccessGate({ children }: { children: React.ReactNode }) 
       setMe(j);
       const status = j.user?.access_status ?? "active";
       setPhase(status === "pending" ? "pending" : "active");
+      writeCache(status === "pending" ? "pending" : "active");
       lastChecked.current = Date.now();
     } catch {
       setPhase("error");
