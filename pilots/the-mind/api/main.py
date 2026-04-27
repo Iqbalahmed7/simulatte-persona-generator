@@ -406,7 +406,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Tighten to mind.simulatte.io in production
+    allow_origins=[
+        "https://mind.simulatte.io",
+        "http://localhost:3000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

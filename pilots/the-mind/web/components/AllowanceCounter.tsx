@@ -56,7 +56,13 @@ export default function AllowanceCounter() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch(`${API}/me`, { credentials: "include" });
+        const tokRes = await fetch("/api/token", { cache: "no-store" });
+        if (!tokRes.ok) return;
+        const { token } = await tokRes.json();
+        if (!token) return;
+        const res = await fetch(`${API}/me`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!res.ok) return;
         const data = await res.json();
         setAllowance(data.allowance);

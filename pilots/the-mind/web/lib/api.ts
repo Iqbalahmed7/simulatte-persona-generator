@@ -3,26 +3,40 @@ export const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001").
 // ── Auth helpers ──────────────────────────────────────────────────────────
 
 /**
- * Build fetch headers that include the Auth.js JWT for backend auth.
- * Must be called client-side (reads the cookie from document.cookie).
- * Falls back gracefully if no session cookie found.
+ * Build fetch headers that include a backend-compatible HS256 JWT.
+ *
+ * The Auth.js session cookie is httpOnly + JWE-encrypted, so we can't read
+ * it from document.cookie or pass it to FastAPI directly. Instead, we hit
+ * /api/token (Next.js Node-runtime route) which uses the httpOnly cookie
+ * server-side and returns a fresh HS256 JWT signed with NEXTAUTH_SECRET —
+ * which FastAPI's auth middleware already knows how to verify.
+ *
+ * Cached in-memory for the token's lifetime to avoid hitting /api/token on
+ * every request.
  */
-function _authHeaders(): HeadersInit {
-  // Auth.js v5 stores the JWT in one of these cookie names
-  const cookieNames = [
-    "authjs.session-token",
-    "__Secure-authjs.session-token",
-    "next-auth.session-token",
-    "__Secure-next-auth.session-token",
-  ];
-  if (typeof document === "undefined") return {};
-  const cookies = Object.fromEntries(
-    document.cookie.split("; ").map(c => {
-      const [k, ...v] = c.split("=");
-      return [k, v.join("=")];
-    })
-  );
-  const token = cookieNames.map(n => cookies[n]).find(Boolean);
+let _cachedToken: { value: string; expiresAt: number } | null = null;
+
+async function _fetchToken(): Promise<string | null> {
+  if (typeof window === "undefined") return null; // SSR: no auth
+  const now = Date.now();
+  if (_cachedToken && _cachedToken.expiresAt > now + 30_000) {
+    return _cachedToken.value;
+  }
+  try {
+    const res = await fetch("/api/token", { cache: "no-store" });
+    if (!res.ok) return null;
+    const { token } = await res.json();
+    if (!token) return null;
+    // Token is minted with 15m expiry; cache for 14m.
+    _cachedToken = { value: token, expiresAt: now + 14 * 60 * 1000 };
+    return token;
+  } catch {
+    return null;
+  }
+}
+
+async function _authHeaders(): Promise<HeadersInit> {
+  const token = await _fetchToken();
   if (!token) return {};
   return { Authorization: `Bearer ${token}` };
 }
@@ -153,7 +167,7 @@ export async function generatePersona(
 ): Promise<void> {
   const res = await fetch(`${API}/generate-persona`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ..._authHeaders() },
+    headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
     body: JSON.stringify(form),
   });
   if (res.status === 402) {
@@ -234,7 +248,7 @@ export async function chatWithGeneratedPersona(
 ): Promise<ChatResponse> {
   const res = await fetch(`${API}/generated/${personaId}/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ..._authHeaders() },
+    headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
     body: JSON.stringify({ message, include_reasoning: includeReasoning }),
   });
   if (res.status === 402) {
@@ -295,7 +309,7 @@ export async function runProbe(
 ): Promise<ProbeResult> {
   const res = await fetch(`${API}/generated/${personaId}/probe`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ..._authHeaders() },
+    headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
     body: JSON.stringify(brief),
   });
   if (res.status === 402) {
