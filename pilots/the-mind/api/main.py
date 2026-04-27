@@ -60,7 +60,7 @@ try:
         check_and_increment_allowance,
         get_current_user,
     )
-    from db import User, Event, EventType, InviteCode, get_db  # noqa: E402
+    from db import User, Event, EventType, InviteCode, AccessRequest, get_db  # noqa: E402
     AUTH_ENABLED = True
     _early_logger.info("[auth] auth+db modules loaded; auth gating ENABLED")
 except Exception as _auth_exc:
@@ -103,6 +103,18 @@ except Exception as _auth_exc:
         active: bool = True
         created_at = None
         created_by_email: str | None = None
+        created_by_user_id: str | None = None
+        sent_to_email: str | None = None
+        sent_at = None
+
+    class AccessRequest:                                   # type: ignore[no-redef]
+        id: str = ""
+        user_id: str = ""
+        reason: str | None = None
+        status: str = "pending"
+        created_at = None
+        resolved_at = None
+        resolved_by_email: str | None = None
 
     async def get_db():                                    # type: ignore[no-redef]
         raise HTTPException(503, detail={
@@ -504,7 +516,56 @@ async def _ensure_invite_codes_table():
             await conn.execute(_sql(
                 "ALTER TABLE users ADD COLUMN IF NOT EXISTS invite_code_used VARCHAR"
             ))
-        logger.info("[startup] invite_codes table + users.invite_code_used ensured")
+            # Access-status / referral-tree columns
+            await conn.execute(_sql(
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS access_status VARCHAR NOT NULL DEFAULT 'pending'"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS approved_at TIMESTAMP WITH TIME ZONE"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS invited_by_user_id VARCHAR REFERENCES users(id) ON DELETE SET NULL"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS personal_invite_code VARCHAR"
+            ))
+            # Existing users (signed up before this gate existed) should
+            # be grandfathered as active so they aren't kicked to a
+            # waitlist mid-session. New rows still default to pending
+            # via the column default.
+            await conn.execute(_sql(
+                "UPDATE users SET access_status='active', approved_at=COALESCE(approved_at, now()) "
+                "WHERE access_status='pending' AND id IN (SELECT id FROM users WHERE \"emailVerified\" IS NOT NULL)"
+            ))
+            # InviteCode extension columns
+            await conn.execute(_sql(
+                "ALTER TABLE invite_codes ADD COLUMN IF NOT EXISTS created_by_user_id VARCHAR REFERENCES users(id) ON DELETE SET NULL"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE invite_codes ADD COLUMN IF NOT EXISTS sent_to_email VARCHAR"
+            ))
+            await conn.execute(_sql(
+                "ALTER TABLE invite_codes ADD COLUMN IF NOT EXISTS sent_at TIMESTAMP WITH TIME ZONE"
+            ))
+            # access_requests table for the waitlist "tell us why" form
+            await conn.execute(_sql("""
+                CREATE TABLE IF NOT EXISTS access_requests (
+                    id VARCHAR PRIMARY KEY,
+                    user_id VARCHAR NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    reason TEXT,
+                    status VARCHAR NOT NULL DEFAULT 'pending',
+                    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+                    resolved_at TIMESTAMP WITH TIME ZONE,
+                    resolved_by_email VARCHAR
+                )
+            """))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_access_requests_status ON access_requests (status)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_access_requests_user_id ON access_requests (user_id)"
+            ))
+        logger.info("[startup] invite_codes + access_status + access_requests ensured")
     except Exception as exc:  # pragma: no cover
         logger.warning("[startup] invite_codes migration skipped: %s", exc)
 
@@ -2662,7 +2723,6 @@ async def invites_check(
 
 
 class InviteCreateRequest(BaseModel):
-    code: str
     label: str | None = None
     max_uses: int | None = None
 
@@ -2673,30 +2733,471 @@ async def admin_create_invite(
     _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
     db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
 ):
-    """Admin: create or upsert an invite code."""
+    """Admin: mint a fresh invite code with a random URL-safe value.
+
+    Codes are no longer chosen by humans — they're auto-generated so
+    they're unguessable and shareable as raw links. The `label` field
+    is the admin-facing name of the distribution channel ("Twitter post
+    Apr 27", "Sarah from Pepsi", etc.).
+    """
     from sqlalchemy import select as sa_select
+    from auth import mint_random_code  # noqa: PLC0415
+    # Try a few times for a unique code (extreme entropy, so this is
+    # belt-and-braces only).
+    code = ""
+    for _ in range(5):
+        candidate = mint_random_code(10)
+        existing = (
+            await db.execute(sa_select(InviteCode).where(InviteCode.code == candidate))  # type: ignore
+        ).scalar_one_or_none()
+        if existing is None:
+            code = candidate
+            break
+    if not code:
+        raise HTTPException(500, detail="could not mint unique code")
+    db.add(InviteCode(  # type: ignore
+        code=code,
+        label=req.label,
+        max_uses=req.max_uses,
+        used_count=0,
+        active=True,
+        created_by_email=_admin.email,
+    ))
+    await db.commit()
+    logger.info("[admin] invite mint code=%s label=%s by=%s", code, req.label, _admin.email)
+    return {"code": code, "ok": True}
+
+
+class InviteEmailRequest(BaseModel):
+    to_email: str
+    label: str | None = None
+    note: str | None = None
+
+
+@app.post("/admin/invites/email")
+async def admin_email_invite(
+    req: InviteEmailRequest,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Admin: mint a one-time code and email it directly to a person.
+
+    Distinct from POST /admin/invites because (a) max_uses is forced to
+    1, and (b) we record sent_to_email + sent_at so the admin sees
+    "who I emailed, did they redeem?" in the invites table.
+    """
+    from sqlalchemy import select as sa_select
+    from auth import mint_random_code  # noqa: PLC0415
+    target = (req.to_email or "").strip().lower()
+    if "@" not in target:
+        raise HTTPException(400, detail="to_email must be a valid email")
+    code = ""
+    for _ in range(5):
+        candidate = mint_random_code(10)
+        existing = (
+            await db.execute(sa_select(InviteCode).where(InviteCode.code == candidate))  # type: ignore
+        ).scalar_one_or_none()
+        if existing is None:
+            code = candidate
+            break
+    if not code:
+        raise HTTPException(500, detail="could not mint unique code")
+    now = datetime.now(timezone.utc)
+    db.add(InviteCode(  # type: ignore
+        code=code,
+        label=req.label or f"emailed:{target}",
+        max_uses=1,
+        used_count=0,
+        active=True,
+        created_by_email=_admin.email,
+        sent_to_email=target,
+        sent_at=now,
+    ))
+    await db.commit()
+    # Fire the email best-effort. If Resend isn't configured the admin
+    # still has the code in the table and can copy/paste it.
+    invite_url = f"{_public_origin()}/invite/{code}"
+    await _send_invite_email(target, invite_url, req.note or "")
+    logger.info("[admin] invite emailed code=%s to=%s by=%s", code, target, _admin.email)
+    return {"code": code, "url": invite_url, "ok": True}
+
+
+# ── Pending-user endpoints (waitlist) ─────────────────────────────────────
+
+class RedeemCodeRequest(BaseModel):
+    code: str
+
+
+@app.post("/redeem-code")
+async def redeem_code(
+    req: RedeemCodeRequest,
+    user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Pending user pastes an invite code on the waitlist screen.
+
+    On success we activate the user, mint their personal reshare code,
+    and record invited_by_user_id from the redeemed code's owner. The
+    user can now do everything an active user can.
+    """
+    from sqlalchemy import select as sa_select, update as sa_update
+    from auth import _create_personal_invite_code  # noqa: PLC0415
     norm = (req.code or "").strip().upper()
-    if not norm or len(norm) > 64:
-        raise HTTPException(400, detail="code must be 1–64 chars")
-    existing = (
+    if not norm:
+        raise HTTPException(400, detail="code is required")
+    if (getattr(user, "access_status", "active") or "active") == "active":
+        return {"ok": True, "already_active": True}
+    ic = (
         await db.execute(sa_select(InviteCode).where(InviteCode.code == norm))  # type: ignore
     ).scalar_one_or_none()
-    if existing is not None:
-        existing.label = req.label or existing.label
-        existing.max_uses = req.max_uses if req.max_uses is not None else existing.max_uses
-        existing.active = True
-    else:
-        db.add(InviteCode(  # type: ignore
-            code=norm,
-            label=req.label,
-            max_uses=req.max_uses,
-            used_count=0,
-            active=True,
-            created_by_email=_admin.email,
-        ))
+    if ic is None or not bool(getattr(ic, "active", True)):
+        raise HTTPException(400, detail={"error": "invalid_code", "message": "That code isn't valid."})
+    max_uses = getattr(ic, "max_uses", None)
+    used = int(getattr(ic, "used_count", 0) or 0)
+    if max_uses is not None and used >= max_uses:
+        raise HTTPException(400, detail={"error": "exhausted", "message": "That code has been fully redeemed."})
+    user.access_status = "active"
+    user.approved_at = datetime.now(timezone.utc)
+    user.invite_code_used = norm
+    user.invited_by_user_id = getattr(ic, "created_by_user_id", None)
+    if not getattr(user, "personal_invite_code", None):
+        user.personal_invite_code = await _create_personal_invite_code(db, user)
+    await db.execute(
+        sa_update(InviteCode).where(InviteCode.code == norm)  # type: ignore
+        .values(used_count=(InviteCode.used_count + 1))  # type: ignore
+    )
     await db.commit()
-    logger.info("[admin] invite upsert code=%s by=%s", norm, _admin.email)
-    return {"code": norm, "ok": True}
+    logger.info("[redeem] user=%s redeemed code=%s", user.email, norm)
+    return {"ok": True, "personal_invite_code": user.personal_invite_code}
+
+
+class AccessRequestPayload(BaseModel):
+    reason: str | None = None
+
+
+@app.post("/access-requests")
+async def submit_access_request(
+    req: AccessRequestPayload,
+    user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Pending user submits a "please let me in" form. Admin sees it
+    in /admin/access-requests; user gets an auto-reply confirming."""
+    from sqlalchemy import select as sa_select
+    if (getattr(user, "access_status", "active") or "active") == "active":
+        return {"ok": True, "already_active": True}
+    reason = (req.reason or "").strip()[:2000]
+    # Idempotent: if they have an open request already, just return it.
+    existing = (
+        await db.execute(
+            sa_select(AccessRequest)  # type: ignore
+            .where(AccessRequest.user_id == user.id)  # type: ignore
+            .where(AccessRequest.status == "pending")  # type: ignore
+        )
+    ).scalar_one_or_none()
+    if existing is not None:
+        if reason and reason != (existing.reason or ""):
+            existing.reason = reason
+            await db.commit()
+        return {"ok": True, "id": existing.id}
+    ar = AccessRequest(user_id=user.id, reason=reason or None)  # type: ignore
+    db.add(ar)
+    await db.commit()
+    # Fire the two emails best-effort.
+    await _send_waitlist_user_email(user.email or "", user.name or "")
+    await _send_admin_access_request_email(user, reason)
+    logger.info("[access-request] from=%s", user.email)
+    return {"ok": True, "id": ar.id}
+
+
+@app.get("/access-requests/mine")
+async def my_access_request(
+    user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Frontend reads this on the waitlist screen so it can show
+    'we received your request on Apr 27' instead of the empty form."""
+    from sqlalchemy import select as sa_select
+    row = (
+        await db.execute(
+            sa_select(AccessRequest)  # type: ignore
+            .where(AccessRequest.user_id == user.id)  # type: ignore
+            .order_by(AccessRequest.created_at.desc())  # type: ignore
+            .limit(1)
+        )
+    ).scalar_one_or_none()
+    if row is None:
+        return {"exists": False}
+    return {
+        "exists": True,
+        "status": row.status,
+        "reason": row.reason,
+        "created_at": row.created_at.isoformat() if row.created_at else None,
+    }
+
+
+# ── Admin: approve pending users + view access requests ──────────────────
+
+@app.post("/admin/users/{user_id}/approve")
+async def admin_approve_user(
+    user_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Admin: flip a pending user to active without requiring a code.
+
+    Use case: admin reviewed someone's access-request, decided to let
+    them in. We mint their personal reshare code immediately and email
+    them their welcome link.
+    """
+    from sqlalchemy import select as sa_select, update as sa_update
+    from auth import _create_personal_invite_code  # noqa: PLC0415
+    target = (await db.execute(sa_select(User).where(User.id == user_id))).scalar_one_or_none()  # type: ignore
+    if target is None:
+        raise HTTPException(404, detail="user not found")
+    if (getattr(target, "access_status", "active") or "active") == "active":
+        return {"ok": True, "already_active": True}
+    target.access_status = "active"
+    target.approved_at = datetime.now(timezone.utc)
+    if not getattr(target, "personal_invite_code", None):
+        target.personal_invite_code = await _create_personal_invite_code(db, target)
+    # Resolve any open access-requests
+    await db.execute(
+        sa_update(AccessRequest)  # type: ignore
+        .where(AccessRequest.user_id == target.id)  # type: ignore
+        .where(AccessRequest.status == "pending")  # type: ignore
+        .values(status="approved", resolved_at=datetime.now(timezone.utc), resolved_by_email=_admin.email)
+    )
+    await db.commit()
+    await _send_approval_email(target.email or "", target.name or "")
+    logger.info("[admin] approved user=%s by=%s", target.email, _admin.email)
+    return {"ok": True}
+
+
+@app.get("/admin/access-requests")
+async def admin_list_access_requests(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    from sqlalchemy import select as sa_select
+    rows = (
+        await db.execute(
+            sa_select(AccessRequest, User)  # type: ignore
+            .join(User, User.id == AccessRequest.user_id)  # type: ignore
+            .order_by(AccessRequest.created_at.desc())  # type: ignore
+            .limit(500)
+        )
+    ).all()
+    return [
+        {
+            "id": ar.id,
+            "user_id": usr.id,
+            "user_email": usr.email,
+            "user_name": usr.name,
+            "user_image": usr.image,
+            "user_access_status": getattr(usr, "access_status", "active"),
+            "reason": ar.reason,
+            "status": ar.status,
+            "created_at": ar.created_at.isoformat() if ar.created_at else None,
+            "resolved_at": ar.resolved_at.isoformat() if ar.resolved_at else None,
+            "resolved_by_email": ar.resolved_by_email,
+        }
+        for ar, usr in rows
+    ]
+
+
+@app.post("/admin/access-requests/{req_id}/dismiss")
+async def admin_dismiss_access_request(
+    req_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    from sqlalchemy import update as sa_update
+    await db.execute(
+        sa_update(AccessRequest).where(AccessRequest.id == req_id)  # type: ignore
+        .values(status="dismissed", resolved_at=datetime.now(timezone.utc), resolved_by_email=_admin.email)
+    )
+    await db.commit()
+    return {"ok": True}
+
+
+@app.get("/admin/referrals")
+async def admin_referrals(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Referral tree: every active user with at least one downstream
+    redemption, plus the count of people they've brought in."""
+    from sqlalchemy import select as sa_select, func as sa_func
+    inviters = (
+        await db.execute(
+            sa_select(
+                User.invited_by_user_id,                     # type: ignore
+                sa_func.count(User.id).label("count"),       # type: ignore
+            )
+            .where(User.invited_by_user_id.isnot(None))      # type: ignore
+            .group_by(User.invited_by_user_id)               # type: ignore
+            .order_by(sa_func.count(User.id).desc())         # type: ignore
+        )
+    ).all()
+    out = []
+    for inviter_id, n in inviters:
+        u = (await db.execute(sa_select(User).where(User.id == inviter_id))).scalar_one_or_none()  # type: ignore
+        if u is None:
+            continue
+        downstream = (
+            await db.execute(
+                sa_select(User)  # type: ignore
+                .where(User.invited_by_user_id == inviter_id)  # type: ignore
+                .order_by(User.id)  # type: ignore
+            )
+        ).scalars().all()
+        out.append({
+            "inviter_id": u.id,
+            "inviter_email": u.email,
+            "inviter_name": u.name,
+            "personal_invite_code": getattr(u, "personal_invite_code", None),
+            "downstream_count": int(n),
+            "downstream": [
+                {
+                    "id": d.id,
+                    "email": d.email,
+                    "name": d.name,
+                    "access_status": getattr(d, "access_status", "active"),
+                }
+                for d in downstream
+            ],
+        })
+    return out
+
+
+# ── Email helpers ────────────────────────────────────────────────────────
+
+def _public_origin() -> str:
+    """Public-facing origin for invite links in emails."""
+    raw = os.environ.get("PUBLIC_WEB_ORIGIN", "").strip()
+    if raw:
+        return raw.rstrip("/")
+    return "https://mind.simulatte.io"
+
+
+async def _send_email_raw(to_email: str, subject: str, html: str) -> None:
+    api_key = os.environ.get("AUTH_RESEND_KEY", "")
+    if not api_key or not to_email:
+        return
+    from_email = os.environ.get("EMAIL_FROM", "noreply@mind.simulatte.io")
+    try:
+        import httpx as _httpx
+        async with _httpx.AsyncClient(timeout=10.0) as client:
+            await client.post(
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                json={"from": from_email, "to": [to_email], "subject": subject, "html": html},
+            )
+    except Exception:
+        logger.exception("[email] send failed to=%s subject=%s", to_email, subject)
+
+
+async def _send_invite_email(to_email: str, invite_url: str, note: str) -> None:
+    note_html = ""
+    if note.strip():
+        # Escape minimally and wrap in a quote block
+        import html as _html
+        note_html = (
+            f'<blockquote style="border-left:2px solid #A8FF3E;'
+            f'padding:8px 16px;margin:16px 0;color:#9A9997;'
+            f'font-style:italic">{_html.escape(note)}</blockquote>'
+        )
+    body = f"""<!doctype html><html><body style="font-family:-apple-system,Helvetica,Arial,sans-serif;
+        background:#050505;color:#E9E6DF;padding:32px;line-height:1.6">
+      <h1 style="font-size:28px;margin:0 0 16px">You're in.</h1>
+      <p>You've been invited to The Mind — Simulatte's persona simulation engine
+      for product teams. Click below to claim your access.</p>
+      {note_html}
+      <p style="margin:24px 0">
+        <a href="{invite_url}" style="display:inline-block;background:#A8FF3E;
+        color:#050505;padding:14px 24px;text-decoration:none;font-weight:bold;
+        text-transform:uppercase;font-size:12px;letter-spacing:0.1em">Claim access →</a>
+      </p>
+      <p style="color:#9A9997;font-size:13px">Or paste this URL into your browser:<br>
+      <code style="color:#A8FF3E">{invite_url}</code></p>
+      <hr style="border:0;border-top:1px solid rgba(233,230,223,0.1);margin:32px 0">
+      <p style="color:#9A9997;font-size:12px">Simulatte / The Mind / mind.simulatte.io</p>
+    </body></html>"""
+    await _send_email_raw(to_email, "You're invited to The Mind", body)
+
+
+async def _send_waitlist_user_email(to_email: str, name: str) -> None:
+    if not to_email:
+        return
+    first = (name or "").split(" ")[0] if name else ""
+    greet = f"Hi {first}," if first else "Hi,"
+    body = f"""<!doctype html><html><body style="font-family:-apple-system,Helvetica,Arial,sans-serif;
+        background:#050505;color:#E9E6DF;padding:32px;line-height:1.6">
+      <h1 style="font-size:28px;margin:0 0 16px">Thanks — you're on the waitlist.</h1>
+      <p>{greet}</p>
+      <p>We got your request to access The Mind. We're letting people in every
+      week and we'll reply with your invite link soon.</p>
+      <p>If you have a friend with an invite link, redeeming theirs gets you in
+      immediately.</p>
+      <p style="color:#9A9997;font-size:13px;margin-top:32px">— The Simulatte team</p>
+    </body></html>"""
+    await _send_email_raw(to_email, "You're on The Mind waitlist", body)
+
+
+async def _send_admin_access_request_email(user: User, reason: str) -> None:
+    admin_emails = [
+        e.strip() for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+        if e.strip()
+    ]
+    if not admin_emails:
+        return
+    import html as _html
+    admin_url = f"{_public_origin()}/admin/access-requests"
+    reason_block = (
+        f'<blockquote style="border-left:2px solid #A8FF3E;padding:8px 16px;'
+        f'margin:16px 0;color:#9A9997">{_html.escape(reason)}</blockquote>'
+        if reason else "<p><em>No reason provided.</em></p>"
+    )
+    body = f"""<!doctype html><html><body style="font-family:-apple-system,Helvetica,Arial,sans-serif;
+        background:#050505;color:#E9E6DF;padding:32px;line-height:1.6">
+      <h1 style="font-size:24px;margin:0 0 16px">New access request</h1>
+      <p><strong>{_html.escape(user.name or '(no name)')}</strong>
+      &lt;<a href="mailto:{_html.escape(user.email or '')}" style="color:#A8FF3E">
+      {_html.escape(user.email or '')}</a>&gt;</p>
+      {reason_block}
+      <p style="margin:24px 0">
+        <a href="{admin_url}" style="display:inline-block;background:#A8FF3E;
+        color:#050505;padding:12px 20px;text-decoration:none;font-weight:bold;
+        text-transform:uppercase;font-size:11px;letter-spacing:0.1em">
+        Review in admin →</a>
+      </p>
+    </body></html>"""
+    # Send to first admin (CC list could spam; one admin email is enough)
+    await _send_email_raw(admin_emails[0], f"Access request from {user.email}", body)
+
+
+async def _send_approval_email(to_email: str, name: str) -> None:
+    if not to_email:
+        return
+    first = (name or "").split(" ")[0] if name else ""
+    greet = f"Hi {first}," if first else "Hi,"
+    home_url = _public_origin()
+    body = f"""<!doctype html><html><body style="font-family:-apple-system,Helvetica,Arial,sans-serif;
+        background:#050505;color:#E9E6DF;padding:32px;line-height:1.6">
+      <h1 style="font-size:28px;margin:0 0 16px">You're in.</h1>
+      <p>{greet}</p>
+      <p>Your access to The Mind is active. Sign in and start building your
+      first persona.</p>
+      <p style="margin:24px 0">
+        <a href="{home_url}" style="display:inline-block;background:#A8FF3E;
+        color:#050505;padding:14px 24px;text-decoration:none;font-weight:bold;
+        text-transform:uppercase;font-size:12px;letter-spacing:0.1em">
+        Open The Mind →</a>
+      </p>
+      <p style="color:#9A9997;font-size:13px;margin-top:32px">— The Simulatte team</p>
+    </body></html>"""
+    await _send_email_raw(to_email, "Welcome to The Mind", body)
 
 
 @app.get("/admin/invites")
@@ -2730,6 +3231,9 @@ async def admin_list_invites(
             "active": bool(c.active),
             "created_at": c.created_at.isoformat() if c.created_at else None,
             "created_by_email": c.created_by_email,
+            "created_by_user_id": getattr(c, "created_by_user_id", None),
+            "sent_to_email": getattr(c, "sent_to_email", None),
+            "sent_at": (c.sent_at.isoformat() if getattr(c, "sent_at", None) else None),
         })
     return out
 

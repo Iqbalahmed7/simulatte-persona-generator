@@ -33,6 +33,47 @@ from db import Allowance, Event, EventType, InviteCode, LIMITS, User, get_db
 
 _CALENDLY = "https://calendly.com/iqbal-simulatte"
 
+
+# ── Code generation helpers ──────────────────────────────────────────────
+
+# URL-safe alphabet (no I/l/0/O confusion). 10 chars → ~52 bits of entropy.
+_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+
+
+def mint_random_code(length: int = 10) -> str:
+    """Random URL-safe invite code, e.g. 'XK7MP9ABCD'. Uppercase only so
+    redemption matches the existing `.upper()` normalisation."""
+    import secrets
+    return "".join(secrets.choice(_CODE_ALPHABET) for _ in range(length))
+
+
+async def _create_personal_invite_code(db: AsyncSession, user: User) -> str:
+    """Mint a fresh personal reshare code for a newly-activated user, and
+    INSERT the matching InviteCode row so future redemptions resolve.
+
+    Tries up to 5 times to avoid the (extremely unlikely) collision; if
+    it still collides, returns the last attempted code anyway — caller
+    will surface the rollback.
+    """
+    for _ in range(5):
+        candidate = mint_random_code(10)
+        existing = (await db.execute(
+            select(InviteCode).where(InviteCode.code == candidate)
+        )).scalar_one_or_none()
+        if existing is None:
+            db.add(InviteCode(
+                code=candidate,
+                label=None,
+                max_uses=None,             # unlimited; tree is the control
+                used_count=0,
+                active=True,
+                created_by_user_id=user.id,
+                created_by_email=user.email,
+            ))
+            await db.flush()
+            return candidate
+    return candidate  # noqa: F821 — pragma: improbable
+
 ACTION_LIMIT = {
     "persona": LIMITS["persona"],
     "probe": LIMITS["probe"],
@@ -153,10 +194,17 @@ async def get_current_user(
             detail="User not found — your session may be stale, please sign in again",
         )
 
-    # Backfill invite_code_used from the `invite_ok` cookie on first authed
-    # call. Atomically increments the matching InviteCode.used_count so
-    # admins can see redemption velocity per channel.
-    if not getattr(user, "invite_code_used", None):
+    # Activation pipeline. Two responsibilities, run together so the
+    # commit is atomic:
+    #   1. Backfill invite_code_used from the `invite_ok` cookie if it's
+    #      set and we haven't recorded a code for this user yet.
+    #   2. If the user is `pending` and a valid invite cookie is present,
+    #      flip them to `active`, mint a personal_invite_code (their own
+    #      reshare code), and record invited_by_user_id from the
+    #      redeemed code so the referral tree is populated.
+    is_pending = (getattr(user, "access_status", "active") or "active") == "pending"
+    needs_backfill = not getattr(user, "invite_code_used", None)
+    if is_pending or needs_backfill:
         invite_cookie = request.cookies.get("invite_ok") or ""
         norm = invite_cookie.strip().upper()
         if norm:
@@ -166,17 +214,49 @@ async def get_current_user(
                     select(InviteCode).where(InviteCode.code == norm)
                 )).scalar_one_or_none()
                 if ic is not None and bool(getattr(ic, "active", True)):
-                    user.invite_code_used = norm
-                    await db.execute(
-                        _upd(InviteCode)
-                        .where(InviteCode.code == norm)
-                        .values(used_count=(InviteCode.used_count + 1))
-                    )
-                    await db.commit()
+                    # Capacity check — exhausted codes don't activate.
+                    max_uses = getattr(ic, "max_uses", None)
+                    used = int(getattr(ic, "used_count", 0) or 0)
+                    if max_uses is None or used < max_uses:
+                        if needs_backfill:
+                            user.invite_code_used = norm
+                        if is_pending:
+                            user.access_status = "active"
+                            user.approved_at = datetime.now(timezone.utc)
+                            user.invited_by_user_id = getattr(ic, "created_by_user_id", None)
+                            if not getattr(user, "personal_invite_code", None):
+                                personal = await _create_personal_invite_code(db, user)
+                                user.personal_invite_code = personal
+                        await db.execute(
+                            _upd(InviteCode)
+                            .where(InviteCode.code == norm)
+                            .values(used_count=(InviteCode.used_count + 1))
+                        )
+                        await db.commit()
+                        is_pending = False  # avoid the gate below
             except Exception:
-                # Never block auth on backfill — schema may not yet exist
-                # in some environments.
                 await db.rollback()
+
+    # Pending gate: organic users who haven't redeemed a code can hit
+    # /me, /redeem-code, /access-requests, and /sign-out — but every
+    # other authed endpoint returns 403 access_pending so the frontend
+    # can render the waitlist screen instead of the app.
+    if is_pending:
+        path = request.url.path or ""
+        pending_allowed = (
+            path.endswith("/me")
+            or path.endswith("/redeem-code")
+            or path.endswith("/access-requests")
+            or path.endswith("/access-requests/mine")
+        )
+        if not pending_allowed:
+            raise HTTPException(
+                status_code=403,
+                detail={
+                    "error": "access_pending",
+                    "message": "Your account is on the waitlist. Redeem an invite code or wait for approval.",
+                },
+            )
 
     # Banned users: refuse all gated actions. 403 (not 401) so the client
     # doesn't try to re-auth — the ban will follow them. Admins (by env var)
@@ -303,6 +383,9 @@ async def build_me_response(user: User, db: AsyncSession) -> dict:
             "email": user.email,
             "name": user.name,
             "image": user.image,
+            "access_status": getattr(user, "access_status", "active"),
+            "personal_invite_code": getattr(user, "personal_invite_code", None),
+            "invited_by_user_id": getattr(user, "invited_by_user_id", None),
         },
         "allowance": {
             "personas": {

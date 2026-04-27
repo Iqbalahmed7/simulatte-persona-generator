@@ -126,6 +126,28 @@ class User(Base):
     # request from the `invite_ok` cookie (see auth.get_current_user).
     invite_code_used = Column(String, nullable=True)
 
+    # ── Access gating (pending → active) ─────────────────────────────
+    # New Google sign-ups land in "pending" — they can authenticate and
+    # see the waitlist, but cannot generate/probe/chat. They flip to
+    # "active" automatically when a valid invite_ok cookie is present
+    # at sign-in, OR when an admin approves them in /admin/users.
+    access_status = Column(
+        String, nullable=False,
+        default="pending", server_default="pending",
+    )  # values: pending | active | banned (banned still uses the bool above)
+    approved_at = Column(DateTime(timezone=True), nullable=True)
+    # Referral tree: who brought this user in. NULL means admin-issued
+    # code (no human inviter) or organic + admin approval.
+    invited_by_user_id = Column(
+        String,
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    # Personal reshare code minted when a user is activated. They share
+    # this on LinkedIn / WhatsApp / Slack. Redemptions populate the
+    # invited_by_user_id of the new user — that's the referral tree.
+    personal_invite_code = Column(String, nullable=True)
+
     allowance = relationship("Allowance", back_populates="user", uselist=False)
     events = relationship("Event", back_populates="user")
 
@@ -237,9 +259,56 @@ class InviteCode(Base):
         default=lambda: datetime.now(timezone.utc),
     )
     created_by_email = Column(String, nullable=True)
+    # If non-null, this code belongs to a specific user (their personal
+    # reshare code). NULL = admin-created code. Used to populate the
+    # referral tree on redemption.
+    created_by_user_id = Column(
+        String,
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+    )
+    # Set when admin email-invites a specific person (POST /admin/invites/email).
+    # Lets admin see "who I emailed, did they redeem?" in the invites table.
+    sent_to_email = Column(String, nullable=True)
+    sent_at = Column(DateTime(timezone=True), nullable=True)
 
     __table_args__ = (
         Index("ix_invite_codes_active", "active"),
+    )
+
+
+class AccessRequest(Base):
+    """Pending users' "request access" submissions from the waitlist screen.
+
+    Filled in when an organic Google sign-up clicks "Request access" and
+    explains what they'd want to test. Admin sees them in /admin/access
+    and can either approve (flips user to active + emails them their
+    invite link) or dismiss.
+    """
+    __tablename__ = "access_requests"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(
+        String,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    reason = Column(Text, nullable=True)
+    status = Column(
+        String, nullable=False,
+        default="pending", server_default="pending",
+    )  # pending | approved | dismissed
+    created_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    resolved_at = Column(DateTime(timezone=True), nullable=True)
+    resolved_by_email = Column(String, nullable=True)
+
+    __table_args__ = (
+        Index("ix_access_requests_status", "status"),
+        Index("ix_access_requests_user_id", "user_id"),
     )
 
 
