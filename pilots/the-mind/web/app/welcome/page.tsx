@@ -1,33 +1,25 @@
 /**
- * /welcome — public landing for users without an invite code.
+ * /welcome — public landing for visitors without a session or invite cookie.
  *
- * Shown when middleware sees no `invite_ok` cookie and no session. The page
- * explains The Mind is in private launch and invites visitors to request
- * access (mailto for now — can move to a form later) or paste a code.
+ * Single primary action: sign in with Google. Returning users on a new
+ * device land here and click through. New users without a code also
+ * sign in (creating a pending account) and see the waitlist screen
+ * inside the app where they can paste a code or request access.
  */
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function WelcomePage() {
-  const router = useRouter();
-  const [code, setCode] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export default function WelcomePage(props: {
+  searchParams: Promise<{ from?: string }>;
+}) {
+  return <WelcomeView searchParamsPromise={props.searchParams} />;
+}
 
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!code.trim()) return;
-    setSubmitting(true);
-    setError(null);
-    try {
-      router.push(`/invite/${encodeURIComponent(code.trim())}`);
-    } finally {
-      setSubmitting(false);
-    }
-  }
+async function WelcomeView({ searchParamsPromise }: {
+  searchParamsPromise: Promise<{ from?: string }>;
+}) {
+  const sp = await searchParamsPromise;
+  const callbackUrl = sp.from && sp.from.startsWith("/") ? sp.from : "/";
+  const signInHref = `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`;
 
   return (
     <div className="min-h-screen bg-void text-parchment flex flex-col">
@@ -43,57 +35,38 @@ export default function WelcomePage() {
       </header>
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="max-w-2xl w-full">
+        <div className="max-w-xl w-full text-center">
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-4">
-            PRIVATE LAUNCH · INVITE ONLY
+            PRIVATE LAUNCH
           </p>
           <h1 className="font-condensed font-black text-5xl md:text-6xl leading-[0.96] mb-6">
             The decision <span className="text-signal">infrastructure</span> behind real consumer behaviour.
           </h1>
-          <p className="text-parchment/72 text-lg leading-[1.78] mb-10 max-w-xl">
-            The Mind is in a private cohort while we tune the simulation. If
-            someone shared an invite code with you, enter it below.
+          <p className="text-parchment/72 text-lg leading-[1.78] mb-10">
+            Sign in with Google to continue. If you don&#x2019;t have an invite,
+            we&#x2019;ll add you to the waitlist.
           </p>
 
-          <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-3 mb-6">
-            <input
-              type="text"
-              value={code}
-              onChange={(e) => setCode(e.target.value.toUpperCase())}
-              placeholder="INVITE CODE"
-              className="flex-1 bg-transparent border border-parchment/20 px-4 py-3 font-mono text-sm tracking-widest text-parchment placeholder:text-parchment/30 focus:border-signal focus:outline-none"
-              autoFocus
-              autoComplete="off"
-              spellCheck={false}
-            />
-            <button
-              type="submit"
-              disabled={submitting || !code.trim()}
-              className="bg-signal text-void font-condensed font-bold uppercase tracking-wider px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {submitting ? "Checking…" : "Continue"}
-            </button>
-          </form>
-          {error && (
-            <p className="text-amber-400 text-sm font-mono mb-6">{error}</p>
-          )}
+          <Link
+            href={signInHref}
+            className="inline-block bg-signal text-void font-condensed font-bold uppercase tracking-wider px-8 py-4"
+          >
+            Sign in with Google →
+          </Link>
 
-          <div className="border-t border-parchment/10 pt-8">
-            <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
-              NO CODE?
-            </p>
-            <p className="text-parchment/72 leading-[1.78]">
-              Email{" "}
-              <a
-                href="mailto:mind@simulatte.io?subject=Request%20access%20to%20The%20Mind"
-                className="text-signal underline underline-offset-4"
-              >
-                mind@simulatte.io
-              </a>{" "}
-              with one line on what you would test. We are letting people in
-              every week.
-            </p>
-          </div>
+          <p className="mt-10 text-parchment/60 text-sm">
+            Have an invite link? Just open it — you&#x2019;ll be sent here
+            with access pre-approved.
+          </p>
+          <p className="mt-2 text-parchment/60 text-sm">
+            Need an invite?{" "}
+            <a
+              href="mailto:mind@simulatte.io?subject=Request%20access%20to%20The%20Mind"
+              className="text-signal underline underline-offset-4"
+            >
+              mind@simulatte.io
+            </a>
+          </p>
         </div>
       </main>
 

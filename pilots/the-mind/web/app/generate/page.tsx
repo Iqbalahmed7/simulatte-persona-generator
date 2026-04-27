@@ -14,8 +14,17 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
 import PersonaWizard from "@/components/PersonaWizard";
+import AccessGate from "@/components/AccessGate";
 
 export default function GeneratePage() {
+  return (
+    <AccessGate>
+      <GeneratePageInner />
+    </AccessGate>
+  );
+}
+
+function GeneratePageInner() {
   const router = useRouter();
   const [mode, setMode] = useState<"wizard" | "free">("free");
   const [running, setRunning] = useState(false);
