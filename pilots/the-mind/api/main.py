@@ -730,8 +730,19 @@ async def get_attributes(slug: str):
 
 
 def _build_portrait_prompt(da) -> str:
-    """Build a rich, realistic portrait prompt from demographic anchor data (Pydantic model)."""
+    """Build a rich, realistic portrait prompt from demographic anchor data (Pydantic model).
+
+    Delegates to the dict variant via .model_dump() so the name + heritage
+    inclusion logic stays in one place. Without the name, fal.ai (Flux)
+    over-represents white phenotypes in cosmopolitan cities.
+    """
+    try:
+        return _build_portrait_prompt_dict(da.model_dump())  # pydantic v2
+    except AttributeError:
+        pass
+    # Legacy fallback for non-pydantic inputs.
     gender_word = "woman" if da.gender == "female" else "man" if da.gender == "male" else "person"
+    name = getattr(da, "name", "") or ""
     city = getattr(da.location, "city", "") if da.location else ""
     country = getattr(da.location, "country", "") if da.location else ""
     occupation = ""
@@ -747,8 +758,10 @@ def _build_portrait_prompt(da) -> str:
         context_parts.append(life_stage)
     context = f", {', '.join(context_parts)}" if context_parts else ""
 
+    name_clause = f" named {name}" if name else ""
     return (
-        f"Candid photorealistic portrait of a {da.age}-year-old {gender_word} from {city}, {country}{context}. "
+        f"Candid photorealistic portrait of a {da.age}-year-old {gender_word}{name_clause} from {city}, {country}{context}. "
+        "Phenotype, skin tone, hair texture, and facial features should match the cultural and ethnic background implied by the name above. "
         "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
         "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
         "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
@@ -760,7 +773,16 @@ def _build_portrait_prompt(da) -> str:
 
 
 def _build_portrait_prompt_dict(da: dict) -> str:
-    """Build a portrait prompt from a plain-dict demographic anchor (web-generated personas)."""
+    """Build a portrait prompt from a plain-dict demographic anchor (web-generated personas).
+
+    Includes the persona's full name (strong implicit ethnicity signal —
+    "Chen", "Sharma", "Kowalski", "Schmidt", "Garcia" all encode heritage)
+    plus any explicit ethnicity / heritage hint surfaced by Claude during
+    persona generation. Without the name, fal.ai (Flux) defaults to the
+    statistical mode for the city, which over-represents white phenotypes
+    for places like San Francisco or London.
+    """
+    name = (da.get("name") or "").strip()
     gender = da.get("gender", "")
     gender_word = "woman" if gender == "female" else "man" if gender == "male" else "person"
     location = da.get("location") or {}
@@ -771,6 +793,24 @@ def _build_portrait_prompt_dict(da: dict) -> str:
     life_stage = (da.get("life_stage") or "").replace("_", " ")
     age = da.get("age", 30)
 
+    # Heritage / ethnicity hints — Claude sometimes tags these in the
+    # anchor under various keys; pick up whichever is present.
+    heritage = (
+        da.get("ethnicity") or da.get("heritage") or da.get("ancestry")
+        or da.get("cultural_background") or ""
+    )
+    if isinstance(heritage, list):
+        heritage = ", ".join(str(h) for h in heritage)
+    heritage = str(heritage).strip()
+
+    # Subject phrase — name first (strongest signal), heritage if available.
+    subject_bits = [f"{age}-year-old"]
+    if heritage:
+        subject_bits.append(heritage)
+    subject_bits.append(gender_word)
+    subject = " ".join(subject_bits)
+    name_clause = f" named {name}" if name else ""
+
     context_parts = []
     if occupation:
         context_parts.append(occupation)
@@ -779,7 +819,8 @@ def _build_portrait_prompt_dict(da: dict) -> str:
     context = f", {', '.join(context_parts)}" if context_parts else ""
 
     return (
-        f"Candid photorealistic portrait of a {age}-year-old {gender_word} from {city}, {country}{context}. "
+        f"Candid photorealistic portrait of a {subject}{name_clause} from {city}, {country}{context}. "
+        "Phenotype, skin tone, hair texture, and facial features should match the cultural and ethnic background implied by the name and heritage above. "
         "Shot on Sony A7 III, 85mm f/1.8 lens, natural window light, shallow depth of field. "
         "Authentic skin texture, realistic pores, natural hair, genuine relaxed expression. "
         "Upper body framing, slightly off-axis gaze, neutral indoor environment. "
