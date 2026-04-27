@@ -60,7 +60,7 @@ try:
         check_and_increment_allowance,
         get_current_user,
     )
-    from db import User, get_db                            # noqa: E402
+    from db import User, Event, EventType, get_db          # noqa: E402
     AUTH_ENABLED = True
     _early_logger.info("[auth] auth+db modules loaded; auth gating ENABLED")
 except Exception as _auth_exc:
@@ -81,6 +81,19 @@ except Exception as _auth_exc:
     class User:                                            # type: ignore[no-redef]
         id: str = ""
         email: str = ""
+
+    class Event:                                           # type: ignore[no-redef]
+        id: str = ""
+        user_id: str = ""
+        type: str = ""
+        ref_id: str = ""
+        created_at = None
+
+    class EventType:                                       # type: ignore[no-redef]
+        persona_generated = "persona_generated"
+        probe_run = "probe_run"
+        chat_message = "chat_message"
+        persona_shared = "persona_shared"
 
     async def get_db():                                    # type: ignore[no-redef]
         raise HTTPException(503, detail={
@@ -1856,3 +1869,194 @@ async def generate_portrait(persona_id: str, force: bool = False):
     _GENERATED_PORTRAITS[persona_id] = url
     _save_portraits_to_disk()
     return {"url": url, "persona_id": persona_id, "prompt": prompt}
+
+
+# ── Admin endpoints ───────────────────────────────────────────────────────
+# Read-only oversight for the operator. Gated by ADMIN_EMAILS env var
+# (comma-separated). All endpoints require a valid Auth.js JWT belonging to
+# an email in that allowlist.
+
+def _admin_emails() -> set[str]:
+    raw = os.environ.get("ADMIN_EMAILS", "")
+    return {e.strip().lower() for e in raw.split(",") if e.strip()}
+
+
+async def get_admin_user(user: User = Depends(get_current_user)) -> User:  # type: ignore  # noqa: F821
+    """FastAPI dep: 401 unless authenticated AND email is in ADMIN_EMAILS."""
+    if (user.email or "").lower() not in _admin_emails():
+        raise HTTPException(status_code=403, detail="Not an admin")
+    return user
+
+
+@app.get("/admin/stats")
+async def admin_stats(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Top-level counts for the operator dashboard."""
+    from sqlalchemy import func, select as sa_select
+    users_total = (await db.execute(sa_select(func.count()).select_from(User))).scalar() or 0  # type: ignore  # noqa: F821
+    events_total = (await db.execute(sa_select(func.count()).select_from(Event))).scalar() or 0  # type: ignore  # noqa: F821
+    personas_total = (
+        await db.execute(
+            sa_select(func.count()).select_from(Event).where(Event.type == EventType.persona_generated)  # type: ignore  # noqa: F821
+        )
+    ).scalar() or 0
+    probes_total = (
+        await db.execute(
+            sa_select(func.count()).select_from(Event).where(Event.type == EventType.probe_run)  # type: ignore  # noqa: F821
+        )
+    ).scalar() or 0
+    chats_total = (
+        await db.execute(
+            sa_select(func.count()).select_from(Event).where(Event.type == EventType.chat_message)  # type: ignore  # noqa: F821
+        )
+    ).scalar() or 0
+    return {
+        "users_total": users_total,
+        "events_total": events_total,
+        "personas_total": personas_total,
+        "probes_total": probes_total,
+        "chats_total": chats_total,
+        "personas_on_disk": len(_GENERATED),
+    }
+
+
+@app.get("/admin/users")
+async def admin_users(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """List all users with their per-type event counts."""
+    from sqlalchemy import select as sa_select
+    rows = (await db.execute(sa_select(User))).scalars().all()  # type: ignore  # noqa: F821
+    users_out = []
+    for u in rows:
+        ev = (
+            await db.execute(
+                sa_select(Event).where(Event.user_id == u.id)  # type: ignore  # noqa: F821
+            )
+        ).scalars().all()
+        personas = sum(1 for e in ev if e.type == EventType.persona_generated)  # type: ignore  # noqa: F821
+        probes = sum(1 for e in ev if e.type == EventType.probe_run)  # type: ignore  # noqa: F821
+        chats = sum(1 for e in ev if e.type == EventType.chat_message)  # type: ignore  # noqa: F821
+        last_active = max((e.created_at for e in ev), default=None)
+        users_out.append({
+            "id": u.id,
+            "email": u.email,
+            "name": u.name,
+            "personas": personas,
+            "probes": probes,
+            "chats": chats,
+            "last_active": last_active.isoformat() if last_active else None,
+        })
+    users_out.sort(key=lambda r: r["last_active"] or "", reverse=True)
+    return users_out
+
+
+@app.get("/admin/personas")
+async def admin_personas(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+    limit: int = 100,
+):
+    """List recent personas joined with their creator's email."""
+    from sqlalchemy import select as sa_select
+    events = (
+        await db.execute(
+            sa_select(Event, User)  # type: ignore  # noqa: F821
+            .join(User, Event.user_id == User.id)  # type: ignore  # noqa: F821
+            .where(Event.type == EventType.persona_generated)  # type: ignore  # noqa: F821
+            .order_by(Event.created_at.desc())  # type: ignore  # noqa: F821
+            .limit(limit)
+        )
+    ).all()
+    out = []
+    for ev, usr in events:
+        pid = ev.ref_id or ""
+        p = _GENERATED.get(pid) or {}
+        da = p.get("demographic_anchor") or {}
+        out.append({
+            "persona_id": pid,
+            "name": da.get("name", "(missing)"),
+            "age": da.get("age"),
+            "city": da.get("city"),
+            "country": da.get("country"),
+            "creator_email": usr.email,
+            "creator_name": usr.name,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+            "portrait_url": _GENERATED_PORTRAITS.get(pid),
+        })
+    return out
+
+
+@app.get("/admin/probes")
+async def admin_probes(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+    limit: int = 100,
+):
+    """List recent probes joined with creator email + verdict summary."""
+    from sqlalchemy import select as sa_select
+    events = (
+        await db.execute(
+            sa_select(Event, User)  # type: ignore  # noqa: F821
+            .join(User, Event.user_id == User.id)  # type: ignore  # noqa: F821
+            .where(Event.type == EventType.probe_run)  # type: ignore  # noqa: F821
+            .order_by(Event.created_at.desc())  # type: ignore  # noqa: F821
+            .limit(limit)
+        )
+    ).all()
+    out = []
+    for ev, usr in events:
+        probe_id = ev.ref_id or ""
+        # Probes are sharded under _PROBES_DIR/<persona_id>/<probe_id>.json
+        # Find the file by glob.
+        probe_data: dict = {}
+        for path in _PROBES_DIR.rglob(f"{probe_id}.json"):
+            try:
+                with open(path, encoding="utf-8") as f:
+                    probe_data = json.load(f)
+                break
+            except Exception:
+                pass
+        pi = probe_data.get("purchase_intent") or {}
+        out.append({
+            "probe_id": probe_id,
+            "product_name": probe_data.get("product_name", "(missing)"),
+            "category": probe_data.get("category", ""),
+            "purchase_intent": pi.get("score"),
+            "top_objection": probe_data.get("top_objection", "")[:200],
+            "persona_name": probe_data.get("persona_name", ""),
+            "creator_email": usr.email,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+        })
+    return out
+
+
+@app.get("/admin/events")
+async def admin_events(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+    limit: int = 200,
+):
+    """Raw event firehose, most recent first."""
+    from sqlalchemy import select as sa_select
+    events = (
+        await db.execute(
+            sa_select(Event, User)  # type: ignore  # noqa: F821
+            .join(User, Event.user_id == User.id)  # type: ignore  # noqa: F821
+            .order_by(Event.created_at.desc())  # type: ignore  # noqa: F821
+            .limit(limit)
+        )
+    ).all()
+    return [
+        {
+            "id": ev.id,
+            "type": ev.type.value if hasattr(ev.type, "value") else str(ev.type),
+            "user_email": usr.email,
+            "ref_id": ev.ref_id,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+        }
+        for ev, usr in events
+    ]
