@@ -207,71 +207,77 @@ export default function HomePage() {
             SECTION 1 — HERO  (live persona wall + headline)
         ══════════════════════════════════════════════════════ */}
         <section
-          className="relative min-h-screen flex flex-col justify-end overflow-hidden"
+          className="relative min-h-screen flex flex-col justify-between overflow-hidden"
           style={{ maxWidth: "none" }}
         >
           {/* Drifting persona wall, real portraits from /community/personas */}
           <LivePersonaWall />
 
-          {/* Foreground content */}
-          <div className="relative z-10 px-6 md:px-14 pt-24 pb-20">
-            <div className="max-w-5xl">
-              {/* Lockup */}
-              <div className="flex items-center gap-3 mb-10">
-                <MindMark size={28} />
-                <span className="font-condensed font-bold text-parchment text-base tracking-wide">Mind</span>
-                <span className="font-sans text-[11px] text-static tracking-widest uppercase">by Simulatte</span>
-              </div>
+          {/* Top lockup — small, anchored top-left */}
+          <div className="relative z-10 px-6 md:px-14 pt-8">
+            <div className="flex items-center gap-3">
+              <MindMark size={28} />
+              <span className="font-condensed font-bold text-parchment text-base tracking-wide">Mind</span>
+              <span className="font-sans text-[11px] text-static tracking-widest uppercase">by Simulatte</span>
+            </div>
+          </div>
 
-              {/* Eyebrow */}
-              <div className="flex items-center gap-3 mb-5">
-                <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-static">
-                  Decision infrastructure
-                </span>
-                <span className="w-6 h-px bg-parchment/20" />
-              </div>
+          {/* Foreground content — centred bottom-left so the wall reads
+              edge-to-edge above and the reader's eye lands on the heading
+              against the darkest part of the gradient. */}
+          <div className="relative z-10 px-6 md:px-14 pb-20 pt-12 text-center">
+            {/* Eyebrow */}
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="w-6 h-px bg-parchment/20" />
+              <span className="font-sans font-semibold text-[11px] tracking-widest uppercase text-static">
+                Decision infrastructure
+              </span>
+              <span className="w-6 h-px bg-parchment/20" />
+            </div>
 
-              {/* Hero heading — split lettering, single green word */}
-              <h1
-                className="font-condensed font-extrabold text-parchment mb-6"
-                style={{
-                  fontSize: "clamp(48px, 6.5vw, 92px)",
-                  lineHeight: 0.96,
-                  letterSpacing: "-0.008em",
-                  textShadow: "0 2px 24px rgba(5,5,5,0.85)",
-                }}
+            {/* Hero heading — split lettering, single green word */}
+            <h1
+              className="font-condensed font-extrabold text-parchment mb-6 mx-auto"
+              style={{
+                fontSize: "clamp(48px, 6.5vw, 92px)",
+                lineHeight: 0.96,
+                letterSpacing: "-0.008em",
+                textShadow: "0 2px 24px rgba(5,5,5,0.85)",
+                maxWidth: "18ch",
+              }}
+            >
+              Before you ship it, <span className="text-signal">talk</span> to the person you built it for.
+            </h1>
+
+            {/* Subtitle */}
+            <p
+              className="font-sans text-parchment/88 leading-relaxed mx-auto mb-10"
+              style={{
+                fontSize: "16px",
+                lineHeight: 1.78,
+                maxWidth: "640px",
+                textShadow: "0 1px 16px rgba(5,5,5,0.85)",
+              }}
+            >
+              The Mind generates a behaviourally coherent human from a paragraph —
+              anchored in real population data, not a generic average. Every face
+              drifting above is a real person someone built this week. Click any of them.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href="/generate"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 bg-signal text-void hover:opacity-90 transition-opacity"
               >
-                Before you ship it,<br />
-                <span className="text-signal">talk</span>{" "}to the person<br />
-                you built it for.
-              </h1>
-
-              {/* Subtitle */}
-              <p
-                className="font-sans text-parchment/88 leading-relaxed max-w-xl mb-10"
-                style={{ fontSize: "16px", lineHeight: 1.78, textShadow: "0 1px 16px rgba(5,5,5,0.85)" }}
+                Build a person →
+              </Link>
+              <Link
+                href="/community"
+                className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-parchment/30 text-parchment hover:border-parchment hover:bg-parchment/5 transition-colors backdrop-blur-sm"
               >
-                The Mind generates a behaviourally coherent human from a paragraph —
-                anchored in real population data, not a generic average. Every face
-                drifting behind this text is a real person someone built this week.
-                Click any of them.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/generate"
-                  className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 bg-signal text-void hover:opacity-90 transition-opacity"
-                >
-                  Build a person →
-                </Link>
-                <Link
-                  href="/community"
-                  className="font-mono text-[11px] font-medium tracking-widest uppercase px-7 py-3 border border-parchment/30 text-parchment hover:border-parchment hover:bg-parchment/5 transition-colors backdrop-blur-sm"
-                >
-                  Browse the wall
-                </Link>
-              </div>
+                Browse the wall
+              </Link>
             </div>
           </div>
         </section>

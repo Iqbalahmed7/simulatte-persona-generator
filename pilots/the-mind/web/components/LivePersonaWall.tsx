@@ -97,22 +97,14 @@ export default function LivePersonaWall() {
         ))}
       </div>
 
-      {/* Foreground readability gradient */}
+      {/* Foreground readability gradient — top→bottom only so the wall
+          stays edge-to-edge horizontally. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(5,5,5,0.50) 0%, rgba(5,5,5,0.85) 55%, rgba(5,5,5,0.96) 100%)",
-        }}
-      />
-      {/* Side fade so columns blend into the void edges */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0) 18%, rgba(5,5,5,0) 82%, rgba(5,5,5,0.85) 100%)",
+            "linear-gradient(180deg, rgba(5,5,5,0.30) 0%, rgba(5,5,5,0.55) 45%, rgba(5,5,5,0.92) 100%)",
         }}
       />
 
