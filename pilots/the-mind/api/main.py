@@ -1376,6 +1376,11 @@ class ProbeResult(BaseModel):
     created_at: str
 
 
+# `from __future__ import annotations` defers types as strings; rebuild so
+# Pydantic resolves the forward reference to ClaimVerdict.
+ProbeResult.model_rebuild()
+
+
 # ── Probe directories ─────────────────────────────────────────────────────
 
 _PROBES_DIR = _DATA_ROOT / "probes"
