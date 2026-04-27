@@ -27,16 +27,16 @@ interface MeResponse {
 
 type Phase = "loading" | "active" | "pending" | "anon" | "error";
 
-// sessionStorage key — survives refreshes within a tab but not across
+// localStorage key — survives refreshes within a tab but not across
 // browser restarts, so a stale "active" verdict can't leak indefinitely
 // if the operator bans someone. Server still enforces on every request.
 const CACHE_KEY = "mind:access:v1";
-const CACHE_TTL_MS = 5 * 60 * 1000; // revalidate every 5 min in background
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24h — server enforces, so this is just a UX hint
 
 function readCache(): "active" | null {
   if (typeof window === "undefined") return null;
   try {
-    const raw = sessionStorage.getItem(CACHE_KEY);
+    const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as { status: string; ts: number };
     if (parsed.status !== "active") return null;
@@ -48,7 +48,7 @@ function readCache(): "active" | null {
 function writeCache(status: "active" | "pending") {
   if (typeof window === "undefined") return;
   try {
-    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ status, ts: Date.now() }));
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ status, ts: Date.now() }));
   } catch { /* ignore quota errors */ }
 }
 
@@ -98,14 +98,12 @@ export default function AccessGate({ children }: { children: React.ReactNode }) 
     void loadMe();
   }, []);
 
+  // No "Checking access…" screen. Render children optimistically while
+  // /me is in flight; the server enforces access on every API call so a
+  // pending user can't actually do anything sensitive. If /me comes back
+  // pending, we flip to the Waitlist below.
   if (phase === "loading") {
-    return (
-      <div className="min-h-screen bg-void text-parchment flex items-center justify-center">
-        <span className="font-mono text-[11px] tracking-widest uppercase text-static">
-          Checking access…
-        </span>
-      </div>
-    );
+    return <>{children}</>;
   }
 
   if (phase === "anon") {
