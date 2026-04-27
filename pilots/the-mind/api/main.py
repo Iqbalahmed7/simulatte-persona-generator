@@ -1378,6 +1378,78 @@ async def list_generated_personas():
     return sorted(summaries, key=lambda x: x["persona_id"], reverse=True)
 
 
+@app.get("/me/personas")
+async def my_personas(
+    user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Personas the signed-in user generated, with probe count and
+    days-until-expiry for the dashboard. Newest first.
+
+    Persona files auto-purge after 30d (see _purge_old_generated). We
+    surface that as `expires_in_days` so the dashboard can nudge the
+    user to probe/chat them before they're gone.
+    """
+    from sqlalchemy import select as sa_select
+    import time as _t
+    rows = (
+        await db.execute(
+            sa_select(Event)  # type: ignore
+            .where(Event.user_id == user.id)  # type: ignore
+            .where(Event.type == EventType.persona_generated)  # type: ignore
+            .order_by(Event.created_at.desc())  # type: ignore
+            .limit(200)
+        )
+    ).scalars().all()
+    seen: set[str] = set()
+    out: list[dict] = []
+    now = _t.time()
+    for ev in rows:
+        pid = ev.ref_id
+        if not pid or pid in seen:
+            continue
+        seen.add(pid)
+        p = _GENERATED.get(pid)
+        if p is None:
+            continue  # purged or unloaded
+        da = p.get("demographic_anchor") or {}
+        loc = da.get("location") or {}
+        # File mtime → expiry; default to 30d window from creation.
+        path = _GENERATED_DIR / f"{pid}.json"
+        try:
+            mtime = path.stat().st_mtime if path.exists() else now
+        except Exception:
+            mtime = now
+        age_days = max(0, (now - mtime) / 86400.0)
+        expires_in = max(0, int(round(30.0 - age_days)))
+        # Probe count for this persona by this user
+        probe_count = (await db.execute(
+            sa_select(Event)  # type: ignore
+            .where(Event.user_id == user.id)  # type: ignore
+            .where(Event.type == EventType.probe_run)  # type: ignore
+            .where(Event.ref_id == pid)  # type: ignore
+        )).scalars().all()
+        chat_count = (await db.execute(
+            sa_select(Event)  # type: ignore
+            .where(Event.user_id == user.id)  # type: ignore
+            .where(Event.type == EventType.chat_message)  # type: ignore
+            .where(Event.ref_id == pid)  # type: ignore
+        )).scalars().all()
+        out.append({
+            "persona_id": pid,
+            "name": da.get("name", ""),
+            "age": da.get("age", 0),
+            "city": loc.get("city", ""),
+            "country": loc.get("country", ""),
+            "portrait_url": _GENERATED_PORTRAITS.get(pid),
+            "probes_run": len(probe_count),
+            "chats_had": len(chat_count),
+            "expires_in_days": expires_in,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+        })
+    return out
+
+
 @app.get("/community/personas")
 async def list_community_personas(limit: int = 60):
     """Public, anonymized list of generated personas for the Community Wall.
