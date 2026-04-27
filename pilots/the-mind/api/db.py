@@ -113,6 +113,15 @@ class User(Base):
     image = Column(Text, nullable=True)
     email_verified = Column("emailVerified", DateTime(timezone=True), nullable=True)
 
+    # ── Moderation / abuse controls ─────────────────────────────────
+    # `banned` users are rejected at the auth layer (token mint refuses)
+    # so they cannot generate, probe, or chat. Bans are manual (admin-only).
+    banned = Column(Boolean, nullable=False, default=False, server_default="false")
+    banned_at = Column(DateTime(timezone=True), nullable=True)
+    banned_reason = Column(String, nullable=True)
+    # Auto-incremented every time a request from this user is moderation-blocked.
+    flagged_count = Column(Integer, nullable=False, default=0, server_default="0")
+
     allowance = relationship("Allowance", back_populates="user", uselist=False)
     events = relationship("Event", back_populates="user")
 
@@ -204,6 +213,9 @@ class EventType(str, enum.Enum):
     probe_run = "probe_run"
     chat_message = "chat_message"
     persona_shared = "persona_shared"
+    moderation_blocked = "moderation_blocked"   # input rejected by content filter
+    user_banned = "user_banned"                  # admin banned this user
+    user_unbanned = "user_unbanned"              # admin lifted ban
 
 
 class Event(Base):

@@ -1,8 +1,17 @@
 import Link from "next/link";
 import { adminFetch } from "@/lib/admin";
+import BanControls from "@/components/admin/BanControls";
 
 interface UserDetail {
-  user: { id: string; email: string; name: string | null };
+  user: {
+    id: string;
+    email: string;
+    name: string | null;
+    banned?: boolean;
+    banned_at?: string | null;
+    banned_reason?: string | null;
+    flagged_count?: number;
+  };
   events: Array<{
     id: string;
     type: string;
@@ -28,7 +37,14 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
     <div>
       <Link href="/admin/users" className="text-xs font-mono text-parchment/50 hover:text-signal">← Users</Link>
       <h1 className="font-condensed font-bold text-parchment text-3xl mt-4 mb-1">{user.name ?? user.email}</h1>
-      <p className="text-parchment/60 text-sm font-mono mb-8">{user.email}</p>
+      <p className="text-parchment/60 text-sm font-mono mb-6">{user.email}</p>
+
+      <BanControls
+        userId={user.id}
+        banned={!!user.banned}
+        bannedReason={user.banned_reason ?? null}
+        flaggedCount={user.flagged_count ?? 0}
+      />
 
       <h2 className="text-[11px] font-mono uppercase tracking-widest text-parchment/50 mb-4">
         Activity ({events.length})

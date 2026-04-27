@@ -153,6 +153,22 @@ async def get_current_user(
             detail="User not found — your session may be stale, please sign in again",
         )
 
+    # Banned users: refuse all gated actions. 403 (not 401) so the client
+    # doesn't try to re-auth — the ban will follow them. Admins (by env var)
+    # are exempt — they need access to lift bans.
+    if getattr(user, "banned", False):
+        admin_emails = {
+            e.strip().lower()
+            for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+            if e.strip()
+        }
+        if (user.email or "").lower() not in admin_emails:
+            reason = getattr(user, "banned_reason", None) or "violation of usage policy"
+            raise HTTPException(
+                status_code=403,
+                detail=f"Your account has been suspended ({reason}). Contact mind@simulatte.io if you believe this is in error.",
+            )
+
     return user
 
 

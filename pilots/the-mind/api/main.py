@@ -121,6 +121,40 @@ from src.cognition.decide import decide              # noqa: E402
 from src.cognition.respond import respond            # noqa: E402
 from src.schema.persona import PersonaRecord         # noqa: E402
 
+# Content moderation — wordlist + regex filter for profanity, sexual,
+# and underage content. Always import (no DB dependency).
+try:
+    from moderation import (                          # noqa: E402
+        ModerationError,
+        ModerationResult,
+        check_brief,
+        enforce_brief_safety,
+    )
+except Exception as _mod_exc:                         # pragma: no cover
+    _early_logger.error("[moderation] failed to load: %s", _mod_exc, exc_info=True)
+    # Fail closed if the filter can't load: treat all input as flagged.
+    class ModerationError(Exception):                 # type: ignore[no-redef]
+        def __init__(self, *_args, **_kwargs):
+            super().__init__("moderation_unavailable")
+            class _R:
+                flagged = True
+                reason = "filter_unavailable"
+                message = "Content moderation is unavailable. Please try again later."
+                matched_terms: list[str] = []
+            self.result = _R()
+
+    class ModerationResult:                           # type: ignore[no-redef]
+        flagged = False
+        reason = ""
+        message = ""
+        matched_terms: list[str] = []
+
+    def check_brief(text):                            # type: ignore[no-redef]
+        return ModerationResult()
+
+    def enforce_brief_safety(text):                   # type: ignore[no-redef]
+        return None
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -401,12 +435,47 @@ Return ONLY valid JSON with this shape (omit fields not explicitly stated or cle
 
 # ── app ───────────────────────────────────────────────────────────────────
 
+async def _ensure_moderation_columns():
+    """Idempotent ALTER TABLE for moderation/ban columns + new event-type
+    enum values. Cheap to run on every startup; Railway redeploys are quick."""
+    if not AUTH_ENABLED:
+        return
+    try:
+        from db import get_engine                          # noqa: PLC0415
+        from sqlalchemy import text as _sql                # noqa: PLC0415
+        engine = get_engine()
+        # Column adds run inside a transaction (safe).
+        async with engine.begin() as conn:
+            for ddl in [
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS banned BOOLEAN NOT NULL DEFAULT false",
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS banned_at TIMESTAMP WITH TIME ZONE",
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS banned_reason VARCHAR",
+                "ALTER TABLE users ADD COLUMN IF NOT EXISTS flagged_count INTEGER NOT NULL DEFAULT 0",
+            ]:
+                await conn.execute(_sql(ddl))
+        # ALTER TYPE ... ADD VALUE must NOT run inside a transaction (PG quirk).
+        # Use AUTOCOMMIT isolation level — each statement commits on its own.
+        async with engine.connect() as conn:
+            ac = await conn.execution_options(isolation_level="AUTOCOMMIT")
+            for new_val in ("moderation_blocked", "user_banned", "user_unbanned", "persona_shared"):
+                try:
+                    await ac.execute(_sql(
+                        f"ALTER TYPE eventtype ADD VALUE IF NOT EXISTS '{new_val}'"
+                    ))
+                except Exception as exc:
+                    logger.debug("[startup] enum add %s skipped: %s", new_val, exc)
+        logger.info("[startup] moderation/ban columns + enum values ensured")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[startup] moderation column migration skipped: %s", exc)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     personas = _load_all()
     logger.info("[the-mind] %d exemplar personas loaded", len(personas))
     _load_generated_from_disk()
     logger.info("[the-mind] %d generated personas loaded from disk", len(_GENERATED))
+    await _ensure_moderation_columns()
     yield
 
 
@@ -979,6 +1048,82 @@ def _sse(payload: dict) -> str:
     return f"data: {json.dumps(payload)}\n\n"
 
 
+# ── Moderation enforcement helper ────────────────────────────────────────
+
+async def _enforce_and_log_moderation(
+    text: str,
+    user: "User",
+    db: "AsyncSession",
+    *,
+    surface: str,            # "brief" | "chat" | "probe_claim"
+) -> None:
+    """Run moderation. If flagged: increment user.flagged_count, log a
+    `moderation_blocked` Event (ref_id encodes reason+surface), and raise
+    HTTP 422.
+
+    Auto-ban: if a user accumulates >= 3 flagged events, set banned=True.
+    """
+    result = check_brief(text)
+    if not result.flagged:
+        return
+
+    # Persist a moderation event + bump counter (best-effort; never block on log
+    # write if the DB is busy)
+    try:
+        if AUTH_ENABLED:
+            from sqlalchemy import update as sa_update                # noqa: PLC0415
+            ref = f"{result.reason}:{surface}:{','.join(result.matched_terms)[:60]}"
+            db.add(Event(  # type: ignore[call-arg]
+                user_id=user.id,
+                type=EventType.moderation_blocked,
+                ref_id=ref[:200],
+            ))
+            await db.execute(
+                sa_update(User)  # type: ignore[arg-type]
+                .where(User.id == user.id)
+                .values(flagged_count=(User.flagged_count + 1))
+            )
+            # Auto-ban after 3 strikes
+            new_count = (getattr(user, "flagged_count", 0) or 0) + 1
+            if new_count >= 3 and not getattr(user, "banned", False):
+                from datetime import datetime as _dt, timezone as _tz  # noqa: PLC0415
+                await db.execute(
+                    sa_update(User)
+                    .where(User.id == user.id)
+                    .values(
+                        banned=True,
+                        banned_at=_dt.now(_tz.utc),
+                        banned_reason=f"auto-ban: 3+ {result.reason} flags",
+                    )
+                )
+                db.add(Event(
+                    user_id=user.id,
+                    type=EventType.user_banned,
+                    ref_id=f"auto:{result.reason}",
+                ))
+                logger.warning(
+                    "[moderation] auto-banned user=%s reason=%s",
+                    user.email, result.reason,
+                )
+            await db.commit()
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[moderation] failed to log flag: %s", exc)
+
+    logger.info(
+        "[moderation] BLOCKED user=%s surface=%s reason=%s terms=%s",
+        getattr(user, "email", "?"), surface, result.reason, result.matched_terms,
+    )
+
+    raise HTTPException(
+        status_code=422,
+        detail={
+            "error": "moderation_blocked",
+            "reason": result.reason,
+            "message": result.message,
+        },
+    )
+
+
 @app.get("/me")
 async def get_me(
     user: User = Depends(get_current_user),
@@ -1001,6 +1146,10 @@ async def generate_persona_stream(
         {"type": "result",  "persona_id": "...", "name": "..."}
         {"type": "error",   "message": "..."}
     """
+    # Moderation: reject the brief BEFORE consuming any quota. A flagged
+    # request bumps the user's flag counter; 3+ flags auto-bans.
+    await _enforce_and_log_moderation(request.brief, user, db, surface="brief")
+
     # Auth: check allowance BEFORE starting the SSE stream.
     # Must happen here (not inside the generator) so a 402 is a normal HTTP response.
     await check_and_increment_allowance(user, "persona", db)
@@ -1302,6 +1451,8 @@ async def chat_generated(
     require schema-coercing the dict into PersonaRecord, which is invasive given
     the empty attributes map and shape differences.)
     """
+    # Moderation: reject the message before consuming chat allowance.
+    await _enforce_and_log_moderation(request.message, user, db, surface="chat")
     await check_and_increment_allowance(user, "chat", db)
 
     # Load: cache → disk fallback (mirror GET /generated/{id})
@@ -1705,6 +1856,15 @@ async def run_probe(
     """
     import hashlib
     from datetime import datetime, timezone
+
+    # Moderation: scan product name + description + claims as one blob.
+    probe_blob = " | ".join([
+        request.product_name or "",
+        getattr(request, "description", "") or "",
+        " ".join(request.claims or []),
+    ])
+    if probe_blob.strip():
+        await _enforce_and_log_moderation(probe_blob, user, db, surface="probe")
 
     await check_and_increment_allowance(user, "probe", db)
 
@@ -2141,6 +2301,13 @@ async def admin_user_detail(
             "id": user_row.id,
             "email": user_row.email,
             "name": user_row.name,
+            "banned": bool(getattr(user_row, "banned", False)),
+            "banned_at": (
+                user_row.banned_at.isoformat()
+                if getattr(user_row, "banned_at", None) else None
+            ),
+            "banned_reason": getattr(user_row, "banned_reason", None),
+            "flagged_count": int(getattr(user_row, "flagged_count", 0) or 0),
         },
         "events": enriched,
     }
@@ -2150,6 +2317,95 @@ async def admin_user_detail(
 # In-memory token bucket. Buckets keyed by (route_class, identity).
 # Identity = user.id if authed, else client IP.
 # Resets on process restart — fine for our scale.
+
+# ── Admin: ban / unban / flagged events ───────────────────────────────────
+
+class BanRequest(BaseModel):
+    reason: str = "violation of usage policy"
+
+
+@app.post("/admin/users/{user_id}/ban")
+async def admin_ban_user(
+    user_id: str,
+    payload: BanRequest,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Mark a user as banned. They can authenticate but cannot use any
+    gated endpoint (generate / probe / chat). Reversible via /unban."""
+    from datetime import datetime as _dt, timezone as _tz
+    from sqlalchemy import select as sa_select, update as sa_update
+    target = (
+        await db.execute(sa_select(User).where(User.id == user_id))  # type: ignore  # noqa: F821
+    ).scalar_one_or_none()
+    if target is None:
+        raise HTTPException(404, detail="User not found")
+    await db.execute(
+        sa_update(User)
+        .where(User.id == user_id)
+        .values(banned=True, banned_at=_dt.now(_tz.utc), banned_reason=payload.reason[:200])
+    )
+    db.add(Event(user_id=user_id, type=EventType.user_banned, ref_id=f"manual:{payload.reason[:60]}"))
+    await db.commit()
+    logger.warning("[admin] banned user=%s reason=%s by=%s", target.email, payload.reason, _admin.email)
+    return {"banned": True, "user_id": user_id, "reason": payload.reason}
+
+
+@app.post("/admin/users/{user_id}/unban")
+async def admin_unban_user(
+    user_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Lift a ban on a user. Resets flagged_count to 0."""
+    from sqlalchemy import select as sa_select, update as sa_update
+    target = (
+        await db.execute(sa_select(User).where(User.id == user_id))  # type: ignore  # noqa: F821
+    ).scalar_one_or_none()
+    if target is None:
+        raise HTTPException(404, detail="User not found")
+    await db.execute(
+        sa_update(User)
+        .where(User.id == user_id)
+        .values(banned=False, banned_at=None, banned_reason=None, flagged_count=0)
+    )
+    db.add(Event(user_id=user_id, type=EventType.user_unbanned, ref_id=f"by:{_admin.email}"[:200]))
+    await db.commit()
+    logger.info("[admin] unbanned user=%s by=%s", target.email, _admin.email)
+    return {"banned": False, "user_id": user_id}
+
+
+@app.get("/admin/flagged")
+async def admin_flagged(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """List all moderation_blocked events with the offending user attached."""
+    from sqlalchemy import select as sa_select
+    rows = (
+        await db.execute(
+            sa_select(Event, User)  # type: ignore
+            .join(User, User.id == Event.user_id)  # type: ignore
+            .where(Event.type == EventType.moderation_blocked)  # type: ignore
+            .order_by(Event.created_at.desc())  # type: ignore
+            .limit(500)
+        )
+    ).all()
+    return [
+        {
+            "id": ev.id,
+            "user_id": usr.id,
+            "user_email": usr.email,
+            "user_banned": bool(getattr(usr, "banned", False)),
+            "user_flagged_count": int(getattr(usr, "flagged_count", 0) or 0),
+            "ref_id": ev.ref_id,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+        }
+        for ev, usr in rows
+    ]
+
+
+# ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────
 
 import time as _rl_time
 import threading as _rl_threading

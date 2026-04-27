@@ -46,3 +46,20 @@ export async function adminFetch<T = unknown>(path: string): Promise<T | null> {
   if (!res.ok) return null;
   return (await res.json()) as T;
 }
+
+/** Minted-token POST proxy. Returns Response so the caller can decide on
+ *  status / body shape. Used by /api/admin/* route handlers. */
+export async function adminPost(path: string, body?: unknown): Promise<Response> {
+  const user = await getAdminUser();
+  if (!user) return new Response('{"error":"forbidden"}', { status: 403 });
+  const token = await _mintToken(user);
+  return await fetch(`${ADMIN_API_BASE}${path}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: body === undefined ? undefined : JSON.stringify(body),
+    cache: "no-store",
+  });
+}

@@ -177,7 +177,13 @@ export async function generatePersona(
   }
   if (!res.ok || !res.body) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.detail ?? "Generation request failed");
+    // Moderation block: surface the user-friendly message from the API.
+    if (res.status === 422 && err?.detail?.error === "moderation_blocked") {
+      throw new Error(err.detail.message ?? "Content was blocked by moderation.");
+    }
+    throw new Error(
+      typeof err.detail === "string" ? err.detail : "Generation request failed"
+    );
   }
   const reader = res.body.getReader();
   const dec = new TextDecoder();
