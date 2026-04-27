@@ -412,6 +412,20 @@ async def build_me_response(user: User, db: AsyncSession) -> dict:
     probes_used = allowance.probes_used if allowance else 0
     chats_used = allowance.chats_used if allowance else 0
 
+    # Admin override — operator should see 0/<huge> in the dashboard so
+    # the frontend Generate tile / Probe / Chat actions stay enabled
+    # regardless of any stale Allowance row from before the bypass landed.
+    admin_emails = {
+        e.strip().lower()
+        for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+        if e.strip()
+    }
+    is_admin_user = (user.email or "").lower() in admin_emails
+    if is_admin_user:
+        personas_used = 0
+        probes_used = 0
+        chats_used = 0
+
     return {
         "user": {
             "id": user.id,
