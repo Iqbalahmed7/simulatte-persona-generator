@@ -2144,3 +2144,127 @@ async def admin_user_detail(
         },
         "events": enriched,
     }
+
+
+# ── Rate limiting (per-IP + per-user) ─────────────────────────────────────
+# In-memory token bucket. Buckets keyed by (route_class, identity).
+# Identity = user.id if authed, else client IP.
+# Resets on process restart — fine for our scale.
+
+import time as _rl_time
+import threading as _rl_threading
+from collections import defaultdict as _rl_defaultdict
+
+_RL_LOCK = _rl_threading.Lock()
+_RL_BUCKETS: dict[tuple[str, str], list[float]] = _rl_defaultdict(list)
+
+_RL_LIMITS = {
+    # route_class: (max_requests, window_seconds)
+    "expensive": (10, 60 * 60),   # generate-persona / probe — 10/hr
+    "chat": (60, 60 * 60),        # chat — 60/hr
+    "default": (300, 60),         # everything else — 300/min
+}
+
+
+def _rate_limit_check(route_class: str, identity: str) -> None:
+    """Sliding-window rate limiter. Raises 429 on excess."""
+    max_req, window = _RL_LIMITS.get(route_class, _RL_LIMITS["default"])
+    now = _rl_time.time()
+    cutoff = now - window
+    key = (route_class, identity)
+    with _RL_LOCK:
+        bucket = _RL_BUCKETS[key]
+        # prune expired
+        i = 0
+        while i < len(bucket) and bucket[i] < cutoff:
+            i += 1
+        if i:
+            del bucket[:i]
+        if len(bucket) >= max_req:
+            retry_after = int(bucket[0] + window - now) + 1
+            raise HTTPException(
+                status_code=429,
+                detail=f"Rate limit hit. Try again in {retry_after}s.",
+                headers={"Retry-After": str(retry_after)},
+            )
+        bucket.append(now)
+
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    path = request.url.path
+    # Skip rate limiting for static / health / auth-dance / OG
+    skip_prefixes = ("/healthz", "/api/auth/", "/admin/")
+    if any(path.startswith(p) for p in skip_prefixes):
+        return await call_next(request)
+
+    # Identify caller (Bearer subject if present, else IP)
+    identity = request.client.host if request.client else "unknown"
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        try:
+            import jwt as _rl_jwt
+            secret = os.environ.get("NEXTAUTH_SECRET", "")
+            if secret:
+                payload = _rl_jwt.decode(
+                    auth_header[7:],
+                    secret,
+                    algorithms=["HS256"],
+                    options={"verify_aud": False},
+                )
+                sub = payload.get("sub")
+                if sub:
+                    identity = f"user:{sub}"
+        except Exception:
+            pass  # fall back to IP
+
+    # Classify route
+    if path == "/generate-persona" or "/probe" in path:
+        klass = "expensive"
+    elif "/chat" in path:
+        klass = "chat"
+    else:
+        klass = "default"
+
+    try:
+        _rate_limit_check(klass, identity)
+    except HTTPException as e:
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            status_code=e.status_code,
+            content={"detail": e.detail},
+            headers=e.headers or {},
+        )
+    return await call_next(request)
+
+
+# ── Turnstile verification ────────────────────────────────────────────────
+# Frontend posts a Turnstile token to /verify-turnstile; we verify with
+# Cloudflare and return ok:true. The frontend gates "Continue with Google"
+# behind a successful verification.
+
+@app.post("/verify-turnstile")
+async def verify_turnstile(payload: dict):
+    """Verify a Cloudflare Turnstile token.
+
+    Frontend calls this after the widget completes; on ok:true the sign-in
+    button becomes enabled. If TURNSTILE_SECRET is unset, we treat it as a
+    dev environment and return ok:true without checking.
+    """
+    secret = os.environ.get("TURNSTILE_SECRET", "")
+    if not secret:
+        return {"ok": True, "skipped": True}
+    token = (payload or {}).get("token")
+    if not token:
+        return {"ok": False, "reason": "missing_token"}
+    try:
+        import httpx
+        async with httpx.AsyncClient(timeout=5.0) as client:
+            r = await client.post(
+                "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+                data={"secret": secret, "response": token},
+            )
+            data = r.json()
+            return {"ok": bool(data.get("success")), "raw": data}
+    except Exception as exc:
+        return {"ok": False, "reason": f"verify_failed: {exc}"}

@@ -11,11 +11,13 @@
  * Shown on first visit to any gated route (/generate, /persona/*, /probe/*).
  */
 import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
-import { FormEvent, Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, Suspense, useEffect, useState } from "react";
+import TurnstileWidget from "@/components/TurnstileWidget";
 
 function SignInContent() {
   const params = useSearchParams();
+  const router = useRouter();
   const callbackUrl = params.get("callbackUrl") ?? "/generate";
   const verify = params.get("verify") === "1";
 
@@ -23,6 +25,22 @@ function SignInContent() {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRequired = !!process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const turnstileOk = !turnstileRequired || turnstileToken !== null;
+
+  // Redirect-if-authed: if the user already has a valid session, skip
+  // straight to the callback URL. Avoids the post-OAuth bounce-back.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/auth/session", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (!cancelled && data?.user?.email) router.replace(callbackUrl);
+      })
+      .catch(() => { /* noop */ });
+    return () => { cancelled = true; };
+  }, [router, callbackUrl]);
 
   async function handleEmail(e: FormEvent) {
     e.preventDefault();
@@ -95,15 +113,23 @@ function SignInContent() {
           </div>
         ) : (
           <>
-            <p className="text-parchment/60 text-sm leading-relaxed mb-8">
+            <p className="text-parchment/60 text-sm leading-relaxed mb-6">
               Sign in to generate your own persona and run probes.
               Free — 1 persona, 3 probes, 5 chats per week.
             </p>
 
+            {/* Bot challenge — only renders if NEXT_PUBLIC_TURNSTILE_SITE_KEY set */}
+            {turnstileRequired && (
+              <div className="mb-4 flex justify-center">
+                <TurnstileWidget onVerified={(t) => setTurnstileToken(t || "")} />
+              </div>
+            )}
+
             {/* Google button */}
             <button
               onClick={() => signIn("google", { callbackUrl })}
-              className="w-full flex items-center justify-center gap-3 bg-parchment/8 hover:bg-parchment/12 border border-parchment/15 text-parchment text-sm font-medium py-3 px-4 rounded transition-colors"
+              disabled={!turnstileOk}
+              className="w-full flex items-center justify-center gap-3 bg-parchment/8 hover:bg-parchment/12 disabled:bg-parchment/4 disabled:cursor-not-allowed disabled:opacity-50 border border-parchment/15 text-parchment text-sm font-medium py-3 px-4 rounded transition-colors"
             >
               <GoogleIcon />
               Continue with Google
@@ -128,7 +154,7 @@ function SignInContent() {
               />
               <button
                 type="submit"
-                disabled={sending || !email.trim()}
+                disabled={sending || !email.trim() || !turnstileOk}
                 className="w-full bg-signal hover:bg-signal/90 disabled:bg-signal/30 disabled:cursor-not-allowed text-void font-bold text-sm py-3 px-4 rounded transition-colors"
               >
                 {sending ? "Sending…" : "Send sign-in link →"}
