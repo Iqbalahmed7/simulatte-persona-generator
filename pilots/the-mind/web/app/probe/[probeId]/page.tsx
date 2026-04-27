@@ -1,31 +1,27 @@
 import { Metadata } from "next";
-import { fetchProbe, API } from "@/lib/api";
+import { fetchProbe } from "@/lib/api";
 import PublicProbeClient from "./PublicProbeClient";
 
 interface Props {
-  params: { probeId: string };
+  params: Promise<{ probeId: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { probeId } = await params;
   try {
-    const probe = await fetchProbe(params.probeId);
+    const probe = await fetchProbe(probeId);
     const rationale = probe.purchase_intent.rationale.slice(0, 100);
-    const ogImageUrl = `${API}/probes/${params.probeId}/og`;
+    const ogImageUrl = `/api/og/probe/${probeId}`;
+    const title = `${probe.persona_name} on ${probe.product_name} — Simulatte`;
+    const desc = `Purchase intent ${probe.purchase_intent.score}/10 — "${rationale}"`;
     return {
-      title: `${probe.persona_name} on ${probe.product_name} — Simulatte`,
-      description: `Purchase intent ${probe.purchase_intent.score}/10 — "${rationale}"`,
+      title,
+      description: desc,
       openGraph: {
-        title: `${probe.persona_name} on ${probe.product_name} — Simulatte`,
-        description: `Purchase intent ${probe.purchase_intent.score}/10 — "${rationale}"`,
+        title, description: desc, type: "website",
         images: [{ url: ogImageUrl, width: 1200, height: 630 }],
-        type: "website",
       },
-      twitter: {
-        card: "summary_large_image",
-        title: `${probe.persona_name} on ${probe.product_name} — Simulatte`,
-        description: `Purchase intent ${probe.purchase_intent.score}/10 — "${rationale}"`,
-        images: [ogImageUrl],
-      },
+      twitter: { card: "summary_large_image", title, description: desc, images: [ogImageUrl] },
     };
   } catch {
     return {
@@ -35,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function PublicProbePage({ params }: Props) {
-  return <PublicProbeClient probeId={params.probeId} />;
+export default async function PublicProbePage({ params }: Props) {
+  const { probeId } = await params;
+  return <PublicProbeClient probeId={probeId} />;
 }

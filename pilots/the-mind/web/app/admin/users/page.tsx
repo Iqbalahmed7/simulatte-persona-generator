@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { adminFetch } from "@/lib/admin";
 
 interface AdminUser {
@@ -35,7 +36,11 @@ export default async function AdminUsersPage() {
           <tbody>
             {users.map((u) => (
               <tr key={u.id} className="border-t border-parchment/10 hover:bg-parchment/5">
-                <td className="px-4 py-3 text-parchment">{u.email}</td>
+                <td className="px-4 py-3 text-parchment">
+                  <Link href={`/admin/users/${u.id}`} className="hover:text-signal hover:underline">
+                    {u.email}
+                  </Link>
+                </td>
                 <td className="px-4 py-3 text-parchment/70">{u.name ?? "—"}</td>
                 <td className="px-4 py-3 text-right font-mono text-parchment">{u.personas}</td>
                 <td className="px-4 py-3 text-right font-mono text-parchment">{u.probes}</td>

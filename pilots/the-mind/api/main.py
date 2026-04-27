@@ -2060,3 +2060,87 @@ async def admin_events(
         }
         for ev, usr in events
     ]
+
+
+@app.get("/admin/users/{user_id}")
+async def admin_user_detail(
+    user_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Per-user detail: profile + full event timeline with enrichment.
+
+    For each event, includes:
+      - persona_generated: persona name/age/city + brief if known
+      - probe_run: product name + verdict + top objection
+      - chat_message: persona name + nothing else (chat content not stored)
+    """
+    from sqlalchemy import select as sa_select
+    user_row = (
+        await db.execute(sa_select(User).where(User.id == user_id))  # type: ignore  # noqa: F821
+    ).scalar_one_or_none()
+    if user_row is None:
+        raise HTTPException(404, detail="User not found")
+
+    events = (
+        await db.execute(
+            sa_select(Event)  # type: ignore  # noqa: F821
+            .where(Event.user_id == user_id)  # type: ignore  # noqa: F821
+            .order_by(Event.created_at.desc())  # type: ignore  # noqa: F821
+            .limit(500)
+        )
+    ).scalars().all()
+
+    enriched = []
+    for ev in events:
+        ev_type = ev.type.value if hasattr(ev.type, "value") else str(ev.type)
+        item: dict = {
+            "id": ev.id,
+            "type": ev_type,
+            "ref_id": ev.ref_id,
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+        }
+        ref = ev.ref_id or ""
+        if ev_type == "persona_generated" and ref in _GENERATED:
+            p = _GENERATED[ref]
+            da = p.get("demographic_anchor") or {}
+            item["persona"] = {
+                "name": da.get("name"),
+                "age": da.get("age"),
+                "city": da.get("city"),
+                "country": da.get("country"),
+                "portrait_url": _GENERATED_PORTRAITS.get(ref),
+            }
+        elif ev_type == "probe_run":
+            for path in _PROBES_DIR.rglob(f"{ref}.json"):
+                try:
+                    with open(path, encoding="utf-8") as f:
+                        pd = json.load(f)
+                    pi = pd.get("purchase_intent") or {}
+                    item["probe"] = {
+                        "product_name": pd.get("product_name"),
+                        "category": pd.get("category"),
+                        "purchase_intent": pi.get("score"),
+                        "top_objection": (pd.get("top_objection") or "")[:200],
+                        "persona_name": pd.get("persona_name"),
+                    }
+                    break
+                except Exception:
+                    pass
+        elif ev_type == "chat_message" and ref in _GENERATED:
+            p = _GENERATED[ref]
+            da = p.get("demographic_anchor") or {}
+            item["chat"] = {
+                "persona_name": da.get("name"),
+                "persona_id": ref,
+            }
+        enriched.append(item)
+
+    return {
+        "user": {
+            "id": user_row.id,
+            "email": user_row.email,
+            "name": user_row.name,
+        },
+        "events": enriched,
+    }
