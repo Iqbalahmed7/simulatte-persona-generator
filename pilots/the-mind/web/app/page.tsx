@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { fetchPersonas, PersonaCard } from "@/lib/api";
 import PersonaDrawer from "@/components/PersonaDrawer";
+import WallOfVoices from "@/components/WallOfVoices";
+import ProbeTicker from "@/components/ProbeTicker";
 
 // ─── Mind mark inline SVG ────────────────────────────────────────────────────
 function MindMark({ size = 32, className = "" }: { size?: number; className?: string }) {
@@ -323,6 +325,11 @@ export default function HomePage() {
         </section>
 
         {/* ══════════════════════════════════════════════════════
+            PROBE TICKER — recent pulses (curated, privacy-preserving)
+        ══════════════════════════════════════════════════════ */}
+        <ProbeTicker />
+
+        {/* ══════════════════════════════════════════════════════
             SECTION 2 — LIVE EXEMPLARS
         ══════════════════════════════════════════════════════ */}
         <section id="exemplars" className="px-6 md:px-14 py-20 max-w-screen-xl mx-auto">
@@ -352,6 +359,11 @@ export default function HomePage() {
             </div>
           )}
         </section>
+
+        {/* ══════════════════════════════════════════════════════
+            WALL OF VOICES — drifting persona-quote columns
+        ══════════════════════════════════════════════════════ */}
+        <WallOfVoices />
 
         {/* ══════════════════════════════════════════════════════
             SECTION 3 — LITMUS PROBE DEMO
