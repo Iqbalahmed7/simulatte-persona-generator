@@ -115,8 +115,8 @@ export default function ProbePage() {
   if (personaError) {
     return (
       <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
-        <Link href="/generate" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
-          ← Generate another
+        <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+          ← Home
         </Link>
         <div className="mt-12 border border-parchment/10 p-6">
           <p className="font-mono text-sm text-static">{personaError}</p>

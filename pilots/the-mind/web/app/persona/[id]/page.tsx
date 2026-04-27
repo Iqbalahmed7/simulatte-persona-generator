@@ -161,8 +161,8 @@ export default function PersonaProfilePage() {
   if (error) {
     return (
       <main className="min-h-screen px-6 py-12 max-w-4xl mx-auto">
-        <Link href="/generate" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
-          ← Generate another
+        <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+          ← Home
         </Link>
         <div className="mt-12 border border-parchment/10 p-6">
           <p className="font-mono text-sm text-static">{error}</p>
@@ -194,10 +194,9 @@ export default function PersonaProfilePage() {
     <main className="min-h-screen px-4 py-6 md:px-6 md:py-12 max-w-5xl mx-auto">
       {/* Nav */}
       <div className="flex items-center justify-between mb-10">
-        <Link href="/generate" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
-          ← Generate another
+        <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+          ← Home
         </Link>
-        <span className="font-mono text-[10px] text-static">{persona.persona_id}</span>
       </div>
 
       {/* Hero — portrait + identity */}
@@ -429,13 +428,18 @@ export default function PersonaProfilePage() {
 
       {/* Footer */}
       <div className="mt-16 pt-6 border-t border-parchment/10 flex items-center justify-between">
-        <span className="font-mono text-[10px] text-static">{persona.persona_id}</span>
         <Link
-          href="/generate"
+          href="/"
           className="font-mono text-[10px] text-static hover:text-parchment/50 transition-colors"
         >
-          Generate another →
+          ← Home
         </Link>
+        <a
+          href="mailto:mind@simulatte.io?subject=The%20Mind%20%E2%80%94%20feedback"
+          className="font-mono text-[10px] text-static hover:text-signal transition-colors"
+        >
+          mind@simulatte.io
+        </a>
       </div>
     </main>
   );
