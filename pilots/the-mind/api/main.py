@@ -607,7 +607,29 @@ async def lifespan(app: FastAPI):
     await _ensure_moderation_columns()
     await _ensure_invite_codes_table()
     _purge_old_generated()
+
+    # Background TTL GC scheduler — re-runs the persona purge once every
+    # 24h. Cheap (just stat()s files), idempotent, and stops cleanly when
+    # the app shuts down because the task is cancelled below.
+    async def _ttl_gc_loop():
+        while True:
+            try:
+                await asyncio.sleep(24 * 60 * 60)
+                removed = _purge_old_generated()
+                logger.info("[ttl-gc] daily sweep removed %d personas", removed)
+            except asyncio.CancelledError:
+                raise
+            except Exception:
+                logger.exception("[ttl-gc] sweep failed; will retry tomorrow")
+    gc_task = asyncio.create_task(_ttl_gc_loop())
+
     yield
+
+    gc_task.cancel()
+    try:
+        await gc_task
+    except (asyncio.CancelledError, Exception):
+        pass
 
 
 app = FastAPI(
@@ -3906,6 +3928,57 @@ async def admin_feedback(
         avg = round(sum(scores) / len(scores), 1) if scores else 0
         return {"count": len(out), "nps": nps, "avg": avg, "entries": out}
     return {"count": 0, "nps": 0, "avg": 0, "entries": []}
+
+
+# ── Cost telemetry ────────────────────────────────────────────────────────
+# Per-action cost estimates so the operator can watch unit economics.
+# These are deliberate rough numbers — Anthropic prices vary per model
+# and prompt size, fal.ai per image. Update when actual usage drifts.
+_COST_CENTS_PER_ACTION = {
+    "persona_generated": 18,  # Haiku extract + Sonnet generate + fal portrait
+    "probe_run":          8,  # Sonnet × 3 short calls
+    "chat_message":       3,  # Sonnet × 1 short call
+}
+
+
+@app.get("/admin/costs")
+async def admin_costs(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+    days: int = 30,
+):
+    """Estimated infrastructure spend over the last N days, by action.
+
+    Counts events of each billable type and multiplies by a per-action
+    cost estimate. Not exact — token-level billing varies — but close
+    enough to watch unit economics and spot anomalies.
+    """
+    from sqlalchemy import func, select as sa_select
+    cutoff = datetime.now(timezone.utc) - __import__("datetime").timedelta(days=days)
+    breakdown: list[dict] = []
+    total_cents = 0
+    for action_type, cents in _COST_CENTS_PER_ACTION.items():
+        count = (await db.execute(
+            sa_select(func.count(Event.id))
+            .where(Event.type == EventType[action_type])
+            .where(Event.created_at >= cutoff)
+        )).scalar() or 0
+        action_cents = count * cents
+        total_cents += action_cents
+        breakdown.append({
+            "action": action_type,
+            "count": count,
+            "cents_per": cents,
+            "total_cents": action_cents,
+            "total_usd": round(action_cents / 100, 2),
+        })
+    return {
+        "since": cutoff.isoformat(),
+        "days": days,
+        "total_cents": total_cents,
+        "total_usd": round(total_cents / 100, 2),
+        "breakdown": breakdown,
+    }
 
 
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────

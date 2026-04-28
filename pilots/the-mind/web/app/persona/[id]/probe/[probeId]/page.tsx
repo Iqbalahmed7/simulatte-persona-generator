@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { fetchProbe, ProbeResult } from "@/lib/api";
 import ProbeResultCard from "@/components/ProbeResultCard";
+import FeedbackModal from "@/components/FeedbackModal";
 
 export default function ProbeResultPage() {
   const { id, probeId } = useParams<{ id: string; probeId: string }>();
@@ -58,6 +59,7 @@ export default function ProbeResultPage() {
       </div>
 
       <ProbeResultCard probe={probe} personaId={id} isPublic={false} />
+      <FeedbackModal surface="probe" />
     </main>
   );
 }
