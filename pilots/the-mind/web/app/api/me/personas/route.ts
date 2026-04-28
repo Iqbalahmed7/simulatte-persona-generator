@@ -37,6 +37,10 @@ export async function GET() {
     status: upstream.status,
     headers: {
       "content-type": upstream.headers.get("content-type") ?? "application/json",
+      // Personas don't change second-to-second — cap at 30s browser
+      // cache. Allowance counters live on /api/me, so this list staying
+      // a few seconds stale is fine.
+      "cache-control": "private, max-age=30, stale-while-revalidate=120",
     },
   });
 }

@@ -37,7 +37,8 @@ export default function LivePersonaWall() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${API}/community/personas?limit=60`, { cache: "no-store" })
+    // Same-origin proxy with 60s cache — see app/api/community/personas/route.ts
+    fetch(`/api/community/personas?limit=60`)
       .then((r) => (r.ok ? r.json() : []))
       .then((rows: CommunityPersona[]) => {
         if (cancelled) return;

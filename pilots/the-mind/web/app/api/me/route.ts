@@ -40,6 +40,12 @@ export async function GET() {
     status: upstream.status,
     headers: {
       "content-type": upstream.headers.get("content-type") ?? "application/json",
+      // Browser-cache for 15s. AccessGate, DashboardHome, and
+      // ReferralLauncher all fetch /api/me on dashboard load — without
+      // this they each hit Railway (cold-start ~300-600ms × 3). With
+      // private,max-age=15 the second/third callers reuse the browser
+      // cache, and a same-tab refresh within 15s skips the round-trip.
+      "cache-control": "private, max-age=15, stale-while-revalidate=60",
     },
   });
 }

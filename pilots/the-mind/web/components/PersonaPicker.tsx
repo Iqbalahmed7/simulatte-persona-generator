@@ -66,7 +66,8 @@ export default function PersonaPicker({
   // Fetch community personas — no auth needed, the endpoint is public.
   useEffect(() => {
     let cancelled = false;
-    fetch(`${API}/community/personas?limit=24`, { cache: "no-store" })
+    // Same-origin proxy with 60s cache — see app/api/community/personas/route.ts
+    fetch(`/api/community/personas?limit=24`)
       .then((r) => (r.ok ? r.json() : []))
       .then((list) => {
         if (cancelled) return;

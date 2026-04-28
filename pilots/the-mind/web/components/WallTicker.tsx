@@ -30,7 +30,8 @@ export default function WallTicker() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${API}/community/personas?limit=30`, { cache: "no-store" })
+    // Same-origin proxy with 60s cache — see app/api/community/personas/route.ts
+    fetch(`/api/community/personas?limit=30`)
       .then((r) => (r.ok ? r.json() : []))
       .then((list) => {
         if (cancelled) return;
