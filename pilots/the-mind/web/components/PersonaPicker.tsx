@@ -51,6 +51,7 @@ export default function PersonaPicker({
   onClose: () => void;
 }) {
   const [community, setCommunity] = useState<CommunityPersona[]>([]);
+  const [communityLoading, setCommunityLoading] = useState(true);
   const [showAllCommunity, setShowAllCommunity] = useState(false);
 
   // Esc to close
@@ -73,8 +74,11 @@ export default function PersonaPicker({
           (p: CommunityPersona) => p.portrait_url && p.name,
         );
         setCommunity(filtered);
+        setCommunityLoading(false);
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (!cancelled) setCommunityLoading(false);
+      });
     return () => { cancelled = true; };
   }, []);
 
@@ -147,7 +151,27 @@ export default function PersonaPicker({
           </div>
         )}
 
-        {/* 2. COMMUNITY personas */}
+        {/* 2. COMMUNITY personas — loading skeleton or list */}
+        {communityLoading && communityVisible.length === 0 && (
+          <div className={
+            "p-5 sm:p-6 " + (personas.length > 0 ? "border-t border-parchment/10" : "")
+          }>
+            <p className="text-[10px] font-mono text-static tracking-widest uppercase mb-3">
+              From the community wall · Loading…
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="border border-parchment/10 animate-pulse">
+                  <div style={{ aspectRatio: "3 / 4" }} className="bg-parchment/[0.04]" />
+                  <div className="p-3 space-y-2">
+                    <div className="h-3 bg-parchment/[0.06] w-3/4" />
+                    <div className="h-2 bg-parchment/[0.04] w-1/2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {communityVisible.length > 0 && (
           <div className={
             "p-5 sm:p-6 " + (personas.length > 0 ? "border-t border-parchment/10" : "")

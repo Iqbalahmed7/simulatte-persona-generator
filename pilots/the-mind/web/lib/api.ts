@@ -164,11 +164,13 @@ export interface GeneratedPersona {
 export async function generatePersona(
   form: ICPForm,
   onEvent: (e: GenerationEvent) => void,
+  signal?: AbortSignal,
 ): Promise<void> {
   const res = await fetch(`${API}/generate-persona`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
     body: JSON.stringify(form),
+    signal,
   });
   if (res.status === 402) {
     const body = await res.json().catch(() => ({}));

@@ -127,10 +127,20 @@ export default function PersonaWizard({ onSubmit, onSwitchToFree, error }: Props
     });
   }
 
-  // Auto-advance helpers — selecting a chip on a single-select step nudges forward.
+  // Auto-advance helpers — selecting a chip on a single-select step nudges
+  // forward. Guarded against fast double-tap: if a pick is already pending,
+  // ignore subsequent taps until next() fires. Without this, two quick taps
+  // overwrite the first selection AND advance the step, so the user skips
+  // unintentionally on iOS.
+  const pickingRef = useRef(false);
   function pick(setter: (v: string) => void, value: string) {
+    if (pickingRef.current) return;
+    pickingRef.current = true;
     setter(value);
-    setTimeout(next, 180);
+    setTimeout(() => {
+      next();
+      pickingRef.current = false;
+    }, 180);
   }
 
   return (

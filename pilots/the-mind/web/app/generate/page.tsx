@@ -9,7 +9,7 @@
  *   2. Wizard — chip-only stepper for users who'd rather pick than type.
  *      Same SSE endpoint, just a different way to build the brief.
  */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
@@ -30,17 +30,33 @@ function GeneratePageInner() {
   const [running, setRunning] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [error, setError] = useState("");
+  // Aborts the in-flight SSE stream when the user navigates away mid-
+  // generation. Without this, the read loop and the (already-charged)
+  // allowance increment continue in the background after unmount.
+  const abortRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      abortRef.current?.abort();
+    };
+  }, []);
 
   async function runGeneration(form: ICPForm) {
     setRunning(true);
     setSteps([]);
     setError("");
 
+    // Cancel any prior run before starting a new one.
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     let navigated = false;
     const timeoutId = setTimeout(() => {
       if (!navigated) {
         setError("Generation timed out — the server took too long. Please try again.");
         setRunning(false);
+        controller.abort();
       }
     }, 180_000);
 
@@ -57,8 +73,10 @@ function GeneratePageInner() {
         if (event.type === "error" && event.message) {
           setError(event.message);
         }
-      });
+      }, controller.signal);
     } catch (err: unknown) {
+      // AbortError is intentional (unmount or timeout) — don't show as error.
+      if (err instanceof DOMException && err.name === "AbortError") return;
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       clearTimeout(timeoutId);
