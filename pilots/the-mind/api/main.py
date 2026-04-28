@@ -258,7 +258,14 @@ _load_portraits_from_disk()
 
 
 def _persist_generated_dict(persona_dict: dict) -> None:
-    """Write persona dict to disk so it survives server restarts."""
+    """Write persona dict to disk so it survives server restarts.
+
+    Stamps `generated_at` if missing so the TTL purger can use a stable
+    timestamp instead of file mtime (which can reset on Railway redeploy).
+    """
+    if not persona_dict.get("generated_at"):
+        from datetime import datetime as _dt, timezone as _tz
+        persona_dict["generated_at"] = _dt.now(_tz.utc).isoformat()
     _GENERATED_DIR.mkdir(parents=True, exist_ok=True)
     path = _GENERATED_DIR / f"{persona_dict['persona_id']}.json"
     with open(path, "w", encoding="utf-8") as f:
@@ -573,20 +580,38 @@ async def _ensure_invite_codes_table():
 def _purge_old_generated(ttl_days: int = 30) -> int:
     """Delete generated-persona JSON files older than ttl_days. Idempotent.
 
-    Free-tier persona retention is intentionally bounded: 30 days on disk,
-    then auto-purged so the volume doesn't grow forever. Probes pointing to
+    Free-tier persona retention is intentionally bounded: 30 days, then
+    auto-purged so the volume doesn't grow forever. Probes pointing to
     the persona will 404 after purge — the persona page handles that.
-    Returns count of files removed.
+
+    Age is computed from the persona JSON's `generated_at` field if
+    present (more reliable than file mtime, which can reset on Railway
+    redeploys). Falls back to mtime for older personas that pre-date the
+    field. Returns count of files removed.
     """
     if not _GENERATED_DIR.exists():
         return 0
     import time as _t
-    cutoff = _t.time() - (ttl_days * 86400)
+    from datetime import datetime as _dt
+    now = _t.time()
+    cutoff = now - (ttl_days * 86400)
     removed = 0
     for path in _GENERATED_DIR.glob("*.json"):
         try:
-            if path.stat().st_mtime < cutoff:
-                pid = path.stem
+            pid = path.stem
+            ts: float | None = None
+            # Prefer the JSON-stored timestamp (immune to mtime resets).
+            p = _GENERATED.get(pid)
+            if p:
+                gen_at = p.get("generated_at")
+                if isinstance(gen_at, str):
+                    try:
+                        ts = _dt.fromisoformat(gen_at.replace("Z", "+00:00")).timestamp()
+                    except Exception:
+                        ts = None
+            if ts is None:
+                ts = path.stat().st_mtime
+            if ts < cutoff:
                 path.unlink()
                 _GENERATED.pop(pid, None)
                 _GENERATED_PORTRAITS.pop(pid, None)
@@ -2341,6 +2366,13 @@ async def run_probe(
 ):
     """Run an 8-question Litmus probe against a generated persona.
 
+    Ownership note: any active user can probe any persona on the
+    platform — this is intentional. Community-wall personas are public
+    by design (free-tier output is Simulatte's per ToS), and the probe
+    cost is charged against the requesting user's own weekly allowance,
+    not the persona-creator's. The persona_id space is UUIDv4 so
+    enumeration is impractical; URLs leak only when the owner shares.
+
     Pipeline:
       1. Load persona (cache or disk)
       2. Generate or load category memory (Haiku, cached by brief hash)
@@ -4012,6 +4044,13 @@ import time as _rl_time
 import threading as _rl_threading
 from collections import defaultdict as _rl_defaultdict
 
+# IMPORTANT: this rate limiter is in-process. State lives in module
+# globals + a threading.Lock, so it only works correctly with a single
+# uvicorn worker. With --workers N each process keeps its own bucket
+# and the effective rate becomes N × the configured limit. State also
+# resets on every deploy. Acceptable for the current pilot (single
+# worker on Railway). If we ever scale workers or move to multi-region,
+# move this to Redis (a sorted-set sliding window is the natural fit).
 _RL_LOCK = _rl_threading.Lock()
 _RL_BUCKETS: dict[tuple[str, str], list[float]] = _rl_defaultdict(list)
 
