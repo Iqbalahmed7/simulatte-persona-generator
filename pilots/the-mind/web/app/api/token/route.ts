@@ -18,7 +18,11 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   const session = await auth();
   const user = session?.user as { id?: string; email?: string } | undefined;
-  if (!user?.id || !user.email) {
+  // Email is the primary identifier — the FastAPI backend can resolve a
+  // user from email alone if `sub` is missing (e.g. magic-link sessions
+  // where Auth.js's adapter doesn't always populate `id` on every JWT
+  // refresh). Don't 401 on missing id; just send what we have.
+  if (!user?.email) {
     return new Response(JSON.stringify({ error: "unauthenticated" }), {
       status: 401,
       headers: { "content-type": "application/json" },

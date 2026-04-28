@@ -10,7 +10,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { API } from "@/lib/api";
 
 /** Sign out via Auth.js's CSRF-protected POST endpoint. We avoid
  *  next-auth/react's signOut helper because it depends on
@@ -49,77 +48,26 @@ export default function Waitlist({
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [existing, setExisting] = useState<ExistingRequest | null>(null);
-  const [autoStatus, setAutoStatus] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${API}/access-requests/mine`, {
-      headers: { Authorization: `Bearer ${authToken}` },
-      cache: "no-store",
-    })
+    // Same-origin proxy — cross-origin fetches get blocked on Brave/strict.
+    fetch("/api/access-requests/mine", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : { exists: false }))
       .then((data) => {
         if (!cancelled) setExisting(data);
       })
       .catch(() => undefined);
     return () => { cancelled = true; };
-  }, [authToken]);
+  }, []);
 
-  /**
-   * Auto-redeem from the `invite_ok` cookie OR localStorage backup.
-   * The /invite/[code]/redeem route handler sets the cookie before
-   * bouncing to /sign-in. We also stash the code in localStorage as
-   * a belt-and-braces backup in case the cookie is dropped during the
-   * Google OAuth round-trip. Both are same-origin so the client can
-   * read them here.
-   */
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const cookieMatch = document.cookie.match(/(?:^|;\s*)invite_ok=([^;]+)/);
-    const cookieCode = cookieMatch ? decodeURIComponent(cookieMatch[1]).trim().toUpperCase() : "";
-    let lsCode = "";
-    try {
-      lsCode = (localStorage.getItem("invite_ok") || "").trim().toUpperCase();
-    } catch { /* private mode etc. */ }
-    const candidate = cookieCode || lsCode;
-    if (!candidate) {
-      setAutoStatus("No invite code stored on this device — paste it below.");
-      return;
-    }
-    let cancelled = false;
-    setAutoStatus(`Redeeming invite ${candidate}…`);
-    (async () => {
-      try {
-        // Same-origin proxy — the cross-origin API URL is sometimes
-        // blocked by browser shields (Brave) or content blockers, even
-        // for valid signed-in requests. /api/redeem-code reads the
-        // Auth.js session server-side and forwards the call.
-        const res = await fetch(`/api/redeem-code`, {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ code: candidate }),
-        });
-        if (cancelled) return;
-        if (res.ok) {
-          // Clear both stores so we don't loop or leak the code.
-          document.cookie = "invite_ok=; Max-Age=0; path=/";
-          try { localStorage.removeItem("invite_ok"); } catch {}
-          setAutoStatus(null);
-          onActivated();
-          return;
-        }
-        const j: unknown = await res.json().catch(() => ({}));
-        const detail = (j as { detail?: unknown }).detail;
-        const msg = (typeof detail === "string"
-          ? detail
-          : (detail as { message?: string } | undefined)?.message) ?? `HTTP ${res.status}`;
-        setAutoStatus(`Auto-redeem failed (${msg}). Paste the code below to retry.`);
-      } catch (e) {
-        setAutoStatus(`Auto-redeem error: ${e instanceof Error ? e.message : String(e)}`);
-      }
-    })();
-    return () => { cancelled = true; };
-  }, [authToken, onActivated]);
+  // Note: the `invite_ok` cookie/localStorage auto-redeem used to live
+  // here, but it's now handled inline by AccessGate before Waitlist ever
+  // mounts. That avoids a double-redeem race and removes a redundant
+  // network call. If a user lands here, it means redemption either
+  // succeeded and they're already active (in which case Waitlist
+  // doesn't render), or the inline attempt failed — they can retry
+  // manually using the REDEEM form below.
 
   async function onRedeem(e: React.FormEvent) {
     e.preventDefault();
@@ -153,12 +101,9 @@ export default function Waitlist({
     setBusy(true);
     setErr(null);
     try {
-      const res = await fetch(`${API}/access-requests`, {
+      const res = await fetch("/api/access-requests", {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ reason: reason.trim() || null }),
       });
       if (!res.ok) {
@@ -166,10 +111,8 @@ export default function Waitlist({
         throw new Error(j.detail || "Couldn't submit request");
       }
       // Refresh the existing-request snapshot
-      const ar = await fetch(`${API}/access-requests/mine`, {
-        headers: { Authorization: `Bearer ${authToken}` },
-        cache: "no-store",
-      }).then((r) => (r.ok ? r.json() : { exists: false }));
+      const ar = await fetch("/api/access-requests/mine", { cache: "no-store" })
+        .then((r) => (r.ok ? r.json() : { exists: false }));
       setExisting(ar);
       setReason("");
     } catch (e) {
@@ -289,9 +232,6 @@ export default function Waitlist({
             )}
           </div>
 
-          {autoStatus && (
-            <p className="mt-4 text-static text-xs font-mono">{autoStatus}</p>
-          )}
           {err && (
             <p className="mt-4 text-amber-400 text-sm font-mono">{err}</p>
           )}

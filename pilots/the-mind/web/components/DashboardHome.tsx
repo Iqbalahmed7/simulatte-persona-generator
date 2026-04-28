@@ -13,7 +13,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { API } from "@/lib/api";
 import AppShell from "./AppShell";
 import MobileActionGrid from "./MobileActionGrid";
 import LivePersonaWall from "./LivePersonaWall";
@@ -59,9 +58,12 @@ export default function DashboardHome({
 
   useEffect(() => {
     let cancelled = false;
+    // Same-origin proxies — see /api/me and /api/me/personas. Cross-origin
+    // fetches against the Railway API host get blocked by Brave Shields and
+    // some content blockers.
     Promise.all([
-      fetch(`${API}/me`, { headers: { Authorization: `Bearer ${authToken}` }, cache: "no-store" }).then(r => r.ok ? r.json() : null),
-      fetch(`${API}/me/personas`, { headers: { Authorization: `Bearer ${authToken}` }, cache: "no-store" }).then(r => r.ok ? r.json() : []),
+      fetch("/api/me", { cache: "no-store" }).then(r => r.ok ? r.json() : null),
+      fetch("/api/me/personas", { cache: "no-store" }).then(r => r.ok ? r.json() : []),
     ]).then(([me, ps]) => {
       if (cancelled) return;
       if (me) {

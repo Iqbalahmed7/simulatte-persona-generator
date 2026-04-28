@@ -18,7 +18,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PREFIXES = ["/generate", "/admin"];
+const PROTECTED_PREFIXES = ["/generate", "/admin", "/dashboard"];
 
 function isPathProtected(pathname: string): boolean {
   if (PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) return true;

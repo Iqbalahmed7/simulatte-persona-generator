@@ -10,7 +10,6 @@
  */
 import { useEffect, useRef, useState } from "react";
 
-const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001").trim();
 const CALENDLY = "https://calendly.com/iqbal-simulatte";
 
 interface AllowanceState {
@@ -56,13 +55,8 @@ export default function AllowanceCounter() {
   useEffect(() => {
     async function load() {
       try {
-        const tokRes = await fetch("/api/token", { cache: "no-store" });
-        if (!tokRes.ok) return;
-        const { token } = await tokRes.json();
-        if (!token) return;
-        const res = await fetch(`${API}/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        // Same-origin proxy avoids Brave Shields / extension fetch blocks.
+        const res = await fetch("/api/me", { cache: "no-store" });
         if (!res.ok) return;
         const data = await res.json();
         setAllowance(data.allowance);
