@@ -17,6 +17,7 @@ import Link from "next/link";
 import "./globals.css";
 import AllowanceProvider from "@/components/AllowanceProvider";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import ReferralLauncher from "@/components/ReferralLauncher";
 
 // Plausible Analytics — loaded only if NEXT_PUBLIC_PLAUSIBLE_DOMAIN is
 // set. Privacy-respecting, cookie-less, no PII. Set the env var to
@@ -100,6 +101,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             away. Hidden on marketing/auth routes via internal pathname
             check; hidden on md+ via Tailwind. */}
         <MobileBottomNav />
+        {/* Global referral modal — opens via window event from NavRail
+            (desktop) or MobileBottomNav (mobile). Lazy-fetches the user's
+            personal invite code on first open. */}
+        <ReferralLauncher />
       </body>
     </html>
   );

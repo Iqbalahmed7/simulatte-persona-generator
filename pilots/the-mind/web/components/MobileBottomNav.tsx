@@ -42,6 +42,19 @@ export default function MobileBottomNav() {
         <NavItem href="/dashboard" active={isActive(pathname, "/dashboard")} label="Home" icon={<IconHome />} />
         <NavItem href="/community" active={isActive(pathname, "/community")} label="Wall" icon={<IconWall />} />
         <NavItem
+          // Invite isn't a route — it opens the global ReferralLauncher
+          // modal. Using href="#" + onClick keeps the rendering branch
+          // identical to the other tiles.
+          href="#invite"
+          active={false}
+          label="Invite"
+          icon={<IconInvite />}
+          onClick={(e) => {
+            e.preventDefault();
+            window.dispatchEvent(new Event("open-referral"));
+          }}
+        />
+        <NavItem
           href="/generate"
           active={isActive(pathname, "/generate")}
           label="Build"
@@ -64,12 +77,14 @@ function NavItem({
   icon,
   active,
   accent = false,
+  onClick,
 }: {
   href: string;
   label: string;
   icon: React.ReactNode;
   active: boolean;
   accent?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   const color = accent
     ? "text-signal"
@@ -79,6 +94,7 @@ function NavItem({
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={
         "flex-1 flex flex-col items-center justify-center gap-1 py-2.5 transition-colors " +
         color
@@ -90,6 +106,16 @@ function NavItem({
         {label}
       </span>
     </Link>
+  );
+}
+
+function IconInvite() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M19 8v6M22 11h-6" />
+    </svg>
   );
 }
 

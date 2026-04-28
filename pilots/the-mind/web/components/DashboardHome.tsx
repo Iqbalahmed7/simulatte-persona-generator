@@ -16,7 +16,9 @@ import Link from "next/link";
 import AppShell from "./AppShell";
 import MobileActionGrid from "./MobileActionGrid";
 import LivePersonaWall from "./LivePersonaWall";
-import ReferralCard from "./ReferralCard";
+// ReferralCard is no longer surfaced inline on the dashboard — it now
+// opens as a modal from the NavRail "Invite a friend" button (desktop)
+// and the bottom nav "Invite" tile (mobile). See ReferralLauncher.
 
 interface MyPersona {
   persona_id: string;
@@ -126,14 +128,8 @@ export default function DashboardHome({
           <MobileActionGrid personas={navPersonas} personasLeft={personasLeft} />
         </section>
 
-        {/* Refer-a-friend — prominent on mobile (the go-to screen for
-            Simulatte). Sits above the allowance card so it's the first
-            substantive content after the primary CTA grid. */}
-        {user?.personal_invite_code && (
-          <section className="pb-8">
-            <ReferralCard code={user.personal_invite_code} />
-          </section>
-        )}
+        {/* Refer-a-friend has moved to the NavRail (desktop) + bottom nav
+            (mobile). Both trigger ReferralLauncher modal. */}
 
         {/* Allowance card — primary status block now that the action grid
             has moved into the NavRail (or the mobile grid above) */}
