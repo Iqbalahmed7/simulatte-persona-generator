@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { fetchPersonas, PersonaCard } from "@/lib/api";
 import PersonaDrawer from "@/components/PersonaDrawer";
 import WallOfVoices from "@/components/WallOfVoices";
@@ -46,13 +47,17 @@ function ExemplarStrip({ personas }: { personas: PersonaCard[] }) {
             className="snap-start flex-shrink-0 w-48 border border-parchment/10 bg-void p-4 text-left hover:border-parchment/30 transition-colors"
           >
             {p.portrait_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={p.portrait_url}
-                alt={p.name}
-                className="w-full aspect-square object-cover mb-3"
-                style={{ filter: "grayscale(0.15)" }}
-              />
+              <div className="relative w-full aspect-square mb-3">
+                <Image
+                  src={p.portrait_url}
+                  alt={p.name}
+                  fill
+                  sizes="192px"
+                  loading="lazy"
+                  className="object-cover"
+                  style={{ filter: "grayscale(0.15)" }}
+                />
+              </div>
             ) : (
               <div className="w-full aspect-square bg-parchment/5 mb-3 flex items-center justify-center">
                 <MindMark size={24} />

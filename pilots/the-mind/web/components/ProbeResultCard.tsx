@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ProbeResult, API } from "@/lib/api";
 
 // ── helpers ────────────────────────────────────────────────────────────────
@@ -119,10 +120,13 @@ export default function ProbeResultCard({ probe, personaId, isPublic = false }: 
       {/* Persona + product header */}
       <div className="flex items-start gap-4 mb-8">
         {probe.persona_portrait_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={probe.persona_portrait_url}
             alt={probe.persona_name}
+            width={48}
+            height={48}
+            sizes="48px"
+            loading="lazy"
             className="w-16 h-16 object-cover border border-parchment/10 shrink-0"
           />
         )}

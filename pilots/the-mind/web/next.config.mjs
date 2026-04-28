@@ -7,6 +7,12 @@ const nextConfig = {
   // in dev/CI; deploys should ship as long as Next can compile JS.
   typescript: { ignoreBuildErrors: true },
   eslint: { ignoreDuringBuilds: true },
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "**.fal.media" },
+      { protocol: "https", hostname: "fal.media" },
+    ],
+  },
 };
 
 export default nextConfig;

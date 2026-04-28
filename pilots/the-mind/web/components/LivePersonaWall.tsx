@@ -12,6 +12,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { API } from "@/lib/api";
 
 interface CommunityPersona {
@@ -134,14 +135,16 @@ function PortraitTile({ p }: { p: CommunityPersona }) {
       style={{ aspectRatio: "3 / 4" }}
       title={`${p.name}${p.age ? `, ${p.age}` : ""}${place ? ` · ${place}` : ""}`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={p.portrait_url ?? ""}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500"
-      />
+      {p.portrait_url ? (
+        <Image
+          src={p.portrait_url}
+          alt=""
+          fill
+          sizes="(min-width: 640px) 250px, 100vw"
+          loading="lazy"
+          className="object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+        />
+      ) : null}
       <div
         className="absolute inset-x-0 bottom-0 px-2 py-2 opacity-0 group-hover:opacity-100 transition-opacity"
         style={{ background: "linear-gradient(0deg, rgba(5,5,5,0.92), transparent)" }}

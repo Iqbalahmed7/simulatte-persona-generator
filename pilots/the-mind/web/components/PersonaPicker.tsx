@@ -16,6 +16,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { API } from "@/lib/api";
 
 export type PickerMode = "chat" | "probe";
@@ -241,12 +242,13 @@ function PersonaTile({ p, linkSuffix }: { p: MyPersona; linkSuffix: string }) {
     >
       <div className="relative" style={{ aspectRatio: "3 / 4" }}>
         {p.portrait_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={p.portrait_url}
             alt=""
+            fill
+            sizes="(min-width: 640px) 200px, 50vw"
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity"
+            className="object-cover opacity-85 group-hover:opacity-100 transition-opacity"
           />
         ) : (
           <div className="absolute inset-0 bg-parchment/[0.04] flex items-center justify-center">

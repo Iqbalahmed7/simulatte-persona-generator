@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import AppShell from "./AppShell";
 import MobileActionGrid from "./MobileActionGrid";
 import LivePersonaWall from "./LivePersonaWall";
@@ -261,12 +262,13 @@ function PersonaCard({ p }: { p: MyPersona }) {
     >
       <div className="relative" style={{ aspectRatio: "4 / 5" }}>
         {p.portrait_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={p.portrait_url}
             alt=""
+            fill
+            sizes="(min-width: 640px) 320px, 50vw"
             loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+            className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
           />
         ) : (
           <div className="absolute inset-0 bg-parchment/[0.03] flex items-center justify-center">

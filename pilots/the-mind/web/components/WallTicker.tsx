@@ -14,6 +14,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { API } from "@/lib/api";
 
 interface CommunityPersona {
@@ -114,10 +115,12 @@ function TickerCard({ p }: { p: CommunityPersona }) {
     >
       <div className="w-16 h-16 flex-shrink-0 overflow-hidden">
         {p.portrait_url ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={p.portrait_url}
             alt=""
+            width={64}
+            height={64}
+            sizes="64px"
             loading="lazy"
             className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
           />

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { PersonaCard, generateExemplarPortrait, fetchPersonaFull } from "@/lib/api";
 
 interface Props {
@@ -111,7 +112,16 @@ export default function PersonaDrawer({ slug, initialCard, onClose }: Props) {
           {/* Portrait */}
           <div>
             {portraitUrl ? (
-              <img src={portraitUrl} alt={initialCard?.name} className="w-full aspect-[4/3] object-cover" />
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src={portraitUrl}
+                  alt={initialCard?.name ?? ""}
+                  fill
+                  sizes="(min-width: 1024px) 480px, 100vw"
+                  loading="lazy"
+                  className="object-cover"
+                />
+              </div>
             ) : (
               <div className="w-full aspect-[4/3] bg-parchment/5 border border-parchment/10 flex flex-col items-center justify-center gap-4">
                 <span className="font-condensed font-bold text-7xl text-parchment/10">

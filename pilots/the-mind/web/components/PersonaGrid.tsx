@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { PersonaCard } from "@/lib/api";
 import PersonaDrawer from "./PersonaDrawer";
 
@@ -45,11 +46,16 @@ function PersonaCardUI({ p, onClick }: { p: PersonaCard; onClick: () => void }) 
     >
       {/* Portrait */}
       {p.portrait_url ? (
-        <img
-          src={p.portrait_url}
-          alt={p.name}
-          className="w-full aspect-[4/3] object-cover"
-        />
+        <div className="relative w-full aspect-[4/3]">
+          <Image
+            src={p.portrait_url}
+            alt={p.name}
+            fill
+            sizes="(min-width: 1024px) 240px, (min-width: 640px) 33vw, 50vw"
+            loading="lazy"
+            className="object-cover"
+          />
+        </div>
       ) : (
         <div className="w-full aspect-[4/3] bg-parchment/5 flex items-center justify-center border-b border-parchment/10">
           <span className="font-condensed font-bold text-5xl text-parchment/15">{p.name[0]}</span>
