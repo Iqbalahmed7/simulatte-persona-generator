@@ -36,7 +36,7 @@ export async function GET(
 
   // JSON.stringify avoids any HTML/JS injection from the path param.
   const safe = JSON.stringify(upper);
-  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Redeeming…</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#050505;color:#E9E6DF;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;min-height:100vh}</style></head><body>Redeeming invite…<script>try{localStorage.setItem('invite_ok',${safe});}catch(e){}window.location.replace('/sign-in?callbackUrl=/');</script></body></html>`;
+  const html = `<!doctype html><html><head><meta charset="utf-8"><title>Redeeming…</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;background:#050505;color:#E9E6DF;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;min-height:100vh}</style></head><body>Redeeming invite…<script>try{localStorage.setItem('invite_ok',${safe});}catch(e){}window.location.replace('/sign-in?callbackUrl=/dashboard');</script></body></html>`;
 
   return new Response(html, {
     status: 200,

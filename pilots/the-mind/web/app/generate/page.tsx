@@ -70,7 +70,7 @@ function GeneratePageInner() {
     <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-2xl mx-auto">
       {/* Header */}
       <div className="mb-10">
-        <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+        <Link href="/dashboard" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
           ← Back
         </Link>
         <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mt-6 mb-3">

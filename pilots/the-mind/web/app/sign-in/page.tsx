@@ -15,10 +15,26 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import TurnstileWidget from "@/components/TurnstileWidget";
 
+/**
+ * Reject absolute URLs / protocol-relative URLs / anything that's not a
+ * same-origin path. Without this an attacker can craft
+ * /sign-in?callbackUrl=https://evil.com and post-OAuth the user lands on
+ * the attacker's domain.
+ */
+function safeCallbackUrl(raw: string | null): string {
+  const fallback = "/dashboard";
+  if (!raw) return fallback;
+  // Must start with a single forward slash and not be protocol-relative.
+  if (!raw.startsWith("/") || raw.startsWith("//")) return fallback;
+  // Reject any URL-encoded scheme prefix to be safe.
+  if (/^\/+[a-z][a-z0-9+\-.]*:/i.test(raw)) return fallback;
+  return raw;
+}
+
 function SignInContent() {
   const params = useSearchParams();
   const router = useRouter();
-  const callbackUrl = params.get("callbackUrl") ?? "/generate";
+  const callbackUrl = safeCallbackUrl(params.get("callbackUrl"));
   const verify = params.get("verify") === "1";
 
   const [email, setEmail] = useState("");
