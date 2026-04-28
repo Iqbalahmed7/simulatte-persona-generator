@@ -3106,6 +3106,7 @@ async def redeem_code(
     """
     from sqlalchemy import select as sa_select, update as sa_update
     from auth import _create_personal_invite_code  # noqa: PLC0415
+    from datetime import datetime, timezone  # noqa: PLC0415
     norm = (req.code or "").strip().upper()
     if not norm:
         raise HTTPException(400, detail="code is required")
