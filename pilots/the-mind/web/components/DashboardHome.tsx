@@ -16,6 +16,7 @@ import Link from "next/link";
 import AppShell from "./AppShell";
 import MobileActionGrid from "./MobileActionGrid";
 import LivePersonaWall from "./LivePersonaWall";
+import ReferralCard from "./ReferralCard";
 
 interface MyPersona {
   persona_id: string;
@@ -42,6 +43,7 @@ interface MeAllowance {
 interface MeUser {
   name: string | null;
   email: string;
+  personal_invite_code?: string | null;
 }
 
 export default function DashboardHome({
@@ -123,6 +125,15 @@ export default function DashboardHome({
           </p>
           <MobileActionGrid personas={navPersonas} personasLeft={personasLeft} />
         </section>
+
+        {/* Refer-a-friend — prominent on mobile (the go-to screen for
+            Simulatte). Sits above the allowance card so it's the first
+            substantive content after the primary CTA grid. */}
+        {user?.personal_invite_code && (
+          <section className="pb-8">
+            <ReferralCard code={user.personal_invite_code} />
+          </section>
+        )}
 
         {/* Allowance card — primary status block now that the action grid
             has moved into the NavRail (or the mobile grid above) */}
