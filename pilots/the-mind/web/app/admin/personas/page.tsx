@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { adminFetch } from "@/lib/admin";
+import AdminPersonaActions from "@/components/AdminPersonaActions";
+import RegenerateAllPortraits from "@/components/RegenerateAllPortraits";
 
 interface AdminPersona {
   persona_id: string;
@@ -22,7 +24,10 @@ export default async function AdminPersonasPage() {
   const rows = (await adminFetch<AdminPersona[]>("/admin/personas")) ?? [];
   return (
     <div>
-      <h1 className="font-condensed font-bold text-parchment text-3xl mb-6">Personas ({rows.length})</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-condensed font-bold text-parchment text-3xl">Personas ({rows.length})</h1>
+        <RegenerateAllPortraits />
+      </div>
       <div className="overflow-x-auto border border-parchment/10">
         <table className="w-full text-sm">
           <thead className="bg-parchment/5 text-[10px] font-mono uppercase tracking-widest text-parchment/60">
@@ -32,6 +37,7 @@ export default async function AdminPersonasPage() {
               <th className="text-left px-4 py-3">Creator</th>
               <th className="text-left px-4 py-3">Created</th>
               <th className="text-left px-4 py-3">Link</th>
+              <th className="text-left px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -54,10 +60,13 @@ export default async function AdminPersonasPage() {
                     open ↗
                   </Link>
                 </td>
+                <td className="px-4 py-3">
+                  <AdminPersonaActions personaId={p.persona_id} />
+                </td>
               </tr>
             ))}
             {rows.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-6 text-center text-parchment/40 text-sm">No personas yet.</td></tr>
+              <tr><td colSpan={6} className="px-4 py-6 text-center text-parchment/40 text-sm">No personas yet.</td></tr>
             )}
           </tbody>
         </table>

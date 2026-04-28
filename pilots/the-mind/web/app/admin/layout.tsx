@@ -32,6 +32,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <Link href="/admin/invites" className="text-parchment/60 hover:text-signal">Invites</Link>
               <Link href="/admin/access-requests" className="text-parchment/60 hover:text-signal">Access</Link>
               <Link href="/admin/referrals" className="text-parchment/60 hover:text-signal">Referrals</Link>
+              <Link href="/admin/feedback" className="text-parchment/60 hover:text-signal">Feedback</Link>
               <Link href="/admin/flagged" className="text-amber-400/70 hover:text-amber-400">Flagged</Link>
             </nav>
           </div>

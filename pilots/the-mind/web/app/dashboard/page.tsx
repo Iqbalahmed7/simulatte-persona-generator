@@ -11,6 +11,7 @@ import { SignJWT } from "jose";
 import TopNav from "@/components/TopNav";
 import DashboardHome from "@/components/DashboardHome";
 import AccessGate from "@/components/AccessGate";
+import FeedbackModal from "@/components/FeedbackModal";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,7 @@ export default async function DashboardPage() {
     <AccessGate>
       <TopNav isAdmin={isAdmin} email={user.email ?? ""} />
       <DashboardHome authToken={token} />
+      {!isAdmin && <FeedbackModal surface="general" />}
     </AccessGate>
   );
 }
