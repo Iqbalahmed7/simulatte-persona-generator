@@ -63,22 +63,24 @@ export default function AccessGate({ children }: { children: React.ReactNode }) 
 
   async function loadMe() {
     try {
-      // Reuse the /api/token endpoint that the rest of the app uses.
-      const tokRes = await fetch("/api/token", { cache: "no-store" });
-      if (!tokRes.ok) {
+      // Same-origin proxy — Brave Shields and similar content blockers
+      // can silently drop cross-origin fetches to the FastAPI host. The
+      // /api/me Route Handler reads the Auth.js session server-side and
+      // forwards the call. We still need a token for the Waitlist's
+      // legacy callsites that haven't been switched yet, so fetch
+      // /api/token in parallel.
+      const [meRes, tokRes] = await Promise.all([
+        fetch("/api/me", { cache: "no-store" }),
+        fetch("/api/token", { cache: "no-store" }),
+      ]);
+      if (meRes.status === 401 || tokRes.status === 401) {
         setPhase("anon");
         return;
       }
-      const { token: tk } = await tokRes.json();
-      if (!tk) {
-        setPhase("anon");
-        return;
+      if (tokRes.ok) {
+        const { token: tk } = await tokRes.json();
+        if (tk) setToken(tk);
       }
-      setToken(tk);
-      const meRes = await fetch(`${API}/me`, {
-        headers: { Authorization: `Bearer ${tk}` },
-        cache: "no-store",
-      });
       if (!meRes.ok) {
         setPhase("error");
         return;
