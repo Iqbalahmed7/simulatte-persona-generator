@@ -45,7 +45,7 @@ export default function WallTicker() {
 
   if (items.length === 0) {
     return (
-      <aside className="hidden lg:flex flex-col border-l border-parchment/10 bg-void sticky top-0 self-start h-screen flex-shrink-0 w-[320px]">
+      <aside className="hidden lg:flex flex-col border-l border-parchment/10 bg-void sticky top-0 self-start h-screen flex-shrink-0 w-[380px]">
         <div className="px-5 pt-5 pb-3 border-b border-parchment/5">
           <p className="text-[10px] font-mono text-static uppercase tracking-[0.18em]">
             The wall · Live
@@ -64,7 +64,7 @@ export default function WallTicker() {
   const loop = [...items, ...items];
 
   return (
-    <aside className="hidden lg:flex flex-col border-l border-parchment/10 bg-void sticky top-0 self-start h-screen flex-shrink-0 w-[320px] overflow-hidden">
+    <aside className="hidden lg:flex flex-col border-l border-parchment/10 bg-void sticky top-0 self-start h-screen flex-shrink-0 w-[380px] overflow-hidden">
       <div className="px-5 pt-5 pb-3 border-b border-parchment/5 flex items-center justify-between flex-shrink-0">
         <p className="text-[10px] font-mono text-static uppercase tracking-[0.18em]">
           The wall · Live
@@ -111,7 +111,7 @@ function TickerCard({ p }: { p: CommunityPersona }) {
       href={`/persona/${p.persona_id}`}
       className="group flex items-center gap-3 border border-parchment/10 hover:border-signal/40 transition-colors p-2"
     >
-      <div className="w-12 h-12 flex-shrink-0 overflow-hidden">
+      <div className="w-16 h-16 flex-shrink-0 overflow-hidden">
         {p.portrait_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -125,12 +125,12 @@ function TickerCard({ p }: { p: CommunityPersona }) {
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <div className="font-condensed font-bold text-parchment text-sm leading-tight truncate">
+        <div className="font-condensed font-bold text-parchment text-base leading-tight truncate">
           {p.name}
           {p.age ? <span className="text-parchment/60 font-normal">, {p.age}</span> : null}
         </div>
         {place && (
-          <div className="font-mono text-[9px] text-static tracking-widest uppercase truncate mt-0.5">
+          <div className="font-mono text-[10px] text-static tracking-widest uppercase truncate mt-1">
             {place}
           </div>
         )}
