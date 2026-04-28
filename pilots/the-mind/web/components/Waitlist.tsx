@@ -49,6 +49,7 @@ export default function Waitlist({
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [existing, setExisting] = useState<ExistingRequest | null>(null);
+  const [autoStatus, setAutoStatus] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,18 +66,28 @@ export default function Waitlist({
   }, [authToken]);
 
   /**
-   * Auto-redeem from the `invite_ok` cookie. The /invite/[code]/redeem
-   * route handler set this cookie on mind.simulatte.io before bouncing
-   * to /sign-in. Since the cookie is same-origin, we can read it here
-   * and POST it to /redeem-code automatically — the user shouldn't have
-   * to retype the code they already clicked.
+   * Auto-redeem from the `invite_ok` cookie OR localStorage backup.
+   * The /invite/[code]/redeem route handler sets the cookie before
+   * bouncing to /sign-in. We also stash the code in localStorage as
+   * a belt-and-braces backup in case the cookie is dropped during the
+   * Google OAuth round-trip. Both are same-origin so the client can
+   * read them here.
    */
   useEffect(() => {
     if (typeof document === "undefined") return;
-    const m = document.cookie.match(/(?:^|;\s*)invite_ok=([^;]+)/);
-    const cookieCode = m ? decodeURIComponent(m[1]).trim().toUpperCase() : "";
-    if (!cookieCode) return;
+    const cookieMatch = document.cookie.match(/(?:^|;\s*)invite_ok=([^;]+)/);
+    const cookieCode = cookieMatch ? decodeURIComponent(cookieMatch[1]).trim().toUpperCase() : "";
+    let lsCode = "";
+    try {
+      lsCode = (localStorage.getItem("invite_ok") || "").trim().toUpperCase();
+    } catch { /* private mode etc. */ }
+    const candidate = cookieCode || lsCode;
+    if (!candidate) {
+      setAutoStatus("No invite code stored on this device — paste it below.");
+      return;
+    }
     let cancelled = false;
+    setAutoStatus(`Redeeming invite ${candidate}…`);
     (async () => {
       try {
         const res = await fetch(`${API}/redeem-code`, {
@@ -85,18 +96,25 @@ export default function Waitlist({
             "content-type": "application/json",
             Authorization: `Bearer ${authToken}`,
           },
-          body: JSON.stringify({ code: cookieCode }),
+          body: JSON.stringify({ code: candidate }),
         });
         if (cancelled) return;
         if (res.ok) {
-          // Clear the cookie so we don't loop on subsequent renders.
+          // Clear both stores so we don't loop or leak the code.
           document.cookie = "invite_ok=; Max-Age=0; path=/";
+          try { localStorage.removeItem("invite_ok"); } catch {}
+          setAutoStatus(null);
           onActivated();
+          return;
         }
-        // If it fails (already used, exhausted, invalid), silently fall
-        // through — the manual REDEEM form is still available below.
-      } catch {
-        /* network hiccup — leave the form for the user */
+        const j: unknown = await res.json().catch(() => ({}));
+        const detail = (j as { detail?: unknown }).detail;
+        const msg = (typeof detail === "string"
+          ? detail
+          : (detail as { message?: string } | undefined)?.message) ?? `HTTP ${res.status}`;
+        setAutoStatus(`Auto-redeem failed (${msg}). Paste the code below to retry.`);
+      } catch (e) {
+        setAutoStatus(`Auto-redeem error: ${e instanceof Error ? e.message : String(e)}`);
       }
     })();
     return () => { cancelled = true; };
@@ -273,6 +291,9 @@ export default function Waitlist({
             )}
           </div>
 
+          {autoStatus && (
+            <p className="mt-4 text-static text-xs font-mono">{autoStatus}</p>
+          )}
           {err && (
             <p className="mt-4 text-amber-400 text-sm font-mono">{err}</p>
           )}
