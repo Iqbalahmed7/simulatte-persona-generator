@@ -87,7 +87,40 @@ export default function AccessGate({ children }: { children: React.ReactNode }) 
       }
       const j: MeResponse = await meRes.json();
       setMe(j);
-      const status = j.user?.access_status ?? "active";
+      let status = j.user?.access_status ?? "active";
+
+      // Pending + we have an invite_ok cookie or localStorage backup?
+      // Redeem inline before flipping to the Waitlist UI — otherwise
+      // the user sees a brief Waitlist flash while Waitlist's own
+      // useEffect catches up.
+      if (status === "pending" && typeof document !== "undefined") {
+        const cookieMatch = document.cookie.match(/(?:^|;\s*)invite_ok=([^;]+)/);
+        const cookieCode = cookieMatch ? decodeURIComponent(cookieMatch[1]).trim().toUpperCase() : "";
+        let lsCode = "";
+        try { lsCode = (localStorage.getItem("invite_ok") || "").trim().toUpperCase(); } catch {}
+        const candidate = cookieCode || lsCode;
+        if (candidate) {
+          try {
+            const r = await fetch("/api/redeem-code", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ code: candidate }),
+            });
+            if (r.ok) {
+              document.cookie = "invite_ok=; Max-Age=0; path=/";
+              try { localStorage.removeItem("invite_ok"); } catch {}
+              // Re-fetch /me — it should now report active.
+              const meRes2 = await fetch("/api/me", { cache: "no-store" });
+              if (meRes2.ok) {
+                const j2: MeResponse = await meRes2.json();
+                setMe(j2);
+                status = j2.user?.access_status ?? "active";
+              }
+            }
+          } catch { /* fall through to Waitlist */ }
+        }
+      }
+
       setPhase(status === "pending" ? "pending" : "active");
       writeCache(status === "pending" ? "pending" : "active");
       lastChecked.current = Date.now();
