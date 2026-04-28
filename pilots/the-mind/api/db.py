@@ -320,6 +320,7 @@ class EventType(str, enum.Enum):
     moderation_blocked = "moderation_blocked"   # input rejected by content filter
     user_banned = "user_banned"                  # admin banned this user
     user_unbanned = "user_unbanned"              # admin lifted ban
+    feedback = "feedback"                        # NPS / qualitative feedback (ref_id = JSON)
 
 
 class Event(Base):

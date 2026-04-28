@@ -3724,6 +3724,185 @@ async def admin_duplicates(
     return {"count": len(duplicates), "groups": duplicates}
 
 
+# ── Portrait regeneration ──────────────────────────────────────────────────
+# Existing portraits were drawn before the topical-prompt rebuild; this lets
+# the operator re-roll them one-by-one or in bulk so they pick up wardrobe,
+# demeanour, setting, and ethnicity cues from the new builder.
+
+_REGEN_STATUS: dict = {"running": False, "done": 0, "total": 0, "errors": []}
+
+
+@app.post("/admin/generated/{persona_id}/regenerate-portrait")
+async def admin_regenerate_portrait(
+    persona_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Re-run fal.ai for one persona and overwrite the existing URL."""
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
+    fal_key = os.environ.get("FAL_KEY", "")
+    if not fal_key:
+        raise HTTPException(status_code=503, detail="FAL_KEY not configured")
+    persona = _GENERATED[persona_id]
+    prompt = _build_portrait_prompt_dict(persona)
+    url = await _call_fal_portrait(prompt, fal_key)
+    _GENERATED_PORTRAITS[persona_id] = url
+    _save_portraits_to_disk()
+    return {"persona_id": persona_id, "url": url}
+
+
+async def _run_regen_all(fal_key: str):
+    """Background task: regenerate every existing portrait, semaphore-bounded."""
+    global _REGEN_STATUS
+    pids = list(_GENERATED.keys())
+    _REGEN_STATUS = {"running": True, "done": 0, "total": len(pids), "errors": []}
+    sem = asyncio.Semaphore(5)
+
+    async def one(pid: str):
+        async with sem:
+            try:
+                prompt = _build_portrait_prompt_dict(_GENERATED[pid])
+                url = await _call_fal_portrait(prompt, fal_key)
+                _GENERATED_PORTRAITS[pid] = url
+                _REGEN_STATUS["done"] += 1
+                logger.info("[regen] %d/%d %s", _REGEN_STATUS["done"], len(pids), pid)
+            except Exception as exc:
+                logger.exception("[regen] %s failed", pid)
+                _REGEN_STATUS["errors"].append(f"{pid}: {exc}")
+
+    await asyncio.gather(*(one(pid) for pid in pids))
+    _save_portraits_to_disk()
+    _REGEN_STATUS["running"] = False
+    logger.info("[regen] complete: %d/%d done, %d errors",
+                _REGEN_STATUS["done"], len(pids), len(_REGEN_STATUS["errors"]))
+
+
+@app.post("/admin/regenerate-all-portraits")
+async def admin_regenerate_all_portraits(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Kick off bulk regeneration of every generated persona's portrait.
+    Idempotent — refuses to start if a regen is already running."""
+    fal_key = os.environ.get("FAL_KEY", "")
+    if not fal_key:
+        raise HTTPException(status_code=503, detail="FAL_KEY not configured")
+    if _REGEN_STATUS.get("running"):
+        return {"running": True, "done": _REGEN_STATUS["done"], "total": _REGEN_STATUS["total"]}
+    asyncio.create_task(_run_regen_all(fal_key))
+    return {"started": True, "total": len(_GENERATED)}
+
+
+@app.get("/admin/regenerate-all-portraits/status")
+async def admin_regen_status(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    return _REGEN_STATUS
+
+
+# ── Admin: list every generated persona for the operator console ──────────
+
+@app.get("/admin/generated")
+async def admin_list_generated(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Flat list of every generated persona — used by /admin/personas UI."""
+    rows: list[dict] = []
+    for pid, p in _GENERATED.items():
+        da = p.get("demographic_anchor") or {}
+        rows.append({
+            "persona_id": pid,
+            "name": da.get("name"),
+            "age": da.get("age"),
+            "city": (da.get("location") or {}).get("city"),
+            "country": (da.get("location") or {}).get("country"),
+            "occupation": (da.get("employment") or {}).get("occupation"),
+            "portrait_url": _GENERATED_PORTRAITS.get(pid),
+            "created_at": p.get("created_at") or p.get("generated_at"),
+        })
+    rows.sort(key=lambda r: (r.get("created_at") or ""), reverse=True)
+    return {"count": len(rows), "personas": rows}
+
+
+# ── Lightweight feedback / NPS endpoint ───────────────────────────────────
+
+class FeedbackPayload(BaseModel):
+    score: int  # 1-10
+    comment: str | None = None
+    surface: str | None = None  # "probe", "chat", "generate", "general"
+
+
+@app.post("/feedback")
+async def post_feedback(
+    payload: FeedbackPayload,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Capture an NPS-style score (1-10) plus optional comment.
+
+    Stored as an Event row with type=feedback and payload as ref_id JSON.
+    No new table — keeps migration surface zero.
+    """
+    if not (1 <= payload.score <= 10):
+        raise HTTPException(status_code=400, detail="score must be 1-10")
+    try:
+        body = json.dumps({
+            "score": payload.score,
+            "comment": (payload.comment or "")[:1000],
+            "surface": payload.surface or "general",
+        })
+        db.add(Event(
+            user_id=user.id,
+            type=EventType.feedback,
+            ref_id=body,
+            created_at=datetime.now(timezone.utc),
+        ))
+        await db.commit()
+    except Exception:
+        await db.rollback()
+        logger.exception("[feedback] save failed")
+        raise HTTPException(status_code=500, detail="failed to save feedback")
+    return {"ok": True}
+
+
+@app.get("/admin/feedback")
+async def admin_feedback(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),
+    limit: int = 100,
+):
+    """Return recent feedback entries with the user's email for context."""
+    from sqlalchemy import select as sa_select
+    rows = (await db.execute(
+        sa_select(Event, User)
+        .join(User, Event.user_id == User.id)
+        .where(Event.type == EventType.feedback)
+        .order_by(Event.created_at.desc())
+        .limit(limit)
+    )).all()
+    out: list[dict] = []
+    for ev, u in rows:
+        try:
+            body = json.loads(ev.ref_id or "{}")
+        except Exception:
+            body = {}
+        out.append({
+            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+            "email": u.email,
+            "name": u.name,
+            "score": body.get("score"),
+            "comment": body.get("comment"),
+            "surface": body.get("surface"),
+        })
+    if out:
+        scores = [r["score"] for r in out if isinstance(r.get("score"), int)]
+        promoters = sum(1 for s in scores if s >= 9)
+        detractors = sum(1 for s in scores if s <= 6)
+        nps = round(((promoters - detractors) / len(scores)) * 100) if scores else 0
+        avg = round(sum(scores) / len(scores), 1) if scores else 0
+        return {"count": len(out), "nps": nps, "avg": avg, "entries": out}
+    return {"count": 0, "nps": 0, "avg": 0, "entries": []}
+
+
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────
 
 import time as _rl_time
