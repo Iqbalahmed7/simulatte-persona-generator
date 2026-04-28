@@ -3216,26 +3216,43 @@ async def admin_approve_user(
     """
     from sqlalchemy import select as sa_select, update as sa_update
     from auth import _create_personal_invite_code  # noqa: PLC0415
-    target = (await db.execute(sa_select(User).where(User.id == user_id))).scalar_one_or_none()  # type: ignore
-    if target is None:
-        raise HTTPException(404, detail="user not found")
-    if (getattr(target, "access_status", "active") or "active") == "active":
-        return {"ok": True, "already_active": True}
-    target.access_status = "active"
-    target.approved_at = datetime.now(timezone.utc)
-    if not getattr(target, "personal_invite_code", None):
-        target.personal_invite_code = await _create_personal_invite_code(db, target)
-    # Resolve any open access-requests
-    await db.execute(
-        sa_update(AccessRequest)  # type: ignore
-        .where(AccessRequest.user_id == target.id)  # type: ignore
-        .where(AccessRequest.status == "pending")  # type: ignore
-        .values(status="approved", resolved_at=datetime.now(timezone.utc), resolved_by_email=_admin.email)
-    )
-    await db.commit()
-    await _send_approval_email(target.email or "", target.name or "")
-    logger.info("[admin] approved user=%s by=%s", target.email, _admin.email)
-    return {"ok": True}
+    try:
+        target = (await db.execute(sa_select(User).where(User.id == user_id))).scalar_one_or_none()  # type: ignore
+        if target is None:
+            raise HTTPException(404, detail="user not found")
+        if (getattr(target, "access_status", "active") or "active") == "active":
+            return {"ok": True, "already_active": True}
+        target.access_status = "active"
+        target.approved_at = datetime.now(timezone.utc)
+        if not getattr(target, "personal_invite_code", None):
+            try:
+                target.personal_invite_code = await _create_personal_invite_code(db, target)
+            except Exception as ce:  # noqa: BLE001
+                # Non-fatal: code can be minted on next sign-in by auth.py.
+                logger.warning("[admin] approve: invite-code mint failed for %s: %r", target.email, ce)
+        # Resolve any open access-requests
+        await db.execute(
+            sa_update(AccessRequest)  # type: ignore
+            .where(AccessRequest.user_id == target.id)  # type: ignore
+            .where(AccessRequest.status == "pending")  # type: ignore
+            .values(status="approved", resolved_at=datetime.now(timezone.utc), resolved_by_email=_admin.email)
+        )
+        await db.commit()
+    except HTTPException:
+        raise
+    except Exception as e:  # noqa: BLE001
+        logger.exception("[admin] approve failed for user_id=%s: %r", user_id, e)
+        raise HTTPException(500, detail=f"approve_failed: {type(e).__name__}: {e}") from e
+
+    # Email send is best-effort — the user is already approved in DB.
+    email_sent = True
+    try:
+        await _send_approval_email(target.email or "", target.name or "")
+    except Exception as ee:  # noqa: BLE001
+        email_sent = False
+        logger.warning("[admin] approve: email send failed for %s: %r", target.email, ee)
+    logger.info("[admin] approved user=%s by=%s email_sent=%s", target.email, _admin.email, email_sent)
+    return {"ok": True, "email_sent": email_sent}
 
 
 @app.get("/admin/access-requests")
