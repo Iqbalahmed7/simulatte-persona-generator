@@ -42,6 +42,20 @@ function WhatsAppIcon() {
     </svg>
   );
 }
+function TelegramIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
+    </svg>
+  );
+}
+function SMSIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    </svg>
+  );
+}
 function MailIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -67,27 +81,83 @@ export default function PersonaShare({ personaId, name, age, city }: Props) {
   const body = `${headline} Simulated by The Mind — Simulatte's deep-persona engine.`;
 
   const e = encodeURIComponent;
+  const message = `${body} ${url}`;
 
-  const links: Array<{ label: string; href: string; icon: React.ReactNode }> = [
+  // Native-app deeplinks (custom URL schemes) over web redirectors.
+  // wa.me / linkedin.com/sharing land users on web sign-in or
+  // download prompts when Universal Links don't fire (Brave, in-app
+  // browsers, fresh sessions). Custom schemes hand off to the
+  // installed app directly.
+  //
+  // `native: true` means the link opens in the same tab so iOS/Android
+  // can resolve the scheme to the app. `target=_blank` actively breaks
+  // this on iOS Safari + Brave.
+  const links: Array<{
+    label: string;
+    href: string;
+    icon: React.ReactNode;
+    native?: boolean;
+    onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  }> = [
+    {
+      label: "WhatsApp",
+      // whatsapp:// scheme opens the app on iOS/Android directly.
+      href: `whatsapp://send?text=${e(message)}`,
+      icon: <WhatsAppIcon />,
+      native: true,
+    },
     {
       label: "X",
+      // twitter:// scheme opens X app on iOS; on desktop it falls back
+      // to the web intent. We do device-based routing in onClick to
+      // pick the right one without breaking either case.
       href: `https://twitter.com/intent/tweet?text=${e(body)}&url=${e(url)}`,
       icon: <XIcon />,
+      onClick: (ev) => {
+        if (typeof navigator !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          ev.preventDefault();
+          // X iOS app handles twitter:// — message param, no URL slot.
+          // We append the URL to the message body so it still gets shared.
+          window.location.href = `twitter://post?message=${e(body + " " + url)}`;
+        }
+      },
+      native: true,
     },
     {
       label: "LinkedIn",
+      // LinkedIn killed reliable native share deeplinks. On mobile the
+      // most useful action is: copy the share text + open the LI app
+      // so the user can paste into a new post. On desktop, web share
+      // works fine.
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${e(url)}`,
       icon: <LinkedInIcon />,
+      onClick: (ev) => {
+        if (typeof navigator !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          ev.preventDefault();
+          // Best-effort: copy compose text, then open LI app.
+          navigator.clipboard?.writeText(message).catch(() => {});
+          window.location.href = "linkedin://";
+        }
+      },
+      native: true,
     },
     {
-      label: "WhatsApp",
-      href: `https://wa.me/?text=${e(body + " " + url)}`,
-      icon: <WhatsAppIcon />,
+      label: "Telegram",
+      // t.me uses Telegram Universal Links on iOS — opens the app.
+      href: `https://t.me/share/url?url=${e(url)}&text=${e(body)}`,
+      icon: <TelegramIcon />,
+    },
+    {
+      label: "SMS",
+      href: `sms:&body=${e(message)}`,
+      icon: <SMSIcon />,
+      native: true,
     },
     {
       label: "Email",
       href: `mailto:?subject=${e(headline)}&body=${e(body + "\n\n" + url)}`,
       icon: <MailIcon />,
+      native: true,
     },
   ];
 
@@ -109,9 +179,16 @@ export default function PersonaShare({ personaId, name, age, city }: Props) {
           <a
             key={l.label}
             href={l.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            // Custom URL schemes (whatsapp://, sms:, mailto:, twitter://)
+            // and Universal-Link share URLs MUST navigate same-tab so
+            // iOS/Android can resolve them to the installed app. Adding
+            // target=_blank shoves them into a popup tab where the OS
+            // routing fails and falls back to web.
+            target={l.native ? undefined : "_blank"}
+            rel={l.native ? undefined : "noopener noreferrer"}
+            onClick={l.onClick}
             className="inline-flex items-center gap-2 border border-parchment/15 hover:border-parchment/40 px-3 py-2 text-xs font-medium text-parchment/75 hover:text-parchment transition-colors"
+            style={{ minHeight: 44 }}
             aria-label={`Share on ${l.label}`}
           >
             <span className="text-parchment/60">{l.icon}</span>

@@ -127,15 +127,29 @@ export default function ReferralCard({
       </p>
       <div className="grid grid-cols-5 gap-2">
         <ShareButton href={links.whatsapp} label="WhatsApp" icon={<IconWhatsApp />} />
-        <ShareButton href={links.telegram} label="Telegram" icon={<IconTelegram />} external />
+        <ShareButton href={links.telegram} label="Telegram" icon={<IconTelegram />} />
         <ShareButton href={links.sms} label="iMessage" icon={<IconSMS />} />
         <ShareButton href={links.email} label="Email" icon={<IconEmail />} />
-        <ShareButton href={links.x} label="X" icon={<IconX />} external />
+        <ShareButton
+          href={links.x}
+          label="X"
+          icon={<IconX />}
+          onClick={(ev) => {
+            // X iOS/Android app opens via twitter:// custom scheme.
+            // We navigate same-tab so the OS can route to the app;
+            // desktop falls through to the web intent.
+            if (typeof navigator !== "undefined" && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+              ev.preventDefault();
+              window.location.href = `twitter://post?message=${encodeURIComponent(message)}`;
+            }
+          }}
+        />
       </div>
 
       <p className="text-parchment/50 text-[11px] mt-4 leading-relaxed">
-        For LinkedIn, copy the link above and paste it into your post — LinkedIn&#x2019;s
-        share sheet doesn&#x2019;t reliably open the mobile app.
+        Sharing on LinkedIn? Tap <strong className="text-parchment/80">Copy</strong> above
+        and paste into a new LinkedIn post — their share API doesn&#x2019;t reliably
+        open the mobile app.
       </p>
     </div>
   );
@@ -145,18 +159,22 @@ function ShareButton({
   href,
   label,
   icon,
-  external = false,
+  onClick,
 }: {
   href: string;
   label: string;
   icon: React.ReactNode;
-  external?: boolean;
+  onClick?: (ev: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
+  // All share links navigate same-tab (no target=_blank). Custom URL
+  // schemes (whatsapp://, sms:, mailto:) and Telegram Universal Links
+  // need same-tab navigation for iOS/Android to resolve them to the
+  // installed native app — _blank pushes them into a popup tab where
+  // the OS routing fails and falls back to web.
   return (
     <a
       href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noopener noreferrer" : undefined}
+      onClick={onClick}
       aria-label={`Share via ${label}`}
       className="flex flex-col items-center justify-center gap-1.5 border border-parchment/15 hover:border-signal/50 active:bg-parchment/5 transition-colors py-3"
       style={{ minHeight: 64 }}
