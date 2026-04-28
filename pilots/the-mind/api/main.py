@@ -3134,6 +3134,13 @@ class InviteBulkRequest(BaseModel):
     note: str | None = None  # shared note used for any emailed invites
 
 
+# Pydantic v2 needs explicit rebuild for the parent model that
+# references InviteBulkItem — without this, FastAPI's TypeAdapter
+# resolves it as `NoneType` at request time and 500s every call.
+InviteBulkItem.model_rebuild()
+InviteBulkRequest.model_rebuild()
+
+
 @app.post("/admin/invites/bulk")
 async def admin_create_invites_bulk(
     req: InviteBulkRequest,
