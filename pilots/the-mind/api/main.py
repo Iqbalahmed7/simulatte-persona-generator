@@ -3216,6 +3216,7 @@ async def admin_approve_user(
     """
     from sqlalchemy import select as sa_select, update as sa_update
     from auth import _create_personal_invite_code  # noqa: PLC0415
+    from datetime import datetime, timezone  # noqa: PLC0415
     try:
         target = (await db.execute(sa_select(User).where(User.id == user_id))).scalar_one_or_none()  # type: ignore
         if target is None:
