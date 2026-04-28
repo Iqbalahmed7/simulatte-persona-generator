@@ -3124,6 +3124,121 @@ async def admin_email_invite(
     return {"code": code, "url": invite_url, "ok": True}
 
 
+class InviteBulkItem(BaseModel):
+    label: str | None = None
+    email: str | None = None  # if present, mint single-use + email it
+
+
+class InviteBulkRequest(BaseModel):
+    items: list[InviteBulkItem]
+    note: str | None = None  # shared note used for any emailed invites
+
+
+@app.post("/admin/invites/bulk")
+async def admin_create_invites_bulk(
+    req: InviteBulkRequest,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Admin: mint many invite codes in one shot.
+
+    Each item carries a `label` (admin-facing tag — "Alice from college")
+    and optionally an `email`. When email is set, the code is single-use
+    and we fire the invite email; otherwise it's a labeled link the
+    admin distributes manually (WhatsApp, Slack, etc.).
+
+    Tracking: when an invitee redeems, the admin invite list shows
+    `label → who redeemed`, so even links sent via WhatsApp without an
+    upfront email are traceable to the named recipient.
+
+    Cap at 100 to keep the email-send loop bounded.
+    """
+    from sqlalchemy import select as sa_select
+    from auth import mint_random_code  # noqa: PLC0415
+
+    items = req.items or []
+    if not items:
+        raise HTTPException(400, detail="items must be non-empty")
+    if len(items) > 100:
+        raise HTTPException(400, detail="bulk cap is 100 per request")
+
+    now = datetime.now(timezone.utc)
+    public_origin = _public_origin()
+    results: list[dict] = []
+
+    async def mint_unique() -> str:
+        for _ in range(5):
+            cand = mint_random_code(10)
+            existing = (
+                await db.execute(sa_select(InviteCode).where(InviteCode.code == cand))  # type: ignore
+            ).scalar_one_or_none()
+            if existing is None:
+                return cand
+        raise HTTPException(500, detail="could not mint unique code")
+
+    for item in items:
+        label = (item.label or "").strip() or None
+        email_raw = (item.email or "").strip().lower() or None
+        if email_raw and "@" not in email_raw:
+            results.append({
+                "label": label, "email": email_raw, "ok": False,
+                "error": "invalid email",
+            })
+            continue
+        try:
+            code = await mint_unique()
+        except HTTPException as exc:
+            results.append({
+                "label": label, "email": email_raw, "ok": False,
+                "error": exc.detail,
+            })
+            continue
+
+        db.add(InviteCode(  # type: ignore
+            code=code,
+            # Derive a label from the email if none was given so the
+            # admin invites table stays scannable.
+            label=label or (f"emailed:{email_raw}" if email_raw else None),
+            max_uses=1,  # bulk codes default single-use
+            used_count=0,
+            active=True,
+            created_by_email=_admin.email,
+            sent_to_email=email_raw,
+            sent_at=now if email_raw else None,
+        ))
+        url = f"{public_origin}/invite/{code}"
+        results.append({
+            "label": label, "email": email_raw, "code": code, "url": url, "ok": True,
+        })
+
+    # One commit at the end — atomic-ish.
+    try:
+        await db.commit()
+    except Exception as exc:  # pragma: no cover
+        await db.rollback()
+        logger.exception("[admin] bulk invite commit failed: %s", exc)
+        raise HTTPException(500, detail=f"db commit failed: {exc}") from exc
+
+    # Fire emails after commit so a slow Resend call can't block the
+    # response on the codes that already landed.
+    for r in results:
+        if r.get("ok") and r.get("email") and r.get("url"):
+            try:
+                await _send_invite_email(r["email"], r["url"], req.note or "")
+            except Exception as exc:  # pragma: no cover
+                logger.warning("[admin] bulk email failed for %s: %s", r["email"], exc)
+                r["email_sent"] = False
+                r["email_error"] = str(exc)
+            else:
+                r["email_sent"] = True
+
+    logger.info(
+        "[admin] bulk invite minted=%d by=%s",
+        sum(1 for r in results if r.get("ok")), _admin.email,
+    )
+    return {"results": results}
+
+
 # ── Pending-user endpoints (waitlist) ─────────────────────────────────────
 
 class RedeemCodeRequest(BaseModel):

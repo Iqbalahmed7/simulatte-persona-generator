@@ -16,11 +16,22 @@ interface InviteRow {
   sent_at: string | null;
 }
 
-type Tab = "bulk" | "email";
+type Tab = "bulk" | "email" | "bulkmany";
+
+interface BulkResult {
+  label: string | null;
+  email: string | null;
+  code?: string;
+  url?: string;
+  ok: boolean;
+  error?: string;
+  email_sent?: boolean;
+  email_error?: string;
+}
 
 export default function InvitesClient({ initialCodes }: { initialCodes: InviteRow[] }) {
   const [codes, setCodes] = useState<InviteRow[]>(initialCodes);
-  const [tab, setTab] = useState<Tab>("bulk");
+  const [tab, setTab] = useState<Tab>("bulkmany");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
@@ -32,6 +43,13 @@ export default function InvitesClient({ initialCodes }: { initialCodes: InviteRo
   // Email-invite form
   const [emailTo, setEmailTo] = useState("");
   const [emailNote, setEmailNote] = useState("");
+
+  // Bulk-many form: one entry per line. Each line is either a name
+  // (label-only) or an email (auto-detected if it has @) or
+  // "Name <email>" / "Name, email" for both.
+  const [bulkInput, setBulkInput] = useState("");
+  const [bulkNote, setBulkNote] = useState("");
+  const [bulkResults, setBulkResults] = useState<BulkResult[]>([]);
 
   async function refresh() {
     const res = await fetch("/api/admin/invites", { cache: "no-store" });
@@ -93,6 +111,100 @@ export default function InvitesClient({ initialCodes }: { initialCodes: InviteRo
     }
   }
 
+  // Parse the bulk textarea into items. One entry per line; supports:
+  //   "Name"                    → label only
+  //   "alice@x.com"             → email only (label derived)
+  //   "Name <alice@x.com>"      → both
+  //   "Name, alice@x.com"       → both
+  function parseBulkLines(input: string): Array<{ label?: string; email?: string }> {
+    return input
+      .split(/\r?\n/)
+      .map((raw) => raw.trim())
+      .filter(Boolean)
+      .map((line) => {
+        // "Name <email>"
+        const angle = line.match(/^(.*?)\s*<\s*([^>]+?)\s*>\s*$/);
+        if (angle && angle[2].includes("@")) {
+          return { label: angle[1].trim() || undefined, email: angle[2].trim().toLowerCase() };
+        }
+        // "Name, email" or "Name; email"
+        const splitIdx = line.search(/[,;]\s*/);
+        if (splitIdx > 0) {
+          const left = line.slice(0, splitIdx).trim();
+          const right = line.slice(splitIdx).replace(/^[,;]\s*/, "").trim();
+          if (right.includes("@")) {
+            return { label: left || undefined, email: right.toLowerCase() };
+          }
+        }
+        // Just an email
+        if (line.includes("@") && !line.includes(" ")) {
+          return { email: line.toLowerCase() };
+        }
+        // Just a label
+        return { label: line };
+      });
+  }
+
+  async function onBulkMany(e: React.FormEvent) {
+    e.preventDefault();
+    const items = parseBulkLines(bulkInput);
+    if (items.length === 0) {
+      setErr("Add at least one name or email per line.");
+      return;
+    }
+    setBusy(true);
+    setErr(null);
+    setBulkResults([]);
+    try {
+      const res = await fetch("/api/admin/invites/bulk", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ items, note: bulkNote.trim() || null }),
+      });
+      const j = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(j.detail || `HTTP ${res.status}`);
+      }
+      setBulkResults(Array.isArray(j.results) ? j.results : []);
+      setBulkInput("");
+      await refresh();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function copyResultLink(url: string, code: string) {
+    navigator.clipboard?.writeText(url);
+    setCopied(code);
+    setTimeout(() => setCopied(null), 1500);
+  }
+
+  function copyAllLinks() {
+    const lines = bulkResults
+      .filter((r) => r.ok && r.url)
+      .map((r) => `${r.label ?? r.email ?? "—"}\t${r.url}`)
+      .join("\n");
+    navigator.clipboard?.writeText(lines);
+    setCopied("__ALL__");
+    setTimeout(() => setCopied(null), 1500);
+  }
+
+  function exportCsv() {
+    const header = "label,email,code,url,ok,error\n";
+    const rows = bulkResults.map((r) => {
+      const cells = [r.label ?? "", r.email ?? "", r.code ?? "", r.url ?? "", r.ok ? "yes" : "no", r.error ?? ""];
+      return cells.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",");
+    }).join("\n");
+    const blob = new Blob([header + rows], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `invites-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
   async function onDeactivate(c: string) {
     if (!confirm(`Deactivate ${c}? No new redemptions will be accepted.`)) return;
     await fetch(`/api/admin/invites/${encodeURIComponent(c)}/deactivate`, { method: "POST" });
@@ -118,8 +230,8 @@ export default function InvitesClient({ initialCodes }: { initialCodes: InviteRo
   return (
     <div className="space-y-8">
       {/* Tab switcher */}
-      <div className="flex gap-1 border-b border-parchment/10">
-        {(["bulk", "email"] as Tab[]).map((t) => (
+      <div className="flex gap-1 border-b border-parchment/10 flex-wrap">
+        {(["bulkmany", "bulk", "email"] as Tab[]).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -130,10 +242,129 @@ export default function InvitesClient({ initialCodes }: { initialCodes: InviteRo
                 : "text-parchment/60 hover:text-parchment")
             }
           >
-            {t === "bulk" ? "Shareable code" : "Email a person"}
+            {t === "bulkmany"
+              ? "Bulk (many)"
+              : t === "bulk"
+              ? "One shareable code"
+              : "Email a person"}
           </button>
         ))}
       </div>
+
+      {tab === "bulkmany" && (
+        <form onSubmit={onBulkMany} className="border border-parchment/10 p-6 space-y-4">
+          <div>
+            <p className="text-parchment/70 text-sm leading-relaxed">
+              One entry per line. Each line becomes its own invite link.
+              Adding an email auto-sends the invite; otherwise you get a labelled
+              link to share manually (WhatsApp, Slack, etc.).
+            </p>
+            <p className="text-parchment/50 text-[11px] font-mono mt-2">
+              Formats: <code>Name</code> · <code>email@x.com</code> ·{" "}
+              <code>Name &lt;email@x.com&gt;</code> · <code>Name, email@x.com</code>
+            </p>
+          </div>
+          <div>
+            <label className="block text-[10px] font-mono uppercase tracking-widest text-parchment/50 mb-2">
+              Recipients (max 100)
+            </label>
+            <textarea
+              value={bulkInput}
+              onChange={(e) => setBulkInput(e.target.value)}
+              placeholder={"Alice from college\nBob <bob@a16z.com>\nRiya, riya@gmail.com"}
+              rows={8}
+              className="w-full bg-transparent border border-parchment/20 px-3 py-2 text-sm font-mono focus:border-signal focus:outline-none resize-y"
+              style={{ minHeight: 160 }}
+            />
+            <p className="text-parchment/50 text-[10px] font-mono mt-1">
+              {parseBulkLines(bulkInput).length} entr
+              {parseBulkLines(bulkInput).length === 1 ? "y" : "ies"}
+            </p>
+          </div>
+          <div>
+            <label className="block text-[10px] font-mono uppercase tracking-widest text-parchment/50 mb-2">
+              Optional shared note (only used in emailed invites)
+            </label>
+            <textarea
+              value={bulkNote}
+              onChange={(e) => setBulkNote(e.target.value)}
+              placeholder="Quick early access for trusted people. Try the persona builder."
+              rows={2}
+              className="w-full bg-transparent border border-parchment/20 px-3 py-2 text-sm focus:border-signal focus:outline-none resize-none"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={busy || parseBulkLines(bulkInput).length === 0}
+            className="bg-signal text-void font-condensed font-bold uppercase tracking-wider px-6 py-2 disabled:opacity-50"
+          >
+            {busy ? "Generating…" : `Generate ${parseBulkLines(bulkInput).length || ""} link${parseBulkLines(bulkInput).length === 1 ? "" : "s"}`}
+          </button>
+        </form>
+      )}
+
+      {bulkResults.length > 0 && (
+        <div className="border border-signal/30 bg-signal/[0.04] p-5">
+          <div className="flex items-baseline justify-between mb-3 flex-wrap gap-2">
+            <p className="text-[11px] font-mono uppercase tracking-widest text-signal">
+              Just minted · {bulkResults.filter((r) => r.ok).length} of {bulkResults.length}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={copyAllLinks}
+                className="text-[10px] font-mono uppercase tracking-widest text-parchment/70 hover:text-signal"
+              >
+                {copied === "__ALL__" ? "Copied all" : "Copy all"}
+              </button>
+              <button
+                onClick={exportCsv}
+                className="text-[10px] font-mono uppercase tracking-widest text-parchment/70 hover:text-signal"
+              >
+                Export CSV
+              </button>
+            </div>
+          </div>
+          <div className="space-y-2">
+            {bulkResults.map((r, i) => (
+              <div
+                key={i}
+                className={
+                  "flex items-center gap-3 py-2 border-b border-parchment/5 last:border-b-0 " +
+                  (r.ok ? "" : "opacity-60")
+                }
+              >
+                <div className="flex-1 min-w-0">
+                  <div className="text-parchment text-sm truncate">
+                    {r.label || r.email || "—"}
+                  </div>
+                  {r.ok ? (
+                    <div className="font-mono text-[11px] text-parchment/55 truncate">
+                      {r.url}
+                      {r.email && (
+                        <span className={r.email_sent === false ? "text-amber-400 ml-2" : "text-signal/70 ml-2"}>
+                          {r.email_sent === false ? "· email failed" : "· emailed"}
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="font-mono text-[11px] text-amber-400">
+                      {r.error || "failed"}
+                    </div>
+                  )}
+                </div>
+                {r.ok && r.url && r.code && (
+                  <button
+                    onClick={() => copyResultLink(r.url!, r.code!)}
+                    className="text-[10px] font-mono uppercase tracking-widest text-parchment/60 hover:text-signal flex-shrink-0"
+                  >
+                    {copied === r.code ? "Copied" : "Copy"}
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {tab === "bulk" && (
         <form onSubmit={onCreateBulk} className="border border-parchment/10 p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
