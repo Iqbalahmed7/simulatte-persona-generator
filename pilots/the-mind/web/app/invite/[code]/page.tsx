@@ -72,40 +72,31 @@ export default async function InvitePage(props: {
 
   if (result.valid) {
     const target = `/invite/${encodeURIComponent(code)}/redeem`;
+    // IMPORTANT: do NOT return a full <html><head><body> document here.
+    // Doing so bypasses Next.js's root layout and skips the metadata
+    // injection from generateMetadata() — which is exactly the og:image,
+    // og:title, og:description WhatsApp / LinkedIn / iMessage need to
+    // render the preview card. Returning normal JSX lets the layout do
+    // its job; <meta> tags inside JSX get hoisted to <head> by Next.js.
     return (
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta name="viewport" content="width=device-width,initial-scale=1" />
-          <meta httpEquiv="refresh" content={`0;url=${target}`} />
-          <title>You&apos;re invited to The Mind</title>
-        </head>
-        <body
-          style={{
-            margin: 0,
-            background: "#050505",
-            color: "#E9E6DF",
-            minHeight: "100vh",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily:
-              "ui-monospace, SFMono-Regular, Menlo, monospace",
-            fontSize: 11,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-          }}
+      <>
+        <meta httpEquiv="refresh" content={`0;url=${target}`} />
+        <main
+          className="min-h-screen bg-void flex items-center justify-center"
+          style={{ color: "#E9E6DF" }}
         >
-          Redeeming invite…
-          <script
-            // Belt-and-braces — meta refresh fires anyway, but JS gets
-            // there a few ms faster on real browsers.
-            dangerouslySetInnerHTML={{
-              __html: `window.location.replace(${JSON.stringify(target)});`,
-            }}
-          />
-        </body>
-      </html>
+          <p className="font-mono text-[11px] text-static uppercase tracking-[0.18em]">
+            Redeeming invite…
+          </p>
+        </main>
+        <script
+          // Faster than meta-refresh on real browsers; both fire so the
+          // user gets there in <100ms either way.
+          dangerouslySetInnerHTML={{
+            __html: `window.location.replace(${JSON.stringify(target)});`,
+          }}
+        />
+      </>
     );
   }
 
