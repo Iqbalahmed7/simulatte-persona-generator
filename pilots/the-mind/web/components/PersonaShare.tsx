@@ -8,6 +8,7 @@
  * shared URL — set in /persona/[id]/layout.tsx — handles the preview card.
  */
 import { useState } from "react";
+import { track } from "@/lib/track";
 
 interface Props {
   personaId: string;
@@ -166,6 +167,7 @@ export default function PersonaShare({ personaId, name, age, city }: Props) {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
+      track("share", { app: "copy", surface: "persona" });
     } catch { /* clipboard unavailable */ }
   }
 
@@ -186,7 +188,12 @@ export default function PersonaShare({ personaId, name, age, city }: Props) {
             // routing fails and falls back to web.
             target={l.native ? undefined : "_blank"}
             rel={l.native ? undefined : "noopener noreferrer"}
-            onClick={l.onClick}
+            onClick={(ev) => {
+              // Fire analytics first so the event ships even if the
+              // OS hands us off to another app immediately.
+              track("share", { app: l.label.toLowerCase(), surface: "persona" });
+              l.onClick?.(ev);
+            }}
             className="inline-flex items-center gap-2 border border-parchment/15 hover:border-parchment/40 px-3 py-2 text-xs font-medium text-parchment/75 hover:text-parchment transition-colors"
             style={{ minHeight: 44 }}
             aria-label={`Share on ${l.label}`}

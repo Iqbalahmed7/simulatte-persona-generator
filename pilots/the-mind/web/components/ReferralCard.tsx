@@ -23,6 +23,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { track } from "@/lib/track";
 
 export default function ReferralCard({
   code,
@@ -65,6 +66,7 @@ export default function ReferralCard({
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
+      track("share", { app: "copy", surface: "referral" });
     } catch {
       // older browsers — long-press to copy
     }
@@ -126,15 +128,36 @@ export default function ReferralCard({
         Share via
       </p>
       <div className="grid grid-cols-5 gap-2">
-        <ShareButton href={links.whatsapp} label="WhatsApp" icon={<IconWhatsApp />} />
-        <ShareButton href={links.telegram} label="Telegram" icon={<IconTelegram />} />
-        <ShareButton href={links.sms} label="iMessage" icon={<IconSMS />} />
-        <ShareButton href={links.email} label="Email" icon={<IconEmail />} />
+        <ShareButton
+          href={links.whatsapp}
+          label="WhatsApp"
+          icon={<IconWhatsApp />}
+          onClick={() => track("share", { app: "whatsapp", surface: "referral" })}
+        />
+        <ShareButton
+          href={links.telegram}
+          label="Telegram"
+          icon={<IconTelegram />}
+          onClick={() => track("share", { app: "telegram", surface: "referral" })}
+        />
+        <ShareButton
+          href={links.sms}
+          label="iMessage"
+          icon={<IconSMS />}
+          onClick={() => track("share", { app: "sms", surface: "referral" })}
+        />
+        <ShareButton
+          href={links.email}
+          label="Email"
+          icon={<IconEmail />}
+          onClick={() => track("share", { app: "email", surface: "referral" })}
+        />
         <ShareButton
           href={links.x}
           label="X"
           icon={<IconX />}
           onClick={(ev) => {
+            track("share", { app: "x", surface: "referral" });
             // X iOS/Android app opens via twitter:// custom scheme.
             // We navigate same-tab so the OS can route to the app;
             // desktop falls through to the web intent.
