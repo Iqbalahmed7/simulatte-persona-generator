@@ -3162,6 +3162,10 @@ async def admin_create_invites_bulk(
     """
     from sqlalchemy import select as sa_select
     from auth import mint_random_code  # noqa: PLC0415
+    # Local import — see /redeem-code and admin_approve_user for the
+    # same workaround. The module-level datetime import is shadowed
+    # inside conditional fallback blocks, so handlers need a local one.
+    from datetime import datetime, timezone  # noqa: PLC0415
 
     items = req.items or []
     if not items:
