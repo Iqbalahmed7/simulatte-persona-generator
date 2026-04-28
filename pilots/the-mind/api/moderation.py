@@ -81,8 +81,14 @@ _AGE_AFTER_PATTERNS = [
     r"\b(?:[0-9]|1[0-7])\s*y\.?o\.?\b",
     r"\baged?\s+(?:[0-9]|1[0-7])\b",
     r"\bage\s+of\s+(?:[0-9]|1[0-7])\b",
-    # explicit minor labels
-    r"\b(?:minor|underage|under-?age|child|toddler|infant|baby|preschooler|kindergartener|elementary[\s-]?schooler|grade[\s-]?schooler|tween|preteen|pre-teen)\b",
+    # explicit minor labels — only standalone words that unambiguously
+    # describe a minor as the SUBJECT of a persona. Words like "child",
+    # "toddler", "baby", "infant" were removed because they routinely
+    # appear as family context in adult briefs ("married with a toddler",
+    # "father of two children", "parent of an infant") — those should
+    # not trigger the block. The digit-based "X year old" patterns above
+    # still catch any actual underage subject.
+    r"\b(?:minor|underage|under-?age|preschooler|kindergartener|elementary[\s-]?schooler|grade[\s-]?schooler|tween|preteen|pre-teen)\b",
     r"\bschool[\s-]?(?:girl|boy|kid)\b",
     r"\b(?:kindergarten|elementary|primary|middle)[\s-]?school\b",
     # 'in (n)th grade' for grades 1-11 (US) → likely minor
