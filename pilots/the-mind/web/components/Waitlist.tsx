@@ -90,12 +90,13 @@ export default function Waitlist({
     setAutoStatus(`Redeeming invite ${candidate}…`);
     (async () => {
       try {
-        const res = await fetch(`${API}/redeem-code`, {
+        // Same-origin proxy — the cross-origin API URL is sometimes
+        // blocked by browser shields (Brave) or content blockers, even
+        // for valid signed-in requests. /api/redeem-code reads the
+        // Auth.js session server-side and forwards the call.
+        const res = await fetch(`/api/redeem-code`, {
           method: "POST",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${authToken}`,
-          },
+          headers: { "content-type": "application/json" },
           body: JSON.stringify({ code: candidate }),
         });
         if (cancelled) return;
@@ -126,12 +127,9 @@ export default function Waitlist({
     setBusy(true);
     setErr(null);
     try {
-      const res = await fetch(`${API}/redeem-code`, {
+      const res = await fetch(`/api/redeem-code`, {
         method: "POST",
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
+        headers: { "content-type": "application/json" },
         body: JSON.stringify({ code: code.trim().toUpperCase() }),
       });
       if (!res.ok) {
