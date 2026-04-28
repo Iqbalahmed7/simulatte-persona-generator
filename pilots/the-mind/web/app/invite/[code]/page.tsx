@@ -11,7 +11,6 @@
  * Invalid / exhausted / inactive codes render an error page with a
  * mailto fallback so we don't dead-end the visitor.
  */
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
@@ -40,15 +39,10 @@ export default async function InvitePage(props: {
   const result = await checkCode(code);
 
   if (result.valid) {
-    const jar = await cookies();
-    jar.set("invite_ok", code.toUpperCase(), {
-      maxAge: 60 * 60 * 24 * 60, // 60 days
-      httpOnly: false,
-      sameSite: "lax",
-      path: "/",
-      secure: process.env.NODE_ENV === "production",
-    });
-    redirect("/sign-in?callbackUrl=/");
+    // Cookie writes aren't allowed in server components in Next.js 15 —
+    // hand off to the Route Handler at /invite/[code]/redeem which sets
+    // invite_ok and bounces to /sign-in.
+    redirect(`/invite/${encodeURIComponent(code)}/redeem`);
   }
 
   const reasonCopy =
