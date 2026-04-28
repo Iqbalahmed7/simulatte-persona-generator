@@ -20,6 +20,7 @@ export default function AccessRequestsClient({ initialRows }: { initialRows: Row
   const [rows, setRows] = useState<Row[]>(initialRows);
   const [busy, setBusy] = useState<string | null>(null);
   const [filter, setFilter] = useState<"pending" | "all">("pending");
+  const [error, setError] = useState<string | null>(null);
 
   async function refresh() {
     const res = await fetch("/api/admin/access-requests", { cache: "no-store" });
@@ -28,9 +29,17 @@ export default function AccessRequestsClient({ initialRows }: { initialRows: Row
 
   async function approve(userId: string) {
     setBusy(userId);
+    setError(null);
     try {
-      await fetch(`/api/admin/users/${userId}/approve`, { method: "POST" });
+      const res = await fetch(`/api/admin/users/${userId}/approve`, { method: "POST" });
+      if (!res.ok) {
+        const text = await res.text();
+        setError(`Approve failed (${res.status}): ${text || res.statusText}`);
+        return;
+      }
       await refresh();
+    } catch (e) {
+      setError(`Approve failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);
     }
@@ -39,9 +48,17 @@ export default function AccessRequestsClient({ initialRows }: { initialRows: Row
   async function dismiss(reqId: string) {
     if (!confirm("Dismiss this request? The user stays on the waitlist.")) return;
     setBusy(reqId);
+    setError(null);
     try {
-      await fetch(`/api/admin/access-requests/${reqId}/dismiss`, { method: "POST" });
+      const res = await fetch(`/api/admin/access-requests/${reqId}/dismiss`, { method: "POST" });
+      if (!res.ok) {
+        const text = await res.text();
+        setError(`Dismiss failed (${res.status}): ${text || res.statusText}`);
+        return;
+      }
       await refresh();
+    } catch (e) {
+      setError(`Dismiss failed: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
       setBusy(null);
     }
@@ -51,6 +68,11 @@ export default function AccessRequestsClient({ initialRows }: { initialRows: Row
 
   return (
     <div className="space-y-6">
+      {error && (
+        <div className="border border-amber-400/40 bg-amber-400/5 px-4 py-3 text-amber-300 font-mono text-xs">
+          {error}
+        </div>
+      )}
       <div className="flex gap-1 border-b border-parchment/10">
         {(["pending", "all"] as const).map((f) => (
           <button
