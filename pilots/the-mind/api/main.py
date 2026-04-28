@@ -617,6 +617,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+
+# Note: removed temporary 422 diagnostic logger — root cause was the
+# underage moderation filter returning 422 with a structured detail body,
+# which is by design (see _generate_persona where reason="underage" lives).
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

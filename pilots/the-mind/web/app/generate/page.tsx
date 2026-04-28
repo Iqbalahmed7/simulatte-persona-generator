@@ -146,11 +146,14 @@ function GeneratePageInner() {
           </div>
 
           {error && (
-            <div className="border border-parchment/15 p-4">
-              <p className="font-mono text-xs text-static mb-3">{error}</p>
+            <div className="border border-amber-400/40 bg-amber-400/[0.04] p-5">
+              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-amber-400/80 mb-2">
+                Couldn&#x2019;t generate
+              </p>
+              <p className="text-parchment text-base mb-4 leading-relaxed">{error}</p>
               <button
                 onClick={() => { setRunning(false); setError(""); }}
-                className="text-xs font-mono text-parchment/50 hover:text-parchment transition-colors"
+                className="text-[11px] font-mono uppercase tracking-widest text-parchment/70 hover:text-signal transition-colors"
               >
                 ← Try again
               </button>
