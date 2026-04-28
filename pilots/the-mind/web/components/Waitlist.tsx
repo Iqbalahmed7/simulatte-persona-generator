@@ -64,6 +64,44 @@ export default function Waitlist({
     return () => { cancelled = true; };
   }, [authToken]);
 
+  /**
+   * Auto-redeem from the `invite_ok` cookie. The /invite/[code]/redeem
+   * route handler set this cookie on mind.simulatte.io before bouncing
+   * to /sign-in. Since the cookie is same-origin, we can read it here
+   * and POST it to /redeem-code automatically — the user shouldn't have
+   * to retype the code they already clicked.
+   */
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const m = document.cookie.match(/(?:^|;\s*)invite_ok=([^;]+)/);
+    const cookieCode = m ? decodeURIComponent(m[1]).trim().toUpperCase() : "";
+    if (!cookieCode) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`${API}/redeem-code`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: JSON.stringify({ code: cookieCode }),
+        });
+        if (cancelled) return;
+        if (res.ok) {
+          // Clear the cookie so we don't loop on subsequent renders.
+          document.cookie = "invite_ok=; Max-Age=0; path=/";
+          onActivated();
+        }
+        // If it fails (already used, exhausted, invalid), silently fall
+        // through — the manual REDEEM form is still available below.
+      } catch {
+        /* network hiccup — leave the form for the user */
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [authToken, onActivated]);
+
   async function onRedeem(e: React.FormEvent) {
     e.preventDefault();
     if (!code.trim()) return;
