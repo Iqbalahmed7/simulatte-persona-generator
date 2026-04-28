@@ -42,8 +42,12 @@ export default async function DashboardPage() {
 
   return (
     <AccessGate>
-      <TopNav isAdmin={isAdmin} email={user.email ?? ""} />
-      <DashboardHome authToken={token} />
+      {/* TopNav is mobile-only — desktop gets the new collapsible NavRail
+          inside <AppShell> via DashboardHome. */}
+      <div className="md:hidden">
+        <TopNav isAdmin={isAdmin} email={user.email ?? ""} />
+      </div>
+      <DashboardHome authToken={token} isAdmin={isAdmin} />
       {!isAdmin && <FeedbackModal surface="general" />}
     </AccessGate>
   );

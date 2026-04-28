@@ -1,22 +1,20 @@
 /**
  * DashboardHome — the authed user's home view at /dashboard.
  *
- * Three stacked sections (mobile-first):
- *   1. Greeting + weekly allowance card + Build CTA
- *   2. Your personas — rich horizontal-scroll cards (or grid on lg)
- *   3. Community wall — compact drift below
+ * Wrapped by <AppShell>: NavRail (CTAs + nav) on the left, WallTicker
+ * (live community feed) on the right. Center column owns the user's
+ * own status: greeting, weekly allowance, and their personas.
  *
  * The 2-personas-per-week constraint shapes the design: each persona
  * card is rich (probes / chats / expires-in) so users feel each
- * generation was earned, not a thumbnail in a sea.
+ * generation was earned.
  */
 "use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { API } from "@/lib/api";
-import LivePersonaWall from "./LivePersonaWall";
-import ActionSidebar from "./ActionSidebar";
+import AppShell from "./AppShell";
 
 interface MyPersona {
   persona_id: string;
@@ -45,8 +43,10 @@ interface MeUser {
 
 export default function DashboardHome({
   authToken,
+  isAdmin = false,
 }: {
   authToken: string;
+  isAdmin?: boolean;
 }) {
   const [user, setUser] = useState<MeUser | null>(null);
   const [allowance, setAllowance] = useState<MeAllowance | null>(null);
@@ -76,9 +76,18 @@ export default function DashboardHome({
   const personasLimit = allowance?.personas.limit ?? 2;
   const personasLeft = Math.max(0, personasLimit - personasUsed);
 
+  const navPersonas = personas.map((p) => ({
+    persona_id: p.persona_id,
+    name: p.name,
+    age: p.age,
+    city: p.city,
+    country: p.country,
+    portrait_url: p.portrait_url,
+  }));
+
   return (
-    <div className="bg-void text-parchment min-h-screen">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 sm:pt-12 pb-10">
+    <AppShell personas={navPersonas} personasLeft={personasLeft} isAdmin={isAdmin}>
+      <div className="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 pb-12 max-w-3xl mx-auto">
         {/* Greeting */}
         <section className="pb-8">
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
@@ -86,7 +95,7 @@ export default function DashboardHome({
           </p>
           <h1
             className="font-condensed font-black text-parchment leading-[0.96] mb-3"
-            style={{ fontSize: "clamp(32px, 5vw, 52px)", letterSpacing: "-0.008em" }}
+            style={{ fontSize: "clamp(32px, 4.5vw, 48px)", letterSpacing: "-0.008em" }}
           >
             {hasPersonas
               ? (first ? `Welcome back, ${first}.` : "Welcome back.")
@@ -99,13 +108,8 @@ export default function DashboardHome({
           </p>
         </section>
 
-        {/* Action cards — inline, the visual centre of the dashboard.
-            2 cols on mobile, 4 on sm+ so they always stay one row. */}
-        <section className="pb-10">
-          <ActionSidebar personas={personas} personasLeft={personasLeft} />
-        </section>
-
-        {/* Allowance card */}
+        {/* Allowance card — primary status block now that the action grid
+            has moved into the NavRail */}
         <section className="pb-10">
           <AllowanceCard allowance={allowance} loaded={loaded} />
         </section>
@@ -121,32 +125,37 @@ export default function DashboardHome({
                 {personas.length} active
               </span>
             </div>
-            <div className="flex gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {personas.map((p) => (
                 <PersonaCard key={p.persona_id} p={p} />
               ))}
             </div>
           </section>
         )}
-      </div>
 
-      {/* ── COMMUNITY WALL — full bleed at the bottom ────────── */}
-      <section className="border-t border-parchment/10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-10 pt-8 pb-4">
-          <div className="flex items-baseline justify-between gap-4 mb-5">
-            <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-lg sm:text-xl">
-              The wall
-            </h2>
-            <Link href="/community" className="font-mono text-[10px] text-parchment/60 hover:text-signal tracking-widest uppercase">
-              See all →
+        {/* Empty-state nudge for users with zero personas */}
+        {loaded && !hasPersonas && (
+          <section className="border border-parchment/10 p-6 sm:p-8">
+            <p className="text-[11px] font-mono text-signal uppercase tracking-[0.18em] mb-4">
+              Get started
+            </p>
+            <p className="text-parchment text-lg mb-2">
+              Build your first synthetic person.
+            </p>
+            <p className="text-parchment/72 text-sm leading-relaxed mb-6">
+              A paragraph is enough. Describe who they are — life, work, what they care
+              about — and The Mind constructs a coherent person you can probe and chat with.
+            </p>
+            <Link
+              href="/generate"
+              className="inline-block bg-signal text-void font-condensed font-bold uppercase tracking-wider px-6 py-3"
+            >
+              Generate persona →
             </Link>
-          </div>
-        </div>
-        <div className="relative h-[40vh] sm:h-[45vh] overflow-hidden border-y border-parchment/5">
-          <LivePersonaWall />
-        </div>
-      </section>
-    </div>
+          </section>
+        )}
+      </div>
+    </AppShell>
   );
 }
 
@@ -207,7 +216,7 @@ function PersonaCard({ p }: { p: MyPersona }) {
   return (
     <Link
       href={`/persona/${p.persona_id}`}
-      className="group flex-shrink-0 w-[260px] sm:w-[280px] lg:w-auto snap-start border border-parchment/10 hover:border-signal/40 transition-colors flex flex-col"
+      className="group border border-parchment/10 hover:border-signal/40 transition-colors flex flex-col"
     >
       <div className="relative" style={{ aspectRatio: "4 / 5" }}>
         {p.portrait_url ? (
