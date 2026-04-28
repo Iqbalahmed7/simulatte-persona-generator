@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { API } from "@/lib/api";
 import AppShell from "./AppShell";
+import MobileActionGrid from "./MobileActionGrid";
+import LivePersonaWall from "./LivePersonaWall";
 
 interface MyPersona {
   persona_id: string;
@@ -22,6 +24,8 @@ interface MyPersona {
   age: number;
   city: string;
   country: string;
+  occupation?: string;
+  snippet?: string;
   portrait_url: string | null;
   probes_run: number;
   chats_had: number;
@@ -82,14 +86,16 @@ export default function DashboardHome({
     age: p.age,
     city: p.city,
     country: p.country,
+    occupation: p.occupation,
+    snippet: p.snippet,
     portrait_url: p.portrait_url,
   }));
 
   return (
     <AppShell personas={navPersonas} personasLeft={personasLeft} isAdmin={isAdmin}>
-      <div className="px-4 sm:px-8 lg:px-12 pt-8 sm:pt-12 pb-12 max-w-3xl mx-auto">
+      <div className="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-12 pb-12 max-w-3xl mx-auto">
         {/* Greeting */}
-        <section className="pb-8">
+        <section className="pb-6 sm:pb-8">
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
             YOUR MIND
           </p>
@@ -108,8 +114,16 @@ export default function DashboardHome({
           </p>
         </section>
 
+        {/* Mobile-only action grid — desktop has these in the NavRail */}
+        <section className="md:hidden pb-8">
+          <p className="text-[10px] font-mono text-static uppercase tracking-[0.18em] mb-3">
+            Actions
+          </p>
+          <MobileActionGrid personas={navPersonas} personasLeft={personasLeft} />
+        </section>
+
         {/* Allowance card — primary status block now that the action grid
-            has moved into the NavRail */}
+            has moved into the NavRail (or the mobile grid above) */}
         <section className="pb-10">
           <AllowanceCard allowance={allowance} loaded={loaded} />
         </section>
@@ -132,6 +146,24 @@ export default function DashboardHome({
             </div>
           </section>
         )}
+
+        {/* Mobile-only community wall — desktop has the right-rail ticker */}
+        <section className="md:hidden mt-10 pt-8 border-t border-parchment/10">
+          <div className="flex items-baseline justify-between gap-4 mb-4">
+            <h2 className="font-condensed font-bold text-parchment uppercase tracking-wider text-lg">
+              The wall
+            </h2>
+            <Link
+              href="/community"
+              className="font-mono text-[10px] text-static hover:text-signal tracking-widest uppercase"
+            >
+              See all →
+            </Link>
+          </div>
+          <div className="relative h-[60vh] overflow-hidden border border-parchment/10">
+            <LivePersonaWall />
+          </div>
+        </section>
 
         {/* Empty-state nudge for users with zero personas */}
         {loaded && !hasPersonas && (

@@ -27,6 +27,8 @@ interface MyPersona {
   city: string;
   country: string;
   portrait_url: string | null;
+  occupation?: string;
+  snippet?: string;
 }
 
 interface CommunityPersona {
@@ -36,6 +38,7 @@ interface CommunityPersona {
   city: string;
   country: string;
   portrait_url: string | null;
+  snippet?: string;
 }
 
 export default function PersonaPicker({
@@ -104,7 +107,10 @@ export default function PersonaPicker({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl bg-void border border-parchment/15 max-h-[85vh] overflow-y-auto">
+      <div
+        className="relative w-full max-w-2xl bg-void border border-parchment/15 overflow-y-auto"
+        style={{ maxHeight: "min(85vh, calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 32px))" }}
+      >
         <div className="flex items-start justify-between p-5 sm:p-6 border-b border-parchment/10 sticky top-0 bg-void z-10">
           <div className="min-w-0">
             <p className="text-[11px] font-mono text-signal uppercase tracking-[0.18em] mb-1">
@@ -200,10 +206,13 @@ export default function PersonaPicker({
 }
 
 function PersonaTile({ p, linkSuffix }: { p: MyPersona; linkSuffix: string }) {
+  const place = [p.city, p.country].filter(Boolean).join(", ");
+  // Qualifier line — occupation if we have it, otherwise snippet, otherwise location.
+  const qualifier = p.occupation || p.snippet || place;
   return (
     <Link
       href={`/persona/${p.persona_id}${linkSuffix}`}
-      className="group block border border-parchment/10 hover:border-signal/50 transition-colors"
+      className="group block border border-parchment/10 hover:border-signal/50 transition-colors flex flex-col"
     >
       <div className="relative" style={{ aspectRatio: "3 / 4" }}>
         {p.portrait_url ? (
@@ -222,14 +231,28 @@ function PersonaTile({ p, linkSuffix }: { p: MyPersona; linkSuffix: string }) {
           </div>
         )}
       </div>
-      <div className="p-2 border-t border-parchment/10">
-        <div className="font-condensed font-bold text-parchment text-sm truncate">
+      <div className="p-3 border-t border-parchment/10 flex-1 flex flex-col">
+        <div className="font-condensed font-bold text-parchment text-sm leading-tight truncate">
           {p.name || "—"}
           {p.age ? <span className="text-parchment/60 font-normal">, {p.age}</span> : null}
         </div>
-        <div className="font-mono text-[9px] text-static tracking-widest uppercase truncate">
-          {[p.city, p.country].filter(Boolean).join(", ") || "—"}
-        </div>
+        {place && (
+          <div className="font-mono text-[9px] text-static tracking-widest uppercase truncate mt-1">
+            {place}
+          </div>
+        )}
+        {qualifier && qualifier !== place && (
+          <div
+            className="text-parchment/72 text-[11px] leading-snug mt-2 overflow-hidden"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {qualifier}
+          </div>
+        )}
       </div>
     </Link>
   );

@@ -1603,6 +1603,10 @@ async def my_personas(
             continue  # purged or unloaded
         da = p.get("demographic_anchor") or {}
         loc = da.get("location") or {}
+        emp = da.get("employment") or {}
+        narrative = p.get("narrative") or {}
+        occupation = (emp.get("occupation") or "").strip()
+        snippet = ((narrative.get("third_person") or "").strip())[:140]
         # File mtime → expiry; default to 30d window from creation.
         path = _GENERATED_DIR / f"{pid}.json"
         try:
@@ -1630,6 +1634,8 @@ async def my_personas(
             "age": da.get("age", 0),
             "city": loc.get("city", ""),
             "country": loc.get("country", ""),
+            "occupation": occupation,
+            "snippet": snippet,
             "portrait_url": _GENERATED_PORTRAITS.get(pid),
             "probes_run": len(probe_count),
             "chats_had": len(chat_count),

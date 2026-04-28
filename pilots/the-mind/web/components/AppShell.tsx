@@ -24,6 +24,8 @@ interface MyPersona {
   city: string;
   country: string;
   portrait_url: string | null;
+  occupation?: string;
+  snippet?: string;
 }
 
 export default function AppShell({
