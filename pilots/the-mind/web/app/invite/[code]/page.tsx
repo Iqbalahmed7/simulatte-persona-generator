@@ -1,17 +1,20 @@
 /**
  * /invite/[code] — invite-link redemption.
  *
- * Server component. Validates the code against FastAPI; if valid, sets
- * the `invite_ok` cookie and **redirects** the visitor straight to
- * /sign-in (no interstitial click). The Auth.js sign-in page picks up
- * the cookie; once they finish Google OAuth, our backend's
- * get_current_user activates the pending account, mints a personal
- * reshare code, and records invited_by_user_id from this code.
+ * Server component. Validates the code against FastAPI; renders a tiny
+ * HTML splash with proper Open Graph metadata so WhatsApp / LinkedIn /
+ * iMessage show a brand-locked preview card when someone shares the
+ * link. The splash includes a meta-refresh + JS push to
+ * /invite/[code]/redeem, where the cookie + localStorage get set.
+ *
+ * We deliberately don't use a server-side redirect() here because that
+ * would return a 307 with no HTML body, and crawlers wouldn't see the
+ * og:image / og:title tags.
  *
  * Invalid / exhausted / inactive codes render an error page with a
- * mailto fallback so we don't dead-end the visitor.
+ * mailto fallback.
  */
-import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8001").trim();
@@ -32,6 +35,35 @@ async function checkCode(code: string): Promise<{
   }
 }
 
+export async function generateMetadata(props: {
+  params: Promise<{ code: string }>;
+}): Promise<Metadata> {
+  const { code } = await props.params;
+  const title = "You're invited to The Mind";
+  const description =
+    "Talk to a person who doesn't exist. The Mind generates a behaviourally coherent synthetic person from a paragraph — then lets you simulate any decision they'd make.";
+  const url = `https://mind.simulatte.io/invite/${encodeURIComponent(code)}`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "The Mind",
+      type: "website",
+      // The opengraph-image.tsx in this same segment is auto-attached
+      // by Next.js, so we don't need to spell out images here.
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    robots: { index: false, follow: false },
+  };
+}
+
 export default async function InvitePage(props: {
   params: Promise<{ code: string }>;
 }) {
@@ -39,10 +71,42 @@ export default async function InvitePage(props: {
   const result = await checkCode(code);
 
   if (result.valid) {
-    // Cookie writes aren't allowed in server components in Next.js 15 —
-    // hand off to the Route Handler at /invite/[code]/redeem which sets
-    // invite_ok and bounces to /sign-in.
-    redirect(`/invite/${encodeURIComponent(code)}/redeem`);
+    const target = `/invite/${encodeURIComponent(code)}/redeem`;
+    return (
+      <html lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width,initial-scale=1" />
+          <meta httpEquiv="refresh" content={`0;url=${target}`} />
+          <title>You&apos;re invited to The Mind</title>
+        </head>
+        <body
+          style={{
+            margin: 0,
+            background: "#050505",
+            color: "#E9E6DF",
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily:
+              "ui-monospace, SFMono-Regular, Menlo, monospace",
+            fontSize: 11,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+          }}
+        >
+          Redeeming invite…
+          <script
+            // Belt-and-braces — meta refresh fires anyway, but JS gets
+            // there a few ms faster on real browsers.
+            dangerouslySetInnerHTML={{
+              __html: `window.location.replace(${JSON.stringify(target)});`,
+            }}
+          />
+        </body>
+      </html>
+    );
   }
 
   const reasonCopy =
