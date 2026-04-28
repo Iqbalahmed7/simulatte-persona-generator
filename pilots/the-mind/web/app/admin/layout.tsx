@@ -36,9 +36,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <Link href="/admin/flagged" className="text-amber-400/70 hover:text-amber-400">Flagged</Link>
             </nav>
           </div>
-          <span className="text-[10px] font-mono text-parchment/40">
-            {admin.email}
-          </span>
+          <div className="flex items-baseline gap-4">
+            <Link
+              href="/dashboard"
+              className="text-[10px] font-mono text-signal hover:text-parchment uppercase tracking-widest"
+            >
+              ← Dashboard
+            </Link>
+            <span className="text-[10px] font-mono text-parchment/40">
+              {admin.email}
+            </span>
+          </div>
         </div>
       </header>
       <main className="max-w-7xl mx-auto px-6 py-8">{children}</main>
