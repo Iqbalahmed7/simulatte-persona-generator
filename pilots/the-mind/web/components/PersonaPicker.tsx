@@ -1,23 +1,35 @@
 /**
- * PersonaPicker — modal that lets a user pick an existing persona
- * (to chat with or run a probe against), or generate a new one.
+ * PersonaPicker — modal that lets a user pick who to ask / probe.
  *
- * Triggered from the dashboard sidebar's "Ask a question" / "Run a probe"
- * actions. Click an existing persona portrait → routes to that persona's
- * chat or probe page. Click "Build new" → /generate (their generation will
- * be available next; we don't yet auto-route to the chosen action after
- * generation, but that's a small future enhancement).
+ * Three paths in order of preference:
+ *   1. One of YOUR personas (if you have any)
+ *   2. A COMMUNITY persona from the wall (no allowance cost)
+ *   3. BUILD A NEW persona (counts against weekly allowance)
+ *
+ * For users with zero own personas (every brand-new invitee), paths 2
+ * and 3 keep the modal useful instead of dead-ending with just a
+ * "Build new" CTA.
  *
  * Mobile-friendly: portrait grid wraps; close on backdrop tap or Esc.
  */
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { API } from "@/lib/api";
 
 export type PickerMode = "chat" | "probe";
 
 interface MyPersona {
+  persona_id: string;
+  name: string;
+  age: number;
+  city: string;
+  country: string;
+  portrait_url: string | null;
+}
+
+interface CommunityPersona {
   persona_id: string;
   name: string;
   age: number;
@@ -35,6 +47,9 @@ export default function PersonaPicker({
   personas: MyPersona[];
   onClose: () => void;
 }) {
+  const [community, setCommunity] = useState<CommunityPersona[]>([]);
+  const [showAllCommunity, setShowAllCommunity] = useState(false);
+
   // Esc to close
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -44,14 +59,34 @@ export default function PersonaPicker({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  // Fetch community personas — no auth needed, the endpoint is public.
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API}/community/personas?limit=24`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((list) => {
+        if (cancelled) return;
+        const filtered = (Array.isArray(list) ? list : []).filter(
+          (p: CommunityPersona) => p.portrait_url && p.name,
+        );
+        setCommunity(filtered);
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, []);
+
   const titleVerb = mode === "chat" ? "ask" : "probe";
   const heading = mode === "chat" ? "Ask a question" : "Run a product probe";
   const sub =
     mode === "chat"
-      ? "Pick a persona to chat with, or build a new one tailored to your question."
-      : "Pick a persona to test your product against, or build a new one tailored to the brief.";
+      ? "Pick someone to chat with — your personas, the community wall, or a fresh build."
+      : "Pick someone to probe — your personas, the community wall, or a fresh build.";
   const linkSuffix = mode === "probe" ? "/probe" : "";
   const generateHref = `/generate?next=${mode === "probe" ? "probe" : "chat"}`;
+
+  const ownIds = new Set(personas.map((p) => p.persona_id));
+  const communityVisible = community.filter((c) => !ownIds.has(c.persona_id));
+  const communityCapped = showAllCommunity ? communityVisible : communityVisible.slice(0, 6);
 
   return (
     <div
@@ -70,7 +105,7 @@ export default function PersonaPicker({
 
       {/* Modal */}
       <div className="relative w-full max-w-2xl bg-void border border-parchment/15 max-h-[85vh] overflow-y-auto">
-        <div className="flex items-start justify-between p-5 sm:p-6 border-b border-parchment/10">
+        <div className="flex items-start justify-between p-5 sm:p-6 border-b border-parchment/10 sticky top-0 bg-void z-10">
           <div className="min-w-0">
             <p className="text-[11px] font-mono text-signal uppercase tracking-[0.18em] mb-1">
               {mode.toUpperCase()}
@@ -92,54 +127,57 @@ export default function PersonaPicker({
           </button>
         </div>
 
-        {/* Existing personas */}
+        {/* 1. YOUR personas — only when there's at least one */}
         {personas.length > 0 && (
           <div className="p-5 sm:p-6">
-            <p className="text-[10px] font-mono text-static tracking-widest uppercase mb-3">
-              {personas.length} persona{personas.length === 1 ? "" : "s"} you can {titleVerb}
+            <p className="text-[10px] font-mono text-signal tracking-widest uppercase mb-3">
+              Your personas · {personas.length}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {personas.map((p) => (
-                <Link
-                  key={p.persona_id}
-                  href={`/persona/${p.persona_id}${linkSuffix}`}
-                  className="group block border border-parchment/10 hover:border-signal/50 transition-colors"
-                >
-                  <div className="relative" style={{ aspectRatio: "3 / 4" }}>
-                    {p.portrait_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={p.portrait_url}
-                        alt=""
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-parchment/[0.04] flex items-center justify-center">
-                        <span className="font-mono text-[9px] text-static tracking-widest uppercase">
-                          No portrait
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-2 border-t border-parchment/10">
-                    <div className="font-condensed font-bold text-parchment text-sm truncate">
-                      {p.name || "—"}
-                      {p.age ? <span className="text-parchment/60 font-normal">, {p.age}</span> : null}
-                    </div>
-                    <div className="font-mono text-[9px] text-static tracking-widest uppercase truncate">
-                      {[p.city, p.country].filter(Boolean).join(", ") || "—"}
-                    </div>
-                  </div>
-                </Link>
+                <PersonaTile key={p.persona_id} p={p} linkSuffix={linkSuffix} />
               ))}
             </div>
           </div>
         )}
 
-        {/* Generate-new path */}
+        {/* 2. COMMUNITY personas */}
+        {communityVisible.length > 0 && (
+          <div className={
+            "p-5 sm:p-6 " + (personas.length > 0 ? "border-t border-parchment/10" : "")
+          }>
+            <div className="flex items-baseline justify-between gap-3 mb-3">
+              <p className="text-[10px] font-mono text-static tracking-widest uppercase">
+                From the community wall · {communityVisible.length}
+              </p>
+              {communityVisible.length > 6 && (
+                <button
+                  type="button"
+                  onClick={() => setShowAllCommunity((v) => !v)}
+                  className="text-[10px] font-mono text-static hover:text-signal tracking-widest uppercase"
+                >
+                  {showAllCommunity ? "Show less" : `Show all ${communityVisible.length}`}
+                </button>
+              )}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {communityCapped.map((p) => (
+                <PersonaTile key={p.persona_id} p={p} linkSuffix={linkSuffix} />
+              ))}
+            </div>
+            <p className="text-parchment/50 text-xs mt-4">
+              Community personas are free to {titleVerb} — they don&#x2019;t count against
+              your weekly persona allowance.
+            </p>
+          </div>
+        )}
+
+        {/* 3. Build new */}
         <div className={
-          "p-5 sm:p-6 " + (personas.length > 0 ? "border-t border-parchment/10" : "")
+          "p-5 sm:p-6 " +
+          (personas.length > 0 || communityVisible.length > 0
+            ? "border-t border-parchment/10"
+            : "")
         }>
           <p className="text-[10px] font-mono text-static tracking-widest uppercase mb-3">
             Or build someone new
@@ -158,5 +196,41 @@ export default function PersonaPicker({
         </div>
       </div>
     </div>
+  );
+}
+
+function PersonaTile({ p, linkSuffix }: { p: MyPersona; linkSuffix: string }) {
+  return (
+    <Link
+      href={`/persona/${p.persona_id}${linkSuffix}`}
+      className="group block border border-parchment/10 hover:border-signal/50 transition-colors"
+    >
+      <div className="relative" style={{ aspectRatio: "3 / 4" }}>
+        {p.portrait_url ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={p.portrait_url}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-parchment/[0.04] flex items-center justify-center">
+            <span className="font-mono text-[9px] text-static tracking-widest uppercase">
+              No portrait
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="p-2 border-t border-parchment/10">
+        <div className="font-condensed font-bold text-parchment text-sm truncate">
+          {p.name || "—"}
+          {p.age ? <span className="text-parchment/60 font-normal">, {p.age}</span> : null}
+        </div>
+        <div className="font-mono text-[9px] text-static tracking-widest uppercase truncate">
+          {[p.city, p.country].filter(Boolean).join(", ") || "—"}
+        </div>
+      </div>
+    </Link>
   );
 }
