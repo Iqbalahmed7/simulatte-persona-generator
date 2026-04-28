@@ -11,7 +11,6 @@ import { SignJWT } from "jose";
 import TopNav from "@/components/TopNav";
 import DashboardHome from "@/components/DashboardHome";
 import AccessGate from "@/components/AccessGate";
-import FeedbackModal from "@/components/FeedbackModal";
 
 export const dynamic = "force-dynamic";
 
@@ -48,7 +47,10 @@ export default async function DashboardPage() {
         <TopNav isAdmin={isAdmin} email={user.email ?? ""} />
       </div>
       <DashboardHome authToken={token} isAdmin={isAdmin} />
-      {!isAdmin && <FeedbackModal surface="general" />}
+      {/* NPS prompt deliberately NOT mounted here — it fires on probe
+          results pages where the user has actually exercised the
+          product. Asking "would you recommend?" before they've built
+          their first persona was a bad first impression. */}
     </AccessGate>
   );
 }
