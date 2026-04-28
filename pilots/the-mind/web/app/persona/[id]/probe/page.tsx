@@ -158,12 +158,12 @@ export default function ProbePage() {
 
   if (personaError) {
     return (
-      <main className="min-h-screen px-6 py-12 max-w-2xl mx-auto">
-        <Link href="/" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+      <main className="min-h-screen px-4 md:px-6 py-12 max-w-2xl mx-auto pb-[max(7rem,env(safe-area-inset-bottom)+5rem)] sm:pb-0">
+        <Link href="/" className="inline-flex items-center min-h-[44px] text-sm font-mono text-parchment/70 active:text-parchment transition-colors">
           ← Home
         </Link>
         <div className="mt-12 border border-parchment/10 p-6">
-          <p className="font-mono text-sm text-static">{personaError}</p>
+          <p className="font-mono text-base text-parchment/85 break-words">{personaError}</p>
         </div>
       </main>
     );
@@ -171,7 +171,7 @@ export default function ProbePage() {
 
   if (!persona) {
     return (
-      <main className="min-h-screen px-6 py-12 flex items-center justify-center">
+      <main className="min-h-screen px-6 py-12 flex items-center justify-center pb-[max(7rem,env(safe-area-inset-bottom)+5rem)] sm:pb-0">
         <div className="flex gap-1">
           {[0, 1, 2].map((i) => (
             <span key={i} className="w-2 h-2 bg-signal"
@@ -187,23 +187,23 @@ export default function ProbePage() {
 
   if (submitting) {
     return (
-      <main className="min-h-screen px-6 py-12 flex flex-col items-center justify-center gap-8">
-        <div className="text-center">
-          <p className="text-[11px] font-mono text-static uppercase tracking-widest mb-4">
+      <main className="min-h-screen px-4 md:px-6 py-12 flex flex-col items-center justify-center gap-8 pb-[max(7rem,env(safe-area-inset-bottom)+5rem)] sm:pb-0">
+        <div className="text-center max-w-full">
+          <p className="text-sm font-mono text-parchment/70 uppercase tracking-widest mb-4">
             Running Litmus Probe
           </p>
-          <h2 className="font-condensed font-bold text-parchment mb-2"
+          <h2 className="font-condensed font-bold text-parchment mb-2 break-words"
             style={{ fontSize: "clamp(24px,3vw,36px)" }}>
             {productName}
           </h2>
-          <p className="text-static text-sm mb-10">Testing against {da.name}</p>
+          <p className="text-parchment/70 text-base mb-10 break-words">Testing against {da.name}</p>
           <div className="flex gap-1.5 justify-center mb-6">
             {[0, 1, 2].map((i) => (
               <span key={i} className="w-2 h-2 bg-signal"
                 style={{ animation: `dot-pulse 1.2s ${i * 0.2}s ease-in-out infinite` }} />
             ))}
           </div>
-          <p className="font-mono text-[11px] text-static">{statusMsg}</p>
+          <p className="font-mono text-sm text-parchment/85 break-words">{statusMsg}</p>
           <div className="mt-6 flex gap-1 justify-center">
             {steps.map((_, i) => (
               <div key={i} className={`h-px w-8 transition-all ${i <= statusStep ? "bg-signal" : "bg-parchment/10"}`} />
@@ -216,23 +216,23 @@ export default function ProbePage() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-6 md:px-6 md:py-12 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between mb-10">
-        <Link href={`/persona/${id}`} className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+    <main className="min-h-screen px-4 py-6 md:px-6 md:py-12 max-w-2xl mx-auto pb-[max(7rem,env(safe-area-inset-bottom)+5rem)] sm:pb-0">
+      <div className="flex items-center justify-between mb-10 gap-3">
+        <Link href={`/persona/${id}`} className="inline-flex items-center min-h-[44px] text-sm font-mono text-parchment/80 active:text-parchment transition-colors min-w-0 truncate">
           ← Back to {da.name}
         </Link>
-        <span className="font-mono text-[10px] text-static">{id}</span>
+        <span className="font-mono text-xs text-parchment/60 shrink-0 truncate max-w-[120px]">{id}</span>
       </div>
 
       <div className="mb-8">
         <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mb-2">
           Litmus Probe
         </p>
-        <h1 className="font-condensed font-bold text-parchment leading-none mb-2"
+        <h1 className="font-condensed font-bold text-parchment leading-tight mb-2 break-words"
           style={{ fontSize: "clamp(28px,4vw,48px)" }}>
           Test a product with {firstName}
         </h1>
-        <p className="text-parchment/60 text-sm">
+        <p className="text-parchment/75 text-base break-words">
           {da.name} &middot; {da.age} &middot; {da.location.city}, {da.location.country}
         </p>
       </div>
@@ -240,7 +240,7 @@ export default function ProbePage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Product name */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Product name <span className="text-signal">*</span>
           </label>
           <input
@@ -250,19 +250,21 @@ export default function ProbePage() {
             required
             maxLength={120}
             placeholder="e.g. SleepScore Pro"
-            className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors"
+            style={{ fontSize: "16px" }}
+            className="w-full bg-transparent border border-parchment/20 px-4 py-3 min-h-[48px] text-base text-parchment placeholder-parchment/30 focus:outline-none focus:border-signal transition-colors"
           />
         </div>
 
         {/* Category */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Category <span className="text-signal">*</span>
           </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full bg-void border border-parchment/20 px-4 py-3 text-sm text-parchment focus:outline-none focus:border-signal transition-colors"
+            style={{ fontSize: "16px" }}
+            className="w-full bg-void border border-parchment/20 px-4 py-3 min-h-[48px] text-base text-parchment focus:outline-none focus:border-signal transition-colors"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>{c}</option>
@@ -272,7 +274,7 @@ export default function ProbePage() {
 
         {/* PDF brief upload — optional alternative to typing the description */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Product brief PDF <span className="ml-2 text-static/50 normal-case tracking-normal">— optional, replaces description</span>
           </label>
           <div
@@ -286,23 +288,23 @@ export default function ProbePage() {
                 : "border-parchment/15 hover:border-parchment/30"}`}
           >
             {pdfFile ? (
-              <div className="flex items-center justify-center gap-3">
-                <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
-                <span className="font-mono text-[10px] text-static">
+              <div className="flex flex-wrap items-center justify-center gap-3 min-w-0">
+                <span className="font-mono text-sm text-signal truncate min-w-0 max-w-full">↑ {pdfFile.name}</span>
+                <span className="font-mono text-sm text-parchment/70 shrink-0">
                   ({(pdfFile.size / 1024).toFixed(0)} KB)
                 </span>
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
-                  className="text-[10px] font-mono text-static hover:text-parchment/50"
+                  className="min-h-[44px] px-3 text-sm font-mono text-parchment/80 active:text-parchment shrink-0"
                 >
                   remove
                 </button>
               </div>
             ) : (
               <>
-                <p className="text-parchment/45 text-sm">Drop a product brief PDF here, or click to browse</p>
-                <p className="text-[10px] font-mono text-static mt-1">PDF only · max 10 MB</p>
+                <p className="text-parchment/75 text-base">Tap to upload a product brief PDF</p>
+                <p className="text-sm font-mono text-parchment/70 mt-1">PDF only · max 10 MB</p>
               </>
             )}
           </div>
@@ -317,7 +319,7 @@ export default function ProbePage() {
 
         {/* Description */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Description {!pdfFile && <span className="text-signal">*</span>}
             <span className="ml-2 text-static/50 normal-case tracking-normal">
               {pdfFile ? "optional — your PDF will provide context" : "50–2000 chars"}
@@ -333,14 +335,15 @@ export default function ProbePage() {
             placeholder={pdfFile
               ? "Optional: anything from the PDF you want to highlight or override."
               : "Describe the product: what it does, who it's for, key benefits, how it works..."}
-            className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors resize-none"
+            style={{ fontSize: "16px" }}
+            className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-base text-parchment placeholder-parchment/30 focus:outline-none focus:border-signal transition-colors resize-none"
           />
-          <p className="text-[10px] font-mono text-static mt-1 text-right">{description.length}/2000</p>
+          <p className="text-sm font-mono text-parchment/70 mt-1 text-right">{description.length}/2000</p>
         </div>
 
         {/* Claims */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Product claims
             <span className="ml-2 text-static/50 normal-case tracking-normal">up to 5</span>
           </label>
@@ -353,13 +356,15 @@ export default function ProbePage() {
                   onChange={(e) => updateClaim(i, e.target.value)}
                   maxLength={200}
                   placeholder={`Claim ${i + 1} — e.g. "Clinically proven to improve sleep by 40%"`}
-                  className="flex-1 bg-transparent border border-parchment/20 px-4 py-2.5 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors"
+                  style={{ fontSize: "16px" }}
+                  className="flex-1 min-w-0 bg-transparent border border-parchment/20 px-4 py-2.5 min-h-[44px] text-base text-parchment placeholder-parchment/30 focus:outline-none focus:border-signal transition-colors"
                 />
                 {claims.length > 1 && (
                   <button
                     type="button"
+                    aria-label="Remove claim"
                     onClick={() => removeClaim(i)}
-                    className="px-3 text-static hover:text-parchment/50 font-mono text-sm transition-colors border border-parchment/10 hover:border-parchment/20"
+                    className="min-w-[44px] min-h-[44px] px-3 shrink-0 text-parchment/70 active:text-parchment font-mono text-base transition-colors border border-parchment/15 active:border-parchment/40"
                   >
                     ×
                   </button>
@@ -371,7 +376,7 @@ export default function ProbePage() {
             <button
               type="button"
               onClick={addClaim}
-              className="mt-2 text-[10px] font-mono text-static hover:text-parchment/50 transition-colors uppercase tracking-widest"
+              className="mt-2 inline-flex items-center min-h-[44px] text-sm font-mono text-parchment/80 active:text-parchment transition-colors uppercase tracking-widest"
             >
               + Add claim
             </button>
@@ -380,7 +385,7 @@ export default function ProbePage() {
 
         {/* Price */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Price
           </label>
           <input
@@ -389,13 +394,14 @@ export default function ProbePage() {
             onChange={(e) => setPrice(e.target.value)}
             maxLength={60}
             placeholder="e.g. ₹4,999 or $49/mo"
-            className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors"
+            style={{ fontSize: "16px" }}
+            className="w-full bg-transparent border border-parchment/20 px-4 py-3 min-h-[48px] text-base text-parchment placeholder-parchment/30 focus:outline-none focus:border-signal transition-colors"
           />
         </div>
 
         {/* Image URL */}
         <div>
-          <label className="block text-[10px] font-mono text-static uppercase tracking-widest mb-2">
+          <label className="block text-xs font-mono text-parchment/75 uppercase tracking-widest mb-2">
             Product image URL
             <span className="ml-2 text-static/50 normal-case tracking-normal">optional</span>
           </label>
@@ -404,12 +410,13 @@ export default function ProbePage() {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://..."
-            className="w-full bg-transparent border border-parchment/20 px-4 py-3 text-sm text-parchment placeholder-static/40 focus:outline-none focus:border-signal transition-colors"
+            style={{ fontSize: "16px" }}
+            className="w-full bg-transparent border border-parchment/20 px-4 py-3 min-h-[48px] text-base text-parchment placeholder-parchment/30 focus:outline-none focus:border-signal transition-colors"
           />
         </div>
 
         {submitError && (
-          <p className="font-mono text-[11px] text-red-400 border border-red-400/20 px-4 py-3">
+          <p className="font-mono text-sm text-red-400 border border-red-400/30 px-4 py-3 break-words">
             {submitError}
           </p>
         )}
@@ -417,13 +424,13 @@ export default function ProbePage() {
         <button
           type="submit"
           disabled={submitting || !productName.trim() || description.length < 50}
-          className="w-full bg-signal text-void font-condensed font-bold px-6 py-4 hover:bg-signal/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full min-h-[52px] bg-signal text-void font-condensed font-bold px-6 py-4 active:bg-parchment transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          <span className="text-sm tracking-widest uppercase">
+          <span className="text-base tracking-widest uppercase">
             Run Litmus Probe &rarr;
           </span>
         </button>
-        <p className="text-[10px] font-mono text-static text-center">
+        <p className="text-sm font-mono text-parchment/70 text-center break-words">
           ~20 seconds &middot; 8 questions &middot; Reaction / Belief / Friction / Commitment
         </p>
       </form>

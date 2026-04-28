@@ -85,10 +85,10 @@ function GeneratePageInner() {
   }
 
   return (
-    <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-2xl mx-auto">
+    <main className="min-h-screen px-4 py-8 md:px-6 md:py-12 max-w-2xl mx-auto pb-[max(7rem,env(safe-area-inset-bottom)+5rem)] sm:pb-0">
       {/* Header */}
       <div className="mb-10">
-        <Link href="/dashboard" className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+        <Link href="/dashboard" className="inline-flex items-center min-h-[44px] text-sm font-mono text-parchment/70 active:text-parchment transition-colors">
           ← Back
         </Link>
         <p className="text-[11px] font-sans font-semibold tracking-widest uppercase text-signal mt-6 mb-3">
@@ -98,7 +98,7 @@ function GeneratePageInner() {
             style={{ fontSize: "clamp(36px,5vw,60px)" }}>
           Simulate a <span className="text-signal">person.</span>
         </h1>
-        <p className="text-parchment/60 text-base">
+        <p className="text-parchment/75 text-base leading-relaxed">
           Describe the person you want to simulate, in your own words. Or use the wizard if you&apos;d rather pick than type.
         </p>
       </div>
@@ -109,7 +109,7 @@ function GeneratePageInner() {
           <div className="flex gap-2 mb-8 border-b border-parchment/10">
             <button
               onClick={() => setMode("free")}
-              className={`px-5 py-3 text-sm font-medium tracking-wide transition-colors border-b-2 -mb-px
+              className={`px-5 min-h-[44px] py-3 text-base font-medium tracking-wide transition-colors border-b-2 -mb-px
                 ${mode === "free"
                   ? "border-signal text-parchment"
                   : "border-transparent text-parchment/45 hover:text-parchment/70"}`}
@@ -118,7 +118,7 @@ function GeneratePageInner() {
             </button>
             <button
               onClick={() => setMode("wizard")}
-              className={`px-5 py-3 text-sm font-medium tracking-wide transition-colors border-b-2 -mb-px
+              className={`px-5 min-h-[44px] py-3 text-base font-medium tracking-wide transition-colors border-b-2 -mb-px
                 ${mode === "wizard"
                   ? "border-signal text-parchment"
                   : "border-transparent text-parchment/45 hover:text-parchment/70"}`}
@@ -146,8 +146,8 @@ function GeneratePageInner() {
           <div className="space-y-4">
             {steps.map((s, i) => (
               <div key={i} className="flex items-center gap-3">
-                <span className="text-signal font-mono text-xs shrink-0">✓</span>
-                <span className="text-parchment/75 text-sm">{s}</span>
+                <span className="text-signal font-mono text-sm shrink-0">✓</span>
+                <span className="text-parchment/85 text-base break-words min-w-0">{s}</span>
               </div>
             ))}
             {!error && (
@@ -158,7 +158,7 @@ function GeneratePageInner() {
                       style={{ animation: `pulse 1.2s ${i * 0.2}s ease-in-out infinite` }} />
                   ))}
                 </span>
-                <span className="text-parchment/50 text-sm">Working…</span>
+                <span className="text-parchment/70 text-base">Working…</span>
               </div>
             )}
           </div>
@@ -171,7 +171,7 @@ function GeneratePageInner() {
               <p className="text-parchment text-base mb-4 leading-relaxed">{error}</p>
               <button
                 onClick={() => { setRunning(false); setError(""); }}
-                className="text-[11px] font-mono uppercase tracking-widest text-parchment/70 hover:text-signal transition-colors"
+                className="min-h-[44px] inline-flex items-center text-sm font-mono uppercase tracking-widest text-parchment/80 active:text-signal transition-colors"
               >
                 ← Try again
               </button>
@@ -269,12 +269,13 @@ function FreeBriefForm({
         <label className="block text-[11px] font-sans font-semibold tracking-widest uppercase text-static mb-2">
           Who do you want to simulate?
         </label>
-        <p className="text-xs text-parchment/40 mb-3">
+        <p className="text-sm text-parchment/70 mb-3">
           Be as specific or broad as you like — age, family, job, city, personality, values, habits.
         </p>
         <textarea
-          className="w-full bg-transparent border border-parchment/15 px-4 py-3 text-sm text-parchment
-                     placeholder-parchment/20 focus:outline-none focus:border-parchment/40 transition-colors resize-none"
+          className="w-full bg-transparent border border-parchment/15 px-4 py-3 text-base text-parchment
+                     placeholder-parchment/30 focus:outline-none focus:border-parchment/40 transition-colors resize-none"
+          style={{ fontSize: "16px" }}
           rows={6}
           placeholder={PLACEHOLDER}
           value={brief}
@@ -291,25 +292,25 @@ function FreeBriefForm({
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
           onDrop={handleFileDrop}
-          className={`border border-dashed px-6 py-8 text-center cursor-pointer transition-colors
+          className={`border border-dashed px-6 py-8 text-center cursor-pointer transition-colors min-h-[88px] flex items-center justify-center
             ${dragging ? "border-parchment/40 bg-parchment/5" : "border-parchment/15 hover:border-parchment/30"}`}
         >
           {pdfFile ? (
-            <div className="flex items-center justify-center gap-3">
-              <span className="font-mono text-xs text-signal">↑ {pdfFile.name}</span>
+            <div className="flex items-center justify-center gap-3 min-w-0 w-full">
+              <span className="font-mono text-sm text-signal truncate">↑ {pdfFile.name}</span>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
-                className="text-[10px] font-mono text-static hover:text-parchment/50"
+                className="text-sm font-mono text-parchment/70 active:text-parchment min-h-[44px] px-3 shrink-0"
               >
                 remove
               </button>
             </div>
           ) : (
-            <>
-              <p className="text-parchment/40 text-sm">Drop a PDF here, or click to browse</p>
-              <p className="text-[11px] font-mono text-static mt-1">PDF only · max 10 MB</p>
-            </>
+            <div>
+              <p className="text-parchment/75 text-base">Tap to upload a PDF</p>
+              <p className="text-sm font-mono text-parchment/70 mt-1">PDF only · max 10 MB</p>
+            </div>
           )}
         </div>
         <input
@@ -332,10 +333,10 @@ function FreeBriefForm({
               type="button"
               onClick={() => setDomain(d.value)}
               className={
-                "px-4 py-2 text-xs font-mono border transition-colors " +
+                "px-4 min-h-[44px] py-2 text-sm font-mono border transition-colors " +
                 (domain === d.value
                   ? "border-signal text-signal"
-                  : "border-parchment/15 text-static hover:border-parchment/30")
+                  : "border-parchment/15 text-parchment/70 active:border-parchment/40")
               }
             >
               {d.label}
@@ -353,8 +354,8 @@ function FreeBriefForm({
       <button
         type="submit"
         disabled={(!brief.trim() && !pdfFile) || submitting}
-        className="w-full py-4 font-condensed font-bold text-void bg-signal text-lg tracking-wide
-                   disabled:opacity-30 disabled:cursor-not-allowed hover:bg-parchment transition-colors"
+        className="w-full min-h-[52px] py-4 font-condensed font-bold text-void bg-signal text-lg tracking-wide
+                   disabled:opacity-30 disabled:cursor-not-allowed active:bg-parchment transition-colors"
       >
         Simulate this person →
       </button>

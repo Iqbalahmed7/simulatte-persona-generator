@@ -11,11 +11,12 @@
  * AllowanceProvider stays because AllowanceCounter (still used on a
  * couple of pages) reads from its context.
  */
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import Link from "next/link";
 import "./globals.css";
 import AllowanceProvider from "@/components/AllowanceProvider";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 // Plausible Analytics — loaded only if NEXT_PUBLIC_PLAUSIBLE_DOMAIN is
 // set. Privacy-respecting, cookie-less, no PII. Set the env var to
@@ -26,6 +27,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mind.simulatte.io"),
   title: "The Mind — Simulatte",
   description: "Talk to a person who doesn't exist. The Mind generates a behaviourally coherent synthetic person from a brief paragraph, then lets you simulate any decision they'd make.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    title: "The Mind",
+    statusBarStyle: "black-translucent",
+    capable: true,
+  },
   icons: {
     icon: "/favicon.svg",
     apple: "/apple-touch-icon.svg",
@@ -53,6 +60,15 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  // viewportFit=cover lets us paint into the iPhone notch / home-bar
+  // area; pages still respect env(safe-area-inset-*) for content.
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -70,13 +86,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AllowanceProvider>
           {children}
         </AllowanceProvider>
-        <footer className="border-t border-parchment/10 mt-16 py-6 text-center text-[10px] font-mono uppercase tracking-[0.18em] text-static/70">
+        <footer
+          className="border-t border-parchment/10 mt-16 py-6 text-center text-[10px] font-mono uppercase tracking-[0.18em] text-static/70"
+          style={{ paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
+        >
           <Link href="/privacy" className="hover:text-signal mx-3">Privacy</Link>
           <span className="text-parchment/20">·</span>
           <Link href="/terms" className="hover:text-signal mx-3">Terms</Link>
           <span className="text-parchment/20">·</span>
           <a href="mailto:mind@simulatte.io" className="hover:text-signal mx-3">Contact</a>
         </footer>
+        {/* Sticky mobile-only action bar — primary verbs always one tap
+            away. Hidden on marketing/auth routes via internal pathname
+            check; hidden on md+ via Tailwind. */}
+        <MobileBottomNav />
       </body>
     </html>
   );

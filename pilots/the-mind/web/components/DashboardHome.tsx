@@ -97,7 +97,7 @@ export default function DashboardHome({
 
   return (
     <AppShell personas={navPersonas} personasLeft={personasLeft} isAdmin={isAdmin}>
-      <div className="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-12 pb-12 max-w-3xl mx-auto">
+      <div className="px-4 sm:px-8 lg:px-12 pt-6 sm:pt-12 pb-28 sm:pb-12 max-w-3xl mx-auto">
         {/* Greeting */}
         <section className="pb-6 sm:pb-8">
           <p className="text-[11px] font-mono text-static uppercase tracking-[0.18em] mb-3">
