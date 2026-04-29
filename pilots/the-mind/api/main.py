@@ -228,6 +228,21 @@ _CHAT_RETENTION_DAYS = 90
 _GENERATED: dict[str, dict] = {}
 _GENERATED_DIR = _DATA_ROOT / "generated_personas"
 
+
+def _get_existing_names() -> set[str]:
+    """Return the set of full names (lowercased) already used by generated personas.
+
+    Reads from the in-memory _GENERATED cache which is pre-loaded from disk at
+    startup and kept in sync as new personas are saved.  Used to inject a
+    name-exclusion constraint into the generation prompt so duplicates are avoided.
+    """
+    names: set[str] = set()
+    for p in _GENERATED.values():
+        name = (p.get("demographic_anchor") or {}).get("name") or ""
+        if name:
+            names.add(name.strip().lower())
+    return names
+
 _EXEMPLAR_PORTRAITS: dict[str, str] = {}   # slug → fal.io URL (exemplar personas)
 _GENERATED_PORTRAITS: dict[str, str] = {}  # persona_id → fal.io URL (generated personas)
 
@@ -1447,6 +1462,7 @@ async def _generate_persona_direct(
     anchor: dict,
     domain: str,
     client: anthropic.AsyncAnthropic,
+    used_names: set[str] | None = None,
 ) -> dict:
     """Generate a persona via two parallel Haiku calls — ~30s vs 3+ min for the full pipeline.
 
@@ -1477,7 +1493,12 @@ async def _generate_persona_direct(
         f"Brief: {brief}"
     )
 
-    prompt_a = f"""{context}
+    _names_constraint = (
+        f"\nDo NOT use any of these names (already in use): {', '.join(sorted(used_names))}"
+        if used_names else ""
+    )
+
+    prompt_a = f"""{context}{_names_constraint}
 
 Generate a realistic persona. Return ONLY valid JSON with no markdown:
 {{
@@ -1991,6 +2012,7 @@ async def generate_persona_stream(
             anchor=anchor,
             domain=request.domain or domain,
             client=_client(),
+            used_names=_get_existing_names(),
         ))
 
         while not gen_task.done():
@@ -4934,6 +4956,7 @@ async def _seed_one(label: str, brief: str, admin_id: str, client, factory, fal_
             t1 = _t.time()
             persona = await _generate_persona_direct(
                 brief=brief, anchor=anchor, domain=domain, client=client,
+                used_names=_get_existing_names(),
             )
             t2 = _t.time()
             pid = persona["persona_id"]
