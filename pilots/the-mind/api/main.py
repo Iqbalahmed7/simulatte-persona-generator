@@ -5173,6 +5173,82 @@ async def admin_costs(
     }
 
 
+@app.post("/admin/backfill-embeddings")
+async def admin_backfill_embeddings(
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+):
+    """Re-embed seed memories for all personas that have zero-vector embeddings.
+
+    Safe to run repeatedly — skips personas that already have real embeddings.
+    Personas with no seed_memories at all are also skipped (they need a full
+    re-generation, not just a re-embed).
+    """
+    def _is_zero_vector(emb: list) -> bool:
+        if not emb:
+            return True
+        return all(v == 0.0 for v in emb)
+
+    if not _GENERATED_DIR.exists():
+        return {"backfilled": 0, "skipped": 0, "errors": []}
+
+    backfilled: list[str] = []
+    skipped: list[str] = []
+    errors: list[dict] = []
+
+    for path in sorted(_GENERATED_DIR.glob("*.json")):
+        try:
+            with open(path) as f:
+                persona = json.load(f)
+        except Exception as exc:
+            errors.append({"persona_id": path.stem, "error": str(exc)})
+            continue
+
+        seeds = persona.get("seed_memories") or []
+        if not seeds:
+            skipped.append(path.stem)
+            continue
+
+        # Check if any memory has a zero/missing embedding.
+        needs_embed = any(_is_zero_vector(s.get("embedding") or []) for s in seeds)
+        if not needs_embed:
+            skipped.append(path.stem)
+            continue
+
+        # Re-embed all memories in one batched call.
+        texts = [s["text"] for s in seeds if s.get("text")]
+        if not texts:
+            skipped.append(path.stem)
+            continue
+
+        try:
+            embeddings = await _embed_texts(texts)
+        except Exception as exc:
+            errors.append({"persona_id": path.stem, "error": f"embed failed: {exc}"})
+            continue
+
+        # Patch embeddings back in (zip preserves order).
+        text_iter = iter(embeddings)
+        for s in seeds:
+            if s.get("text"):
+                s["embedding"] = next(text_iter)
+        persona["seed_memories"] = seeds
+
+        # Atomic write.
+        try:
+            _save_generated_persona(persona)
+            backfilled.append(path.stem)
+            logger.info("[backfill-embeddings] re-embedded %s (%d memories)", path.stem, len(seeds))
+        except Exception as exc:
+            errors.append({"persona_id": path.stem, "error": f"save failed: {exc}"})
+
+    return {
+        "backfilled": len(backfilled),
+        "skipped": len(skipped),
+        "errors": errors,
+        "backfilled_ids": backfilled,
+    }
+
+
 # ── Rate limiting (per-IP / per-user sliding-window) ──────────────────────
 
 import time as _rl_time
