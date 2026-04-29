@@ -577,6 +577,60 @@ async def _ensure_invite_codes_table():
         logger.warning("[startup] invite_codes migration skipped: %s", exc)
 
 
+async def _ensure_chat_tables():
+    """Create chat_sessions + chat_messages tables if missing.
+
+    Mirrors `_ensure_invite_codes_table` style — raw SQL, idempotent,
+    no Alembic. Called from the startup hook below.
+    """
+    if not AUTH_ENABLED:
+        return
+    try:
+        from db import get_engine                          # noqa: PLC0415
+        from sqlalchemy import text as _sql                # noqa: PLC0415
+        engine = get_engine()
+        async with engine.begin() as conn:
+            await conn.execute(_sql("""
+                CREATE TABLE IF NOT EXISTS chat_sessions (
+                    id VARCHAR PRIMARY KEY,
+                    user_id VARCHAR NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+                    persona_id VARCHAR NOT NULL,
+                    started_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+                    last_message_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+                    message_count INTEGER NOT NULL DEFAULT 0,
+                    flagged_count INTEGER NOT NULL DEFAULT 0
+                )
+            """))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_chat_sessions_user_id ON chat_sessions (user_id)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_chat_sessions_persona_id ON chat_sessions (persona_id)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_chat_sessions_last_message_at ON chat_sessions (last_message_at)"
+            ))
+            await conn.execute(_sql("""
+                CREATE TABLE IF NOT EXISTS chat_messages (
+                    id VARCHAR PRIMARY KEY,
+                    session_id VARCHAR NOT NULL REFERENCES chat_sessions(id) ON DELETE CASCADE,
+                    role VARCHAR NOT NULL,
+                    content TEXT NOT NULL,
+                    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+                    flagged BOOLEAN NOT NULL DEFAULT false
+                )
+            """))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_chat_messages_session_id ON chat_messages (session_id)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_chat_messages_created_at ON chat_messages (created_at)"
+            ))
+        logger.info("[startup] chat_sessions + chat_messages ensured")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[startup] chat tables migration skipped: %s", exc)
+
+
 def _purge_old_generated(ttl_days: int = 30) -> int:
     """Delete generated-persona JSON files older than ttl_days. Idempotent.
 
@@ -631,6 +685,7 @@ async def lifespan(app: FastAPI):
     logger.info("[the-mind] %d generated personas loaded from disk", len(_GENERATED))
     await _ensure_moderation_columns()
     await _ensure_invite_codes_table()
+    await _ensure_chat_tables()
     _purge_old_generated()
 
     # Background TTL GC scheduler — re-runs the persona purge once every
@@ -1987,6 +2042,7 @@ async def chat_generated(
     # We allowance has already been incremented above; we deliberately keep
     # that — burning quota raises the cost of probing for bad output.
     # Defensive try/except: a moderation outage must NOT break chat flow.
+    reply_flagged = False
     try:
         await _enforce_and_log_moderation(reply, user, db, surface="chat_reply")
     except HTTPException as mod_exc:
@@ -1996,10 +2052,66 @@ async def chat_generated(
                 getattr(user, "email", "?"), persona_id,
             )
             reply = _CHAT_REFUSAL_TEMPLATE.format(name=name)
+            reply_flagged = True
         else:
             raise
     except Exception as exc:  # pragma: no cover — moderation infra failure
         logger.warning("[chat_generated] output moderation skipped: %s", exc)
+
+    # Persist the turn pair into chat_sessions + chat_messages. Best-effort:
+    # a DB hiccup MUST NOT break the chat reply flow, so wrap and continue.
+    try:
+        from db import ChatSession, ChatMessage   # noqa: PLC0415
+        from sqlalchemy import select as sa_select  # noqa: PLC0415
+        from datetime import datetime as _dt, timedelta as _td, timezone as _tz  # noqa: PLC0415
+        now = _dt.now(_tz.utc)
+        idle_cutoff = now - _td(minutes=30)
+        session_row = (
+            await db.execute(
+                sa_select(ChatSession)
+                .where(ChatSession.user_id == user.id)
+                .where(ChatSession.persona_id == persona_id)
+                .where(ChatSession.last_message_at > idle_cutoff)
+                .order_by(ChatSession.last_message_at.desc())
+                .limit(1)
+            )
+        ).scalar_one_or_none()
+        if session_row is None:
+            session_row = ChatSession(
+                user_id=user.id,
+                persona_id=persona_id,
+                started_at=now,
+                last_message_at=now,
+                message_count=0,
+                flagged_count=0,
+            )
+            db.add(session_row)
+            await db.flush()  # populate session_row.id
+        db.add(ChatMessage(
+            session_id=session_row.id,
+            role="user",
+            content=request.message,
+            created_at=now,
+            flagged=False,
+        ))
+        db.add(ChatMessage(
+            session_id=session_row.id,
+            role="persona",
+            content=reply,
+            created_at=now,
+            flagged=reply_flagged,
+        ))
+        session_row.last_message_at = now
+        session_row.message_count = (session_row.message_count or 0) + 2
+        if reply_flagged:
+            session_row.flagged_count = (session_row.flagged_count or 0) + 1
+        await db.commit()
+    except Exception as exc:  # pragma: no cover — persistence must not break chat
+        logger.warning("[chat_generated] chat persistence failed: %s", exc)
+        try:
+            await db.rollback()
+        except Exception:
+            pass
 
     return ChatResponse(
         reply=reply,
@@ -2946,6 +3058,175 @@ async def admin_user_detail(
         },
         "events": enriched,
     }
+
+
+# ── Admin: chat sessions (review + download) ─────────────────────────────
+
+def _persona_name_for(persona_id: str) -> str:
+    """Resolve a persona display name from cache or disk. Falls back to
+    'Persona' if neither hit (e.g. persona was purged after TTL).
+    """
+    p = _GENERATED.get(persona_id)
+    if p is None:
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    p = json.load(f)
+            except Exception:
+                p = None
+    if p is None:
+        return "Persona"
+    return ((p.get("demographic_anchor") or {}).get("name")) or "Persona"
+
+
+@app.get("/admin/users/{user_id}/chats")
+async def admin_user_chats(
+    user_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """List every chat session this user has had, joined with persona name."""
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+    from db import ChatSession  # noqa: PLC0415
+
+    rows = (
+        await db.execute(
+            sa_select(ChatSession)
+            .where(ChatSession.user_id == user_id)
+            .order_by(ChatSession.last_message_at.desc())
+            .limit(500)
+        )
+    ).scalars().all()
+    return [
+        {
+            "session_id": r.id,
+            "persona_id": r.persona_id,
+            "persona_name": _persona_name_for(r.persona_id),
+            "started_at": r.started_at.isoformat() if r.started_at else None,
+            "last_message_at": r.last_message_at.isoformat() if r.last_message_at else None,
+            "message_count": int(r.message_count or 0),
+            "flagged_count": int(r.flagged_count or 0),
+        }
+        for r in rows
+    ]
+
+
+@app.get("/admin/chats/{session_id}")
+async def admin_chat_detail(
+    session_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Full chat session payload — header + ordered messages."""
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+    from db import ChatSession, ChatMessage  # noqa: PLC0415
+
+    sess = (
+        await db.execute(sa_select(ChatSession).where(ChatSession.id == session_id))
+    ).scalar_one_or_none()
+    if sess is None:
+        raise HTTPException(404, detail="Chat session not found")
+    msgs = (
+        await db.execute(
+            sa_select(ChatMessage)
+            .where(ChatMessage.session_id == session_id)
+            .order_by(ChatMessage.created_at.asc())
+        )
+    ).scalars().all()
+    user_row = (
+        await db.execute(sa_select(User).where(User.id == sess.user_id))  # type: ignore
+    ).scalar_one_or_none()
+    persona_name = _persona_name_for(sess.persona_id)
+    return {
+        "session": {
+            "session_id": sess.id,
+            "user_id": sess.user_id,
+            "user_email": getattr(user_row, "email", None),
+            "persona_id": sess.persona_id,
+            "persona_name": persona_name,
+            "started_at": sess.started_at.isoformat() if sess.started_at else None,
+            "last_message_at": sess.last_message_at.isoformat() if sess.last_message_at else None,
+            "message_count": int(sess.message_count or 0),
+            "flagged_count": int(sess.flagged_count or 0),
+        },
+        "messages": [
+            {
+                "role": m.role,
+                "content": m.content,
+                "created_at": m.created_at.isoformat() if m.created_at else None,
+                "flagged": bool(m.flagged),
+            }
+            for m in msgs
+        ],
+    }
+
+
+@app.get("/admin/chats/{session_id}/download")
+async def admin_chat_download(
+    session_id: str,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Markdown export of a chat session, served as an attachment."""
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+    from db import ChatSession, ChatMessage  # noqa: PLC0415
+    from fastapi.responses import Response  # noqa: PLC0415
+
+    sess = (
+        await db.execute(sa_select(ChatSession).where(ChatSession.id == session_id))
+    ).scalar_one_or_none()
+    if sess is None:
+        raise HTTPException(404, detail="Chat session not found")
+    msgs = (
+        await db.execute(
+            sa_select(ChatMessage)
+            .where(ChatMessage.session_id == session_id)
+            .order_by(ChatMessage.created_at.asc())
+        )
+    ).scalars().all()
+    user_row = (
+        await db.execute(sa_select(User).where(User.id == sess.user_id))  # type: ignore
+    ).scalar_one_or_none()
+    persona_name = _persona_name_for(sess.persona_id)
+    user_email = getattr(user_row, "email", None) or "(unknown)"
+    started = sess.started_at.isoformat() if sess.started_at else "(unknown)"
+
+    lines: list[str] = []
+    lines.append(f"# Chat session — {persona_name}")
+    lines.append("")
+    lines.append(f"- User: {user_email}")
+    lines.append(f"- Persona: {persona_name} (id: `{sess.persona_id}`)")
+    lines.append(f"- Started: {started}")
+    lines.append(f"- Messages: {int(sess.message_count or 0)}")
+    if int(sess.flagged_count or 0) > 0:
+        lines.append(f"- Flagged messages: {int(sess.flagged_count)}")
+    lines.append("")
+    lines.append(
+        "_Disclosure: this transcript was persisted from a moderated chat session "
+        "with a synthetic persona on The Mind. Conversations are saved so users can "
+        "return to them, and admins may review them for safety._"
+    )
+    lines.append("")
+    lines.append("---")
+    lines.append("")
+    for m in msgs:
+        speaker = "You" if m.role == "user" else persona_name
+        prefix = f"**{speaker}:**"
+        body = (m.content or "").strip()
+        ts = m.created_at.isoformat() if m.created_at else ""
+        lines.append(f"{prefix} {body}")
+        if ts:
+            lines.append(f"`{ts}`{'  *(flagged)*' if m.flagged else ''}")
+        lines.append("")
+
+    body = "\n".join(lines)
+    filename = f"chat-{session_id[:8]}.md"
+    return Response(
+        content=body,
+        media_type="text/markdown; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 # ── Rate limiting (per-IP + per-user) ─────────────────────────────────────

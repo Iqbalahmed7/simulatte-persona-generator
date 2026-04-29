@@ -47,6 +47,18 @@ export async function adminFetch<T = unknown>(path: string): Promise<T | null> {
   return (await res.json()) as T;
 }
 
+/** Minted-token GET proxy that returns the raw Response — for streaming
+ *  attachments (markdown, csv) where the body shape is not JSON. */
+export async function adminGetRaw(path: string): Promise<Response> {
+  const user = await getAdminUser();
+  if (!user) return new Response('{"error":"forbidden"}', { status: 403 });
+  const token = await _mintToken(user);
+  return await fetch(`${ADMIN_API_BASE}${path}`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+}
+
 /** Minted-token POST proxy. Returns Response so the caller can decide on
  *  status / body shape. Used by /api/admin/* route handlers. */
 export async function adminPost(path: string, body?: unknown): Promise<Response> {

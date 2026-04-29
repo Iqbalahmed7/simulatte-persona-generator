@@ -2,6 +2,7 @@ import Link from "next/link";
 import { adminFetch } from "@/lib/admin";
 import BanControls from "@/components/admin/BanControls";
 import ProbeEventActions from "@/components/admin/ProbeEventActions";
+import UserChatSessions from "@/components/admin/UserChatSessions";
 
 interface UserDetail {
   user: {
@@ -46,6 +47,8 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         bannedReason={user.banned_reason ?? null}
         flaggedCount={user.flagged_count ?? 0}
       />
+
+      <UserChatSessions userId={user.id} />
 
       <h2 className="text-[11px] font-mono uppercase tracking-widest text-parchment/50 mb-4">
         Activity ({events.length})

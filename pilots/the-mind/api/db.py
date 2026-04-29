@@ -349,6 +349,71 @@ class Event(Base):
     )
 
 
+# ── Chat persistence ──────────────────────────────────────────────────────
+
+class ChatSession(Base):
+    """A continuous chat with a persona. New session minted on a 30-min idle
+    gap; otherwise messages append to the most recent session for the same
+    (user, persona) pair. Each session is reviewable in admin.
+    """
+    __tablename__ = "chat_sessions"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(
+        String,
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    persona_id = Column(String, nullable=False)
+    started_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    last_message_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    message_count = Column(Integer, nullable=False, default=0, server_default="0")
+    flagged_count = Column(Integer, nullable=False, default=0, server_default="0")
+
+    __table_args__ = (
+        Index("ix_chat_sessions_user_id", "user_id"),
+        Index("ix_chat_sessions_persona_id", "persona_id"),
+        Index("ix_chat_sessions_last_message_at", "last_message_at"),
+    )
+
+
+class ChatMessage(Base):
+    """One persisted user-turn or persona-turn message in a chat session.
+
+    role: "user" | "persona". Flagged means output moderation tripped on the
+    persona reply (or, if we ever flag inputs here, on the user message).
+    """
+    __tablename__ = "chat_messages"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    session_id = Column(
+        String,
+        ForeignKey("chat_sessions.id", ondelete="CASCADE"),
+        nullable=False,
+    )
+    role = Column(String, nullable=False)
+    content = Column(Text, nullable=False)
+    created_at = Column(
+        DateTime(timezone=True),
+        nullable=False,
+        default=lambda: datetime.now(timezone.utc),
+    )
+    flagged = Column(Boolean, nullable=False, default=False, server_default="false")
+
+    __table_args__ = (
+        Index("ix_chat_messages_session_id", "session_id"),
+        Index("ix_chat_messages_created_at", "created_at"),
+    )
+
+
 # ── Allowance limits (hard-coded, can be per-user later) ─────────────────
 
 LIMITS = {
