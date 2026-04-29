@@ -5235,7 +5235,7 @@ async def admin_backfill_embeddings(
 
         # Atomic write.
         try:
-            _save_generated_persona(persona)
+            _persist_generated_dict(persona)
             backfilled.append(path.stem)
             logger.info("[backfill-embeddings] re-embedded %s (%d memories)", path.stem, len(seeds))
         except Exception as exc:
