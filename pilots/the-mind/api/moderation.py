@@ -96,6 +96,41 @@ _AGE_AFTER_PATTERNS = [
 ]
 _AGE_REGEX = re.compile("|".join(_AGE_AFTER_PATTERNS), re.IGNORECASE)
 
+# Relational context tokens. When an "X year old" match is preceded (within
+# ~40 chars) by one of these, it's describing a family member of the persona
+# being generated, not the persona themselves — so we don't flag it.
+# Example: "...with her 2-year-old daughter Mira" → relational, allow.
+# Counter-example: "a 14 year old who likes..." → no relational cue, block.
+_RELATIONAL_CONTEXT = re.compile(
+    r"\b(?:daughter|son|sons|daughters|child|children|kid|kids|baby|babies|"
+    r"infant|infants|toddler|toddlers|newborn|newborns|"
+    r"niece|nieces|nephew|nephews|"
+    r"grandchild|grandchildren|grandson|grandsons|granddaughter|granddaughters|"
+    r"stepchild|stepchildren|stepson|stepdaughter|"
+    r"godchild|godson|goddaughter|"
+    r"sibling|siblings|brother|brothers|sister|sisters|"
+    r"parent|parents|mother|father|mom|dad|mum)\b",
+    re.IGNORECASE,
+)
+# Look back this many chars before the age match to find a relational cue.
+_RELATIONAL_LOOKBACK = 60
+# And forward this many chars after the match (for "...2-year-old daughter...").
+_RELATIONAL_LOOKAHEAD = 30
+
+
+def _is_relational_match(text: str, match: "re.Match[str]") -> bool:
+    """True if the age match describes a family member, not the persona.
+
+    Looks for offspring/sibling/parent nouns in a small window around the
+    match. We check both directions because briefs phrase it both ways:
+        "her 2-year-old daughter Mira"   (lookahead)
+        "their toddler son, who is 3"    (lookback)
+    """
+    start = max(0, match.start() - _RELATIONAL_LOOKBACK)
+    end = min(len(text), match.end() + _RELATIONAL_LOOKAHEAD)
+    window = text[start:end]
+    return bool(_RELATIONAL_CONTEXT.search(window))
+
 # ── Errors ────────────────────────────────────────────────────────────────
 
 @dataclass
@@ -154,9 +189,13 @@ def check_brief(text: str) -> ModerationResult:
 
     lowered = text.lower()
 
-    # 1. Underage
-    m = _AGE_REGEX.search(lowered)
-    if m:
+    # 1. Underage — iterate matches and skip ones in relational context
+    # (e.g. "her 2-year-old daughter Mira" describes the persona's child,
+    # not the persona). Block only if at least one match has no relational
+    # cue nearby.
+    for m in _AGE_REGEX.finditer(lowered):
+        if _is_relational_match(lowered, m):
+            continue
         return ModerationResult(
             flagged=True,
             reason="underage",

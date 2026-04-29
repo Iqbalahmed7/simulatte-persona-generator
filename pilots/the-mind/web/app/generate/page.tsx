@@ -76,11 +76,19 @@ function GeneratePageInner() {
       }, controller.signal);
     } catch (err: unknown) {
       // AbortError is intentional (unmount or timeout) — don't show as error.
-      if (err instanceof DOMException && err.name === "AbortError") return;
+      if (err instanceof DOMException && err.name === "AbortError") {
+        if (!navigated) setRunning(false);
+        return;
+      }
+      // Real error (moderation block, server failure, etc.). KEEP running=true
+      // so the dedicated amber "Couldn't generate" pane stays visible — that's
+      // where the moderation reason / failure message is shown prominently,
+      // with a "← Try again" button (line ~173) to reset both flags. Flipping
+      // running=false here would dump the user back on the form and the user
+      // would never see why their brief was rejected.
       setError(err instanceof Error ? err.message : "Unknown error");
     } finally {
       clearTimeout(timeoutId);
-      if (!navigated) setRunning(false);
     }
   }
 
