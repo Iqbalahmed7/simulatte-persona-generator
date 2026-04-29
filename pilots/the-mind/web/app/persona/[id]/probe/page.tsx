@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { fetchGeneratedPersona, runProbe, GeneratedPersona } from "@/lib/api";
+import { fetchGeneratedPersona, runProbe, parseProductBrief, GeneratedPersona } from "@/lib/api";
 
 const CATEGORIES = [
   "Consumer electronics",
@@ -45,6 +45,9 @@ export default function ProbePage() {
   const [pdfDragging, setPdfDragging] = useState(false);
   const pdfInputRef = useRef<HTMLInputElement>(null);
 
+  const [parsing, setParsing] = useState(false);
+  const [parseError, setParseError] = useState("");
+
   const [submitting, setSubmitting] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
   const [statusStep, setStatusStep] = useState(0);
@@ -61,16 +64,6 @@ export default function ProbePage() {
   const firstName = persona?.narrative?.display_name || persona?.demographic_anchor?.name?.split(" ")[0] || "them";
   const steps = STATUS_STEPS(firstName, category);
 
-  function handlePdfDrop(e: React.DragEvent) {
-    e.preventDefault();
-    setPdfDragging(false);
-    const f = e.dataTransfer.files[0];
-    if (f?.type === "application/pdf") setPdfFile(f);
-  }
-  function handlePdfPick(e: React.ChangeEvent<HTMLInputElement>) {
-    const f = e.target.files?.[0];
-    if (f?.type === "application/pdf") setPdfFile(f);
-  }
   function fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const r = new FileReader();
@@ -78,6 +71,40 @@ export default function ProbePage() {
       r.onerror = reject;
       r.readAsDataURL(file);
     });
+  }
+
+  async function handlePdfSelected(f: File) {
+    if (f.type !== "application/pdf") return;
+    setPdfFile(f);
+    setParseError("");
+    setParsing(true);
+    try {
+      const b64 = await fileToBase64(f);
+      const parsed = await parseProductBrief(b64, f.name);
+      // Pre-populate — only overwrite fields that are still empty
+      if (parsed.product_name && !productName) setProductName(parsed.product_name);
+      if (parsed.category && parsed.category !== "Other") setCategory(parsed.category);
+      if (parsed.description && !description) setDescription(parsed.description);
+      if (parsed.claims?.length && claims.every((c) => !c.trim())) {
+        setClaims(parsed.claims.length ? parsed.claims : [""]);
+      }
+      if (parsed.price && !price) setPrice(parsed.price);
+    } catch (err: unknown) {
+      setParseError(err instanceof Error ? err.message : "Couldn't parse PDF");
+    } finally {
+      setParsing(false);
+    }
+  }
+
+  function handlePdfDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setPdfDragging(false);
+    const f = e.dataTransfer.files[0];
+    if (f) handlePdfSelected(f);
+  }
+  function handlePdfPick(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (f) handlePdfSelected(f);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -287,7 +314,17 @@ export default function ProbePage() {
                 ? "border-parchment/40 bg-parchment/5"
                 : "border-parchment/15 hover:border-parchment/30"}`}
           >
-            {pdfFile ? (
+            {parsing ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="flex gap-1">
+                  {[0, 1, 2].map((i) => (
+                    <span key={i} className="w-1.5 h-1.5 bg-signal"
+                      style={{ animation: `dot-pulse 1.2s ${i * 0.2}s ease-in-out infinite` }} />
+                  ))}
+                </div>
+                <p className="font-mono text-sm text-parchment/70">Parsing brief…</p>
+              </div>
+            ) : pdfFile ? (
               <div className="flex flex-wrap items-center justify-center gap-3 min-w-0">
                 <span className="font-mono text-sm text-signal truncate min-w-0 max-w-full">↑ {pdfFile.name}</span>
                 <span className="font-mono text-sm text-parchment/70 shrink-0">
@@ -295,7 +332,7 @@ export default function ProbePage() {
                 </span>
                 <button
                   type="button"
-                  onClick={(e) => { e.stopPropagation(); setPdfFile(null); }}
+                  onClick={(e) => { e.stopPropagation(); setPdfFile(null); setParseError(""); }}
                   className="min-h-[44px] px-3 text-sm font-mono text-parchment/80 active:text-parchment shrink-0"
                 >
                   remove
@@ -315,7 +352,11 @@ export default function ProbePage() {
             className="hidden"
             onChange={handlePdfPick}
           />
+          <style>{`@keyframes dot-pulse { 0%,100%{opacity:.2} 50%{opacity:1} }`}</style>
         </div>
+        {parseError && (
+          <p className="font-mono text-xs text-amber-400 mt-2">{parseError}</p>
+        )}
 
         {/* Description */}
         <div>
@@ -423,7 +464,7 @@ export default function ProbePage() {
 
         <button
           type="submit"
-          disabled={submitting || !productName.trim() || description.length < 50}
+          disabled={submitting || parsing || !productName.trim() || (!pdfFile && description.length < 50)}
           className="w-full min-h-[52px] bg-signal text-void font-condensed font-bold px-6 py-4 active:bg-parchment transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <span className="text-base tracking-widest uppercase">

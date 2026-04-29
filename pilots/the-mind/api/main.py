@@ -3010,6 +3010,122 @@ def _load_persona_for_probe(persona_id: str) -> dict:
     return _GENERATED[persona_id]
 
 
+class ParseBriefRequest(BaseModel):
+    pdf_content: str   # base64-encoded PDF
+    filename: str = "brief.pdf"
+
+
+class ParseBriefResponse(BaseModel):
+    product_name: str = ""
+    category: str = ""
+    description: str = ""
+    claims: list[str] = []
+    price: str = ""
+
+
+_PARSE_BRIEF_CATEGORIES = [
+    "Consumer electronics", "Food & beverage", "Health & wellness",
+    "Fashion & apparel", "Home & living", "Beauty & personal care",
+    "Financial services", "Software / SaaS", "Mobility & transport",
+    "Education & learning", "Entertainment & media", "Travel & hospitality",
+    "Other",
+]
+
+_PARSE_BRIEF_PROMPT = """You are extracting structured product information from a product brief PDF.
+
+Return ONLY a JSON object with these fields (all optional — use empty string / empty array if not found):
+{
+  "product_name": "exact product name",
+  "category": "one of the allowed categories",
+  "description": "clear description of what the product is and does (200-500 words if possible)",
+  "claims": ["claim 1", "claim 2"],
+  "price": "price string e.g. $49/mo or ₹4,999"
+}
+
+Allowed categories: """ + ", ".join(_PARSE_BRIEF_CATEGORIES) + """
+
+Rules:
+- product_name: the main product/service name, not the company name
+- description: synthesise from the brief; aim for 200+ chars
+- claims: marketing claims or key benefits, max 5 items
+- price: as written in the document; empty string if not found
+- category: pick the closest match from the allowed list
+
+Respond with raw JSON only. No markdown, no explanation."""
+
+
+@app.post("/parse-product-brief", response_model=ParseBriefResponse)
+async def parse_product_brief(
+    req: ParseBriefRequest,
+    _user: User = Depends(get_current_user),  # type: ignore  # noqa: F821
+):
+    """Extract structured product fields from a PDF brief using Claude.
+
+    Used by the probe form to auto-populate fields on PDF upload.
+    Fast / cheap — uses claude-haiku, single call, no streaming.
+    """
+    import base64 as _b64
+
+    try:
+        pdf_bytes = _b64.b64decode(req.pdf_content)
+    except Exception:
+        raise HTTPException(status_code=422, detail="Invalid base64 PDF content")
+
+    if len(pdf_bytes) > 10 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="PDF too large (max 10 MB)")
+
+    client = _client()
+    try:
+        resp = await client.messages.create(
+            model="claude-haiku-4-5",
+            max_tokens=1024,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "document",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "application/pdf",
+                                "data": req.pdf_content,
+                            },
+                        },
+                        {"type": "text", "text": _PARSE_BRIEF_PROMPT},
+                    ],
+                }
+            ],
+        )
+    except Exception as exc:
+        logger.warning("[parse-product-brief] Claude call failed: %s", exc)
+        raise HTTPException(status_code=502, detail="Failed to parse brief")
+
+    raw = resp.content[0].text.strip()
+    # Strip ```json fences if model adds them despite instructions
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[a-z]*\n?", "", raw)
+        raw = re.sub(r"\n?```$", "", raw)
+
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError:
+        logger.warning("[parse-product-brief] JSON parse failed: %s", raw[:200])
+        raise HTTPException(status_code=502, detail="Could not parse brief response")
+
+    # Normalise category to allowed list
+    cat = data.get("category", "")
+    if cat not in _PARSE_BRIEF_CATEGORIES:
+        cat = "Other"
+
+    return ParseBriefResponse(
+        product_name=str(data.get("product_name", ""))[:120],
+        category=cat,
+        description=str(data.get("description", ""))[:2000],
+        claims=[str(c)[:200] for c in (data.get("claims") or [])[:5]],
+        price=str(data.get("price", ""))[:60],
+    )
+
+
 @app.post("/generated/{persona_id}/probe", response_model=ProbeResult)
 async def run_probe(
     persona_id: str,

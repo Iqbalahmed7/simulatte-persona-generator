@@ -319,6 +319,31 @@ export interface ProbeSummary {
   created_at: string;
 }
 
+export interface ParsedProductBrief {
+  product_name: string;
+  category: string;
+  description: string;
+  claims: string[];
+  price: string;
+}
+
+export async function parseProductBrief(
+  pdfContent: string,
+  filename: string,
+): Promise<ParsedProductBrief> {
+  const headers = await _authHeaders();
+  const res = await fetch(`${API}/parse-product-brief`, {
+    method: "POST",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ pdf_content: pdfContent, filename }),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as { detail?: string }).detail ?? `Parse failed (${res.status})`);
+  }
+  return res.json();
+}
+
 export async function runProbe(
   personaId: string,
   brief: {
