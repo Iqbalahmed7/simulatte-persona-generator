@@ -33,6 +33,7 @@ export default function GeneratedChatPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [resumedFrom, setResumedFrom] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,6 +43,52 @@ export default function GeneratedChatPage() {
       .catch((e: unknown) =>
         setError(e instanceof Error ? e.message : "Could not load persona"),
       );
+  }, [id]);
+
+  // Rehydrate from active session (if any) on mount. Same-origin proxy:
+  // /api/generated/[id]/chats/active. Silent on failure — empty state is fine.
+  useEffect(() => {
+    if (!id) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`/api/generated/${id}/chats/active`, {
+          cache: "no-store",
+        });
+        if (!res.ok) return;
+        const data = (await res.json()) as {
+          session_id: string | null;
+          messages: { role: string; content: string; created_at: string | null }[];
+          last_message_at?: string | null;
+        };
+        if (cancelled) return;
+        if (data.session_id && data.messages?.length) {
+          const hydrated: Message[] = data.messages.map((m) => ({
+            role: m.role === "persona" ? "persona" : "user",
+            text: m.content,
+          }));
+          setMessages(hydrated);
+          // Resumed-from timeago label.
+          const ts = data.last_message_at;
+          if (ts) {
+            const diffMs = Date.now() - new Date(ts).getTime();
+            const mins = Math.max(1, Math.round(diffMs / 60000));
+            setResumedFrom(
+              mins < 60
+                ? `${mins}m ago`
+                : `${Math.round(mins / 60)}h ago`,
+            );
+          } else {
+            setResumedFrom("earlier");
+          }
+        }
+      } catch {
+        // ignore — start with empty state
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
   useEffect(() => {
@@ -171,6 +218,11 @@ export default function GeneratedChatPage() {
 
       {/* Message thread */}
       <div className="flex-1 space-y-6 mb-6">
+        {resumedFrom && messages.length > 0 && (
+          <p className="text-[10px] font-mono text-static uppercase tracking-widest">
+            Resumed from {resumedFrom}
+          </p>
+        )}
         {messages.map((msg, idx) => (
           <div key={idx}>
             {msg.role === "user" ? (

@@ -2182,12 +2182,53 @@ async def chat_generated(
     client = _client()
     chat_model = os.environ.get("CHAT_MODEL", "claude-sonnet-4-5")
 
+    # ── Resolve active session + load history BEFORE the model call ──
+    # Hoisted from the post-write block so the persona has memory turn-to-turn.
+    # active = a session for (user, persona) with last_message_at within 30min.
+    from db import ChatSession, ChatMessage  # noqa: PLC0415
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz  # noqa: PLC0415
+
+    now = _dt.now(_tz.utc)
+    idle_cutoff = now - _td(minutes=30)
+    session_row = None
+    history: list[dict] = []
+    try:
+        session_row = (
+            await db.execute(
+                sa_select(ChatSession)
+                .where(ChatSession.user_id == user.id)
+                .where(ChatSession.persona_id == persona_id)
+                .where(ChatSession.last_message_at > idle_cutoff)
+                .order_by(ChatSession.last_message_at.desc())
+                .limit(1)
+            )
+        ).scalar_one_or_none()
+        if session_row is not None:
+            # Pull last 12 messages (asc), then translate role: "persona" →
+            # "assistant" for the Anthropic API. Only include role+content.
+            rows = (await db.execute(
+                sa_select(ChatMessage)
+                .where(ChatMessage.session_id == session_row.id)
+                .order_by(ChatMessage.created_at.desc())
+                .limit(12)
+            )).scalars().all()
+            rows = list(reversed(rows))  # asc
+            for r in rows:
+                api_role = "assistant" if r.role == "persona" else "user"
+                history.append({"role": api_role, "content": r.content})
+    except Exception as exc:
+        logger.warning("[chat_generated] history load failed: %s", exc)
+        history = []
+
+    api_messages = list(history) + [{"role": "user", "content": request.message}]
+
     try:
         msg = await client.messages.create(
             model=chat_model,
             max_tokens=600,
             system=system_prompt,
-            messages=[{"role": "user", "content": request.message}],
+            messages=api_messages,
         )
         reply = msg.content[0].text if msg.content else ""
     except Exception as e:
@@ -2218,22 +2259,12 @@ async def chat_generated(
 
     # Persist the turn pair into chat_sessions + chat_messages. Best-effort:
     # a DB hiccup MUST NOT break the chat reply flow, so wrap and continue.
+    # Note: session_row was resolved BEFORE the model call so history could be
+    # loaded; we reuse it here (or create a fresh one if the lookup failed/none
+    # was active). `now` was set above too — we refresh `now` here so the
+    # persisted timestamp reflects post-call wall-clock.
     try:
-        from db import ChatSession, ChatMessage   # noqa: PLC0415
-        from sqlalchemy import select as sa_select  # noqa: PLC0415
-        from datetime import datetime as _dt, timedelta as _td, timezone as _tz  # noqa: PLC0415
         now = _dt.now(_tz.utc)
-        idle_cutoff = now - _td(minutes=30)
-        session_row = (
-            await db.execute(
-                sa_select(ChatSession)
-                .where(ChatSession.user_id == user.id)
-                .where(ChatSession.persona_id == persona_id)
-                .where(ChatSession.last_message_at > idle_cutoff)
-                .order_by(ChatSession.last_message_at.desc())
-                .limit(1)
-            )
-        ).scalar_one_or_none()
         if session_row is None:
             session_row = ChatSession(
                 user_id=user.id,
@@ -2795,6 +2826,98 @@ async def run_probe(
         _probe_word_of_mouth(system_prompt, product_brief, client),
     )
 
+    # ── Reconciliation pass ──
+    # The 8 sub-calls run independently and can contradict (e.g. high
+    # believability + low purchase intent + euphoric WoM). Ask the same
+    # persona to read its own verdicts and rewrite them coherently.
+    # Anthropic SDK (current) doesn't accept response_format — we instruct
+    # JSON-only in the prompt and parse defensively. On ANY failure, fall
+    # back to the raw 8 — never break the probe.
+    try:
+        def _fmt(label, val):
+            try:
+                return f"{label}: {json.dumps(val, ensure_ascii=False)}"
+            except Exception:
+                return f"{label}: {val}"
+
+        raw_verdicts_str = "\n".join([
+            _fmt("purchase_intent", purchase_intent),
+            _fmt("first_impression", first_impression),
+            _fmt("claim_believability", claim_believability_raw),
+            _fmt("differentiation", differentiation),
+            _fmt("top_objection", top_objection),
+            _fmt("trust_signals_needed", trust_signals_raw),
+            _fmt("price_willingness", price_willingness),
+            _fmt("word_of_mouth", word_of_mouth),
+        ])
+
+        recon_user = (
+            "You just gave 8 verdicts on this product. Here they are:\n\n"
+            f"{raw_verdicts_str}\n\n"
+            "Read them all. If any contradict each other, fix them so they "
+            "reflect a coherent stance. Specifically:\n"
+            "  - High claim believability + low purchase intent should be "
+            "explained in top_objection.\n"
+            "  - Word-of-mouth tone should match purchase intent (don't "
+            "enthusiastically recommend a 3/10).\n"
+            "  - Top objection should reflect what's actually blocking a "
+            "purchase given the believability scores.\n\n"
+            "Return ONLY a JSON object with the same 8 fields, reconciled. "
+            "Do not add new fields. Keep your tone consistent with who you "
+            "are. The 8 fields (with their shapes) are:\n"
+            '  "purchase_intent": {"score": <int 1-10>, "rationale": "<string>"}\n'
+            '  "first_impression": {"adjectives": ["<word>", ...], "feeling": "<string>"}\n'
+            '  "claim_believability": [{"claim": "<string>", "score": <int 1-10>, "comment": "<string>"}, ...]\n'
+            '  "differentiation": {"score": <int 1-10>, "comment": "<string>"}\n'
+            '  "top_objection": "<string>"\n'
+            '  "trust_signals_needed": ["<string>", ...]\n'
+            '  "price_willingness": {"wtp_low": "<string>", "wtp_high": "<string>", "reaction": "<string>"}\n'
+            '  "word_of_mouth": {"likelihood": <int 1-10>, "what_theyd_say": "<string>"}'
+        )
+
+        recon_msg = await client.messages.create(
+            model=os.environ.get("CHAT_MODEL", "claude-sonnet-4-5"),
+            max_tokens=2048,
+            system=[{"type": "text", "text": system_prompt, "cache_control": {"type": "ephemeral"}}],
+            messages=[{"role": "user", "content": recon_user}],
+        )
+        recon_raw = recon_msg.content[0].text if recon_msg.content else ""
+        recon_obj: dict | None = None
+        try:
+            recon_obj = json.loads(recon_raw)
+        except Exception:
+            import re as _re
+            m = _re.search(r"\{[\s\S]+\}", recon_raw)
+            if m:
+                try:
+                    recon_obj = json.loads(m.group(0))
+                except Exception:
+                    recon_obj = None
+
+        required = {
+            "purchase_intent", "first_impression", "claim_believability",
+            "differentiation", "top_objection", "trust_signals_needed",
+            "price_willingness", "word_of_mouth",
+        }
+        if isinstance(recon_obj, dict) and required.issubset(recon_obj.keys()):
+            purchase_intent = recon_obj["purchase_intent"]
+            first_impression = recon_obj["first_impression"]
+            claim_believability_raw = recon_obj["claim_believability"]
+            differentiation = recon_obj["differentiation"]
+            top_objection = recon_obj["top_objection"]
+            trust_signals_raw = recon_obj["trust_signals_needed"]
+            price_willingness = recon_obj["price_willingness"]
+            word_of_mouth = recon_obj["word_of_mouth"]
+            logger.info("[probe] reconciliation applied for %s", persona_id)
+        else:
+            logger.warning(
+                "[probe] reconciliation skipped (parse/schema fail) for %s",
+                persona_id,
+            )
+    except Exception as exc:
+        logger.warning("[probe] reconciliation step failed: %s", exc)
+        # Fall through with the raw 8 verdicts — never break the probe.
+
     # Normalise claim_believability into ClaimVerdict list
     claim_verdicts: list[ClaimVerdict] = []
     for item in (claim_believability_raw or []):
@@ -2890,6 +3013,69 @@ async def get_probe(
     except Exception as exc:  # pragma: no cover
         logger.warning("[get_probe] DB fallback failed for %s: %s", probe_id, exc)
     raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found")
+
+
+@app.get("/generated/{persona_id}/chats/active")
+async def get_active_chat_session(
+    persona_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Return the currently-active chat session for (user, persona).
+
+    Active = a session with last_message_at within the last 30 minutes.
+    Used by the chat page to rehydrate UI state after a refresh. If none
+    exists, returns {session_id: None, messages: []}.
+    """
+    from db import ChatSession, ChatMessage  # noqa: PLC0415
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz  # noqa: PLC0415
+
+    now = _dt.now(_tz.utc)
+    idle_cutoff = now - _td(minutes=30)
+    try:
+        session_row = (
+            await db.execute(
+                sa_select(ChatSession)
+                .where(ChatSession.user_id == user.id)
+                .where(ChatSession.persona_id == persona_id)
+                .where(ChatSession.last_message_at > idle_cutoff)
+                .order_by(ChatSession.last_message_at.desc())
+                .limit(1)
+            )
+        ).scalar_one_or_none()
+    except Exception as exc:
+        logger.warning("[chats/active] session lookup failed: %s", exc)
+        return {"session_id": None, "messages": []}
+
+    if session_row is None:
+        return {"session_id": None, "messages": []}
+
+    try:
+        rows = (await db.execute(
+            sa_select(ChatMessage)
+            .where(ChatMessage.session_id == session_row.id)
+            .order_by(ChatMessage.created_at.asc())
+        )).scalars().all()
+    except Exception as exc:
+        logger.warning("[chats/active] message load failed: %s", exc)
+        rows = []
+
+    def _iso(v):
+        try:
+            return v.isoformat() if v is not None else None
+        except Exception:
+            return None
+
+    return {
+        "session_id": session_row.id,
+        "messages": [
+            {"role": r.role, "content": r.content, "created_at": _iso(r.created_at)}
+            for r in rows
+        ],
+        "started_at": _iso(session_row.started_at),
+        "last_message_at": _iso(session_row.last_message_at),
+    }
 
 
 @app.get("/generated/{persona_id}/probes")
