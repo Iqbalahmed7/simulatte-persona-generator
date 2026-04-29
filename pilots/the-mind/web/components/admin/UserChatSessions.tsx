@@ -1,6 +1,10 @@
 "use client";
 
-import Link from "next/link";
+// Admins see chat-session METADATA only — counts, timing, flag totals.
+// Per-message content is intentionally not exposed here. Chats are
+// persisted server-side for user-experience continuity (resume across
+// refreshes); they are not a surveillance surface.
+
 import { useEffect, useState } from "react";
 
 interface ChatSessionRow {
@@ -68,7 +72,6 @@ export default function UserChatSessions({ userId }: { userId: string }) {
                 <th className="px-3 py-2 border-b border-parchment/10">Last message</th>
                 <th className="px-3 py-2 border-b border-parchment/10 text-right">Messages</th>
                 <th className="px-3 py-2 border-b border-parchment/10 text-right">Flagged</th>
-                <th className="px-3 py-2 border-b border-parchment/10 text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -90,14 +93,6 @@ export default function UserChatSessions({ userId }: { userId: string }) {
                     }`}
                   >
                     {r.flagged_count}
-                  </td>
-                  <td className="px-3 py-2 text-right">
-                    <Link
-                      href={`/admin/chats/${r.session_id}`}
-                      className="font-mono text-[11px] text-signal hover:underline"
-                    >
-                      open ↗
-                    </Link>
                   </td>
                 </tr>
               ))}

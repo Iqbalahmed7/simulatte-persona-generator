@@ -238,9 +238,6 @@ export default function GeneratedChatPage() {
         </button>
       </div>
 
-      <p className="mt-2 text-[10px] font-mono uppercase tracking-widest text-static">
-        Conversations are saved so you can return to them. Admins may review for safety.
-      </p>
     </div>
   );
 }

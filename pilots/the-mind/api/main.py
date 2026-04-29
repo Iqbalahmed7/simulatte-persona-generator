@@ -3112,121 +3112,13 @@ async def admin_user_chats(
     ]
 
 
-@app.get("/admin/chats/{session_id}")
-async def admin_chat_detail(
-    session_id: str,
-    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
-    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
-):
-    """Full chat session payload — header + ordered messages."""
-    from sqlalchemy import select as sa_select  # noqa: PLC0415
-    from db import ChatSession, ChatMessage  # noqa: PLC0415
-
-    sess = (
-        await db.execute(sa_select(ChatSession).where(ChatSession.id == session_id))
-    ).scalar_one_or_none()
-    if sess is None:
-        raise HTTPException(404, detail="Chat session not found")
-    msgs = (
-        await db.execute(
-            sa_select(ChatMessage)
-            .where(ChatMessage.session_id == session_id)
-            .order_by(ChatMessage.created_at.asc())
-        )
-    ).scalars().all()
-    user_row = (
-        await db.execute(sa_select(User).where(User.id == sess.user_id))  # type: ignore
-    ).scalar_one_or_none()
-    persona_name = _persona_name_for(sess.persona_id)
-    return {
-        "session": {
-            "session_id": sess.id,
-            "user_id": sess.user_id,
-            "user_email": getattr(user_row, "email", None),
-            "persona_id": sess.persona_id,
-            "persona_name": persona_name,
-            "started_at": sess.started_at.isoformat() if sess.started_at else None,
-            "last_message_at": sess.last_message_at.isoformat() if sess.last_message_at else None,
-            "message_count": int(sess.message_count or 0),
-            "flagged_count": int(sess.flagged_count or 0),
-        },
-        "messages": [
-            {
-                "role": m.role,
-                "content": m.content,
-                "created_at": m.created_at.isoformat() if m.created_at else None,
-                "flagged": bool(m.flagged),
-            }
-            for m in msgs
-        ],
-    }
-
-
-@app.get("/admin/chats/{session_id}/download")
-async def admin_chat_download(
-    session_id: str,
-    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
-    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
-):
-    """Markdown export of a chat session, served as an attachment."""
-    from sqlalchemy import select as sa_select  # noqa: PLC0415
-    from db import ChatSession, ChatMessage  # noqa: PLC0415
-    from fastapi.responses import Response  # noqa: PLC0415
-
-    sess = (
-        await db.execute(sa_select(ChatSession).where(ChatSession.id == session_id))
-    ).scalar_one_or_none()
-    if sess is None:
-        raise HTTPException(404, detail="Chat session not found")
-    msgs = (
-        await db.execute(
-            sa_select(ChatMessage)
-            .where(ChatMessage.session_id == session_id)
-            .order_by(ChatMessage.created_at.asc())
-        )
-    ).scalars().all()
-    user_row = (
-        await db.execute(sa_select(User).where(User.id == sess.user_id))  # type: ignore
-    ).scalar_one_or_none()
-    persona_name = _persona_name_for(sess.persona_id)
-    user_email = getattr(user_row, "email", None) or "(unknown)"
-    started = sess.started_at.isoformat() if sess.started_at else "(unknown)"
-
-    lines: list[str] = []
-    lines.append(f"# Chat session — {persona_name}")
-    lines.append("")
-    lines.append(f"- User: {user_email}")
-    lines.append(f"- Persona: {persona_name} (id: `{sess.persona_id}`)")
-    lines.append(f"- Started: {started}")
-    lines.append(f"- Messages: {int(sess.message_count or 0)}")
-    if int(sess.flagged_count or 0) > 0:
-        lines.append(f"- Flagged messages: {int(sess.flagged_count)}")
-    lines.append("")
-    lines.append(
-        "_Disclosure: this transcript was persisted from a moderated chat session "
-        "with a synthetic persona on The Mind. Conversations are saved so users can "
-        "return to them, and admins may review them for safety._"
-    )
-    lines.append("")
-    lines.append("---")
-    lines.append("")
-    for m in msgs:
-        speaker = "You" if m.role == "user" else persona_name
-        prefix = f"**{speaker}:**"
-        body = (m.content or "").strip()
-        ts = m.created_at.isoformat() if m.created_at else ""
-        lines.append(f"{prefix} {body}")
-        if ts:
-            lines.append(f"`{ts}`{'  *(flagged)*' if m.flagged else ''}")
-        lines.append("")
-
-    body = "\n".join(lines)
-    filename = f"chat-{session_id[:8]}.md"
-    return Response(
-        content=body,
-        media_type="text/markdown; charset=utf-8",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-    )
+# NOTE: Two prior endpoints — GET /admin/chats/{session_id} and
+# GET /admin/chats/{session_id}/download — were intentionally REMOVED.
+# Persisted chat content is no longer exposed to admins. Only the
+# session-metadata endpoint /admin/users/{user_id}/chats remains
+# (counts + timing + flag totals, no message bodies). Chats are saved
+# server-side for user-experience continuity (resume across refreshes),
+# not as an admin surveillance surface.
 
 
 # ── Rate limiting (per-IP + per-user) ─────────────────────────────────────
