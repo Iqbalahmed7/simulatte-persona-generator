@@ -53,8 +53,24 @@ class RateGovernor:
         # Throttle state: when was it activated?
         self._throttle_start: float | None = None
 
-        # Lock for concurrent safety
-        self._lock = asyncio.Lock()
+        # Lock for concurrent safety — stored as None so it is created lazily
+        # inside the running event loop. Loop-rotation detection in _get_lock()
+        # prevents "Future attached to a different loop" when the process reuses
+        # this singleton across multiple asyncio.run() calls.
+        self._lock: asyncio.Lock | None = None
+
+    def _get_lock(self) -> asyncio.Lock:
+        if self._lock is not None:
+            bound_loop = getattr(self._lock, "_loop", None)
+            if bound_loop is not None:
+                try:
+                    if asyncio.get_running_loop() is not bound_loop:
+                        self._lock = None
+                except RuntimeError:
+                    self._lock = None
+        if self._lock is None:
+            self._lock = asyncio.Lock()
+        return self._lock
 
     async def acquire(
         self,
@@ -82,7 +98,7 @@ class RateGovernor:
 
         async def _acquire_body() -> None:
             while True:
-                async with self._lock:
+                async with self._get_lock():
                     now = time.monotonic()
 
                     # Check if throttle period (60s) has expired
@@ -173,7 +189,6 @@ class RateGovernor:
 
 # Module-level singleton
 _governor: RateGovernor | None = None
-_governor_lock = asyncio.Lock()
 
 
 def get_governor() -> RateGovernor:

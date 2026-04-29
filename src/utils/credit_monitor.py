@@ -61,7 +61,22 @@ class CreditMonitor:
         self._api_calls = 0
         self._last_polled_calls = 0
         self._monitor_task: asyncio.Task[None] | None = None
-        self._lock = asyncio.Lock()
+        # Lazy lock — created on first use to avoid binding to the wrong event
+        # loop when the singleton is reused across multiple asyncio.run() calls.
+        self._lock: asyncio.Lock | None = None
+
+    def _get_lock(self) -> asyncio.Lock:
+        if self._lock is not None:
+            bound_loop = getattr(self._lock, "_loop", None)
+            if bound_loop is not None:
+                try:
+                    if asyncio.get_running_loop() is not bound_loop:
+                        self._lock = None
+                except RuntimeError:
+                    self._lock = None
+        if self._lock is None:
+            self._lock = asyncio.Lock()
+        return self._lock
         self._polling_available = True
         self._polling_unavailable_reason: str | None = None
         self._polling_warning_emitted = False
@@ -206,7 +221,7 @@ class CreditMonitor:
         while not self._halt.requested:
             try:
                 if (self._api_calls - self._last_polled_calls) >= self.poll_every_calls:
-                    async with self._lock:
+                    async with self._get_lock():
                         if (self._api_calls - self._last_polled_calls) >= self.poll_every_calls:
                             self._last_polled_calls = self._api_calls
                             balance = await self.fetch_balance_usd()
