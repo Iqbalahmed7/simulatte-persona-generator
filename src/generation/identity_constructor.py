@@ -154,8 +154,15 @@ class IdentityConstructor:
         self.llm = llm_client
         self.model = model
 
+        # Attribute filling is mechanical (discrete categoricals) so we use a
+        # cheaper model by default — ~12× less expensive on output tokens.
+        # Override via PG_FILLER_MODEL env var; set to GENERATION_MODEL value
+        # to use a single model for everything.
+        import os as _os
+        filler_model = _os.getenv("PG_FILLER_MODEL", "claude-haiku-4-5-20251001")
+
         # Step 1 component — always available (Sprint 1).
-        self.filler = AttributeFiller(llm_client, model)
+        self.filler = AttributeFiller(llm_client, filler_model)
 
         # Validator — always available (Sprint 1).
         self.validator = PersonaValidator()
