@@ -207,6 +207,14 @@ _PERSONAS: dict[str, PersonaRecord] = {}
 _DATA_ROOT = Path(os.environ.get("MIND_DATA_DIR", str(_HERE.parent))).resolve()
 _DATA_ROOT.mkdir(parents=True, exist_ok=True)
 
+# Retention window for chat_messages and idle chat_sessions. 90 days is
+# long enough to support legitimate "let me revisit my persona conversation
+# from last quarter" use cases without growing chat tables unboundedly.
+# Persona JSONs already auto-purge at 30 days (see _purge_old_generated);
+# chats can outlive their personas because the persistence layer is
+# best-effort and the persona-load fallback handles 404s gracefully.
+_CHAT_RETENTION_DAYS = 90
+
 _GENERATED: dict[str, dict] = {}
 _GENERATED_DIR = _DATA_ROOT / "generated_personas"
 
@@ -677,6 +685,41 @@ def _purge_old_generated(ttl_days: int = 30) -> int:
     return removed
 
 
+async def _purge_old_chat_messages(ttl_days: int = _CHAT_RETENTION_DAYS) -> tuple[int, int]:
+    """Delete chat_messages older than ttl_days and idle chat_sessions.
+
+    Sibling to ``_purge_old_generated`` but for the database. Failures are
+    logged and swallowed so a DB hiccup doesn't block startup or kill the
+    daily GC loop. Returns (messages_deleted, sessions_deleted).
+    """
+    from datetime import datetime as _dt, timedelta as _td, timezone as _tz
+    cutoff = _dt.now(_tz.utc) - _td(days=ttl_days)
+    msgs_deleted = 0
+    sessions_deleted = 0
+    try:
+        from db import ChatMessage, ChatSession, get_session_factory  # noqa: PLC0415
+        from sqlalchemy import delete as sa_delete  # noqa: PLC0415
+        factory = get_session_factory()
+        async with factory() as session:
+            res_msgs = await session.execute(
+                sa_delete(ChatMessage).where(ChatMessage.created_at < cutoff)
+            )
+            msgs_deleted = res_msgs.rowcount or 0
+            res_sess = await session.execute(
+                sa_delete(ChatSession).where(ChatSession.last_message_at < cutoff)
+            )
+            sessions_deleted = res_sess.rowcount or 0
+            await session.commit()
+        if msgs_deleted or sessions_deleted:
+            logger.info(
+                "[ttl] purged %d chat_messages and %d chat_sessions older than %dd",
+                msgs_deleted, sessions_deleted, ttl_days,
+            )
+    except Exception as exc:  # pragma: no cover — fail open per spec
+        logger.warning("[ttl] chat purge skipped: %s", exc)
+    return msgs_deleted, sessions_deleted
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     personas = _load_all()
@@ -687,6 +730,7 @@ async def lifespan(app: FastAPI):
     await _ensure_invite_codes_table()
     await _ensure_chat_tables()
     _purge_old_generated()
+    await _purge_old_chat_messages()
 
     # Background TTL GC scheduler — re-runs the persona purge once every
     # 24h. Cheap (just stat()s files), idempotent, and stops cleanly when
@@ -697,6 +741,11 @@ async def lifespan(app: FastAPI):
                 await asyncio.sleep(24 * 60 * 60)
                 removed = _purge_old_generated()
                 logger.info("[ttl-gc] daily sweep removed %d personas", removed)
+                msgs, sess = await _purge_old_chat_messages()
+                logger.info(
+                    "[ttl-gc] daily sweep removed %d chat_messages, %d chat_sessions",
+                    msgs, sess,
+                )
             except asyncio.CancelledError:
                 raise
             except Exception:
