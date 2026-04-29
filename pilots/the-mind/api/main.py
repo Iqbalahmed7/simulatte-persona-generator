@@ -639,6 +639,113 @@ async def _ensure_chat_tables():
         logger.warning("[startup] chat tables migration skipped: %s", exc)
 
 
+async def _ensure_probes_table():
+    """Create probes table if missing — raw SQL, idempotent.
+
+    Mirrors `_ensure_chat_tables` style. Persists ProbeResult JSONs into
+    Postgres so they survive Railway redeploys / volume resets.
+    """
+    if not AUTH_ENABLED:
+        return
+    try:
+        from db import get_engine                          # noqa: PLC0415
+        from sqlalchemy import text as _sql                # noqa: PLC0415
+        engine = get_engine()
+        async with engine.begin() as conn:
+            await conn.execute(_sql("""
+                CREATE TABLE IF NOT EXISTS probes (
+                    id VARCHAR PRIMARY KEY,
+                    user_id VARCHAR REFERENCES users(id) ON DELETE SET NULL,
+                    persona_id VARCHAR,
+                    persona_name VARCHAR,
+                    product_name VARCHAR,
+                    category VARCHAR,
+                    purchase_intent_score INTEGER,
+                    top_objection TEXT,
+                    payload TEXT,
+                    created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
+                )
+            """))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_probes_user_id ON probes (user_id)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_probes_persona_id ON probes (persona_id)"
+            ))
+            await conn.execute(_sql(
+                "CREATE INDEX IF NOT EXISTS ix_probes_created_at ON probes (created_at)"
+            ))
+        logger.info("[startup] probes table ensured")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[startup] probes migration skipped: %s", exc)
+
+
+async def _backfill_probes_from_disk() -> int:
+    """One-shot: walk _PROBES_DIR for pr-*.json and insert any missing Probe rows.
+
+    Idempotent — checks each probe_id with a SELECT before inserting. Skips
+    silently if _PROBES_DIR doesn't exist or DB is unavailable.
+    """
+    if not AUTH_ENABLED:
+        return 0
+    if not _PROBES_DIR.exists():
+        return 0
+    inserted = 0
+    try:
+        from db import Probe, get_session_factory  # noqa: PLC0415
+        from sqlalchemy import select as sa_select  # noqa: PLC0415
+        factory = get_session_factory()
+        async with factory() as session:
+            for path in _PROBES_DIR.rglob("pr-*.json"):
+                try:
+                    with open(path, encoding="utf-8") as f:
+                        data = json.load(f)
+                    pid = data.get("probe_id") or path.stem
+                    existing = (await session.execute(
+                        sa_select(Probe.id).where(Probe.id == pid)
+                    )).scalar_one_or_none()
+                    if existing:
+                        continue
+                    pi = data.get("purchase_intent") or {}
+                    score = pi.get("score")
+                    try:
+                        score_int = int(score) if score is not None else None
+                    except Exception:
+                        score_int = None
+                    created_at_raw = data.get("created_at")
+                    created_dt = None
+                    if isinstance(created_at_raw, str):
+                        try:
+                            from datetime import datetime as _dt  # noqa: PLC0415
+                            created_dt = _dt.fromisoformat(
+                                created_at_raw.replace("Z", "+00:00")
+                            )
+                        except Exception:
+                            created_dt = None
+                    session.add(Probe(
+                        id=pid,
+                        user_id=None,  # disk JSON doesn't store user_id
+                        persona_id=data.get("persona_id"),
+                        persona_name=data.get("persona_name"),
+                        product_name=data.get("product_name"),
+                        category=data.get("category"),
+                        purchase_intent_score=score_int,
+                        top_objection=(data.get("top_objection") or None),
+                        payload=json.dumps(data, ensure_ascii=False),
+                        **({"created_at": created_dt} if created_dt else {}),
+                    ))
+                    inserted += 1
+                except Exception as exc:  # pragma: no cover
+                    logger.warning("[backfill] probe %s skipped: %s", path, exc)
+            if inserted:
+                await session.commit()
+        if inserted:
+            logger.info("[backfill] inserted %d probes from disk", inserted)
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[backfill] probes backfill skipped: %s", exc)
+    return inserted
+
+
 def _purge_old_generated(ttl_days: int = 30) -> int:
     """Delete generated-persona JSON files older than ttl_days. Idempotent.
 
@@ -729,6 +836,8 @@ async def lifespan(app: FastAPI):
     await _ensure_moderation_columns()
     await _ensure_invite_codes_table()
     await _ensure_chat_tables()
+    await _ensure_probes_table()
+    await _backfill_probes_from_disk()
     _purge_old_generated()
     await _purge_old_chat_messages()
 
@@ -2720,29 +2829,66 @@ async def run_probe(
         created_at=created_at,
     )
 
-    # Persist probe result
+    # Persist probe result — disk JSON (legacy backup) + Postgres (durable).
     probe_dir = _PROBES_DIR / persona_id
     probe_dir.mkdir(parents=True, exist_ok=True)
     with open(probe_dir / f"{probe_id}.json", "w", encoding="utf-8") as f:
         json.dump(result.model_dump(), f, ensure_ascii=False)
+
+    try:
+        from db import Probe  # noqa: PLC0415
+        payload_str = json.dumps(result.model_dump(), ensure_ascii=False)
+        db.add(Probe(
+            id=probe_id,
+            user_id=user.id,
+            persona_id=persona_id,
+            persona_name=getattr(result, "persona_name", None) or _persona_name_for(persona_id),
+            product_name=request.product_name,
+            category=request.category,
+            purchase_intent_score=(
+                int(getattr(result.purchase_intent, "score", 0) or 0)
+                if hasattr(result, "purchase_intent") else None
+            ),
+            top_objection=getattr(result, "top_objection", None),
+            payload=payload_str,
+        ))
+        await db.commit()
+    except Exception as exc:
+        logger.warning("[probe] DB persist failed for %s: %s", probe_id, exc)
+        # Don't fail the response — disk write succeeded.
 
     logger.info("[probe] %s for persona %s saved", probe_id, persona_id)
     return result
 
 
 @app.get("/probes/{probe_id}", response_model=ProbeResult)
-async def get_probe(probe_id: str):
+async def get_probe(
+    probe_id: str,
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
     """Fetch a probe result by ID — public, no auth, used by share page."""
-    if not _PROBES_DIR.exists():
-        raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found")
-    for probe_path in _PROBES_DIR.glob(f"*/{probe_id}.json"):
-        try:
-            with open(probe_path, encoding="utf-8") as f:
-                data = json.load(f)
+    # Disk first (legacy + zero DB load for the common path).
+    if _PROBES_DIR.exists():
+        for probe_path in _PROBES_DIR.glob(f"*/{probe_id}.json"):
+            try:
+                with open(probe_path, encoding="utf-8") as f:
+                    data = json.load(f)
+                return ProbeResult(**data)
+            except Exception as exc:
+                logger.warning("[get_probe] failed to load %s: %s", probe_path, exc)
+                break  # fall through to DB
+    # DB fallback — survives Railway redeploys that wipe disk.
+    try:
+        from db import Probe  # noqa: PLC0415
+        from sqlalchemy import select as sa_select  # noqa: PLC0415
+        row = (await db.execute(
+            sa_select(Probe).where(Probe.id == probe_id)
+        )).scalar_one_or_none()
+        if row and row.payload:
+            data = json.loads(row.payload)
             return ProbeResult(**data)
-        except Exception as exc:
-            logger.warning("[get_probe] failed to load %s: %s", probe_path, exc)
-            raise HTTPException(status_code=500, detail="Failed to load probe")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[get_probe] DB fallback failed for %s: %s", probe_id, exc)
     raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found")
 
 
@@ -2952,40 +3098,49 @@ async def admin_probes(
     db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
     limit: int = 100,
 ):
-    """List recent probes joined with creator email + verdict summary."""
+    """List recent probes from Postgres, enriched with creator email."""
+    from db import Probe  # noqa: PLC0415
     from sqlalchemy import select as sa_select
-    events = (
+    rows = (
         await db.execute(
-            sa_select(Event, User)  # type: ignore  # noqa: F821
-            .join(User, Event.user_id == User.id)  # type: ignore  # noqa: F821
-            .where(Event.type == EventType.probe_run)  # type: ignore  # noqa: F821
-            .order_by(Event.created_at.desc())  # type: ignore  # noqa: F821
+            sa_select(Probe, User)  # type: ignore  # noqa: F821
+            .outerjoin(User, Probe.user_id == User.id)  # type: ignore  # noqa: F821
+            .order_by(Probe.created_at.desc())
             .limit(limit)
         )
     ).all()
     out = []
-    for ev, usr in events:
-        probe_id = ev.ref_id or ""
-        # Probes are sharded under _PROBES_DIR/<persona_id>/<probe_id>.json
-        # Find the file by glob.
-        probe_data: dict = {}
-        for path in _PROBES_DIR.rglob(f"{probe_id}.json"):
+    for probe, usr in rows:
+        product_name = probe.product_name
+        category = probe.category or ""
+        score = probe.purchase_intent_score
+        top_objection = (probe.top_objection or "")[:200]
+        persona_name = probe.persona_name or ""
+        # Legacy fallback: row predates DB persistence — try disk for the
+        # missing fields. Doesn't 500 if disk is also gone.
+        if not product_name:
             try:
-                with open(path, encoding="utf-8") as f:
-                    probe_data = json.load(f)
-                break
+                for path in _PROBES_DIR.rglob(f"{probe.id}.json"):
+                    with open(path, encoding="utf-8") as f:
+                        pd = json.load(f)
+                    pi = pd.get("purchase_intent") or {}
+                    product_name = product_name or pd.get("product_name")
+                    category = category or pd.get("category", "")
+                    score = score if score is not None else pi.get("score")
+                    top_objection = top_objection or (pd.get("top_objection") or "")[:200]
+                    persona_name = persona_name or pd.get("persona_name", "")
+                    break
             except Exception:
                 pass
-        pi = probe_data.get("purchase_intent") or {}
         out.append({
-            "probe_id": probe_id,
-            "product_name": probe_data.get("product_name", "(missing)"),
-            "category": probe_data.get("category", ""),
-            "purchase_intent": pi.get("score"),
-            "top_objection": probe_data.get("top_objection", "")[:200],
-            "persona_name": probe_data.get("persona_name", ""),
-            "creator_email": usr.email,
-            "created_at": ev.created_at.isoformat() if ev.created_at else None,
+            "probe_id": probe.id,
+            "product_name": product_name or "(missing)",
+            "category": category,
+            "purchase_intent": score,
+            "top_objection": top_objection,
+            "persona_name": persona_name,
+            "creator_email": usr.email if usr else None,
+            "created_at": probe.created_at.isoformat() if probe.created_at else None,
         })
     return out
 
@@ -3566,13 +3721,25 @@ async def download_probe(
         if owner_event is None:
             raise HTTPException(status_code=403, detail="not your probe")
 
-    # Mirror the lookup logic used by GET /probes/{probe_id}.
-    if not _PROBES_DIR.exists():
+    # Mirror the lookup logic used by GET /probes/{probe_id}: disk first,
+    # DB fallback so probes survive Railway redeploys.
+    payload: str | None = None
+    if _PROBES_DIR.exists():
+        candidates = list(_PROBES_DIR.glob(f"*/{probe_id}.json"))
+        if candidates:
+            payload = candidates[0].read_text(encoding="utf-8")
+    if payload is None:
+        try:
+            from db import Probe  # noqa: PLC0415
+            row = (await db.execute(
+                sa_select(Probe).where(Probe.id == probe_id)
+            )).scalar_one_or_none()
+            if row and row.payload:
+                payload = row.payload
+        except Exception as exc:  # pragma: no cover
+            logger.warning("[download_probe] DB fallback failed for %s: %s", probe_id, exc)
+    if payload is None:
         raise HTTPException(status_code=404, detail="probe not found")
-    candidates = list(_PROBES_DIR.glob(f"*/{probe_id}.json"))
-    if not candidates:
-        raise HTTPException(status_code=404, detail="probe not found")
-    payload = candidates[0].read_text(encoding="utf-8")
 
     # Watermark export with synthetic-persona disclosure (P2 safety).
     try:

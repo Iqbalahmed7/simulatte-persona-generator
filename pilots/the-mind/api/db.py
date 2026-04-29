@@ -414,6 +414,29 @@ class ChatMessage(Base):
     )
 
 
+# ── Probe persistence ────────────────────────────────────────────────────
+
+class Probe(Base):
+    """Persisted probe results. Survives Railway redeploys (unlike disk JSONs).
+
+    The full ProbeResult model is stringified into ``payload``; the indexed
+    columns are denormalised so the admin list view can render without a
+    JSON parse. ``user_id`` is a soft FK (SET NULL on user deletion).
+    """
+    __tablename__ = "probes"
+
+    id = Column(String, primary_key=True)             # probe_id, e.g. "pr-..."
+    user_id = Column(String, ForeignKey("users.id", ondelete="SET NULL"), index=True, nullable=True)
+    persona_id = Column(String, index=True)
+    persona_name = Column(String, nullable=True)
+    product_name = Column(String, nullable=True)
+    category = Column(String, nullable=True)
+    purchase_intent_score = Column(Integer, nullable=True)
+    top_objection = Column(Text, nullable=True)
+    payload = Column(Text)                            # full ProbeResult JSON, stringified
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), index=True)
+
+
 # ── Allowance limits (hard-coded, can be per-user later) ─────────────────
 
 LIMITS = {
