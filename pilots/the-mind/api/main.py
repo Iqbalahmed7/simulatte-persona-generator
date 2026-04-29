@@ -183,6 +183,16 @@ logging.basicConfig(level=logging.INFO)
 # Override with GENERATION_MODEL env var on Railway if you want Sonnet quality.
 os.environ.setdefault("GENERATION_MODEL", "claude-haiku-4-5-20251001")
 
+# ── Litmus-style seed memory constants ───────────────────────────────────
+# Mirrors litmus-web/src/engine/retrieval.py: at persona-build time we author
+# 18 specific past experiences, embed each with text-embedding-3-small (1536-d),
+# and stash them on the persona dict. At probe time we cosine-rank them against
+# the stimulus and inject the top-K into the system prompt.
+_EMBEDDING_MODEL = "text-embedding-3-small"            # 1536-dim, matches Litmus
+_SEED_MEMORY_MODEL = "claude-sonnet-4-5"               # use Sonnet for memory authoring
+_SEED_MEMORY_COUNT = 18                                # Litmus uses 15-25; we anchor at 18
+_RECALL_TOP_K = 8
+
 # ── ICP descriptions (mirrors generate_exemplars.py) ─────────────────────
 
 _ICP_DESCRIPTIONS: dict[str, str] = {
@@ -902,6 +912,245 @@ def _client() -> anthropic.AsyncAnthropic:
     if _llm is None:
         _llm = anthropic.AsyncAnthropic()
     return _llm
+
+
+# ── Litmus-style seed memory authoring + retrieval ───────────────────────
+#
+# Mirrors litmus-web/scripts/convert_generated_personas.py:211-285 (authoring)
+# and litmus-web/src/engine/retrieval.py (cosine + weighted re-rank).
+#
+# Storage: plain JSON arrays on persona_dict["seed_memories"] — no pgvector.
+# For ≤18 memories per persona, in-memory cosine is sub-millisecond.
+# Embedding model: text-embedding-3-small (1536-d). Requires OPENAI_API_KEY
+# on Railway; if missing we fall back to zero-vector embeddings and retrieval
+# degrades to importance+salience ranking.
+
+_SEED_MEMORY_CATEGORIES = (
+    "purchases | preferences | rejections | trust_signals | "
+    "identity_moments | budget_anchors | competitor_awareness | habits"
+)
+
+
+async def _generate_seed_memories(
+    persona_dict: dict, anthropic_client: anthropic.AsyncAnthropic
+) -> list[dict]:
+    """Generate ~18 specific past-experience memories grounding this persona.
+
+    Returns list of {text, category, importance, salience}. On any failure
+    returns [] — callers must not let this break persona generation.
+    """
+    import re as _re
+
+    da = persona_dict.get("demographic_anchor") or {}
+    name = da.get("name") or "the persona"
+    age = da.get("age") or "?"
+    loc = da.get("location") or {}
+    city = loc.get("city") or ""
+    country = loc.get("country") or ""
+    employment = da.get("employment") or {}
+    occupation = employment.get("occupation") or ""
+
+    narrative = persona_dict.get("narrative") or {}
+    first_person = (narrative.get("first_person") or "")[:600]
+    values = narrative.get("values") or []
+    if not isinstance(values, list):
+        values = []
+
+    di = persona_dict.get("derived_insights") or {}
+    decision_style = di.get("decision_style") or ""
+    tensions = di.get("tensions") or []
+    immutable = di.get("immutable_constraints") or {}
+    non_negotiables = immutable.get("non_negotiables") if isinstance(immutable, dict) else []
+    budget_ceiling = immutable.get("budget_ceiling") if isinstance(immutable, dict) else ""
+
+    life_stories = persona_dict.get("life_stories") or narrative.get("life_stories") or []
+    decision_bullets = persona_dict.get("decision_bullets") or []
+    life_story_lines = "\n".join(
+        f"- {s.get('title','')}: {s.get('event','')} (impact: {s.get('lasting_impact','')})"
+        for s in life_stories[:3] if isinstance(s, dict)
+    )
+    bullets_text = "\n".join(f"- {b}" for b in decision_bullets[:6] if isinstance(b, str))
+
+    prompt = f"""You are generating seed memories for a synthetic persona used in product/idea research.
+
+PERSONA PROFILE:
+Name: {name}, Age: {age}
+Location: {city}, {country}
+Occupation/life stage: {occupation}
+Key values: {', '.join(str(v) for v in values[:6])}
+Decision style: {decision_style}
+Key tensions: {'; '.join(str(t) for t in tensions[:5]) if isinstance(tensions, list) else tensions}
+Non-negotiables: {non_negotiables}
+Budget ceiling: {budget_ceiling}
+
+Life stories:
+{life_story_lines}
+
+Decision bullets:
+{bullets_text}
+
+First-person narrative excerpt:
+{first_person}
+
+---
+
+TASK: Generate exactly {_SEED_MEMORY_COUNT} seed memories for {name}. These are specific, concrete past experiences that ground how they evaluate new products, services, ideas, or claims.
+
+RULES:
+1. Each memory is a specific, concrete experience — NOT a general preference statement.
+2. Use real, plausible brand/product/place names that fit the persona's profile and price sensitivity.
+3. Memories must be consistent with the values, decision style, tensions, and constraints above.
+4. Ensure 4+ memories are concrete REJECTIONS (things they tried and didn't like, or refused to try, or quietly stopped using). Personas must be capable of saying no.
+5. Write in third person, past tense.
+6. Each memory: 2-4 sentences max — specific product/brand, specific context, specific reaction.
+7. importance (1-10): how much this experience shapes future decisions.
+8. salience (1-10): how readily they'd recall this when evaluating something new.
+
+CATEGORIES (use these exactly): {_SEED_MEMORY_CATEGORIES}
+
+Spread the {_SEED_MEMORY_COUNT} memories across the categories — don't pile them all in one. Aim for at least one entry in each of: purchases, rejections, trust_signals, identity_moments, budget_anchors, habits.
+
+Return ONLY valid JSON — an array of objects with keys: text, category, importance, salience.
+
+JSON format:
+[
+  {{"text": "...", "category": "purchases", "importance": 8, "salience": 7}},
+  ...
+]"""
+
+    try:
+        msg = await anthropic_client.messages.create(
+            model=os.environ.get("SEED_MEMORY_MODEL", _SEED_MEMORY_MODEL),
+            max_tokens=4000,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = msg.content[0].text.strip() if msg.content else ""
+        try:
+            memories = json.loads(raw)
+        except Exception:
+            match = _re.search(r"\[.*\]", raw, _re.DOTALL)
+            if not match:
+                logger.warning("[seed_memories] no JSON array in model response")
+                return []
+            memories = json.loads(match.group())
+
+        # Validate + coerce shape
+        cleaned: list[dict] = []
+        for m in memories:
+            if not isinstance(m, dict):
+                continue
+            text = str(m.get("text") or "").strip()
+            if not text:
+                continue
+            try:
+                imp = int(m.get("importance") or 5)
+                sal = int(m.get("salience") or 5)
+            except Exception:
+                imp, sal = 5, 5
+            cleaned.append({
+                "text": text,
+                "category": str(m.get("category") or "habits"),
+                "importance": max(1, min(10, imp)),
+                "salience": max(1, min(10, sal)),
+            })
+        return cleaned
+    except Exception as exc:
+        logger.warning("[seed_memories] authoring failed: %s", exc)
+        return []
+
+
+async def _embed_texts(texts: list[str]) -> list[list[float]]:
+    """Embed texts with OpenAI text-embedding-3-small (1536-d). Batch in one call.
+
+    Falls back to zero vectors on any failure (missing key, network, etc.) so
+    retrieval still works (degrades to importance+salience ranking only).
+    """
+    if not texts:
+        return []
+    api_key = os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        logger.warning("[seed_memories] OPENAI_API_KEY not set — using zero-vector fallback")
+        return [[0.0] * 1536 for _ in texts]
+    try:
+        from openai import AsyncOpenAI  # type: ignore
+        oai = AsyncOpenAI(api_key=api_key)
+        resp = await oai.embeddings.create(model=_EMBEDDING_MODEL, input=texts)
+        return [list(d.embedding) for d in resp.data]
+    except Exception as exc:
+        logger.warning("[seed_memories] embedding failed (%s) — zero-vector fallback", exc)
+        return [[0.0] * 1536 for _ in texts]
+
+
+def _retrieve_relevant_memories(
+    persona_dict: dict, stimulus_embedding: list[float], top_k: int = _RECALL_TOP_K
+) -> list[dict]:
+    """Cosine-rank seed memories against a pre-computed stimulus embedding.
+
+    Weighted score = 0.40·cos + 0.35·(importance/10) + 0.25·(salience/10).
+    Returns top_k memories sorted desc with `_score` attached. Pure-Python
+    cosine — no numpy dep needed.
+    """
+    seeds = persona_dict.get("seed_memories") or []
+    if not seeds:
+        return []
+
+    def _cos(a: list[float], b: list[float]) -> float:
+        if not a or not b or len(a) != len(b):
+            return 0.0
+        dot = 0.0
+        na = 0.0
+        nb = 0.0
+        for x, y in zip(a, b):
+            dot += x * y
+            na += x * x
+            nb += y * y
+        if na <= 0.0 or nb <= 0.0:
+            return 0.0
+        return dot / ((na ** 0.5) * (nb ** 0.5))
+
+    scored: list[dict] = []
+    for s in seeds:
+        emb = s.get("embedding") or []
+        cos = _cos(stimulus_embedding, emb)
+        imp = float(s.get("importance") or 5) / 10.0
+        sal = float(s.get("salience") or 5) / 10.0
+        score = 0.40 * cos + 0.35 * imp + 0.25 * sal
+        # shallow copy without embedding (saves prompt bytes downstream)
+        out = {k: v for k, v in s.items() if k != "embedding"}
+        out["_score"] = score
+        scored.append(out)
+    scored.sort(key=lambda m: m["_score"], reverse=True)
+    return scored[:top_k]
+
+
+async def _retrieve_relevant_memories_async(
+    persona_dict: dict, stimulus_text: str, top_k: int = _RECALL_TOP_K
+) -> list[dict]:
+    """Async wrapper: embed stimulus then run cosine re-rank."""
+    if not (persona_dict.get("seed_memories") or []):
+        return []
+    if not stimulus_text or not stimulus_text.strip():
+        return []
+    embs = await _embed_texts([stimulus_text])
+    stimulus_emb = embs[0] if embs else []
+    return _retrieve_relevant_memories(persona_dict, stimulus_emb, top_k=top_k)
+
+
+def _render_activated_memories(memories: list[dict]) -> str:
+    """Render activated memories as a markdown bullet list. Empty list → ''."""
+    if not memories:
+        return ""
+    lines = [
+        "─── What you remember from your own life (relevant to this product) ───",
+    ]
+    for i, m in enumerate(memories, start=1):
+        text = (m.get("text") or "").strip()
+        if not text:
+            continue
+        lines.append(f"{i}. {text}")
+    if len(lines) == 1:
+        return ""
+    return "\n".join(lines)
 
 
 # ── routes ────────────────────────────────────────────────────────────────
@@ -1768,6 +2017,28 @@ async def generate_persona_stream(
         try:
             persona_id = persona_dict["persona_id"]
             name = persona_dict["demographic_anchor"]["name"]
+
+            # Litmus-style seed memory authoring + embedding. Best-effort —
+            # if either step fails the persona still saves with seed_memories: [].
+            try:
+                seeds = await _generate_seed_memories(persona_dict, _client())
+                if seeds:
+                    embeddings = await _embed_texts([s["text"] for s in seeds])
+                    for s, emb in zip(seeds, embeddings):
+                        s["embedding"] = emb
+                    persona_dict["seed_memories"] = seeds
+                    logger.info(
+                        "[seed_memories] %d authored for persona %s",
+                        len(seeds), persona_id,
+                    )
+                else:
+                    persona_dict["seed_memories"] = []
+            except Exception as exc:
+                logger.warning(
+                    "[seed_memories] generation failed for %s: %s", persona_id, exc,
+                )
+                persona_dict["seed_memories"] = []
+
             _GENERATED[persona_id] = persona_dict
             _persist_generated_dict(persona_dict)
             logger.info("[generate] stored %s (%s)", persona_id, name)
@@ -2509,8 +2780,19 @@ Each list should have 2-3 entries. Be specific to the {product_brief['category']
 
 # ── Probe system prompt builder ───────────────────────────────────────────
 
-def _build_probe_system_prompt(persona: dict, memory: dict, product_brief: dict) -> str:
-    """Build the shared system prompt for all 8 probe questions."""
+def _build_probe_system_prompt(
+    persona: dict,
+    memory: dict,
+    product_brief: dict,
+    activated_memories: list[dict] | None = None,
+) -> str:
+    """Build the shared system prompt for all 8 probe questions.
+
+    `activated_memories` are Litmus-style seed memories already cosine-ranked
+    against the stimulus. Rendered as a personal-history section AFTER the
+    category memory block but BEFORE the identity contract. None/empty list
+    silently omits the section (legacy personas without seed_memories).
+    """
     base = _build_generated_system_prompt(persona)
 
     memory_parts = []
@@ -2547,13 +2829,21 @@ YOUR CATEGORY MEMORIES
 
 You are being asked to evaluate this product as yourself. Answer in JSON only. Be honest, specific, and consistent with your character, values, and context. Do not break character."""
 
+    # Litmus-style activated personal memories — rendered AFTER category memory
+    # but BEFORE the identity contract. Empty list silently omits the section.
+    activated_section = _render_activated_memories(activated_memories or [])
+
     # Probe-specific identity contract appended last so it is the freshest
     # instruction the model sees for this surface (verdict-honesty + jailbreak
     # defense). Persona name resolution mirrors _build_generated_system_prompt.
     probe_name = (persona.get("demographic_anchor") or {}).get("name") or "the persona"
     probe_contract = _IDENTITY_CONTRACT_PROBE_TEMPLATE.format(name=probe_name)
 
-    return base + "\n\n" + product_section + "\n\n" + probe_contract
+    parts = [base, product_section]
+    if activated_section:
+        parts.append(activated_section)
+    parts.append(probe_contract)
+    return "\n\n".join(parts)
 
 
 # ── Individual probe question handlers ───────────────────────────────────
@@ -2802,8 +3092,28 @@ async def run_probe(
     # Step 1: generate or load category memory
     memory = await _generate_category_memory(persona, product_brief, client)
 
+    # Step 1b: Litmus-style seed memory retrieval — embed stimulus and pull
+    # top-K personal memories. Best-effort; legacy personas without
+    # seed_memories return [] and the section silently drops.
+    stimulus_parts = [
+        product_brief.get("product_name") or "",
+        product_brief.get("description") or "",
+        str(product_brief.get("price") or ""),
+        " ".join(product_brief.get("claims") or []),
+    ]
+    stimulus = " ".join(p for p in stimulus_parts if p).strip()
+    try:
+        activated = await _retrieve_relevant_memories_async(
+            persona, stimulus, top_k=_RECALL_TOP_K,
+        )
+    except Exception as exc:
+        logger.warning("[seed_memories] retrieval failed: %s", exc)
+        activated = []
+
     # Step 2: build shared system prompt (will be prompt-cached across all 8 calls)
-    system_prompt = _build_probe_system_prompt(persona, memory, product_brief)
+    system_prompt = _build_probe_system_prompt(
+        persona, memory, product_brief, activated_memories=activated,
+    )
 
     # Step 3: run 8 probe questions in parallel
     (
