@@ -3250,6 +3250,53 @@ async def admin_create_invites_bulk(
     return {"results": results}
 
 
+@app.get("/probes/{probe_id}/download")
+async def download_probe(
+    probe_id: str,
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Stream the full ProbeResult JSON as an attachment.
+
+    Authz: owner of the persona OR admin. We resolve owner via the
+    Event row that recorded the probe_run with ref_id=probe_id.
+    """
+    from fastapi.responses import Response  # noqa: PLC0415
+    from sqlalchemy import select as sa_select  # noqa: PLC0415
+
+    # Authz: admin OR the user who fired the probe.
+    admin_emails = {
+        e.strip().lower()
+        for e in (os.environ.get("ADMIN_EMAILS", "") or "").split(",")
+        if e.strip()
+    }
+    is_admin = (user.email or "").lower() in admin_emails
+    if not is_admin:
+        owner_event = (await db.execute(
+            sa_select(Event).where(
+                Event.type == "probe_run",
+                Event.ref_id == probe_id,
+                Event.user_id == user.id,
+            ).limit(1)
+        )).scalar_one_or_none()
+        if owner_event is None:
+            raise HTTPException(status_code=403, detail="not your probe")
+
+    # Mirror the lookup logic used by GET /probes/{probe_id}.
+    if not _PROBES_DIR.exists():
+        raise HTTPException(status_code=404, detail="probe not found")
+    candidates = list(_PROBES_DIR.glob(f"*/{probe_id}.json"))
+    if not candidates:
+        raise HTTPException(status_code=404, detail="probe not found")
+    payload = candidates[0].read_text(encoding="utf-8")
+    filename = f"probe-{probe_id}.json"
+    return Response(
+        content=payload,
+        media_type="application/json",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
 # ── Pending-user endpoints (waitlist) ─────────────────────────────────────
 
 class RedeemCodeRequest(BaseModel):

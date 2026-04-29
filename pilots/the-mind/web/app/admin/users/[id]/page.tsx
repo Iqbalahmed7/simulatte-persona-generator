@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { adminFetch } from "@/lib/admin";
 import BanControls from "@/components/admin/BanControls";
+import ProbeEventActions from "@/components/admin/ProbeEventActions";
 
 interface UserDetail {
   user: {
@@ -90,6 +91,9 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
                   <Link href={`/probe/${e.ref_id}`} target="_blank" className="text-signal text-xs font-mono hover:underline">
                     open ↗
                   </Link>
+                )}
+                {e.type === "probe_run" && e.ref_id && (
+                  <ProbeEventActions probeId={e.ref_id} />
                 )}
               </div>
             )}

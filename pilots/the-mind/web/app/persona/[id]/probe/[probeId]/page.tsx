@@ -49,13 +49,22 @@ export default function ProbeResultPage() {
 
   return (
     <main className="min-h-screen px-4 py-6 md:px-6 md:py-12 max-w-3xl mx-auto">
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between mb-10 gap-3 flex-wrap">
         <Link href={`/persona/${id}/probe`} className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
           ← Test another product
         </Link>
-        <Link href={`/persona/${id}`} className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
-          Back to {probe.persona_name.split(" ")[0]} →
-        </Link>
+        <div className="flex items-center gap-3">
+          <a
+            href={`/api/probes/${probeId}/download`}
+            download
+            className="border border-signal/60 text-parchment hover:border-signal hover:text-signal transition-colors px-3 py-1.5 font-mono uppercase tracking-widest text-[10px]"
+          >
+            Download JSON
+          </a>
+          <Link href={`/persona/${id}`} className="text-[11px] font-mono text-static hover:text-parchment/50 transition-colors">
+            Back to {probe.persona_name.split(" ")[0]} →
+          </Link>
+        </div>
       </div>
 
       <ProbeResultCard probe={probe} personaId={id} isPublic={false} />
