@@ -18,6 +18,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import PersonaPicker, { PickerMode } from "./PersonaPicker";
+import OperatorAllowanceCounter from "./OperatorAllowanceCounter";
+
+const OPERATOR_ENABLED = process.env.NEXT_PUBLIC_OPERATOR_ENABLED === "true";
 
 interface MyPersona {
   persona_id: string;
@@ -129,6 +132,17 @@ export default function NavRail({
             active={pathname === "/community"}
             icon={<IconWall />}
           />
+          {OPERATOR_ENABLED && (
+            <RailItem
+              collapsed={collapsed}
+              href="/operator"
+              label="Twins"
+              sub={!collapsed ? undefined : undefined}
+              active={pathname?.startsWith("/operator") ?? false}
+              icon={<IconTarget />}
+              subNode={!collapsed ? <OperatorAllowanceCounter /> : undefined}
+            />
+          )}
 
           <div className="flex-1" />
 
@@ -192,6 +206,7 @@ function RailItem({
   href,
   label,
   sub,
+  subNode,
   active,
   onClick,
   icon,
@@ -200,6 +215,7 @@ function RailItem({
   href?: string;
   label: string;
   sub?: string;
+  subNode?: React.ReactNode;
   active?: boolean;
   onClick?: () => void;
   icon: React.ReactNode;
@@ -223,6 +239,7 @@ function RailItem({
               {sub}
             </span>
           )}
+          {subNode && <span className="block mt-0.5">{subNode}</span>}
         </span>
       )}
     </>
@@ -314,6 +331,18 @@ function IconAdmin() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
       <path d="M12 3l8 4v5c0 5-3.4 8.5-8 9-4.6-.5-8-4-8-9V7z" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function IconTarget() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="4" />
+      <line x1="12" y1="3" x2="12" y2="7" />
+      <line x1="12" y1="17" x2="12" y2="21" />
+      <line x1="3" y1="12" x2="7" y2="12" />
+      <line x1="17" y1="12" x2="21" y2="12" />
     </svg>
   );
 }
