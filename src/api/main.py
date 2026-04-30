@@ -32,10 +32,11 @@ from src.api.models import (
     ReportResponse,
     SimulateRequest,
     SimulateResponse,
+    SimulateWithPersonasRequest,
     SurveyRequest,
     SurveyResponse,
 )
-from src.api.store import cohort_path, list_cohorts, load_cohort, save_cohort
+from src.api.store import STORE_DIR, cohort_path, list_cohorts, load_cohort, save_cohort
 from src.cli import _run_generation, _run_simulation, _run_survey
 
 __version__ = "0.2.0"
@@ -200,6 +201,41 @@ async def simulate(req: SimulateRequest) -> SimulateResponse:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
 
     return SimulateResponse(cohort_id=req.cohort_id, results=result)
+
+
+@app.post("/simulate-with-personas", response_model=SimulateResponse)
+async def simulate_with_personas(req: SimulateWithPersonasRequest) -> SimulateResponse:
+    """Run cognitive simulation with dossier_snapshots injected inline.
+
+    Phase 4 (B2): Accepts wr-populations deep persona dossiers directly —
+    no pre-stored cohort required. Writes a temp envelope to STORE_DIR,
+    runs _run_simulation on it, returns results. Temp files persist in /tmp
+    and are cleaned up by the OS/Railway between restarts.
+    """
+    import uuid
+    import datetime
+    import json as _json
+
+    cid = f"eph-{uuid.uuid4().hex[:12]}"
+    envelope_dict = {
+        "cohort_id": cid,
+        "generated_at": datetime.datetime.utcnow().isoformat() + "Z",
+        "domain": req.domain,
+        "business_problem": req.scenario.get("context", ""),
+        "mode": "deep",
+        "gate_waivers": [],
+        "personas": req.personas,
+    }
+    STORE_DIR.mkdir(parents=True, exist_ok=True)
+    path = STORE_DIR / f"{cid}.json"
+    with open(path, "w", encoding="utf-8") as fh:
+        _json.dump(envelope_dict, fh, indent=2, default=str)
+
+    try:
+        result = await _run_simulation(str(path), req.scenario, req.rounds)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return SimulateResponse(cohort_id=cid, results=result)
 
 
 @app.post("/survey", response_model=SurveyResponse)

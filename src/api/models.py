@@ -20,6 +20,14 @@ class SimulateRequest(BaseModel):
     rounds: int = 3
 
 
+class SimulateWithPersonasRequest(BaseModel):
+    """Phase 4 (B2): Run simulation with dossier_snapshots passed inline."""
+    personas: list[dict]           # wr-populations dossier_snapshots
+    scenario: dict                 # {"question": ..., "context": ..., "options": [...]}
+    rounds: int = 3
+    domain: str = "general"        # used as CohortEnvelope.domain for the temp file
+
+
 class SurveyRequest(BaseModel):
     cohort_id: str
     questions: list[str]
