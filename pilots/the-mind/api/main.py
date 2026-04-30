@@ -705,6 +705,24 @@ async def _ensure_probes_table():
         logger.warning("[startup] probes migration skipped: %s", exc)
 
 
+async def _ensure_limit_override_columns():
+    """Add per-user limit override columns to users table if missing — idempotent."""
+    if not AUTH_ENABLED:
+        return
+    try:
+        from db import get_engine                          # noqa: PLC0415
+        from sqlalchemy import text as _sql                # noqa: PLC0415
+        engine = get_engine()
+        async with engine.begin() as conn:
+            for col in ("persona_limit_override", "probe_limit_override", "chat_limit_override"):
+                await conn.execute(_sql(
+                    f"ALTER TABLE users ADD COLUMN IF NOT EXISTS {col} INTEGER"
+                ))
+        logger.info("[startup] limit override columns ensured")
+    except Exception as exc:  # pragma: no cover
+        logger.warning("[startup] limit override migration skipped: %s", exc)
+
+
 async def _backfill_probes_from_disk() -> int:
     """One-shot: walk _PROBES_DIR for pr-*.json and insert any missing Probe rows.
 
@@ -862,6 +880,11 @@ async def lifespan(app: FastAPI):
     await _ensure_invite_codes_table()
     await _ensure_chat_tables()
     await _ensure_probes_table()
+    await _ensure_limit_override_columns()
+    if os.environ.get("OPERATOR_ENABLED", "").lower() in ("1", "true", "yes"):
+        from the_operator.migrations import _ensure_operator_tables
+        await _ensure_operator_tables()
+        logger.info("[startup] operator module enabled — tables ensured")
     await _backfill_probes_from_disk()
     _purge_old_generated()
     await _purge_old_chat_messages()
@@ -906,6 +929,12 @@ app = FastAPI(
 # Note: removed temporary 422 diagnostic logger — root cause was the
 # underage moderation filter returning 422 with a structured detail body,
 # which is by design (see _generate_persona where reason="underage" lives).
+
+# ── Operator module (conditional) ──────────────────────────────────────────
+if os.environ.get("OPERATOR_ENABLED", "").lower() in ("1", "true", "yes"):
+    from the_operator.router import operator_router
+    app.include_router(operator_router)
+    logger.info("[startup] operator router registered at /operator")
 
 app.add_middleware(
     CORSMiddleware,
@@ -4019,6 +4048,46 @@ async def admin_unban_user(
     await db.commit()
     logger.info("[admin] unbanned user=%s by=%s", target.email, _admin.email)
     return {"banned": False, "user_id": user_id}
+
+
+@app.post("/admin/users/{user_id}/set-limits")
+async def admin_set_user_limits(
+    user_id: str,
+    payload: dict,
+    _admin: User = Depends(get_admin_user),  # type: ignore  # noqa: F821
+    db: AsyncSession = Depends(get_db),  # type: ignore  # noqa: F821
+):
+    """Set per-user weekly allowance overrides. Pass null to reset to global default.
+
+    Body: { "persona_limit": int|null, "probe_limit": int|null, "chat_limit": int|null }
+    Any key omitted is left unchanged.
+    """
+    from sqlalchemy import select as sa_select, update as sa_update
+    target = (
+        await db.execute(sa_select(User).where(User.id == user_id))  # type: ignore  # noqa: F821
+    ).scalar_one_or_none()
+    if target is None:
+        raise HTTPException(404, detail="User not found")
+
+    updates: dict = {}
+    for field, col in (
+        ("persona_limit", "persona_limit_override"),
+        ("probe_limit", "probe_limit_override"),
+        ("chat_limit", "chat_limit_override"),
+    ):
+        if field in payload:
+            val = payload[field]
+            if val is not None and (not isinstance(val, int) or val < 0):
+                raise HTTPException(422, detail=f"{field} must be a non-negative integer or null")
+            updates[col] = val
+
+    if not updates:
+        raise HTTPException(422, detail="No limit fields provided")
+
+    await db.execute(sa_update(User).where(User.id == user_id).values(**updates))
+    await db.commit()
+    logger.info("[admin] set limits user=%s updates=%s by=%s", target.email, updates, _admin.email)
+    return {"user_id": user_id, "updated": updates}
 
 
 @app.get("/admin/flagged")

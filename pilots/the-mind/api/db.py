@@ -148,6 +148,11 @@ class User(Base):
     # invited_by_user_id of the new user — that's the referral tree.
     personal_invite_code = Column(String, nullable=True)
 
+    # Per-user weekly limit overrides set by admin. NULL = use global LIMITS.
+    persona_limit_override = Column(Integer, nullable=True)
+    probe_limit_override = Column(Integer, nullable=True)
+    chat_limit_override = Column(Integer, nullable=True)
+
     allowance = relationship("Allowance", back_populates="user", uselist=False)
     events = relationship("Event", back_populates="user")
 

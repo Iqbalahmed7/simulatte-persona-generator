@@ -338,7 +338,9 @@ async def check_and_increment_allowance(
 
     now = datetime.now(timezone.utc)
     week_start = _iso_week_monday(now)
-    limit = ACTION_LIMIT[action]
+    # Per-user override takes precedence; fall back to global LIMITS.
+    _override_col = {"persona": "persona_limit_override", "probe": "probe_limit_override", "chat": "chat_limit_override"}[action]
+    limit = getattr(user, _override_col, None) or ACTION_LIMIT[action]
     field = ACTION_FIELD[action]
 
     # Load or create allowance row for this week
@@ -439,15 +441,15 @@ async def build_me_response(user: User, db: AsyncSession) -> dict:
         "allowance": {
             "personas": {
                 "used": personas_used,
-                "limit": LIMITS["persona"],
+                "limit": getattr(user, "persona_limit_override", None) or LIMITS["persona"],
             },
             "probes": {
                 "used": probes_used,
-                "limit": LIMITS["probe"],
+                "limit": getattr(user, "probe_limit_override", None) or LIMITS["probe"],
             },
             "chats": {
                 "used": chats_used,
-                "limit": LIMITS["chat"],
+                "limit": getattr(user, "chat_limit_override", None) or LIMITS["chat"],
             },
             "resets_at": resets_at.isoformat(),
         },
