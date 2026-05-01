@@ -347,18 +347,7 @@ class IdentityConstructor:
         )
 
         # ---------------------------------------------------------------
-        # Step 7 — Validate
-        # ---------------------------------------------------------------
-        results = self.validator.validate_all(persona)
-        failed = [r for r in results if not r.passed]
-        if failed:
-            details = "; ".join(
-                f"{r.gate}: {', '.join(r.failures)}" for r in failed
-            )
-            raise ValueError(f"Persona validation failed — {details}")
-
-        # ---------------------------------------------------------------
-        # Step 7b — Bootstrap seed memories (simulation-ready mode only)
+        # Step 7 — Bootstrap seed memories (simulation-ready mode only)
         # ---------------------------------------------------------------
         if icp_spec.mode == "simulation-ready":
             from src.memory.seed_memory import bootstrap_seed_memories
@@ -371,7 +360,23 @@ class IdentityConstructor:
             )
 
         # ---------------------------------------------------------------
-        # Step 8 — Return
+        # Step 8 — Validate
+        # ---------------------------------------------------------------
+        include_memory = icp_spec.mode == "simulation-ready"
+        results = self.validator.validate_all(
+            persona,
+            include_narrative=True,
+            include_memory=include_memory,
+        )
+        failed = [r for r in results if not r.passed]
+        if failed:
+            details = "; ".join(
+                f"{r.gate}: {', '.join(r.failures)}" for r in failed
+            )
+            raise ValueError(f"Persona validation failed — {details}")
+
+        # ---------------------------------------------------------------
+        # Step 9 — Return
         # ---------------------------------------------------------------
         return persona
 

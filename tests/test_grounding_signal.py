@@ -80,8 +80,8 @@ def test_signals_to_vectors_price_flag():
     assert vector[0] == 1.0
 
 
-def test_fallback_signal_for_unmatched_text():
-    """Text with no keywords still produces 1 signal (fallback)."""
+def test_unmatched_text_produces_no_signals():
+    """Text with no keywords should produce no synthetic fallback signal."""
     from src.grounding.signal_extractor import extract_signals
     signals = extract_signals(["This is a vague comment with no specific words."])
-    assert len(signals) >= 1
+    assert len(signals) == 0

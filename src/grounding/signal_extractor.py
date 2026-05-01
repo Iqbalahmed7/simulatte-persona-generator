@@ -50,9 +50,8 @@ TRUST_KEYWORDS = {
 def extract_signals(raw_texts: list[str]) -> list[Signal]:
     """Extract Signal objects from raw text strings.
 
-    Each text may produce 1 or more signals (one per matching signal type).
-    Texts with no keyword matches produce a single 'price_mention' signal
-    as a fallback (to guarantee at least 1 signal per input).
+    Each text may produce 0 or more signals (one per matching signal type).
+    Texts with no keyword matches produce no signals.
 
     Args:
         raw_texts: List of raw text strings (reviews, posts, etc.)
@@ -67,31 +66,20 @@ def extract_signals(raw_texts: list[str]) -> list[Signal]:
             continue
 
         text_lower = text.lower()
-        found = False
-
         if any(kw in text_lower for kw in PRICE_KEYWORDS):
             signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="price_mention"))
-            found = True
 
         if any(kw in text_lower for kw in PURCHASE_KEYWORDS):
             signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="purchase_trigger"))
-            found = True
 
         if any(kw in text_lower for kw in REJECTION_KEYWORDS):
             signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="rejection"))
-            found = True
 
         if any(kw in text_lower for kw in SWITCHING_KEYWORDS):
             signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="switching"))
-            found = True
 
         if any(kw in text_lower for kw in TRUST_KEYWORDS):
             signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="trust_citation"))
-            found = True
-
-        if not found:
-            # Fallback: guarantee at least 1 signal per non-empty text
-            signals.append(Signal(id=str(uuid.uuid4()), text=text, signal_type="price_mention"))
 
     return signals
 

@@ -21,7 +21,7 @@ This document is the complete test specification for population quality, behavio
 
 ## Module 1 — Structural Quality Gates
 
-Run on every persona before output is produced. These are automated checks.
+Run applicable gates at their execution stage. G1-G11 are generation/cohort checks; G12 runs on simulation output.
 
 | Gate | What Is Checked | Target | Failure |
 |------|----------------|--------|---------|

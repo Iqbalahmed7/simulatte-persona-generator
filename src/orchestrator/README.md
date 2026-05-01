@@ -10,7 +10,7 @@ The orchestration layer wraps the full persona generation pipeline into one func
 `invoke_persona_generator(brief)`.
 
 Pass a brief. Get back a result. Everything else — tier selection, cost estimation,
-quality enforcement, grounding checks, simulation, and pipeline documentation — happens automatically.
+quality enforcement, optional simulation, and pipeline documentation — happens automatically.
 
 ```
 PersonaGenerationBrief
@@ -22,8 +22,8 @@ PersonaGenerationBrief
 │  1. TierAdvisor   → recommend tier        │
 │  2. CostEstimator → estimate + confirm    │
 │  3. _run_generation() → build personas    │
-│  4. Quality gates → G1–G12 enforcement    │
-│  5. _run_simulation() → optional          │
+│  4. Quality gates → persona/cohort gates   │
+│  5. _run_simulation() → optional + G12     │
 │  6. PipelineDocWriter → auto-doc          │
 └───────────────────────────────────────────┘
         │
@@ -32,7 +32,7 @@ PersonaGenerationResult
   ├── personas (list[PersonaRecord dict])
   ├── cohort_envelope (CohortEnvelope dict)
   ├── cost_actual (breakdown)
-  ├── quality_report (G1–G12 gates)
+  ├── quality_report (generation/cohort gates; G12 only after simulation)
   ├── simulation_results (optional)
   ├── pipeline_doc_path (auto-generated .md)
   └── summary (one-line human-readable)

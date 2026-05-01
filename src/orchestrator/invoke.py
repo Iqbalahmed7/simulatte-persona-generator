@@ -392,26 +392,26 @@ def _build_quality_report(cohort_envelope: dict) -> QualityReport:
     else:
         gates_failed.append("G11-CalibrationState")
 
-    # G12 — Grounding check (if present in envelope)
+    # Grounding summary (cohort tendency anchoring signal, not simulation G12)
     grounding = cohort_envelope.get("grounding_summary", {})
     grounding_state = "ungrounded"
     if grounding.get("tendency_source_distribution"):
         anchored_pct = grounding["tendency_source_distribution"].get("grounded", 0)
         if anchored_pct > 0:
             grounding_state = "anchored"
-            gates_passed.append("G12-Grounding")
+            gates_passed.append("Grounding-AnchoredTendencies")
 
-    # Per-persona gates — derive from personas list
+    # Per-persona sanity signal — do not infer G1/G2/G3 pass heuristically.
     personas = cohort_envelope.get("personas", [])
     quarantined = 0
     for persona in personas:
         attrs = persona.get("attributes", {})
-        # Simple G1 check: any persona with no attributes is quarantined
+        # Any persona with no attributes is quarantined.
         if not attrs:
             quarantined += 1
 
-    if quarantined == 0:
-        gates_passed.extend(["G1-AttributeCoherence", "G2-NarrativeConsistency", "G3-MemoryValidity"])
+    if quarantined > 0:
+        gates_failed.append("Persona-AttributePresence")
 
     return QualityReport(
         gates_passed=gates_passed,
