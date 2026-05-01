@@ -31,21 +31,25 @@ interface StageRow {
 }
 
 const INITIAL_STAGES: StageRow[] = [
-  { key: "recon", label: "Public recon", message: "Waiting…", status: "pending" },
-  { key: "synthesis", label: "Synthesis", message: "Waiting…", status: "pending" },
-  { key: "ready", label: "Ready", message: "Waiting…", status: "pending" },
+  { key: "recon",     label: "Public recon",      message: "Waiting…", status: "pending" },
+  { key: "synthesis", label: "Synthesis",          message: "Waiting…", status: "pending" },
+  { key: "portrait",  label: "Portrait",           message: "Waiting…", status: "pending" },
+  { key: "ready",     label: "Ready",              message: "Waiting…", status: "pending" },
 ];
 
 // Stage → progress bar percentage
 function stageToPercent(stages: StageRow[]): number {
-  const recon = stages.find((s) => s.key === "recon")!;
+  const recon     = stages.find((s) => s.key === "recon")!;
   const synthesis = stages.find((s) => s.key === "synthesis")!;
-  const ready = stages.find((s) => s.key === "ready")!;
-  if (ready.status === "done") return 100;
-  if (synthesis.status === "active") return 60;
-  if (synthesis.status === "done") return 80;
-  if (recon.status === "active") return 20;
-  if (recon.status === "done") return 45;
+  const portrait  = stages.find((s) => s.key === "portrait")!;
+  const ready     = stages.find((s) => s.key === "ready")!;
+  if (ready.status === "done")     return 100;
+  if (portrait.status === "active") return 75;
+  if (portrait.status === "done")  return 88;
+  if (synthesis.status === "active") return 50;
+  if (synthesis.status === "done") return 65;
+  if (recon.status === "active")   return 20;
+  if (recon.status === "done")     return 40;
   return 0;
 }
 
@@ -268,8 +272,14 @@ export default function BuildPage() {
               status: "active",
               message: evt.message ?? "Building decision filter…",
             });
-          } else if (evt.stage === "ready") {
+          } else if (evt.stage === "portrait") {
             updateStage("synthesis", { status: "done", message: "Done" });
+            updateStage("portrait", {
+              status: "active",
+              message: evt.message ?? "Generating portrait…",
+            });
+          } else if (evt.stage === "ready") {
+            updateStage("portrait", { status: "done", message: "Done" });
             updateStage("ready", { status: "done", message: "Twin ready" });
             // Capture final elapsed before clearing building state
             const finalElapsed = Math.floor(

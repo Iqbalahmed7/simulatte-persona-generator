@@ -47,6 +47,7 @@ from the_operator.probe import (
     generate_operator_note,
     session_is_idle,
 )
+from the_operator.portrait import generate_twin_portrait
 from the_operator.recon import run_recon
 from the_operator.schemas import (
     AdminAllowancePatch,
@@ -263,6 +264,15 @@ async def build_twin(
                 client=_client(),
             )
 
+            yield _sse({"event": "progress", "stage": "portrait", "message": "Generating portrait…"})
+
+            portrait_url = await generate_twin_portrait(
+                full_name=request.full_name,
+                company=request.company,
+                title=request.title,
+                profile=profile,
+            )
+
             yield _sse({"event": "progress", "stage": "saving", "message": "Persisting Twin…"})
 
             # Determine confidence and sources from recon
@@ -274,20 +284,23 @@ async def build_twin(
 
             if existing and force:
                 # Update in place
+                update_vals = dict(
+                    full_name=request.full_name,
+                    company=request.company,
+                    title=request.title,
+                    mode=request.mode,
+                    confidence=confidence,
+                    sources_count=sources_count,
+                    gaps=gaps,
+                    recon_notes=json.dumps(recon_data),
+                    profile=json.dumps(profile),
+                    updated_at=now,
+                    last_refreshed_at=now,
+                )
+                if portrait_url:
+                    update_vals["portrait_url"] = portrait_url
                 await db.execute(
-                    update(Twin).where(Twin.id == existing.id).values(
-                        full_name=request.full_name,
-                        company=request.company,
-                        title=request.title,
-                        mode=request.mode,
-                        confidence=confidence,
-                        sources_count=sources_count,
-                        gaps=gaps,
-                        recon_notes=json.dumps(recon_data),
-                        profile=json.dumps(profile),
-                        updated_at=now,
-                        last_refreshed_at=now,
-                    )
+                    update(Twin).where(Twin.id == existing.id).values(**update_vals)
                 )
                 await db.commit()
                 saved_twin_id = existing.id
@@ -305,6 +318,7 @@ async def build_twin(
                     gaps=gaps,
                     recon_notes=json.dumps(recon_data),
                     profile=json.dumps(profile),
+                    portrait_url=portrait_url,
                     created_at=now,
                     updated_at=now,
                 )
