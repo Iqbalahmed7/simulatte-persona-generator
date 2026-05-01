@@ -26,7 +26,10 @@ RECON_MAX_TOKENS_PASS = {
     2: {"input": 10_000, "output": 2_000},
     3: {"input": 6_000,  "output": 1_000},
 }
-RECON_CUMULATIVE_INPUT_CEILING = 50_000   # abort if exceeded — ~$0.50 guard
+RECON_CUMULATIVE_INPUT_CEILING = 250_000  # abort if exceeded — ~$0.75 cost guard.
+# Server-side web_search_20250305 with max_uses=5 inflates input_tokens because
+# integrated search results count toward the next assistant response's input.
+# Realistic per-pass usage: 20-40k tokens × 3 passes = 60-120k typical, 250k worst.
 SYNTHESIS_MAX_TOKENS = 4_000
 PROBE_REPLY_MAX_TOKENS = 600
 PROBE_NOTE_MAX_TOKENS  = 300
