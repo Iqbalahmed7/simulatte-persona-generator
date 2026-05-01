@@ -20,7 +20,8 @@ import { usePathname } from "next/navigation";
 import PersonaPicker, { PickerMode } from "./PersonaPicker";
 import OperatorAllowanceCounter from "./OperatorAllowanceCounter";
 
-const OPERATOR_ENABLED = process.env.NEXT_PUBLIC_OPERATOR_ENABLED === "true";
+// Operator nav is gated server-side in app/operator/layout.tsx.
+// No build-time env flag needed here — the link only renders for admins.
 
 interface MyPersona {
   persona_id: string;
@@ -132,12 +133,12 @@ export default function NavRail({
             active={pathname === "/community"}
             icon={<IconWall />}
           />
-          {OPERATOR_ENABLED && isAdmin && (
+          {isAdmin && (
             <RailItem
               collapsed={collapsed}
               href="/operator"
-              label="Twins"
-              sub={!collapsed ? undefined : undefined}
+              label="The Twin"
+              sub="Prospect twins"
               active={pathname?.startsWith("/operator") ?? false}
               icon={<IconTarget />}
               subNode={!collapsed ? <OperatorAllowanceCounter /> : undefined}
