@@ -8,7 +8,7 @@
  * SSE stages: recon (3 sub-passes) → synthesis → ready
  * Errors surface with human-readable messages from OPERATOR_ERROR_MESSAGES.
  */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -35,6 +35,25 @@ const INITIAL_STAGES: StageRow[] = [
   { key: "synthesis", label: "Synthesis", message: "Waiting…", status: "pending" },
   { key: "ready", label: "Ready", message: "Waiting…", status: "pending" },
 ];
+
+// Stage → progress bar percentage
+function stageToPercent(stages: StageRow[]): number {
+  const recon = stages.find((s) => s.key === "recon")!;
+  const synthesis = stages.find((s) => s.key === "synthesis")!;
+  const ready = stages.find((s) => s.key === "ready")!;
+  if (ready.status === "done") return 100;
+  if (synthesis.status === "active") return 60;
+  if (synthesis.status === "done") return 80;
+  if (recon.status === "active") return 20;
+  if (recon.status === "done") return 45;
+  return 0;
+}
+
+function formatElapsed(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
 
 // ── Stage indicator dot ───────────────────────────────────────────────────
 
@@ -63,15 +82,49 @@ function StageDot({ status }: { status: StageStatus }) {
 function BuildProgress({
   stages,
   error,
+  elapsed,
+  completedIn,
 }: {
   stages: StageRow[];
   error: string | null;
+  elapsed: number;
+  completedIn: number | null;
 }) {
+  const pct = stageToPercent(stages);
+  const isActive = stages.some((s) => s.status === "active");
+  const isDone = completedIn !== null;
+
   return (
     <div className="mt-6 border border-parchment/10 p-4 space-y-3">
-      <p className="text-[10px] font-mono text-signal uppercase tracking-[0.18em] mb-2">
-        Build progress
-      </p>
+      {/* Header row: label + elapsed / completed */}
+      <div className="flex items-center justify-between mb-1">
+        <p className="text-[10px] font-mono text-signal uppercase tracking-[0.18em]">
+          Build progress
+        </p>
+        <span className="text-[10px] font-mono text-static">
+          {isDone
+            ? `Completed in ${formatElapsed(completedIn)}`
+            : elapsed > 0
+            ? `${formatElapsed(elapsed)} elapsed`
+            : null}
+        </span>
+      </div>
+
+      {/* Progress bar */}
+      <div className="relative h-px bg-parchment/10 overflow-hidden mb-3">
+        <div
+          className="h-px bg-signal transition-all duration-700 ease-out"
+          style={{ width: `${pct}%` }}
+        />
+        {/* Shimmer sweep while active */}
+        {isActive && (
+          <div
+            className="absolute inset-y-0 w-24 bg-gradient-to-r from-transparent via-signal/40 to-transparent"
+            style={{ animation: "shimmer 1.8s ease-in-out infinite" }}
+          />
+        )}
+      </div>
+
       {stages.map((s) => (
         <div key={s.key} className="flex items-start gap-3">
           <div className="mt-0.5">
@@ -98,6 +151,13 @@ function BuildProgress({
           <p className="text-red-400 text-xs font-mono">{error}</p>
         </div>
       )}
+
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-96px); }
+          100% { transform: translateX(calc(100vw + 96px)); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -146,6 +206,7 @@ export default function BuildPage() {
   const router = useRouter();
   const { triggerOperatorAllowanceExceeded } = useOperatorAllowance();
   const abortRef = useRef<AbortController | null>(null);
+  const startTimeRef = useRef<number | null>(null);
 
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
@@ -153,6 +214,19 @@ export default function BuildPage() {
   const [building, setBuilding] = useState(false);
   const [stages, setStages] = useState<StageRow[]>(INITIAL_STAGES);
   const [buildError, setBuildError] = useState<string | null>(null);
+  const [elapsed, setElapsed] = useState(0);
+  const [completedIn, setCompletedIn] = useState<number | null>(null);
+
+  // Tick elapsed timer while building
+  useEffect(() => {
+    if (!building) return;
+    setElapsed(0);
+    startTimeRef.current = Date.now();
+    const id = setInterval(() => {
+      setElapsed(Math.floor((Date.now() - (startTimeRef.current ?? Date.now())) / 1000));
+    }, 1000);
+    return () => clearInterval(id);
+  }, [building]);
 
   function updateStage(
     key: string,
@@ -169,6 +243,7 @@ export default function BuildPage() {
 
     setBuilding(true);
     setBuildError(null);
+    setCompletedIn(null);
     setStages(INITIAL_STAGES);
 
     const abort = new AbortController();
@@ -196,8 +271,15 @@ export default function BuildPage() {
           } else if (evt.stage === "ready") {
             updateStage("synthesis", { status: "done", message: "Done" });
             updateStage("ready", { status: "done", message: "Twin ready" });
+            // Capture final elapsed before clearing building state
+            const finalElapsed = Math.floor(
+              (Date.now() - (startTimeRef.current ?? Date.now())) / 1000
+            );
+            setCompletedIn(finalElapsed);
+            setBuilding(false);
             if (evt.twin_id) {
-              router.push(`/operator/${evt.twin_id}`);
+              // Brief delay so user sees "100%" and completed time before redirect
+              setTimeout(() => router.push(`/operator/${evt.twin_id}`), 1200);
             }
           } else if (evt.stage === "error") {
             const code = evt.error_code ?? "";
@@ -206,7 +288,6 @@ export default function BuildPage() {
               evt.error ??
               "Build failed — please try again.";
             setBuildError(msg);
-            // Mark whichever stage was active as errored
             setStages((prev) =>
               prev.map((s) =>
                 s.status === "active" ? { ...s, status: "error" } : s
@@ -243,9 +324,16 @@ export default function BuildPage() {
     setBuilding(false);
     setStages(INITIAL_STAGES);
     setBuildError(null);
+    setElapsed(0);
+    setCompletedIn(null);
   }
 
   const canSubmit = fullName.trim().length >= 2 && !building;
+  const showProgress =
+    building ||
+    completedIn !== null ||
+    buildError !== null ||
+    stages.some((s) => s.status !== "pending");
 
   return (
     <div className="min-h-screen bg-void px-4 py-8">
@@ -326,10 +414,14 @@ export default function BuildPage() {
         </form>
 
         {/* Progress strip — shown once build starts */}
-        {(building || buildError || stages.some((s) => s.status !== "pending")) &&
-          stages.some((s) => s.status !== "pending") && (
-            <BuildProgress stages={stages} error={buildError} />
-          )}
+        {showProgress && stages.some((s) => s.status !== "pending") && (
+          <BuildProgress
+            stages={stages}
+            error={buildError}
+            elapsed={elapsed}
+            completedIn={completedIn}
+          />
+        )}
 
         {/* Disclaimer */}
         <p className="mt-8 text-[11px] font-mono text-parchment/20 leading-relaxed">
