@@ -38,7 +38,7 @@ logger = logging.getLogger("the_operator")
 _WEB_SEARCH_TOOL = {
     "type": "web_search_20250305",
     "name": "web_search",
-    "max_uses": 5,
+    "max_uses": 2,  # 2 searches × 3 parallel passes = 6 total searches per build
 }
 
 
@@ -169,7 +169,7 @@ async def _run_search_pass(
         messages=[{"role": "user", "content": user_message}],
         tools=[_WEB_SEARCH_TOOL],
         max_tokens=max_cfg["output"],
-        timeout=180,  # server-side searches can be slow; cap at 3 min per pass
+        timeout=90,  # 2 server searches per call should complete well under this
     )
 
     text_parts = [b.text for b in response.content if hasattr(b, "text")]
