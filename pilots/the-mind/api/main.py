@@ -881,10 +881,9 @@ async def lifespan(app: FastAPI):
     await _ensure_chat_tables()
     await _ensure_probes_table()
     await _ensure_limit_override_columns()
-    if os.environ.get("OPERATOR_ENABLED", "").lower() in ("1", "true", "yes"):
-        from the_operator.migrations import _ensure_operator_tables
-        await _ensure_operator_tables()
-        logger.info("[startup] operator module enabled — tables ensured")
+    from the_operator.migrations import _ensure_operator_tables
+    await _ensure_operator_tables()
+    logger.info("[startup] operator tables ensured")
     await _backfill_probes_from_disk()
     _purge_old_generated()
     await _purge_old_chat_messages()
@@ -930,11 +929,12 @@ app = FastAPI(
 # underage moderation filter returning 422 with a structured detail body,
 # which is by design (see _generate_persona where reason="underage" lives).
 
-# ── Operator module (conditional) ──────────────────────────────────────────
-if os.environ.get("OPERATOR_ENABLED", "").lower() in ("1", "true", "yes"):
-    from the_operator.router import operator_router
-    app.include_router(operator_router)
-    logger.info("[startup] operator router registered at /operator")
+# ── Operator module ────────────────────────────────────────────────────────
+# Always registered — access is gated by get_current_user auth on every route.
+# No env flag needed here, same as the frontend admin-only gate.
+from the_operator.router import operator_router
+app.include_router(operator_router)
+logger.info("[startup] operator router registered at /operator")
 
 app.add_middleware(
     CORSMiddleware,
