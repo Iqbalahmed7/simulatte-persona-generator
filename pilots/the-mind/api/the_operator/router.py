@@ -10,7 +10,7 @@ import logging
 import os
 import re
 import uuid
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from typing import Optional
 
 import anthropic
@@ -26,7 +26,7 @@ from the_operator.allowance import (
     check_and_increment_operator_allowance,
     get_operator_allowance_state,
 )
-from the_operator.config import EU_COUNTRY_SIGNALS
+from the_operator.config import EU_COUNTRY_SIGNALS, OPERATOR_LIMITS
 from the_operator.errors import (
     eu_subject_blocked,
     moderation_blocked,
@@ -36,6 +36,7 @@ from the_operator.errors import (
 )
 from the_operator.frame import score_frame
 from the_operator.models import (
+    OperatorAllowance,
     Twin,
     TwinFrameScore,
     TwinProbeMessage,
@@ -48,11 +49,12 @@ from the_operator.probe import (
 )
 from the_operator.recon import run_recon
 from the_operator.schemas import (
+    AdminAllowancePatch,
+    AdminEraseByNameRequest,
     BuildTwinRequest,
     EnrichTwinRequest,
     FrameScoreRequest,
     ProbeMessageRequest,
-    AdminEraseByNameRequest,
 )
 from the_operator.storage import delete_recon_cache
 from the_operator.synthesis import synthesise_twin
@@ -937,6 +939,77 @@ async def admin_erase_by_name(
         request.full_name, len(ids), _admin.email,
     )
     return {"erased": len(ids), "full_name": request.full_name}
+
+
+# ── 16. GET /operator/admin/users/{user_id}/allowance ─────────────────────
+
+def _week_monday(dt: datetime) -> date:
+    return dt.date() - timedelta(days=dt.weekday())
+
+
+@operator_router.get("/admin/users/{user_id}/allowance")
+async def admin_get_user_allowance(
+    user_id: str,
+    _admin: User = Depends(get_operator_admin),  # type: ignore
+    db: AsyncSession = Depends(get_db),           # type: ignore
+):
+    week_start = _week_monday(datetime.now(timezone.utc))
+    result = await db.execute(
+        select(OperatorAllowance).where(
+            OperatorAllowance.user_id == user_id,
+            OperatorAllowance.week_starting == week_start,
+        )
+    )
+    row = result.scalar_one_or_none()
+    return {
+        "user_id":       user_id,
+        "week_starting": str(week_start),
+        "twins_built":    row.twins_built    if row else 0,
+        "twin_refreshes": row.twin_refreshes if row else 0,
+        "probe_messages": row.probe_messages if row else 0,
+        "frame_scores":   row.frame_scores   if row else 0,
+        "limits":         OPERATOR_LIMITS,
+    }
+
+
+# ── 17. PATCH /operator/admin/users/{user_id}/allowance ───────────────────
+
+@operator_router.patch("/admin/users/{user_id}/allowance")
+async def admin_patch_user_allowance(
+    user_id: str,
+    body: AdminAllowancePatch,
+    _admin: User = Depends(get_operator_admin),  # type: ignore
+    db: AsyncSession = Depends(get_db),           # type: ignore
+):
+    week_start = _week_monday(datetime.now(timezone.utc))
+    result = await db.execute(
+        select(OperatorAllowance).where(
+            OperatorAllowance.user_id == user_id,
+            OperatorAllowance.week_starting == week_start,
+        )
+    )
+    row = result.scalar_one_or_none()
+    if row is None:
+        row = OperatorAllowance(user_id=user_id, week_starting=week_start)
+        db.add(row)
+        await db.flush()
+
+    if body.twins_built    is not None: row.twins_built    = max(0, body.twins_built)
+    if body.twin_refreshes is not None: row.twin_refreshes = max(0, body.twin_refreshes)
+    if body.probe_messages is not None: row.probe_messages = max(0, body.probe_messages)
+    if body.frame_scores   is not None: row.frame_scores   = max(0, body.frame_scores)
+
+    await db.commit()
+    logger.info("[operator] admin_patched allowance user_id=%s by=%s", user_id, _admin.email)
+    return {
+        "user_id":       user_id,
+        "week_starting": str(week_start),
+        "twins_built":    row.twins_built,
+        "twin_refreshes": row.twin_refreshes,
+        "probe_messages": row.probe_messages,
+        "frame_scores":   row.frame_scores,
+        "limits":         OPERATOR_LIMITS,
+    }
 
 
 # ═══════════════════════════════════════════════════════════════════════════

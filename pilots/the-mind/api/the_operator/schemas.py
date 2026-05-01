@@ -27,6 +27,12 @@ class FrameScoreRequest(BaseModel):
 class AdminEraseByNameRequest(BaseModel):
     full_name: str = Field(..., min_length=2, max_length=100)
 
+class AdminAllowancePatch(BaseModel):
+    twins_built:    Optional[int] = Field(None, ge=0)
+    twin_refreshes: Optional[int] = Field(None, ge=0)
+    probe_messages: Optional[int] = Field(None, ge=0)
+    frame_scores:   Optional[int] = Field(None, ge=0)
+
 
 # ── Response models ───────────────────────────────────────────────────────
 
