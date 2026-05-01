@@ -156,7 +156,7 @@ async def _run_search_pass(
     turns = 0
 
     # Agentic loop — model issues search calls until it has enough to answer
-    while turns < 6:  # hard cap per pass
+    while turns < 3:  # hard cap per pass — keeps builds under 5min for any target
         response = await client.messages.create(
             model=RECON_MODEL,
             system=RECON_SYSTEM,
