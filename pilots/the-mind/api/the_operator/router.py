@@ -213,15 +213,20 @@ async def build_twin(
 
     async def stream():
         try:
-            progress_events = []
+            # asyncio.Queue bridges between the recon background task and the
+            # SSE generator so pass-level messages stream in real time instead
+            # of being queued and flushed only after all 3 passes finish.
+            import asyncio as _asyncio
+            q: _asyncio.Queue = _asyncio.Queue()
 
             async def emit_progress(payload: dict):
-                progress_events.append(_sse({"event": "progress", **payload}))
+                await q.put(_sse({"event": "progress", **payload}))
 
             yield _sse({"event": "progress", "stage": "recon", "message": "Starting reconnaissance…"})
 
-            # Pass 1-3 recon
-            recon_data = await run_recon(
+            # Run the 3-pass recon as a background task so this generator
+            # can concurrently drain the queue and stream each pass live.
+            recon_task = _asyncio.create_task(run_recon(
                 twin_id=twin_id,
                 full_name=request.full_name,
                 company=request.company,
@@ -229,12 +234,22 @@ async def build_twin(
                 client=_client(),
                 force=force,
                 progress_callback=emit_progress,
-            )
+            ))
 
-            # Emit any queued progress events
-            for evt in progress_events:
-                yield evt
-            progress_events.clear()
+            # Stream progress events while recon runs
+            while not recon_task.done():
+                try:
+                    evt = await _asyncio.wait_for(q.get(), timeout=0.4)
+                    yield evt
+                except _asyncio.TimeoutError:
+                    pass  # nothing queued yet — keep polling
+
+            # Drain any remaining events that arrived at task completion
+            while not q.empty():
+                yield q.get_nowait()
+
+            # Propagate any exception from the recon task
+            recon_data = recon_task.result()
 
             yield _sse({"event": "progress", "stage": "synthesis", "message": "Building decision architecture…"})
 
