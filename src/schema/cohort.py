@@ -93,3 +93,7 @@ class CohortEnvelope(BaseModel):
     calibration_state: CalibrationState
     gate_waivers: list[dict] = Field(default_factory=list)
     confidence_penalty: float = 0.0
+    # Canonical validator output — populated by assemble_cohort from CohortGateRunner.run_all().
+    # Each entry is a ValidationResult.to_dict(): {gate, passed, failures, warnings}.
+    # Empty when gates were skipped or CohortGateRunner was unavailable.
+    gate_results: list[dict] = Field(default_factory=list)

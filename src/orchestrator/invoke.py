@@ -206,6 +206,7 @@ async def invoke_persona_generator(
         registry_path=str(brief.registry_path) if brief.registry_path else None,
         client=brief.client,
         streaming_writer=streaming_writer,
+        max_attempts=brief.max_retries_per_persona,
     )
 
     # Handle Sarvam wrapper
@@ -318,7 +319,32 @@ async def invoke_persona_generator(
         wall_clock_seconds=wall_clock,
     )
 
-    # ── 11. Pipeline documentation ────────────────────────────────────────
+    # ── 11. Calibration Card (Spec 02) ───────────────────────────────────
+    # Non-optional: every deliverable ships with a card. If Iris has no
+    # benchmark data, the card emits as "uncalibrated" with an honest reason.
+    # iris_outputs=None is the correct call here — Iris integration is a
+    # future step once Iris exposes a run-time API. For now the card always
+    # emits; the study team can back-fill iris_outputs via build_calibration_card
+    # once Iris outputs are available.
+    try:
+        from src.calibration.card_builder import build_calibration_card
+        result.calibration_card = build_calibration_card(
+            study_id=run_id,
+            cohort_envelope=cohort_envelope,
+            iris_outputs=None,  # TODO: wire Iris run outputs here
+        )
+        print(
+            f"[orchestrator] Calibration card → "
+            f"status={result.calibration_card.calibration_status}"
+        )
+    except Exception as _cc_err:
+        import logging as _log
+        _log.getLogger(__name__).warning(
+            "build_calibration_card failed (%s); result.calibration_card will be None.",
+            _cc_err,
+        )
+
+    # ── 12. Pipeline documentation ────────────────────────────────────────
     if brief.emit_pipeline_doc:
         doc_dir = output_dir / "pipeline_docs"
         writer = PipelineDocWriter(result, brief, estimate)
@@ -356,43 +382,120 @@ def _stdin_confirm() -> bool:
 
 def _build_quality_report(cohort_envelope: dict) -> QualityReport:
     """
-    Extracts quality gate results from a CohortEnvelope dict.
+    Build a QualityReport from a CohortEnvelope dict.
 
-    The CohortEnvelope from _run_generation() includes calibration_state
-    and cohort_summary which encode gate results.  This function reconstructs
-    a QualityReport from those fields.
+    Consumes the canonical ``gate_results`` list written by assemble_cohort
+    (each entry is a ValidationResult.to_dict()).  Gate IDs map 1:1 with the
+    CohortGateRunner protocol (G6, G7, G8, G9, G11); no pass/fail state is
+    inferred from secondary fields such as cohort_summary or calibration_state.
+
+    Two non-protocol signals are appended independently:
+    - ``Grounding-AnchoredTendencies``: cohort tendency anchoring signal.
+    - ``Persona-AttributePresence``: quarantine marker for attribute-empty personas.
     """
     gates_passed: list[str] = []
     gates_failed: list[str] = []
+    gate_statuses: list[dict[str, Any]] = []
 
-    # Cohort-level gates from cohort_summary
-    cs = cohort_envelope.get("cohort_summary", {})
+    # Protocol gate ID → human-readable report label (1:1 mapping).
+    _GATE_LABELS: dict[str, str] = {
+        "G1": "G1-SchemaValidity",
+        "G2": "G2-HardConstraints",
+        "G3": "G3-TendencyAttributeConsistency",
+        "G4": "G4-NarrativeCompleteness",
+        "G5": "G5-NarrativeAlignment",
+        "G6": "G6-Diversity",
+        "G7": "G7-Distinctiveness",
+        "G8": "G8-TypeCoverage",
+        "G9": "G9-TensionCompleteness",
+        "G10": "G10-MemoryBootstrap",
+        "G11": "G11-TendencySource",
+        "G12": "G12-SimulationGrounding",
+    }
 
-    # G6 — Diversity
-    if cs.get("decision_style_distribution"):
-        max_share = max(cs["decision_style_distribution"].values(), default=0)
-        if max_share <= 0.50:
-            gates_passed.append("G6-Diversity")
+    canonical_gate_results = {
+        gr.get("gate"): gr for gr in cohort_envelope.get("gate_results", [])
+    }
+    personas = cohort_envelope.get("personas", [])
+    personas_validated_count = len(personas)
+
+    def _append_status(
+        gate_id: str,
+        status: str,
+        reason: str | None = None,
+        failures: list[str] | None = None,
+        extra: dict[str, Any] | None = None,
+    ) -> None:
+        label = _GATE_LABELS[gate_id]
+        payload: dict[str, Any] = {
+            "gate_id": gate_id,
+            "label": label,
+            "status": status,  # enum: passed | failed | not_run
+        }
+        if reason is not None:
+            payload["reason"] = reason
+        if failures:
+            payload["failures"] = failures
+        if extra:
+            payload.update(extra)
+        gate_statuses.append(payload)
+        if status == "passed":
+            gates_passed.append(label)
+        elif status == "failed":
+            gates_failed.append(label)
+
+    # G1-G5 run at generation stage, not cohort orchestrator stage.
+    for gid in ("G1", "G2", "G3", "G4", "G5"):
+        _append_status(
+            gid,
+            "not_run",
+            reason="deferred_to_generation_stage",
+            extra={"personas_validated_count": personas_validated_count},
+        )
+
+    # G6, G7, G8, G9, G11 from canonical cohort validator output.
+    for gid in ("G6", "G7", "G8", "G9", "G11"):
+        gr = canonical_gate_results.get(gid)
+        if gr is None:
+            _append_status(
+                gid,
+                "not_run",
+                reason="deferred_to_generation_stage",
+                extra={"personas_validated_count": personas_validated_count},
+            )
+            continue
+        if gr.get("passed"):
+            _append_status(gid, "passed")
         else:
-            gates_failed.append("G6-Diversity")
+            _append_status(gid, "failed", failures=gr.get("failures", []))
 
-    # G7 — Distinctiveness
-    dist_score = cs.get("distinctiveness_score")
-    if dist_score is not None:
-        if dist_score >= 0.30:
-            gates_passed.append("G7-Distinctiveness")
-        else:
-            gates_failed.append("G7-Distinctiveness")
-
-    # G11 — Calibration state
-    cal = cohort_envelope.get("calibration_state", {})
-    cal_status = cal.get("status", "uncalibrated")
-    if cal_status not in ("calibration_failed",):
-        gates_passed.append("G11-CalibrationState")
+    # G10 mode-aware status at orchestrator stage.
+    mode = str(cohort_envelope.get("mode", "quick"))
+    if mode != "simulation-ready":
+        _append_status("G10", "not_run", reason="not_applicable_mode_quick")
     else:
-        gates_failed.append("G11-CalibrationState")
+        weak_seed_ids: list[str] = []
+        for p in personas:
+            pid = p.get("persona_id", "unknown")
+            observations = (
+                p.get("memory", {})
+                .get("working", {})
+                .get("observations", [])
+            )
+            if len(observations) < 3:
+                weak_seed_ids.append(pid)
+        if weak_seed_ids:
+            _append_status(
+                "G10",
+                "failed",
+                failures=[
+                    f"seed memory observations <3 for persona_ids={weak_seed_ids}"
+                ],
+            )
+        else:
+            _append_status("G10", "passed", reason="validated_at_generation_stage")
 
-    # Grounding summary (cohort tendency anchoring signal, not simulation G12)
+    # Grounding tendency anchoring signal (not a CohortGateRunner gate).
     grounding = cohort_envelope.get("grounding_summary", {})
     grounding_state = "ungrounded"
     if grounding.get("tendency_source_distribution"):
@@ -401,19 +504,23 @@ def _build_quality_report(cohort_envelope: dict) -> QualityReport:
             grounding_state = "anchored"
             gates_passed.append("Grounding-AnchoredTendencies")
 
-    # Per-persona sanity signal — do not infer G1/G2/G3 pass heuristically.
-    personas = cohort_envelope.get("personas", [])
+    # Per-persona attribute presence check — quarantine marker only; not a protocol gate.
     quarantined = 0
     for persona in personas:
-        attrs = persona.get("attributes", {})
-        # Any persona with no attributes is quarantined.
-        if not attrs:
+        if not persona.get("attributes", {}):
             quarantined += 1
 
     if quarantined > 0:
         gates_failed.append("Persona-AttributePresence")
 
-    return QualityReport(
+    # G12 runs post-simulation contamination check, not at cohort stage.
+    _append_status("G12", "not_run", reason="deferred_to_simulation_stage")
+
+    # Distinctiveness score for downstream reporting (informational, not a gate input).
+    cs = cohort_envelope.get("cohort_summary", {})
+    dist_score = cs.get("distinctiveness_score")
+
+    report = QualityReport(
         gates_passed=gates_passed,
         gates_failed=gates_failed,
         personas_quarantined=quarantined,
@@ -421,3 +528,6 @@ def _build_quality_report(cohort_envelope: dict) -> QualityReport:
         distinctiveness_score=dist_score,
         grounding_state=grounding_state,
     )
+    # Attach canonical per-gate status payload without requiring QualityReport schema changes.
+    report.gate_statuses = gate_statuses  # type: ignore[attr-defined]
+    return report

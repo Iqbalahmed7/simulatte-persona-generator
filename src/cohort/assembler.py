@@ -36,7 +36,7 @@ except ImportError:
     classify_persona_type = None  # type: ignore[assignment]
 
 logger = logging.getLogger(__name__)
-MAX_GATE_RETRIES = int(os.getenv("SIMULATTE_MAX_GATE_RETRIES", "3"))
+MAX_GATE_RETRIES = int(os.getenv("SIMULATTE_MAX_GATE_RETRIES", "2"))
 
 # ---------------------------------------------------------------------------
 # Age bracket helper
@@ -163,6 +163,7 @@ def assemble_cohort(
     client: str = "",
     skip_gates: bool = False,
     regenerate_failing: Callable[[list[PersonaRecord], list["ValidationResult"], int], list[PersonaRecord]] | None = None,
+    max_attempts: int | None = None,
 ) -> CohortEnvelope:
     """
     Assemble N personas into a validated CohortEnvelope.
@@ -181,6 +182,10 @@ def assemble_cohort(
     if not personas:
         raise ValueError("assemble_cohort requires at least one persona")
 
+    # Resolve max_attempts: explicit argument takes precedence; otherwise use the
+    # module-level default so monkeypatching MAX_GATE_RETRIES in tests still works.
+    _max_attempts: int = max_attempts if max_attempts is not None else MAX_GATE_RETRIES
+
     # Step 1: G1 is implicitly satisfied — PersonaRecord construction via Pydantic
     # already enforces schema validity. PersonaValidator.g1_schema_validity() does
     # supplementary checks (persona_id format, field counts) but is not re-run here
@@ -190,7 +195,7 @@ def assemble_cohort(
     failed_gates: list[str] = []
     waivers: list[GateWaiver] = []
     attempts = 0
-    gate_results = []
+    gate_results: list = []
 
     if CohortGateRunner is not None:
         runner = CohortGateRunner()
@@ -208,7 +213,8 @@ def assemble_cohort(
 
             attempts += 1
 
-            if attempts >= MAX_GATE_RETRIES:
+            # Waivers are emitted only once regeneration attempts are exhausted.
+            if attempts >= _max_attempts:
                 for result in failing_results:
                     if result.gate not in {"G6", "G7", "G8", "G9", "G10", "G11"}:
                         continue
@@ -344,6 +350,9 @@ def assemble_cohort(
         calibration_state=calibration_state,
         gate_waivers=[w.to_dict() for w in waivers],
         confidence_penalty=cumulative_penalty(waivers),
+        # Canonical gate results from the final CohortGateRunner.run_all() call.
+        # Empty list when CohortGateRunner was unavailable or no gates were run.
+        gate_results=[r.to_dict() for r in gate_results],
     )
 
     return envelope

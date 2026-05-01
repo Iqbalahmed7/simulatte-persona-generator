@@ -96,6 +96,7 @@ async def _run_generation(
     registry_path: str | None = None,
     client: str = "",
     streaming_writer: "StreamingCohortWriter | None" = None,  # type: ignore[name-defined]
+    max_attempts: int = 2,
 ) -> dict:
     """Async inner function: builds N personas then assembles the cohort.
 
@@ -131,7 +132,75 @@ async def _run_generation(
     constructor = IdentityConstructor(llm_client, model=generation_model)
 
     import asyncio
+    import threading as _threading
     from src.generation.demographic_sampler import sample_demographic_anchor
+
+    # Build a synchronous regenerate_failing callable that replaces the entire
+    # persona list by running LLM generation in an isolated thread (avoids the
+    # nested-event-loop restriction when called from the sync assemble_cohort).
+    def _regenerate_failing(
+        personas: list,
+        failing_results: list,
+        attempt: int,
+    ) -> list:
+        n = len(personas)
+        _results: list = []
+        _exc: list = []
+
+        async def _regen_async() -> list:
+            tasks = []
+            for i in range(n):
+                icp = ICPSpec(
+                    domain=domain,
+                    mode=mode,
+                    anchor_overrides=anchor_overrides,
+                    persona_id_prefix=f"{persona_id_prefix}-r{attempt}",
+                    persona_index=i + 1,
+                    domain_data=domain_data,
+                )
+                anchor = sample_demographic_anchor(
+                    domain=domain,
+                    index=i,
+                    anchor_overrides=anchor_overrides,
+                )
+                tasks.append(constructor.build(demographic_anchor=anchor, icp_spec=icp))
+            return await asyncio.gather(*tasks, return_exceptions=True)
+
+        def _thread_fn() -> None:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                _results.extend(loop.run_until_complete(_regen_async()))
+            except Exception as exc:  # noqa: BLE001
+                _exc.append(exc)
+            finally:
+                loop.close()
+
+        t = _threading.Thread(target=_thread_fn, daemon=True)
+        t.start()
+        t.join(timeout=300)
+
+        if _exc:
+            click.echo(
+                f"  [regenerate_failing] attempt {attempt} error: {_exc[0]}; keeping originals",
+                err=True,
+            )
+            return personas
+
+        from src.schema.persona import PersonaRecord as _PR
+        valid = [p for p in _results if isinstance(p, _PR)]
+        if not valid:
+            click.echo(
+                f"  [regenerate_failing] attempt {attempt}: no valid personas produced; keeping originals",
+                err=True,
+            )
+            return personas
+
+        click.echo(
+            f"  [regenerate_failing] attempt {attempt}: regenerated {len(valid)}/{n} persona(s)",
+            err=True,
+        )
+        return valid
 
     # ------------------------------------------------------------------
     # Registry hook — reuse matching personas before generating new ones
@@ -279,6 +348,8 @@ async def _run_generation(
         domain_data=domain_data,
         client=client,
         skip_gates=skip_gates,
+        regenerate_failing=_regenerate_failing,
+        max_attempts=max_attempts,
     )
 
     # ------------------------------------------------------------------
