@@ -137,6 +137,33 @@ def _decode_token(token: str) -> dict:
 
 # ── FastAPI dependency: get_current_user ──────────────────────────────────
 
+_SERVICE_USER_EMAIL = "operator-service@simulatte.io"
+
+
+async def _resolve_service_user(db: AsyncSession) -> User:
+    """Find or create the headless-agent service user.
+
+    Used when a request authenticates via X-API-Key (Trinity, CLI, scheduled
+    jobs). Same allowance/rate-limit machinery applies — quota is shared
+    across all headless callers using this key.
+    """
+    result = await db.execute(select(User).where(User.email == _SERVICE_USER_EMAIL))
+    user = result.scalar_one_or_none()
+    if user is not None:
+        return user
+
+    # Auto-provision on first hit — let SQLAlchemy defaults handle other cols
+    user = User(
+        id="service-operator",
+        email=_SERVICE_USER_EMAIL,
+        name="Operator Service Agent",
+    )
+    db.add(user)
+    await db.commit()
+    await db.refresh(user)
+    return user
+
+
 async def get_current_user(
     request: Request,
     db: AsyncSession = Depends(get_db),
@@ -145,7 +172,17 @@ async def get_current_user(
 
     Verifies the JWT with NEXTAUTH_SECRET, then looks up the user in Postgres.
     Raises HTTP 401 if the token is missing, invalid, or the user doesn't exist.
+
+    Also accepts X-API-Key header for headless agent access (Trinity, CLI).
+    Set OPERATOR_API_KEY env var on the backend to enable this path.
     """
+    # 0. Service-level API key for headless agents (Trinity, scheduled jobs)
+    operator_api_key = os.environ.get("OPERATOR_API_KEY", "").strip()
+    if operator_api_key:
+        provided = request.headers.get("X-API-Key", "").strip()
+        if provided and provided == operator_api_key:
+            return await _resolve_service_user(db)
+
     token: str | None = None
 
     # 1. Check Authorization: Bearer <token>

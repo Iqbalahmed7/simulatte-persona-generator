@@ -264,15 +264,6 @@ async def build_twin(
                 client=_client(),
             )
 
-            yield _sse({"event": "progress", "stage": "portrait", "message": "Generating portrait…"})
-
-            portrait_url = await generate_twin_portrait(
-                full_name=request.full_name,
-                company=request.company,
-                title=request.title,
-                profile=profile,
-            )
-
             yield _sse({"event": "progress", "stage": "saving", "message": "Persisting Twin…"})
 
             # Determine confidence and sources from recon
@@ -282,6 +273,9 @@ async def build_twin(
 
             now = datetime.now(timezone.utc)
 
+            # Save the twin FIRST without portrait — portrait is best-effort
+            # and must not block the save. If fal.ai stalls or errors, the
+            # user still gets their twin and can refresh the portrait later.
             if existing and force:
                 # Update in place
                 update_vals = dict(
@@ -297,8 +291,6 @@ async def build_twin(
                     updated_at=now,
                     last_refreshed_at=now,
                 )
-                if portrait_url:
-                    update_vals["portrait_url"] = portrait_url
                 await db.execute(
                     update(Twin).where(Twin.id == existing.id).values(**update_vals)
                 )
@@ -318,7 +310,7 @@ async def build_twin(
                     gaps=gaps,
                     recon_notes=json.dumps(recon_data),
                     profile=json.dumps(profile),
-                    portrait_url=portrait_url,
+                    portrait_url=None,
                     created_at=now,
                     updated_at=now,
                 )
@@ -330,6 +322,30 @@ async def build_twin(
                 "[operator] twin_built user=%s twin_id=%s sources=%d confidence=%s",
                 user.email, saved_twin_id, sources_count, confidence,
             )
+
+            # Generate the portrait AFTER save — if it fails, the twin is
+            # already persisted and the user can refresh later.
+            yield _sse({"event": "progress", "stage": "portrait", "message": "Generating portrait…"})
+            try:
+                portrait_url = await generate_twin_portrait(
+                    full_name=request.full_name,
+                    company=request.company,
+                    title=request.title,
+                    profile=profile,
+                )
+                if portrait_url:
+                    await db.execute(
+                        update(Twin)
+                        .where(Twin.id == saved_twin_id)
+                        .values(portrait_url=portrait_url)
+                    )
+                    await db.commit()
+            except Exception as portrait_exc:  # noqa: BLE001
+                logger.warning(
+                    "[operator] portrait generation failed for twin=%s: %s",
+                    saved_twin_id, portrait_exc,
+                )
+                # Swallow — twin is already saved, portrait absence degrades to initials
 
             yield _sse({"event": "complete", "twin_id": saved_twin_id, "confidence": confidence})
 

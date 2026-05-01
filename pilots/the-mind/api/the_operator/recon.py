@@ -31,8 +31,15 @@ from the_operator.storage import read_recon_cache, write_recon_cache
 
 logger = logging.getLogger("the_operator")
 
-# web_search tool definition (Anthropic built-in)
-_WEB_SEARCH_TOOL = {"type": "web_search_20250305", "name": "web_search"}
+# web_search tool definition (Anthropic server-side built-in).
+# `max_uses` lets the server run up to N searches inside a single API call —
+# results come back integrated into the assistant response. This is NOT a
+# client-side tool: do not echo tool_results back, do not loop on tool_use.
+_WEB_SEARCH_TOOL = {
+    "type": "web_search_20250305",
+    "name": "web_search",
+    "max_uses": 5,
+}
 
 
 async def run_recon(
@@ -142,57 +149,31 @@ async def _run_search_pass(
     user_message: str,
     client: anthropic.AsyncAnthropic,
 ) -> tuple[str, int, int]:
-    """Run one recon pass with web_search tool. Returns (text, tokens_in, turns)."""
+    """Run one recon pass with the server-side web_search tool.
+
+    Critical: web_search_20250305 is a SERVER-SIDE tool. The model issues
+    server_tool_use blocks, Anthropic runs the searches internally (up to
+    `max_uses` per call), and results come back as web_search_tool_result
+    blocks within the same assistant response. There is no client-side
+    handshake — we do NOT echo tool_results, we do NOT loop on tool_use.
+
+    A single messages.create() call performs the full search workflow.
+
+    Returns (text, tokens_in, turns).
+    """
     max_cfg = RECON_MAX_TOKENS_PASS[pass_num]
 
-    messages = [{"role": "user", "content": user_message}]
-    total_tokens_in = 0
-    turns = 0
+    response = await client.messages.create(
+        model=RECON_MODEL,
+        system=RECON_SYSTEM,
+        messages=[{"role": "user", "content": user_message}],
+        tools=[_WEB_SEARCH_TOOL],
+        max_tokens=max_cfg["output"],
+        timeout=180,  # server-side searches can be slow; cap at 3 min per pass
+    )
 
-    # Agentic loop — model issues search calls until it has enough to answer
-    while turns < 3:  # hard cap per pass — keeps builds under 5min for any target
-        response = await client.messages.create(
-            model=RECON_MODEL,
-            system=RECON_SYSTEM,
-            messages=messages,
-            tools=[_WEB_SEARCH_TOOL],
-            max_tokens=max_cfg["output"],
-        )
-
-        total_tokens_in += response.usage.input_tokens
-        turns += 1
-
-        if response.stop_reason == "end_turn":
-            # Extract text from response
-            text_parts = [
-                b.text for b in response.content if hasattr(b, "text")
-            ]
-            return "\n".join(text_parts), total_tokens_in, turns
-
-        if response.stop_reason == "tool_use":
-            # Append assistant response and tool results to continue the loop
-            messages.append({"role": "assistant", "content": response.content})
-            tool_results = []
-            for block in response.content:
-                if block.type == "tool_use":
-                    # web_search results come back in the next response
-                    # We append an empty tool_result to keep the conversation valid
-                    tool_results.append({
-                        "type": "tool_result",
-                        "tool_use_id": block.id,
-                        "content": "",
-                    })
-            if tool_results:
-                messages.append({"role": "user", "content": tool_results})
-            continue
-
-        # Any other stop_reason — extract whatever text we have
-        text_parts = [b.text for b in response.content if hasattr(b, "text")]
-        return "\n".join(text_parts), total_tokens_in, turns
-
-    # Max turns hit — return whatever we have
     text_parts = [b.text for b in response.content if hasattr(b, "text")]
-    return "\n".join(text_parts), total_tokens_in, turns
+    return "\n".join(text_parts), response.usage.input_tokens, 1
 
 
 async def _extract_structured(raw_findings: str, client: anthropic.AsyncAnthropic) -> dict:
