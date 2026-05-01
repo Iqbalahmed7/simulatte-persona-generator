@@ -11,11 +11,16 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import OperatorAllowanceProvider from "@/components/OperatorAllowanceProvider";
+import { getAdminUser } from "@/lib/admin";
 
-export default function OperatorLayout({ children }: { children: ReactNode }) {
+export default async function OperatorLayout({ children }: { children: ReactNode }) {
   if (process.env.NEXT_PUBLIC_OPERATOR_ENABLED !== "true") {
     notFound();
   }
+
+  // Operator is admin-only until it graduates to a full product.
+  const admin = await getAdminUser();
+  if (!admin) notFound();
 
   return <OperatorAllowanceProvider>{children}</OperatorAllowanceProvider>;
 }

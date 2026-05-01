@@ -132,7 +132,7 @@ export default function NavRail({
             active={pathname === "/community"}
             icon={<IconWall />}
           />
-          {OPERATOR_ENABLED && (
+          {OPERATOR_ENABLED && isAdmin && (
             <RailItem
               collapsed={collapsed}
               href="/operator"
