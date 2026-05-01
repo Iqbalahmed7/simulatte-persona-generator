@@ -36,6 +36,7 @@ export interface TwinCard {
   is_stale: boolean;
   probe_count: number;
   last_frame_score: number | null;
+  portrait_url: string | null;
 }
 
 export interface TwinObjPair {
@@ -55,6 +56,7 @@ export interface TwinDetail {
   recon_source_count: number;
   probe_count: number;
   last_frame_score: number | null;
+  portrait_url: string | null;
 
   // Profile sections
   identity_snapshot: string;
@@ -423,6 +425,27 @@ export async function streamProbeMessage(
       }
     }
   }
+}
+
+// ── Frame score ───────────────────────────────────────────────────────────
+
+// ── Portrait ──────────────────────────────────────────────────────────────
+
+export async function generateTwinPortrait(
+  twinId: string,
+  force = false
+): Promise<string> {
+  const headers = await _authHeaders();
+  const url = `${API}/operator/twins/${twinId}/portrait${force ? "?force=true" : ""}`;
+  const res = await fetch(url, { method: "POST", headers });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(
+      (body as { detail?: string }).detail ?? `Portrait generation failed (${res.status})`
+    );
+  }
+  const data = await res.json();
+  return (data as { url: string }).url;
 }
 
 // ── Frame score ───────────────────────────────────────────────────────────

@@ -50,6 +50,10 @@ async def _ensure_operator_tables() -> None:
             await conn.execute(_sql(
                 "CREATE UNIQUE INDEX IF NOT EXISTS uq_twins_user_slug ON twins (user_id, name_slug)"
             ))
+            # portrait_url column — added post-launch; idempotent
+            await conn.execute(_sql(
+                "ALTER TABLE twins ADD COLUMN IF NOT EXISTS portrait_url TEXT"
+            ))
 
             # ── twin_probe_sessions ───────────────────────────────────────
             await conn.execute(_sql("""

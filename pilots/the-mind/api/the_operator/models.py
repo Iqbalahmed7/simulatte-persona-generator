@@ -41,6 +41,7 @@ class Twin(Base):
     recon_notes    = Column(Text, nullable=True)             # raw recon intermediate JSON
     profile        = Column(Text, nullable=False)            # synthesised Twin profile JSON
     enrichment     = Column(Text, nullable=True)             # user-pasted enrichment signals
+    portrait_url   = Column(Text, nullable=True)             # fal.ai Flux portrait URL
 
     # timestamps
     created_at        = Column(DateTime(timezone=True), nullable=False, default=_now)

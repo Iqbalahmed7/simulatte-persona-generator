@@ -11,10 +11,12 @@
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import {
   getTwin,
   deleteTwin,
   streamRefresh,
+  generateTwinPortrait,
   type TwinDetail,
   OperatorAllowanceError,
   OPERATOR_ERROR_MESSAGES,
@@ -274,6 +276,91 @@ function Gaps({ gaps }: { gaps: string[] }) {
 }
 
 // ── RIGHT COLUMN ──────────────────────────────────────────────────────────
+
+function PortraitCard({
+  twinId,
+  initialUrl,
+}: {
+  twinId: string;
+  initialUrl: string | null;
+}) {
+  const [url, setUrl] = useState<string | null>(initialUrl);
+  const [generating, setGenerating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleGenerate(force = false) {
+    setGenerating(true);
+    setError(null);
+    try {
+      const newUrl = await generateTwinPortrait(twinId, force);
+      setUrl(newUrl);
+    } catch (err) {
+      setError((err as Error).message ?? "Portrait generation failed.");
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  return (
+    <div className="border border-parchment/10 overflow-hidden">
+      {url ? (
+        <>
+          <div className="relative w-full aspect-[3/4]">
+            <Image
+              src={url}
+              alt="Twin portrait"
+              fill
+              sizes="256px"
+              className="object-cover"
+              unoptimized
+            />
+          </div>
+          <div className="p-2 flex justify-between items-center border-t border-parchment/10">
+            <p className="text-[10px] font-mono text-static">
+              AI-generated · not the person
+            </p>
+            <button
+              onClick={() => handleGenerate(true)}
+              disabled={generating}
+              className="text-[10px] font-mono text-static hover:text-parchment/60 transition-colors disabled:opacity-40"
+            >
+              {generating ? "…" : "↻"}
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className="p-4 space-y-3">
+          <p className="text-[10px] font-mono text-static uppercase tracking-widest">Portrait</p>
+          <div className="w-full aspect-[3/4] bg-parchment/[0.03] flex items-center justify-center">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1" className="text-parchment/10" strokeLinecap="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg>
+          </div>
+          {error && <p className="text-red-400 text-[11px] font-mono">{error}</p>}
+          <button
+            onClick={() => handleGenerate(false)}
+            disabled={generating}
+            className="w-full py-2 border border-parchment/15 hover:border-parchment/30 text-parchment/50 hover:text-parchment/80 text-xs font-mono transition-colors disabled:opacity-40"
+          >
+            {generating ? (
+              <span className="flex items-center justify-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-signal animate-pulse" />
+                Generating…
+              </span>
+            ) : (
+              "Generate portrait"
+            )}
+          </button>
+          <p className="text-[10px] font-mono text-parchment/20 leading-relaxed">
+            AI-generated likeness. Not the actual person.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ActionCard({
   twinId,
@@ -559,6 +646,7 @@ export default function TwinDetailPage() {
 
         {/* ── RIGHT (40%) — sticky on md ── */}
         <div className="w-full md:w-64 flex-shrink-0 space-y-4 md:sticky md:top-8 md:self-start">
+          <PortraitCard twinId={twinId} initialUrl={twin.portrait_url} />
           <ActionCard twinId={twinId} isDeleting={deleting} onDelete={handleDelete} />
           <StatsCard
             twin={twin}

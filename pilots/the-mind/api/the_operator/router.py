@@ -165,6 +165,7 @@ def _twin_to_dict(twin: Twin, include_recon: bool = False) -> dict:
         "updated_at":       twin.updated_at.isoformat() if twin.updated_at else None,
         "last_probed_at":   twin.last_probed_at.isoformat() if twin.last_probed_at else None,
         "last_refreshed_at": twin.last_refreshed_at.isoformat() if twin.last_refreshed_at else None,
+        "portrait_url":     getattr(twin, "portrait_url", None),
     }
     if include_recon:
         d["recon_notes"] = twin.recon_notes
@@ -755,6 +756,112 @@ async def list_frame_scores(
         }
         for s in scores
     ]
+
+
+# ── 13b. POST /operator/twins/{twin_id}/portrait ─────────────────────────
+
+@operator_router.post("/twins/{twin_id}/portrait")
+async def generate_twin_portrait(
+    twin_id: str,
+    force: bool = False,
+    user: User = Depends(get_current_user),  # type: ignore
+    db: AsyncSession = Depends(get_db),       # type: ignore
+):
+    """Generate a fal.ai Flux portrait for a Twin and cache the URL.
+
+    Uses the Twin's name, title, company, and identity snapshot to build
+    a photorealistic portrait prompt.  Re-uses the same FAL_KEY env var
+    and fal-ai/flux-pro/v1.1-ultra model as the PG persona portraits.
+
+    Returns: { url: str }
+    Raises 503 if FAL_KEY not set; 502 on fal.ai error.
+    """
+    import os, json
+    import httpx
+    from fastapi import HTTPException as _HTTPException
+
+    twin = await _get_user_twin(twin_id, user.id, db)
+
+    # Return cached URL unless force=True
+    cached = getattr(twin, "portrait_url", None)
+    if cached and not force:
+        return {"url": cached}
+
+    fal_key = os.environ.get("FAL_KEY", "")
+    if not fal_key:
+        raise _HTTPException(status_code=503, detail="FAL_KEY not configured")
+
+    # Build prompt from available Twin data
+    profile_data: dict = {}
+    try:
+        profile_data = json.loads(twin.profile or "{}")
+    except Exception:
+        pass
+
+    identity_snapshot = profile_data.get("identity_snapshot", "")
+    name = twin.full_name or ""
+    title = twin.title or ""
+    company = twin.company or ""
+
+    role_clause = ""
+    if title and company:
+        role_clause = f" working as {title} at {company}"
+    elif title:
+        role_clause = f" working as {title}"
+    elif company:
+        role_clause = f" at {company}"
+
+    # Use first sentence of identity snapshot for atmosphere cues
+    snapshot_hint = ""
+    if identity_snapshot:
+        first_sent = identity_snapshot.split(".")[0].strip()
+        if len(first_sent) > 20:
+            snapshot_hint = f" {first_sent}."
+
+    prompt = (
+        f"Candid photorealistic portrait of {name}{role_clause}.{snapshot_hint} "
+        "Natural expression, professional but approachable. "
+        "Shot on 85mm f/1.4 lens, natural window light, shallow depth of field, "
+        "visible skin texture, authentic imperfections. "
+        "Corporate-casual wardrobe appropriate for a senior professional. "
+        "Neutral urban office background, slightly out of focus."
+    )
+
+    negative_prompt = (
+        "cartoon, illustration, anime, 3d render, plastic skin, oversaturated, "
+        "instagram filter, beauty filter, glamour shot, model agency portrait, perfect symmetry"
+    )
+
+    try:
+        async with httpx.AsyncClient(timeout=120) as client:
+            resp = await client.post(
+                "https://fal.run/fal-ai/flux-pro/v1.1-ultra",
+                headers={"Authorization": f"Key {fal_key}", "Content-Type": "application/json"},
+                json={
+                    "prompt": prompt,
+                    "negative_prompt": negative_prompt,
+                    "aspect_ratio": "3:4",
+                    "num_images": 1,
+                    "enable_safety_checker": True,
+                    "output_format": "jpeg",
+                },
+            )
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPStatusError as exc:
+        raise _HTTPException(status_code=502, detail=f"fal.ai error: {exc.response.text}")
+    except Exception as exc:
+        raise _HTTPException(status_code=502, detail=f"Portrait generation failed: {exc}")
+
+    images = data.get("images", [])
+    if not images:
+        raise _HTTPException(status_code=500, detail="fal.ai returned no images")
+
+    url: str = images[0]["url"]
+    twin.portrait_url = url
+    await db.commit()
+
+    return {"url": url}
 
 
 # ── 13. GET /operator/me ──────────────────────────────────────────────────
