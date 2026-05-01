@@ -78,32 +78,26 @@ async def run_recon(
     cumulative_input = 0
     total_tool_turns = 0
 
-    for pass_num in range(1, 4):
-        if progress_callback:
-            await _emit(progress_callback, f"Searching public sources (pass {pass_num}/3)…")
+    # Emit a single progress event — all 3 passes run concurrently
+    if progress_callback:
+        await _emit(progress_callback, "Searching public sources (3 passes in parallel)…")
 
-        try:
-            result_text, tokens_in, turns = await _run_search_pass(
-                pass_num=pass_num,
-                user_message=pass_queries[pass_num],
-                client=client,
-            )
-        except anthropic.APIStatusError as exc:
-            if exc.status_code >= 500:
-                logger.warning("[operator] recon pass %d server error: %s", pass_num, exc)
-                # Retry once
-                await asyncio.sleep(30)
-                try:
-                    result_text, tokens_in, turns = await _run_search_pass(
-                        pass_num=pass_num,
-                        user_message=pass_queries[pass_num],
-                        client=client,
-                    )
-                except Exception:
-                    raise recon_unavailable()
-            else:
-                raise
+    # Run all 3 passes simultaneously — they cover independent facets so order doesn't matter
+    raw_results = await asyncio.gather(
+        _run_search_pass(1, pass_queries[1], client),
+        _run_search_pass(2, pass_queries[2], client),
+        _run_search_pass(3, pass_queries[3], client),
+        return_exceptions=True,
+    )
 
+    for pass_num, result in enumerate(raw_results, start=1):
+        if isinstance(result, BaseException):
+            if isinstance(result, anthropic.APIStatusError) and result.status_code >= 500:
+                logger.warning("[operator] recon pass %d server error: %s", pass_num, result)
+                raise recon_unavailable()
+            raise result
+
+        result_text, tokens_in, turns = result
         cumulative_input += tokens_in
         total_tool_turns += turns
         all_findings.append(f"=== PASS {pass_num} ===\n{result_text}")
@@ -113,9 +107,9 @@ async def run_recon(
             pass_num, tokens_in, turns, cumulative_input,
         )
 
-        if cumulative_input > RECON_CUMULATIVE_INPUT_CEILING:
-            logger.warning("[operator] recon budget exceeded at pass %d for twin=%s", pass_num, twin_id)
-            raise recon_budget_exceeded()
+    if cumulative_input > RECON_CUMULATIVE_INPUT_CEILING:
+        logger.warning("[operator] recon budget exceeded for twin=%s", twin_id)
+        raise recon_budget_exceeded()
 
     # Extract structured intermediate
     if progress_callback:

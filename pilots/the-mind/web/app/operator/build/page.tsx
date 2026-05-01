@@ -264,7 +264,7 @@ export default function BuildPage() {
           if (evt.stage === "recon") {
             updateStage("recon", {
               status: "active",
-              message: evt.message ?? "Searching public sources…",
+              message: evt.message ?? "Searching public sources (3 passes in parallel)…",
             });
           } else if (evt.stage === "synthesis") {
             updateStage("recon", { status: "done", message: "Done" });
