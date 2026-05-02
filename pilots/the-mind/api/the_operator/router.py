@@ -942,7 +942,15 @@ async def generate_twin_portrait(
     if not fal_key:
         raise _HTTPException(status_code=503, detail="FAL_KEY not configured")
 
-    # Build prompt from available Twin data
+    # ── Try to find a real public headshot first ─────────────────────────────
+    from the_operator.portrait import find_public_portrait_url
+    real_url = await find_public_portrait_url(twin.full_name, twin.company, twin.title)
+    if real_url:
+        twin.portrait_url = real_url
+        await db.commit()
+        return {"url": real_url}
+
+    # Build prompt from available Twin data (fallback: Flux AI generation)
     profile_data: dict = {}
     try:
         profile_data = json.loads(twin.profile or "{}")

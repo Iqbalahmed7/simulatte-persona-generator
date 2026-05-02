@@ -72,7 +72,7 @@ async def find_public_portrait_url(
     full_name: str,
     company: str | None,
     title: str | None,
-    client,  # anthropic.AsyncAnthropic
+    client=None,  # anthropic.AsyncAnthropic — created internally if not provided
 ) -> str | None:
     """Use Anthropic web_search to locate a public profile photo.
 
@@ -92,6 +92,9 @@ async def find_public_portrait_url(
         "Output nothing else — just the URL or NONE."
     )
     try:
+        if client is None:
+            import anthropic as _anthropic
+            client = _anthropic.AsyncAnthropic()
         resp = await client.messages.create(
             model="claude-sonnet-4-5",
             messages=[{"role": "user", "content": prompt}],
