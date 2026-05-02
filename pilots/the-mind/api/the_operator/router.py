@@ -190,6 +190,17 @@ def _twin_to_dict(twin: Twin, include_recon: bool = False) -> dict:
 # ENDPOINTS
 # ═══════════════════════════════════════════════════════════════════════════
 
+# ── 0. GET /operator/me — return current user identity ───────────────────
+
+@operator_router.get("/me")
+async def get_me(user: User = Depends(get_current_user)):  # type: ignore
+    """Return the authenticated user's ID and email.
+
+    Use this to find your user_id for the Trinity target_user_id field.
+    """
+    return {"user_id": user.id, "email": user.email}
+
+
 # ── 1. POST /operator/twins — build a new Twin ────────────────────────────
 
 @operator_router.post("/twins")
