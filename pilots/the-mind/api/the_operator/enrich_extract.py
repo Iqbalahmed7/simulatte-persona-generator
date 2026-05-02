@@ -3,11 +3,21 @@ plain enrichment text that can be fed into the synthesis stage.
 
 All helpers are best-effort and bound by size limits. They raise HTTPException
 on hard failures the user should see (invalid URL, unreadable PDF, oversize).
+
+YouTube transcripts
+-------------------
+Railway (and most cloud datacentres) are permanently blocked by YouTube's
+transcript API. Set SUPADATA_API_KEY in Railway env vars to route YouTube
+transcript requests through Supadata.ai instead (free tier: 100/day).
+
+Sign up at https://supadata.ai — API key is available immediately on the
+free plan. Add it to Railway: Settings → Variables → SUPADATA_API_KEY=<key>
 """
 from __future__ import annotations
 
 import io
 import logging
+import os
 import re
 from typing import Final
 
@@ -44,6 +54,52 @@ def _strip_html(html: str) -> str:
 
 
 _YOUTUBE_HOSTS = ("youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be")
+
+_SUPADATA_TRANSCRIPT_URL = "https://api.supadata.ai/v1/youtube/transcript"
+
+
+async def _fetch_transcript_via_supadata(url: str) -> str | None:
+    """Fetch a YouTube transcript via Supadata.ai.
+
+    Bypasses Railway/datacenter IP blocking that prevents youtube-transcript-api
+    from working in production. Returns plain transcript text or None if the
+    API key is not set or the request fails.
+
+    Set SUPADATA_API_KEY in Railway environment variables to enable.
+    Free tier: 100 requests/day. Sign up at https://supadata.ai
+    """
+    api_key = os.environ.get("SUPADATA_API_KEY", "").strip()
+    if not api_key:
+        return None
+
+    try:
+        async with httpx.AsyncClient(timeout=30) as http:
+            resp = await http.get(
+                _SUPADATA_TRANSCRIPT_URL,
+                params={"url": url, "text": "true"},
+                headers={"x-api-key": api_key},
+            )
+            if resp.status_code == 404:
+                logger.info("[operator] Supadata: no transcript found for %s", url)
+                return None
+            resp.raise_for_status()
+            data = resp.json()
+
+        # Supadata returns {"content": "full transcript text", "lang": "en", ...}
+        content = data.get("content", "").strip()
+        if not content:
+            logger.info("[operator] Supadata: empty transcript for %s", url)
+            return None
+
+        logger.info(
+            "[operator] Supadata transcript fetched for %s (%d chars)",
+            url, len(content),
+        )
+        return f"[YouTube transcript via Supadata: {url}]\n\n{content[:_OUTPUT_MAX_CHARS]}"
+
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[operator] Supadata transcript failed for %s: %s", url, exc)
+        return None
 
 
 async def _fetch_youtube_metadata(url: str) -> str | None:
@@ -203,23 +259,47 @@ async def extract_text_from_url(url: str) -> str:
     if not url.startswith(("http://", "https://")):
         raise HTTPException(status_code=400, detail="URL must start with http:// or https://")
 
-    # YouTube → transcript path (with metadata fallback for datacenter IP blocks)
+    # YouTube → transcript path
+    # Priority: 1) Supadata API (bypasses Railway IP block)
+    #           2) youtube-transcript-api (works locally, blocked on Railway)
+    #           3) page metadata fallback (title + description — last resort)
     if any(host in url for host in _YOUTUBE_HOSTS):
         vid = _extract_youtube_id(url)
         if not vid:
             raise HTTPException(status_code=400, detail="Could not parse YouTube video ID from URL")
-        # youtube-transcript-api is sync; run in threadpool to keep event loop responsive
+
+        # 1. Try Supadata (no IP restrictions, key required)
+        supadata_result = await _fetch_transcript_via_supadata(url)
+        if supadata_result:
+            return supadata_result
+
+        # 2. Try youtube-transcript-api (sync — run in threadpool)
         import asyncio
+        last_exc: HTTPException | None = None
         try:
             return await asyncio.to_thread(_fetch_youtube_transcript, vid, url)
-        except HTTPException:
-            # Transcript API likely blocked by Railway datacenter IPs — fall back to
-            # scraping the video page for title + description as enrichment signal.
-            logger.info("[operator] transcript blocked for %s — trying metadata fallback", url)
-            meta = await _fetch_youtube_metadata(url)
-            if meta:
-                return meta
-            raise  # re-raise original HTTPException if metadata also fails
+        except HTTPException as exc:
+            last_exc = exc
+            logger.info(
+                "[operator] transcript API blocked for %s (%s) — trying metadata fallback",
+                url, exc.detail,
+            )
+
+        # 3. Metadata fallback — give the user something rather than a hard error
+        meta = await _fetch_youtube_metadata(url)
+        if meta:
+            return meta
+
+        # All paths exhausted — surface the original error with guidance
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                "Could not fetch YouTube transcript. Railway's datacenter IPs are blocked "
+                "by YouTube. Add SUPADATA_API_KEY to Railway env vars to enable transcript "
+                "fetching (free at supadata.ai). "
+                f"Original error: {last_exc.detail if last_exc else 'unknown'}"
+            ),
+        )
 
     try:
         async with httpx.AsyncClient(
