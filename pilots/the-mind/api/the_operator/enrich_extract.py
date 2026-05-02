@@ -46,6 +46,77 @@ def _strip_html(html: str) -> str:
 _YOUTUBE_HOSTS = ("youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be")
 
 
+async def _fetch_youtube_metadata(url: str) -> str | None:
+    """Fallback when YouTube blocks transcript requests from datacenter IPs.
+
+    Fetches the video page and extracts title + description from the embedded
+    ytInitialData JSON. Returns a formatted string or None if extraction fails.
+    This gives useful enrichment signal when the transcript API is blocked.
+    """
+    try:
+        async with httpx.AsyncClient(
+            timeout=_URL_FETCH_TIMEOUT,
+            follow_redirects=True,
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"},
+        ) as http:
+            resp = await http.get(url)
+            html = resp.text[:600_000]
+
+        # Extract title from <title> tag
+        title = ""
+        title_m = re.search(r"<title>([^<]+)</title>", html)
+        if title_m:
+            title = title_m.group(1).replace(" - YouTube", "").strip()
+
+        # Extract description from ytInitialData JSON (embedded in page)
+        description = ""
+        # simpleText form (most common)
+        desc_m = re.search(
+            r'"description":\{"simpleText":"((?:[^"\\]|\\.)*)"\}', html
+        )
+        if desc_m:
+            description = (
+                desc_m.group(1)
+                .replace("\\n", "\n")
+                .replace('\\"', '"')
+                .replace("\\\\", "\\")
+            )
+        # runs form (structured description)
+        if not description:
+            runs_m = re.search(
+                r'"shortDescription":"((?:[^"\\]|\\.)*)"', html
+            )
+            if runs_m:
+                description = (
+                    runs_m.group(1)
+                    .replace("\\n", "\n")
+                    .replace('\\"', '"')
+                    .replace("\\\\", "\\")
+                )
+
+        if not title and not description:
+            logger.warning("[operator] YouTube metadata extraction found nothing for %s", url)
+            return None
+
+        parts = []
+        if title:
+            parts.append(f"Video title: {title}")
+        if description:
+            parts.append(f"Description:\n{description[:3000]}")
+
+        logger.info(
+            "[operator] YouTube metadata fallback succeeded for %s (title=%s, desc_len=%d)",
+            url, bool(title), len(description),
+        )
+        return (
+            f"[YouTube video — transcript unavailable, metadata extracted: {url}]\n\n"
+            + "\n\n".join(parts)
+        )
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[operator] YouTube metadata fallback failed for %s: %s", url, exc)
+        return None
+
+
 def _extract_youtube_id(url: str) -> str | None:
     """Pull the video ID out of any standard YouTube URL form.
 
@@ -132,14 +203,23 @@ async def extract_text_from_url(url: str) -> str:
     if not url.startswith(("http://", "https://")):
         raise HTTPException(status_code=400, detail="URL must start with http:// or https://")
 
-    # YouTube → transcript path
+    # YouTube → transcript path (with metadata fallback for datacenter IP blocks)
     if any(host in url for host in _YOUTUBE_HOSTS):
         vid = _extract_youtube_id(url)
         if not vid:
             raise HTTPException(status_code=400, detail="Could not parse YouTube video ID from URL")
         # youtube-transcript-api is sync; run in threadpool to keep event loop responsive
         import asyncio
-        return await asyncio.to_thread(_fetch_youtube_transcript, vid, url)
+        try:
+            return await asyncio.to_thread(_fetch_youtube_transcript, vid, url)
+        except HTTPException:
+            # Transcript API likely blocked by Railway datacenter IPs — fall back to
+            # scraping the video page for title + description as enrichment signal.
+            logger.info("[operator] transcript blocked for %s — trying metadata fallback", url)
+            meta = await _fetch_youtube_metadata(url)
+            if meta:
+                return meta
+            raise  # re-raise original HTTPException if metadata also fails
 
     try:
         async with httpx.AsyncClient(
