@@ -153,7 +153,10 @@ def _twin_to_dict(twin: Twin, include_recon: bool = False) -> dict:
     except Exception:
         pass
 
+    # Spread synthesis profile keys (decision_architecture, identity_snapshot, etc)
+    # to the top level — frontend reads twin.decision_architecture, not twin.profile.*
     d = {
+        **profile_parsed,
         "id":               twin.id,
         "twin_id":          twin.id,  # frontend (TwinCard, build/page) reads twin.twin_id
         "full_name":        twin.full_name,
