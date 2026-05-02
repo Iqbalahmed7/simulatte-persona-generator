@@ -14,7 +14,7 @@ from datetime import date, datetime, timedelta, timezone
 from typing import Optional
 
 import anthropic
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 from fastapi.responses import StreamingResponse
 from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -499,10 +499,28 @@ async def enrich_twin(
     user: User = Depends(get_current_user),  # type: ignore
     db: AsyncSession = Depends(get_db),       # type: ignore
 ):
-    """Add observed social/personal signals and re-synthesise. Counts as twin_build."""
+    """Add observed signals (free text or URL) and re-synthesise. Counts as twin_build.
+
+    Body: { "enrichment_text": "..." } OR { "url": "https://..." }
+    For PDFs use /enrich/pdf (multipart).
+    """
+    from the_operator.enrich_extract import extract_text_from_url
+
     twin = await _get_user_twin(twin_id, user.id, db)
-    _moderate_text(request.enrichment_text)
+
+    # Resolve incoming signal → enrichment_text string
+    if request.url:
+        enrichment_text = await extract_text_from_url(request.url)
+    elif request.enrichment_text:
+        enrichment_text = request.enrichment_text
+    else:
+        raise HTTPException(status_code=400, detail="Provide enrichment_text or url")
+
+    _moderate_text(enrichment_text[:2000])
     await check_and_increment_operator_allowance(user, "twin_build", db)
+
+    # Append to existing enrichment if present (preserves prior signals)
+    combined = (twin.enrichment + "\n\n---\n\n" + enrichment_text) if twin.enrichment else enrichment_text
 
     async def stream():
         try:
@@ -514,14 +532,14 @@ async def enrich_twin(
                 company=twin.company,
                 title=twin.title,
                 recon_data=recon_data,
-                enrichment_text=request.enrichment_text,
+                enrichment_text=combined,
                 client=_client(),
             )
 
             now = datetime.now(timezone.utc)
             await db.execute(
                 update(Twin).where(Twin.id == twin_id).values(
-                    enrichment=request.enrichment_text,
+                    enrichment=combined,
                     mode="enriched",
                     profile=json.dumps(profile),
                     confidence=profile.get("confidence", twin.confidence),
@@ -530,11 +548,73 @@ async def enrich_twin(
                 )
             )
             await db.commit()
-            logger.info("[operator] twin_enriched user=%s twin_id=%s", user.email, twin_id)
+            logger.info("[operator] twin_enriched user=%s twin_id=%s len=%d",
+                        user.email, twin_id, len(enrichment_text))
+            yield _sse({"event": "progress", "stage": "ready", "twin_id": twin_id, "message": "Twin enriched"})
             yield _sse({"event": "complete", "twin_id": twin_id})
 
         except Exception as exc:
             logger.exception("[operator] enrich_twin error: %s", exc)
+            yield _sse({"event": "error", "code": "internal_error", "detail": str(exc), "retryable": False})
+
+    return StreamingResponse(stream(), media_type="text/event-stream")
+
+
+@operator_router.post("/twins/{twin_id}/enrich/pdf")
+async def enrich_twin_pdf(
+    twin_id: str,
+    file: UploadFile = File(...),
+    user: User = Depends(get_current_user),  # type: ignore
+    db: AsyncSession = Depends(get_db),       # type: ignore
+):
+    """Upload a PDF (e.g. LinkedIn export, report) → extract text →
+    treat as enrichment signal. Counts as twin_build."""
+    from the_operator.enrich_extract import extract_text_from_pdf
+
+    twin = await _get_user_twin(twin_id, user.id, db)
+    if not file.filename or not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="File must be a PDF")
+
+    pdf_bytes = await file.read()
+    enrichment_text = await extract_text_from_pdf(pdf_bytes, filename=file.filename)
+    _moderate_text(enrichment_text[:2000])
+    await check_and_increment_operator_allowance(user, "twin_build", db)
+
+    combined = (twin.enrichment + "\n\n---\n\n" + enrichment_text) if twin.enrichment else enrichment_text
+
+    async def stream():
+        try:
+            yield _sse({"event": "progress", "stage": "synthesis", "message": "Merging PDF signals…"})
+
+            recon_data = json.loads(twin.recon_notes) if twin.recon_notes else {}
+            profile = await synthesise_twin(
+                full_name=twin.full_name,
+                company=twin.company,
+                title=twin.title,
+                recon_data=recon_data,
+                enrichment_text=combined,
+                client=_client(),
+            )
+
+            now = datetime.now(timezone.utc)
+            await db.execute(
+                update(Twin).where(Twin.id == twin_id).values(
+                    enrichment=combined,
+                    mode="enriched",
+                    profile=json.dumps(profile),
+                    confidence=profile.get("confidence", twin.confidence),
+                    gaps=profile.get("gaps", twin.gaps),
+                    updated_at=now,
+                )
+            )
+            await db.commit()
+            logger.info("[operator] twin_enriched_pdf user=%s twin_id=%s file=%s len=%d",
+                        user.email, twin_id, file.filename, len(enrichment_text))
+            yield _sse({"event": "progress", "stage": "ready", "twin_id": twin_id, "message": "Twin enriched"})
+            yield _sse({"event": "complete", "twin_id": twin_id})
+
+        except Exception as exc:
+            logger.exception("[operator] enrich_twin_pdf error: %s", exc)
             yield _sse({"event": "error", "code": "internal_error", "detail": str(exc), "retryable": False})
 
     return StreamingResponse(stream(), media_type="text/event-stream")

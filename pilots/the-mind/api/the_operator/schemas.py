@@ -16,7 +16,10 @@ class BuildTwinRequest(BaseModel):
     mode:      str = Field("standard", pattern="^(standard|enriched|lite)$")
 
 class EnrichTwinRequest(BaseModel):
-    enrichment_text: str = Field(..., min_length=10, max_length=5000)
+    # Either enrichment_text OR url must be provided. PDF goes through a
+    # separate multipart endpoint (see /enrich/pdf).
+    enrichment_text: Optional[str] = Field(None, min_length=10, max_length=5000)
+    url: Optional[str] = Field(None, min_length=8, max_length=500)
 
 class ProbeMessageRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000)

@@ -22,3 +22,4 @@ PyJWT>=2.8.0
 
 # ── Utilities ─────────────────────────────────────────────────────────────
 python-multipart>=0.0.9   # for Form/File uploads if needed
+pypdf>=4.0                # operator enrichment: parse uploaded PDFs to text
