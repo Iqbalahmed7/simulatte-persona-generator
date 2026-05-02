@@ -428,7 +428,7 @@ function StatsCard({
 }) {
   const stats = [
     { label: "Probes run", value: String(twin.probe_count) },
-    { label: "Last frame score", value: twin.last_frame_score !== null ? twin.last_frame_score.toFixed(1) : "—" },
+    { label: "Last frame score", value: typeof twin.last_frame_score === "number" ? twin.last_frame_score.toFixed(1) : "—" },
     { label: "Recon sources", value: String(twin.recon_source_count) },
     { label: "Last refreshed", value: timeAgo(twin.last_refreshed_at) },
   ];
