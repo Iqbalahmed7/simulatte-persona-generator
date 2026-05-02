@@ -3,7 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { getTwin, enrichTwin, type TwinDetail } from "@/lib/operator-api";
+import {
+  getTwin,
+  enrichTwinWithText,
+  enrichTwinWithUrl,
+  enrichTwinWithPdf,
+  type TwinDetail,
+} from "@/lib/operator-api";
 
 // ── Icons ──────────────────────────────────────────────────────────────────
 
@@ -27,6 +33,8 @@ const SIGNAL_HINTS = [
   "CRM notes from a past deal or interaction",
 ];
 
+type Tab = "text" | "url" | "pdf";
+
 // ── Main page ──────────────────────────────────────────────────────────────
 
 export default function EnrichPage() {
@@ -38,7 +46,11 @@ export default function EnrichPage() {
   const [pageLoading, setPageLoading] = useState(true);
   const [pageError, setPageError] = useState<string | null>(null);
 
+  const [tab, setTab] = useState<Tab>("text");
   const [text, setText] = useState("");
+  const [url, setUrl] = useState("");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
+
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -52,8 +64,7 @@ export default function EnrichPage() {
       .finally(() => setPageLoading(false));
   }, [twinId]);
 
-  // Auto-resize
-  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleTextChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setText(e.target.value);
     const el = textareaRef.current;
     if (el) {
@@ -62,26 +73,36 @@ export default function EnrichPage() {
     }
   }
 
+  function canSubmit(): boolean {
+    if (submitting) return false;
+    if (tab === "text") return text.trim().length >= 10;
+    if (tab === "url") return /^https?:\/\/.+/i.test(url.trim());
+    if (tab === "pdf") return pdfFile !== null;
+    return false;
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const trimmed = text.trim();
-    if (!trimmed || submitting) return;
+    if (!canSubmit()) return;
 
     setSubmitting(true);
     setSubmitError(null);
 
     try {
-      await enrichTwin(twinId, trimmed);
+      if (tab === "text") {
+        await enrichTwinWithText(twinId, text.trim());
+      } else if (tab === "url") {
+        await enrichTwinWithUrl(twinId, url.trim());
+      } else if (tab === "pdf" && pdfFile) {
+        await enrichTwinWithPdf(twinId, pdfFile);
+      }
       setDone(true);
-      // Brief pause so user sees the success state before redirect
       setTimeout(() => router.push(`/operator/${twinId}`), 1200);
     } catch (err) {
       setSubmitError((err as Error).message ?? "Enrichment failed.");
       setSubmitting(false);
     }
   }
-
-  // ── Loading / error ────────────────────────────────────────────────────
 
   if (pageLoading) {
     return (
@@ -107,7 +128,23 @@ export default function EnrichPage() {
   const twinName = twin.full_name;
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
 
-  // ── Render ─────────────────────────────────────────────────────────────
+  const tabBtn = (id: Tab, label: string) => (
+    <button
+      type="button"
+      onClick={() => {
+        setTab(id);
+        setSubmitError(null);
+      }}
+      disabled={submitting || done}
+      className={`px-4 py-2 text-xs font-mono uppercase tracking-wider border transition-colors ${
+        tab === id
+          ? "border-parchment text-parchment bg-white/5"
+          : "border-white/10 text-static hover:text-parchment hover:border-white/20"
+      } disabled:opacity-50`}
+    >
+      {label}
+    </button>
+  );
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -138,9 +175,9 @@ export default function EnrichPage() {
               Enrich {twinName}&#39;s Twin
             </h1>
             <p className="text-static text-sm leading-relaxed">
-              Paste any text that reveals how {twinName} thinks, decides, or communicates.
-              The Twin will be re-synthesised to incorporate the new signal — previous
-              recon is preserved.
+              Add a URL, upload a PDF, or paste text that reveals how {twinName} thinks,
+              decides, or communicates. The Twin is re-synthesised on top of existing
+              recon — nothing is overwritten.
             </p>
           </div>
 
@@ -159,31 +196,87 @@ export default function EnrichPage() {
             </ul>
           </div>
 
+          {/* Tabs */}
+          <div className="flex gap-2">
+            {tabBtn("text", "Text")}
+            {tabBtn("url", "URL")}
+            {tabBtn("pdf", "PDF")}
+          </div>
+
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="text-static text-[10px] font-mono uppercase tracking-wider">
-                  Signal text
-                </label>
-                <span className="text-static text-[10px] font-mono">
-                  {wordCount > 0 ? `${wordCount} words` : ""}
-                </span>
+            {tab === "text" && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-static text-[10px] font-mono uppercase tracking-wider">
+                    Signal text
+                  </label>
+                  <span className="text-static text-[10px] font-mono">
+                    {wordCount > 0 ? `${wordCount} words` : ""}
+                  </span>
+                </div>
+                <textarea
+                  ref={textareaRef}
+                  value={text}
+                  onChange={handleTextChange}
+                  placeholder={`Paste text here — a LinkedIn post, call notes, article excerpt, or anything that reveals how ${twinName} operates…`}
+                  disabled={submitting || done}
+                  rows={10}
+                  className="w-full resize-none bg-white/4 border border-white/10 text-parchment text-sm placeholder:text-static/40 px-4 py-3 focus:outline-none focus:border-white/20 disabled:opacity-50 transition-colors leading-relaxed"
+                  style={{ minHeight: 200 }}
+                />
               </div>
-              <textarea
-                ref={textareaRef}
-                value={text}
-                onChange={handleChange}
-                placeholder={`Paste text here — a LinkedIn post, call notes, article excerpt, or anything that reveals how ${twinName} operates…`}
-                disabled={submitting || done}
-                rows={10}
-                className="w-full resize-none bg-white/4 border border-white/10 text-parchment text-sm placeholder:text-static/40 px-4 py-3 focus:outline-none focus:border-white/20 disabled:opacity-50 transition-colors leading-relaxed"
-                style={{ minHeight: 200 }}
-              />
-              {submitError && (
-                <p className="text-red-400 text-xs font-mono">{submitError}</p>
-              )}
-            </div>
+            )}
+
+            {tab === "url" && (
+              <div className="space-y-2">
+                <label className="text-static text-[10px] font-mono uppercase tracking-wider">
+                  Public URL
+                </label>
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://www.linkedin.com/in/... or https://blog.example.com/..."
+                  disabled={submitting || done}
+                  className="w-full bg-white/4 border border-white/10 text-parchment text-sm placeholder:text-static/40 px-4 py-3 focus:outline-none focus:border-white/20 disabled:opacity-50 transition-colors"
+                />
+                <p className="text-static text-[10px] font-mono leading-relaxed pt-1">
+                  Article, blog post, public profile, press release, or transcript page.
+                  Login-walled pages won&#39;t fetch.
+                </p>
+              </div>
+            )}
+
+            {tab === "pdf" && (
+              <div className="space-y-2">
+                <label className="text-static text-[10px] font-mono uppercase tracking-wider">
+                  PDF document
+                </label>
+                <div className="border border-dashed border-white/15 px-4 py-6 bg-white/2">
+                  <input
+                    type="file"
+                    accept="application/pdf,.pdf"
+                    onChange={(e) => setPdfFile(e.target.files?.[0] ?? null)}
+                    disabled={submitting || done}
+                    className="block w-full text-sm text-static file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-parchment file:text-void file:text-xs file:font-mono file:uppercase file:tracking-wider file:cursor-pointer hover:file:bg-parchment/80 disabled:opacity-50"
+                  />
+                  {pdfFile && (
+                    <p className="text-parchment text-xs font-mono mt-3">
+                      {pdfFile.name} <span className="text-static">· {(pdfFile.size / 1024).toFixed(0)} KB</span>
+                    </p>
+                  )}
+                </div>
+                <p className="text-static text-[10px] font-mono leading-relaxed pt-1">
+                  LinkedIn export, deck, transcript, report. Max 8 MB.
+                  Scanned image-only PDFs won&#39;t parse.
+                </p>
+              </div>
+            )}
+
+            {submitError && (
+              <p className="text-red-400 text-xs font-mono">{submitError}</p>
+            )}
 
             <div className="flex items-center justify-between pt-1">
               <p className="text-static text-[10px] font-mono max-w-xs leading-relaxed">
@@ -201,7 +294,7 @@ export default function EnrichPage() {
               ) : (
                 <button
                   type="submit"
-                  disabled={!text.trim() || submitting}
+                  disabled={!canSubmit()}
                   className="text-sm font-mono text-void bg-parchment px-5 py-2.5 hover:bg-parchment/80 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
                 >
                   {submitting ? (

@@ -341,19 +341,67 @@ export async function streamRefresh(
 }
 
 // ── Enrich ────────────────────────────────────────────────────────────────
+// Backend streams SSE on enrich endpoints. We just need to wait for the
+// stream to finish and then refetch the twin (the calling page does that).
 
-export async function enrichTwin(
-  twinId: string,
-  text: string
-): Promise<TwinDetail> {
+async function _consumeSSEUntilComplete(res: Response): Promise<void> {
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.detail || `Enrich failed (${res.status})`);
+  }
+  const reader = res.body?.getReader();
+  if (!reader) return;
+  const decoder = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) return;
+    buf += decoder.decode(value, { stream: true });
+    // Look for an error event and surface it
+    if (buf.includes('"event": "error"') || buf.includes('"event":"error"')) {
+      const m = buf.match(/"detail"\s*:\s*"([^"]+)"/);
+      throw new Error(m?.[1] || "Enrich failed");
+    }
+    if (buf.includes('"event": "complete"') || buf.includes('"event":"complete"')) {
+      return;
+    }
+  }
+}
+
+export async function enrichTwinWithText(twinId: string, text: string): Promise<void> {
   const headers = await _authHeaders();
   const res = await fetch(`${API}/operator/twins/${twinId}/enrich`, {
     method: "POST",
     headers: { ...headers, "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ enrichment_text: text }),
   });
-  return _handleOperatorResponse<TwinDetail>(res);
+  await _consumeSSEUntilComplete(res);
 }
+
+export async function enrichTwinWithUrl(twinId: string, url: string): Promise<void> {
+  const headers = await _authHeaders();
+  const res = await fetch(`${API}/operator/twins/${twinId}/enrich`, {
+    method: "POST",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ url }),
+  });
+  await _consumeSSEUntilComplete(res);
+}
+
+export async function enrichTwinWithPdf(twinId: string, file: File): Promise<void> {
+  const headers = await _authHeaders();
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${API}/operator/twins/${twinId}/enrich/pdf`, {
+    method: "POST",
+    headers,  // do NOT set Content-Type; browser sets multipart boundary
+    body: form,
+  });
+  await _consumeSSEUntilComplete(res);
+}
+
+// Back-compat alias for any caller still using enrichTwin
+export const enrichTwin = enrichTwinWithText;
 
 // ── Probe sessions ────────────────────────────────────────────────────────
 
