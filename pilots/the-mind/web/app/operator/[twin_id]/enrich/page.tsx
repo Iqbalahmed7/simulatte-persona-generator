@@ -237,13 +237,14 @@ export default function EnrichPage() {
                   type="url"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  placeholder="https://www.linkedin.com/in/... or https://blog.example.com/..."
+                  placeholder="https://www.youtube.com/watch?v=... or https://blog.example.com/..."
                   disabled={submitting || done}
                   className="w-full bg-white/4 border border-white/10 text-parchment text-sm placeholder:text-static/40 px-4 py-3 focus:outline-none focus:border-white/20 disabled:opacity-50 transition-colors"
                 />
                 <p className="text-static text-[10px] font-mono leading-relaxed pt-1">
-                  Article, blog post, public profile, press release, or transcript page.
-                  Login-walled pages won&#39;t fetch.
+                  Article, blog post, press release, public profile, or YouTube video
+                  (transcript fetched automatically). Login-walled and JS-rendered
+                  pages won&#39;t fetch.
                 </p>
               </div>
             )}

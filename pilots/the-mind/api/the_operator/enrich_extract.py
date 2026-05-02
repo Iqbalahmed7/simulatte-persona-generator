@@ -43,13 +43,95 @@ def _strip_html(html: str) -> str:
     return text
 
 
+_YOUTUBE_HOSTS = ("youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be")
+
+
+def _extract_youtube_id(url: str) -> str | None:
+    """Pull the video ID out of any standard YouTube URL form.
+
+    Handles:
+      https://www.youtube.com/watch?v=VIDEOID
+      https://youtu.be/VIDEOID
+      https://www.youtube.com/shorts/VIDEOID
+      https://www.youtube.com/embed/VIDEOID
+    """
+    m = re.search(
+        r"(?:youtube\.com/(?:watch\?(?:.*&)?v=|shorts/|embed/|v/)|youtu\.be/)"
+        r"([A-Za-z0-9_-]{11})",
+        url,
+    )
+    return m.group(1) if m else None
+
+
+def _fetch_youtube_transcript(video_id: str, url: str) -> str:
+    """Fetch and concatenate a YouTube video's transcript.
+
+    Best-effort: tries English first, then any available language.
+    Raises HTTPException(400) if no transcript is available.
+    """
+    try:
+        from youtube_transcript_api import (  # type: ignore
+            YouTubeTranscriptApi,
+            NoTranscriptFound,
+            TranscriptsDisabled,
+            VideoUnavailable,
+        )
+    except ImportError:
+        logger.error("[operator] youtube-transcript-api not installed")
+        raise HTTPException(
+            status_code=500,
+            detail="YouTube transcript support not available on server",
+        )
+
+    try:
+        try:
+            entries = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
+        except NoTranscriptFound:
+            # fall back to any available language
+            transcripts = YouTubeTranscriptApi.list_transcripts(video_id)
+            entries = transcripts.find_transcript(
+                [t.language_code for t in transcripts]
+            ).fetch()
+    except (TranscriptsDisabled, NoTranscriptFound):
+        raise HTTPException(
+            status_code=400,
+            detail="No transcript available for this YouTube video (captions disabled)",
+        )
+    except VideoUnavailable:
+        raise HTTPException(status_code=400, detail="YouTube video unavailable")
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[operator] youtube transcript fetch failed for %s: %s", video_id, exc)
+        raise HTTPException(
+            status_code=400,
+            detail=f"Could not fetch YouTube transcript: {exc}",
+        )
+
+    text = " ".join(e.get("text", "").strip() for e in entries if e.get("text"))
+    text = re.sub(r"\s+", " ", text).strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="YouTube transcript was empty")
+
+    return f"[YouTube: {url}]\n\n{text[:_OUTPUT_MAX_CHARS]}"
+
+
 async def extract_text_from_url(url: str) -> str:
     """Fetch URL, strip HTML, return up to _OUTPUT_MAX_CHARS of text.
 
+    Special-cases YouTube URLs to fetch the video transcript instead of HTML.
     Raises HTTPException(400) on invalid URL / fetch failure.
     """
     if not url.startswith(("http://", "https://")):
         raise HTTPException(status_code=400, detail="URL must start with http:// or https://")
+
+    # YouTube → transcript path
+    if any(host in url for host in _YOUTUBE_HOSTS):
+        vid = _extract_youtube_id(url)
+        if not vid:
+            raise HTTPException(status_code=400, detail="Could not parse YouTube video ID from URL")
+        # youtube-transcript-api is sync; run in threadpool to keep event loop responsive
+        import asyncio
+        return await asyncio.to_thread(_fetch_youtube_transcript, vid, url)
+
     try:
         async with httpx.AsyncClient(
             timeout=_URL_FETCH_TIMEOUT,
