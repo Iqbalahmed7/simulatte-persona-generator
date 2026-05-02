@@ -344,10 +344,29 @@ export async function streamRefresh(
 // Backend streams SSE on enrich endpoints. We just need to wait for the
 // stream to finish and then refetch the twin (the calling page does that).
 
+function _flattenDetail(detail: unknown, status: number): string {
+  if (!detail) return `Enrich failed (${status})`;
+  if (typeof detail === "string") return detail;
+  if (Array.isArray(detail)) {
+    // Pydantic 422 — collect msgs
+    const msgs = detail
+      .map((d: { msg?: string; loc?: unknown[] }) =>
+        d?.msg ? `${(d.loc ?? []).join(".")}: ${d.msg}` : null
+      )
+      .filter(Boolean);
+    return msgs.length ? msgs.join("; ") : `Enrich failed (${status})`;
+  }
+  if (typeof detail === "object") {
+    const d = detail as { message?: string; msg?: string };
+    return d.message ?? d.msg ?? JSON.stringify(detail);
+  }
+  return String(detail);
+}
+
 async function _consumeSSEUntilComplete(res: Response): Promise<void> {
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.detail || `Enrich failed (${res.status})`);
+    throw new Error(_flattenDetail(body.detail, res.status));
   }
   const reader = res.body?.getReader();
   if (!reader) return;
