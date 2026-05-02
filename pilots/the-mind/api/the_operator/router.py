@@ -174,6 +174,13 @@ def _twin_to_dict(twin: Twin, include_recon: bool = False) -> dict:
         "last_refreshed_at": twin.last_refreshed_at.isoformat() if twin.last_refreshed_at else None,
         "portrait_url":     getattr(twin, "portrait_url", None),
     }
+    # Frontend expects gaps as string[]; DB column is a string. Coerce.
+    gaps_val = d.get("gaps")
+    if isinstance(gaps_val, str):
+        d["gaps"] = [gaps_val.strip()] if gaps_val and gaps_val.strip() else []
+    elif not isinstance(gaps_val, list):
+        d["gaps"] = []
+
     if include_recon:
         d["recon_notes"] = twin.recon_notes
     return d
