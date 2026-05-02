@@ -155,6 +155,7 @@ def _twin_to_dict(twin: Twin, include_recon: bool = False) -> dict:
 
     d = {
         "id":               twin.id,
+        "twin_id":          twin.id,  # frontend (TwinCard, build/page) reads twin.twin_id
         "full_name":        twin.full_name,
         "company":          twin.company,
         "title":            twin.title,
