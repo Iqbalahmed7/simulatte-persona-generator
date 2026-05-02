@@ -85,23 +85,26 @@ def _fetch_youtube_transcript(video_id: str, url: str) -> str:
 
     try:
         try:
-            entries = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
+            # No language filter — accept any transcript (manual or auto-generated)
+            entries = YouTubeTranscriptApi.get_transcript(video_id)
         except NoTranscriptFound:
-            # Fall back: take first available transcript (any language, manual or auto-generated)
+            # Explicit fallback via list_transcripts
             transcripts = YouTubeTranscriptApi.list_transcripts(video_id)
             transcript = next(iter(transcripts), None)
             if transcript is None:
-                raise NoTranscriptFound(video_id, ["any"], [])
+                raise
             entries = transcript.fetch()
-    except TranscriptsDisabled:
+    except TranscriptsDisabled as exc:
+        logger.warning("[operator] transcripts disabled for %s: %s", video_id, exc)
         raise HTTPException(
             status_code=400,
-            detail="Transcripts are disabled for this YouTube video",
+            detail=f"Transcripts are disabled for this video ({type(exc).__name__}: {exc})",
         )
-    except NoTranscriptFound:
+    except NoTranscriptFound as exc:
+        logger.warning("[operator] no transcript for %s: %s", video_id, exc)
         raise HTTPException(
             status_code=400,
-            detail="No transcript found — try a video with captions enabled",
+            detail=f"No transcript found ({type(exc).__name__}: {exc})",
         )
     except VideoUnavailable:
         raise HTTPException(status_code=400, detail="YouTube video unavailable")
