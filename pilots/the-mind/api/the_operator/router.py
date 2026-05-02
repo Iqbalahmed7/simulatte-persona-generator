@@ -347,6 +347,9 @@ async def build_twin(
                 )
                 # Swallow — twin is already saved, portrait absence degrades to initials
 
+            # Frontend SSE handler keys off `stage: "ready"` for redirect — must
+            # carry twin_id so the build page can navigate to /operator/<id>.
+            yield _sse({"event": "progress", "stage": "ready", "twin_id": saved_twin_id, "message": "Twin ready"})
             yield _sse({"event": "complete", "twin_id": saved_twin_id, "confidence": confidence})
 
         except HTTPException as exc:
