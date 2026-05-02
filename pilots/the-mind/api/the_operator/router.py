@@ -336,14 +336,24 @@ async def build_twin(
 
             # Generate the portrait AFTER save — if it fails, the twin is
             # already persisted and the user can refresh later.
-            yield _sse({"event": "progress", "stage": "portrait", "message": "Generating portrait…"})
+            yield _sse({"event": "progress", "stage": "portrait", "message": "Finding portrait…"})
             try:
-                portrait_url = await generate_twin_portrait(
+                # Try public photo lookup first (LinkedIn, company pages, news).
+                # Falls back to AI portrait if no clear public match.
+                from the_operator.portrait import find_public_portrait_url
+                portrait_url = await find_public_portrait_url(
                     full_name=request.full_name,
                     company=request.company,
                     title=request.title,
-                    profile=profile,
+                    client=_client(),
                 )
+                if not portrait_url:
+                    portrait_url = await generate_twin_portrait(
+                        full_name=request.full_name,
+                        company=request.company,
+                        title=request.title,
+                        profile=profile,
+                    )
                 if portrait_url:
                     await db.execute(
                         update(Twin)

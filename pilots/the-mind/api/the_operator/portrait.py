@@ -68,6 +68,58 @@ def _build_twin_portrait_prompt(
     )
 
 
+async def find_public_portrait_url(
+    full_name: str,
+    company: str | None,
+    title: str | None,
+    client,  # anthropic.AsyncAnthropic
+) -> str | None:
+    """Use Anthropic web_search to locate a public profile photo.
+
+    Best-effort: returns image URL string or None. Never raises.
+    Prefers LinkedIn / company team / conference speaker pages.
+    """
+    role = f"{title} at {company}" if (title and company) else (company or title or "")
+    prompt = (
+        f"Find a publicly accessible profile photo of {full_name}"
+        f"{', ' + role if role else ''}. "
+        "Look for: LinkedIn profile picture, company team / about page headshot, "
+        "conference speaker page photo, podcast guest avatar, news article photo. "
+        "Prefer high-resolution headshots over group/event photos. "
+        "Return ONLY a single direct image URL ending in .jpg, .jpeg, .png, or .webp "
+        "(or a clearly-image-serving URL like media.licdn.com or substackcdn.com). "
+        "If you cannot find a confident match, reply with the single word: NONE. "
+        "Output nothing else — just the URL or NONE."
+    )
+    try:
+        resp = await client.messages.create(
+            model="claude-sonnet-4-5",
+            messages=[{"role": "user", "content": prompt}],
+            tools=[{"type": "web_search_20250305", "name": "web_search", "max_uses": 3}],
+            max_tokens=400,
+            timeout=90,
+        )
+        text = "".join(b.text for b in resp.content if hasattr(b, "text")).strip()
+        # Pull the first http(s) URL from the response
+        import re
+        m = re.search(r"https?://\S+\.(?:jpg|jpeg|png|webp)(?:\?\S*)?", text, re.IGNORECASE)
+        if m:
+            url = m.group(0).rstrip(".,);")
+            logger.info("[operator] public portrait found for %s: %s", full_name, url[:80])
+            return url
+        # Permissive fallback: any image-serving CDN URL
+        m = re.search(r"https?://(?:media\.licdn\.com|substackcdn\.com|cdn\.\S+)/\S+", text)
+        if m:
+            url = m.group(0).rstrip(".,);")
+            logger.info("[operator] public portrait (cdn) for %s: %s", full_name, url[:80])
+            return url
+        logger.info("[operator] no public portrait for %s (response: %s)", full_name, text[:120])
+        return None
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("[operator] find_public_portrait_url failed for %s: %s", full_name, exc)
+        return None
+
+
 async def generate_twin_portrait(
     full_name: str,
     company: str | None,
