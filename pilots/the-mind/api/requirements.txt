@@ -24,4 +24,4 @@ PyJWT>=2.8.0
 # ── Utilities ─────────────────────────────────────────────────────────────
 python-multipart>=0.0.9   # for Form/File uploads if needed
 pypdf>=4.0                # operator enrichment: parse uploaded PDFs to text
-youtube-transcript-api>=0.6.2  # operator enrichment: fetch YouTube video transcripts
+youtube-transcript-api>=0.6.2,<0.7.0  # operator enrichment: fetch YouTube video transcripts (0.7+ removed class methods)
