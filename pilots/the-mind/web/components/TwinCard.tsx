@@ -171,7 +171,7 @@ export default function TwinCard({
         {/* Footer meta */}
         <div className="flex items-center gap-2 text-[10px] font-mono text-static flex-wrap">
           <span>{twin.probe_count} probe{twin.probe_count !== 1 ? "s" : ""}</span>
-          {twin.last_frame_score !== null && (
+          {typeof twin.last_frame_score === "number" && (
             <>
               <span className="opacity-30">·</span>
               <span>last frame {twin.last_frame_score.toFixed(1)}</span>
