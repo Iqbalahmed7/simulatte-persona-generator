@@ -203,13 +203,27 @@ async def build_twin(
     _check_eu_signals(request.full_name, request.company, request.title)
     _moderate_text(request.full_name)
 
+    # ── Resolve effective owner ───────────────────────────────────────────
+    # Service accounts (Trinity, CLI) may pass target_user_id to attribute the
+    # twin to a specific user rather than the shared service account. Regular
+    # JWT users cannot hijack another user's account — target_user_id is only
+    # honoured when the authenticated caller is the service account.
+    _SERVICE_USER_ID = "service-operator"
+    effective_user_id: str = user.id
+    if user.id == _SERVICE_USER_ID and request.target_user_id:
+        effective_user_id = request.target_user_id
+        logger.info(
+            "[operator] Trinity build: attributing twin to user=%s (service caller)",
+            effective_user_id,
+        )
+
     name_slug = _to_slug(request.full_name, request.company)
 
     # Check for existing twin with same slug
     existing = (
         await db.execute(
             select(Twin).where(
-                Twin.user_id == user.id,
+                Twin.user_id == effective_user_id,
                 Twin.name_slug == name_slug,
             )
         )
@@ -310,7 +324,7 @@ async def build_twin(
             else:
                 twin = Twin(
                     id=twin_id,
-                    user_id=user.id,
+                    user_id=effective_user_id,
                     full_name=request.full_name,
                     company=request.company,
                     title=request.title,
@@ -331,7 +345,7 @@ async def build_twin(
 
             logger.info(
                 "[operator] twin_built user=%s twin_id=%s sources=%d confidence=%s",
-                user.email, saved_twin_id, sources_count, confidence,
+                effective_user_id, saved_twin_id, sources_count, confidence,
             )
 
             # Generate the portrait AFTER save — if it fails, the twin is

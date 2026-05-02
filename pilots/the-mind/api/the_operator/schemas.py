@@ -14,6 +14,10 @@ class BuildTwinRequest(BaseModel):
     company:   Optional[str] = Field(None, max_length=100)
     title:     Optional[str] = Field(None, max_length=100)
     mode:      str = Field("standard", pattern="^(standard|enriched|lite)$")
+    # Headless/pipeline callers (Trinity, CLI) can set this to attribute the
+    # twin to a specific user rather than the service account. Ignored when
+    # the caller is an ordinary JWT user (non-service account).
+    target_user_id: Optional[str] = Field(None, max_length=128)
 
 class EnrichTwinRequest(BaseModel):
     # Either enrichment_text OR url must be provided. PDF goes through a
