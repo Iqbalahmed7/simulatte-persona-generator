@@ -1,5 +1,6 @@
 # The Mind FastAPI backend dependencies
 # Install: pip install -r requirements.txt
+# cache-bust: 2026-05-02
 
 # ── FastAPI + server ──────────────────────────────────────────────────────
 fastapi>=0.111.0
