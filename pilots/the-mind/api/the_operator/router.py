@@ -1209,7 +1209,7 @@ async def admin_patch_user_allowance(
 @operator_router.post("/admin/migrate/reattribute-service-twins")
 async def admin_reattribute_service_twins(
     body: dict,
-    _admin: User = Depends(require_admin),
+    _admin: User = Depends(get_operator_admin),
     db: AsyncSession = Depends(get_db),
 ):
     target_user_id: str = body.get("target_user_id", "").strip()
