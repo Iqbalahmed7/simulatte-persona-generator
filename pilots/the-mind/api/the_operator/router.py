@@ -1201,6 +1201,45 @@ async def admin_patch_user_allowance(
     }
 
 
+# ── 18. POST /operator/admin/migrate/reattribute-service-twins ────────────
+# One-shot migration: moves all twins owned by service-operator to the
+# target_user_id in the request body. Admin-only. Safe to call multiple times
+# (idempotent). Remove this endpoint once the migration is confirmed done.
+
+@operator_router.post("/admin/migrate/reattribute-service-twins")
+async def admin_reattribute_service_twins(
+    body: dict,
+    _admin: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    target_user_id: str = body.get("target_user_id", "").strip()
+    if not target_user_id:
+        raise HTTPException(status_code=400, detail="target_user_id is required")
+
+    from sqlalchemy import text
+    result = await db.execute(
+        text("SELECT COUNT(*) FROM twins WHERE user_id = 'service-operator'")
+    )
+    before_count = result.scalar()
+
+    await db.execute(
+        text(
+            "UPDATE twins SET user_id = :uid WHERE user_id = 'service-operator'"
+        ),
+        {"uid": target_user_id},
+    )
+    await db.commit()
+
+    logger.info(
+        "[operator] admin_reattribute_service_twins: moved %d twins to user=%s by=%s",
+        before_count, target_user_id, _admin.email,
+    )
+    return {
+        "reattributed": before_count,
+        "to_user_id": target_user_id,
+    }
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # Private helpers
 # ═══════════════════════════════════════════════════════════════════════════
