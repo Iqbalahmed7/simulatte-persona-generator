@@ -219,14 +219,21 @@ async def build_twin(
     # twin to a specific user rather than the shared service account. Regular
     # JWT users cannot hijack another user's account — target_user_id is only
     # honoured when the authenticated caller is the service account.
+    # If target_user_id is omitted, fall back to DEFAULT_TARGET_USER_ID env var
+    # so pipeline calls never silently land under service-operator.
     _SERVICE_USER_ID = "service-operator"
+    _default_target = (os.environ.get("DEFAULT_TARGET_USER_ID") or "").strip()
     effective_user_id: str = user.id
-    if user.id == _SERVICE_USER_ID and request.target_user_id:
-        effective_user_id = request.target_user_id
-        logger.info(
-            "[operator] Trinity build: attributing twin to user=%s (service caller)",
-            effective_user_id,
-        )
+    if user.id == _SERVICE_USER_ID:
+        resolved = request.target_user_id or _default_target or None
+        if resolved:
+            effective_user_id = resolved
+            logger.info(
+                "[operator] Trinity build: attributing twin to user=%s (target_user_id=%s, default=%s)",
+                effective_user_id,
+                bool(request.target_user_id),
+                bool(_default_target),
+            )
 
     name_slug = _to_slug(request.full_name, request.company)
 
