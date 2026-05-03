@@ -19,6 +19,8 @@ from the_operator.models import OperatorAllowance
 
 OperatorAction = Literal["twin_build", "twin_refresh", "probe_message", "frame_score"]
 
+_SERVICE_USER_ID = "service-operator"  # X-API-Key callers (Trinity pipeline) — always bypass
+
 _FIELD_MAP: dict[OperatorAction, str] = {
     "twin_build":    "twins_built",
     "twin_refresh":  "twin_refreshes",
@@ -53,7 +55,8 @@ async def check_and_increment_operator_allowance(
     Admins bypass entirely — no row created, no counter incremented.
     """
     is_admin = (user.email or "").lower() in _admin_emails()
-    if is_admin:
+    is_service = getattr(user, "id", None) == _SERVICE_USER_ID
+    if is_admin or is_service:
         return
 
     now = datetime.now(timezone.utc)
@@ -100,6 +103,7 @@ async def get_operator_allowance_state(user, db: AsyncSession) -> dict:
     resets_at  = _next_monday(week_start)
 
     is_admin = (user.email or "").lower() in _admin_emails()
+    is_service = getattr(user, "id", None) == _SERVICE_USER_ID
 
     result = await db.execute(
         select(OperatorAllowance).where(
@@ -109,7 +113,7 @@ async def get_operator_allowance_state(user, db: AsyncSession) -> dict:
     )
     allowance = result.scalar_one_or_none()
 
-    if is_admin or allowance is None:
+    if is_admin or is_service or allowance is None:
         zeros = {"twins_built": 0, "twin_refreshes": 0, "probe_messages": 0, "frame_scores": 0}
         row = zeros
     else:
@@ -120,7 +124,7 @@ async def get_operator_allowance_state(user, db: AsyncSession) -> dict:
             "frame_scores":   allowance.frame_scores,
         }
 
-    inf = 9999 if is_admin else None
+    inf = 9999 if (is_admin or is_service) else None
 
     return {
         "twin_build":    {"used": row["twins_built"],    "limit": inf or OPERATOR_LIMITS["twin_build"]},
