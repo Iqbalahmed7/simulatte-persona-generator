@@ -3850,6 +3850,7 @@ async def admin_user_detail(
       - chat_message: persona name + nothing else (chat content not stored)
     """
     from sqlalchemy import select as sa_select
+    from db import LIMITS  # noqa: F401
     user_row = (
         await db.execute(sa_select(User).where(User.id == user_id))  # type: ignore  # noqa: F821
     ).scalar_one_or_none()
