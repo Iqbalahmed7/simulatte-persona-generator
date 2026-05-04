@@ -3,6 +3,7 @@ import { adminFetch } from "@/lib/admin";
 import BanControls from "@/components/admin/BanControls";
 import ProbeEventActions from "@/components/admin/ProbeEventActions";
 import UserChatSessions from "@/components/admin/UserChatSessions";
+import UserWeeklyLimitsForm from "@/components/admin/UserWeeklyLimitsForm";
 
 interface UserDetail {
   user: {
@@ -13,6 +14,10 @@ interface UserDetail {
     banned_at?: string | null;
     banned_reason?: string | null;
     flagged_count?: number;
+    persona_limit_override?: number | null;
+    probe_limit_override?: number | null;
+    chat_limit_override?: number | null;
+    global_limits?: { persona: number; probe: number; chat: number };
   };
   events: Array<{
     id: string;
@@ -47,6 +52,18 @@ export default async function AdminUserDetailPage({ params }: { params: Promise<
         bannedReason={user.banned_reason ?? null}
         flaggedCount={user.flagged_count ?? 0}
       />
+
+      {user.global_limits && (
+        <div className="mt-4">
+          <UserWeeklyLimitsForm
+            userId={user.id}
+            personaLimitOverride={user.persona_limit_override ?? null}
+            probeLimitOverride={user.probe_limit_override ?? null}
+            chatLimitOverride={user.chat_limit_override ?? null}
+            globalLimits={user.global_limits}
+          />
+        </div>
+      )}
 
       <UserChatSessions userId={user.id} />
 

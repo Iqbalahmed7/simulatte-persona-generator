@@ -3922,6 +3922,16 @@ async def admin_user_detail(
             ),
             "banned_reason": getattr(user_row, "banned_reason", None),
             "flagged_count": int(getattr(user_row, "flagged_count", 0) or 0),
+            # Per-user weekly limit overrides (null = use global default)
+            "persona_limit_override": getattr(user_row, "persona_limit_override", None),
+            "probe_limit_override": getattr(user_row, "probe_limit_override", None),
+            "chat_limit_override": getattr(user_row, "chat_limit_override", None),
+            # Global defaults so the UI can show "Global: N"
+            "global_limits": {
+                "persona": LIMITS["persona"],
+                "probe": LIMITS["probe"],
+                "chat": LIMITS["chat"],
+            },
         },
         "events": enriched,
     }
