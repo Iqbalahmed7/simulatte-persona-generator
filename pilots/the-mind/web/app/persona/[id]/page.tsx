@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { fetchGeneratedPersona, generatePortrait, GeneratedPersona } from "@/lib/api";
 import GenuinenessChip from "@/components/GenuinenessChip";
@@ -158,9 +157,18 @@ function AttributeCategory({
 
 export default function PersonaProfilePage() {
   const { id } = useParams<{ id: string }>();
-  const { status: authStatus } = useSession();
+  const [authStatus, setAuthStatus] = useState<"loading" | "authenticated" | "unauthenticated">("loading");
   const [persona, setPersona] = useState<GeneratedPersona | null>(null);
   const [error, setError] = useState("");
+
+  // Detect session without requiring SessionProvider — just hit the Auth.js
+  // session endpoint directly. Returns {} when unauthenticated, {user,...} when authed.
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then((r) => r.json())
+      .then((data) => setAuthStatus(data?.user ? "authenticated" : "unauthenticated"))
+      .catch(() => setAuthStatus("unauthenticated"));
+  }, []);
 
   useEffect(() => {
     fetchGeneratedPersona(id)
