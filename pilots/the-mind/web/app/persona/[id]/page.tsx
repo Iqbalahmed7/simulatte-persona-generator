@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { fetchGeneratedPersona, generatePortrait, GeneratedPersona } from "@/lib/api";
 import GenuinenessChip from "@/components/GenuinenessChip";
@@ -157,6 +158,7 @@ function AttributeCategory({
 
 export default function PersonaProfilePage() {
   const { id } = useParams<{ id: string }>();
+  const { status: authStatus } = useSession();
   const [persona, setPersona] = useState<GeneratedPersona | null>(null);
   const [error, setError] = useState("");
 
@@ -234,24 +236,53 @@ export default function PersonaProfilePage() {
               {persona.quality_assessment && (
                 <GenuinenessChip assessment={persona.quality_assessment} />
               )}
-              <Link
-                href={`/persona/${persona.persona_id}/chat`}
-                className="inline-flex items-center gap-2 bg-signal text-void font-condensed font-bold px-4 min-h-[44px] py-2 active:bg-parchment transition-colors max-w-full"
-              >
-                <span className="text-sm tracking-widest uppercase truncate">
-                  Talk to {persona.narrative.display_name || da.name.split(" ")[0]}
-                </span>
-                <span aria-hidden className="shrink-0">→</span>
-              </Link>
-              <Link
-                href={`/persona/${persona.persona_id}/probe`}
-                className="inline-flex items-center gap-2 border border-signal text-signal font-condensed font-bold px-4 min-h-[44px] py-2 active:bg-signal/10 transition-colors max-w-full"
-              >
-                <span className="text-sm tracking-widest uppercase truncate">
-                  Test product with {persona.narrative.display_name || da.name.split(" ")[0]}
-                </span>
-                <span aria-hidden className="shrink-0">→</span>
-              </Link>
+              {authStatus === "authenticated" ? (
+                <>
+                  <Link
+                    href={`/persona/${persona.persona_id}/chat`}
+                    className="inline-flex items-center gap-2 bg-signal text-void font-condensed font-bold px-4 min-h-[44px] py-2 active:bg-parchment transition-colors max-w-full"
+                  >
+                    <span className="text-sm tracking-widest uppercase truncate">
+                      Talk to {persona.narrative.display_name || da.name.split(" ")[0]}
+                    </span>
+                    <span aria-hidden className="shrink-0">→</span>
+                  </Link>
+                  <Link
+                    href={`/persona/${persona.persona_id}/probe`}
+                    className="inline-flex items-center gap-2 border border-signal text-signal font-condensed font-bold px-4 min-h-[44px] py-2 active:bg-signal/10 transition-colors max-w-full"
+                  >
+                    <span className="text-sm tracking-widest uppercase truncate">
+                      Test product with {persona.narrative.display_name || da.name.split(" ")[0]}
+                    </span>
+                    <span aria-hidden className="shrink-0">→</span>
+                  </Link>
+                </>
+              ) : authStatus === "unauthenticated" ? (
+                <div className="w-full border border-parchment/10 bg-parchment/[0.02] p-4 mt-1 space-y-3">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-static">
+                    Platform access required
+                  </p>
+                  <p className="text-sm text-parchment/70 leading-relaxed">
+                    Interacting with this persona requires access to The Mind. Use an invite code to join, or request a simulation call.
+                  </p>
+                  <div className="flex flex-wrap gap-3 pt-1">
+                    <Link
+                      href="/welcome"
+                      className="inline-flex items-center gap-2 bg-signal text-void font-condensed font-bold px-4 min-h-[44px] py-2 active:bg-parchment transition-colors"
+                    >
+                      <span className="text-sm tracking-widest uppercase">Enter invite code</span>
+                      <span aria-hidden className="shrink-0">→</span>
+                    </Link>
+                    <a
+                      href="mailto:mind@simulatte.io?subject=Simulation%20Call%20Request&body=Hi%2C%20I%20came%20across%20a%20persona%20on%20The%20Mind%20and%20would%20like%20to%20request%20access%20or%20book%20a%20simulation%20call."
+                      className="inline-flex items-center gap-2 border border-parchment/20 text-parchment/70 font-condensed font-bold px-4 min-h-[44px] py-2 hover:border-parchment/40 hover:text-parchment transition-colors"
+                    >
+                      <span className="text-sm tracking-widest uppercase">Request a call</span>
+                      <span aria-hidden className="shrink-0">→</span>
+                    </a>
+                  </div>
+                </div>
+              ) : null /* loading — render nothing until auth resolves */}
             </div>
 
             <p className="text-parchment/85 text-base leading-relaxed mb-6 break-words">
