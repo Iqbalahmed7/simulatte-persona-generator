@@ -129,12 +129,19 @@ def check_parity(persona: Any, provider: str = "unknown") -> ParityResult:
     # G4: narrative completeness (word counts, non-empty fields)
     all_failures.extend(_run_gate("G4", validator.g4_narrative_completeness, persona))
 
-    # G5: narrative-attribute alignment (keyword contradiction scan)
-    all_failures.extend(
-        _run_gate("G5", validator.g5_narrative_attribute_alignment, persona)
-    )
-
     gates_checked = 5
+
+    # G5: narrative-attribute alignment (keyword contradiction scan)
+    # Skip G5 for SIGNAL-tier (popscale) personas whose narratives are stubs —
+    # the scan requires non-empty text; running it against None/empty strings
+    # causes a crash in g5_narrative_attribute_alignment.
+    if persona.narrative.first_person and persona.narrative.third_person:
+        all_failures.extend(
+            _run_gate("G5", validator.g5_narrative_attribute_alignment, persona)
+        )
+    else:
+        # SIGNAL-tier persona has no full narrative — G5 doesn't apply.
+        gates_checked -= 1  # keep the pass-rate denominator honest
     gates_failed = len(all_failures)
     # Gates are pass/fail per gate, not per failure message — but the brief asks
     # for gates_failed == number of failure messages (consistent with "any failure

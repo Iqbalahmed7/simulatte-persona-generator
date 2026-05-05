@@ -351,7 +351,7 @@ class PersonaValidator:
 
         # Combine both narrative fields for scanning
         combined_narrative = (
-            persona.narrative.first_person + " " + persona.narrative.third_person
+            (persona.narrative.first_person or "") + " " + (persona.narrative.third_person or "")
         ).lower()
 
         bt = persona.behavioural_tendencies

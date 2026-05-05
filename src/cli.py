@@ -133,6 +133,7 @@ async def _run_generation(
 
     import asyncio
     import threading as _threading
+    from datetime import datetime
     from src.generation.demographic_sampler import sample_demographic_anchor
 
     # Build a synchronous regenerate_failing callable that replaces the entire
@@ -244,6 +245,7 @@ async def _run_generation(
             demographic_anchor=demographic_anchor,
             icp_spec=icp,
         )
+        print(f"[{datetime.now()}] persona {i} done", flush=True)
         click.echo(f"  Generated persona {i}/{generate_count}: {persona.persona_id} ({demographic_anchor.name})", err=True)
         return persona
 
@@ -342,14 +344,25 @@ async def _run_generation(
             f"This indicates a failure in persona generation or stratification."
         )
 
-    envelope_obj = assemble_cohort(
-        personas=personas,
-        domain=domain,
-        domain_data=domain_data,
-        client=client,
-        skip_gates=skip_gates,
-        regenerate_failing=_regenerate_failing,
-        max_attempts=max_attempts,
+    # Run assemble_cohort in a thread-pool executor so the event loop is not
+    # blocked while assemble_cohort calls _regenerate_failing (which itself
+    # spawns a daemon thread and joins it).  Blocking the event loop thread
+    # while waiting for a child thread causes a deadlock when invoked from
+    # the engine's async /generate handler.
+    import functools as _functools
+    loop = asyncio.get_event_loop()
+    envelope_obj = await loop.run_in_executor(
+        None,
+        _functools.partial(
+            assemble_cohort,
+            personas=personas,
+            domain=domain,
+            domain_data=domain_data,
+            client=client,
+            skip_gates=skip_gates,
+            regenerate_failing=_regenerate_failing,
+            max_attempts=max_attempts,
+        ),
     )
 
     # ------------------------------------------------------------------
