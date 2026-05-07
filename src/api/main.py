@@ -203,9 +203,13 @@ async def generate(req: GenerateRequest) -> GenerateResponse:
 
 @app.post("/simulate", response_model=SimulateResponse)
 async def simulate(req: SimulateRequest) -> SimulateResponse:
-    """Run cognitive simulation on an existing cohort."""
-    path = cohort_path(req.cohort_id)
+    """Run a simulation against an existing cohort.
 
+    Two modes (auto-detected from request body shape):
+      - Engine compat shim: question + options + n_personas → fast Q&A probe.
+        Used by simulatte-engine's /simulation/run forwarder.
+      - Legacy: scenario + rounds → full multi-round cognition loop.
+    """
     cohort_data = load_cohort(req.cohort_id)
     if cohort_data is None:
         raise HTTPException(
@@ -213,6 +217,46 @@ async def simulate(req: SimulateRequest) -> SimulateResponse:
             detail=f"Cohort '{req.cohort_id}' not found.",
         )
 
+    # ── Engine compat shim path ───────────────────────────────────────────────
+    if req.question is not None and req.options is not None:
+        from src.api.simulate_qna import run_qna_simulation
+
+        try:
+            qna = await run_qna_simulation(
+                cohort_data=cohort_data,
+                question=req.question,
+                context=req.context or "",
+                options=req.options,
+                n_personas=req.n_personas or 5,
+            )
+        except Exception as exc:
+            raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+        if not qna.get("ok"):
+            raise HTTPException(
+                status_code=502,
+                detail=qna.get("error") or "Q&A simulation produced no responses.",
+            )
+
+        return SimulateResponse(
+            cohort_id=req.cohort_id,
+            results=qna,
+            headline=qna.get("headline"),
+            confidence_score=qna.get("confidence_score"),
+            strategic_implication=qna.get("strategic_implication"),
+            distribution=qna.get("distribution") or [],
+            persona_responses=qna.get("persona_responses") or [],
+        )
+
+    # ── Legacy path ───────────────────────────────────────────────────────────
+    if req.scenario is None:
+        raise HTTPException(
+            status_code=422,
+            detail="Request must include either (question + options) for engine "
+                   "compat shim, or `scenario` for legacy simulation.",
+        )
+
+    path = cohort_path(req.cohort_id)
     try:
         result = await _run_simulation(path, req.scenario, req.rounds)
     except Exception as exc:

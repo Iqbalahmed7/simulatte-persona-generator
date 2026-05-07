@@ -81,6 +81,95 @@ def test_simulate_missing_cohort_returns_404():
     assert response.status_code == 404
 
 
+def test_simulate_engine_compat_happy_path():
+    """POST /simulate (engine compat: question + options) returns headline + distribution."""
+    cohort = {
+        "cohort_id": "compat-001",
+        "personas": [
+            {
+                "persona_id": f"p{i}",
+                "demographic_anchor": {"name": f"Persona {i}", "age": 30 + i},
+                "first_person_narrative": "I value sustainable products.",
+            }
+            for i in range(5)
+        ],
+    }
+    qna_result = {
+        "ok": True,
+        "headline": "80% of 5 personas chose \"Yes\"",
+        "confidence_score": 0.8,
+        "strategic_implication": None,
+        "distribution": [
+            {"option_id": "yes", "option_name": "Yes", "count": 4, "percentage": 80.0},
+            {"option_id": "no", "option_name": "No", "count": 1, "percentage": 20.0},
+        ],
+        "persona_responses": [
+            {"persona_id": "p0", "persona_name": "Persona 0", "option_id": "yes", "rationale": "..."},
+        ],
+    }
+    with patch("src.api.main.load_cohort", return_value=cohort), \
+         patch("src.api.simulate_qna.run_qna_simulation", new=AsyncMock(return_value=qna_result)):
+        response = client.post(
+            "/simulate",
+            json={
+                "cohort_id": "compat-001",
+                "simulation_name": "test",
+                "question": "Would you buy this?",
+                "context": "A new eco-friendly product.",
+                "options": [{"id": "yes", "name": "Yes"}, {"id": "no", "name": "No"}],
+                "n_personas": 5,
+            },
+        )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["headline"].startswith("80%")
+    assert body["confidence_score"] == 0.8
+    assert len(body["distribution"]) == 2
+    assert body["distribution"][0]["option_id"] == "yes"
+
+
+def test_simulate_engine_compat_all_failures_returns_502():
+    """If every persona Q&A fails, /simulate returns 502."""
+    cohort = {
+        "cohort_id": "compat-002",
+        "personas": [{"persona_id": "p0", "demographic_anchor": {"name": "X"}}],
+    }
+    failed = {
+        "ok": False,
+        "error": "all persona Q&A calls failed",
+        "headline": None,
+        "confidence_score": 0.0,
+        "distribution": [],
+        "persona_responses": [],
+    }
+    with patch("src.api.main.load_cohort", return_value=cohort), \
+         patch("src.api.simulate_qna.run_qna_simulation", new=AsyncMock(return_value=failed)):
+        response = client.post(
+            "/simulate",
+            json={
+                "cohort_id": "compat-002",
+                "question": "?",
+                "options": [{"id": "yes", "name": "Yes"}],
+                "n_personas": 1,
+            },
+        )
+    assert response.status_code == 502
+
+
+def test_simulate_engine_compat_missing_cohort_returns_404():
+    """Engine-shape /simulate against unknown cohort still 404s."""
+    response = client.post(
+        "/simulate",
+        json={
+            "cohort_id": "nonexistent-engine-xyz",
+            "question": "?",
+            "options": [{"id": "yes", "name": "Yes"}],
+            "n_personas": 1,
+        },
+    )
+    assert response.status_code == 404
+
+
 def test_survey_missing_cohort_returns_404():
     """POST /survey for a non-existent cohort_id should return 404."""
     response = client.post(

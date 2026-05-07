@@ -15,9 +15,23 @@ class GenerateRequest(BaseModel):
 
 
 class SimulateRequest(BaseModel):
+    """Hybrid request shape — supports both legacy and engine compat-shim shapes.
+
+    Legacy shape (used by /orchestrate and tests):  cohort_id + scenario + rounds.
+    Engine compat shape (used by simulatte-engine /simulation/run forwarder):
+        cohort_id + simulation_name + question + context + options + n_personas.
+    Handler routes by which fields are present.
+    """
     cohort_id: str
-    scenario: dict  # {"stimuli": [...], "decision_scenario": None}
+    # Legacy fields
+    scenario: dict | None = None  # {"stimuli": [...], "decision_scenario": None}
     rounds: int = 3
+    # Engine compat fields
+    simulation_name: str | None = None
+    question: str | None = None
+    context: str | None = None
+    options: list[dict] | None = None  # [{"id": "yes", "name": "Yes"}, ...]
+    n_personas: int | None = None
 
 
 class SimulateWithPersonasRequest(BaseModel):
@@ -43,6 +57,12 @@ class GenerateResponse(BaseModel):
 class SimulateResponse(BaseModel):
     cohort_id: str
     results: dict
+    # Engine compat shim — top-level fields the engine job-wrapper expects
+    headline: str | None = None
+    confidence_score: float | None = None
+    strategic_implication: str | None = None
+    distribution: list[dict] | None = None
+    persona_responses: list[dict] | None = None
 
 
 class SurveyResponse(BaseModel):
