@@ -83,7 +83,34 @@ def persist_cohort(
     for idx, p in enumerate(raw_personas):
         if not isinstance(p, dict):
             continue
-        dossier = p.get("dossier_snapshot") or p
+        demo = p.get("demographic_anchor") or {}
+        if not isinstance(demo, dict):
+            demo = {}
+        employment = demo.get("employment") or {}
+        if not isinstance(employment, dict):
+            employment = {}
+        narrative = p.get("narrative") or {}
+        if not isinstance(narrative, dict):
+            narrative = {}
+        first_person = narrative.get("first_person") or ""
+        if not isinstance(first_person, str):
+            first_person = ""
+
+        dossier = {
+            # Top-level dashboard-friendly fields (additive; original record preserved below)
+            "name": demo.get("name"),
+            "age": demo.get("age"),
+            "occupation": (
+                employment.get("job_role")
+                or employment.get("title")
+                or demo.get("occupation")
+            ),
+            "life_stage": demo.get("life_stage"),
+            "demographics": demo,
+            "bio": (first_person[:240] + "…") if len(first_person) > 240 else first_person,
+            # Spread the full record so the-mind and existing consumers keep working.
+            **p,
+        }
         life_stories = p.get("life_stories") if isinstance(p, dict) else None
         picture_url = p.get("picture_url") if isinstance(p, dict) else None
         display_bio = p.get("display_bio") if isinstance(p, dict) else None
