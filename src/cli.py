@@ -97,6 +97,9 @@ async def _run_generation(
     client: str = "",
     streaming_writer: "StreamingCohortWriter | None" = None,  # type: ignore[name-defined]
     max_attempts: int = 2,
+    business_problem: str = "",
+    icp_description: str = "",
+    study_type: str = "general",
 ) -> dict:
     """Async inner function: builds N personas then assembles the cohort.
 
@@ -238,6 +241,9 @@ async def _run_generation(
             persona_id_prefix=persona_id_prefix,
             persona_index=i,
             domain_data=domain_data,
+            business_problem=business_problem,
+            icp_description=icp_description,
+            study_type=study_type,
         )
         pool_index_base = anchor_overrides.get("pool_index", 0)
         demographic_anchor = sample_demographic_anchor(domain=domain, index=pool_index_base + (i - 1), anchor_overrides=anchor_overrides)
@@ -362,6 +368,7 @@ async def _run_generation(
             skip_gates=skip_gates,
             regenerate_failing=_regenerate_failing,
             max_attempts=max_attempts,
+            business_problem=business_problem,
         ),
     )
 

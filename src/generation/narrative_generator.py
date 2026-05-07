@@ -224,6 +224,8 @@ class NarrativeGenerator:
         life_stories: list[LifeStory],
         behavioural_tendencies: BehaviouralTendencies,
         llm_client: Any = None,
+        business_problem: str = "",
+        icp_description: str = "",
     ) -> Narrative:
         """
         Generates first_person (100–150 words) and third_person (150–200 words)
@@ -263,11 +265,27 @@ class NarrativeGenerator:
 
         # Build constraint guidance for the system prompts based on attributes
         constraint_note = _build_constraint_note(attributes, political_lean=political_lean)
+        research_context = ""
+        if business_problem:
+            research_context = (
+                "## Research Context\n"
+                f"This persona is being generated for a study about: {business_problem}\n"
+                f"Target audience: {icp_description or 'not specified'}\n\n"
+                "When writing this narrative, ensure the persona is plausibly "
+                "within that target audience. Pull demographic plausibility, "
+                "occupation, life-stage, and concerns from this context. Don't "
+                "invent — if the brief is vague, default to the demographic "
+                "anchor as authoritative."
+            )
+
         first_person_system = _FIRST_PERSON_SYSTEM
         third_person_system = _THIRD_PERSON_SYSTEM
+        if research_context:
+            first_person_system = f"{first_person_system}\n\n{research_context}"
+            third_person_system = f"{third_person_system}\n\n{research_context}"
         if constraint_note:
-            first_person_system = f"{_FIRST_PERSON_SYSTEM}\n\n{constraint_note}"
-            third_person_system = f"{_THIRD_PERSON_SYSTEM}\n\n{constraint_note}"
+            first_person_system = f"{first_person_system}\n\n{constraint_note}"
+            third_person_system = f"{third_person_system}\n\n{constraint_note}"
 
         fp_user = _first_person_user_prompt(profile_block)
         tp_user = _third_person_user_prompt(profile_block, demographic_anchor.name)

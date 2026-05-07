@@ -139,6 +139,22 @@ class ICPSpec:
     sarvam_enabled: bool = False
     """When True and persona country is 'India', route LLM calls to SarvamLLMClient."""
 
+    business_problem: str = ""
+    """Free-text research question driving this cohort. Threaded into LLM
+    prompts (attribute_filler / life_story / narrative) as a Research Context
+    block so generated personas align with the brief instead of inheriting
+    generic taxonomy templates. Empty string = no research-context injection."""
+
+    icp_description: str = ""
+    """Free-text description of the target audience / ICP. Used alongside
+    business_problem in the Research Context block. Empty string = unspecified."""
+
+    study_type: str = "general"
+    """Run-type flag controlling whether Pew Study 1B India calibration content
+    (Modi/BJP/INC/Pew cultural survey preamble) is emitted into core memory.
+    Values: 'general' (default — safe for all product use cases) |
+    'pew_calibration' (explicit Study 1B opt-in)."""
+
 
 # ---------------------------------------------------------------------------
 # IdentityConstructor
@@ -218,6 +234,8 @@ class IdentityConstructor:
             taxonomy=taxonomy,
             anchor_overrides=icp_spec.anchor_overrides,
             domain_attrs=domain_attrs,
+            business_problem=icp_spec.business_problem,
+            icp_description=icp_spec.icp_description,
         )
 
         # ---------------------------------------------------------------
@@ -251,6 +269,8 @@ class IdentityConstructor:
             attributes=attributes,
             n_stories=_DEFAULT_N_STORIES,
             llm_client=_llm_client,
+            business_problem=icp_spec.business_problem,
+            icp_description=icp_spec.icp_description,
         )
 
         # ---------------------------------------------------------------
@@ -275,6 +295,8 @@ class IdentityConstructor:
             life_stories=life_stories,
             behavioural_tendencies=behavioural_tendencies,
             llm_client=_llm_client,
+            business_problem=icp_spec.business_problem,
+            icp_description=icp_spec.icp_description,
         )
 
         # ---------------------------------------------------------------
@@ -341,7 +363,7 @@ class IdentityConstructor:
         # this call then replaces it with the authoritative derivation from
         # src.memory.core_memory (OpenCode Sprint 3).
         # ---------------------------------------------------------------
-        core_memory = assemble_core_memory(persona)
+        core_memory = assemble_core_memory(persona, study_type=icp_spec.study_type)
         persona = persona.model_copy(
             update={"memory": Memory(core=core_memory, working=working_memory)}
         )

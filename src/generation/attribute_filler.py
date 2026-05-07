@@ -34,6 +34,8 @@ class AttributeFiller:
         taxonomy: List[AttributeDefinition],
         anchor_overrides: Optional[Dict[str, Any]] = None,
         domain_attrs: Optional[List[AttributeDefinition]] = None,
+        business_problem: str = "",
+        icp_description: str = "",
     ) -> Dict[str, Dict[str, Attribute]]:
         """Asynchronously fills attributes progressively."""
         profile_so_far = self._demographics_to_profile(demographic_anchor)
@@ -49,6 +51,11 @@ class AttributeFiller:
             )
         if anchor_overrides:
             effective_overrides.update(anchor_overrides)
+
+        # Stash research context on instance so the per-attribute prompt
+        # builder can inject it without changing every internal call site.
+        self._business_problem = business_problem
+        self._icp_description = icp_description
 
         # Step 1: Fill anchor attributes sequentially
         fill_order = self._get_fill_order(taxonomy, effective_overrides)
@@ -156,9 +163,25 @@ class AttributeFiller:
                 "Do NOT assign the most predictable/modal value."
             )
 
+        research_context = ""
+        bp = getattr(self, "_business_problem", "") or ""
+        icp_desc = getattr(self, "_icp_description", "") or ""
+        if bp:
+            research_context = (
+                "\n\n## Research Context\n"
+                f"This persona is being generated for a study about: {bp}\n"
+                f"Target audience: {icp_desc or 'not specified'}\n\n"
+                "When assigning this attribute, ensure this persona is plausibly "
+                "within that target audience. Pull demographic plausibility, "
+                "occupation, life-stage, and concerns from this context. Don't "
+                "invent — if the brief is vague, default to the demographic "
+                "anchor as authoritative."
+            )
+
         system_prompt = (
             "You are assigning a single psychological or behavioural attribute for a persona.\n"
             "Be realistic, specific, and consistent with everything already assigned."
+            + research_context
             + sparsity_nudge
         )
 

@@ -207,6 +207,9 @@ async def invoke_persona_generator(
         client=brief.client,
         streaming_writer=streaming_writer,
         max_attempts=brief.max_retries_per_persona,
+        business_problem=brief.business_problem,
+        icp_description=brief.anchor_overrides.get("icp_description", ""),
+        study_type=brief.anchor_overrides.get("study_type", "general"),
     )
 
     # Handle Sarvam wrapper

@@ -94,6 +94,8 @@ def _build_user_prompt(
     demographic_anchor: DemographicAnchor,
     attributes: dict[str, dict[str, Attribute]],
     n_stories: int,
+    business_problem: str = "",
+    icp_description: str = "",
 ) -> str:
     da = demographic_anchor
     loc = da.location
@@ -111,7 +113,20 @@ def _build_user_prompt(
     selected = _select_top_attributes(attributes)
     attr_lines = "\n".join(_format_attribute_line(n, a) for n, a in selected)
 
+    research_context = ""
+    if business_problem:
+        research_context = (
+            "## Research Context\n"
+            f"This persona is being generated for a study about: {business_problem}\n"
+            f"Target audience: {icp_description or 'not specified'}\n\n"
+            "When generating life stories, ensure this persona is plausibly "
+            "within that target audience. Pull life-stage, occupation, and "
+            "formative concerns from this context. Don't invent — if the "
+            "brief is vague, default to the demographic anchor as authoritative.\n\n"
+        )
+
     return (
+        f"{research_context}"
         f"Demographics:\n{demo_block}\n\n"
         f"Key attribute profile (decision-relevant):\n{attr_lines}\n\n"
         f"Generate exactly {n_stories} life story vignettes. Each story must:\n"
@@ -231,6 +246,8 @@ class LifeStoryGenerator:
         attributes: dict[str, dict[str, Attribute]],
         n_stories: int = 3,
         llm_client: Any = None,
+        business_problem: str = "",
+        icp_description: str = "",
     ) -> list[LifeStory]:
         """
         Generates n_stories (2 or 3) life story vignettes.
@@ -243,7 +260,13 @@ class LifeStoryGenerator:
         """
         n_stories = max(2, min(3, n_stories))
 
-        user_prompt = _build_user_prompt(demographic_anchor, attributes, n_stories)
+        user_prompt = _build_user_prompt(
+            demographic_anchor,
+            attributes,
+            n_stories,
+            business_problem=business_problem,
+            icp_description=icp_description,
+        )
 
         stories = await self._call_and_parse(
             demographic_anchor, user_prompt, n_stories, attempt=1, llm_client=llm_client

@@ -31,14 +31,28 @@ from src.schema.persona import (
 # ---------------------------------------------------------------------------
 
 
-def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
+def assemble_core_memory(
+    persona: PersonaRecord,
+    study_type: str = "general",
+) -> CoreMemory:
     """Assemble CoreMemory from a validated PersonaRecord.
 
     All fields are derived deterministically — no LLM calls.
 
     Called once during persona creation. The result is stored in
     PersonaRecord.memory.core and is immutable thereafter.
+
+    study_type controls whether Pew Study 1B India calibration content
+    (cultural_context preamble, inc_stance) is emitted. The Modi/BJP/INC/
+    cultural-survey instructions are calibration-specific scaffolding that
+    must NOT leak into general product personas.
+        - 'general' (default)        → cultural_context = inc_stance = None
+        - 'pew_calibration'          → derive both as before (Study 1B path)
+    Other Pew-survey-specific stances (governance/gender_norms) live behind
+    the BJP-era + Pew-calibration gate too — they are nonsensical outside
+    the survey-replication context.
     """
+    is_pew = study_type == "pew_calibration"
     identity_statement = _derive_identity_statement(persona)
     key_values = _derive_key_values(persona)
     life_defining_events = _derive_life_defining_events(persona)
@@ -49,8 +63,13 @@ def assemble_core_memory(persona: PersonaRecord) -> CoreMemory:
     media_trust_stance = _derive_media_trust_stance(persona)
     gender_norms_stance = _derive_gender_norms_stance(persona)
     governance_stance = _derive_governance_stance(persona)
-    cultural_context = _derive_cultural_context(persona)
-    inc_stance = _derive_inc_stance(persona)
+    # Pew-Study-1B-only fields tied to _INDIA_CULTURAL_SURVEY_CONTEXT and
+    # _INC_STANCES. Gate behind explicit study_type opt-in so the Modi/BJP/
+    # INC Pew cultural survey content does not leak into general personas
+    # (PR-PG-2). The literals remain in the module — they're still consumed
+    # when study_type='pew_calibration'.
+    cultural_context = _derive_cultural_context(persona) if is_pew else None
+    inc_stance = _derive_inc_stance(persona) if is_pew else None
 
     return CoreMemory(
         identity_statement=identity_statement,
