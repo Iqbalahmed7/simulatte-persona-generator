@@ -37,6 +37,24 @@ from src.api.models import (
     SurveyResponse,
 )
 from src.api.store import STORE_DIR, cohort_path, list_cohorts, load_cohort, save_cohort
+
+
+def _load_cohort_with_db_fallback(cohort_id: str) -> dict | None:
+    """Primary: filesystem (legacy + seed). Fallback: Postgres (Phase C calibrations).
+
+    Phase C calibrations persist cohorts via cohort_persistence.persist_cohort
+    rather than the filesystem store, so /simulate (and friends) need to read
+    from the DB when the filesystem store has no entry.
+    """
+    cohort_data = load_cohort(cohort_id)
+    if cohort_data is not None:
+        return cohort_data
+    try:
+        from src.db.cohort_persistence import load_cohort_from_db
+        return load_cohort_from_db(cohort_id)
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("DB fallback for cohort %s failed: %s", cohort_id, exc)
+        return None
 from src.cli import _run_generation, _run_simulation, _run_survey
 
 __version__ = "0.3.0"
@@ -107,7 +125,7 @@ async def get_cohorts() -> CohortsListResponse:
 @app.get("/cohort/{cohort_id}", response_model=CohortDetailResponse)
 async def get_cohort(cohort_id: str) -> CohortDetailResponse:
     """Return the raw CohortEnvelope JSON for a given cohort_id."""
-    cohort_data = load_cohort(cohort_id)
+    cohort_data = _load_cohort_with_db_fallback(cohort_id)
     if cohort_data is None:
         raise HTTPException(
             status_code=404,
@@ -124,7 +142,7 @@ async def get_cohort(cohort_id: str) -> CohortDetailResponse:
 @app.get("/cohort/{cohort_id}/personas", response_model=PersonasResponse)
 async def get_cohort_personas(cohort_id: str) -> PersonasResponse:
     """Return personas in LittleJoys display format (via pilots/littlejoys app_adapter)."""
-    cohort_data = load_cohort(cohort_id)
+    cohort_data = _load_cohort_with_db_fallback(cohort_id)
     if cohort_data is None:
         raise HTTPException(
             status_code=404,
@@ -210,7 +228,7 @@ async def simulate(req: SimulateRequest) -> SimulateResponse:
         Used by simulatte-engine's /simulation/run forwarder.
       - Legacy: scenario + rounds → full multi-round cognition loop.
     """
-    cohort_data = load_cohort(req.cohort_id)
+    cohort_data = _load_cohort_with_db_fallback(req.cohort_id)
     if cohort_data is None:
         raise HTTPException(
             status_code=404,

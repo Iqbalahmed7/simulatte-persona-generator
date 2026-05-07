@@ -147,3 +147,75 @@ def persist_cohort(
         cohort.id, len(raw_personas), len(gate_warnings),
     )
     return cohort
+
+
+def load_cohort_from_db(cohort_id: str) -> dict[str, Any] | None:
+    """Reverse of persist_cohort — assemble a filesystem-shaped CohortEnvelope dict
+    from Postgres so consumers (simulate_qna, /cohort/{id}, /cohort/{id}/personas)
+    can read DB-stored cohorts without code changes.
+
+    Returns None if not found or if DB is not configured. Best-effort; any DB
+    failure logs and returns None so the caller can 404 cleanly.
+    """
+    try:
+        from sqlalchemy import select
+
+        from src.db.session import get_session_sync
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("DB load skipped — session unavailable: %s", exc)
+        return None
+
+    # Accept both UUID and short legacy ids; the DB id is a UUID
+    try:
+        cohort_uuid = uuid.UUID(str(cohort_id))
+    except (ValueError, AttributeError):
+        return None
+
+    try:
+        with get_session_sync() as session:
+            cohort = session.get(Cohort, cohort_uuid)
+            if cohort is None:
+                return None
+            stmt = (
+                select(Persona)
+                .where(Persona.cohort_id == cohort_uuid)
+                .order_by(Persona.persona_index)
+            )
+            persona_rows = session.execute(stmt).scalars().all()
+
+            personas: list[dict[str, Any]] = []
+            for row in persona_rows:
+                snapshot = dict(row.dossier_snapshot or {})
+                # life_stories was stored separately; merge it back so the
+                # envelope matches what filesystem-mode consumers expect.
+                if row.life_stories is not None and "life_stories" not in snapshot:
+                    snapshot["life_stories"] = row.life_stories
+                if row.picture_url and not snapshot.get("picture_url"):
+                    snapshot["picture_url"] = row.picture_url
+                if row.display_bio and not snapshot.get("display_bio"):
+                    snapshot["display_bio"] = row.display_bio
+                personas.append(snapshot)
+
+            summary = cohort.summary or {}
+            envelope: dict[str, Any] = {
+                "cohort_id": str(cohort.id),
+                "personas": personas,
+                "domain": summary.get("domain"),
+                "client": summary.get("client"),
+                "tier": summary.get("tier"),
+                "business_problem": summary.get("business_problem"),
+                "_pqs": summary.get("pqs"),
+                "brief": cohort.brief_json or {},
+                "gate_warnings": list(cohort.gate_warnings or []),
+                "total_cost_usd": (
+                    float(cohort.total_cost_usd)
+                    if cohort.total_cost_usd is not None
+                    else None
+                ),
+                "generator_version": cohort.generator_version,
+                "status": cohort.status,
+            }
+            return envelope
+    except Exception as exc:  # noqa: BLE001
+        logger.warning("load_cohort_from_db(%s) failed: %s", cohort_id, exc)
+        return None
