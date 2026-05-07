@@ -136,8 +136,65 @@ async def _run_generation(
 
     import asyncio
     import threading as _threading
+    import logging as _pg_logging
     from datetime import datetime
     from src.generation.demographic_sampler import sample_demographic_anchor
+    from src.generation.anchor_sampler import sample_anchor_llm
+
+    _anchor_log = _pg_logging.getLogger("src.generation.anchor_sampler")
+
+    def _market_label(_domain: str, _overrides: dict) -> str:
+        """Derive a free-text market label for the LLM anchor prompt."""
+        loc = (_overrides or {}).get("location", "") or ""
+        if loc:
+            return loc
+        d = (_domain or "").lower()
+        if "india" in d or "bengal" in d or "delhi" in d:
+            return "India"
+        if "us_" in d or d in ("us_general", "us_cpg", "cpg", "general", "health_wellness", "saas"):
+            return "USA"
+        return d or "global"
+
+    async def _resolve_anchor(
+        _index: int,
+        _domain: str,
+        _overrides: dict,
+        _study_type: str,
+        _business_problem: str,
+        _icp_description: str,
+    ):
+        """Route between LLM-driven anchor sampling and the legacy fixed pool.
+
+        Pew Study 1B (study_type='pew_calibration') and untargeted runs
+        (empty business_problem) keep the legacy fixed-pool path so that
+        psychometric calibration validity (name + political-lean tagging)
+        is preserved.  All other 'general' runs get a fresh, brief-tailored
+        DemographicAnchor from the LLM.  On any LLM/parse/validation failure
+        we log a warning and fall back to the fixed pool so runs never crash.
+        """
+        if _study_type == "pew_calibration" or not (_business_problem or "").strip():
+            return sample_demographic_anchor(
+                domain=_domain, index=_index, anchor_overrides=_overrides,
+            )
+        try:
+            return await sample_anchor_llm(
+                llm_client=llm_client,
+                business_problem=_business_problem,
+                icp_description=_icp_description or "",
+                market=_market_label(_domain, _overrides),
+                age_min=int((_overrides or {}).get("age_min", 22)),
+                age_max=int((_overrides or {}).get("age_max", 60)),
+                persona_index=_index,
+                domain=_domain,
+            )
+        except Exception as e:  # noqa: BLE001
+            _anchor_log.warning(
+                "LLM anchor sampling failed for index=%d (%s) — falling back to fixed pool",
+                _index, e,
+            )
+            return sample_demographic_anchor(
+                domain=_domain, index=_index, anchor_overrides=_overrides,
+            )
 
     # Build a synchronous regenerate_failing callable that replaces the entire
     # persona list by running LLM generation in an isolated thread (avoids the
@@ -162,10 +219,13 @@ async def _run_generation(
                     persona_index=i + 1,
                     domain_data=domain_data,
                 )
-                anchor = sample_demographic_anchor(
-                    domain=domain,
-                    index=i,
-                    anchor_overrides=anchor_overrides,
+                anchor = await _resolve_anchor(
+                    _index=i,
+                    _domain=domain,
+                    _overrides=anchor_overrides,
+                    _study_type=study_type,
+                    _business_problem=business_problem,
+                    _icp_description=icp_description,
                 )
                 tasks.append(constructor.build(demographic_anchor=anchor, icp_spec=icp))
             return await asyncio.gather(*tasks, return_exceptions=True)
@@ -246,7 +306,14 @@ async def _run_generation(
             study_type=study_type,
         )
         pool_index_base = anchor_overrides.get("pool_index", 0)
-        demographic_anchor = sample_demographic_anchor(domain=domain, index=pool_index_base + (i - 1), anchor_overrides=anchor_overrides)
+        demographic_anchor = await _resolve_anchor(
+            _index=pool_index_base + (i - 1),
+            _domain=domain,
+            _overrides=anchor_overrides,
+            _study_type=study_type,
+            _business_problem=business_problem,
+            _icp_description=icp_description,
+        )
         persona = await constructor.build(
             demographic_anchor=demographic_anchor,
             icp_spec=icp,
