@@ -43,11 +43,18 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    connectable = engine_from_config(
-        config.get_section(config.config_ini_section) or {},
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    from sqlalchemy import create_engine
+    url = os.environ.get("DATABASE_URL", "") or config.get_main_option("sqlalchemy.url") or ""
+    if url.startswith("postgres://"):
+        url = "postgresql://" + url[len("postgres://"):]
+    if url.startswith("postgresql+asyncpg://"):
+        url = "postgresql://" + url[len("postgresql+asyncpg://"):]
+    if not url or url.startswith("driver://"):
+        raise RuntimeError(
+            "DATABASE_URL is not set or invalid — alembic cannot run migrations. "
+            "Set DATABASE_URL on the Railway service to the Postgres connection string."
+        )
+    connectable = create_engine(url, poolclass=pool.NullPool)
     with connectable.connect() as connection:
         context.configure(connection=connection, target_metadata=target_metadata)
         with context.begin_transaction():
