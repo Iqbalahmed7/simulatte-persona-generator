@@ -32,6 +32,8 @@ class SimulateRequest(BaseModel):
     context: str | None = None
     options: list[dict] | None = None  # [{"id": "yes", "name": "Yes"}, ...]
     n_personas: int | None = None
+    # Engine wraps Q&A inside scenario and passes `count` instead of n_personas.
+    count: int | None = None
 
 
 class SimulateWithPersonasRequest(BaseModel):

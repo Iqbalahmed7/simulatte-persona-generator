@@ -235,17 +235,41 @@ async def simulate(req: SimulateRequest) -> SimulateResponse:
             detail=f"Cohort '{req.cohort_id}' not found.",
         )
 
+    # The simulatte-engine compat shim wraps Q&A inside `scenario`:
+    #   {cohort_id, scenario: {question, context, options}, count}
+    # Auto-detect that shape and lift the inner fields up so the Q&A
+    # path can run.
+    eff_question = req.question
+    eff_options = req.options
+    eff_context = req.context
+    eff_n = req.n_personas
+    if (eff_question is None or eff_options is None) and isinstance(req.scenario, dict):
+        sc = req.scenario
+        if sc.get("question") and sc.get("options"):
+            eff_question = sc.get("question")
+            eff_options = sc.get("options")
+            if eff_context is None:
+                eff_context = sc.get("context")
+            # engine sends `count` instead of `n_personas`
+            if eff_n is None:
+                # Pydantic may already have a default for n_personas, but
+                # only override if caller didn't pass one explicitly via the
+                # top-level field.
+                count_val = getattr(req, "count", None)
+                if isinstance(count_val, int):
+                    eff_n = count_val
+
     # ── Engine compat shim path ───────────────────────────────────────────────
-    if req.question is not None and req.options is not None:
+    if eff_question is not None and eff_options is not None:
         from src.api.simulate_qna import run_qna_simulation
 
         try:
             qna = await run_qna_simulation(
                 cohort_data=cohort_data,
-                question=req.question,
-                context=req.context or "",
-                options=req.options,
-                n_personas=req.n_personas or 5,
+                question=eff_question,
+                context=eff_context or "",
+                options=eff_options,
+                n_personas=eff_n or 5,
             )
         except Exception as exc:
             raise HTTPException(status_code=500, detail=str(exc)) from exc

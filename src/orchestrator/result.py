@@ -18,9 +18,12 @@ Usage::
 from __future__ import annotations
 
 import json
+from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from src.schema.calibration_card import CalibrationCard
 
 
 class CostActual:
@@ -70,6 +73,7 @@ class QualityReport:
         distinctiveness_score: float | None = None,
         grounding_state: str = "ungrounded",
         contamination_findings: list[dict] | None = None,
+        gate_statuses: list[dict[str, Any]] | None = None,
     ) -> None:
         self.gates_passed = gates_passed or []
         self.gates_failed = gates_failed or []
@@ -78,6 +82,7 @@ class QualityReport:
         self.distinctiveness_score = distinctiveness_score
         self.grounding_state = grounding_state
         self.contamination_findings = contamination_findings or []
+        self.gate_statuses = gate_statuses or []
 
     @property
     def all_passed(self) -> bool:
@@ -93,6 +98,7 @@ class QualityReport:
             "distinctiveness_score": self.distinctiveness_score,
             "grounding_state": self.grounding_state,
             "contamination_findings": self.contamination_findings,
+            "gate_statuses": self.gate_statuses,
         }
 
 
@@ -117,6 +123,7 @@ class PersonaGenerationResult:
         cohort_file_path: str | None = None,
         generated_at: datetime | None = None,
         wall_clock_seconds: float | None = None,
+        calibration_card: CalibrationCard | None = None,
     ) -> None:
         self.run_id = run_id
         self.cohort_id = cohort_id
@@ -134,6 +141,9 @@ class PersonaGenerationResult:
         self.cohort_file_path = cohort_file_path
         self.generated_at = generated_at or datetime.now(timezone.utc)
         self.wall_clock_seconds = wall_clock_seconds
+        # Spec 02 — Calibration Card. Non-optional on every deliverable.
+        # The orchestrator always populates this; None here is a bug.
+        self.calibration_card: CalibrationCard | None = calibration_card
 
     # ── Convenience properties ─────────────────────────────────────────────
 
@@ -177,6 +187,11 @@ class PersonaGenerationResult:
             "cohort_file_path": self.cohort_file_path,
             "simulation_results": self.simulation_results,
             "summary": self.summary,
+            # Spec 02 — Calibration Card: front-page believability proof.
+            # Serialised first so it appears at the top of the JSON deliverable.
+            "calibration_card": (
+                asdict(self.calibration_card) if self.calibration_card is not None else None
+            ),
             # Persona records are the full output — included last for readability
             "cohort_envelope": self.cohort_envelope,
             "personas": self.personas,

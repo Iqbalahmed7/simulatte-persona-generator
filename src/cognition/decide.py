@@ -17,10 +17,12 @@ from typing import Any
 import anthropic
 
 from src.cognition.errors import DecideError
+from src.cognition.receipt_builder import build_receipt
 from src.memory.cache import _GLOBAL_CACHE
 from src.memory.core_memory import _get_political_lean
 from src.schema.cognition_outputs import DecideOutput as DecideOutputSchema
 from src.schema.persona import Observation, PersonaRecord, Reflection
+from src.schema.receipt import ResponseReceipt
 from src.utils.retry import api_call_with_retry
 from src.utils.structured import extract_tool_input, get_text_from_response
 
@@ -100,6 +102,7 @@ class DecisionOutput:
     implied_purchase: bool = False       # True when decision is research_more/defer but
                                          # follow_up_action describes an actual purchase
                                          # commitment (e.g. "orders a trial pack tonight")
+    receipt: "ResponseReceipt | None" = None  # Glass-box provenance (Spec 03)
 
 
 # ---------------------------------------------------------------------------
@@ -596,5 +599,14 @@ async def decide(
         )
         output.confidence = perturbed
         output.noise_applied = noise
+
+    # TODO(Spec 01 — Longitudinal Panel): thread foundation_version from the
+    # active PopScale snapshot so the receipt and Calibration Card cite the
+    # same foundation. Currently always None.
+    output.receipt = build_receipt(
+        persona=persona,
+        confidence=output.confidence,
+        noise_applied=output.noise_applied,
+    )
 
     return output

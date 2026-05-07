@@ -19,6 +19,7 @@ from uuid import uuid4
 from src.cognition.decide import decide, DecisionOutput
 from src.experiment.modality import reset_working_memory
 from src.schema.persona import PersonaRecord
+from src.schema.receipt import ResponseReceipt
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,7 @@ class PersonaResponse:
     key_drivers: list[str]                 # DecisionOutput.key_drivers
     reasoning_trace: str                   # DecisionOutput.reasoning_trace
     objections: list[str]                  # DecisionOutput.objections
+    receipt: ResponseReceipt | None = None  # Glass-box provenance (Spec 03)
 
 
 @dataclass
@@ -83,6 +85,7 @@ async def _answer_question(
         key_drivers=output.key_drivers,
         reasoning_trace=output.reasoning_trace,
         objections=output.objections,
+        receipt=output.receipt,
     )
 
 
