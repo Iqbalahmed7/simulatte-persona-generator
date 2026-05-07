@@ -1,24 +1,39 @@
 #!/usr/bin/env bash
-# Diagnostic startup wrapper. Echoes exit codes and keeps container alive
-# briefly after exit so Railway logs flush before teardown.
-set +e
+# Production startup wrapper.
+# Runs alembic migrations, then starts uvicorn (web) + calibration_worker
+# in the same container. Forwards SIGTERM/SIGINT so Railway can stop both
+# cleanly. If either exits, the container exits so Railway restarts it.
+set -e
 
 echo "STARTUP_BEGIN"
-echo "DB_URL_LEN=${#DATABASE_URL}"
+alembic upgrade head
+echo "ALEMBIC_DONE"
 
-alembic upgrade head 2>&1
-ALEMBIC_RC=$?
-echo "ALEMBIC_EXIT=${ALEMBIC_RC}"
+# Start worker in background
+python scripts/calibration_worker.py &
+WORKER_PID=$!
+echo "WORKER_STARTED pid=$WORKER_PID"
 
-if [ "${ALEMBIC_RC}" -ne 0 ]; then
-  echo "ALEMBIC_FAILED — keeping container alive for log flush"
-  sleep 300
-  exit "${ALEMBIC_RC}"
-fi
+# Forward signals to children
+term_handler() {
+  echo "Caught signal — shutting down"
+  kill -TERM "$WORKER_PID" 2>/dev/null || true
+  kill -TERM "$UVICORN_PID" 2>/dev/null || true
+  wait
+  exit 0
+}
+trap term_handler SIGTERM SIGINT
 
-uvicorn src.api.main:app --host 0.0.0.0 --port "${PORT:-8000}" 2>&1
-UVICORN_RC=$?
-echo "UVICORN_EXIT=${UVICORN_RC}"
-echo "PROCESS_DONE_KEEPALIVE"
-sleep 300
-exit "${UVICORN_RC}"
+# Start uvicorn in background so we can wait on either
+uvicorn src.api.main:app --host 0.0.0.0 --port "${PORT:-8000}" &
+UVICORN_PID=$!
+echo "UVICORN_STARTED pid=$UVICORN_PID"
+
+# Exit when either child exits (Railway restarts the container)
+wait -n "$WORKER_PID" "$UVICORN_PID"
+EXIT_CODE=$?
+echo "child_exited code=$EXIT_CODE — bringing down both"
+kill -TERM "$WORKER_PID" 2>/dev/null || true
+kill -TERM "$UVICORN_PID" 2>/dev/null || true
+wait
+exit "$EXIT_CODE"
