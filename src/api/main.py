@@ -39,7 +39,7 @@ from src.api.models import (
 from src.api.store import STORE_DIR, cohort_path, list_cohorts, load_cohort, save_cohort
 from src.cli import _run_generation, _run_simulation, _run_survey
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +47,17 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("Simulatte Persona Generator API v%s starting up.", __version__)
+    # Best-effort DB engine init — only if DATABASE_URL is set
+    import os as _os
+    if _os.environ.get("DATABASE_URL"):
+        try:
+            from src.db.session import init_engine
+            init_engine()
+            logger.info("Database engine initialised")
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("DB init failed (continuing without): %s", exc)
+    else:
+        logger.info("DATABASE_URL not set — running in legacy filesystem-only mode")
     yield
 
 
@@ -64,6 +75,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount /v1 router (auth-gated, Postgres-backed)
+try:
+    from src.api.v1 import v1_router
+    app.include_router(v1_router)
+except Exception as _v1_err:  # noqa: BLE001
+    logger.warning("v1 router unavailable: %s", _v1_err)
 
 
 # ---------------------------------------------------------------------------
@@ -284,6 +302,28 @@ async def orchestrate(req: OrchestrateRequest) -> OrchestrateResponse:
         brief_data = {**req.brief, "auto_confirm": True}
         brief = PersonaGenerationBrief(**brief_data)
         result = await invoke_persona_generator(brief)
+        # Best-effort dual-persistence: ALSO write to Postgres if DB available.
+        # Legacy filesystem write inside the orchestrator stays as the source of
+        # truth for the legacy GET /cohort/{id} response shape.
+        import os as _os
+        if _os.environ.get("DATABASE_URL"):
+            try:
+                from src.db.cohort_persistence import persist_cohort
+                from src.db.session import get_session_sync
+                with get_session_sync() as _sess:
+                    persist_cohort(
+                        _sess,
+                        tenant_id=brief.client or "legacy",
+                        brief=brief.model_dump(mode="json"),
+                        cohort_envelope=result.cohort_envelope or {},
+                        cost_usd=float(result.cost_actual.total)
+                        if result.cost_actual and hasattr(result.cost_actual, "total")
+                        else None,
+                        generator_version=__version__,
+                        created_by_module="legacy.orchestrate",
+                    )
+            except Exception as _persist_err:  # noqa: BLE001
+                logger.warning("legacy /orchestrate dual-persist failed: %s", _persist_err)
         return OrchestrateResponse(
             run_id=result.run_id,
             cohort_id=result.cohort_id,

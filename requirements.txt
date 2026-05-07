@@ -12,3 +12,5 @@ sqlalchemy[asyncio]>=2.0
 asyncpg>=0.29
 alembic>=1.13
 PyJWT>=2.8
+psycopg2-binary>=2.9
+aiosqlite>=0.19  # test fallback driver
