@@ -1639,31 +1639,71 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         ),
     )
 
+    def _sanitize_json_string(text: str) -> str:
+        """Escape literal control characters inside JSON string values.
+
+        LLMs sometimes emit a raw newline, tab, or carriage-return inside a
+        JSON string, which makes the standard parser raise 'Expecting delimiter'.
+        Walk the text character-by-character so we only touch chars inside strings.
+        """
+        result: list[str] = []
+        in_string = False
+        escape_next = False
+        for ch in text:
+            if escape_next:
+                result.append(ch)
+                escape_next = False
+            elif ch == "\\" and in_string:
+                result.append(ch)
+                escape_next = True
+            elif ch == '"':
+                in_string = not in_string
+                result.append(ch)
+            elif in_string and ch == "\n":
+                result.append("\\n")
+            elif in_string and ch == "\r":
+                result.append("\\r")
+            elif in_string and ch == "\t":
+                result.append("\\t")
+            else:
+                result.append(ch)
+        return "".join(result)
+
     def _parse_json(text: str) -> dict:
+        # Stage 1: try as-is
         try:
             return json.loads(text)
         except Exception:
-            # Strip markdown fences
-            m = re.search(r"```(?:json)?\s*([\s\S]+?)```", text)
-            candidate = m.group(1) if m else text
-            # Find outermost { }
-            start = candidate.find("{")
-            end = candidate.rfind("}") + 1
-            if start >= 0 and end > start:
-                candidate = candidate[start:end]
-            try:
-                return json.loads(candidate)
-            except Exception:
-                pass
-            # Final fallback: json_repair handles unescaped chars, truncation, etc.
-            try:
-                from json_repair import repair_json
-                repaired = repair_json(candidate, return_objects=True)
-                if isinstance(repaired, dict):
-                    return repaired
-            except Exception:
-                pass
-            return {}
+            pass
+
+        # Stage 2: strip markdown fences + find outermost {}
+        m = re.search(r"```(?:json)?\s*([\s\S]+?)```", text)
+        candidate = m.group(1) if m else text
+        start = candidate.find("{")
+        end = candidate.rfind("}") + 1
+        if start >= 0 and end > start:
+            candidate = candidate[start:end]
+        try:
+            return json.loads(candidate)
+        except Exception:
+            pass
+
+        # Stage 3: escape literal newlines/tabs inside strings (most common LLM fault)
+        try:
+            return json.loads(_sanitize_json_string(candidate))
+        except Exception:
+            pass
+
+        # Stage 4: sanitise + json_repair (handles truncation, missing quotes, etc.)
+        try:
+            from json_repair import repair_json  # installed via requirements.txt
+            repaired = repair_json(_sanitize_json_string(candidate), return_objects=True)
+            if isinstance(repaired, dict):
+                return repaired
+        except Exception:
+            pass
+
+        return {}
 
     data_a = _parse_json(resp_a.content[0].text)
     data_b = _parse_json(resp_b.content[0].text)
