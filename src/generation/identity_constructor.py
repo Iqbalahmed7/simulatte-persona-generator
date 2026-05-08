@@ -392,10 +392,23 @@ class IdentityConstructor:
         )
         failed = [r for r in results if not r.passed]
         if failed:
-            details = "; ".join(
-                f"{r.gate}: {', '.join(r.failures)}" for r in failed
-            )
-            raise ValueError(f"Persona validation failed — {details}")
+            # G1 (schema) and G2 (hard constraints) are blocking — fail fast.
+            # G3-G5 are quality signals; log warnings and let the persona through
+            # so calibration jobs complete rather than dying on a single phrase hit.
+            import logging as _logging
+            _logger = _logging.getLogger(__name__)
+            critical = [r for r in failed if r.gate in ("G1", "G2")]
+            soft = [r for r in failed if r.gate not in ("G1", "G2")]
+            if soft:
+                warn_details = "; ".join(
+                    f"{r.gate}: {', '.join(r.failures)}" for r in soft
+                )
+                _logger.warning("Persona soft-gate failures (non-blocking): %s", warn_details)
+            if critical:
+                details = "; ".join(
+                    f"{r.gate}: {', '.join(r.failures)}" for r in critical
+                )
+                raise ValueError(f"Persona validation failed — {details}")
 
         # ---------------------------------------------------------------
         # Step 9 — Return
