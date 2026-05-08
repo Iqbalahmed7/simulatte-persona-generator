@@ -10,22 +10,29 @@ import {
   GeneratedPersona,
   BenchmarkEvent,
   BenchmarkReport,
-  BenchmarkTestResult,
 } from "@/lib/api";
 import GenuinenessChip from "@/components/GenuinenessChip";
 import PersonaShare from "@/components/PersonaShare";
 
-// ── BenchmarkPanel ────────────────────────────────────────────────────────
+// ── Benchmark system ──────────────────────────────────────────────────────
 
 type BenchmarkTier = "quick" | "standard" | "research";
 
-const TIER_LABELS: Record<BenchmarkTier, string> = {
-  quick:    "Quick  (~$0.05 · 3 tests)",
-  standard: "Standard  (~$0.18 · 6 tests)",
-  research: "Research  (~$0.40 · 10 tests)",
+const TIER_META: Record<BenchmarkTier, { label: string; tests: number; cost: string; next: BenchmarkTier | null }> = {
+  quick:    { label: "Quick",    tests: 3,  cost: "~$0.05", next: "standard" },
+  standard: { label: "Standard", tests: 6,  cost: "~$0.18", next: "research" },
+  research: { label: "Research", tests: 10, cost: "~$0.40", next: null },
 };
 
-const GRADE_COLOUR: Record<string, string> = {
+const GRADE_BADGE_CLASSES: Record<string, string> = {
+  A: "border-signal text-signal",
+  B: "border-signal/60 text-signal/80",
+  C: "border-parchment/50 text-parchment",
+  D: "border-parchment/30 text-parchment/60",
+  F: "border-red-400/60 text-red-400",
+};
+
+const GRADE_SCORE_COLOUR: Record<string, string> = {
   A: "text-signal",
   B: "text-signal/80",
   C: "text-parchment",
@@ -33,193 +40,279 @@ const GRADE_COLOUR: Record<string, string> = {
   F: "text-red-400",
 };
 
-function BenchmarkPanel({ personaId }: { personaId: string }) {
-  const [tier, setTier] = useState<BenchmarkTier>("standard");
-  const [running, setRunning] = useState(false);
-  const [events, setEvents] = useState<BenchmarkEvent[]>([]);
-  const [report, setReport] = useState<BenchmarkReport | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const abortRef = useRef<AbortController | null>(null);
+// ── Benchmark report modal ────────────────────────────────────────────────
 
-  const start = async () => {
-    setRunning(true);
-    setEvents([]);
-    setReport(null);
-    setError(null);
-    abortRef.current = new AbortController();
-    try {
-      await runPersonaBenchmark(
-        personaId,
-        tier,
-        (e) => {
-          setEvents((prev) => [...prev, e]);
-          if (e.type === "complete" && e.report) setReport(e.report);
-          if (e.type === "error") setError(e.message ?? "Unknown error");
-        },
-        abortRef.current.signal,
-      );
-    } catch (err: unknown) {
-      if ((err as Error).name !== "AbortError") {
-        setError((err as Error).message ?? "Request failed");
-      }
-    } finally {
-      setRunning(false);
-    }
-  };
-
-  const stop = () => {
-    abortRef.current?.abort();
-    setRunning(false);
-  };
-
-  const testEvents = events.filter((e) => e.type === "test_complete");
+function BenchmarkModal({
+  report,
+  running,
+  progress,
+  onClose,
+  onRerun,
+}: {
+  report: BenchmarkReport | null;
+  running: boolean;
+  progress: BenchmarkEvent[];
+  onClose: () => void;
+  onRerun: (tier: BenchmarkTier) => void;
+}) {
+  const testProgress = progress.filter((e) => e.type === "test_complete");
   const grade = report?.grade ?? null;
+  const nextTier = report ? TIER_META[report.tier as BenchmarkTier]?.next : null;
 
   return (
-    <div className="space-y-5">
-      {/* Controls */}
-      {!running && !report && (
-        <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-          <div className="flex gap-2 flex-wrap">
-            {(Object.keys(TIER_LABELS) as BenchmarkTier[]).map((t) => (
-              <button
-                key={t}
-                onClick={() => setTier(t)}
-                className={`font-mono text-xs px-3 py-1.5 border transition-colors ${
-                  tier === t
-                    ? "border-signal text-signal"
-                    : "border-parchment/20 text-parchment/50 hover:border-parchment/40 hover:text-parchment/70"
-                }`}
-              >
-                {TIER_LABELS[t]}
-              </button>
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-end bg-void/80 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div className="relative h-full w-full max-w-xl bg-void border-l border-parchment/10 flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-parchment/10 shrink-0">
+          <div>
+            <p className="text-[10px] font-mono uppercase tracking-widest text-parchment/40">Quality benchmark</p>
+            {report && (
+              <p className="font-mono text-xs text-parchment/60 mt-0.5">
+                {TIER_META[report.tier as BenchmarkTier]?.label} · {report.tests.length} tests
+              </p>
+            )}
+            {running && (
+              <p className="font-mono text-xs text-signal animate-pulse mt-0.5">● running…</p>
+            )}
+          </div>
+          <button
+            onClick={onClose}
+            className="font-mono text-xs text-parchment/40 hover:text-parchment transition-colors p-2"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Score header (when complete) */}
+        {report && !running && (
+          <div className="px-6 py-6 border-b border-parchment/10 shrink-0">
+            <div className="flex items-end gap-5">
+              <span className={`font-condensed font-bold leading-none ${GRADE_SCORE_COLOUR[grade ?? "F"]}`}
+                style={{ fontSize: "clamp(56px,8vw,80px)" }}>
+                {grade}
+              </span>
+              <div className="pb-1">
+                <p className="font-mono text-[10px] text-parchment/40 uppercase tracking-widest">{report.grade_label}</p>
+                <p className="font-condensed font-bold text-3xl text-parchment mt-0.5">
+                  {report.credibility_score.toFixed(1)}
+                  <span className="text-base font-normal text-parchment/40"> / 100</span>
+                </p>
+              </div>
+              <div className="ml-auto pb-1 text-right">
+                <p className="font-mono text-[10px] text-parchment/40">{Math.round(report.total_duration_s)}s</p>
+                <p className="font-mono text-[10px] text-parchment/30">${report.total_cost_usd.toFixed(4)}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Live progress (while running) */}
+        {running && (
+          <div className="px-6 py-5 space-y-3 border-b border-parchment/10 shrink-0">
+            {testProgress.length === 0 && (
+              <p className="font-mono text-xs text-parchment/40">Initialising…</p>
+            )}
+            {testProgress.map((e, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className={`font-mono text-xs w-7 shrink-0 text-right ${
+                  (e.score ?? 0) >= 7 ? "text-signal" : (e.score ?? 0) >= 5 ? "text-parchment/70" : "text-red-400"
+                }`}>{e.score?.toFixed(1)}</span>
+                <span className="text-xs text-parchment/70 truncate">{e.test_label}</span>
+              </div>
             ))}
           </div>
-          <button
-            onClick={start}
-            className="font-mono text-xs px-4 py-1.5 bg-signal text-void hover:bg-signal/90 transition-colors"
-          >
-            Run benchmark
-          </button>
-        </div>
-      )}
+        )}
 
-      {/* Running state */}
-      {running && (
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-signal animate-pulse">● running {tier}</span>
-            <button
-              onClick={stop}
-              className="font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
-            >
-              cancel
-            </button>
-          </div>
-          {testEvents.map((e, i) => (
-            <div key={i} className="flex items-start gap-3 border-l-2 border-parchment/10 pl-3">
-              <span
-                className={`font-mono text-xs w-6 shrink-0 ${
-                  (e.score ?? 0) >= 7 ? "text-signal" : (e.score ?? 0) >= 5 ? "text-parchment/70" : "text-red-400"
-                }`}
-              >
-                {e.score?.toFixed(1)}
-              </span>
-              <span className="text-xs text-parchment/70">{e.test_label}</span>
-            </div>
-          ))}
-          {testEvents.length === 0 && (
-            <p className="text-xs text-parchment/40 font-mono">Starting tests…</p>
-          )}
-        </div>
-      )}
-
-      {/* Error */}
-      {error && (
-        <div className="border border-red-400/30 p-4">
-          <p className="font-mono text-xs text-red-400">{error}</p>
-          <button
-            onClick={() => { setError(null); setEvents([]); }}
-            className="mt-2 font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
-          >
-            dismiss
-          </button>
-        </div>
-      )}
-
-      {/* Result */}
-      {report && (
-        <div className="space-y-5">
-          {/* Score header */}
-          <div className="flex items-end gap-4 border-b border-parchment/10 pb-5">
-            <span className={`font-condensed font-bold text-6xl leading-none ${GRADE_COLOUR[grade ?? "F"]}`}>
-              {grade}
-            </span>
-            <div>
-              <p className="font-mono text-xs text-parchment/50 uppercase tracking-widest">{report.grade_label}</p>
-              <p className="font-mono text-2xl text-parchment mt-0.5">{report.credibility_score.toFixed(1)}<span className="text-sm text-parchment/40"> / 100</span></p>
-            </div>
-            <div className="ml-auto text-right">
-              <p className="font-mono text-xs text-parchment/40">${report.total_cost_usd.toFixed(4)}</p>
-              <p className="font-mono text-xs text-parchment/40">{Math.round(report.total_duration_s)}s</p>
-            </div>
-          </div>
-
-          {/* Per-test breakdown */}
-          <div className="space-y-2">
+        {/* Per-test breakdown (scrollable) */}
+        {report && !running && (
+          <div className="flex-1 overflow-y-auto px-6 py-4 space-y-1">
             {report.tests.map((t) => (
-              <details key={t.test_id} className="group">
-                <summary className="flex items-center gap-3 cursor-pointer list-none py-1.5">
-                  <span
-                    className={`font-mono text-xs w-6 shrink-0 text-right ${
-                      t.score >= 7 ? "text-signal" : t.score >= 5 ? "text-parchment/70" : "text-red-400"
-                    }`}
-                  >
-                    {t.score.toFixed(1)}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-parchment/90 truncate">{t.label}</span>
-                      {t.flags.length > 0 && (
-                        <span className="font-mono text-[10px] text-red-400/80 shrink-0">
-                          {t.flags[0]}
-                        </span>
-                      )}
-                    </div>
-                    <div className="h-1 mt-1 bg-parchment/10 w-full">
+              <details key={t.test_id} className="group border-b border-parchment/5 last:border-0">
+                <summary className="flex items-center gap-3 cursor-pointer list-none py-3">
+                  <div className="w-7 shrink-0">
+                    <div className="h-1 bg-parchment/10">
                       <div
-                        className={`h-1 transition-all ${t.score >= 7 ? "bg-signal" : t.score >= 5 ? "bg-parchment/40" : "bg-red-400/60"}`}
+                        className={`h-1 ${t.score >= 7 ? "bg-signal" : t.score >= 5 ? "bg-parchment/40" : "bg-red-400/60"}`}
                         style={{ width: `${(t.score / 10) * 100}%` }}
                       />
                     </div>
+                    <span className={`font-mono text-[10px] ${t.score >= 7 ? "text-signal" : t.score >= 5 ? "text-parchment/60" : "text-red-400"}`}>
+                      {t.score.toFixed(1)}
+                    </span>
                   </div>
-                  <span className="font-mono text-[10px] text-parchment/30 shrink-0 group-open:hidden">▸</span>
-                  <span className="font-mono text-[10px] text-parchment/30 shrink-0 hidden group-open:inline">▾</span>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-sm text-parchment/90 truncate block">{t.label}</span>
+                    {t.flags.length > 0 && (
+                      <span className="font-mono text-[10px] text-red-400/70">{t.flags[0]}</span>
+                    )}
+                  </div>
+                  <span className="font-mono text-[10px] text-parchment/20 shrink-0 group-open:rotate-90 transition-transform">▸</span>
                 </summary>
-                <div className="pl-9 pb-3 space-y-2">
+                <div className="pl-10 pb-4 space-y-2">
                   <p className="text-xs text-parchment/60 leading-relaxed">{t.rationale}</p>
-                  {t.evidence.length > 0 && (
-                    <div className="space-y-1">
-                      {t.evidence.map((q, i) => (
-                        <p key={i} className="font-mono text-xs text-parchment/50 border-l border-parchment/20 pl-2 italic">{q}</p>
-                      ))}
-                    </div>
-                  )}
+                  {t.evidence.map((q, i) => (
+                    <p key={i} className="font-mono text-xs text-parchment/40 border-l border-parchment/15 pl-3 italic">{q}</p>
+                  ))}
                 </div>
               </details>
             ))}
           </div>
+        )}
 
-          {/* Re-run */}
-          <button
-            onClick={() => { setReport(null); setEvents([]); }}
-            className="font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
-          >
-            ↺ run again
-          </button>
-        </div>
-      )}
+        {/* Footer — re-run CTA (always visible when report exists) */}
+        {report && !running && (
+          <div className="px-6 py-5 border-t border-parchment/10 shrink-0 space-y-2">
+            {nextTier ? (
+              <button
+                onClick={() => onRerun(nextTier)}
+                className="w-full flex items-center justify-between bg-signal text-void font-condensed font-bold px-4 py-3 hover:bg-signal/90 transition-colors"
+              >
+                <span className="text-sm uppercase tracking-widest">
+                  Re-run at {TIER_META[nextTier].label} depth
+                </span>
+                <span className="font-mono text-xs opacity-70">
+                  {TIER_META[nextTier].tests} tests · {TIER_META[nextTier].cost}
+                </span>
+              </button>
+            ) : (
+              <button
+                onClick={() => onRerun("research")}
+                className="w-full flex items-center justify-between border border-parchment/20 text-parchment/60 font-mono text-xs px-4 py-3 hover:border-parchment/40 hover:text-parchment/80 transition-colors"
+              >
+                <span>↺ Re-run Research grade</span>
+                <span className="opacity-60">{TIER_META.research.tests} tests · {TIER_META.research.cost}</span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
+  );
+}
+
+// ── Benchmark trigger + badge (inline, lives in chip row) ────────────────
+
+function BenchmarkControl({ personaId }: { personaId: string }) {
+  const [phase, setPhase] = useState<"idle" | "picking" | "running" | "done">("idle");
+  const [tier, setTier] = useState<BenchmarkTier>("standard");
+  const [report, setReport] = useState<BenchmarkReport | null>(null);
+  const [progress, setProgress] = useState<BenchmarkEvent[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
+
+  const startRun = async (t: BenchmarkTier) => {
+    setTier(t);
+    setPhase("running");
+    setProgress([]);
+    setReport(null);
+    setModalOpen(true);
+    abortRef.current = new AbortController();
+    try {
+      await runPersonaBenchmark(
+        personaId,
+        t,
+        (e) => {
+          setProgress((prev) => [...prev, e]);
+          if (e.type === "complete" && e.report) {
+            setReport(e.report);
+            setPhase("done");
+          }
+          if (e.type === "error") setPhase("done");
+        },
+        abortRef.current.signal,
+      );
+    } catch (err: unknown) {
+      if ((err as Error).name !== "AbortError") setPhase("done");
+    }
+  };
+
+  // Tier picker popover (shown inline when phase === "picking")
+  if (phase === "picking") {
+    return (
+      <div className="flex items-center gap-2 flex-wrap">
+        {(["quick", "standard", "research"] as BenchmarkTier[]).map((t) => (
+          <button
+            key={t}
+            onClick={() => startRun(t)}
+            className="font-mono text-[10px] px-2.5 py-1.5 border border-parchment/20 text-parchment/60 hover:border-signal hover:text-signal transition-colors"
+          >
+            {TIER_META[t].label}
+            <span className="opacity-50 ml-1">{TIER_META[t].cost}</span>
+          </button>
+        ))}
+        <button
+          onClick={() => setPhase("idle")}
+          className="font-mono text-[10px] text-parchment/30 hover:text-parchment/60 transition-colors px-1"
+        >
+          ✕
+        </button>
+      </div>
+    );
+  }
+
+  // Running indicator (compact, badge-sized)
+  if (phase === "running") {
+    const done = progress.filter((e) => e.type === "test_complete").length;
+    return (
+      <>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="flex items-center gap-1.5 border border-signal/40 px-2.5 py-1 font-mono text-[10px] text-signal animate-pulse"
+        >
+          ● {done}/{TIER_META[tier].tests} tests
+        </button>
+        {modalOpen && (
+          <BenchmarkModal
+            report={null}
+            running
+            progress={progress}
+            onClose={() => setModalOpen(false)}
+            onRerun={startRun}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Badge (shown after first run)
+  if (phase === "done" && report) {
+    return (
+      <>
+        <button
+          onClick={() => setModalOpen(true)}
+          className={`flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[10px] hover:opacity-80 transition-opacity ${GRADE_BADGE_CLASSES[report.grade]}`}
+          title={`${report.grade_label} · ${report.credibility_score.toFixed(1)}/100 — click to view report`}
+        >
+          <span className="font-bold">{report.grade}</span>
+          <span className="opacity-60">·</span>
+          <span>{report.credibility_score.toFixed(0)}</span>
+          <span className="opacity-40 hidden sm:inline">/ 100</span>
+        </button>
+        {modalOpen && (
+          <BenchmarkModal
+            report={report}
+            running={false}
+            progress={progress}
+            onClose={() => setModalOpen(false)}
+            onRerun={(t) => { setModalOpen(true); startRun(t); }}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Idle — CTA button
+  return (
+    <button
+      onClick={() => setPhase("picking")}
+      className="font-mono text-[10px] px-2.5 py-1 border border-parchment/20 text-parchment/50 hover:border-parchment/50 hover:text-parchment/70 transition-colors"
+    >
+      Benchmark ↗
+    </button>
   );
 }
 
@@ -455,11 +548,12 @@ export default function PersonaProfilePage() {
               {da.age} · {da.location.city}, {da.location.country}
             </p>
 
-            {/* Genuineness + chat CTA */}
+            {/* Genuineness chip + benchmark badge/CTA */}
             <div className="flex flex-wrap items-center gap-3 mb-5">
               {persona.quality_assessment && (
                 <GenuinenessChip assessment={persona.quality_assessment} />
               )}
+              <BenchmarkControl personaId={persona.persona_id} />
               {authStatus === "authenticated" ? (
                 <>
                   <Link
@@ -876,11 +970,6 @@ export default function PersonaProfilePage() {
             Monthly income: ₹{da.household.monthly_income_inr.toLocaleString("en-IN")}
           </p>
         )}
-      </Section>
-
-      {/* Benchmark */}
-      <Section label="Quality benchmark">
-        <BenchmarkPanel personaId={persona.persona_id} />
       </Section>
 
       {/* Footer */}
