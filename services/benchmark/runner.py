@@ -1,18 +1,17 @@
 """services/benchmark/runner.py — Orchestrate a benchmark run end-to-end.
 
-Fetches the persona, resolves the test list, runs tests sequentially (to avoid
-hammering the Anthropic API), emits progress via an async generator, and
-persists the result to SQLite.
+The benchmark service is product-agnostic. It does not know about The Mind,
+White Rabbit, or any other Simulatte service. The caller always provides the
+full persona JSON — no service-to-service fetching happens here.
+
+Flow: persona_payload → resolve test list → run tests sequentially →
+      emit SSE events → persist result to SQLite.
 """
 from __future__ import annotations
 
 import asyncio
-import os
 import uuid
-from datetime import datetime, timezone
 from typing import Any, AsyncGenerator, Dict, List, Optional
-
-import httpx
 
 from models import (
     BenchmarkEvent,
@@ -26,16 +25,6 @@ from scoring import finalize_report
 from storage import upsert_run
 from tests.registry import get_test_instance
 
-MIND_API = os.environ.get("MIND_API_URL", "http://localhost:8001")
-
-
-async def _fetch_persona(persona_id: str) -> Dict[str, Any]:
-    """Fetch persona payload from The Mind API."""
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        resp = await client.get(f"{MIND_API}/generated/{persona_id}")
-        resp.raise_for_status()
-        return resp.json()
-
 
 def _resolve_test_ids(tier: BenchmarkTier, custom_tests: List[str]) -> List[str]:
     if tier == BenchmarkTier.CUSTOM:
@@ -46,47 +35,37 @@ def _resolve_test_ids(tier: BenchmarkTier, custom_tests: List[str]) -> List[str]
 
 
 async def run_benchmark(
-    persona_id: str,
+    persona_payload: Dict[str, Any],
     tier: BenchmarkTier = BenchmarkTier.STANDARD,
     custom_tests: Optional[List[str]] = None,
-    persona_payload: Optional[Dict[str, Any]] = None,
+    persona_id: Optional[str] = None,      # optional tracking label only
 ) -> AsyncGenerator[BenchmarkEvent, None]:
     """
     Async generator that yields BenchmarkEvents as tests complete.
 
+    Args:
+        persona_payload: the full persona JSON — required, always provided by caller.
+        tier: which test suite to run.
+        custom_tests: test IDs to run when tier=CUSTOM.
+        persona_id: optional identifier for storage/reporting (e.g. a database ID
+                    from the calling service). Has no effect on test execution.
+
     Yields:
-        started         — immediately
+        started         — immediately after validation
         test_complete   — after each test finishes
-        complete        — when all tests done
-        error           — if a fatal error occurs before tests run
+        complete        — when all tests done (includes full report)
+        error           — if a fatal error occurs before tests start
     """
     run_id = str(uuid.uuid4())
     custom_tests = custom_tests or []
     test_ids = _resolve_test_ids(tier, custom_tests)
 
-    # ── Fetch persona ──────────────────────────────────────────────────────────
-    persona: Dict[str, Any]
-    if persona_payload:
-        persona = persona_payload
-    else:
-        try:
-            persona = await _fetch_persona(persona_id)
-        except Exception as exc:
-            report = make_empty_report(run_id, persona_id, "unknown", tier)
-            report = mark_error(report, f"Failed to fetch persona: {exc}")
-            await upsert_run(report)
-            yield BenchmarkEvent(
-                type="error",
-                run_id=run_id,
-                message=str(exc),
-            )
-            return
-
-    demo = persona.get("demographic_anchor", {})
-    persona_name = demo.get("name", persona_id)
+    demo = persona_payload.get("demographic_anchor", {})
+    persona_name = demo.get("name", persona_id or "unknown")
+    tracking_id = persona_id or persona_name
 
     # ── Initialise report ──────────────────────────────────────────────────────
-    report = make_empty_report(run_id, persona_id, persona_name, tier)
+    report = make_empty_report(run_id, tracking_id, persona_name, tier)
     report = mark_running(report)
     await upsert_run(report)
 
@@ -100,7 +79,7 @@ async def run_benchmark(
     for test_id in test_ids:
         try:
             test = get_test_instance(test_id)
-            result = await test.run(persona)
+            result = await test.run(persona_payload)
         except Exception as exc:
             # Shouldn't reach here — BaseTest.run catches exceptions — but safety net
             from models import TestResult, TestStatus, TEST_WEIGHTS

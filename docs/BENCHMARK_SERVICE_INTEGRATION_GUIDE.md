@@ -1,146 +1,112 @@
 # Benchmark Service — Integration Guide
 
-**Version:** 1.0  
+**Version:** 2.0  
 **Service location:** `services/benchmark/`  
-**Default port:** `8002`  
-**Purpose:** Research-grade persona quality evaluation — usable by any Simulatte product that generates or consumes personas.
+**Default port:** `8002`
 
 ---
 
-## What This Service Does
+## What This Service Is
 
-The benchmark service evaluates a persona's psychological depth, factual discipline, and conversational authenticity by running a structured suite of AI-to-AI tests:
+An independent evaluation engine that scores any persona for psychological depth,
+factual discipline, and conversational authenticity.
 
-1. A simulated human interviewer (Haiku) asks the persona scripted questions
-2. An LLM judge (Sonnet) scores each conversation against the persona's spec
-3. A weighted credibility score (0–100) and grade (A/B/C/D/F) are returned
+It has **no knowledge of The Mind, White Rabbit, or any other Simulatte product**.
+It does not call any external API. It receives a persona JSON, runs a suite of
+AI-to-AI tests, and returns a credibility score.
 
-It is **stateless from the calling service's perspective** — you send a persona ID, you get back a score. The benchmark service handles everything in between.
-
----
-
-## Tiers
-
-| Tier | Tests | Est. Cost | Est. Time | Use When |
-|------|-------|-----------|-----------|----------|
-| `quick` | 3 | ~$0.05 | ~90s | Every generation (automated gate) |
-| `standard` | 6 | ~$0.18 | ~3 min | QA pass before user sees persona |
-| `research` | 10 | ~$0.40 | ~7 min | Deep evaluation, investor demos, audits |
-| `custom` | caller-defined | varies | varies | Targeted testing of specific layers |
-
-**Recommended defaults:**
-- The Mind (auto, post-generation): `quick`
-- The Mind (manual, "Run full benchmark" button): `standard` or `research`
-- White Rabbit (cohort validation): `standard`
-- Any automated regression suite: `quick`
-
----
-
-## API Contract
-
-### Base URL
 ```
-http://localhost:8002          (local)
-https://benchmark.simulatte.app  (production, when deployed)
+[Any product that generates personas]
+        │
+        │  POST /runs/stream
+        │  { persona_payload: <full persona JSON>, tier: "standard" }
+        ▼
+[Benchmark Service — services/benchmark/]
+        │
+        │  Haiku simulates conversations
+        │  Sonnet judges each conversation
+        │
+        ▼
+  Credibility score 0–100 · Grade A–F · Per-test breakdown
 ```
 
-### POST `/runs/stream` — Run benchmark, stream results
+**The calling service owns the persona fetch.** It passes the payload in.
+The benchmark service never reaches out anywhere.
 
-The primary integration endpoint. Single request, SSE response.
+---
 
-**Request body:**
+## The One Rule
+
+> **Always send the full persona JSON in `persona_payload`.**
+> The benchmark service will never fetch it for you.
+
+---
+
+## API
+
+### `POST /runs/stream` — Run + stream results live
+
+**Request:**
 ```json
 {
-  "persona_id": "abc-123",
+  "persona_payload": { ...full persona JSON... },
   "tier": "standard",
-  "custom_tests": [],
-  "persona_payload": null
+  "persona_id": "abc-123",
+  "custom_tests": []
 }
 ```
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `persona_id` | string | yes | ID of the persona to evaluate |
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `persona_payload` | object | **yes** | The full persona JSON |
 | `tier` | string | no | `quick` / `standard` / `research` / `custom` (default: `standard`) |
-| `custom_tests` | string[] | no | Required if `tier = "custom"`. List of test IDs to run. |
-| `persona_payload` | object | no | Embed the persona JSON directly (skips fetch from The Mind). Useful for testing or when calling from a service that already has the payload. |
+| `persona_id` | string | no | Tracking label only — your DB id, slug, or anything. Not used in evaluation. |
+| `custom_tests` | string[] | no | Required only when `tier = "custom"` |
 
 **Response:** `text/event-stream`
-
-Each SSE line is a JSON `BenchmarkEvent`:
 
 ```
 data: {"type":"started","run_id":"...","message":"Running 6 tests for Priya Sharma [standard]"}
 
-data: {"type":"test_complete","run_id":"...","test_id":"identity_consistency","test_label":"Identity Consistency","score":8.5,"message":"Persona maintained coherent values across..."}
+data: {"type":"test_complete","run_id":"...","test_id":"identity_consistency","score":8.5,"message":"..."}
 
 data: {"type":"test_complete","run_id":"...","test_id":"biographical_accuracy","score":9.0,...}
 
-... (one event per test) ...
-
-data: {"type":"complete","run_id":"...","credibility_score":82.4,"grade":"B","message":"Standard — B","report":{...full report...}}
-```
-
-**Error event:**
-```
-data: {"type":"error","run_id":"...","message":"Failed to fetch persona: 404"}
+data: {"type":"complete","run_id":"...","credibility_score":82.4,"grade":"B","grade_label":"Standard — B","report":{...}}
 ```
 
 ---
 
-### GET `/runs/{run_id}` — Poll for result
+### `POST /runs` — Fire-and-forget (returns run_id, no stream)
 
-Returns the current state of a run (including partial results while still running).
+Same request body. Returns immediately with a `run_id`. Poll `GET /runs/{run_id}` for the result.
+Use this when you don't want to hold an SSE connection open (background jobs, post-generation hooks).
 
-**Response:** `BenchmarkReport` JSON
-
+**Response:**
 ```json
 {
   "run_id": "abc-def-123",
-  "persona_id": "persona-xyz",
-  "persona_name": "Priya Sharma",
-  "tier": "standard",
-  "status": "complete",
-  "credibility_score": 82.4,
-  "grade": "B",
-  "grade_label": "Standard — B",
-  "tests": [
-    {
-      "test_id": "identity_consistency",
-      "label": "Identity Consistency",
-      "status": "passed",
-      "score": 8.5,
-      "weight": 0.15,
-      "weighted_contribution": 12.75,
-      "rationale": "Persona maintained coherent values across all 6 turns...",
-      "evidence": ["\"I've always been someone who...\""],
-      "flags": [],
-      "duration_s": 14.2,
-      "cost_usd": 0.00031
-    }
-  ],
-  "total_cost_usd": 0.18,
-  "total_duration_s": 187.4,
-  "started_at": "2026-05-08T10:00:00Z",
-  "completed_at": "2026-05-08T10:03:07Z"
+  "status": "queued",
+  "stream_url": "http://localhost:8002/runs/stream",
+  "poll_url": "http://localhost:8002/runs/abc-def-123"
 }
 ```
 
 ---
 
-### GET `/runs` — List runs
+### `GET /runs/{run_id}` — Poll result
 
-```
-GET /runs
-GET /runs?persona_id=abc-123
-GET /runs?persona_id=abc-123&limit=10
-```
-
-Returns array of summary objects (no full test details — use `/runs/{id}` for those).
+Returns the current `BenchmarkReport`. Check `status` field: `queued` → `running` → `complete` / `error`.
 
 ---
 
-### GET `/health` — Liveness probe
+### `GET /runs?persona_id=...&limit=50` — List past runs
+
+Returns summary objects (no full test detail). Filter by your `persona_id` tracking label.
+
+---
+
+### `GET /health`
 
 ```json
 {"status": "ok", "service": "benchmark"}
@@ -148,221 +114,108 @@ Returns array of summary objects (no full test details — use `/runs/{id}` for 
 
 ---
 
-## Available Tests
+## Tiers
 
-| test_id | Label | Weight | What it checks |
-|---------|-------|--------|----------------|
-| `identity_consistency` | Identity Consistency | 15% | Values, tone, and decision style hold across 6 different topic turns |
-| `biographical_accuracy` | Biographical Accuracy | 15% | Age, location, occupation, household match locked spec |
-| `gap_discipline` | Gap Discipline | 12% | Persona deflects rather than fabricates uncovered biographical facts |
-| `decision_style_fidelity` | Decision Style Fidelity | 12% | Purchase scenario reveals correct decision style + objections |
-| `contradiction_authenticity` | Contradiction Authenticity | 10% | Behavioural contradictions surface naturally without self-diagnosis |
-| `emotional_register` | Emotional Register | 10% | Affect varies appropriately; no flat or mechanical responses |
-| `symbolic_meaning_coherence` | Symbolic Meaning Coherence | 8% | Purchases framed through persona's symbolic register, not just utility |
-| `attachment_expression` | Attachment Expression | 8% | Attachment style surfaces through relationship framing, not confession |
-| `drift_resistance` | Drift Resistance | 5% | 10-turn conversation with reframing attempts — persona holds locked facts |
-| `red_team_resilience` | Red-Team Resilience | 5% | Deflects "are you an AI?", jailbreaks, and prompt disclosure attempts |
+| Tier | Tests run | Est. cost | Est. time | Recommended for |
+|------|-----------|-----------|-----------|-----------------|
+| `quick` | 3 | ~$0.05 | ~90s | Automated post-generation gate |
+| `standard` | 6 | ~$0.18 | ~3 min | Manual QA, user-triggered |
+| `research` | 10 | ~$0.40 | ~7 min | Deep audits, investor demos |
+| `custom` | caller-defined | varies | varies | Targeted layer testing |
+
+---
+
+## Tests (all 10)
+
+| test_id | Weight | What it checks |
+|---------|--------|----------------|
+| `identity_consistency` | 15% | Values and tone hold across 6 different topic turns |
+| `biographical_accuracy` | 15% | Age, location, occupation, household match spec |
+| `gap_discipline` | 12% | Persona deflects rather than fabricates uncovered facts |
+| `decision_style_fidelity` | 12% | Purchase scenario reveals correct decision style and objections |
+| `contradiction_authenticity` | 10% | Contradictions surface naturally, never diagnosed |
+| `emotional_register` | 10% | Affect varies; no flat or mechanical responses |
+| `symbolic_meaning_coherence` | 8% | Purchases framed through symbolic register, not just utility |
+| `attachment_expression` | 8% | Attachment style in relationship framing, not confession |
+| `drift_resistance` | 5% | 10-turn conversation with reframing attempts — facts hold |
+| `red_team_resilience` | 5% | Deflects "are you an AI?", jailbreaks, prompt disclosure |
+
+Scores are normalised to the subset of tests that ran, so a Quick run (3 tests) is
+graded fairly against its own weight set.
 
 ---
 
 ## Grading
 
-| Score | Grade | Meaning |
-|-------|-------|---------|
-| 90–100 | A | Exceptional — near-human psychological fidelity |
-| 75–89 | B | Strong — minor gaps in depth or specificity |
-| 60–74 | C | Adequate — passes basic checks, lacks texture |
-| 45–59 | D | Weak — significant coherence or discipline issues |
-| 0–44 | F | Failing — fabrication, character breaks, or flat identity |
+| Score | Grade |
+|-------|-------|
+| 90–100 | A |
+| 75–89 | B |
+| 60–74 | C |
+| 45–59 | D |
+| 0–44 | F |
 
-The grade label includes the tier name: `"Research Grade — A"`, `"Standard — B"`, etc.
-
----
-
-## Integration Patterns
-
-### Pattern A — SSE passthrough (recommended)
-
-The calling service opens the SSE stream from the benchmark service and passes it through to the frontend. The frontend renders progress in real time.
-
-```
-[Frontend] ←── SSE ──── [Your Service] ←── SSE ──── [Benchmark Service]
-```
-
-**When to use:** The Mind (post-generation flow), White Rabbit (on-demand evaluation)
-
-**Caller implementation (Python/FastAPI):**
-```python
-import httpx
-from fastapi.responses import StreamingResponse
-
-BENCHMARK_URL = os.environ["BENCHMARK_API_URL"]  # e.g. http://localhost:8002
-
-async def run_benchmark_stream(persona_id: str, tier: str = "standard"):
-    async def _proxy():
-        async with httpx.AsyncClient(timeout=600.0) as client:
-            async with client.stream(
-                "POST",
-                f"{BENCHMARK_URL}/runs/stream",
-                json={"persona_id": persona_id, "tier": tier},
-            ) as resp:
-                async for chunk in resp.aiter_bytes():
-                    yield chunk
-    return StreamingResponse(
-        _proxy(),
-        media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
-    )
-```
-
-**Caller implementation (TypeScript/Next.js — client side):**
-```typescript
-async function runBenchmark(
-  personaId: string,
-  tier: "quick" | "standard" | "research",
-  onEvent: (e: BenchmarkEvent) => void
-) {
-  const res = await fetch(`${YOUR_API}/personas/${personaId}/benchmark`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tier }),
-  });
-  const reader = res.body!.getReader();
-  const dec = new TextDecoder();
-  let buf = "";
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    buf += dec.decode(value, { stream: true });
-    const lines = buf.split("\n");
-    buf = lines.pop() ?? "";
-    for (const line of lines) {
-      if (line.startsWith("data: ")) {
-        try { onEvent(JSON.parse(line.slice(6))); } catch {}
-      }
-    }
-  }
-}
-```
-
----
-
-### Pattern B — Fire-and-forget + poll
-
-Call `POST /runs/stream`, capture the `run_id` from the first `started` event, then poll `GET /runs/{run_id}` at intervals. Use when you don't want to keep an SSE connection open (e.g. background jobs, cron).
-
-```python
-async def start_benchmark_async(persona_id: str, tier: str = "quick") -> str:
-    """Start benchmark, return run_id without waiting for completion."""
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        run_id = None
-        async with client.stream(
-            "POST",
-            f"{BENCHMARK_URL}/runs/stream",
-            json={"persona_id": persona_id, "tier": tier},
-        ) as resp:
-            async for line in resp.aiter_lines():
-                if line.startswith("data: "):
-                    event = json.loads(line[6:])
-                    run_id = event.get("run_id")
-                    break  # got run_id from first event, stop reading
-    return run_id
-
-# Later, poll:
-async def poll_benchmark(run_id: str) -> BenchmarkReport:
-    async with httpx.AsyncClient() as client:
-        resp = await client.get(f"{BENCHMARK_URL}/runs/{run_id}")
-        return resp.json()
-```
-
----
-
-### Pattern C — Inline (payload embed)
-
-When your service already has the full persona JSON in memory (e.g. right after generation), skip the fetch round-trip by embedding it directly:
-
-```python
-async with httpx.AsyncClient(timeout=600.0) as client:
-    async with client.stream(
-        "POST",
-        f"{BENCHMARK_URL}/runs/stream",
-        json={
-            "persona_id": persona_id,
-            "tier": "quick",
-            "persona_payload": persona_dict,  # full persona JSON
-        },
-    ) as resp:
-        ...
-```
-
----
-
-## Environment Variables
-
-Set these in each service that calls the benchmark:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `BENCHMARK_API_URL` | URL of the running benchmark service | `http://localhost:8002` |
-
-Set these **in the benchmark service itself**:
-
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `ANTHROPIC_API_KEY` | Anthropic API key | `sk-ant-...` |
-| `MIND_API_URL` | URL of The Mind API (for persona fetching) | `http://localhost:8001` |
-| `BENCHMARK_BASE_URL` | Public URL of benchmark service | `http://localhost:8002` |
-| `BENCHMARK_DB_PATH` | Path to SQLite database file | `benchmark.db` |
-| `PORT` | Port to listen on | `8002` |
+The `grade_label` field includes the tier: `"Standard — B"`, `"Research Grade — A"`.
 
 ---
 
 ## Running the Service
 
-**Local:**
 ```bash
 cd services/benchmark
-cp .env.example .env        # fill in ANTHROPIC_API_KEY
+cp .env.example .env        # add ANTHROPIC_API_KEY
 pip install -r requirements.txt
 uvicorn main:app --port 8002 --reload
 ```
 
-**Docker (when you add a Dockerfile):**
-```bash
-docker build -t simulatte-benchmark -f Dockerfile.benchmark .
-docker run -p 8002:8002 --env-file services/benchmark/.env simulatte-benchmark
-```
+**Environment variables (benchmark service only):**
 
-**Railway:**  
-Add a new Railway service in the simulatte-persona-generator project, point it at `Dockerfile.benchmark`, set env vars via Railway dashboard. Costs ~$5/month idle (no always-on traffic).
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ANTHROPIC_API_KEY` | yes | Anthropic API key |
+| `BENCHMARK_DB_PATH` | no | SQLite path (default: `benchmark.db`) |
+| `BENCHMARK_BASE_URL` | no | Public URL, used in poll_url responses |
+| `PORT` | no | Listen port (default: `8002`) |
+
+No other service URLs required. The benchmark service makes no outbound HTTP calls.
 
 ---
 
-## Service-Specific Wiring Guide
+## How to Integrate (any product)
 
-### 1. The Mind (`pilots/the-mind/api/`)
+Four steps. Takes under an hour.
 
-**What to add:**
+### Step 1 — Add env var to your service
 
-**Backend — `main.py`:**
+```bash
+BENCHMARK_API_URL=http://localhost:8002   # or your deployed URL
+```
+
+### Step 2 — Fetch the persona in your service, then call benchmark
+
+Your service already has the persona. Pass it straight through.
+
+**Python:**
 ```python
-# New endpoint: POST /generated/{persona_id}/benchmark
-@app.post("/generated/{persona_id}/benchmark")
-async def benchmark_persona(
-    persona_id: str,
-    tier: str = "standard",
-    current_user = Depends(get_current_user),
-):
-    """Stream a benchmark run for a generated persona."""
-    import httpx, os
-    BENCHMARK_URL = os.environ.get("BENCHMARK_API_URL", "http://localhost:8002")
+import httpx
+import os
+
+BENCHMARK_URL = os.environ["BENCHMARK_API_URL"]
+
+async def run_benchmark_stream(persona_payload: dict, tier: str = "standard"):
+    """Proxy a live benchmark SSE stream to the caller."""
+    from fastapi.responses import StreamingResponse
 
     async def _proxy():
         async with httpx.AsyncClient(timeout=600.0) as client:
             async with client.stream(
                 "POST",
                 f"{BENCHMARK_URL}/runs/stream",
-                json={"persona_id": persona_id, "tier": tier},
+                json={
+                    "persona_payload": persona_payload,
+                    "tier": tier,
+                    "persona_id": persona_payload.get("persona_id"),  # optional
+                },
             ) as resp:
                 async for chunk in resp.aiter_bytes():
                     yield chunk
@@ -374,38 +227,8 @@ async def benchmark_persona(
     )
 ```
 
-**Frontend — `web/lib/api.ts`:**
+**TypeScript (client-side, reading the SSE your backend proxies):**
 ```typescript
-export interface BenchmarkTestResult {
-  test_id: string;
-  label: string;
-  status: "passed" | "failed" | "error" | "skipped";
-  score: number;
-  weight: number;
-  weighted_contribution: number;
-  rationale: string;
-  evidence: string[];
-  flags: string[];
-  duration_s: number;
-  cost_usd: number;
-}
-
-export interface BenchmarkReport {
-  run_id: string;
-  persona_id: string;
-  persona_name: string;
-  tier: string;
-  status: "queued" | "running" | "complete" | "error";
-  credibility_score: number;
-  grade: string;
-  grade_label: string;
-  tests: BenchmarkTestResult[];
-  total_cost_usd: number;
-  total_duration_s: number;
-  started_at?: string;
-  completed_at?: string;
-}
-
 export interface BenchmarkEvent {
   type: "started" | "test_complete" | "complete" | "error";
   run_id: string;
@@ -414,22 +237,24 @@ export interface BenchmarkEvent {
   score?: number;
   credibility_score?: number;
   grade?: string;
+  grade_label?: string;
   message?: string;
   report?: BenchmarkReport;
 }
 
-export async function runBenchmark(
-  personaId: string,
+async function runBenchmark(
+  endpoint: string,          // your backend's proxy URL, e.g. /api/personas/abc/benchmark
   tier: "quick" | "standard" | "research",
   onEvent: (e: BenchmarkEvent) => void,
   signal?: AbortSignal,
 ): Promise<void> {
-  const res = await fetch(`${API}/generated/${personaId}/benchmark?tier=${tier}`, {
+  const res = await fetch(endpoint, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tier }),
     signal,
   });
-  if (!res.ok || !res.body) throw new Error("Benchmark request failed");
+  if (!res.ok || !res.body) throw new Error("Benchmark failed");
   const reader = res.body.getReader();
   const dec = new TextDecoder();
   let buf = "";
@@ -448,97 +273,49 @@ export async function runBenchmark(
 }
 ```
 
-**UI placement:** Persona profile page (`/persona/[id]`) — "Run Benchmark" button in the header area. Shows a live progress list of tests, then renders the final grade badge + credibility score.
+### Step 3 — Decide what to show
+
+Minimum viable UI: the final `credibility_score` and `grade_label` from the `complete` event.
+Full UI: live test progress list during run, then per-test scores with rationale on completion.
+
+### Step 4 — Choose a trigger
+
+| Trigger | Tier | Notes |
+|---------|------|-------|
+| Auto, every generation | `quick` | Silent background job, no UI |
+| User clicks "Run benchmark" | `standard` or `research` | Show live progress |
+| Scheduled audit (cron) | `research` | Run on a sample, store results |
 
 ---
 
-### 2. White Rabbit (future)
+## Testing Without Any Integration
 
-White Rabbit generates cohorts of agents, not individual personas. Two integration points:
-
-**a) Per-agent evaluation** (same as The Mind pattern above — one benchmark per agent)
-
-**b) Cohort-level evaluation** — run quick benchmarks on a random sample of agents and aggregate:
-```python
-import asyncio
-
-async def benchmark_cohort_sample(agent_ids: list[str], sample_size: int = 5):
-    """Run quick benchmarks on a random sample of agents in a cohort."""
-    import random
-    sample = random.sample(agent_ids, min(sample_size, len(agent_ids)))
-    tasks = [
-        start_benchmark_async(agent_id, tier="quick")
-        for agent_id in sample
-    ]
-    run_ids = await asyncio.gather(*tasks)
-    # Poll all results after a delay, aggregate scores
-    ...
-```
-
-**Note:** White Rabbit agents may not have all the persona layers that The Mind generates (self_model, symbolic_meanings, etc.). The benchmark service handles missing layers gracefully — it skips tests that require fields not present in the payload, and scoring normalises to the subset of tests that ran.
-
----
-
-### 3. Future Simulatte Products
-
-Any product can integrate by following the same steps:
-
-1. **Add `BENCHMARK_API_URL` to environment** (pointing at the running benchmark service)
-2. **Add a proxy endpoint** in your backend using Pattern A above
-3. **Add a TypeScript `runBenchmark()` function** in your API client using the contract above
-4. **Choose a tier** — use `quick` for automated/background runs, `standard`/`research` for user-triggered runs
-5. **Optionally embed persona payload** (Pattern C) to skip the fetch round-trip
-
-The benchmark service does not care which Simulatte product calls it — it only needs the persona ID (to fetch from The Mind) or the full persona payload (for services that have it in memory).
-
----
-
-## Testing the Service (No Integration Required)
-
-You can call the benchmark directly against any persona already in The Mind database:
+Point directly at the benchmark service with a persona JSON from anywhere:
 
 ```bash
-# Stream a standard benchmark for persona abc-123
+# Grab a persona JSON from The Mind (or paste one manually)
+PERSONA=$(curl -s http://localhost:8001/generated/abc-123)
+
+# Run a quick benchmark against it
 curl -N -X POST http://localhost:8002/runs/stream \
   -H "Content-Type: application/json" \
-  -d '{"persona_id": "abc-123", "tier": "standard"}'
-
-# Quick benchmark
-curl -N -X POST http://localhost:8002/runs/stream \
-  -H "Content-Type: application/json" \
-  -d '{"persona_id": "abc-123", "tier": "quick"}'
-
-# Specific tests only
-curl -N -X POST http://localhost:8002/runs/stream \
-  -H "Content-Type: application/json" \
-  -d '{"persona_id": "abc-123", "tier": "custom", "custom_tests": ["gap_discipline", "red_team_resilience"]}'
-
-# Poll a completed run
-curl http://localhost:8002/runs/{run_id}
+  -d "{\"persona_payload\": $PERSONA, \"tier\": \"quick\"}"
 ```
 
----
-
-## Cost Reference
-
-| Tier | Haiku turns (est.) | Sonnet judge calls | Cost |
-|------|-------------------|--------------------|------|
-| Quick (3 tests) | ~18 turns | 3 calls | ~$0.05 |
-| Standard (6 tests) | ~36 turns | 6 calls | ~$0.18 |
-| Research (10 tests) | ~60 turns + 10 drift turns | 10 calls | ~$0.40 |
-
-Running a quick benchmark on every generated persona adds ~$0.05/generation.  
-At 100 personas/day that's $5/day, $150/month — a rounding error relative to generation costs.
+```bash
+# Custom test — just gap discipline and red-team
+curl -N -X POST http://localhost:8002/runs/stream \
+  -H "Content-Type: application/json" \
+  -d "{\"persona_payload\": $PERSONA, \"tier\": \"custom\", \"custom_tests\": [\"gap_discipline\", \"red_team_resilience\"]}"
+```
 
 ---
 
 ## Roadmap
 
-- [ ] **Wire to The Mind** — backend endpoint + frontend "Run Benchmark" button
-- [ ] **Wire to White Rabbit** — cohort-level sampling
-- [ ] **Benchmark history UI** — past runs visible on persona profile page
-- [ ] **Automatic gate** — reject personas that score < 60 (C) on quick tier, regenerate automatically
-- [ ] **Railway deployment** — `Dockerfile.benchmark` + Railway service config
-- [ ] **PostgreSQL migration** — swap SQLite for Railway PostgreSQL when deploying
-- [ ] **Webhook support** — POST to a caller-provided URL when a run completes (for async integrations)
-- [ ] **Cohort aggregate report** — roll up N individual persona scores into a cohort credibility score
+- [ ] Wire to The Mind — backend proxy endpoint + "Run Benchmark" button on persona profile
+- [ ] Wire to White Rabbit — cohort-level sampling (quick benchmark on N random agents, aggregate score)
+- [ ] Automatic quality gate — flag or regenerate personas that score below C on quick tier
+- [ ] Railway deployment — `Dockerfile.benchmark` + Railway service config
+- [ ] PostgreSQL migration — swap SQLite when deploying to Railway
+- [ ] Webhook support — POST to caller URL on completion (for async integrations)

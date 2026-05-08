@@ -58,86 +58,26 @@ async def health():
     return {"status": "ok", "service": "benchmark"}
 
 
-# ── Start a run ───────────────────────────────────────────────────────────────
-
-@app.post("/runs", response_model=RunResponse, status_code=202)
-async def start_run(req: RunRequest):
-    """
-    Kick off a benchmark run.
-
-    The run executes asynchronously. Poll /runs/{run_id} or stream
-    /runs/{run_id}/stream for live progress.
-    """
-    import uuid
-    run_id = str(uuid.uuid4())
-
-    # Fire-and-forget: store result as it completes
-    async def _execute():
-        async for _ in run_benchmark(
-            persona_id=req.persona_id,
-            tier=req.tier,
-            custom_tests=req.custom_tests,
-            persona_payload=req.persona_payload,
-        ):
-            pass  # storage is handled inside run_benchmark
-
-    asyncio.create_task(_execute())
-
-    base = os.environ.get("BENCHMARK_BASE_URL", "http://localhost:8002")
-    return RunResponse(
-        run_id=run_id,
-        status=RunStatus.QUEUED,
-        stream_url=f"{base}/runs/{run_id}/stream",
-        poll_url=f"{base}/runs/{run_id}",
-    )
-
-
-# ── SSE stream ────────────────────────────────────────────────────────────────
-
-@app.get("/runs/{run_id}/stream")
-async def stream_run(run_id: str, persona_id: str = Query(...), tier: BenchmarkTier = Query(BenchmarkTier.STANDARD)):
-    """
-    Server-Sent Events stream for a benchmark run.
-
-    The client should connect immediately after POST /runs.
-    This endpoint re-executes the run — designed for direct streaming use.
-    For polling use GET /runs/{run_id}.
-    """
-    async def _generate() -> AsyncGenerator[bytes, None]:
-        try:
-            async for event in run_benchmark(
-                persona_id=persona_id,
-                tier=tier,
-            ):
-                yield f"data: {event.model_dump_json()}\n\n".encode()
-        except Exception as exc:
-            err_event = BenchmarkEvent(type="error", run_id=run_id, message=str(exc))
-            yield f"data: {err_event.model_dump_json()}\n\n".encode()
-
-    return StreamingResponse(
-        _generate(),
-        media_type="text/event-stream",
-        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
-    )
-
-
-# ── Direct stream (recommended for single-request use) ───────────────────────
+# ── Stream (primary endpoint) ─────────────────────────────────────────────────
 
 @app.post("/runs/stream")
-async def stream_run_direct(req: RunRequest):
+async def stream_run(req: RunRequest):
     """
-    One-shot SSE endpoint: POST request body contains the run config,
-    response is an SSE stream. No polling needed.
+    Run a benchmark and stream results as Server-Sent Events.
 
-    Recommended for wiring to The Mind API.
+    The caller provides the full persona JSON in persona_payload.
+    The benchmark service has no knowledge of where the persona came from.
+
+    persona_id is an optional tracking label — useful for correlating benchmark
+    results back to records in the calling service's own database.
     """
     async def _generate() -> AsyncGenerator[bytes, None]:
         try:
             async for event in run_benchmark(
-                persona_id=req.persona_id,
+                persona_payload=req.persona_payload,
                 tier=req.tier,
                 custom_tests=req.custom_tests,
-                persona_payload=req.persona_payload,
+                persona_id=req.persona_id,
             ):
                 yield f"data: {event.model_dump_json()}\n\n".encode()
         except Exception as exc:
@@ -149,6 +89,38 @@ async def stream_run_direct(req: RunRequest):
         _generate(),
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
+# ── Fire-and-forget (returns run_id immediately, result polled later) ─────────
+
+@app.post("/runs", response_model=RunResponse, status_code=202)
+async def start_run(req: RunRequest):
+    """
+    Kick off a benchmark run without waiting for it.
+    Returns a run_id immediately. Poll GET /runs/{run_id} for the result.
+    Use POST /runs/stream if you want live SSE progress instead.
+    """
+    import uuid
+    run_id = str(uuid.uuid4())
+
+    async def _execute():
+        async for _ in run_benchmark(
+            persona_payload=req.persona_payload,
+            tier=req.tier,
+            custom_tests=req.custom_tests,
+            persona_id=req.persona_id,
+        ):
+            pass  # storage is handled inside run_benchmark
+
+    asyncio.create_task(_execute())
+
+    base = os.environ.get("BENCHMARK_BASE_URL", "http://localhost:8002")
+    return RunResponse(
+        run_id=run_id,
+        status=RunStatus.QUEUED,
+        stream_url=f"{base}/runs/stream",
+        poll_url=f"{base}/runs/{run_id}",
     )
 
 

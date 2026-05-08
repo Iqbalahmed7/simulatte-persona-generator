@@ -141,12 +141,10 @@ class BenchmarkReport(BaseModel):
 # ── API request / response ────────────────────────────────────────────────────
 
 class RunRequest(BaseModel):
-    persona_id: str
+    persona_payload: Dict[str, Any]                        # always required — caller owns the fetch
     tier: BenchmarkTier = BenchmarkTier.STANDARD
     custom_tests: List[str] = Field(default_factory=list)
-    # The persona JSON is fetched from The Mind API by the benchmark service.
-    # Optionally callers can embed it directly (e.g. for testing).
-    persona_payload: Optional[Dict[str, Any]] = None
+    persona_id: Optional[str] = None                       # optional tracking label only (e.g. your DB id)
 
 
 class RunResponse(BaseModel):
