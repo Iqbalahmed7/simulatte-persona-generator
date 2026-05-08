@@ -336,6 +336,8 @@ function BenchmarkModal({
 
 // ── Benchmark trigger + badge (inline, lives in chip row) ────────────────
 
+const STORAGE_KEY = (id: string) => `simulatte_benchmark_${id}`;
+
 function BenchmarkControl({ personaId, personaName }: { personaId: string; personaName: string }) {
   const [phase, setPhase] = useState<"idle" | "picking" | "running" | "done">("idle");
   const [tier, setTier] = useState<BenchmarkTier>("standard");
@@ -343,6 +345,20 @@ function BenchmarkControl({ personaId, personaName }: { personaId: string; perso
   const [progress, setProgress] = useState<BenchmarkEvent[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+
+  // Restore last report from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY(personaId));
+      if (stored) {
+        const parsed: BenchmarkReport = JSON.parse(stored);
+        setReport(parsed);
+        setPhase("done");
+      }
+    } catch {
+      // ignore corrupt storage
+    }
+  }, [personaId]);
 
   const startRun = async (t: BenchmarkTier) => {
     setTier(t);
@@ -360,6 +376,7 @@ function BenchmarkControl({ personaId, personaName }: { personaId: string; perso
           if (e.type === "complete" && e.report) {
             setReport(e.report);
             setPhase("done");
+            try { localStorage.setItem(STORAGE_KEY(personaId), JSON.stringify(e.report)); } catch { /* quota */ }
           }
           if (e.type === "error") setPhase("done");
         },
