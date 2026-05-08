@@ -1604,7 +1604,61 @@ Generate a realistic persona. Return ONLY valid JSON with no markdown:
     "aspirational_self": "<2 sentences — who they are actively trying to become: the gap they're working to close>",
     "reactive_self": "<2 sentences — who they become without thinking when threatened, embarrassed, or overwhelmed>",
     "shame_self": "<2 sentences — the drives, habits, or desires they hide from others and rationalise away from themselves>",
-    "fantasy_self": "<1-2 sentences — the life they would live and person they would be if circumstances and fear were removed>"
+    "fantasy_self": "<1-2 sentences — the life they would live and person they would be if circumstances and fear were removed>",
+    "contextual_shifts": [
+      {{
+        "context": "with parents or family",
+        "activated_layer": "<which self-model layer surfaces — e.g. reactive_self, shame_self>",
+        "shift": "<2 sentences — what specifically changes in behaviour, tone, and posture>"
+      }},
+      {{
+        "context": "with higher-status or wealthier peers",
+        "activated_layer": "<layer>",
+        "shift": "<2 sentences>"
+      }},
+      {{
+        "context": "with junior or dependent people",
+        "activated_layer": "<layer>",
+        "shift": "<2 sentences>"
+      }},
+      {{
+        "context": "with a romantic interest or ex",
+        "activated_layer": "<layer>",
+        "shift": "<2 sentences>"
+      }},
+      {{
+        "context": "with emotionally secure, grounded people",
+        "activated_layer": "<layer>",
+        "shift": "<2 sentences>"
+      }}
+    ]
+  }},
+  "emotional_failure_modes": [
+    {{
+      "trigger": "<specific emotional event — rejection, feeling invisible, comparison spiral, public embarrassment>",
+      "failure_loop": "<the specific irrational, self-defeating behaviour they enter — concrete, slightly unflattering, not generic>",
+      "duration": "<how long this typically runs before they regulate — hours, days, a week>",
+      "exit": "<what specifically pulls them out — not generic ('talking to a friend') but particular to this persona>"
+    }},
+    {{
+      "trigger": "<second trigger>",
+      "failure_loop": "<second failure loop>",
+      "duration": "<duration>",
+      "exit": "<exit>"
+    }},
+    {{
+      "trigger": "<third trigger>",
+      "failure_loop": "<third failure loop>",
+      "duration": "<duration>",
+      "exit": "<exit>"
+    }}
+  ],
+  "attachment_profile": {{
+    "attachment_style": "<secure|anxious|avoidant|disorganised>",
+    "intimacy_pattern": "<2 sentences — how behaviour changes as emotional closeness increases: what opens, what closes, what defences activate>",
+    "relationship_sabotage": "<1-2 sentences — the specific self-defeating pattern this person repeats in close relationships, without realising it>",
+    "envy_pattern": "<1-2 sentences — who they envy, what specifically triggers it, and what unmet need it reveals>",
+    "aging_and_time_pressure": "<1-2 sentences — how awareness of time passing and biological/social aging shapes their emotional tenor and decisions>"
   }},
   "decision_bullets": [
     "<how they approach decisions — 5 specific, domain-relevant bullets>",
@@ -1613,6 +1667,12 @@ Generate a realistic persona. Return ONLY valid JSON with no markdown:
 }}
 
 IMPORTANT — self_model: Each layer must be distinct and in genuine tension with the others. The public_self and shame_self should feel like different people. The reactive_self should surprise — it is not just "stressed version of public self" but a regressed, less controlled state. The fantasy_self should feel specific and slightly embarrassing to admit — not generic ("live somewhere beautiful") but particular ("quit everything and open a small bookshop in Lisbon"). Generic or therapy-language answers are not acceptable.
+
+IMPORTANT — contextual_shifts: Each shift must name which existing self-model layer activates (public_self, reactive_self, shame_self, etc.) and describe what concretely changes in this person's behaviour, not just their mood. Do not invent new personality traits — only activate and modulate what already exists in the self_model.
+
+IMPORTANT — emotional_failure_modes: These are NOT coping mechanisms or stress responses. They are irrational, self-defeating loops the person enters after a specific acute emotional trigger. The failure_loop must be specific and slightly embarrassing — "obsessively re-reads her own old messages looking for what she did wrong" not "withdraws and overthinks". The exit must be specific to this persona's psychology, not generic. Three distinct triggers required — no overlap.
+
+IMPORTANT — attachment_profile: Express entirely through behavioural patterns and emotional posture — never through explicit sexual or romantic narrative. The envy_pattern must name a specific type of person (not "successful people" but "women who seem emotionally unbothered") and identify the unmet need underneath it. The aging_and_time_pressure field should feel like a quiet undercurrent, not a crisis — it shapes decisions without dominating them.
 
 IMPORTANT — behavioural_contradictions: These are NOT internal tensions or values conflicts. They are real, observable, specific behaviours that do not fit the rest of the profile. A health-obsessed person who secretly orders late-night takeaway. A frugal saver who cannot resist airport luxury goods. A confident professional who reads every negative review twice before buying anything. Be specific, surprising, and slightly unflattering — generic contradictions like "sometimes overspends" are not acceptable.
 
@@ -1835,6 +1895,8 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "behavioural_tendencies": bt,
         "symbolic_meanings": data_a.get("symbolic_meanings") or {},
         "self_model": data_a.get("self_model") or {},
+        "emotional_failure_modes": data_a.get("emotional_failure_modes") or [],
+        "attachment_profile": data_a.get("attachment_profile") or {},
         "decision_bullets": data_a.get("decision_bullets") or [],
         "behavioural_contradictions": data_a.get("behavioural_contradictions") or [],
         "memory": memory,
@@ -2504,6 +2566,8 @@ def _build_generated_system_prompt(persona: dict) -> str:
     self_model = persona.get("self_model") or {}
     sym = persona.get("symbolic_meanings") or {}
     contradictions = persona.get("behavioural_contradictions") or []
+    failure_modes = persona.get("emotional_failure_modes") or []
+    attachment = persona.get("attachment_profile") or {}
 
     name = da.get("name") or "the persona"
     age = da.get("age") or ""
@@ -2625,6 +2689,59 @@ def _build_generated_system_prompt(persona: dict) -> str:
         for c in contradictions[:3]:
             c_lines.append(f"  • {c}")
         parts.append("\n".join(c_lines))
+
+    # ── 6b. Attachment profile ────────────────────────────────────────────────
+    if attachment.get("attachment_style"):
+        att_lines = [f"Attachment style: {attachment['attachment_style']}"]
+        if attachment.get("intimacy_pattern"):
+            att_lines.append(f"As closeness increases: {attachment['intimacy_pattern']}")
+        if attachment.get("relationship_sabotage"):
+            att_lines.append(f"Repeated relationship pattern: {attachment['relationship_sabotage']}")
+        if attachment.get("envy_pattern"):
+            att_lines.append(f"Envy pattern: {attachment['envy_pattern']}")
+        if attachment.get("aging_and_time_pressure"):
+            att_lines.append(f"Time and aging pressure: {attachment['aging_and_time_pressure']}")
+        att_lines.append(
+            "Express your attachment psychology through what you notice, reach for, or avoid — "
+            "through decision patterns and emotional posture. Not through confession or romantic narrative."
+        )
+        parts.append("\n".join(att_lines))
+
+    # ── 6c. Emotional failure modes ──────────────────────────────────────────
+    if failure_modes:
+        fm_lines = [
+            "Your emotional failure modes — irrational loops you enter after specific triggers. "
+            "These surface through behaviour shifts, not self-narration. You don't announce them; you just do them. "
+            "They are finite: each has a duration and an exit."
+        ]
+        for fm in failure_modes[:3]:
+            trigger = fm.get("trigger", "")
+            loop = fm.get("failure_loop", "")
+            exit_ = fm.get("exit", "")
+            duration = fm.get("duration", "")
+            if trigger and loop:
+                fm_lines.append(f"  Trigger: {trigger}")
+                fm_lines.append(f"  What happens: {loop}")
+                if duration:
+                    fm_lines.append(f"  Duration: {duration}")
+                if exit_:
+                    fm_lines.append(f"  Exit: {exit_}")
+        parts.append("\n".join(fm_lines))
+
+    # ── 6d. Contextual shifts ─────────────────────────────────────────────────
+    contextual_shifts = self_model.get("contextual_shifts") or []
+    if contextual_shifts:
+        cs_lines = [
+            "You shift subtly depending on who you're with. These are not performances — "
+            "they are genuine activations of different parts of you. Your hard facts never change across contexts."
+        ]
+        for cs in contextual_shifts[:5]:
+            ctx = cs.get("context", "")
+            layer = cs.get("activated_layer", "")
+            shift = cs.get("shift", "")
+            if ctx and shift:
+                cs_lines.append(f"  With {ctx}" + (f" ({layer} surfaces)" if layer else "") + f": {shift}")
+        parts.append("\n".join(cs_lines))
 
     # ── 7. Decision bullets + life stories ────────────────────────────────────
     if bullets:

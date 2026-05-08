@@ -472,6 +472,90 @@ export default function PersonaProfilePage() {
         </Section>
       )}
 
+      {/* Contextual shifts */}
+      {(persona.self_model?.contextual_shifts ?? []).length > 0 && (
+        <Section label="In different company">
+          <p className="text-sm text-parchment/55 mb-5 leading-relaxed">
+            Which version of them shows up, and what changes.
+          </p>
+          <div className="space-y-3">
+            {(persona.self_model!.contextual_shifts!).map((cs, i) => (
+              <div key={i} className="border border-parchment/10 p-4">
+                <div className="flex flex-wrap items-baseline gap-3 mb-2">
+                  <p className="text-[10px] font-mono text-signal uppercase tracking-widest">{cs.context}</p>
+                  {cs.activated_layer && (
+                    <p className="text-[9px] font-mono text-static capitalize">{cs.activated_layer.replace(/_/g, " ")} surfaces</p>
+                  )}
+                </div>
+                <p className="text-sm text-parchment/85 leading-relaxed break-words">{cs.shift}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Emotional failure modes */}
+      {(persona.emotional_failure_modes ?? []).length > 0 && (
+        <Section label="When they fall apart">
+          <p className="text-sm text-parchment/55 mb-5 leading-relaxed">
+            Specific irrational loops entered after acute emotional triggers.
+          </p>
+          <div className="space-y-4">
+            {(persona.emotional_failure_modes!).map((fm, i) => (
+              <div key={i} className="border border-parchment/10 p-4 space-y-3">
+                <div>
+                  <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Trigger</p>
+                  <p className="text-sm text-parchment/85 break-words">{fm.trigger}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">What happens</p>
+                  <p className="text-sm text-parchment leading-relaxed break-words">{fm.failure_loop}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Duration</p>
+                    <p className="text-sm text-parchment/70 break-words">{fm.duration}</p>
+                  </div>
+                  <div>
+                    <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">What pulls them out</p>
+                    <p className="text-sm text-parchment/70 break-words">{fm.exit}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* Attachment profile */}
+      {persona.attachment_profile?.attachment_style && (
+        <Section label="Attachment & intimacy">
+          <div className="mb-4">
+            <span className="font-mono text-xs text-parchment/50 uppercase tracking-widest">Style · </span>
+            <span className="font-mono text-xs text-signal capitalize">{persona.attachment_profile.attachment_style}</span>
+          </div>
+          <div className="space-y-3">
+            {(
+              [
+                { key: "intimacy_pattern",        label: "As closeness increases" },
+                { key: "relationship_sabotage",   label: "Repeated pattern" },
+                { key: "envy_pattern",            label: "Who they envy and why" },
+                { key: "aging_and_time_pressure", label: "Time & aging pressure" },
+              ] as const
+            ).map(({ key, label }) => {
+              const text = persona.attachment_profile?.[key];
+              if (!text) return null;
+              return (
+                <div key={key} className="grid grid-cols-[9rem_1fr] gap-4 border-b border-parchment/8 pb-3 last:border-0 last:pb-0">
+                  <p className="text-[9px] font-mono text-static uppercase tracking-widest pt-0.5 leading-relaxed">{label}</p>
+                  <p className="text-sm text-parchment/85 leading-relaxed break-words">{text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </Section>
+      )}
+
       {/* Behaviour */}
       <Section label="Behavioural profile">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">

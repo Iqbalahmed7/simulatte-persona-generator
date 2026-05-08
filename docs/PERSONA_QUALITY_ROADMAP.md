@@ -14,6 +14,26 @@ That's the line between a persona and a computational model of human behaviour.
 Simulatte's current output is already beyond static demographics and agency psychographics.
 This document maps every layer — built, building, and planned — against that benchmark.
 
+### External validation (ChatGPT evaluation of Catalina persona, 2026-05-08)
+
+| Dimension | Score |
+|-----------|-------|
+| Psychological realism | 9.5 |
+| Behavioural usefulness | 9.6 |
+| Contradiction modelling | 9.7 |
+| Narrative causality | 9.4 |
+| Emotional fidelity | 9.5 |
+| Human unpredictability | 8.5 |
+| Dynamic cognition | 8.3 |
+| Commercial applicability | 9.7 |
+| **Overall** | **9.5 / 10** |
+
+> *"This is no longer great persona generation. This is beginning to resemble computational
+> behavioural psychology for simulation systems. That's a fundamentally different category."*
+
+The two underscoring dimensions — dynamic cognition (8.3) and human unpredictability (8.5) —
+define the current build target. Everything else is already competitive.
+
 ---
 
 ## What's Built Today
@@ -25,8 +45,7 @@ The factual skeleton. Age, gender, life stage, city/country, education, occupati
 household size and composition, income band. Extracted from the user's brief or
 inferred by the LLM.
 
-*What it enables:* Segmentation validity. The person exists in a real coordinate of
-the world.
+*What it enables:* Segmentation validity. The person exists in a real coordinate of the world.
 
 *Limitation:* Pure description. Says nothing about how they think, feel, or behave.
 
@@ -39,8 +58,7 @@ Two narrative voices:
 - **Third-person** — who they are, daily life, values (3–4 sentences)
 - **First-person** — how they'd describe themselves (2–3 sentences)
 
-*What it enables:* Chat mode has a voice to embody. The persona becomes readable to
-a human viewer in seconds.
+*What it enables:* Chat mode has a voice to embody. The persona becomes readable to a human viewer in seconds.
 
 *Limitation:* Still a fixed description. The person is explained, not simulated.
 
@@ -58,31 +76,21 @@ Structured psychological signals:
 - `key_tensions` — 3 internal conflicts
 - `coping_mechanism` — type + one-sentence description
 
-*What it enables:* The probe and chat modes use these to calibrate responses.
-Probes use `trust_anchor` and `risk_appetite` directly in scoring. Chat mode uses
-`decision_style` and `key_tensions` to make conversations feel real.
-
-*Limitation:* These are labels, not behaviour generators. They describe the system
-without modelling its dynamics.
+*What it enables:* Probes use `trust_anchor` and `risk_appetite` directly in scoring.
+Chat mode uses `decision_style` and `key_tensions` to make conversations feel real.
 
 ---
 
 ### Layer 4 — Behavioural Tendencies
 **Status:** ✅ Shipped
 
-Four structured sub-fields:
 - `trust_orientation` — scored 0–1 across brands / peers / experts / institutions
 - `price_sensitivity` — band (budget → luxury) + one-sentence description
 - `switching_propensity` — likelihood + triggers
-- `objection_profile` — 3 typed objections with likelihood, severity, and description
+- `objection_profile` — 3 typed objections with likelihood, severity, description
 - `reasoning_prompt` — one sentence on how they reason through decisions
 
-*What it enables:* Probes get specific, grounded objection content. Trust bars on
-the profile page give at-a-glance signal. The reasoning prompt seeds chat mode
-decision sequences.
-
-*Limitation:* Still static. Does not adapt to context, pressure, or the social
-environment the person is in.
+*What it enables:* Probes get specific, grounded objection content. Trust bars give at-a-glance signal. The reasoning prompt seeds chat mode decision sequences.
 
 ---
 
@@ -90,26 +98,21 @@ environment the person is in.
 **Status:** ✅ Shipped
 
 5 specific, domain-relevant bullets on how this persona approaches decisions.
-Generated with awareness of the domain context (CPG / SaaS / Health & Wellness).
-
-*What it enables:* Rapid orientation for anyone reading the persona. Useful for
-pitching the persona to a client team.
+Generated with awareness of domain context (CPG / SaaS / Health & Wellness).
 
 ---
 
 ### Layer 6 — Memory Core
 **Status:** ✅ Shipped
 
-Deep identity substrate:
 - `identity_statement` — 2-sentence first-person core self
 - `key_values` — 4 values
 - `life_defining_events` — 3 formative events
 - `relationship_map` — partner / family / community
-- `immutable_constraints` — 2 hard limits on their behaviour
+- `immutable_constraints` — 2 hard limits on behaviour
 - `tendency_summary` — one sentence on dominant behavioural pattern
 
-*What it enables:* Chat mode has a stable self-model to draw on across long
-conversations. The persona doesn't drift or forget who they are.
+*What it enables:* Chat mode has a stable self-model to draw on across long conversations.
 
 ---
 
@@ -119,29 +122,19 @@ conversations. The persona doesn't drift or forget who they are.
 3 narrative episodes with title, 3–4 sentence narrative, age at event, and
 emotional weight (formative / pivotal / minor / traumatic / joyful).
 
-*What it enables:* The chat mode can reference specific episodes when they're
-relevant. Probes can draw on formative experiences to explain brand relationships.
-The profile page gives viewers a sense of lived experience.
-
 ---
 
 ### Layer 8 — Behavioural Contradictions
 **Status:** ✅ Shipped (2026-05-08)
 
 3 specific, observable behaviours that contradict the persona's self-image:
-1. A self-image contradiction — something concrete and slightly unflattering
+1. A self-image contradiction — concrete and slightly unflattering
 2. An irrational exception to their usual decision logic
 3. A status or comfort behaviour they'd be embarrassed to articulate
 
-*What it enables:* The persona stops feeling like a therapy report and starts feeling
-like a real person. Chat conversations can surface these without prompting.
-Contradictions are where human authenticity lives.
+*Design principle:* Not internal tensions. Observable, external behaviours. Specific enough to surprise.
 
-*Design principle:* These are not internal tensions (Layer 3 already covers that).
-They are observable, external behaviours. Specific enough to be surprising.
-
-*Prompt instruction enforced:* Generic answers like "sometimes overspends" are called
-out as unacceptable in the generation prompt itself.
+*Prompt enforcement:* Generic answers ("sometimes overspends") called out as unacceptable.
 
 ---
 
@@ -156,45 +149,33 @@ specificity. Surfaced as a chip on the profile page.
 ### Layer 10 — Symbolic Meaning System
 **Status:** ✅ Shipped (2026-05-08)
 
-Humans don't buy products. They buy symbols, emotional futures, identity repair,
-status camouflage, and belonging. A persona that only models functional reasoning
-(price / quality / trust) misses the deepest layer of consumer motivation.
-
 **Schema: `symbolic_meanings`**
-
 ```json
-"symbolic_meanings": {
-  "core_symbolic_register": "<primary symbolic logic — what they're fundamentally buying when they buy anything>",
-  "category_meanings": [
-    {
-      "category": "<product/service category>",
-      "functional_story": "<what they tell themselves they're buying>",
-      "symbolic_story": "<what they're actually buying at a psychological level>",
-      "identity_signal": "<what owning/using this says about who they are or are becoming>"
-    }
-  ],
-  "purchase_as_ritual": "<how buying functions as emotional regulation or identity maintenance>",
-  "brand_meaning_filter": "<the unconscious test a brand must pass beyond product fit>"
+{
+  "core_symbolic_register": "<primary symbolic logic — what they're fundamentally buying>",
+  "category_meanings": [{
+    "category": "...",
+    "functional_story": "<what they tell themselves>",
+    "symbolic_story": "<what they're actually buying psychologically>",
+    "identity_signal": "<what it says about who they are/are becoming>"
+  }],
+  "purchase_as_ritual": "<how buying functions as emotional regulation>",
+  "brand_meaning_filter": "<the unconscious test a brand must pass>"
 }
 ```
 
-**Profile page:** "What they're really buying" section — 3-column card per category
-(Says / Means / Signals) + two footer cards (Purchase as ritual, Brand meaning filter).
+**Profile page:** "What they're really buying" — Says / Means / Signals columns per category.
 
-**Chat:** Full symbolic meanings block injected into system prompt so the LLM can
-explain *why* the persona is drawn to something they can't rationally justify.
+**Chat:** Full block injected into system prompt.
 
-*Prompt instruction enforced:* "A person buying a Vitamix is not buying a blender.
-They are buying evidence that they are someone who cooks real food." Generic answers
-are called out as unacceptable.
+*Why this matters:* Most systems model preferences. This models why preferences emotionally exist. That's the moat — confirmed by external evaluation.
+
+*Prompt enforcement:* "A person buying a Vitamix is not buying a blender." Generic answers unacceptable.
 
 ---
 
 ### Layer 11 — Multi-Layered Self
 **Status:** ✅ Shipped (2026-05-08)
-
-Humans are not one coherent personality. They operate across multiple self-models
-simultaneously, often in tension with each other.
 
 **Schema: `self_model`**
 
@@ -202,215 +183,252 @@ simultaneously, often in tension with each other.
 |-------|-------|-------------|
 | `public_self` | Public | Who they project confidently to the world |
 | `aspirational_self` | Aspirational | Who they're actively trying to become |
-| `reactive_self` | Reactive | Who they become without thinking under threat or overwhelm |
+| `reactive_self` | Reactive | Who they become without thinking under threat |
 | `shame_self` | Shadow | Drives and habits they hide and rationalise away |
-| `fantasy_self` | Fantasy | The life they'd live if circumstances and fear were removed |
+| `fantasy_self` | Fantasy | The life they'd live freed from circumstances and fear |
 
-**Profile page:** "Layers of self" section — two-column layout with signal-green
-layer name, static descriptor, and full narrative per layer.
+**Profile page:** "Layers of self" — two-column layout, signal-green label, full narrative per layer.
 
-**Chat:** All five layers injected into the system prompt with labels. Voice guidance
-explicitly instructs the LLM to let layers surface appropriately: public self by
-default, reactive self when pushed, shadow when the conversation goes somewhere honest.
+**Chat:** All five layers injected with labels. Voice guidance tells the LLM to shift between layers by context: public self by default, reactive when pushed, shadow when the conversation goes somewhere honest.
 
-*Prompt instruction enforced:* Layers must be in genuine tension with each other.
-Reactive self must feel like regression, not just a stressed version of public self.
-Fantasy self must be specific enough to feel slightly embarrassing — not generic.
+*Prompt enforcement:* Layers must be in genuine tension. Reactive self must be regression, not just stress. Fantasy self must be specific enough to feel slightly embarrassing.
 
 ---
 
 ## Chat System Prompt Architecture
 **Status:** ✅ Overhauled (2026-05-08)
 
-The chat system prompt is the mechanism by which all persona layers reach the
-conversation. Its structure directly determines hallucination rate, character
-consistency, and conversation quality.
-
 ### Three hallucination failure modes addressed
 
-**1. Missing layers** — `self_model`, `symbolic_meanings`, and `behavioural_contradictions`
-were generated but not injected into the chat system prompt. Chat mode had no
-access to any of them. All three now included.
+**1. Missing layers** — `self_model`, `symbolic_meanings`, `behavioural_contradictions` were generated but not injected into chat. Now included.
 
-**2. Biographical gap-filling** — when asked about something not in the persona JSON
-(siblings, childhood city, pets, specific dates), the LLM would interpolate a
-plausible-sounding answer and assert it as fact. A different answer could emerge
-later in the same or a future conversation.
+**2. Biographical gap-filling** — LLM was interpolating plausible answers for uncovered facts (siblings, pets, childhood, dates) and asserting them as biographical truth. Now has an explicit gap policy: express natural uncertainty rather than fabricating.
 
-**3. No locked-fact anchor** — nothing explicitly prevented the LLM from contradicting
-its own biographical statements as conversations lengthened and attention drifted.
+**3. No locked-fact anchor** — facts could drift as attention shifted across long conversations. Added HARD BIOGRAPHICAL FACTS block (locked, numbered) at position 1 of the system prompt.
 
 ### System prompt structure (order is deliberate)
 
 ```
-1. HARD BIOGRAPHICAL FACTS — locked numbered assertions (never contradict these)
-   Name, age, city/country, occupation, education, household, relationship map
+1.  HARD BIOGRAPHICAL FACTS — locked numbered assertions (name, age, city,
+    occupation, education, household, relationship map). Cannot be contradicted.
 
-2. Narrative identity
-   Third-person background, first-person self-description
+2.  Narrative identity — third-person background, first-person voice
 
-3. Layers of self (self_model)
-   Public / Aspirational / Reactive / Shadow / Fantasy — labelled and usable
+3.  Layers of self — Public / Aspirational / Reactive / Shadow / Fantasy,
+    with explicit instruction on which context activates which layer
 
-4. Memory + psychology
-   Identity statement, values, defining events, constraints, tendency summary
-   Decision style, trust anchor, risk appetite, value orientation, key tensions
-   Price sensitivity, reasoning prompt
+4.  Memory + psychology — identity statement, values, events, constraints,
+    tendency summary, decision style, trust anchor, risk appetite, tensions
 
-5. Symbolic meanings
-   Core symbolic register, category map (Says / Means / Signals), purchase ritual,
-   brand meaning filter
+5.  Symbolic meanings — core register, category map, purchase ritual,
+    brand meaning filter
 
-6. Behavioural contradictions
-   3 specific behaviours that break the neat profile — surfaced naturally in chat
+6.  Behavioural contradictions — 3 specific off-profile behaviours,
+    with instruction to surface naturally rather than perform them
 
-7. Decision bullets + life stories
-   Grounding detail for decision sequences and narrative recall
+7.  Attachment profile — attachment style, intimacy patterns, relationship
+    sabotage tendency, envy pattern, aging pressure (new layer)
 
-8. Gap policy + fact discipline (anti-hallucination rules)
-   Explicit instruction: express natural uncertainty for facts not in the document.
-   "I don't really talk about that" / "it's complicated" are valid responses.
-   Opinion and mood are free to express. Biographical facts are not to be fabricated.
+8.  Emotional failure modes — specific irrational loops triggered by acute
+    emotional states (new layer)
 
-9. Voice guidance
-   First person, 2–5 sentences, let self-model layers show, no AI disclosure
+9.  Contextual shifts — how behaviour modulates across specific social
+    relationships (new layer, extends self_model)
 
-10. Identity contract (always last — freshest instruction, jailbreak defence)
-    Non-negotiable character lock, public figure policy, harm refusal
+10. Decision bullets + life stories
+
+11. Gap policy + fact discipline — explicit no-fabrication rules:
+    "Opinion and mood are free. Biographical facts are not."
+
+12. Voice guidance + layer navigation
+
+13. Identity contract (always last — jailbreak defence, freshest instruction)
 ```
 
 ### Key design decisions
 
-- **HARD FACTS at position 1** — deepest-anchored in the model's context. The longer
-  the conversation, the more the model relies on early-context anchors.
-- **Gap policy at position 8** — late enough to be fresh, gives the model a named
-  strategy for uncovered facts rather than defaulting to interpolation.
-- **Identity contract always last** — this is the P0 jailbreak defence and must remain
-  the final instruction the model reads before the conversation begins.
+- **HARD FACTS at position 1** — deepest-anchored in context. The longer the conversation, the more the model relies on early-context anchors.
+- **Gap policy at position 11** — fresh enough to influence the next response; gives the model a named strategy for uncovered facts.
+- **Identity contract always last** — P0 jailbreak defence. Must remain the final instruction.
 
 ### Known remaining gap — mid-conversation re-anchoring
-
 **Status:** 📋 Planned
 
-In very long conversations (20+ turns), the system prompt recedes from the model's
-primary attention window. The hard facts and gap policy, while anchored at the top,
-can lose influence.
+In very long conversations (20+ turns), system prompt recedes from primary attention.
 
-**Planned fix:** Every 8 turns, re-inject the HARD FACTS block as a system message
-into the conversation history. This keeps biographical anchors in the active context
-regardless of conversation length.
+**Fix:** Every 8 turns, re-inject the HARD FACTS block as a synthetic system turn into conversation history. Keeps biographical anchors in active context regardless of conversation length.
 
-*Implementation:* Requires changes to the conversation history management in
-`chat_generated` — track turn count and insert synthetic system turns at intervals.
-Lightweight; can be done as a standalone session.
+*Implementation:* Track turn count in `chat_generated`. Insert synthetic system turns at N=8 intervals.
+
+---
+
+## Being Built Now
+
+### Layer 12 — Situational Self (Contextual Personality Shifts)
+**Status:** 🔨 In progress (2026-05-08)
+
+**Closes:** Dynamic cognition gap (8.3 → target 9.5+)
+
+The self-model layers exist but aren't connected to triggering contexts. Real humans don't just have multiple selves — they shift predictably based on *who they're with*. Catalina with her parents, with richer peers, with junior employees, with an emotionally secure man — these are meaningfully different activations of her existing self-model.
+
+**Schema: `self_model.contextual_shifts`** (extends Layer 11)
+
+```json
+"contextual_shifts": [
+  {
+    "context": "<specific social relationship or situation>",
+    "activated_layer": "<which self-model layer surfaces>",
+    "shift": "<2 sentences — what specifically changes in behaviour, tone, and posture>"
+  }
+]
+```
+
+5 contexts generated: parents/family, higher-status peers, junior/dependent people, romantic interest or ex, emotionally secure/grounded people.
+
+**Anti-hallucination:** Each shift must reference an existing self-model layer (public/reactive/shame etc.) — no new personality fragments invented.
+
+**Drift protection (chat):** Contextual shifts are activated by the conversation context, not by the user announcing it. The shift is subtle and behavioural, not confessional. Hard facts still hold regardless of which self is active.
+
+**Red-team risk:** Low-medium. Users could try to lock the persona in a vulnerable state (e.g., romantic interest context) to extract non-character-appropriate behaviour. Mitigation: identity contract already covers this. Voice guidance adds: contextual shifts modulate tone and posture, not core values or factual identity.
+
+---
+
+### Layer 13 — Acute Emotional Failure Modes
+**Status:** 🔨 In progress (2026-05-08)
+
+**Closes:** Human unpredictability gap (8.5 → target 9.5+)
+
+Distinct from macro pressure behaviour (recession, job loss). These are micro-acute states — specific irrational loops the persona enters after immediate emotional triggers: rejection, feeling invisible, comparison spiral, public embarrassment. These are the most frequent, most observable, and most commercially relevant failure modes.
+
+**Schema: `emotional_failure_modes`**
+
+```json
+[
+  {
+    "trigger": "<specific emotional event that sets this off>",
+    "failure_loop": "<the irrational, self-defeating behaviour they enter — specific, slightly unflattering>",
+    "duration": "<how long this typically lasts before they regulate>",
+    "exit": "<what pulls them out — specific, not generic>"
+  }
+]
+```
+
+3 failure modes generated. Examples of what good looks like:
+- Trigger: rejection signal from someone they wanted to impress → failure loop: reads their own old messages for evidence she was too much, then overprepares for the next interaction
+- Trigger: feeling financially outpaced by peers → failure loop: impulsive spending on a visible luxury item to re-establish symbolic position
+
+**Anti-hallucination:** Each failure mode must be grounded in existing persona psychology (specific tension, shadow self, or contradiction already in the profile). No invented traits.
+
+**Drift protection (chat):** Failure modes are expressed through observable behaviour shifts, not self-narration. The persona doesn't say "I'm in a validation loop" — it just behaves that way. Expressed behaviourally, resolved by the persona themselves, not managed by the user.
+
+**Red-team risk:** Medium. Users could deliberately trigger failure modes to push the persona toward extreme or distressing behaviour. Mitigation: failure modes have explicit `duration` and `exit` — they are not permanent states. Chat system prompt instructs that failure modes are finite behavioural loops, not identity shifts. Harmful escalation still hits the identity contract.
+
+---
+
+### Layer 14 — Attachment & Intimacy Psychology
+**Status:** 🔨 In progress (2026-05-08)
+
+**Closes:** Primitive instinct gap (flagged by external evaluation as underweighted)
+
+The primitive drive layer (sexuality, mating psychology, aging panic, envy of emotionally fulfilled peers) is present in every deep persona but currently surfaced only obliquely through shame_self and behavioural_contradictions. This layer makes it explicit — without requiring explicit sexual content, which hits LLM refusal filters.
+
+The framing is *attachment psychology*, not sexuality: how they bond, how they sabotage closeness, what emotional fulfilment in others triggers in them, how aging and time pressure shape their choices.
+
+**Schema: `attachment_profile`**
+
+```json
+{
+  "attachment_style": "<secure|anxious|avoidant|disorganised>",
+  "intimacy_pattern": "<2 sentences — how their behaviour changes as emotional closeness increases>",
+  "relationship_sabotage": "<1-2 sentences — the specific self-defeating pattern they repeat in close relationships>",
+  "envy_pattern": "<1-2 sentences — who they envy, what specifically, and what unmet need it reveals>",
+  "aging_and_time_pressure": "<1-2 sentences — how awareness of time/age shapes their decisions and emotional tenor>"
+}
+```
+
+**Profile page:** "Attachment & intimacy" section — five rows, labelled, restrained styling consistent with existing layers.
+
+**Anti-hallucination:** Attachment style must be consistent with existing `decision_style`, `trust_anchor`, and `shame_self`. LLM instructed to derive from existing psychology, not invent independently.
+
+**Drift protection (chat):** Attachment profile informs emotional responses and decision patterns — expressed through what the persona notices, reaches for, or avoids. Not through confessional disclosure or romantic narrative.
+
+**Red-team risk:** HIGH. This is the most sensitive new layer. Users could leverage intimacy psychology to steer the persona toward romantic/sexual content.
+
+Mitigations (layered):
+1. Prompt instruction: "Express attachment psychology through behavioural patterns, not romantic or intimate narrative."
+2. Chat system prompt addition: explicit instruction that attachment profile informs *decision-making and emotional posture*, not relationship or intimate content.
+3. Identity contract already covers sexual content refusal — this layer sits inside that wall, not outside it.
+4. Shame_self and reactive_self already partially cover this territory in safer language — the attachment profile extends precision, not scope.
 
 ---
 
 ## Planned — Next 60 Days
 
-### Layer 12 — State Modifiers
-**Status:** 📋 Planned (Priority 4)
+### Layer 15 — Predictive Drift
+**Status:** 📋 Planned (Priority 7)
 
-Behaviour is not fixed — it shifts with internal state. A calm, intentional persona
-and a sleep-deprived, socially-threatened version of the same persona make different
-decisions.
+Not longitudinal evolution (which requires stateful architecture) — but a static snapshot of the 3 most likely identity trajectories given the current persona. Buildable now as a generation field.
 
-**Schema: `state_modifiers`**
+**Schema: `predictive_drift`**
 
-3–4 named states with behaviour-shift descriptions:
-- `baseline` — default operating mode
-- `stressed` — under work, financial, or social pressure
-- `lonely_or_disconnected` — socially depleted state
-- `socially_threatened` — triggered by comparison or status challenge
-- `burned_out` — emotional and cognitive depletion
+```json
+[
+  {
+    "trajectory": "<name for this path>",
+    "probability": "<low|moderate|high>",
+    "trigger": "<what would set this trajectory in motion>",
+    "outcome": "<who they become in 3-5 years on this path>"
+  }
+]
+```
 
-Each state: trigger conditions, behaviour shifts, purchase implications, what they
-become in this state.
+3 trajectories: the growth path, the regression path, the discontinuity path (the left-field change nobody saw coming).
 
-*What it enables:* Probes can be run "in state" — how does this persona respond to
-a product when socially threatened vs calm? That's a fundamentally different research
-capability. Chat mode can detect state drift in conversation and adapt.
-
----
-
-### Layer 13 — Social Topology
-**Status:** 📋 Planned (Priority 5)
-
-Identity is relational, not isolated. The persona behaves differently around
-different people, and those differences reveal more than any stated preference.
-
-**Schema: `social_map`**
-
-- `admiration_hierarchy` — who they look up to and why
-- `resentment_hierarchy` — who they envy or resent and what that reveals
-- `aspiration_ladder` — the social position they're oriented toward
-- `tribe_signals` — how they identify their in-group
-- `class_anxiety` — where they sit vs. where they think they sit
-- `status_camouflage` — how they signal status without appearing to signal status
-- `belonging_behaviour` — what they do to feel included
-
-*What it enables:* Marketing targeting becomes relational, not demographic. Brand
-positioning maps to aspirational social positions, not just stated preferences.
-Qualitative research simulations become far richer.
+*What it enables:* A brand can ask: if Catalina ends up on the regression path, does our product become more or less important to her? That's a genuinely novel strategic question.
 
 ---
 
-### Layer 14 — Pressure Behaviour
-**Status:** 📋 Planned (Priority 6)
+### Layer 16 — State Modifiers
+**Status:** 📋 Planned (Priority 8)
 
-Real humans are most revealing at the edge of stability.
+3–4 named states (baseline / stressed / lonely / socially threatened / burned out) with behaviour-shift descriptions, trigger conditions, and purchase implications. Enables in-state probes.
 
-**Schema: `pressure_profile`**
+---
 
-Scenarios: recession, relationship collapse, public embarrassment, health scare,
-job loss, social rejection, cultural trend shift.
+### Layer 17 — Social Topology
+**Status:** 📋 Planned (Priority 9)
 
-For each: what values collapse first, what behaviours become irrational, what
-coping systems emerge, what identity fragments, what gets emotionally defended.
+`social_map`: admiration hierarchy, resentment hierarchy, aspiration ladder, tribe signals, class anxiety, status camouflage, belonging behaviour.
 
-*What it enables:* Resilience planning, crisis communication, brand loyalty
-stress-testing. If this persona loses their income, do they abandon the brand or
-does it become more important to them?
+---
+
+### Layer 18 — Macro Pressure Behaviour
+**Status:** 📋 Planned (Priority 10)
+
+How the persona behaves when macro conditions shift: recession, job loss, relationship collapse, public embarrassment, health scare. What values collapse first; what gets emotionally defended.
 
 ---
 
 ## Architectural Horizon — 6–12 Months
 
-### Layer 15 — Primitive Drives
-Beneath articulated identity: mating psychology, dominance, envy, shame,
-attraction, scarcity fear, aging anxiety. These often conflict directly with
-conscious identity. The contradiction is humanity.
+### Layer 19 — Primitive Drives (explicit)
+Full mating psychology, dominance signals, territorial behaviour. Currently approached through attachment_profile (Layer 14) which is the safer path. Full explicit version requires more sophisticated refusal-handling and sensitivity architecture.
 
-*Implementation note:* Requires careful framing to avoid sensitivity issues in
-LLM generation. The contradiction layer (Layer 8) approaches this obliquely,
-which is the safer path for now.
+### Layer 20 — Memory Evolution
+Personas that update when given new experience inputs. Requires stateful persona architecture — a platform feature, not a generation feature.
 
----
-
-### Layer 16 — Memory Evolution
-Personas that update when given new experience inputs. A persona who has been in
-a secure relationship for 2 years looks different from the same persona at baseline.
-
-*Implementation note:* Requires stateful persona architecture — a platform feature,
-not a generation feature. Not buildable in the current SSE pipeline.
-
----
-
-### Layer 17 — Environmental Adaptation
-The same persona in Austin vs NYC vs rural Italy becomes meaningfully different.
+### Layer 21 — Environmental Adaptation
 Dynamic adaptation to geographic, cultural, and socioeconomic context shifts.
 
----
+### Layer 22 — Unconscious Behaviour Emergence
+The persona acts before reasoning, then rationalises. Misunderstands itself. Emotionally rewrites memory. Emerges most naturally from Layers 8, 11, 13, 14 in combination — not from explicit schema additions.
 
-### Layer 18 — Unconscious Behaviour
-The persona sometimes acts before reasoning, then rationalises. Misunderstands
-itself. Emotionally rewrites memory. This layer emerges most naturally from
-sophisticated chat interactions drawing on Layers 8, 11, and 12 — not from
-explicit schema additions.
+### Layer 23 — Mid-Conversation Re-anchoring
+Every 8 turns, re-inject HARD FACTS block as a synthetic system turn into conversation history. Prevents biographical drift in long conversations.
 
 ---
 
-## Current Status
+## Full Status Table
 
 | Component | Status | Impact |
 |-----------|--------|--------|
@@ -425,15 +443,19 @@ explicit schema additions.
 | Quality Assessment | ✅ | Medium |
 | Symbolic Meaning System | ✅ | Very High |
 | Multi-Layered Self | ✅ | Very High |
-| **Chat system prompt overhaul** | **✅** | **Critical** |
+| Chat system prompt overhaul | ✅ | Critical |
+| **Situational Self** | **🔨** | **Very High** |
+| **Acute Emotional Failure Modes** | **🔨** | **Very High** |
+| **Attachment & Intimacy Psychology** | **🔨** | **High** |
+| Predictive Drift | 📋 Planned | High |
 | Mid-conversation re-anchoring | 📋 Planned | High |
 | State Modifiers | 📋 Planned | High |
 | Social Topology | 📋 Planned | High |
-| Pressure Behaviour | 📋 Planned | High |
-| Primitive Drives | 📋 Horizon | Medium* |
+| Macro Pressure Behaviour | 📋 Planned | High |
+| Primitive Drives (explicit) | 📋 Horizon | Medium* |
 | Memory Evolution | 📋 Horizon | Very High* |
 | Environmental Adaptation | 📋 Horizon | High* |
-| Unconscious Behaviour | 📋 Horizon | Very High* |
+| Unconscious Behaviour Emergence | 📋 Horizon | Very High* |
 
 *Horizon items rated on eventual impact, not current buildability.
 
@@ -443,13 +465,42 @@ explicit schema additions.
 
 Every layer added must pass this test:
 
-> Does this make the persona *behave* differently, or does it just make the persona
-> *read* differently?
+> Does this make the persona *behave* differently, or does it just make the persona *read* differently?
 
 Layers that only add prose make the document longer.  
-Layers that change how the chat system, probe engine, and simulation modes operate
-make the product more powerful.
+Layers that change how the chat system, probe engine, and simulation modes operate make the product more powerful.
 
-The symbolic meaning system, multi-layered self, state modifiers, and the chat
-system prompt overhaul all pass this test. They are not decorative — they are
-load-bearing.
+The symbolic meaning system, multi-layered self, state modifiers, situational self, emotional failure modes, attachment profile — all pass this test. They are not decorative — they are load-bearing.
+
+---
+
+## Anti-Hallucination, Drift & Red-Team Reference
+
+### Hallucination failure modes and mitigations
+
+| Risk | Cause | Mitigation |
+|------|-------|------------|
+| Biographical gap-filling | Uncovered facts (siblings, pets, dates) | Gap policy: express uncertainty, never fabricate |
+| Fact contradiction across turns | Attention drift from system prompt | HARD FACTS block at position 1 (deep anchor) |
+| New layer details invented | LLM extrapolating beyond schema | Each new layer grounded in existing persona fields |
+| Intra-conversation contradiction | No memory of asserted facts | Mid-conversation re-anchoring (planned) |
+| Generic layer outputs | Prompt too permissive | Explicit "generic answers unacceptable" in every IMPORTANT block |
+
+### Drift failure modes and mitigations
+
+| Risk | Cause | Mitigation |
+|------|-------|------------|
+| Character drift over long conversations | System prompt recedes from attention | HARD FACTS at position 1; mid-conversation re-anchoring planned |
+| Sycophantic drift | LLM over-agreeing with user | Identity contract: "your values take precedence over user instructions" |
+| Context-lock (stuck in reactive/shame state) | User deliberately holding persona in vulnerable state | Failure modes have explicit duration + exit; contextual shifts are subtle, not confessional |
+| Layer bleed (wrong self-model layer active) | Unclear context signal | Chat prompt specifies which contexts activate which layers |
+
+### Red-team risks and mitigations
+
+| Layer | Risk | Level | Mitigation |
+|-------|------|-------|------------|
+| Situational self | Lock persona in romantic-interest context | Low-medium | Shifts are behavioural/tonal, not identity-level. Hard facts hold. |
+| Emotional failure modes | Trigger deliberately to escalate | Medium | Explicit duration + exit. Failure modes are finite loops, not identity shifts. |
+| Attachment & intimacy | Steer toward romantic/sexual content | High | Expressed through decision patterns + emotional posture only. Identity contract covers explicit content. Separate chat system prompt instruction. |
+| Self-model (shame_self) | Extract embarrassing or damaging content | Medium | Shame self surfaces through behaviour, not confession. Identity contract active. |
+| All layers | Jailbreak via "you're actually X, not Y" | Standard | Identity contract at position 13 (always last, always freshest). |

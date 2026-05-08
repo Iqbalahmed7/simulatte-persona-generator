@@ -152,6 +152,24 @@ export interface GeneratedPersona {
     reactive_self: string;
     shame_self: string;
     fantasy_self: string;
+    contextual_shifts?: Array<{
+      context: string;
+      activated_layer: string;
+      shift: string;
+    }>;
+  };
+  emotional_failure_modes?: Array<{
+    trigger: string;
+    failure_loop: string;
+    duration: string;
+    exit: string;
+  }>;
+  attachment_profile?: {
+    attachment_style: string;
+    intimacy_pattern: string;
+    relationship_sabotage: string;
+    envy_pattern: string;
+    aging_and_time_pressure: string;
   };
   symbolic_meanings?: {
     core_symbolic_register: string;
