@@ -1629,12 +1629,12 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
     resp_a, resp_b = await asyncio.gather(
         client.messages.create(
             model="claude-haiku-4-5",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{"role": "user", "content": prompt_a}],
         ),
         client.messages.create(
             model="claude-haiku-4-5",
-            max_tokens=1500,
+            max_tokens=2500,
             messages=[{"role": "user", "content": prompt_b}],
         ),
     )
@@ -1643,14 +1643,26 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         try:
             return json.loads(text)
         except Exception:
+            # Strip markdown fences
             m = re.search(r"```(?:json)?\s*([\s\S]+?)```", text)
-            if m:
-                return json.loads(m.group(1))
-            # Last resort: find outermost { }
-            start = text.find("{")
-            end = text.rfind("}") + 1
+            candidate = m.group(1) if m else text
+            # Find outermost { }
+            start = candidate.find("{")
+            end = candidate.rfind("}") + 1
             if start >= 0 and end > start:
-                return json.loads(text[start:end])
+                candidate = candidate[start:end]
+            try:
+                return json.loads(candidate)
+            except Exception:
+                pass
+            # Final fallback: json_repair handles unescaped chars, truncation, etc.
+            try:
+                from json_repair import repair_json
+                repaired = repair_json(candidate, return_objects=True)
+                if isinstance(repaired, dict):
+                    return repaired
+            except Exception:
+                pass
             return {}
 
     data_a = _parse_json(resp_a.content[0].text)
