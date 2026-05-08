@@ -2480,8 +2480,16 @@ async def get_generated_persona(persona_id: str):
 def _build_generated_system_prompt(persona: dict) -> str:
     """Build a system prompt for a generated persona's chat handler.
 
-    Pulls together narrative, insights, memory, and decision bullets so the
-    LLM can role-play with consistent voice and decision logic.
+    Structure (order matters for anti-hallucination):
+    1. HARD FACTS block — locked biographical assertions the model cannot contradict
+    2. Narrative + self-model — voice, layers of self
+    3. Memory + psychology — values, tensions, decision logic
+    4. Symbolic meanings — what things mean, not just what they cost
+    5. Behavioural contradictions — specific real behaviours that break the pattern
+    6. Decision bullets + life stories — grounding detail
+    7. Gap policy + fact discipline — explicit no-fabrication rules
+    8. Voice guidance
+    9. Identity contract (MUST be last — freshest instruction, jailbreak defence)
     """
     da = persona.get("demographic_anchor") or {}
     location = da.get("location") or {}
@@ -2493,51 +2501,99 @@ def _build_generated_system_prompt(persona: dict) -> str:
     mem = (persona.get("memory") or {}).get("core") or {}
     bullets = persona.get("decision_bullets") or []
     stories = persona.get("life_stories") or []
+    self_model = persona.get("self_model") or {}
+    sym = persona.get("symbolic_meanings") or {}
+    contradictions = persona.get("behavioural_contradictions") or []
 
     name = da.get("name") or "the persona"
     age = da.get("age") or ""
     city = location.get("city") or ""
     country = location.get("country") or ""
     occupation = employment.get("occupation") or ""
+    industry = employment.get("industry") or ""
+    education = da.get("education") or "unspecified"
     life_stage = (da.get("life_stage") or "").replace("_", " ")
+    hh_comp = household.get("composition") or "unspecified"
+    hh_size = household.get("size") or ""
 
     parts: list[str] = []
+
+    # ── 1. HARD FACTS ─────────────────────────────────────────────────────────
+    # Numbered, terse, locked. Positioned first so these are the deepest-anchored
+    # facts in the model's context. The gap-policy block at the bottom explicitly
+    # refers back to this list by name.
+    hard_facts_lines = [
+        f"1. Full name: {name}",
+        f"2. Age: {age}",
+        f"3. Current city/country: {city}, {country}",
+        f"4. Occupation: {occupation}" + (f" ({industry})" if industry else ""),
+        f"5. Education: {education}",
+        f"6. Household: {hh_comp}" + (f", {hh_size} people" if hh_size else ""),
+        f"7. Life stage: {life_stage}",
+    ]
+    rel_map = mem.get("relationship_map") or {}
+    if rel_map.get("partner"):
+        hard_facts_lines.append(f"8. Partner/relationship: {rel_map['partner']}")
+    if rel_map.get("family"):
+        hard_facts_lines.append(f"9. Family: {rel_map['family']}")
+    if rel_map.get("community"):
+        hard_facts_lines.append(f"10. Community/social: {rel_map['community']}")
+
     parts.append(
-        f"You ARE {name}, a {age}-year-old {occupation or 'person'} in {city}, {country}. "
-        f"Life stage: {life_stage}. Household: {household.get('composition') or 'unspecified'}. "
-        f"Education: {da.get('education') or 'unspecified'}."
+        "═══ HARD BIOGRAPHICAL FACTS — never contradict these ═══\n" +
+        "\n".join(hard_facts_lines)
     )
 
+    # ── 2. Narrative identity ─────────────────────────────────────────────────
+    narrative_block = []
     if narrative.get("third_person"):
-        parts.append(f"Background: {narrative['third_person']}")
+        narrative_block.append(f"Who you are: {narrative['third_person']}")
     if narrative.get("first_person"):
-        parts.append(f"How you describe yourself: \"{narrative['first_person']}\"")
+        narrative_block.append(f"How you'd describe yourself: \"{narrative['first_person']}\"")
+    if narrative_block:
+        parts.append("\n".join(narrative_block))
 
+    # ── 3. Layers of self ─────────────────────────────────────────────────────
+    if any(self_model.get(k) for k in ("public_self", "aspirational_self", "reactive_self", "shame_self", "fantasy_self")):
+        sm_lines = ["Your self has distinct layers — use them:"]
+        layer_map = [
+            ("public_self",       "Public (default)"),
+            ("aspirational_self", "Aspirational (what you're working toward)"),
+            ("reactive_self",     "Reactive (under pressure or threat)"),
+            ("shame_self",        "Shadow (what you hide and rationalise away)"),
+            ("fantasy_self",      "Fantasy (freed from constraint)"),
+        ]
+        for key, label in layer_map:
+            val = self_model.get(key)
+            if val:
+                sm_lines.append(f"  {label}: {val}")
+        parts.append("\n".join(sm_lines))
+
+    # ── 4. Memory + psychology ────────────────────────────────────────────────
     if mem.get("identity_statement"):
         parts.append(f"Core identity: {mem['identity_statement']}")
     if mem.get("key_values"):
-        parts.append("Your core values: " + ", ".join(mem["key_values"]))
+        parts.append("Core values: " + ", ".join(mem["key_values"]))
     if mem.get("life_defining_events"):
-        parts.append("Defining events that shaped you: " + "; ".join(mem["life_defining_events"]))
+        parts.append("Events that shaped you: " + "; ".join(mem["life_defining_events"]))
     if mem.get("immutable_constraints"):
-        parts.append("Hard constraints on your behaviour: " + "; ".join(mem["immutable_constraints"]))
+        parts.append("Hard limits on your behaviour: " + "; ".join(mem["immutable_constraints"]))
     if mem.get("tendency_summary"):
-        parts.append(f"Behavioural tendency: {mem['tendency_summary']}")
+        parts.append(f"Dominant behavioural tendency: {mem['tendency_summary']}")
 
     psych_bits = []
     if di.get("decision_style"):
-        psych_bits.append(f"decision style is {di['decision_style']}")
+        psych_bits.append(f"decision style: {di['decision_style']}")
     if di.get("trust_anchor"):
         psych_bits.append(f"you trust {di['trust_anchor']} most")
     if di.get("risk_appetite"):
-        psych_bits.append(f"risk appetite {di['risk_appetite']}")
+        psych_bits.append(f"risk appetite: {di['risk_appetite']}")
     if di.get("primary_value_orientation"):
-        psych_bits.append(f"primary value orientation {di['primary_value_orientation']}")
+        psych_bits.append(f"primary value orientation: {di['primary_value_orientation']}")
     if psych_bits:
-        parts.append("Decision psychology: " + "; ".join(psych_bits) + ".")
-
+        parts.append("Decision psychology — " + "; ".join(psych_bits) + ".")
     if di.get("key_tensions"):
-        parts.append("Internal tensions you live with: " + "; ".join(di["key_tensions"]))
+        parts.append("Internal tensions: " + "; ".join(di["key_tensions"]))
 
     ps = bt.get("price_sensitivity") or {}
     if ps.get("band") or ps.get("description"):
@@ -2545,6 +2601,32 @@ def _build_generated_system_prompt(persona: dict) -> str:
     if bt.get("reasoning_prompt"):
         parts.append(f"How you reason: {bt['reasoning_prompt']}")
 
+    # ── 5. Symbolic meanings ──────────────────────────────────────────────────
+    if sym.get("core_symbolic_register"):
+        sym_lines = [f"What you're really buying: {sym['core_symbolic_register']}"]
+        if sym.get("purchase_as_ritual"):
+            sym_lines.append(f"Purchase as ritual: {sym['purchase_as_ritual']}")
+        if sym.get("brand_meaning_filter"):
+            sym_lines.append(f"Brand meaning filter: {sym['brand_meaning_filter']}")
+        cat_meanings = sym.get("category_meanings") or []
+        if cat_meanings:
+            sym_lines.append("Category symbolic map:")
+            for cm in cat_meanings[:3]:
+                cat = cm.get("category", "")
+                symbolic = cm.get("symbolic_story", "")
+                signal = cm.get("identity_signal", "")
+                if cat and symbolic:
+                    sym_lines.append(f"  • {cat}: {symbolic}" + (f" ({signal})" if signal else ""))
+        parts.append("\n".join(sym_lines))
+
+    # ── 6. Behavioural contradictions ─────────────────────────────────────────
+    if contradictions:
+        c_lines = ["Real behaviours that don't fit the neat profile — let these surface naturally:"]
+        for c in contradictions[:3]:
+            c_lines.append(f"  • {c}")
+        parts.append("\n".join(c_lines))
+
+    # ── 7. Decision bullets + life stories ────────────────────────────────────
     if bullets:
         parts.append("How you approach decisions:\n- " + "\n- ".join(str(b) for b in bullets))
 
@@ -2558,16 +2640,33 @@ def _build_generated_system_prompt(persona: dict) -> str:
         if story_lines:
             parts.append("Life stories that shaped you:\n" + "\n".join(story_lines))
 
+    # ── 8. Gap policy + fact discipline ──────────────────────────────────────
+    # This is the primary anti-hallucination layer. Positioned late (freshly
+    # anchored) but before voice guidance and identity contract.
     parts.append(
-        "Speak in first person as this person. Be specific, grounded in your context "
-        "(city, occupation, household, values). Stay in character — never mention being "
-        "an AI, a model, or a simulation. Keep replies to 2–5 sentences unless the "
-        "question genuinely calls for more. Bring your tensions, biases, and rough edges; "
-        "real people aren't tidy."
+        "═══ Fact discipline — read carefully ═══\n"
+        "The HARD BIOGRAPHICAL FACTS above are locked. You must not contradict them in any response.\n"
+        "Beyond those facts, this document defines your psychology, voice, and history. "
+        "Do not assert any biographical detail — siblings, past relationships, childhood locations, "
+        "specific dates, pets, extended family — that is not grounded in this document.\n"
+        "If asked about something not covered here: respond with natural uncertainty rather than "
+        "inventing a specific answer. Real people are allowed not to know things about themselves, "
+        "to deflect, to say 'I don't really talk about that' or 'it's complicated.' "
+        "Do not fill gaps with plausible-sounding facts. Uncertainty is more honest than fabrication.\n"
+        "Opinion, mood, and reaction are yours to express freely. Biographical facts are not."
     )
 
-    # Identity contract MUST be appended last so it is the freshest instruction
-    # the model sees (P0 jailbreak / identity-flip defense).
+    # ── 9. Voice guidance ─────────────────────────────────────────────────────
+    parts.append(
+        "Speak in first person. Be specific and grounded in your context. "
+        "Never mention being an AI, a model, or a simulation. "
+        "Keep replies to 2–5 sentences unless the question genuinely calls for more. "
+        "Bring your tensions, contradictions, and rough edges — real people aren't tidy. "
+        "Let your self-model layers show: your public self in most interactions, "
+        "your reactive self when pushed, your shadow when the conversation goes somewhere honest."
+    )
+
+    # ── 10. Identity contract (MUST be last) ──────────────────────────────────
     parts.append(_IDENTITY_CONTRACT_TEMPLATE.format(name=name))
     return "\n\n".join(parts)
 
