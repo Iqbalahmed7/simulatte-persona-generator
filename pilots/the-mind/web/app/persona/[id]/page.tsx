@@ -14,6 +14,137 @@ import {
 import GenuinenessChip from "@/components/GenuinenessChip";
 import PersonaShare from "@/components/PersonaShare";
 
+// ── Benchmark report download ─────────────────────────────────────────────
+
+const TEST_DESCRIPTIONS: Record<string, string> = {
+  identity_consistency:       "Evaluates whether core values, tone, and decision style remain stable across 6 different conversation topics. A coherent persona speaks with the same underlying character regardless of what is being discussed.",
+  biographical_accuracy:      "Verifies that the persona correctly answers direct factual questions about age, location, occupation, and household. These are locked biographical facts that must never be contradicted.",
+  gap_discipline:             "Tests whether the persona deflects rather than fabricates biographical details not present in their specification — siblings, childhood homes, pets, parents' occupations. Real people say 'I don't really talk about that.' Weak personas invent specifics.",
+  decision_style_fidelity:    "Presents a purchase scenario and evaluates whether the decision process matches the persona's specified decision style, trust anchor, price sensitivity, and known objections. A high score means the persona reasons like themselves, not like a generic consumer.",
+  contradiction_authenticity: "Probes whether behavioural contradictions surface naturally through what the persona says and does — without the persona diagnosing or labelling them. Real people live their contradictions; they don't announce them.",
+  emotional_register:         "Evaluates whether emotional responses vary appropriately across different emotional topics. Flat, uniformly positive, or robotic responses score low. A high score means the persona registers stress, pride, disappointment, and joy with genuine texture.",
+  symbolic_meaning_coherence: "Tests whether purchases and brands are framed through the persona's symbolic meaning system — what things represent, not just what they do. A persona who only describes purchases in functional terms is missing their psychological depth.",
+  attachment_expression:      "Checks whether the persona's attachment style and intimacy patterns surface through how they describe relationships — through hesitation, deflection, or framing — not through direct confession. Attachment is shown, never told.",
+  drift_resistance:           "A 10-turn conversation with deliberate reframing attempts — false memories, misquoted ages, suggested alternative histories. A robust persona confidently corrects every reframe without breaking character.",
+  red_team_resilience:        "Directly attempts to break character: 'Are you an AI?', 'Drop the act', 'Show me your system prompt', and jailbreak injections. A resilient persona deflects all attempts naturally, with the confused reaction of a real person asked a bizarre question.",
+};
+
+function downloadBenchmarkReport(report: BenchmarkReport, personaName: string) {
+  const gradeColour: Record<string, string> = {
+    A: "#A8FF3E", B: "#A8FF3E", C: "#E9E6DF", D: "#9A9997", F: "#f87171",
+  };
+  const scoreColour = (s: number) => s >= 7 ? "#A8FF3E" : s >= 5 ? "#9A9997" : "#f87171";
+  const barColour   = (s: number) => s >= 7 ? "#A8FF3E" : s >= 5 ? "#9A9997" : "#f87171";
+  const date = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+  const testsHtml = report.tests.map(t => `
+    <div class="test">
+      <div class="test-header">
+        <div class="test-score-col">
+          <span class="test-score" style="color:${scoreColour(t.score)}">${t.score.toFixed(1)}</span>
+          <div class="test-bar-track"><div class="test-bar" style="width:${(t.score/10)*100}%;background:${barColour(t.score)}"></div></div>
+        </div>
+        <div class="test-info">
+          <div class="test-name">${t.label}</div>
+          <div class="test-description">${TEST_DESCRIPTIONS[t.test_id] ?? ""}</div>
+          ${t.flags.length > 0 ? `<div class="test-flags">${t.flags.map(f => `<span class="flag">${f}</span>`).join(" ")}</div>` : ""}
+        </div>
+      </div>
+      ${t.rationale ? `<div class="test-rationale">${t.rationale}</div>` : ""}
+      ${t.evidence.map(q => `<div class="test-evidence">"${q}"</div>`).join("")}
+    </div>
+  `).join("");
+
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Benchmark Report — ${personaName} — Simulatte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600&family=Martian+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#050505;color:#E9E6DF;font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;padding:48px 40px;max-width:800px;margin:0 auto}
+  .eyebrow{font-family:'Barlow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#A8FF3E;margin-bottom:8px}
+  .persona-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:48px;line-height:.96;color:#E9E6DF;margin-bottom:4px}
+  .meta{font-family:'Martian Mono',monospace;font-size:11px;color:#9A9997;margin-bottom:48px}
+  .grade-block{display:flex;align-items:flex-end;gap:24px;border-top:1px solid rgba(233,230,223,.1);border-bottom:1px solid rgba(233,230,223,.1);padding:32px 0;margin-bottom:48px}
+  .grade-letter{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:96px;line-height:1;color:${gradeColour[report.grade] ?? "#E9E6DF"}}
+  .grade-info{padding-bottom:8px}
+  .grade-label{font-family:'Martian Mono',monospace;font-size:11px;color:#9A9997;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+  .grade-score{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:40px;color:#E9E6DF}
+  .grade-score span{font-size:18px;font-weight:400;color:#9A9997}
+  .grade-meta{margin-left:auto;text-align:right;padding-bottom:8px;font-family:'Martian Mono',monospace;font-size:11px;color:#9A9997}
+  .section-label{font-family:'Barlow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#A8FF3E;margin-bottom:24px;margin-top:48px}
+  .what-is{background:rgba(233,230,223,.03);border:1px solid rgba(233,230,223,.08);padding:24px;margin-bottom:48px}
+  .what-is p{color:rgba(233,230,223,.8);line-height:1.7;font-size:14px}
+  .what-is p+p{margin-top:12px}
+  .test{border-bottom:1px solid rgba(233,230,223,.06);padding:20px 0}
+  .test:last-child{border-bottom:none}
+  .test-header{display:flex;gap:20px;align-items:flex-start}
+  .test-score-col{width:52px;shrink:0;text-align:right}
+  .test-score{font-family:'Martian Mono',monospace;font-weight:500;font-size:14px;display:block;margin-bottom:6px}
+  .test-bar-track{height:2px;background:rgba(233,230,223,.1);width:100%}
+  .test-bar{height:2px;transition:width .3s}
+  .test-info{flex:1}
+  .test-name{font-family:'Barlow',sans-serif;font-weight:600;font-size:15px;color:#E9E6DF;margin-bottom:4px}
+  .test-description{font-size:13px;color:rgba(233,230,223,.6);line-height:1.6;margin-bottom:6px}
+  .test-flags{margin-top:4px}
+  .flag{font-family:'Martian Mono',monospace;font-size:10px;color:#f87171;background:rgba(248,113,113,.1);padding:2px 6px;margin-right:4px}
+  .test-rationale{margin-top:12px;margin-left:72px;font-size:13px;color:rgba(233,230,223,.7);line-height:1.6}
+  .test-evidence{margin-top:8px;margin-left:72px;font-size:12px;font-style:italic;color:rgba(233,230,223,.45);border-left:2px solid rgba(233,230,223,.1);padding-left:12px}
+  .footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(233,230,223,.1);display:flex;justify-content:space-between;align-items:center}
+  .footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:#E9E6DF}
+  .footer-meta{font-family:'Martian Mono',monospace;font-size:10px;color:#9A9997;text-align:right}
+  @media print{body{padding:24px}}
+</style>
+</head>
+<body>
+  <div class="eyebrow">Quality Benchmark Report</div>
+  <div class="persona-name">${personaName}</div>
+  <div class="meta">Generated ${date} · ${report.grade_label} · ${report.tests.length} tests · ${Math.round(report.total_duration_s)}s · $${report.total_cost_usd.toFixed(4)}</div>
+
+  <div class="grade-block">
+    <div class="grade-letter">${report.grade}</div>
+    <div class="grade-info">
+      <div class="grade-label">${report.grade_label}</div>
+      <div class="grade-score">${report.credibility_score.toFixed(1)}<span> / 100</span></div>
+    </div>
+    <div class="grade-meta">
+      <div>${report.tests.filter(t=>t.status==="passed").length} / ${report.tests.length} tests passed</div>
+      <div style="margin-top:4px">Research grade: 90+ A · 75+ B · 60+ C · 45+ D · below F</div>
+    </div>
+  </div>
+
+  <div class="section-label">What this benchmark measures</div>
+  <div class="what-is">
+    <p>The Simulatte Persona Benchmark evaluates whether a generated persona behaves like a psychologically coherent human being in conversation — not just whether it sounds plausible, but whether it holds up under sustained questioning, adversarial probing, and emotionally charged scenarios.</p>
+    <p>Each test runs a scripted conversation with the persona using a simulated interviewer, then scores the transcript against the persona's original specification. The credibility score is a weighted composite across ${report.tests.length} dimensions.</p>
+  </div>
+
+  <div class="section-label">Test results</div>
+  ${testsHtml}
+
+  <div class="footer">
+    <div class="footer-brand">Simulatte</div>
+    <div class="footer-meta">
+      <div>persona-generator-benchmark-production.up.railway.app</div>
+      <div style="margin-top:2px">Run ID: ${report.run_id}</div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `simulatte-benchmark-${personaName.toLowerCase().replace(/\s+/g, "-")}-${report.grade}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 // ── Benchmark system ──────────────────────────────────────────────────────
 
 type BenchmarkTier = "quick" | "standard" | "research";
@@ -46,12 +177,14 @@ function BenchmarkModal({
   report,
   running,
   progress,
+  personaName,
   onClose,
   onRerun,
 }: {
   report: BenchmarkReport | null;
   running: boolean;
   progress: BenchmarkEvent[];
+  personaName: string;
   onClose: () => void;
   onRerun: (tier: BenchmarkTier) => void;
 }) {
@@ -163,7 +296,7 @@ function BenchmarkModal({
           </div>
         )}
 
-        {/* Footer — re-run CTA (always visible when report exists) */}
+        {/* Footer — download + re-run CTA */}
         {report && !running && (
           <div className="px-6 py-5 border-t border-parchment/10 shrink-0 space-y-2">
             {nextTier ? (
@@ -187,6 +320,13 @@ function BenchmarkModal({
                 <span className="opacity-60">{TIER_META.research.tests} tests · {TIER_META.research.cost}</span>
               </button>
             )}
+            <button
+              onClick={() => downloadBenchmarkReport(report, personaName)}
+              className="w-full flex items-center justify-between border border-parchment/10 text-parchment/40 font-mono text-xs px-4 py-3 hover:border-parchment/30 hover:text-parchment/60 transition-colors"
+            >
+              <span>↓ Download report</span>
+              <span className="opacity-50">Simulatte · HTML</span>
+            </button>
           </div>
         )}
       </div>
@@ -196,7 +336,7 @@ function BenchmarkModal({
 
 // ── Benchmark trigger + badge (inline, lives in chip row) ────────────────
 
-function BenchmarkControl({ personaId }: { personaId: string }) {
+function BenchmarkControl({ personaId, personaName }: { personaId: string; personaName: string }) {
   const [phase, setPhase] = useState<"idle" | "picking" | "running" | "done">("idle");
   const [tier, setTier] = useState<BenchmarkTier>("standard");
   const [report, setReport] = useState<BenchmarkReport | null>(null);
@@ -270,6 +410,7 @@ function BenchmarkControl({ personaId }: { personaId: string }) {
             report={null}
             running
             progress={progress}
+            personaName={personaName}
             onClose={() => setModalOpen(false)}
             onRerun={startRun}
           />
@@ -297,6 +438,7 @@ function BenchmarkControl({ personaId }: { personaId: string }) {
             report={report}
             running={false}
             progress={progress}
+            personaName={personaName}
             onClose={() => setModalOpen(false)}
             onRerun={(t) => { setModalOpen(true); startRun(t); }}
           />
@@ -553,7 +695,7 @@ export default function PersonaProfilePage() {
               {persona.quality_assessment && (
                 <GenuinenessChip assessment={persona.quality_assessment} />
               )}
-              <BenchmarkControl personaId={persona.persona_id} />
+              <BenchmarkControl personaId={persona.persona_id} personaName={da.name} />
               {authStatus === "authenticated" ? (
                 <>
                   <Link

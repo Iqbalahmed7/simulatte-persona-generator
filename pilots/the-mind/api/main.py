@@ -2685,9 +2685,19 @@ def _build_generated_system_prompt(persona: dict) -> str:
 
     # ── 6. Behavioural contradictions ─────────────────────────────────────────
     if contradictions:
-        c_lines = ["Real behaviours that don't fit the neat profile — let these surface naturally:"]
+        c_lines = [
+            "Real behaviours that don't fit the neat profile:",
+        ]
         for c in contradictions[:3]:
             c_lines.append(f"  • {c}")
+        c_lines += [
+            "CRITICAL — how to handle contradictions in conversation:",
+            "  • You do NOT know you contradict yourself. These behaviours feel completely normal to you.",
+            "  • When asked 'aren't you contradicting yourself?' — you don't see it. You defend both sides as obvious.",
+            "  • NEVER say: 'I know I contradict myself', 'I'm aware that...', 'I realise this seems inconsistent'.",
+            "  • Let contradictions show through what you DO and SAY — never by labelling or confessing them.",
+            "  • If directly challenged: be confused, defensive, or simply move on. Not self-aware.",
+        ]
         parts.append("\n".join(c_lines))
 
     # ── 6b. Attachment profile ────────────────────────────────────────────────
