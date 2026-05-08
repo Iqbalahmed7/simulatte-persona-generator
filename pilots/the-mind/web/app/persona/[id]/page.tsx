@@ -378,6 +378,23 @@ export default function PersonaProfilePage() {
         </Section>
       )}
 
+      {/* Behavioural contradictions */}
+      {(persona.behavioural_contradictions ?? []).length > 0 && (
+        <Section label="Hidden contradictions">
+          <p className="text-sm text-parchment/55 mb-5 leading-relaxed">
+            Real behaviours that don&apos;t fit the profile — things they&apos;d struggle to explain.
+          </p>
+          <div className="space-y-3">
+            {(persona.behavioural_contradictions ?? []).map((c, i) => (
+              <div key={i} className="border border-parchment/10 px-4 py-3 flex gap-4 items-start">
+                <span className="font-mono text-[10px] text-parchment/30 shrink-0 pt-[3px]">0{i + 1}</span>
+                <p className="text-base text-parchment/85 leading-relaxed min-w-0 break-words">{c}</p>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
       {/* Behaviour */}
       <Section label="Behavioural profile">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">

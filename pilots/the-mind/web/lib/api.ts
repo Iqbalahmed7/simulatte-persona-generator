@@ -147,6 +147,7 @@ export interface GeneratedPersona {
     reasoning_prompt: string;
   };
   decision_bullets: string[];
+  behavioural_contradictions?: string[];
   life_stories: Array<{ title: string; narrative: string; age_at_event?: number; emotional_weight: string }>;
   attributes: Record<string, Record<string, { value: unknown; label: string; type: string; source: string }>>;
   memory: {

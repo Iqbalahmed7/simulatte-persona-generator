@@ -1569,11 +1569,18 @@ Generate a realistic persona. Return ONLY valid JSON with no markdown:
     ],
     "reasoning_prompt": "<one sentence describing how this persona reasons through decisions>"
   }},
+  "behavioural_contradictions": [
+    "<one specific, observable behaviour this person does that contradicts their self-image — concrete and slightly unflattering, not abstract>",
+    "<an irrational exception to their usual decision logic — something they'd struggle to justify rationally>",
+    "<a status or comfort behaviour they'd be embarrassed to articulate out loud>"
+  ],
   "decision_bullets": [
     "<how they approach decisions — 5 specific, domain-relevant bullets>",
     "<bullet 2>", "<bullet 3>", "<bullet 4>", "<bullet 5>"
   ]
-}}"""
+}}
+
+IMPORTANT — behavioural_contradictions: These are NOT internal tensions or values conflicts. They are real, observable, specific behaviours that do not fit the rest of the profile. A health-obsessed person who secretly orders late-night takeaway. A frugal saver who cannot resist airport luxury goods. A confident professional who reads every negative review twice before buying anything. Be specific, surprising, and slightly unflattering — generic contradictions like "sometimes overspends" are not acceptable."""
 
     prompt_b = f"""{context}
 
@@ -1791,6 +1798,7 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "derived_insights": di_safe,
         "behavioural_tendencies": bt,
         "decision_bullets": data_a.get("decision_bullets") or [],
+        "behavioural_contradictions": data_a.get("behavioural_contradictions") or [],
         "memory": memory,
         "life_stories": data_b.get("life_stories") or [],
     }
