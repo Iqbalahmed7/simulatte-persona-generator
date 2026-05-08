@@ -55,6 +55,8 @@ function downloadBenchmarkReport(report: BenchmarkReport, personaName: string) {
     </div>
   `).join("");
 
+  const filename = `simulatte-benchmark-${personaName.toLowerCase().replace(/\s+/g, "-")}-${report.grade}`;
+
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +99,10 @@ function downloadBenchmarkReport(report: BenchmarkReport, personaName: string) {
   .footer{margin-top:64px;padding-top:24px;border-top:1px solid rgba(233,230,223,.1);display:flex;justify-content:space-between;align-items:center}
   .footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;color:#E9E6DF}
   .footer-meta{font-family:'Martian Mono',monospace;font-size:10px;color:#9A9997;text-align:right}
-  @media print{body{padding:24px}}
+  @media print{
+    body{padding:24px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .test-bar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
 </style>
 </head>
 <body>
@@ -133,16 +138,30 @@ function downloadBenchmarkReport(report: BenchmarkReport, personaName: string) {
       <div style="margin-top:2px">Run ID: ${report.run_id}</div>
     </div>
   </div>
+  <script>
+    // Wait for Google Fonts to load before printing so the PDF has correct typography
+    document.fonts.ready.then(function() { window.print(); });
+  </script>
 </body>
 </html>`;
 
-  const blob = new Blob([html], { type: "text/html" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `simulatte-benchmark-${personaName.toLowerCase().replace(/\s+/g, "-")}-${report.grade}.html`;
-  a.click();
-  URL.revokeObjectURL(url);
+  // Open in a new window — browser print dialog will show "Save as PDF"
+  const win = window.open("", "_blank", "width=900,height=750");
+  if (win) {
+    win.document.write(html);
+    win.document.close();
+    // Give the browser a tick to register the document before fonts.ready fires
+    win.focus();
+  } else {
+    // Popup blocked — fall back to HTML download
+    const blob = new Blob([html.replace("<script>", "<!-- ").replace("</script>", " -->")], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${filename}.html`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 }
 
 // ── Benchmark system ──────────────────────────────────────────────────────
@@ -324,8 +343,8 @@ function BenchmarkModal({
               onClick={() => downloadBenchmarkReport(report, personaName)}
               className="w-full flex items-center justify-between border border-parchment/10 text-parchment/40 font-mono text-xs px-4 py-3 hover:border-parchment/30 hover:text-parchment/60 transition-colors"
             >
-              <span>↓ Download report</span>
-              <span className="opacity-50">Simulatte · HTML</span>
+              <span>↓ Save as PDF</span>
+              <span className="opacity-50">opens print dialog</span>
             </button>
           </div>
         )}
