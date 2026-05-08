@@ -16,6 +16,25 @@ import { generatePersona, ICPForm, GenerationEvent } from "@/lib/api";
 import PersonaWizard from "@/components/PersonaWizard";
 import AccessGate from "@/components/AccessGate";
 
+/** Map internal/technical error strings to user-safe messages. */
+function friendlyError(msg: string): string {
+  const m = msg.toLowerCase();
+  if (m.includes("delimiter") || m.includes("json") || m.includes("decode") ||
+      m.includes("parse") || m.includes("expecting") || m.includes("char ")) {
+    return "Something went wrong building the persona. Please try again — it usually works on the second attempt.";
+  }
+  if (m.includes("timeout") || m.includes("timed out")) {
+    return "Generation took too long. Please try again.";
+  }
+  if (m.includes("rate") || m.includes("overloaded") || m.includes("529")) {
+    return "The AI is briefly busy. Please wait a moment and try again.";
+  }
+  if (m.includes("generation failed:") || m.includes("traceback") || m.includes("error:")) {
+    return "Persona generation didn't complete. Please try again.";
+  }
+  return msg;
+}
+
 export default function GeneratePage() {
   return (
     <AccessGate>
@@ -176,7 +195,7 @@ function GeneratePageInner() {
               <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-amber-400/80 mb-2">
                 Couldn&#x2019;t generate
               </p>
-              <p className="text-parchment text-base mb-4 leading-relaxed">{error}</p>
+              <p className="text-parchment text-base mb-4 leading-relaxed">{friendlyError(error)}</p>
               <button
                 onClick={() => { setRunning(false); setError(""); }}
                 className="min-h-[44px] inline-flex items-center text-sm font-mono uppercase tracking-widest text-parchment/80 active:text-signal transition-colors"

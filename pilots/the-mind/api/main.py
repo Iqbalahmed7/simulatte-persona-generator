@@ -2069,7 +2069,18 @@ async def generate_persona_stream(
         exc = gen_task.exception()
         if exc is not None:
             logger.exception("[generate] _generate_persona_direct raised: %s", exc)
-            yield _sse({"type": "error", "message": f"Generation failed: {exc}"})
+            # Map internal errors to user-safe messages — never expose stack traces or
+            # raw exception strings (e.g. JSON parse errors, delimiter messages).
+            exc_str = str(exc)
+            if any(k in exc_str for k in ("delimiter", "JSONDecodeError", "Expecting", "json", "decode")):
+                user_msg = "Something went wrong building the persona. Please try again — it usually works on the second attempt."
+            elif any(k in exc_str for k in ("timeout", "timed out", "asyncio")):
+                user_msg = "Generation took too long. Please try again."
+            elif any(k in exc_str for k in ("rate_limit", "overloaded", "529")):
+                user_msg = "The AI is briefly busy. Please wait a moment and try again."
+            else:
+                user_msg = "Persona generation didn't complete. Please try again."
+            yield _sse({"type": "error", "message": user_msg})
             return
 
         persona_dict = gen_task.result()
