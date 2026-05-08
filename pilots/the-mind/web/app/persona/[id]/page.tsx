@@ -3,9 +3,225 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { fetchGeneratedPersona, generatePortrait, GeneratedPersona } from "@/lib/api";
+import {
+  fetchGeneratedPersona,
+  generatePortrait,
+  runPersonaBenchmark,
+  GeneratedPersona,
+  BenchmarkEvent,
+  BenchmarkReport,
+  BenchmarkTestResult,
+} from "@/lib/api";
 import GenuinenessChip from "@/components/GenuinenessChip";
 import PersonaShare from "@/components/PersonaShare";
+
+// ── BenchmarkPanel ────────────────────────────────────────────────────────
+
+type BenchmarkTier = "quick" | "standard" | "research";
+
+const TIER_LABELS: Record<BenchmarkTier, string> = {
+  quick:    "Quick  (~$0.05 · 3 tests)",
+  standard: "Standard  (~$0.18 · 6 tests)",
+  research: "Research  (~$0.40 · 10 tests)",
+};
+
+const GRADE_COLOUR: Record<string, string> = {
+  A: "text-signal",
+  B: "text-signal/80",
+  C: "text-parchment",
+  D: "text-parchment/60",
+  F: "text-red-400",
+};
+
+function BenchmarkPanel({ personaId }: { personaId: string }) {
+  const [tier, setTier] = useState<BenchmarkTier>("standard");
+  const [running, setRunning] = useState(false);
+  const [events, setEvents] = useState<BenchmarkEvent[]>([]);
+  const [report, setReport] = useState<BenchmarkReport | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
+
+  const start = async () => {
+    setRunning(true);
+    setEvents([]);
+    setReport(null);
+    setError(null);
+    abortRef.current = new AbortController();
+    try {
+      await runPersonaBenchmark(
+        personaId,
+        tier,
+        (e) => {
+          setEvents((prev) => [...prev, e]);
+          if (e.type === "complete" && e.report) setReport(e.report);
+          if (e.type === "error") setError(e.message ?? "Unknown error");
+        },
+        abortRef.current.signal,
+      );
+    } catch (err: unknown) {
+      if ((err as Error).name !== "AbortError") {
+        setError((err as Error).message ?? "Request failed");
+      }
+    } finally {
+      setRunning(false);
+    }
+  };
+
+  const stop = () => {
+    abortRef.current?.abort();
+    setRunning(false);
+  };
+
+  const testEvents = events.filter((e) => e.type === "test_complete");
+  const grade = report?.grade ?? null;
+
+  return (
+    <div className="space-y-5">
+      {/* Controls */}
+      {!running && !report && (
+        <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+          <div className="flex gap-2 flex-wrap">
+            {(Object.keys(TIER_LABELS) as BenchmarkTier[]).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTier(t)}
+                className={`font-mono text-xs px-3 py-1.5 border transition-colors ${
+                  tier === t
+                    ? "border-signal text-signal"
+                    : "border-parchment/20 text-parchment/50 hover:border-parchment/40 hover:text-parchment/70"
+                }`}
+              >
+                {TIER_LABELS[t]}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={start}
+            className="font-mono text-xs px-4 py-1.5 bg-signal text-void hover:bg-signal/90 transition-colors"
+          >
+            Run benchmark
+          </button>
+        </div>
+      )}
+
+      {/* Running state */}
+      {running && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-xs text-signal animate-pulse">● running {tier}</span>
+            <button
+              onClick={stop}
+              className="font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
+            >
+              cancel
+            </button>
+          </div>
+          {testEvents.map((e, i) => (
+            <div key={i} className="flex items-start gap-3 border-l-2 border-parchment/10 pl-3">
+              <span
+                className={`font-mono text-xs w-6 shrink-0 ${
+                  (e.score ?? 0) >= 7 ? "text-signal" : (e.score ?? 0) >= 5 ? "text-parchment/70" : "text-red-400"
+                }`}
+              >
+                {e.score?.toFixed(1)}
+              </span>
+              <span className="text-xs text-parchment/70">{e.test_label}</span>
+            </div>
+          ))}
+          {testEvents.length === 0 && (
+            <p className="text-xs text-parchment/40 font-mono">Starting tests…</p>
+          )}
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div className="border border-red-400/30 p-4">
+          <p className="font-mono text-xs text-red-400">{error}</p>
+          <button
+            onClick={() => { setError(null); setEvents([]); }}
+            className="mt-2 font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
+          >
+            dismiss
+          </button>
+        </div>
+      )}
+
+      {/* Result */}
+      {report && (
+        <div className="space-y-5">
+          {/* Score header */}
+          <div className="flex items-end gap-4 border-b border-parchment/10 pb-5">
+            <span className={`font-condensed font-bold text-6xl leading-none ${GRADE_COLOUR[grade ?? "F"]}`}>
+              {grade}
+            </span>
+            <div>
+              <p className="font-mono text-xs text-parchment/50 uppercase tracking-widest">{report.grade_label}</p>
+              <p className="font-mono text-2xl text-parchment mt-0.5">{report.credibility_score.toFixed(1)}<span className="text-sm text-parchment/40"> / 100</span></p>
+            </div>
+            <div className="ml-auto text-right">
+              <p className="font-mono text-xs text-parchment/40">${report.total_cost_usd.toFixed(4)}</p>
+              <p className="font-mono text-xs text-parchment/40">{Math.round(report.total_duration_s)}s</p>
+            </div>
+          </div>
+
+          {/* Per-test breakdown */}
+          <div className="space-y-2">
+            {report.tests.map((t) => (
+              <details key={t.test_id} className="group">
+                <summary className="flex items-center gap-3 cursor-pointer list-none py-1.5">
+                  <span
+                    className={`font-mono text-xs w-6 shrink-0 text-right ${
+                      t.score >= 7 ? "text-signal" : t.score >= 5 ? "text-parchment/70" : "text-red-400"
+                    }`}
+                  >
+                    {t.score.toFixed(1)}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-parchment/90 truncate">{t.label}</span>
+                      {t.flags.length > 0 && (
+                        <span className="font-mono text-[10px] text-red-400/80 shrink-0">
+                          {t.flags[0]}
+                        </span>
+                      )}
+                    </div>
+                    <div className="h-1 mt-1 bg-parchment/10 w-full">
+                      <div
+                        className={`h-1 transition-all ${t.score >= 7 ? "bg-signal" : t.score >= 5 ? "bg-parchment/40" : "bg-red-400/60"}`}
+                        style={{ width: `${(t.score / 10) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                  <span className="font-mono text-[10px] text-parchment/30 shrink-0 group-open:hidden">▸</span>
+                  <span className="font-mono text-[10px] text-parchment/30 shrink-0 hidden group-open:inline">▾</span>
+                </summary>
+                <div className="pl-9 pb-3 space-y-2">
+                  <p className="text-xs text-parchment/60 leading-relaxed">{t.rationale}</p>
+                  {t.evidence.length > 0 && (
+                    <div className="space-y-1">
+                      {t.evidence.map((q, i) => (
+                        <p key={i} className="font-mono text-xs text-parchment/50 border-l border-parchment/20 pl-2 italic">{q}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </details>
+            ))}
+          </div>
+
+          {/* Re-run */}
+          <button
+            onClick={() => { setReport(null); setEvents([]); }}
+            className="font-mono text-xs text-parchment/40 hover:text-parchment/70 transition-colors"
+          >
+            ↺ run again
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ── helpers ───────────────────────────────────────────────────────────────
 
@@ -660,6 +876,11 @@ export default function PersonaProfilePage() {
             Monthly income: ₹{da.household.monthly_income_inr.toLocaleString("en-IN")}
           </p>
         )}
+      </Section>
+
+      {/* Benchmark */}
+      <Section label="Quality benchmark">
+        <BenchmarkPanel personaId={persona.persona_id} />
       </Section>
 
       {/* Footer */}

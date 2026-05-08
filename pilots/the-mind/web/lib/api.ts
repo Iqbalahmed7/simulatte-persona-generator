@@ -438,6 +438,89 @@ export async function fetchProbesForPersona(personaId: string): Promise<ProbeSum
   }
 }
 
+// ── Benchmark types + client ──────────────────────────────────────────────
+
+export interface BenchmarkTestResult {
+  test_id: string;
+  label: string;
+  status: "passed" | "failed" | "error" | "skipped";
+  score: number;              // 0–10
+  weight: number;
+  weighted_contribution: number;
+  rationale: string;
+  evidence: string[];
+  flags: string[];
+  duration_s: number;
+  cost_usd: number;
+}
+
+export interface BenchmarkReport {
+  run_id: string;
+  persona_id: string;
+  persona_name: string;
+  tier: "quick" | "standard" | "research" | "custom";
+  status: "queued" | "running" | "complete" | "error";
+  credibility_score: number;  // 0–100
+  grade: string;              // A / B / C / D / F
+  grade_label: string;        // "Standard — B"
+  tests: BenchmarkTestResult[];
+  total_cost_usd: number;
+  total_duration_s: number;
+  started_at?: string;
+  completed_at?: string;
+  error?: string;
+}
+
+export interface BenchmarkEvent {
+  type: "started" | "test_complete" | "complete" | "error";
+  run_id: string;
+  test_id?: string;
+  test_label?: string;
+  score?: number;
+  credibility_score?: number;
+  grade?: string;
+  grade_label?: string;
+  message?: string;
+  report?: BenchmarkReport;
+}
+
+export async function runPersonaBenchmark(
+  personaId: string,
+  tier: "quick" | "standard" | "research",
+  onEvent: (e: BenchmarkEvent) => void,
+  signal?: AbortSignal,
+): Promise<void> {
+  const res = await fetch(
+    `${API}/generated/${personaId}/benchmark?tier=${tier}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...(await _authHeaders()) },
+      signal,
+    },
+  );
+  if (!res.ok || !res.body) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(
+      typeof err.detail === "string" ? err.detail : "Benchmark request failed",
+    );
+  }
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    const lines = buf.split("\n");
+    buf = lines.pop() ?? "";
+    for (const line of lines) {
+      if (line.startsWith("data: ")) {
+        try { onEvent(JSON.parse(line.slice(6))); } catch { /* ignore malformed */ }
+      }
+    }
+  }
+}
+
 export async function chatWithPersona(
   slug: string,
   message: string,

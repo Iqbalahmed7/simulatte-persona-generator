@@ -3961,6 +3961,86 @@ async def generate_portrait(persona_id: str, force: bool = False):
         return {"url": url, "persona_id": persona_id, "prompt": prompt}
 
 
+# ── Benchmark ─────────────────────────────────────────────────────────────
+# Proxy to the independent benchmark service (services/benchmark/).
+# The Mind fetches the persona from its own store and passes the payload
+# directly — the benchmark service never makes outbound calls.
+
+_BENCHMARK_TIERS = {"quick", "standard", "research", "custom"}
+
+
+@app.post("/generated/{persona_id}/benchmark")
+async def benchmark_persona(
+    persona_id: str,
+    tier: str = "standard",
+    current_user=Depends(get_current_user),
+):
+    """Stream a benchmark evaluation for a generated persona.
+
+    Proxies to the benchmark service (BENCHMARK_API_URL).  The persona
+    payload is fetched from The Mind's own store and sent inline — the
+    benchmark service makes no external calls of its own.
+
+    Returns: text/event-stream of BenchmarkEvent JSON objects.
+    """
+    benchmark_url = os.environ.get("BENCHMARK_API_URL", "").strip()
+    if not benchmark_url:
+        raise HTTPException(
+            status_code=503,
+            detail="Benchmark service not configured. Set BENCHMARK_API_URL.",
+        )
+
+    if tier not in _BENCHMARK_TIERS:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Invalid tier '{tier}'. Must be one of: {sorted(_BENCHMARK_TIERS)}",
+        )
+
+    # Resolve persona from in-memory cache (same logic as get_generated_persona).
+    if persona_id not in _GENERATED:
+        path = _GENERATED_DIR / f"{persona_id}.json"
+        if path.exists():
+            try:
+                with open(path, encoding="utf-8") as f:
+                    _GENERATED[persona_id] = json.load(f)
+            except Exception as exc:
+                logger.warning("[benchmark] disk load failed for %s: %s", persona_id, exc)
+
+    if persona_id not in _GENERATED:
+        raise HTTPException(status_code=404, detail=f"Persona '{persona_id}' not found")
+
+    persona_payload = dict(_GENERATED[persona_id])
+
+    async def _proxy_stream():
+        try:
+            async with httpx.AsyncClient(timeout=700.0) as client:
+                async with client.stream(
+                    "POST",
+                    f"{benchmark_url}/runs/stream",
+                    json={
+                        "persona_payload": persona_payload,
+                        "tier": tier,
+                        "persona_id": persona_id,
+                    },
+                ) as resp:
+                    if resp.status_code != 200:
+                        body = await resp.aread()
+                        err = {"type": "error", "run_id": "", "message": body.decode()[:200]}
+                        yield f"data: {json.dumps(err)}\n\n".encode()
+                        return
+                    async for chunk in resp.aiter_bytes():
+                        yield chunk
+        except Exception as exc:
+            err = {"type": "error", "run_id": "", "message": str(exc)}
+            yield f"data: {json.dumps(err)}\n\n".encode()
+
+    return StreamingResponse(
+        _proxy_stream(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
 # ── Admin endpoints ───────────────────────────────────────────────────────
 # Read-only oversight for the operator. Gated by ADMIN_EMAILS env var
 # (comma-separated). All endpoints require a valid Auth.js JWT belonging to
