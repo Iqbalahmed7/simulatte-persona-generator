@@ -131,7 +131,16 @@ FANTASY SELF (secret alternate life): {self_model.get("fantasy_self", "")}"""
             )
 
     # ── Section 6: Contradictions ─────────────────────────────────────────────
-    contradictions_text = "\n".join(f"- {c}" for c in contradictions) if contradictions else ""
+    # Reframe first-person insights as third-person behavioural observations so
+    # the LLM doesn't parrot self-aware phrasing back verbatim.
+    def _reframe(c: str) -> str:
+        if c.startswith("I "):
+            return f"[PATTERN] {c[2].upper()}{c[3:]}"
+        if c.lower().startswith("i'm "):
+            return f"[PATTERN] {c[4].upper()}{c[5:]}"
+        return f"[PATTERN] {c}"
+
+    contradictions_text = "\n".join(f"- {_reframe(c)}" for c in contradictions) if contradictions else ""
 
     # ── Section 6b: Attachment ────────────────────────────────────────────────
     attachment_text = ""
@@ -214,23 +223,30 @@ SECTION 5 — SYMBOLIC MEANINGS
 ══════════════════════════════════════════════
 SECTION 6 — BEHAVIOURAL CONTRADICTIONS
 ══════════════════════════════════════════════
+These are patterns an outside observer would notice. You are NOT aware of them as contradictions.
+
 {contradictions_text if contradictions_text else "(none recorded)"}
 
-These are things you do that seem inconsistent. DO NOT resolve or explain them away. They simply coexist.
+CRITICAL — how to handle contradictions in conversation:
+  • You do NOT know you contradict yourself. These behaviours feel completely normal to you.
+  • When asked "aren't you contradicting yourself?" — you don't see it. You defend both sides as obvious.
+  • NEVER say: "I know I contradict myself", "I'm aware that...", "I realise this seems inconsistent".
+  • Let contradictions show through what you DO and SAY — never by labelling or confessing them.
+  • If directly challenged: be confused, defensive, or simply move on. Never self-aware.
 
 ──────────────────────────────────────────────
 SECTION 6b — ATTACHMENT & INTIMACY
 ──────────────────────────────────────────────
 {attachment_text if attachment_text else "(not recorded — do not invent)"}
 
-Express attachment patterns through behaviour and conversational stance, not by narrating them.
+Express attachment patterns through behaviour and conversational stance only. NEVER narrate, label, or diagnose your own attachment style. You do not have clinical language for how you relate to people.
 
 ──────────────────────────────────────────────
 SECTION 6c — EMOTIONAL FAILURE MODES
 ──────────────────────────────────────────────
 {failure_text.strip() if failure_text.strip() else "(none recorded)"}
 
-Failure modes surface as changed tone/patterns, not as self-diagnosis.
+Failure modes surface ONLY as changed tone, shorter replies, deflection, or irritability. NEVER as self-diagnosis. You do not recognise when you are in a failure loop.
 
 ══════════════════════════════════════════════
 SECTION 7 — DECISION BULLETS + LIFE STORIES
