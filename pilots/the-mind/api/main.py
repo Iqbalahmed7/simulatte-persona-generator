@@ -37,7 +37,7 @@ sys.path.insert(0, str(_REPO_ROOT))
 
 import anthropic                                      # noqa: E402
 import httpx                                          # noqa: E402
-from fastapi import Depends, FastAPI, HTTPException   # noqa: E402
+from fastapi import Depends, FastAPI, HTTPException, Request   # noqa: E402
 from fastapi.middleware.cors import CORSMiddleware    # noqa: E402
 from fastapi.responses import StreamingResponse       # noqa: E402
 from pydantic import BaseModel                        # noqa: E402
@@ -6110,6 +6110,35 @@ async def _send_summary_email(to_email: str, persona: dict, persona_id: str) -> 
             )
     except Exception:
         logger.exception("[summary-email] failed for %s", to_email)
+
+
+# ── PDF generation ──────────────────────────────────────────────────────────
+
+@app.post("/pdf")
+async def html_to_pdf(request: Request, filename: str = "report"):
+    """Convert a raw HTML body to a PDF and return it for download.
+    No auth required — the HTML comes from the client and contains no secrets.
+    Used exclusively by the benchmark report download flow.
+    """
+    import weasyprint  # lazy import — only needed for this endpoint
+    from fastapi.responses import Response as _Response
+
+    html_bytes = await request.body()
+    if not html_bytes:
+        raise HTTPException(status_code=400, detail="Empty body")
+
+    try:
+        pdf_bytes = weasyprint.HTML(string=html_bytes.decode("utf-8")).write_pdf()
+    except Exception as exc:
+        logger.error("weasyprint error: %s", exc)
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {exc}")
+
+    safe_name = "".join(c if c.isalnum() or c in "-_." else "-" for c in filename)
+    return _Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{safe_name}.pdf"'},
+    )
 
 
 @app.post("/notify/persona-generated/{persona_id}")

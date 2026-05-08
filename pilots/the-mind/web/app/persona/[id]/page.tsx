@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
+  API,
   fetchGeneratedPersona,
   generatePortrait,
   runPersonaBenchmark,
@@ -138,23 +139,27 @@ function downloadBenchmarkReport(report: BenchmarkReport, personaName: string) {
       <div style="margin-top:2px">Run ID: ${report.run_id}</div>
     </div>
   </div>
-  <script>
-    // Wait for Google Fonts to load before printing so the PDF has correct typography
-    document.fonts.ready.then(function() { window.print(); });
-  </script>
 </body>
 </html>`;
 
-  // Open in a new window — browser print dialog will show "Save as PDF"
-  const win = window.open("", "_blank", "width=900,height=750");
-  if (win) {
-    win.document.write(html);
-    win.document.close();
-    // Give the browser a tick to register the document before fonts.ready fires
-    win.focus();
-  } else {
-    // Popup blocked — fall back to HTML download
-    const blob = new Blob([html.replace("<script>", "<!-- ").replace("</script>", " -->")], { type: "text/html" });
+  try {
+    const res = await fetch(`${API}/pdf?filename=${encodeURIComponent(filename)}`, {
+      method: "POST",
+      body: html,
+      headers: { "Content-Type": "text/html" },
+    });
+    if (!res.ok) throw new Error(`PDF service ${res.status}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${filename}.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("PDF generation failed, falling back to HTML:", err);
+    // Fallback: download as HTML
+    const blob = new Blob([html], { type: "text/html" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -343,8 +348,8 @@ function BenchmarkModal({
               onClick={() => downloadBenchmarkReport(report, personaName)}
               className="w-full flex items-center justify-between border border-parchment/10 text-parchment/40 font-mono text-xs px-4 py-3 hover:border-parchment/30 hover:text-parchment/60 transition-colors"
             >
-              <span>↓ Save as PDF</span>
-              <span className="opacity-50">opens print dialog</span>
+              <span>↓ Download PDF</span>
+              <span className="opacity-50">Simulatte · PDF</span>
             </button>
           </div>
         )}
