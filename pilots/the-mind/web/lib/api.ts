@@ -146,6 +146,13 @@ export interface GeneratedPersona {
     objection_profile: Array<{ type: string; likelihood: string; severity: string; description: string }>;
     reasoning_prompt: string;
   };
+  self_model?: {
+    public_self: string;
+    aspirational_self: string;
+    reactive_self: string;
+    shame_self: string;
+    fantasy_self: string;
+  };
   symbolic_meanings?: {
     core_symbolic_register: string;
     category_meanings: Array<{

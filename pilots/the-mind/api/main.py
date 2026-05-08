@@ -1599,11 +1599,20 @@ Generate a realistic persona. Return ONLY valid JSON with no markdown:
     "purchase_as_ritual": "<one sentence — how buying functions as emotional regulation or identity maintenance for this person>",
     "brand_meaning_filter": "<one sentence — the unconscious test a brand must pass to feel right to them, beyond product fit or price>"
   }},
+  "self_model": {{
+    "public_self": "<2 sentences — the self they project confidently to the world: composed, intentional, legible>",
+    "aspirational_self": "<2 sentences — who they are actively trying to become: the gap they're working to close>",
+    "reactive_self": "<2 sentences — who they become without thinking when threatened, embarrassed, or overwhelmed>",
+    "shame_self": "<2 sentences — the drives, habits, or desires they hide from others and rationalise away from themselves>",
+    "fantasy_self": "<1-2 sentences — the life they would live and person they would be if circumstances and fear were removed>"
+  }},
   "decision_bullets": [
     "<how they approach decisions — 5 specific, domain-relevant bullets>",
     "<bullet 2>", "<bullet 3>", "<bullet 4>", "<bullet 5>"
   ]
 }}
+
+IMPORTANT — self_model: Each layer must be distinct and in genuine tension with the others. The public_self and shame_self should feel like different people. The reactive_self should surprise — it is not just "stressed version of public self" but a regressed, less controlled state. The fantasy_self should feel specific and slightly embarrassing to admit — not generic ("live somewhere beautiful") but particular ("quit everything and open a small bookshop in Lisbon"). Generic or therapy-language answers are not acceptable.
 
 IMPORTANT — behavioural_contradictions: These are NOT internal tensions or values conflicts. They are real, observable, specific behaviours that do not fit the rest of the profile. A health-obsessed person who secretly orders late-night takeaway. A frugal saver who cannot resist airport luxury goods. A confident professional who reads every negative review twice before buying anything. Be specific, surprising, and slightly unflattering — generic contradictions like "sometimes overspends" are not acceptable.
 
@@ -1825,6 +1834,7 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "derived_insights": di_safe,
         "behavioural_tendencies": bt,
         "symbolic_meanings": data_a.get("symbolic_meanings") or {},
+        "self_model": data_a.get("self_model") or {},
         "decision_bullets": data_a.get("decision_bullets") or [],
         "behavioural_contradictions": data_a.get("behavioural_contradictions") or [],
         "memory": memory,

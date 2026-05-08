@@ -338,8 +338,8 @@ explicit schema additions.
 | Life Stories | ✅ | High |
 | Behavioural Contradictions | ✅ | Very High |
 | Quality Assessment | ✅ | Medium |
-| **Symbolic Meaning System** | **🔨 Building** | **Very High** |
-| Multi-Layered Self | 📋 Planned | Very High |
+| Symbolic Meaning System | ✅ | Very High |
+| **Multi-Layered Self** | **✅** | **Very High** |
 | State Modifiers | 📋 Planned | High |
 | Social Topology | 📋 Planned | High |
 | Pressure Behaviour | 📋 Planned | High |

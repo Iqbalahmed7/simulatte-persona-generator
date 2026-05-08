@@ -443,6 +443,35 @@ export default function PersonaProfilePage() {
         </Section>
       )}
 
+      {/* Self model */}
+      {persona.self_model?.public_self && (
+        <Section label="Layers of self">
+          <div className="space-y-3">
+            {(
+              [
+                { key: "public_self",      label: "Public",      desc: "Who they project to the world" },
+                { key: "aspirational_self", label: "Aspirational", desc: "Who they're trying to become" },
+                { key: "reactive_self",    label: "Reactive",    desc: "Who they become under threat" },
+                { key: "shame_self",       label: "Shadow",      desc: "What they hide and rationalise away" },
+                { key: "fantasy_self",     label: "Fantasy",     desc: "Who they'd be without constraint" },
+              ] as const
+            ).map(({ key, label, desc }) => {
+              const text = persona.self_model?.[key];
+              if (!text) return null;
+              return (
+                <div key={key} className="grid grid-cols-[6rem_1fr] sm:grid-cols-[8rem_1fr] gap-4 border-b border-parchment/8 pb-3 last:border-0 last:pb-0">
+                  <div className="pt-0.5">
+                    <p className="text-[10px] font-mono text-signal uppercase tracking-widest">{label}</p>
+                    <p className="text-[9px] font-mono text-static mt-0.5">{desc}</p>
+                  </div>
+                  <p className="text-base text-parchment/85 leading-relaxed break-words">{text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </Section>
+      )}
+
       {/* Behaviour */}
       <Section label="Behavioural profile">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
