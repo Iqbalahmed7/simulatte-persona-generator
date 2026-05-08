@@ -320,30 +320,40 @@ function BenchmarkModal({
           </div>
         )}
 
-        {/* Footer — download + re-run CTA */}
+        {/* Footer — re-run at any tier + download */}
         {report && !running && (
-          <div className="px-6 py-5 border-t border-parchment/10 shrink-0 space-y-2">
-            {nextTier ? (
-              <button
-                onClick={() => onRerun(nextTier)}
-                className="w-full flex items-center justify-between bg-signal text-void font-condensed font-bold px-4 py-3 hover:bg-signal/90 transition-colors"
-              >
-                <span className="text-sm uppercase tracking-widest">
-                  Re-run at {TIER_META[nextTier].label} depth
-                </span>
-                <span className="font-mono text-xs opacity-70">
-                  {TIER_META[nextTier].tests} tests · {TIER_META[nextTier].cost}
-                </span>
-              </button>
-            ) : (
-              <button
-                onClick={() => onRerun("research")}
-                className="w-full flex items-center justify-between border border-parchment/20 text-parchment/60 font-mono text-xs px-4 py-3 hover:border-parchment/40 hover:text-parchment/80 transition-colors"
-              >
-                <span>↺ Re-run Research grade</span>
-                <span className="opacity-60">{TIER_META.research.tests} tests · {TIER_META.research.cost}</span>
-              </button>
-            )}
+          <div className="px-6 py-5 border-t border-parchment/10 shrink-0 space-y-3">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-parchment/30">Re-run at</p>
+            <div className="grid grid-cols-3 gap-1.5">
+              {(["quick", "standard", "research"] as BenchmarkTier[]).map((t) => {
+                const isCurrent = report.tier === t;
+                const isNext = t === nextTier;
+                return (
+                  <button
+                    key={t}
+                    onClick={() => { if (!isCurrent) onRerun(t); }}
+                    disabled={isCurrent}
+                    className={`flex flex-col items-center py-2.5 px-2 border transition-colors ${
+                      isCurrent
+                        ? "border-parchment/10 cursor-default"
+                        : isNext
+                        ? "border-signal/50 text-signal hover:bg-signal hover:text-void"
+                        : "border-parchment/15 text-parchment/40 hover:border-parchment/40 hover:text-parchment/70"
+                    }`}
+                  >
+                    <span className={`font-condensed font-bold text-sm ${isCurrent ? "text-parchment/25" : ""}`}>
+                      {TIER_META[t].label}
+                    </span>
+                    <span className={`font-mono text-[9px] mt-0.5 ${isCurrent ? "text-parchment/20" : "opacity-60"}`}>
+                      {TIER_META[t].tests} tests · {TIER_META[t].cost}
+                    </span>
+                    {isCurrent && (
+                      <span className="font-mono text-[8px] text-parchment/25 mt-1 uppercase tracking-widest">current</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
             <button
               onClick={() => downloadBenchmarkReport(report, personaName)}
               className="w-full flex items-center justify-between border border-parchment/10 text-parchment/40 font-mono text-xs px-4 py-3 hover:border-parchment/30 hover:text-parchment/60 transition-colors"
