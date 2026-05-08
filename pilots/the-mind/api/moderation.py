@@ -88,7 +88,15 @@ _AGE_AFTER_PATTERNS = [
     # "father of two children", "parent of an infant") — those should
     # not trigger the block. The digit-based "X year old" patterns above
     # still catch any actual underage subject.
-    r"\b(?:minor|underage|under-?age|preschooler|kindergartener|elementary[\s-]?schooler|grade[\s-]?schooler|tween|preteen|pre-teen)\b",
+    #
+    # NOTE: "minor" is intentionally excluded from the bare word list —
+    # it is far more common as an adjective ("minor developmental concerns",
+    # "minor issue", "minor setback") than as a noun meaning "a person under 18".
+    # The noun use is caught by the article-context pattern below.
+    r"\b(?:underage|under-?age|preschooler|kindergartener|elementary[\s-]?schooler|grade[\s-]?schooler|tween|preteen|pre-teen)\b",
+    # "minor" as a noun describing a person (a minor, the minor, involving minors)
+    r"\b(?:a|the|involving)\s+minor\b",
+    r"\bminors\s+(?:as|in|are|were|who)\b",
     r"\bschool[\s-]?(?:girl|boy|kid)\b",
     r"\b(?:kindergarten|elementary|primary|middle)[\s-]?school\b",
     # 'in (n)th grade' for grades 1-11 (US) → likely minor
