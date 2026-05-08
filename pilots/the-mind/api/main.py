@@ -1574,13 +1574,40 @@ Generate a realistic persona. Return ONLY valid JSON with no markdown:
     "<an irrational exception to their usual decision logic — something they'd struggle to justify rationally>",
     "<a status or comfort behaviour they'd be embarrassed to articulate out loud>"
   ],
+  "symbolic_meanings": {{
+    "core_symbolic_register": "<one sentence — the primary symbolic logic this person operates from when consuming: what are they fundamentally buying when they buy anything?>",
+    "category_meanings": [
+      {{
+        "category": "<a product/service category relevant to this persona>",
+        "functional_story": "<what they tell themselves they're buying>",
+        "symbolic_story": "<what they're actually buying at a psychological level — the real emotional or identity need>",
+        "identity_signal": "<what owning or using this says about who they are or who they're becoming>"
+      }},
+      {{
+        "category": "<second relevant category>",
+        "functional_story": "<functional story>",
+        "symbolic_story": "<symbolic story>",
+        "identity_signal": "<identity signal>"
+      }},
+      {{
+        "category": "<third relevant category>",
+        "functional_story": "<functional story>",
+        "symbolic_story": "<symbolic story>",
+        "identity_signal": "<identity signal>"
+      }}
+    ],
+    "purchase_as_ritual": "<one sentence — how buying functions as emotional regulation or identity maintenance for this person>",
+    "brand_meaning_filter": "<one sentence — the unconscious test a brand must pass to feel right to them, beyond product fit or price>"
+  }},
   "decision_bullets": [
     "<how they approach decisions — 5 specific, domain-relevant bullets>",
     "<bullet 2>", "<bullet 3>", "<bullet 4>", "<bullet 5>"
   ]
 }}
 
-IMPORTANT — behavioural_contradictions: These are NOT internal tensions or values conflicts. They are real, observable, specific behaviours that do not fit the rest of the profile. A health-obsessed person who secretly orders late-night takeaway. A frugal saver who cannot resist airport luxury goods. A confident professional who reads every negative review twice before buying anything. Be specific, surprising, and slightly unflattering — generic contradictions like "sometimes overspends" are not acceptable."""
+IMPORTANT — behavioural_contradictions: These are NOT internal tensions or values conflicts. They are real, observable, specific behaviours that do not fit the rest of the profile. A health-obsessed person who secretly orders late-night takeaway. A frugal saver who cannot resist airport luxury goods. A confident professional who reads every negative review twice before buying anything. Be specific, surprising, and slightly unflattering — generic contradictions like "sometimes overspends" are not acceptable.
+
+IMPORTANT — symbolic_meanings: Go beneath the functional. The functional story is what the person would tell a friend. The symbolic story is what they'd never articulate — the emotional purchase beneath the rational one. A person buying a Vitamix is not buying a blender. They are buying evidence that they are someone who cooks real food, who takes care of their body, who has their life together. The identity_signal is what this says to their own inner audience, not to others. Be specific to this persona — generic responses like "they value quality" are not acceptable."""
 
     prompt_b = f"""{context}
 
@@ -1797,6 +1824,7 @@ Generate inner life, defining stories, and demographic detail. Return ONLY valid
         "narrative": narrative,
         "derived_insights": di_safe,
         "behavioural_tendencies": bt,
+        "symbolic_meanings": data_a.get("symbolic_meanings") or {},
         "decision_bullets": data_a.get("decision_bullets") or [],
         "behavioural_contradictions": data_a.get("behavioural_contradictions") or [],
         "memory": memory,

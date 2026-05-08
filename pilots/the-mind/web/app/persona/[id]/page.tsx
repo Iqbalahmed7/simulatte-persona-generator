@@ -395,6 +395,54 @@ export default function PersonaProfilePage() {
         </Section>
       )}
 
+      {/* Symbolic meaning system */}
+      {persona.symbolic_meanings?.core_symbolic_register && (
+        <Section label="What they're really buying">
+          <p className="text-base text-parchment/85 leading-relaxed mb-6 break-words">
+            {persona.symbolic_meanings.core_symbolic_register}
+          </p>
+
+          {(persona.symbolic_meanings.category_meanings ?? []).length > 0 && (
+            <div className="space-y-4 mb-6">
+              {persona.symbolic_meanings.category_meanings.map((cm, i) => (
+                <div key={i} className="border border-parchment/10 p-4">
+                  <p className="text-[10px] font-mono text-signal uppercase tracking-widest mb-3">{cm.category}</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                      <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Says</p>
+                      <p className="text-sm text-parchment/70 leading-relaxed break-words">{cm.functional_story}</p>
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Means</p>
+                      <p className="text-sm text-parchment leading-relaxed break-words">{cm.symbolic_story}</p>
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Signals</p>
+                      <p className="text-sm text-parchment/70 leading-relaxed break-words">{cm.identity_signal}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {persona.symbolic_meanings.purchase_as_ritual && (
+              <div className="border border-parchment/10 px-4 py-3">
+                <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Purchase as ritual</p>
+                <p className="text-sm text-parchment/85 leading-relaxed break-words">{persona.symbolic_meanings.purchase_as_ritual}</p>
+              </div>
+            )}
+            {persona.symbolic_meanings.brand_meaning_filter && (
+              <div className="border border-parchment/10 px-4 py-3">
+                <p className="text-[9px] font-mono text-static uppercase tracking-widest mb-1">Brand meaning filter</p>
+                <p className="text-sm text-parchment/85 leading-relaxed break-words">{persona.symbolic_meanings.brand_meaning_filter}</p>
+              </div>
+            )}
+          </div>
+        </Section>
+      )}
+
       {/* Behaviour */}
       <Section label="Behavioural profile">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">

@@ -146,6 +146,17 @@ export interface GeneratedPersona {
     objection_profile: Array<{ type: string; likelihood: string; severity: string; description: string }>;
     reasoning_prompt: string;
   };
+  symbolic_meanings?: {
+    core_symbolic_register: string;
+    category_meanings: Array<{
+      category: string;
+      functional_story: string;
+      symbolic_story: string;
+      identity_signal: string;
+    }>;
+    purchase_as_ritual: string;
+    brand_meaning_filter: string;
+  };
   decision_bullets: string[];
   behavioural_contradictions?: string[];
   life_stories: Array<{ title: string; narrative: string; age_at_event?: number; emotional_weight: string }>;
