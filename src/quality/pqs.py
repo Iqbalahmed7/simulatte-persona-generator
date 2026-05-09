@@ -564,6 +564,49 @@ def compute_pqs_from_dict(cohort: dict) -> dict | None:
     }
 
 
+def score_persona_pqs(persona: Any) -> float:
+    """Compute a per-persona PQS score (0–100) from a single PersonaRecord.
+
+    Uses only fields available on individual personas — no cohort context
+    required.  This is Gate A: called before assemble_cohort() to filter
+    out structurally incomplete personas before they pollute the cohort.
+
+    Formula (matches the per-persona scoring inside compute_pqs()):
+      0.25 × narrative_completeness  (fp + tp word counts → 200-word target)
+      0.20 × life_story_depth        (story count → 2.5 target)
+      0.20 × memory_seed_depth       (life_defining_events → 3 target)
+      0.15 × tension_presence        (key_tensions → 1.5 target)
+      0.20 × decision_bullet_count   (bullets → 4 target)
+    """
+    narr = getattr(persona, "narrative", None)
+    fp = (getattr(narr, "first_person", "") or "") if narr else ""
+    tp = (getattr(narr, "third_person", "") or "") if narr else ""
+    narr_score = min(1.0, (len(fp.split()) + len(tp.split())) / 200.0)
+
+    stories = getattr(persona, "life_stories", []) or []
+    ls_score = min(1.0, len(stories) / 2.5)
+
+    core = None
+    mem = getattr(persona, "memory", None)
+    if mem is not None:
+        core = getattr(mem, "core", None)
+    events = (getattr(core, "life_defining_events", []) or []) if core else []
+    mem_score = min(1.0, len(events) / 3.0)
+
+    di = getattr(persona, "derived_insights", None)
+    tensions = (getattr(di, "key_tensions", []) or []) if di else []
+    ten_score = min(1.0, len(tensions) / 1.5)
+
+    bullets = getattr(persona, "decision_bullets", []) or []
+    bul_score = min(1.0, len(bullets) / 4.0)
+
+    return round(
+        (0.25 * narr_score + 0.20 * ls_score + 0.20 * mem_score
+         + 0.15 * ten_score + 0.20 * bul_score) * 100,
+        1,
+    )
+
+
 def format_pqs_summary(pqs_dict: dict) -> str:
     """Format a PQS dict as a concise console summary (for internal logging)."""
     pqs = pqs_dict["pqs"]

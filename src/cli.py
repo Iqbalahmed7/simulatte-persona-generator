@@ -354,6 +354,51 @@ async def _run_generation(
             f"This indicates a failure in persona generation or stratification."
         )
 
+    # ── Gate A — per-persona PQS floor ───────────────────────────────────
+    # Score each persona individually before cohort assembly.  Personas that
+    # fall below PQS_PERSONA_FLOOR are quarantined here rather than polluting
+    # the cohort distinctiveness / type-coverage metrics downstream.
+    # Gate is skipped when skip_gates=True (dev/debug).
+    if not skip_gates:
+        _pqs_floor = float(os.getenv("PQS_PERSONA_FLOOR", "60"))
+        _max_quarantine = float(os.getenv("PQS_MAX_QUARANTINE_PCT", "0.20"))
+        try:
+            from src.quality.pqs import score_persona_pqs
+            _passing, _quarantined = [], []
+            for _p in personas:
+                _score = score_persona_pqs(_p)
+                if _score >= _pqs_floor:
+                    _passing.append(_p)
+                else:
+                    _quarantined.append((_p.persona_id, _score))
+
+            if _quarantined:
+                _qpct = len(_quarantined) / len(personas)
+                _ids = ", ".join(f"{pid}={s:.1f}" for pid, s in _quarantined)
+                click.echo(
+                    f"  [PQS Gate A] {len(_quarantined)}/{len(personas)} persona(s) "
+                    f"below floor {_pqs_floor}: {_ids}",
+                    err=True,
+                )
+                if _qpct > _max_quarantine:
+                    raise RuntimeError(
+                        f"PQS Gate A: {len(_quarantined)}/{len(personas)} personas "
+                        f"({_qpct:.0%}) below floor {_pqs_floor} — exceeds "
+                        f"PQS_MAX_QUARANTINE_PCT={_max_quarantine:.0%}. "
+                        f"Check life_story_generator and narrative_generator output."
+                    )
+                # Replace persona list with passing set only
+                personas = _passing
+                click.echo(
+                    f"  [PQS Gate A] {len(personas)} persona(s) passed — proceeding to cohort assembly.",
+                    err=True,
+                )
+        except RuntimeError:
+            raise
+        except Exception as _pqs_err:
+            import logging as _log
+            _log.getLogger(__name__).debug("PQS Gate A skipped: %s", _pqs_err)
+
     # Run assemble_cohort in a thread-pool executor so the event loop is not
     # blocked while assemble_cohort calls _regenerate_failing (which itself
     # spawns a daemon thread and joins it).  Blocking the event loop thread
