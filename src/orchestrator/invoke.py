@@ -250,7 +250,13 @@ async def invoke_persona_generator(
                 f"Check domain data quality or relax max_quarantine_pct."
             )
 
-    # ── 7b. PQS — internal quality tracking ────────────────────────────────
+    # ── 7b. PQS gate ─────────────────────────────────────────────────────
+    # PQS is a hard gate for Core/Complete tiers. Cohorts below PQS_COHORT_FLOOR
+    # are rejected with a dimension breakdown. Scores in the warning band
+    # (65–74) pass but emit a warning. Override floors via env vars for dev runs.
+    _PQS_COHORT_FLOOR = float(os.getenv("PQS_COHORT_FLOOR", "65"))
+    _PQS_WARN_THRESHOLD = float(os.getenv("PQS_WARN_THRESHOLD", "75"))
+
     pqs_score: float | None = None
     try:
         from src.quality.pqs import compute_pqs_from_dict, format_pqs_summary
@@ -260,6 +266,38 @@ async def invoke_persona_generator(
             print(format_pqs_summary(pqs_report))
             # Persist PQS in the cohort envelope for historical tracking
             cohort_envelope["_pqs"] = pqs_report
+
+            # Hard gate — abort if cohort is below minimum quality floor
+            if not brief.skip_gates and pqs_score < _PQS_COHORT_FLOOR:
+                _low_dims = {
+                    k: round(v, 1)
+                    for k, v in {
+                        "Behavioral Realism": pqs_report["behavioral_realism"],
+                        "Identity Depth":     pqs_report["identity_depth"],
+                        "Decision Quality":   pqs_report["decision_quality"],
+                        "Cohort Health":      pqs_report["cohort_health"],
+                    }.items()
+                    if v < _PQS_COHORT_FLOOR
+                }
+                raise RuntimeError(
+                    f"PQS cohort gate failed: {pqs_score:.1f} / 100 "
+                    f"(floor={_PQS_COHORT_FLOOR}). "
+                    f"Failing dimensions: {_low_dims}. "
+                    f"Add domain_data/corpus_path for grounding, increase cohort "
+                    f"size, or set PQS_COHORT_FLOOR=50 to bypass for dev runs."
+                )
+
+            # Warning band (65–74): usable but flagged
+            if pqs_score < _PQS_WARN_THRESHOLD:
+                import warnings
+                warnings.warn(
+                    f"[PQS] Cohort score {pqs_score:.1f} is below {_PQS_WARN_THRESHOLD} "
+                    f"— usable but borderline. Consider adding domain data.",
+                    stacklevel=2,
+                )
+
+    except RuntimeError:
+        raise  # re-raise hard gate failures
     except Exception as e:
         import logging
         logging.getLogger(__name__).debug("PQS computation skipped: %s", e)
