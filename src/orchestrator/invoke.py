@@ -74,6 +74,7 @@ from src.orchestrator.brief import PersonaGenerationBrief, RunIntent, Simulation
 from src.orchestrator.cost_estimator import CostEstimator
 from src.orchestrator.pipeline_doc_writer import PipelineDocWriter
 from src.orchestrator.result import CostActual, PersonaGenerationResult, QualityReport
+from src.observability.cost_tracer import CostTracer
 from src.orchestrator.tier_advisor import TierAdvisor
 
 
@@ -291,9 +292,23 @@ async def invoke_persona_generator(
     # ── 9 / 10. Extract personas then compute actual costs ────────────────
     personas = cohort_envelope.get("personas", [])
 
+    # Compute actual generation cost from real CostTracer token records.
+    # Falls back to estimator if no records were captured (e.g. dry-run).
+    _all_recs = CostTracer.all_records()
+    if _all_recs:
+        _total_in = sum(r.input_tokens for r in _all_recs)
+        _total_out = sum(r.output_tokens for r in _all_recs)
+        # Model-aware pricing (per token, USD)
+        _model = (os.getenv("ANTHROPIC_MODEL", "") or os.getenv("GENERATION_MODEL", "")).lower()
+        _in_price = 0.80e-6 if "haiku" in _model else 3.00e-6   # Haiku $0.80/MTok in, Sonnet $3/MTok
+        _out_price = 4.00e-6 if "haiku" in _model else 15.00e-6  # Haiku $4/MTok out, Sonnet $15/MTok
+        _actual_gen = _total_in * _in_price + _total_out * _out_price
+    else:
+        _actual_gen = estimate.gen_total
+
     cost_actual = CostActual(
         pre_generation=estimate.pre_gen_total,
-        generation=estimate.gen_total,
+        generation=_actual_gen,
         simulation=sim_cost,
         count=len(personas),
     )

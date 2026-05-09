@@ -277,8 +277,18 @@ async def _run_generation(
     # ------------------------------------------------------------------
     newly_generated_personas: list = []
     if generate_count > 0:
-        # Generate candidate pool (2× for stratification when generate_count >= 5)
-        pool_size = max(generate_count * 2, generate_count + 4) if generate_count >= 5 else generate_count
+        # Generate candidate pool with 2× oversample only when n is large enough
+        # for 5:3:2 stratification to be meaningful (requires ≥15 candidates to
+        # fill all three tiers without rounding errors).
+        # n <  3: exact count — no headroom to discard any persona
+        # 3 ≤ n < 15: +2 buffer (one spare per tier) — avoids wasting 50%+ of work
+        # n ≥ 15: full 2× oversample for proper stratification
+        if generate_count < 3:
+            pool_size = generate_count
+        elif generate_count < 15:
+            pool_size = generate_count + 2
+        else:
+            pool_size = max(generate_count * 2, generate_count + 4)
 
         # Bound concurrency to avoid saturating Anthropic rate limits.
         # Each _build_one makes ~15-20 sequential API calls; at 10 concurrent
