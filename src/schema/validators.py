@@ -447,7 +447,10 @@ class PersonaValidator:
                 "thrill seeker",
                 "loves risk",
                 "takes bold bets",
-                "impulsive",
+                # "impulsive" removed: personality trait, not a financial risk signal.
+                # Phrases like "makes impulsive purchases" legitimately appear in
+                # low-risk-appetite personas. Documented false-positive in
+                # test_quality_parity.py lines 137-139.
             ]
             for phrase in contradicting_phrases:
                 if phrase in combined_narrative and not _phrase_is_negated(combined_narrative, phrase):
